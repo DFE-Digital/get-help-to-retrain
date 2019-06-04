@@ -1,5 +1,5 @@
 {
-  "name": "govuk-rails-boilerplate",
+  "name": "get_help_to_retrain",
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate db:seed"
   },
