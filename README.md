@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/DFE-Digital/govuk-rails-boilerplate.svg?branch=master)](https://travis-ci.com/DFE-Digital/govuk-rails-boilerplate) [![Greenkeeper badge](https://badges.greenkeeper.io/DFE-Digital/govuk-rails-boilerplate.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/DFE-Digital/govuk-rails-boilerplate.svg)](https://greenkeeper.io/)
 
 # Get Help to Retrain
 
@@ -24,7 +24,6 @@
 - [GOV.UK Lint](https://github.com/alphagov/govuk-lint)
 - RSpec
 - Dotenv (managing environment variables)
-- Travis with Heroku deployment
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```

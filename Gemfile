@@ -16,7 +16,7 @@ gem 'puma', '~> 3.12'
 gem 'uglifier', '>= 1.3.0'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+gem 'webpacker', '~> 4.0'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
