@@ -1,0 +1,61 @@
+jobs:
+- job: TestsAndBuild
+  displayName: Run Tests And Build Image
+
+  pool:
+    vmImage: 'ubuntu-16.04'
+
+  variables:
+  - group: get-help-to-retrain
+  - name: postgresImage
+    value: postgres:11-alpine
+  - name: postgresPassword
+    value: test
+  - name: postgresDatabaseUrl
+    value: postgres://postgres:test@postgres/get-help-to-retrain
+
+  steps:
+    - script: docker login -u $(dockerRegistry) -u $(dockerId) -p $pswd
+      env:
+        pswd: $(dockerPassword)
+      displayName: Docker Login
+
+    - script: |
+        docker run --name=postgres -e POSTGRESS_PASSWORD=$(postgresPassword) -d $(postgresImage)
+      displayName: Launch Postgres
+
+    - script: |
+        docker pull $(dockerRegistry)/$(imageName):latest || true
+      displayName: Retrieve latest Docker build to use as cache
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+    - script: |
+        docker build -f Dockerfile --cache-from=$(dockerRegistry)/$(imageName):latest -t $(dockerRegistry)/$(imageName):$(imageTag) .
+      displayName: Build Docker Image using Cache
+      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+    - script: |
+        docker build -f Dockerfile -t $(dockerRegistry)/$(imageName):$(imageTag) -t $(dockerRegistry)/$(imageName):latest .
+      displayName: Build Docker Image without Cache
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+    - script: |
+        docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test $(dockerRegistry)/$(imageName):$(imageTag) bundle exec rake db:create db:test:prepare
+      displayName: Database Setup
+
+    - script: |
+        docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test $(dockerRegistry)/$(imageName):$(imageTag) bundle exec govuk-lint-ruby app lib spec
+      displayName: GovUK linter
+
+    - script: |
+        docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test $(dockerRegistry)/$(imageName):$(imageTag) bundle exec rspec
+      displayName: Rspec
+
+    - script: |
+        docker push $(dockerRegistry)/$(imageName):$(imageTag)
+      displayName: 'Push Docker Image'
+
+    - script: |
+        docker push $(dockerRegistry)/$(imageName):latest
+      displayName: Push Latest Docker Image
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
