@@ -1,14 +1,11 @@
-#features/step_definitions/test_steps.rb
+Given("that I am on the {string} page") do |string|
+    visit 'http://localhost:3000'
+end
+        
+Then("the correct eligibility criteria is displayed") do
+    expect(page).to have_content('Yay! You’re on Rails!')
+end
 
-        Given(/^I am on the Google homepage$/) do
-            visit 'http://www.google.com/ncr'
-        end
-        
-        Then(/^I will search for "(.*?)"$/) do |searchText|
-            fill_in 'q', :with => searchText
-        end
-        
-        Then(/^I should see "(.*?)"$/) do |expectedText|
-            expect(page).to have_content(expectedText)
-        end
-        
+Then("I click on the {string} link") do |string|
+    click_link(string)
+end
