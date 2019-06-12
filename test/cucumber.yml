@@ -1,0 +1,6 @@
+---
+default: -p bdd -c -p html_report
+bdd: --format pretty
+ambiente: prod
+browser: :selenium_headless
+html_report: --format pretty --format html --out=reports/html/features_report.html
