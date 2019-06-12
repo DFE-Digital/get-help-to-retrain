@@ -38,7 +38,7 @@ bundle exec rspec
 ## Running Cucumber/Capybara test
 ```
 cd tests
-cucmber
+cucumber -p a-profile-name-from-cucumber-yml-file
 ```
 
 ## Linting
