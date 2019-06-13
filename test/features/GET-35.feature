@@ -3,4 +3,3 @@ Feature: As a customer, I want to see the eligibility criteria and be able to co
     Scenario: Verify Landing Page
         Given that I am on the "landing" page
         Then the correct eligibility criteria is displayed
-	
