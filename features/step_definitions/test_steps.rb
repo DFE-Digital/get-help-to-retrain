@@ -1,5 +1,5 @@
 Given("that I am on the {string} page") do |string|
-    visit 'http://localhost:3000'
+    visit 'http://localhost:3000/pages/home'
 end
         
 Then("the correct eligibility criteria is displayed") do
