@@ -4,5 +4,5 @@ Feature: As a customer
 
     Scenario: Happy Path
         Given I am on the 'explore careers search' page
-        When I click on the text link 'a category'
-        Then I should see a list of occupations  for 'a category'
+        When I click the text link 'a category'
+        Then I should see a list of occupations for 'a category'
