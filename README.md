@@ -46,3 +46,22 @@ or
 
 bundle exec govuk-lint-sass app/webpacker/styles
 ```
+
+## Security vulnerabilites scanner
+
+Brakeman is a static analysis tool which checks Ruby on Rails applications for security vulnerabilities.
+
+To get the report simply run:
+
+```bash
+  brakeman
+```
+
+or 
+
+```bash
+  brakeman -o report.html
+```
+(if you want a report in a nicer format).
+
+Please check https://brakemanscanner.org/docs/ for more details.
