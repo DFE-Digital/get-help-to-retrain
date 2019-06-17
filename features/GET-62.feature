@@ -7,11 +7,16 @@ Feature: As a customer
         When I click the text link "<Occupation>"
         Then I should see a list of occupations for "<Occupation>"
         Examples:
-            | Occupation |
-            | Healthcare |
+            | Occupation     |
+            | Healthcare     |
+            | Administration |
+            | Animal Care    |
 
     Scenario Outline: Find a Course Service unavailable
         Given I am on the "careers-search" page
         And Find a Course Service is unavailable
-        When I click the text link "healthcare"
+        When I click the text link "Healthcare"
         Then I see error message "The Service is currently unavailable - please try later"
+        When Find a Course Service is available again
+        And  I click the text link "healthcare"
+        Then I should see a list of occupations for "Service"

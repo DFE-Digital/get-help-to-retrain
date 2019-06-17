@@ -51,6 +51,14 @@ Then("I see error message {string}") do |string|
     expect(page).to have_content(string)
 end
 
+Then("Find a Course Service is unavailable") do |string|
+    service httpd stop
+end
+
+Then("Find a Course Service is available again") do |string|
+    service httpd start
+end
+
 Then("I should see a list of occupations for {string}") do |string|
     case string
     when 'Healthcare'
