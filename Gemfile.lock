@@ -251,7 +251,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
-  brakeman
+  brakeman (~> 4.5)
   byebug
   canonical-rails
   capybara (>= 2.15)
