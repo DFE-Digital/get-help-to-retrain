@@ -1,5 +1,5 @@
 class ErrorsController < ActionController::Base
-  layout "application"
+  layout 'application'
 
   def not_found
     respond_to do |format|

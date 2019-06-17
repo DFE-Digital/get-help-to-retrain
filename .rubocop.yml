@@ -1,0 +1,94 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.6.3
+  Exclude:
+    - 'db/schema.rb'
+    - 'lib/tasks/cucumber.rake'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'db/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'config/*'
+    - 'bin/*'
+    - 'config/initializers/canonical_rails.rb'
+    - 'spec/spec_helper.rb'
+
+Rails:
+  Enabled: true
+
+Rails/Date:
+  Exclude:
+  - 'lib/date_helpers.rb'
+
+Rails/TimeZone:
+  Exclude:
+  - 'lib/date_helpers.rb'
+
+Style/AndOr:
+  # Whether `and` and `or` are banned only in conditionals (conditionals)
+  # or completely (always).
+  EnforcedStyle: conditionals
+
+Style/Documentation:
+  Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 2
+
+Style/Encoding:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'features/support/**/*.rb'
+
+Style/AutoResourceCleanup:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Layout/FirstArrayElementLineBreak:
+  Enabled: false
+
+Layout/FirstHashElementLineBreak:
+  Enabled: false
+
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: false
+
+Layout/FirstMethodParameterLineBreak:
+  Enabled: false
+
+Style/InlineComment:
+  Enabled: false
+
+Style/MissingElse:
+  Enabled: false
+
+Layout/MultilineAssignmentLayout:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 10
+  Exclude:
+    - 'db/migrate/**/*.rb'
+
+Metrics/AbcSize:
+  Max: 20
+  Exclude:
+    - 'db/migrate/**/*.rb'
