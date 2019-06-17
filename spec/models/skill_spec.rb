@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Skill do
-  let(:skill) { FactoryBot.build_stubbed(:skill) }
-  let(:job_profile) { FactoryBot.build_stubbed(:job_profile) }
+  let(:skill) { build_stubbed(:skill) }
+  let(:job_profile) { build_stubbed(:job_profile) }
 
   describe 'relationships' do
     before do

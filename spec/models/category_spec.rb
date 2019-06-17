@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Category do
-  let(:category) { FactoryBot.build_stubbed(:category) }
-  let(:job_profile) { FactoryBot.build_stubbed(:job_profile) }
+  let(:category) { build_stubbed(:category) }
+  let(:job_profile) { build_stubbed(:job_profile) }
 
   describe 'relationships' do
     before do

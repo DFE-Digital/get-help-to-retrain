@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe JobProfile do
-  let(:category) { FactoryBot.build_stubbed(:category) }
-  let(:skill) { FactoryBot.build_stubbed(:skill) }
-  let(:recommended_job) { FactoryBot.build_stubbed(:job_profile, :recommended) }
-  let(:discouraged_job) { FactoryBot.build_stubbed(:job_profile) }
+  let(:category) { build_stubbed(:category) }
+  let(:skill) { build_stubbed(:skill) }
+  let(:recommended_job) { build_stubbed(:job_profile, :recommended) }
+  let(:discouraged_job) { build_stubbed(:job_profile) }
 
   describe '#recommended' do
     it 'is true for recommended job profiles' do
