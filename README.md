@@ -1,4 +1,4 @@
-[![Greenkeeper badge](https://badges.greenkeeper.io/DFE-Digital/govuk-rails-boilerplate.svg)](https://greenkeeper.io/)
+[![Build Status](https://dev.azure.com/abeersalameh/get-help-to-retrain/_apis/build/status/DFE-Digital.get-help-to-retrain?branchName=master)](https://dev.azure.com/abeersalameh/get-help-to-retrain/_build/latest?definitionId=5&branchName=master)
 
 # Get Help to Retrain
 

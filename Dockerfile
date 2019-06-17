@@ -11,18 +11,11 @@ RUN apk add --update $BUILD_PACKAGES && \
 # Generate Assets
 WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN bundle install --clean --without "test development"
+RUN bundle install --clean --without "development"
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
 RUN bundle exec rails webpacker:compile SECRET_KEY_BASE=stubbed
-
-# Install dependencies
-FROM ruby:2.6-alpine as bundler
-WORKDIR /app
-COPY Gemfile Gemfile.lock .ruby-version ./
-COPY --from=assets /usr/local/bundle /usr/local/bundle
-RUN bundle install --clean --without "test development"
 
 FROM ruby:2.6-alpine
 
@@ -38,6 +31,5 @@ RUN apk add --update $BUILD_PACKAGES && \
 
 WORKDIR /app
 COPY . ./
+COPY --from=assets /usr/local/bundle /usr/local/bundle
 COPY --from=assets /app/public/packs /app/public/packs
-COPY --from=bundler /usr/local/bundle /usr/local/bundle
-CMD bundle exec puma -C config/puma.rb
