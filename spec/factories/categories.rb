@@ -3,7 +3,7 @@ FactoryBot.define do
     name { Faker::Job.field }
 
     sequence :slug do |n|
-      "#{name.underscore}_#{n}"
+      "#{name.parameterize.underscore}_#{n}"
     end
   end
 end
