@@ -12,6 +12,7 @@ Feature: As a customer
             | Administration |
             | Animal Care    |
 
+
     Scenario Outline: Find a Course Service unavailable
         Given I am on the "careers-search" page
         And Find a Course Service is unavailable

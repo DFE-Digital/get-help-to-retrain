@@ -1,12 +1,20 @@
 Given("I am on the {string} page") do |string|
     visit 'http://localhost:3000/pages/' + string
 end
-        
+
 Then("the correct eligibility criteria is displayed") do
     expect(page).to have_content('Yay! You’re on Rails!')
 end
 
 Then("the current page contains text {string}") do |string|
+    expect(page).to have_content(string)
+end
+
+Then("the first search result title should contain {string}") do |string|
+    page.first('h3:nth-child(1) > a').text.should match(string)
+end
+
+Then("the first search result title should contain {string}") do |string|
     expect(page).to have_content(string)
 end
 
@@ -52,17 +60,21 @@ Then("I see error message {string}") do |string|
 end
 
 Then("Find a Course Service is unavailable") do |string|
-    service httpd stop
+    pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then("Find a Course Service is available again") do |string|
-    service httpd start
+    pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then("I should see a list of occupations for {string}") do |string|
     case string
     when 'Healthcare'
         expect(page).to have_content('Doctor')
+    when 'Administration'
+        expect(page).to have_content('Secretary')
+    when 'Animal Care'
+        expect(page).to have_content('Vetenarian')
     else
       "Error: occupation has an invalid value (#{string})"
     end
