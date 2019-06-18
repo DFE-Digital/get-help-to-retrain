@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   resources :job_profiles, only: %i[index] do
     get :search, on: :collection
   end
-  root to: 'job_profiles#search'
+
+  root to: 'home#index'
 end
