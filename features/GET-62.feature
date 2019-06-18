@@ -2,6 +2,7 @@ Feature: As a customer
     I want to see a list of jobs within a category
     So that I can explore which jobs might be suitable for me
 
+    @bdd
     Scenario Outline: Careers Search By Occupation
         Given I am on the "careers-search" page
         When I click the text link "<Occupation>"
@@ -12,7 +13,7 @@ Feature: As a customer
             | Administration |
             | Animal Care    |
 
-
+    @bdd
     Scenario Outline: Find a Course Service unavailable
         Given I am on the "careers-search" page
         And Find a Course Service is unavailable
