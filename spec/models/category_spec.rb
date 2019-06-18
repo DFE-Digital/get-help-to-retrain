@@ -13,4 +13,30 @@ RSpec.describe Category do
       expect(category.job_profiles).to match [job_profile]
     end
   end
+
+  describe '.with_job_profiles' do
+    it 'returns categories with job profiles' do
+      category = create(:category, job_profiles: [create(:job_profile)])
+      expect(Category.with_job_profiles).to contain_exactly(category)
+    end
+
+    it 'returns unique categories with job profiles' do
+      create(:category, job_profiles: [
+        create(:job_profile),
+        create(:job_profile)
+      ])
+      expect(Category.with_job_profiles.count).to eq(1)
+    end
+
+    it 'does not return categories not linked to job profiles' do
+      category = create(:category, job_profiles: [create(:job_profile)])
+      create(:category)
+      expect(Category.with_job_profiles).to contain_exactly(category)
+    end
+
+    it 'returns nothing if no categories linked to job profiles' do
+      create_list(:category, 4)
+      expect(Category.with_job_profiles).to be_empty
+    end
+  end
 end

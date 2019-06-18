@@ -1,0 +1,16 @@
+<%= form_tag job_profiles_path, method: 'get' do %>
+  <p>
+    <%= text_field_tag(:name, nil, placeholder: 'e.g. Software Developer') %>
+    <%= submit_tag('Search Job Profiles', name: nil) %>
+  </p>
+<% end %>
+
+<% if @job_profiles.empty? %>
+  <p>0 results found - try again using a different job title</p>
+<% else %>
+  <ul>
+    <% @job_profiles.each do |job_profile| %>
+      <li><%= job_profile.name %></li>
+    <% end %>
+  </ul>
+<% end %>

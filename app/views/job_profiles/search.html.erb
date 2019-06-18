@@ -1,0 +1,11 @@
+<%= form_tag job_profiles_path, method: 'get' do %>
+  <p>
+    <%= text_field_tag(:name, nil, placeholder: 'e.g. Software Developer') %>
+    <%= submit_tag('Search Job Profiles', name: nil) %>
+  </p>
+<% end %>
+<ul>
+  <% @job_categories.each do |job_category| %>
+    <li><%= job_category.name %></li>
+  <% end %>
+</ul>

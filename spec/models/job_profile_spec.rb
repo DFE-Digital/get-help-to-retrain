@@ -30,4 +30,24 @@ RSpec.describe JobProfile do
       expect(recommended_job.skills).to match [skill]
     end
   end
+
+  describe '.search' do
+    it 'returns a job profile if a name matches exactly' do
+      job_profile = create(:job_profile, name: 'Beverage Dissemination Officer')
+
+      expect(described_class.search('Beverage Dissemination Officer')).to contain_exactly(job_profile)
+    end
+
+    it 'returns a job profile if a name is like an existing job profile name' do
+      job_profile = create(:job_profile, name: 'Beverage Dissemination Officer')
+
+      expect(described_class.search('Dissemination')).to contain_exactly(job_profile)
+    end
+
+    it 'returns nothing if no job profile is matched' do
+      create(:job_profile, name: 'Dream Alchemist')
+
+      expect(described_class.search('Beverage Dissemination Officer')).to be_empty
+    end
+  end
 end
