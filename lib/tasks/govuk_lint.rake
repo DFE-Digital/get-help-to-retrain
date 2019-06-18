@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 desc 'Lint ruby code'
 namespace :lint do
   task :ruby do

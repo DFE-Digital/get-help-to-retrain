@@ -258,8 +258,8 @@ DEPENDENCIES
   puma (~> 3.12)
   rails (~> 5.2.3)
   rspec-rails (~> 3.8)
-  rubocop
-  rubocop-rspec
+  rubocop (~> 0.68)
+  rubocop-rspec (~> 1.32)
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)

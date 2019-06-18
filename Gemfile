@@ -60,8 +60,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # Ruby code analyzer and formatter
-  gem 'rubocop'
-  gem 'rubocop-rspec'
+  gem 'rubocop', '~> 0.68'
+  gem 'rubocop-rspec', '~> 1.32'
 end
 
 group :test do
