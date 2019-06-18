@@ -35,6 +35,12 @@ bundle exec rake
 bundle exec rspec
 ```
 
+## Running Cucumber/Capybara test
+```
+cd tests
+cucumber -p a-profile-name-from-cucumber-yml-file
+```
+
 ## Linting
 
 It's best to lint just your app directories and not those belonging to the framework, e.g.
