@@ -1,4 +1,4 @@
-desc "Lint ruby code"
+desc 'Lint ruby code'
 namespace :lint do
   task :ruby do
     puts 'Linting ruby...'

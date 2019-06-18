@@ -1,0 +1,25 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.6.3
+  Exclude:
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - bin/**
+    - db/**/*
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'lib/tasks/cucumber.rake'
+    - 'config/initializers/canonical_rails.rb'
+    - 'config/puma.rb'
+    - 'spec/spec_helper.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+Style/GuardClause:
+  MinBodyLength: 2
+Layout/AccessModifierIndentation:
+  Enabled: false

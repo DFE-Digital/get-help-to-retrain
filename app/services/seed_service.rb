@@ -14,7 +14,7 @@ class SeedService
   private
 
   def only_development!
-    raise "Not to be run outside development" unless Rails.env.development?
+    raise 'Not to be run outside development' unless Rails.env.development?
   end
 
   def delete_all
