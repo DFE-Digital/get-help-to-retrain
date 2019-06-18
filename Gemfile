@@ -34,6 +34,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
+  # Security scanner
+  gem 'brakeman', '~> 4.5'
+
   # GOV.UK interpretation of rubocop for linting Ruby
   gem 'govuk-lint'
 
@@ -43,6 +46,7 @@ group :development, :test do
   # Testing framework
   gem 'rspec-rails', '~> 3.8'
 
+  # Handle env vars
   gem 'dotenv-rails'
 
   # Test data
