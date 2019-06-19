@@ -37,7 +37,7 @@ rescue NameError
 end
 
 Before do
-  $session = Capybara::Session.new(:selenium_headless)
+  $session = Capybara::Session.new(:selenium_chrome_headless)
   # $session = Capybara::Session.new(:selenium, browser: :chrome)
 end
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
