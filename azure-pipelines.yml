@@ -65,6 +65,12 @@ jobs:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
+        $DOCKER_RUN bundle exec brakeman
+      displayName: Brakeman check
+      env:
+        DOCKER_RUN: $(dockerRun)
+
+    - script: |
         docker push $(dockerRegistry)/$(imageName):$(imageTag)
       displayName: 'Push Docker Image'
 

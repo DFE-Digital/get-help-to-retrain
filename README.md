@@ -1,5 +1,4 @@
-[![Build Status](https://dev.azure.com/abeersalameh/get-help-to-retrain/_apis/build/status/DFE-Digital.get-help-to-retrain?branchName=master)](https://dev.azure.com/abeersalameh/get-help-to-retrain/_build/latest?definitionId=5&branchName=master)
-
+[![Build Status](https://dfe-ssp.visualstudio.com/S108-Get-Help-To-Retrain/_apis/build/status/DFE-Digital.get-help-to-retrain?branchName=master)](https://dfe-ssp.visualstudio.com/S108-Get-Help-To-Retrain/_build/latest?definitionId=182&branchName=master)
 # Get Help to Retrain
 
 ## Prerequisites
@@ -52,3 +51,22 @@ or
 
 bundle exec govuk-lint-sass app/webpacker/styles
 ```
+
+## Security vulnerabilites scanner
+
+Brakeman is a static analysis tool which checks Ruby on Rails applications for security vulnerabilities.
+
+To get the report simply run:
+
+```bash
+  brakeman
+```
+
+or 
+
+```bash
+  brakeman -o report.html
+```
+(if you want a report in a nicer format).
+
+Please check https://brakemanscanner.org/docs/ for more details.

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby File.read(".ruby-version").chomp
+ruby File.read('.ruby-version').chomp
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
@@ -34,6 +34,9 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
+  # Security scanner
+  gem 'brakeman', '~> 4.5'
+
   # GOV.UK interpretation of rubocop for linting Ruby
   gem 'govuk-lint'
 
@@ -43,7 +46,12 @@ group :development, :test do
   # Testing framework
   gem 'rspec-rails', '~> 3.8'
 
+  # Handle env vars
   gem 'dotenv-rails'
+
+  # Test data
+  gem 'factory_bot_rails', '~> 5.0'
+  gem 'faker', '~> 1.9'
 end
 
 group :development do
@@ -54,6 +62,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  # Ruby code analyzer and formatter
+  gem 'rubocop', '~> 0.68'
+  gem 'rubocop-rspec', '~> 1.32'
 end
 
 group :test do
@@ -69,6 +81,8 @@ group :test do
   # Easy installation and use of browser drivers to run system tests with different browsers
   gem 'webdrivers', '~> 4.0'
 
+    # Test coverage reporting
+  gem 'simplecov', '~> 0.16', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
