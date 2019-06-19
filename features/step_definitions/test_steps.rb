@@ -1,9 +1,16 @@
 Given("I am on the {string} page") do |string|
-  visit 'http://localhost:3000/pages/' + string
+  visit 'http://localhost:3000/' + string
+end
+
+Given("I am on the homepage") do
+  visit 'http://localhost:3000'
 end
 
 Then("the correct eligibility criteria is displayed") do
-  expect(page).to have_content('Yay! You’re on Rails!')
+  expect(page).to have_content('you\'re employed')
+  expect(page).to have_content('you do not have a degree')
+  expect(page).to have_content('you’re based in the Manchester area')
+  expect(page).to have_content('aged 24 or over')
 end
 
 Then("the current page contains text {string}") do |string|
@@ -11,11 +18,8 @@ Then("the current page contains text {string}") do |string|
 end
 
 Then("the first search result title should contain {string}") do |string|
-  page.first('h3:nth-child(1) > a').text.should match(string)
-end
-
-Then("the first search result title should contain {string}") do |string|
-  expect(page).to have_content(string)
+  page.find('a', text: string)
+  # expect(page).to have_selector 'h3', text: string
 end
 
 Then("I click on the button {string}") do |string|
@@ -33,7 +37,13 @@ end
 When("there are placeholders for {string}") do |string|
   case string
   when 'occupations'
-    expect(page).to have_content('occupation')
+    expect(page).to have_content('Explore the type of jobs you could retrain to do')
+  when 'courses hub'
+    expect(page).to have_content('Search for the job that you currently do to see what skills you already have')
+  when 'training courses'
+    expect(page).to have_content('Find and apply to training courses near you')
+  when 'current course'
+    expect(page).to have_content('Find out what you can do next')
   else
     "Error: occupation has an invalid value (#{string})"
   end
@@ -44,11 +54,11 @@ When("the link {string} is inactive") do |string|
 end
 
 When("I enter {string} in {string} field") do |string, string2|
-  fill_in string, with: string2
+  fill_in string2, with: string
 end
 
 When("I click the {string} button") do |string|
-  click_button(string)
+  find(string).click
 end
 
 Then("I should see the {string} page") do |string|
