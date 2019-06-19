@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe JobProfilesController, type: :controller do
   describe '#show' do
     context 'when a job profile exists' do
-      it 'responds with 200' do
-        create(:job_profile, slug: 'test')
+      let!(:job_profile) { create(:job_profile, slug: 'test') }
 
+      it 'responds with 200' do
         get :show, params: { id: 'test' }
 
         expect(response).to be_successful
