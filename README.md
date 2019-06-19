@@ -1,5 +1,4 @@
-[![Build Status](https://dev.azure.com/abeersalameh/get-help-to-retrain/_apis/build/status/DFE-Digital.get-help-to-retrain?branchName=master)](https://dev.azure.com/abeersalameh/get-help-to-retrain/_build/latest?definitionId=5&branchName=master)
-
+[![Build Status](https://dfe-ssp.visualstudio.com/S108-Get-Help-To-Retrain/_apis/build/status/DFE-Digital.get-help-to-retrain?branchName=master)](https://dfe-ssp.visualstudio.com/S108-Get-Help-To-Retrain/_build/latest?definitionId=182&branchName=master)
 # Get Help to Retrain
 
 ## Prerequisites
