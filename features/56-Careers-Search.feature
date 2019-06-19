@@ -8,7 +8,7 @@ Feature: As a customer
 
     @ci @56
     Scenario: Happy Path
-        When I enter "Supervisor" in "job_profile_name" field
+        When I enter "Supervisor" in "Enter your job title" field
         When I click the ".search-button" button
         Then I should see the "job profile search results" page
         And the current page contains text "Construction Supervisor"

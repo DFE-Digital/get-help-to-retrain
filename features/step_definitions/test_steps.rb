@@ -1,29 +1,29 @@
 Given("I am on the {string} page") do |string|
-  visit 'http://localhost:3000/' + string
+  $session.visit 'http://localhost:3000/' + string
 end
 
 Given("I am on the homepage") do
-  visit 'http://localhost:3000'
+  $session.visit 'http://localhost:3000'
 end
 
 Then("the correct eligibility criteria is displayed") do
-  expect(page).to have_content('you\'re employed')
-  expect(page).to have_content('you do not have a degree')
-  expect(page).to have_content('you’re based in the Manchester area')
-  expect(page).to have_content('aged 24 or over')
+  expect($session).to have_content('you\'re employed')
+  expect($session).to have_content('you do not have a degree')
+  expect($session).to have_content('you’re based in the Manchester area')
+  expect($session).to have_content('aged 24 or over')
 end
 
 Then("the current page contains text {string}") do |string|
-  expect(page).to have_content(string)
+  expect($session).to have_content(string)
 end
 
 Then("the first search result title should contain {string}") do |string|
-  page.find('a', text: string)
+  $session.find('a', text: string)
   # expect(page).to have_selector 'h3', text: string
 end
 
 Then("I click on the button {string}") do |string|
-  click(string)
+  $session.click(string)
 end
 
 Then("I should see all stages of the journey") do
@@ -31,7 +31,7 @@ Then("I should see all stages of the journey") do
 end
 
 When("I click the text link {string}") do |string|
-  click_link(string)
+  $session.click_link(string)
 end
 
 When("there are placeholders for {string}") do |string|
@@ -54,19 +54,19 @@ When("the link {string} is inactive") do |string|
 end
 
 When("I enter {string} in {string} field") do |string, string2|
-  fill_in string2, with: string
+  $session.fill_in string2, with: string
 end
 
 When("I click the {string} button") do |string|
-  find(string).click
+  $session.find(string).click
 end
 
 Then("I should see the {string} page") do |string|
-  page.has_title? string
+  $session.has_title? string
 end
 
 Then("I see error message {string}") do |string|
-  expect(page).to have_content(string)
+  expect($session).to have_content(string)
 end
 
 Then("Find a Course Service is unavailable") do |string|
