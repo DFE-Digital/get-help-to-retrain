@@ -4,6 +4,7 @@ class Category < ApplicationRecord
 
   def self.with_job_profiles
     includes(:job_profile_categories)
-      .where.not(job_profile_categories: { job_profile_id: nil })
+      .where
+      .not(job_profile_categories: { job_profile_id: nil })
   end
 end

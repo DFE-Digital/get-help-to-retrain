@@ -5,6 +5,6 @@ class JobProfile < ApplicationRecord
   has_many :skills, through: :job_profile_skills, inverse_of: :job_profiles
 
   def self.search(name)
-    where('name LIKE ?', "%#{name}%") if name
+    where('name ILIKE ?', "%#{name}%")
   end
 end

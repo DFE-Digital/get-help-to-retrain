@@ -8,13 +8,13 @@
   <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.job_profiles_result') %></li>
 <% end %>
 
-<div class="govuk-grid-row govuk-!-margin-top-7">
+<div class="govuk-grid-row govuk-!-padding-top-7">
   <div class="govuk-grid-column-two-thirds" >
     <h3 class="govuk-heading-l"><%= t('.title') %></h1>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= form_tag job_profiles_path, method: 'get' do %>
         <div class="govuk-form-group">
-          <%= text_field_tag(:name, nil, class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('.placeholder')) %>
+          <%= text_field(:job_profile, :name, value: params[:job_profile][:name], class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('.placeholder')) %>
           <%= button_tag('', class: 'search-button-results', name: nil) %>
         </div>
       <% end %>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="48px" height="45px" viewBox="0 0 48 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
-    <title>Group</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group">
-            <polygon id="Rectangle-2" fill="#FFFFFF" transform="translate(36.175331, 37.819563) rotate(45.000000) translate(-36.175331, -37.819563) " points="23.7945601 34.2942538 49.0822896 34.6654463 42.4028633 41.3448726 23.2683732 41.0380085"></polygon>
-            <circle id="Oval" stroke="#FFFFFF" stroke-width="6" cx="18" cy="18" r="15"></circle>
-        </g>
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title>Group</title>
+  <desc>Created with Sketch.</desc>
+  <defs></defs>
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Group">
+      <polygon id="Rectangle-2" fill="#FFFFFF" transform="translate(36.175331, 37.819563) rotate(45.000000) translate(-36.175331, -37.819563) " points="23.7945601 34.2942538 49.0822896 34.6654463 42.4028633 41.3448726 23.2683732 41.0380085"></polygon>
+      <circle id="Oval" stroke="#FFFFFF" stroke-width="6" cx="18" cy="18" r="15"></circle>
     </g>
+  </g>
 </svg>
