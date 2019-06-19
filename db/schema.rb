@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_14_101226) do
+ActiveRecord::Schema.define(version: 2019_06_19_090119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 2019_06_14_101226) do
     t.string "source_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "version_id"
     t.index ["slug"], name: "index_categories_on_slug", unique: true
+    t.index ["version_id"], name: "index_categories_on_version_id"
   end
 
   create_table "job_profile_categories", force: :cascade do |t|
@@ -53,14 +55,24 @@ ActiveRecord::Schema.define(version: 2019_06_14_101226) do
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "version_id"
     t.index ["slug"], name: "index_job_profiles_on_slug", unique: true
+    t.index ["version_id"], name: "index_job_profiles_on_version_id"
   end
 
   create_table "skills", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "version_id"
     t.index ["name"], name: "index_skills_on_name"
+    t.index ["version_id"], name: "index_skills_on_version_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.integer "version", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
