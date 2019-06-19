@@ -1,0 +1,33 @@
+.search-container {
+  background-color: govuk-colour("blue");
+  .govuk-heading-xl,
+  .govuk-body-l {
+    color: govuk-colour("white")
+  }
+}
+.search-button {
+  cursor: pointer;
+  border: 0;
+  width:40px;
+  height:40px;
+  float: left;
+  background-color: govuk-colour("black");
+  background-image: url("../images/search_icon.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 20px;
+}
+
+.search-button-results {
+  @extend .search-button;
+  background-color: govuk-colour("blue");
+}
+
+.search-input {
+  float: left;
+  @include govuk-media-query($from: mobile, $until: desktop) {
+    width: calc(100% - 40px) !important;
+  }
+  position: relative;
+  z-index: 10;
+}
