@@ -1,0 +1,21 @@
+<% content_for :breadcrumb do %>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.home'), root_path, class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.job_profiles_search'), search_job_profiles_path, class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.job_profiles_result') %></li>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-8">
+  <%= render partial: 'brief' %>
+  <%= render partial: '/shared/contact_us' %>
+</div>
+
+<%= render partial: 'highlights' %>
+<!-- this is where scraped page sections will stay -->
+<%= render partial: 'section' %>
+<!-- end -->
+
+<%= link_to('Continue', '#', class: 'govuk-button govuk-!-margin-top-6  govuk-!-margin-bottom-9') %>
