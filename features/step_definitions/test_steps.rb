@@ -21,11 +21,6 @@ Then("the current page contains text {string}") do |content|
   expect(page).to have_content(content)
 end
 
-Then("the first search result title should contain {string}") do |string|
-  find('a', text: string)
-  # expect(page).to have_selector 'h3', text: string
-end
-
 Then("I click on the button {string}") do |string|
   click(string)
 end

@@ -14,7 +14,7 @@ jobs:
   - name: postgresDatabaseUrl
     value: postgres://postgres:test@postgres/get-help-to-retrain
   - name: dockerRun
-    value: docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test $(dockerRegistry)/$(imageName):$(imageTag)
+    value: docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test $(dockerRegistry)/$(imageName):$(imageTag)
 
   steps:
     - script: |
@@ -75,8 +75,6 @@ jobs:
       displayName: Cucumber
       env:
         DOCKER_RUN: $(dockerRun)
-
-
 
     - script: |
         docker push $(dockerRegistry)/$(imageName):$(imageTag)
