@@ -3,9 +3,15 @@
     <%= link_to(t('breadcrumb.home'), root_path, class: 'govuk-breadcrumbs__link') %>
   </li>
   <li class="govuk-breadcrumbs__list-item">
-    <%= link_to(t('breadcrumb.job_profiles_search'), search_job_profiles_path, class: 'govuk-breadcrumbs__link') %>
+    <%= link_to(t('breadcrumb.get_help_to_retrain'), '#', class: 'govuk-breadcrumbs__link') %>
   </li>
-  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.job_profiles_result') %></li>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.explore_occupations'), '#', class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.job_profiles_result'), '#', class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.job_profile_details') %></li>
 <% end %>
 
 <div class="govuk-grid-row govuk-!-margin-top-8">
