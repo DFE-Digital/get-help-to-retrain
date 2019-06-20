@@ -138,4 +138,37 @@ RSpec.describe JobProfile do
       expect(job_profile.skills).to include customer_service
     end
   end
+
+  describe 'content parsing' do
+    let(:html_body) {
+      '<div class="grid-row">
+        <div id="Salary" class="column-40 job-profile-heroblock">
+            <h2>
+                Average salary
+                    <span>(a year)</span>
+                            </h2>
+            <div class="job-profile-salary job-profile-heroblock-content">
+                    <p class="dfc-code-jpsstarter">£18,000 <span>Starter</span></p>
+                    <i class="sr-hidden">to</i>
+                    <p class="dfc-code-jpsexperienced">£30,000 <span>Experienced</span></p>
+            </div>
+        </div>
+      </div>'
+    }
+
+    let(:job_profile) { build_stubbed(:job_profile, content: html_body) }
+
+    let(:expected_values) {
+      {
+        min: '£18,000',
+        max: '£30,000'
+      }
+    }
+
+    context 'salary range' do
+      it 'extracts the correct date range values' do
+        expect(job_profile.salary).to eq expected_values
+      end
+    end
+  end
 end
