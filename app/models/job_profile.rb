@@ -7,6 +7,7 @@ class JobProfile < ApplicationRecord
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
   SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
+  WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
 
   def self.search(name)
     where('name ILIKE ?', "%#{name}%")
@@ -40,6 +41,14 @@ class JobProfile < ApplicationRecord
              .strip
              .gsub('to', '-')
              .delete(' ')
+  end
+
+  def working_hours_patterns
+    html_body.xpath(WORKING_HOURS_PATTERNS_XPATH)
+             .children[0]
+             .text
+             .strip
+             .capitalize
   end
 
   private

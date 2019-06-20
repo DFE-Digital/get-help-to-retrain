@@ -190,5 +190,28 @@ RSpec.describe JobProfile do
         expect(job_profile.working_hours).to eq expected_values
       end
     end
+
+    context 'working hours patterns' do
+      let(:html_body) {
+        '<div id="WorkingHoursPatterns" class="column-30 job-profile-heroblock">
+          <h2>
+            You could work
+          </h2>
+          <div class="job-profile-pattern job-profile-heroblock-content">
+            <p class="dfc-code-jpwpattern">
+              between 8am and 6pm
+            </p>
+          </div>
+        </div>'
+      }
+
+      let(:expected_values) {
+        'Between 8am and 6pm'
+      }
+
+      it 'extracts the correct date range values' do
+        expect(job_profile.working_hours_patterns).to eq expected_values
+      end
+    end
   end
 end
