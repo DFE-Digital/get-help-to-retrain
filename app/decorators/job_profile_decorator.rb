@@ -1,6 +1,4 @@
-class JobProfileDecorator < ApplicationDecorator
-  delegate_all
-
+class JobProfileDecorator < SimpleDelegator
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
   SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
@@ -43,6 +41,6 @@ class JobProfileDecorator < ApplicationDecorator
   private
 
   def html_body
-    @html_body ||= Nokogiri::HTML(object.content)
+    @html_body ||= Nokogiri::HTML(__getobj__ .content)
   end
 end

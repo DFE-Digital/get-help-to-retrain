@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe JobProfileDecorator do
   describe 'content parsing' do
-    let(:job_profile) { build_stubbed(:job_profile, content: html_body).decorate }
+    let(:job_profile) { 
+      JobProfileDecorator.new(
+        build_stubbed(:job_profile, content: html_body)
+      )
+    }
 
     context 'salary range' do
       let(:html_body) {
