@@ -59,16 +59,24 @@ jobs:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
+        $DOCKER_RUN bundle exec brakeman
+      displayName: Brakeman check
+      env:
+        DOCKER_RUN: $(dockerRun)
+
+    - script: |
         $DOCKER_RUN bundle exec rspec
       displayName: Rspec
       env:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
-        $DOCKER_RUN bundle exec brakeman
-      displayName: Brakeman check
+        $DOCKER_RUN bundle exec cucumber
+      displayName: Cucumber
       env:
         DOCKER_RUN: $(dockerRun)
+
+
 
     - script: |
         docker push $(dockerRegistry)/$(imageName):$(imageTag)
