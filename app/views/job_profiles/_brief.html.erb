@@ -1,5 +1,7 @@
 <div class="govuk-grid-column-two-thirds">
-  <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" >Admin assistant</h1>
-  <p class="govuk-body-l" style="color: #6f777b">Office administrator, clerical assistant, administrative assistant</p>
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" ><%= @job_profile.hero_copy %></h1>
+  <% if @job_profile.sub_hero_copy.present? %>
+    <p class="govuk-body-l" style="color: #6f777b"><%= @job_profile.sub_hero_copy %></p>
+  <% end %>
   <p class="govuk-body-l">Admins assistants give support to offices by organising meetings, typing documents and updating computer records.</p>
 </div>
