@@ -4,11 +4,6 @@ class JobProfile < ApplicationRecord
   has_many :categories, through: :job_profile_categories, inverse_of: :job_profiles
   has_many :skills, through: :job_profile_skills, inverse_of: :job_profiles
 
-  SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
-  SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
-  WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
-  WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
-
   def self.search(name)
     where('name ILIKE ?', "%#{name}%")
   end
