@@ -36,8 +36,7 @@ bundle exec rspec
 
 ## Running Cucumber/Capybara test
 ```
-cd tests
-cucumber -p a-profile-name-from-cucumber-yml-file
+bundle exec cucumber -p a-profile-name-from-cucumber-yml-file
 ```
 
 ## Linting
@@ -62,7 +61,7 @@ To get the report simply run:
   brakeman
 ```
 
-or 
+or
 
 ```bash
   brakeman -o report.html
