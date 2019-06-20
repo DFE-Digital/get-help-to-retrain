@@ -97,7 +97,7 @@ RSpec.describe JobProfileDecorator do
                 <div class="column-desktop-two-thirds">
                   <h1 class="heading-xlarge"> Archivist</h1>
                   <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>Curator, records manager</h2>
-                  <p>Archivists look after and preserve collections of historical records and documents.</p>
+                  <p>Archivists look after and preserve documents.</p>
                 </div>
               </div>
             </div>
@@ -111,6 +111,12 @@ RSpec.describe JobProfileDecorator do
 
       it 'extracts the sub hero copy' do
         expect(job_profile.sub_hero_copy).to eq 'Alternative titles for this job include Curator, records manager'
+      end
+
+      it 'extracts the additional copy' do
+        expect(job_profile.additional_hero_copy).to match(
+          ['Archivists look after and preserve documents.']
+        )
       end
     end
   end

@@ -5,6 +5,7 @@ class JobProfileDecorator < SimpleDelegator
   WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
   HERO_COPY_XPATH = "//header[@class='job-profile-hero']//h1[@class='heading-xlarge']".freeze
   SUB_HERO_COPY_XPATH = "//header[@class='job-profile-hero']//h2[@class='heading-secondary']".freeze
+  ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
 
   def salary
     {
@@ -36,6 +37,10 @@ class JobProfileDecorator < SimpleDelegator
 
   def sub_hero_copy
     html_body.xpath(SUB_HERO_COPY_XPATH).text.strip
+  end
+
+  def additional_hero_copy
+    html_body.xpath(ADDITIONAL_COPY_XPATH).children.map(&:text)
   end
 
   private
