@@ -1,29 +1,33 @@
-Given("I am on the {string} page") do |string|
-  $session.visit 'http://localhost:3000/' + string
+When("I am on the {string} page") do |path|
+  visit("/#{path}")
 end
 
 Given("I am on the homepage") do
-  $session.visit 'http://localhost:3000'
+  visit(root_path)
+end
+
+Given("a job profile exists with the name {string}") do |name|
+  create(:job_profile, name: name)
 end
 
 Then("the correct eligibility criteria is displayed") do
-  expect($session).to have_content('you\'re employed')
-  expect($session).to have_content('you do not have a degree')
-  expect($session).to have_content('you’re based in the Manchester area')
-  expect($session).to have_content('aged 24 or over')
+  expect(page).to have_content('you\'re employed')
+  expect(page).to have_content('you do not have a degree')
+  expect(page).to have_content('you’re based in the Manchester area')
+  expect(page).to have_content('aged 24 or over')
 end
 
-Then("the current page contains text {string}") do |string|
-  expect($session).to have_content(string)
+Then("the current page contains text {string}") do |content|
+  expect(page).to have_content(content)
 end
 
 Then("the first search result title should contain {string}") do |string|
-  $session.find('a', text: string)
+  find('a', text: string)
   # expect(page).to have_selector 'h3', text: string
 end
 
 Then("I click on the button {string}") do |string|
-  $session.click(string)
+  click(string)
 end
 
 Then("I should see all stages of the journey") do
@@ -31,7 +35,7 @@ Then("I should see all stages of the journey") do
 end
 
 When("I click the text link {string}") do |string|
-  $session.click_link(string)
+  click_link(string)
 end
 
 When("there are placeholders for {string}") do |string|
@@ -54,19 +58,19 @@ When("the link {string} is inactive") do |string|
 end
 
 When("I enter {string} in {string} field") do |string, string2|
-  $session.fill_in string2, with: string
+  fill_in string2, with: string
 end
 
 When("I click the {string} button") do |string|
-  $session.find(string).click
+  find(string).click
 end
 
-Then("I should see the {string} page") do |string|
-  $session.has_title? string
+Then("I should see the {string} page") do |title|
+  has_title? title
 end
 
-Then("I see error message {string}") do |string|
-  expect($session).to have_content(string)
+Then("I see error message {string}") do |error|
+  expect(page).to have_content(error)
 end
 
 Then("Find a Course Service is unavailable") do |string|

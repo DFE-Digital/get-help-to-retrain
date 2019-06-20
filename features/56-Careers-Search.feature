@@ -3,8 +3,9 @@ Feature: As a customer
   So that I can explore which jobs might be suitable for me
 
   Background:
-    Given I am on the homepage
-    When I click the text link "Start now"
+    Given a job profile exists with the name "Construction Supervisor"
+    When I am on the homepage
+    And I click the text link "Start now"
 
   @ci @56
   Scenario: Happy Path
