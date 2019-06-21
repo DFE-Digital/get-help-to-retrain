@@ -13,4 +13,12 @@ class JobProfile < ApplicationRecord
       job_profile.update(source_url: url, name: slug.titleize)
     end
   end
+
+  def scrape
+    scraper = JobProfileScraper.new
+    scraped = scraper.scrape(source_url)
+
+    update(name: scraped['title'], description: scraped['description'], content: scraped['body'])
+    self.skills = Skill.import(scraped['skills'])
+  end
 end

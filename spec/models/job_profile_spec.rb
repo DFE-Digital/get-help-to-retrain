@@ -114,4 +114,34 @@ RSpec.describe JobProfile do
       end
     end
   end
+
+  describe '#scrape', vcr: { cassette_name: 'explore_my_careers_job_profile' } do
+    let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
+    let(:job_profile) { build :job_profile, source_url: url }
+    let!(:administration) { create :skill, name: 'administration skills' }
+    let!(:customer_service) { create :skill, name: 'customer service skills' }
+
+    subject { job_profile.scrape }
+
+    it 'updates name with scraped title' do
+      subject
+      expect(job_profile.name).to eq 'Admin assistant'
+    end
+
+    it 'updates description with scraped description' do
+      subject
+      expect(job_profile.description).to match 'organising meetings'
+    end
+
+    it 'updates content with scraped body' do
+      subject
+      expect(job_profile.content).to match 'National Careers Service'
+    end
+
+    it 'updates skills with scraped skill names' do
+      subject
+      expect(job_profile.skills).to include administration
+      expect(job_profile.skills).to include customer_service
+    end
+  end
 end
