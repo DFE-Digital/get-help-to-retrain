@@ -55,4 +55,32 @@ RSpec.describe Category do
       expect(described_class.with_job_profiles_without(nil)).to contain_exactly(category)
     end
   end
+
+  describe '.import' do
+    subject { described_class.import('foo', 'https://foobar.com') }
+
+    context 'new category' do
+      it 'creates the category' do
+        expect { subject }.to change { Category.count }.by(1)
+      end
+
+      it 'sets the default name from slug' do
+        subject
+        expect(Category.last.name).to eq 'Foo'
+      end
+    end
+
+    context 'existing category' do
+      before { create :category, slug: 'foo', name: 'Bar' }
+
+      it 'does not creates a new category' do
+        expect { subject }.to_not change { Category.count }
+      end
+
+      it 'does not overwrite existing name' do
+        subject
+        expect(Category.last.name).to eq 'Bar'
+      end
+    end
+  end
 end

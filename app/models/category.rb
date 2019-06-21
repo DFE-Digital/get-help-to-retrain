@@ -15,4 +15,10 @@ class Category < ApplicationRecord
       .by_name
       .where.not(id: category)
   end
+
+  def self.import(slug, url)
+    find_or_create_by(slug: slug) do |category|
+      category.update(source_url: url, name: slug.titleize)
+    end
+  end
 end

@@ -86,4 +86,32 @@ RSpec.describe JobProfile do
       expect(described_class.search(nil)).to eq(job_profiles)
     end
   end
+
+  describe '.import' do
+    subject { described_class.import('foo', 'https://foobar.com') }
+
+    context 'new job profile' do
+      it 'creates the job profile' do
+        expect { subject }.to change { JobProfile.count }.by(1)
+      end
+
+      it 'sets the default name from slug' do
+        subject
+        expect(JobProfile.last.name).to eq 'Foo'
+      end
+    end
+
+    context 'existing job profile' do
+      before { create :job_profile, slug: 'foo', name: 'Bar' }
+
+      it 'does not creates a new job profile' do
+        expect { subject }.to_not change { JobProfile.count }
+      end
+
+      it 'does not overwrite existing name' do
+        subject
+        expect(JobProfile.last.name).to eq 'Bar'
+      end
+    end
+  end
 end
