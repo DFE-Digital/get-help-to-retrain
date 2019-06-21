@@ -83,6 +83,10 @@ group :test do
 
     # Test coverage reporting
   gem 'simplecov', '~> 0.16', require: false
+
+  # Web request caching for tests
+  gem 'vcr', '~> 5.0', require: false
+  gem 'webmock', '~> 3.6', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

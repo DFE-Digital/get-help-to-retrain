@@ -1,9 +1,9 @@
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
-abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'simplecov'
+require 'vcr'
 SimpleCov.start
 
 begin
@@ -11,6 +11,12 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
+end
+
+VCR.configure do |vcr|
+  vcr.cassette_library_dir = 'spec/fixtures/vcr'
+  vcr.hook_into :webmock
+  vcr.ignore_localhost = true
 end
 
 RSpec.configure do |config|
@@ -31,6 +37,18 @@ RSpec.configure do |config|
   config.around do |example|
     DatabaseCleaner.cleaning do
       example.run
+    end
+  end
+
+  config.around :each, vcr: true do |example|
+    VCR.use_cassette(example.metadata[:full_description].parameterize) do
+      example.run
+    end
+  end
+
+  config.around :all, vcr_all: true do |examples|
+    VCR.use_cassette(examples.metadata[:described_class].name.parameterize) do
+      examples.run
     end
   end
 end
