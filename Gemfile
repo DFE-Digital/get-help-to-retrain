@@ -54,6 +54,9 @@ group :development, :test do
   gem 'faker', '~> 1.9'
 end
 
+# Web scraper
+gem 'wombat', '~> 2.8'
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
