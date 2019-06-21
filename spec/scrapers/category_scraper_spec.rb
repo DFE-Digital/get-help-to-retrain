@@ -4,12 +4,12 @@ RSpec.describe CategoryScraper, vcr: { cassette_name: 'explore_my_careers_catego
   let(:scraper) { described_class.new }
   let(:category_url) { 'https://nationalcareers.service.gov.uk/job-categories/administration' }
   let(:job_profiles) { %w(admin-assistant bookkeeper) }
-    
+
   describe '#scrape' do
     subject { scraper.scrape(category_url) }
 
     it 'parses category name' do
-      expect(subject['category_name']).to eq 'Administration'
+      expect(subject['title']).to eq 'Administration'
     end
   end
 
@@ -20,7 +20,7 @@ RSpec.describe CategoryScraper, vcr: { cassette_name: 'explore_my_careers_catego
 
     it 'includes only job profile slugs' do
       expect(subject).to be_an(Array)
-      expect(subject).to include *job_profiles
+      expect(subject).to include(*job_profiles)
     end
   end
 end

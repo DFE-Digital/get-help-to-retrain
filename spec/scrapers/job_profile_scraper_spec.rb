@@ -27,7 +27,7 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
 
     it 'parses skills' do
       expect(subject['skills']).to be_an(Array)
-      expect(subject['skills']).to include *skills
+      expect(subject['skills']).to include(*skills)
     end
   end
 end

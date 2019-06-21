@@ -26,7 +26,7 @@ class Category < ApplicationRecord
     scraper = CategoryScraper.new
     scraped = scraper.scrape(source_url)
 
-    update(name: scraped['category_name'])
+    update(name: scraped['title'])
     self.job_profiles = JobProfile.where(slug: scraper.job_profile_slugs)
   end
 end

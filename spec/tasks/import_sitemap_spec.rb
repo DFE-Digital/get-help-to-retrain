@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/tasks'
 
-describe 'data_import:import_sitemap', type: :task do
+RSpec.describe 'rake data_import:import_sitemap' do
   let!(:fake_scraper) { SitemapScraper.new }
 
   before do

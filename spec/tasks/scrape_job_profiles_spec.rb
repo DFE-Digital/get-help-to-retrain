@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/tasks'
 
-describe 'data_import:scrape_job_profiles', vcr: { cassette_name: 'explore_my_careers_job_profile' } do
+RSpec.describe 'data_import:scrape_job_profiles', vcr: { cassette_name: 'explore_my_careers_job_profile' } do
   let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
   let!(:job_profile) { create :job_profile, source_url: url }
   let!(:administration) { create :skill, name: 'administration skills' }
