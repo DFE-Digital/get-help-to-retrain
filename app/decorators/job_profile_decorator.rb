@@ -9,6 +9,8 @@ class JobProfileDecorator < SimpleDelegator
   APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']".freeze
   WORK_SECTION_XPATH = "//section[@id='work']".freeze
   SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[@class='job-profile-subsection']".freeze
+  WWYD_TASKS_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]".freeze
+  WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze
 
   def salary
     {
