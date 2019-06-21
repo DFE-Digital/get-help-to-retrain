@@ -83,4 +83,25 @@ RSpec.describe Category do
       end
     end
   end
+
+  describe '#scrape', vcr: { cassette_name: 'explore_my_careers_category' } do
+    let(:slug) { 'administration' }
+    let(:url) { 'https://nationalcareers.service.gov.uk/job-categories/administration' }
+    let(:category) { build :category, slug: slug, source_url: url }
+    let!(:admin_assistant) { create :job_profile, slug: 'admin-assistant' }
+    let!(:bookkeeper) { create :job_profile, slug: 'bookkeeper' }
+
+    subject { category.scrape }
+
+    it 'updates name with scraped title' do
+      subject
+      expect(category.name).to eq 'Administration'
+    end
+
+    it 'updates job profiles with scraped links' do
+      subject
+      expect(category.job_profiles).to include admin_assistant
+      expect(category.job_profiles).to include bookkeeper
+    end
+  end
 end

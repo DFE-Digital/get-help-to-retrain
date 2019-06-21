@@ -21,4 +21,12 @@ class Category < ApplicationRecord
       category.update(source_url: url, name: slug.titleize)
     end
   end
+
+  def scrape
+    scraper = CategoryScraper.new
+    scraped = scraper.scrape(source_url)
+
+    update(name: scraped['category_name'])
+    self.job_profiles = JobProfile.where(slug: scraper.job_profile_slugs)
+  end
 end
