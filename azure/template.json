@@ -44,6 +44,12 @@
         "description": "The email address to be used for psql security alerts."
       }
     },
+    "dockerHubOrg": {
+      "type": "string",
+      "metadata":{
+        "description": "The name of the docker hub organization to fecth the container from."
+      }
+    },
     "containerImageReference": {
       "type": "string",
       "metadata": {
@@ -69,7 +75,7 @@
       "type": "int",
       "defaultValue": 1
     }
-    
+
   },
   "variables": {
     "deploymentUrlBase": "https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/",
@@ -79,7 +85,8 @@
     "workerAppServiceName": "[concat(variables('resourceNamePrefix'), 'wkr-as')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "databaseServerName": "[concat(variables('resourceNamePrefix'), '-psql')]",
-    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]"
+    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('dockerHubOrg'), '/', parameters('containerImageReference'))]"
+
   },
   "resources": [
     {
