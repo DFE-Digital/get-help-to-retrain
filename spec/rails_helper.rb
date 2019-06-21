@@ -17,6 +17,7 @@ VCR.configure do |vcr|
   vcr.cassette_library_dir = 'spec/fixtures/vcr'
   vcr.hook_into :webmock
   vcr.ignore_localhost = true
+  vcr.configure_rspec_metadata!
 end
 
 RSpec.configure do |config|
@@ -37,18 +38,6 @@ RSpec.configure do |config|
   config.around do |example|
     DatabaseCleaner.cleaning do
       example.run
-    end
-  end
-
-  config.around :each, vcr: true do |example|
-    VCR.use_cassette(example.metadata[:full_description].parameterize) do
-      example.run
-    end
-  end
-
-  config.around :all, vcr_all: true do |examples|
-    VCR.use_cassette(examples.metadata[:described_class].name.parameterize) do
-      examples.run
     end
   end
 end

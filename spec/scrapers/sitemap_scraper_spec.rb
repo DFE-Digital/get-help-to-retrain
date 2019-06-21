@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SitemapScraper, :vcr_all do
+RSpec.describe SitemapScraper, vcr: { cassette_name: 'explore_my_careers_sitemap' } do
   let(:scraper) { described_class.new }
 
   let(:categories) do
