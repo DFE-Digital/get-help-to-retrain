@@ -34,6 +34,7 @@ WORKDIR /app
 COPY . ./
 COPY --from=assets /usr/local/bundle /usr/local/bundle
 COPY --from=assets /app/public/packs /app/public/packs
+COPY --from=assets /app/public/assets /app/public/assets
 CMD bundle exec rails server -b 0.0.0.0
 
 
