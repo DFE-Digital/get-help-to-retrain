@@ -8,6 +8,7 @@ class JobProfileDecorator < SimpleDelegator
   ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
   APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']".freeze
   WORK_SECTION_XPATH = "//section[@id='work']".freeze
+  SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[@class='job-profile-subsection']".freeze
 
   def salary
     {
