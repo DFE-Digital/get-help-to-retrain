@@ -1,0 +1,6 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= @job_profile.section(xpath: JobProfileDecorator::APPRENTICESHIP_SECTION_XPATH).html_safe %>
+    <%= @job_profile.section(xpath: JobProfileDecorator::WORK_SECTION_XPATH).html_safe %>
+  </div>
+</div>

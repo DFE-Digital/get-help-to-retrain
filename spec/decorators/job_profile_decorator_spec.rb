@@ -120,7 +120,11 @@ RSpec.describe JobProfileDecorator do
       end
     end
 
-    context 'apprenticeship_section' do
+    context 'section' do
+      let(:xpath) {
+        "//section[@id='Apprenticeship']".freeze
+      }
+
       let(:html_body) {
         '<section class="job-profile-subsection" id="Apprenticeship">
           <h3>Apprenticeship</h3><div class="job-profile-subsection-content">
@@ -130,11 +134,6 @@ RSpec.describe JobProfileDecorator do
             <p>You\'ll usually need:</p>
             <ul class="list-reqs">
               <li>4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels</li>
-            </ul>
-            <h4>More information</h4>
-            <ul class="list-link">
-              <li><a class="htb-feature" href="google.com">Link1</a></li>
-              <li><a class="htb-feature" href="google">Link2</a></li>
             </ul>
           </div>
         </section>'
@@ -152,13 +151,13 @@ RSpec.describe JobProfileDecorator do
         ]
       }
 
-      let(:html_section) {
-        job_profile.apprenticeship_section
+      let(:mutated_html_body) {
+        job_profile.section(xpath: xpath)
       }
 
       it 'mutates the html snippet to use our styles' do
         mutated_tags.each do |tag|
-          expect(html_section).to include(tag)
+          expect(mutated_html_body).to include(tag)
         end
       end
     end
