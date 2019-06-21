@@ -1,30 +1,27 @@
 Feature: As a customer
-    I want to see my complete journey,
-    So that I am less overwhelmed by all the steps involved in retraining
+  I want to see my complete journey,
+  So that I am less overwhelmed by all the steps involved in retraining
 
-    Background:
-        Given I am on the "home" page
+  Background:
+    Given I am on the homepage
+    When I click the "Start now" button
 
-    @bdd @30
-    Scenario: Hub Page - Your existing skills
-        When I click the text link "Your existing skills"
-        And there are placeholders for "courses hub"
-        And the link "next steps" is inactive
-    
-    @bdd @30
-    Scenario: Hub Page - Find a new occupation
-        When I click the text link "Find a new occupation"
-        And there are placeholders for "occupations"
-        And the link "next steps" is inactive
+  @bdd @30
+  Scenario: Hub Page - Your existing skills
+    When I click the text link "Check your existing skills"
+    And there are placeholders for "courses hub"
 
-    @bdd @30
-    Scenario: Hub Page - Apply for a training course
-        When I click the text link "Apply for a training course"
-        And there are placeholders for "training courses"
-        And the link "next steps" is inactive
+  @bdd @30
+  Scenario: Hub Page - Find a new occupation
+    When I click the text link "Search for the types of jobs you could retrain to do "
+    And there are placeholders for "occupations"
 
-    @bdd @30
-    Scenario: Hub Page - Next Steps
-        When I click the text link "Next steps"
-        And there are placeholders for "current course"
-        And the link "next steps" is inactive
+  @bdd @30
+  Scenario: Hub Page - Apply for a training course
+    When I click the text link "Find and apply to training courses near you"
+    And there are placeholders for "training courses"
+
+  @bdd @30
+  Scenario: Hub Page - Next Steps
+    When I click the text link "Find out what you can do next"
+    And there are placeholders for "current course"

@@ -14,7 +14,7 @@ jobs:
   - name: postgresDatabaseUrl
     value: postgres://postgres:test@postgres/get-help-to-retrain
   - name: dockerRun
-    value: docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test $(dockerRegistry)/$(imageName):$(imageTag)
+    value: docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test $(dockerRegistry)/$(imageName):$(imageTag)
 
   steps:
     - script: |
@@ -59,14 +59,20 @@ jobs:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
+        $DOCKER_RUN bundle exec brakeman
+      displayName: Brakeman check
+      env:
+        DOCKER_RUN: $(dockerRun)
+
+    - script: |
         $DOCKER_RUN bundle exec rspec
       displayName: Rspec
       env:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
-        $DOCKER_RUN bundle exec brakeman
-      displayName: Brakeman check
+        $DOCKER_RUN bundle exec cucumber
+      displayName: Cucumber
       env:
         DOCKER_RUN: $(dockerRun)
 

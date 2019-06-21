@@ -74,9 +74,9 @@ group :test do
 
   gem 'cucumber-rails', require: false
 
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.7'
 
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 3.142', '>= 3.142.3'
 
   # Easy installation and use of browser drivers to run system tests with different browsers
   gem 'webdrivers', '~> 4.0'
