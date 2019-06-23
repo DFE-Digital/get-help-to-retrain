@@ -1,5 +1,5 @@
-class JobProfilesController < ApplicationController
-  def index
+class CheckYourSkillsController < ApplicationController
+  def results
     @job_profiles = JobProfile.search(job_profile_params[:name])
   end
 
