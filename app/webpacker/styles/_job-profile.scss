@@ -36,3 +36,39 @@
   position: relative;
   z-index: 10;
 }
+
+.column-list {
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+
+  @include govuk-media-query($from: mobile, $until: tablet) {
+    -webkit-columns: 1;
+    -moz-columns: 1;
+    columns: 1;
+  }
+}
+
+.column-list-item {
+  list-style-position: inside;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  padding-right: 15px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.no-text-decoration {
+  text-decoration: none;
+}
+
+.muted-text {
+  color: $govuk-secondary-text-colour;
+}
+
+.strong {
+  font-weight: bold;
+}

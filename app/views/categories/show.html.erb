@@ -1,0 +1,38 @@
+<% content_for :breadcrumb do %>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.home'), root_path, class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.explore_occupations'), explore_occupations_path, class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.job_category') %></li>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-padding-top-7">
+  <div class="govuk-grid-column-two-thirds" >
+    <h3 class="govuk-heading-l"><%= @category.name %></h3>
+      <ul class="govuk-list">
+        <% @category.job_profiles.each do |job_profile| %>
+          <li class="govuk-!-padding-bottom-2 govuk-!-padding-top-4">
+            <h3 class="govuk-!-margin-0">
+              <a class="govuk-link no-text-decoration" href="#"><%= job_profile.name %></a>
+            </h3>
+            <p class="govuk-!-margin-0"><%= job_profile.description %></p>
+          </li>
+        <% end %>
+      </ul>
+  </div>
+  <%= render "shared/contact_us" %>
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container">
+      <h2 class="govuk-heading-m"><%= t('.other_categories') %></h2>
+      <ul class="govuk-list">
+        <% @other_categories.each do |category| %>
+          <li>
+            <%= link_to category.name, category_path(category), class: 'govuk-link govuk-body-s' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

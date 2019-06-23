@@ -9,5 +9,11 @@ Rails.application.routes.draw do
     get :results, on: :collection
   end
 
+  resources :explore_occupations, only: %i[index] do
+    get :results, on: :collection
+  end
+
+  resources :categories, only: [:show]
+
   root to: 'home#index'
 end

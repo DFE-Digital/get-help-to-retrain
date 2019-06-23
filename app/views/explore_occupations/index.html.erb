@@ -1,0 +1,32 @@
+<% content_for :breadcrumb do %>
+  <li class="govuk-breadcrumbs__list-item">
+    <%= link_to(t('breadcrumb.home'), root_path, class: 'govuk-breadcrumbs__link') %>
+  </li>
+  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.explore_occupations') %></li>
+<% end %>
+
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="search-container govuk-grid-column-full govuk-!-padding-top-5 govuk-!-padding-bottom-5 govuk-!-margin-bottom-5">
+      <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+      <p class="govuk-body-l"><%= t('.body') %></p>
+      <%= form_tag results_explore_occupations_path, method: 'get' do %>
+        <div class="govuk-form-group govuk-!-margin-bottom-0">
+          <%= text_field(:job_profile, :name, class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('.placeholder')) %>
+          <%= button_tag('', class: 'search-button', name: nil) %>
+        </div>
+      <% end %>
+    </div>
+    <h2 class="govuk-heading-m">Explore by job category</h2>
+    <ul class="govuk-list column-list">
+      <% @categories.each do |category| %>
+        <li class="govuk-!-padding-top-1 column-list-item">
+          <h4 class="govuk-!-margin-0">
+            <%= link_to category.name, category_path(category), class: 'govuk-link' %>
+          </h4>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= render "shared/contact_us" %>
+</div>
