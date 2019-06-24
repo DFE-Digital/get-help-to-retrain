@@ -17,6 +17,7 @@ class JobProfileDecorator < SimpleDelegator
   CAREER_PATH_SECTION_XPATH = "//section[@id='CareerPathAndProgression']".freeze
   RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze
   CAREER_TIPS_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']".freeze
+  OTHER_ROUTES_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]".freeze
 
   def salary_range
     min_salary = html_body.xpath(SALARY_MIN_XPATH).children[0]
