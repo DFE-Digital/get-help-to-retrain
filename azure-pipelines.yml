@@ -18,7 +18,7 @@ jobs:
 
   steps:
     - script: |
-        git_sha=$(echo $(Build.SourceVersion) | cut -c 1-7)
+        git_sha=$(git rev-parse --short HEAD)
         echo "##vso[build.updatebuildnumber]$git_sha"
         echo "##vso[task.setvariable variable=ImageTag;]$git_sha"
       displayName: 'Set Image Tags'
