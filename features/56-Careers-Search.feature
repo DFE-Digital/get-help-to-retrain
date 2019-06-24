@@ -4,8 +4,7 @@ Feature: As a customer
 
   Background:
     Given a job profile exists with the name "Construction Supervisor"
-    When I am on the homepage
-    And I click the text link "Start now"
+    And I am on the "check_your_skills" page
 
   @ci @56
   Scenario: Happy Path
