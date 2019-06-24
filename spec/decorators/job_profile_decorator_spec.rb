@@ -23,15 +23,8 @@ RSpec.describe JobProfileDecorator do
           </div>'
       }
 
-      let(:expected_values) {
-        {
-          min: '£18,000',
-          max: '£30,000'
-        }
-      }
-
       it 'extracts the correct date range values' do
-        expect(job_profile.salary).to eq expected_values
+        expect(job_profile.salary_range).to eq '£18,000 - £30,000'
       end
     end
 

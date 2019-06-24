@@ -8,16 +8,20 @@ class JobProfileDecorator < SimpleDelegator
   ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
   APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']".freeze
   WORK_SECTION_XPATH = "//section[@id='work']".freeze
-  SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[@class='job-profile-subsection']".freeze
+  SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]".freeze
   WWYD_TASKS_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]".freeze
   WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze
   CAREER_PATH_SECTION_XPATH = "//section[@id='CareerPathAndProgression']".freeze
+  RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze
 
-  def salary
-    {
-      min: html_body.xpath(SALARY_MIN_XPATH).children[0].text.strip,
-      max: html_body.xpath(SALARY_MAX_XPATH).children[0].text.strip
-    }
+  def salary_range
+    min_salary = html_body.xpath(SALARY_MIN_XPATH).children[0]
+
+    return 'Variable' unless min_salary
+
+    max_salary = html_body.xpath(SALARY_MAX_XPATH).children[0]
+
+    "#{min_salary.text.strip} - #{max_salary.text.strip}"
   end
 
   def working_hours
@@ -69,7 +73,7 @@ class JobProfileDecorator < SimpleDelegator
 
   def mutate_html_body
     mutate_h2_tags
-    mutate_h3_tag
+    mutate_h3_tags
     mutate_h4_tags
     mutate_p_tags
     mutate_ul_tags
@@ -83,17 +87,15 @@ class JobProfileDecorator < SimpleDelegator
     h2['class'] = 'govuk-heading-m'
   end
 
-  def mutate_h3_tag
-    h3 = @doc.at_css('h3')
-
-    return unless h3
-
-    h3.name = 'h2'
-    h3['class'] = 'govuk-heading-m'
+  def mutate_h3_tags
+    @doc.xpath("//h3").each do |h3|
+      h3.name = 'h2'
+      h3['class'] = 'govuk-heading-m'
+    end
   end
 
   def mutate_h4_tags
-    @doc.xpath("//div[@class='job-profile-subsection-content']/h4").each do |h4|
+    @doc.xpath("//h4").each do |h4|
       if h4.content == 'More information'
         h4.remove
       else
