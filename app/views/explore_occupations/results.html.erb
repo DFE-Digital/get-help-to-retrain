@@ -1,12 +1,13 @@
-<% content_for :breadcrumb do %>
- <li class="govuk-breadcrumbs__list-item">
-    <%= link_to(t('breadcrumb.home'), root_path, class: 'govuk-breadcrumbs__link') %>
-  </li>
-  <li class="govuk-breadcrumbs__list-item">
-    <%= link_to(t('breadcrumb.explore_occupations'), explore_occupations_path, class: 'govuk-breadcrumbs__link') %>
-  </li>
-  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.search_results') %></li>
-<% end %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.search_results'),
+      [
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.explore_occupations'), explore_occupations_path]
+      ]
+    )
+  end
+%>
 
 <div class="govuk-grid-row govuk-!-padding-top-7">
   <div class="govuk-grid-column-two-thirds" >

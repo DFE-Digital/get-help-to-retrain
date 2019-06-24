@@ -1,9 +1,12 @@
-<% content_for :breadcrumb do %>
-  <li class="govuk-breadcrumbs__list-item">
-    <%= link_to(t('breadcrumb.home'), root_path, class: 'govuk-breadcrumbs__link') %>
-  </li>
-  <li class="govuk-breadcrumbs__list-item"><%= t('breadcrumb.explore_occupations') %></li>
-<% end %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.explore_occupations'),
+      [
+        [t('breadcrumb.home'), root_path]
+      ]
+    )
+  end
+%>
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
