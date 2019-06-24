@@ -11,16 +11,7 @@
 <div class="govuk-grid-row govuk-!-padding-top-7">
   <div class="govuk-grid-column-two-thirds" >
     <h3 class="govuk-heading-l"><%= @category.name %></h3>
-      <ul class="govuk-list">
-        <% @category.job_profiles.each do |job_profile| %>
-          <li class="govuk-!-padding-bottom-2 govuk-!-padding-top-4">
-            <h3 class="govuk-!-margin-0">
-              <a class="govuk-link no-text-decoration" href="#"><%= job_profile.name %></a>
-            </h3>
-            <p class="govuk-!-margin-0"><%= job_profile.description %></p>
-          </li>
-        <% end %>
-      </ul>
+    <%= render "shared/search/results_list", job_profiles: @category.job_profiles %>
   </div>
   <%= render "shared/contact_us" %>
   <div class="govuk-grid-column-one-third">

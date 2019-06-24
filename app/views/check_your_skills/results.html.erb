@@ -12,29 +12,13 @@
 <div class="govuk-grid-row govuk-!-padding-top-7">
   <div class="govuk-grid-column-two-thirds" >
     <h3 class="govuk-heading-l"><%= t('.title') %></h3>
-    <div class="govuk-grid-column-full govuk-!-padding-0">
-      <%= form_tag results_check_your_skills_path, method: 'get' do %>
-        <div class="govuk-form-group">
-          <%= text_field(:job_profile, :name, value: params[:job_profile][:name], class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('.placeholder')) %>
-          <%= button_tag('', class: 'search-button-results', name: nil) %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "shared/search/results_form", search_path: results_check_your_skills_path, scope: 'check_your_skills.results' %>
     <% if @job_profiles.blank? %>
       <p class="govuk-body-m"><%= t('.no_results')%></p>
     <% else %>
       <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
       <p class="govuk-body-l govuk-!-margin-bottom-1"><%= t('.body') %></p>
-      <ul class="govuk-list">
-        <% @job_profiles.each do |job_profile| %>
-          <li class="govuk-!-padding-bottom-2 govuk-!-padding-top-4">
-            <h3 class="govuk-!-margin-0">
-              <a class="govuk-link no-text-decoration" href="#"><%= job_profile.name %></a>
-            </h3>
-            <p class="govuk-!-margin-0"><%= job_profile.description %></p>
-          </li>
-        <% end %>
-      </ul>
+      <%= render "shared/search/results_list", job_profiles: @job_profiles%>
     <% end %>
   </div>
   <%= render "shared/contact_us" %>

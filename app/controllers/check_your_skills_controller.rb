@@ -6,6 +6,6 @@ class CheckYourSkillsController < ApplicationController
   private
 
   def job_profile_params
-    params.require(:job_profile).permit(:name)
+    params.permit(:name)
   end
 end

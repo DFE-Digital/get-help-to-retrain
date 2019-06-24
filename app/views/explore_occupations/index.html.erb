@@ -10,16 +10,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
-    <div class="search-container govuk-grid-column-full govuk-!-padding-top-5 govuk-!-padding-bottom-5 govuk-!-margin-bottom-5">
-      <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-      <p class="govuk-body-l"><%= t('.body') %></p>
-      <%= form_tag results_explore_occupations_path, method: 'get' do %>
-        <div class="govuk-form-group govuk-!-margin-bottom-0">
-          <%= text_field(:job_profile, :name, class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('.placeholder')) %>
-          <%= button_tag('', class: 'search-button', name: nil) %>
-        </div>
-      <% end %>
-    </div>
+    <%= render "shared/search/form", search_path: results_explore_occupations_path, scope: 'explore_occupations.index' %>
     <h2 class="govuk-heading-m">Explore by job category</h2>
     <ul class="govuk-list column-list">
       <% @categories.each do |category| %>
