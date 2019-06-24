@@ -15,6 +15,7 @@ class JobProfileDecorator < SimpleDelegator
   WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze
   CAREER_PATH_SECTION_XPATH = "//section[@id='CareerPathAndProgression']".freeze
   RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze
+  CAREER_TIPS_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']".freeze
 
   def salary_range
     min_salary = html_body.xpath(SALARY_MIN_XPATH).children[0]
@@ -58,13 +59,14 @@ class JobProfileDecorator < SimpleDelegator
   def section(xpath: nil, separator: true)
     return unless xpath
 
-    @doc = html_body.xpath(xpath)
+    @doc = extract_html_snippet_for(xpath)
 
     mutate_html_body
+    
 
-    return @doc.children.to_html.concat(separator_line) if separator
+    return @doc.to_html.concat(separator_line) if separator
 
-    @doc.children.to_html.concat(separator_line)
+    @doc.to_html.concat(separator_line)
   end
 
   private
@@ -125,5 +127,13 @@ class JobProfileDecorator < SimpleDelegator
 
   def separator_line
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
+  end
+
+  def extract_html_snippet_for(xpath)
+    doc = html_body.xpath(xpath)
+
+    return doc.children[0..-6] if xpath == CAREER_TIPS_SECTION_XPATH
+
+    doc.children
   end
 end
