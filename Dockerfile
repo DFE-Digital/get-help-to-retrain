@@ -30,6 +30,11 @@ ENV BUILD_PACKAGES nodejs yarn tzdata libpq
 RUN apk add --update $BUILD_PACKAGES && \
     rm -rf /var/cache/apk/*
 
+RUN apk add openssh \
+     && echo "root:Docker!" | chpasswd 
+COPY sshd_config /etc/ssh/
+
+
 WORKDIR /app
 COPY . ./
 COPY --from=assets /usr/local/bundle /usr/local/bundle
