@@ -1,0 +1,26 @@
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.explore_occupations'),
+      [
+        [t('breadcrumb.home'), root_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <%= render "shared/search/form", search_path: results_explore_occupations_path, scope: 'explore_occupations.index' %>
+    <h2 class="govuk-heading-m">Explore by job category</h2>
+    <ul class="govuk-list column-list">
+      <% @categories.each do |category| %>
+        <li class="govuk-!-padding-top-1 column-list-item">
+          <h4 class="govuk-!-margin-0">
+            <%= link_to category.name, category_path(category), class: 'govuk-link' %>
+          </h4>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= render "shared/contact_us" %>
+</div>

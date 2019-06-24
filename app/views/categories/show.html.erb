@@ -1,0 +1,30 @@
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.job_category'),
+      [
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.explore_occupations'), explore_occupations_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-padding-top-7">
+  <div class="govuk-grid-column-two-thirds" >
+    <h3 class="govuk-heading-l"><%= @category.name %></h3>
+    <%= render "shared/search/results_list", job_profiles: @category.job_profiles %>
+  </div>
+  <%= render "shared/contact_us" %>
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container">
+      <h2 class="govuk-heading-m"><%= t('.other_categories') %></h2>
+      <ul class="govuk-list">
+        <% @other_categories.each do |category| %>
+          <li>
+            <%= link_to category.name, category_path(category), class: 'govuk-link govuk-body-s' %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

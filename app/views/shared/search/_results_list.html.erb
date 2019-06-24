@@ -1,0 +1,10 @@
+<ul class="govuk-list">
+  <% job_profiles.each do |job_profile| %>
+    <li class="govuk-!-padding-bottom-2 govuk-!-padding-top-4">
+      <h3 class="govuk-!-margin-0">
+        <a class="govuk-link no-text-decoration" href="#"><%= job_profile.name %></a>
+      </h3>
+      <p class="govuk-!-margin-0"><%= job_profile.description %></p>
+    </li>
+  <% end %>
+</ul>

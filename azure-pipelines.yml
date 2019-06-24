@@ -74,6 +74,12 @@ jobs:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
+        $DOCKER_RUN bundle exec govuk-lint-sass app/webpacker/styles
+      displayName: GovUK Sass linter
+      env:
+        DOCKER_RUN: $(dockerRun)
+
+    - script: |
         $DOCKER_RUN bundle exec rspec
       displayName: Rspec
       env:

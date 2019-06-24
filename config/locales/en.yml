@@ -1,25 +1,40 @@
 en:
   breadcrumb:
     home: Home
-    job_profiles_search: Check your existing skills
-    job_profiles_result: Search results
+    check_your_skills: Check your existing skills
+    explore_occupations: Explore occupations
+    job_category: Job category
+    search_results: Search results
   contact_us:
     title: Want to speak with an adviser?
     body: Call
     telephone: 0800 123 123
     telephone_link: tel:+442079476330
 
-  job_profiles:
-    search:
+  check_your_skills:
+    index:
       title: Check your existing skills
       body: Search for the job that you currently do to see what skills you already have
       placeholder: Enter your job title
-    index:
+    results:
       title: Search results for
       placeholder: Enter your job title
       no_results: 0 results found - try again using a different job title
       results: "%{count} results found"
       body: Select a job from results below to see the accociated skills.
-
+  explore_occupations:
+    index:
+      title: Explore occupations
+      body: Explore the type of jobs you could retrain to do
+      placeholder: Enter a job title
+    results:
+      title: Search results for
+      placeholder: Enter your job title
+      no_results: 0 results found - try again using a different job title
+      results: "%{count} results found"
+      body: Select a job profile from the results below to find out what the role involves, and what skills and training are required.
+  categories:
+    show:
+      other_categories: Other job categories
   home_page:
     title: Get help to retrain

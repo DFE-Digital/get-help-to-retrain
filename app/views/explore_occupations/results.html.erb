@@ -1,0 +1,38 @@
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.search_results'),
+      [
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.explore_occupations'), explore_occupations_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-padding-top-7">
+  <div class="govuk-grid-column-two-thirds" >
+    <h3 class="govuk-heading-l"><%= t('.title') %></h3>
+    <%= render "shared/search/results_form", search_path: results_explore_occupations_path, scope: 'explore_occupations.results' %>
+    <% if @job_profiles.blank? %>
+      <p class="govuk-body-m"><%= t('.no_results')%></p>
+    <% else %>
+      <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
+      <p class="govuk-body-l govuk-!-margin-bottom-6"><%= t('.body') %></p>
+      <ul class="govuk-list">
+        <% @job_profiles.each do |job_profile| %>
+          <li class="govuk-!-padding-bottom-1">
+            <h3 class="govuk-!-margin-0">
+              <a class="govuk-link no-text-decoration" href="#"><%= job_profile.name %></a>
+            </h3>
+            <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
+            <p class="govuk-body-s govuk-!-margin-bottom-1 strong">Salary: £15,500 to £21,000</p>
+            <p class="govuk-body-s muted-text">Found in:
+              <%= job_profile_category_list(job_profile) %>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <%= render "shared/contact_us" %>
+</div>

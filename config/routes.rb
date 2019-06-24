@@ -5,9 +5,15 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unprocessable_entity', via: :all
   get '/500', to: 'errors#internal_server_error', via: :all
 
-  resources :job_profiles, only: %i[index] do
-    get :search, on: :collection
+  resources :check_your_skills, only: %i[index] do
+    get :results, on: :collection
   end
+
+  resources :explore_occupations, only: %i[index] do
+    get :results, on: :collection
+  end
+
+  resources :categories, only: [:show]
 
   root to: 'home#index'
 end
