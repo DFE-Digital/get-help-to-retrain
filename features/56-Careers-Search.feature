@@ -16,7 +16,7 @@ Feature: As a customer
 
   @ci @56
   Scenario: Unhappy Path
-    When I enter "zzzzzzz" in "job_profile_name" field
+    When I enter "zzzzzzz" in "name" field
     When I click the ".search-button" button
     Then I see error message "0 results found - try again using a different job title"
 

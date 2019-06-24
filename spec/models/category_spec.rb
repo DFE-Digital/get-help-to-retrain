@@ -42,4 +42,17 @@ RSpec.describe Category do
       expect(described_class.with_job_profiles).to be_empty
     end
   end
+
+  describe '.with_job_profiles_without' do
+    it 'returns categories with job profiles without passed in category' do
+      category1 = create(:category, name: 'Administration', job_profiles: [create(:job_profile)])
+      category2 = create(:category, name: 'Education', job_profiles: [create(:job_profile)])
+      expect(described_class.with_job_profiles_without(category1)).to contain_exactly(category2)
+    end
+
+    it 'returns categories with job profiles if category empty' do
+      category = create(:category, name: 'Administration', job_profiles: [create(:job_profile)])
+      expect(described_class.with_job_profiles_without(nil)).to contain_exactly(category)
+    end
+  end
 end
