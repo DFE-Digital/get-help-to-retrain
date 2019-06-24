@@ -1,4 +1,6 @@
 class JobProfileDecorator < SimpleDelegator
+  include ActionView::Helpers::TagHelper
+
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
   SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
@@ -88,14 +90,14 @@ class JobProfileDecorator < SimpleDelegator
   end
 
   def mutate_h3_tags
-    @doc.xpath("//h3").each do |h3|
+    @doc.xpath('//h3').each do |h3|
       h3.name = 'h2'
       h3['class'] = 'govuk-heading-m'
     end
   end
 
   def mutate_h4_tags
-    @doc.xpath("//h4").each do |h4|
+    @doc.xpath('//h4').each do |h4|
       if h4.content == 'More information'
         h4.remove
       else
@@ -122,6 +124,6 @@ class JobProfileDecorator < SimpleDelegator
   end
 
   def separator_line
-    '<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">'
+    content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 end
