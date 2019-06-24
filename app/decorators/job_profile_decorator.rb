@@ -61,7 +61,7 @@ class JobProfileDecorator < SimpleDelegator
   def section(xpath: nil)
     return unless xpath
 
-    @doc = extract_html_snippet_for(xpath)
+    @doc = html_body.xpath(xpath).children
 
     return '' unless @doc.any?
 
@@ -129,8 +129,5 @@ class JobProfileDecorator < SimpleDelegator
   def separator_line
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
-
-  def extract_html_snippet_for(xpath)
-    html_body.xpath(xpath).children
-  end
 end
+
