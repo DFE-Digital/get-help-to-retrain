@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unprocessable_entity', via: :all
   get '/500', to: 'errors#internal_server_error', via: :all
 
+  get :task_list, to: 'home#task_list'
+
   resources :check_your_skills, only: %i[index] do
     get :results, on: :collection
   end
