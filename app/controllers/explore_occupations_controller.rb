@@ -1,6 +1,6 @@
 class ExploreOccupationsController < ApplicationController
   def index
-    @categories = Category.with_job_profiles
+    @categories = Category.with_job_profiles.by_name
   end
 
   def results
