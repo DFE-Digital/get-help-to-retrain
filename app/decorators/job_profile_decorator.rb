@@ -130,4 +130,3 @@ class JobProfileDecorator < SimpleDelegator
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 end
-
