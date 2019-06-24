@@ -11,6 +11,7 @@ class JobProfileDecorator < SimpleDelegator
   SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[@class='job-profile-subsection']".freeze
   WWYD_TASKS_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]".freeze
   WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze
+  CAREER_PATH_SECTION_XPATH = "//section[@id='CareerPathAndProgression']".freeze
 
   def salary
     {
@@ -57,7 +58,7 @@ class JobProfileDecorator < SimpleDelegator
 
     return @doc.children.to_html.concat(separator_line) if separator
 
-    @doc.children.to_html
+    @doc.children.to_html.concat(separator_line)
   end
 
   private
@@ -67,10 +68,19 @@ class JobProfileDecorator < SimpleDelegator
   end
 
   def mutate_html_body
+    mutate_h2_tags
     mutate_h3_tag
     mutate_h4_tags
     mutate_p_tags
     mutate_ul_tags
+  end
+
+  def mutate_h2_tags
+    h2 = @doc.at_css('h2')
+
+    return unless h2
+
+    h2['class'] = 'govuk-heading-m'
   end
 
   def mutate_h3_tag
@@ -94,7 +104,7 @@ class JobProfileDecorator < SimpleDelegator
   end
 
   def mutate_p_tags
-    @doc.xpath("//div[@class='job-profile-subsection-content']/p").each do |p|
+    @doc.xpath('//p').each do |p|
       p['class'] = 'govuk-body-m'
     end
   end
