@@ -1,6 +1,7 @@
 en:
   breadcrumb:
     home: Home
+    task_list: Get help to retrain
     check_your_skills: Check your existing skills
     explore_occupations: Explore occupations
     job_category: Job category
@@ -36,5 +37,8 @@ en:
   categories:
     show:
       other_categories: Other job categories
-  home_page:
-    title: Get help to retrain
+  home:
+    index:
+      title: Get help to retrain
+    task_list:
+      title: Get help to retrain

@@ -10,4 +10,4 @@ Feature: As a customer, I want to see the eligibility criteria and be able to co
     Given I am on the homepage
     Then the correct eligibility criteria is displayed
     When I click the text link "Start now"
-    Then the current page contains text "Check your existing skills"
+    Then the current page contains text "Check what you need to do to retrain"
