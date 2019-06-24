@@ -42,4 +42,4 @@ COPY --from=assets /app/public/packs /app/public/packs
 COPY --from=assets /app/public/assets /app/public/assets
 CMD bundle exec rails server -b 0.0.0.0
 
-
+EXPOSE 80 2222
