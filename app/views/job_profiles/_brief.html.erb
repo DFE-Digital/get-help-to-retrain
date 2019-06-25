@@ -1,9 +1,7 @@
-<div class="govuk-grid-column-two-thirds">
-  <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" ><%= @job_profile.hero_copy %></h1>
-  <% if @job_profile.sub_hero_copy.present? %>
-    <p class="govuk-body-l" style="color: #6f777b"><%= @job_profile.sub_hero_copy %></p>
-  <% end %>
-  <% @job_profile.additional_hero_copy.each do |paragraph| %>
-    <p class="govuk-body-l"><%= paragraph %></p>
-  <% end %>
-</div>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2" ><%= @job_profile.hero_copy %></h1>
+<% if @job_profile.sub_hero_copy.present? %>
+  <p class="govuk-body-l muted-text"><%= @job_profile.sub_hero_copy %></p>
+<% end %>
+<% @job_profile.additional_hero_copy.each do |paragraph| %>
+  <p class="govuk-body-l"><%= paragraph %></p>
+<% end %>
