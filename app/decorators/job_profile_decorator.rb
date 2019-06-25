@@ -84,11 +84,9 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def mutate_h2_tags
-    h2 = @doc.at_css('h2')
-
-    return unless h2
-
-    h2['class'] = 'govuk-heading-m'
+    @doc.xpath('//h2').each do |h2|
+      h2['class'] = 'govuk-heading-m'
+    end
   end
 
   def mutate_h3_tags
