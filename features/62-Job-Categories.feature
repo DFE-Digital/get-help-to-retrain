@@ -8,10 +8,10 @@ Feature: As a customer
     When I click the text link "<Occupation>"
     Then I should see a list of occupations for "<Occupation>"
     Examples:
-        | Occupation     |
-        | Healthcare     |
-        | Administration |
-        | Animal Care    |
+      | Occupation     |
+      | Healthcare     |
+      | Administration |
+      | Animal Care    |
 
   @bdd @62
   Scenario Outline: Find a Course Service unavailable
