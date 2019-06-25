@@ -50,7 +50,11 @@ class JobProfileDecorator < SimpleDelegator
   end
 
   def sub_hero_copy
-    html_body.xpath(SUB_HERO_COPY_XPATH).children.last.text
+    parsed_section = html_body.xpath(SUB_HERO_COPY_XPATH)
+
+    return unless parsed_section.any?
+
+    parsed_section.children.last.text
   end
 
   def additional_hero_copy

@@ -100,8 +100,40 @@ RSpec.describe JobProfileDecorator do
       expect(job_profile.hero_copy).to eq 'Archivist'
     end
 
-    it 'extracts the sub hero copy' do
-      expect(job_profile.sub_hero_copy).to eq 'Curator, records manager'
+    context 'when sub hero copy exists' do
+      it 'extracts the sub hero copy' do
+        expect(job_profile.sub_hero_copy).to eq 'Curator, records manager'
+      end
+    end
+
+    context 'when sub hero copy is missing' do
+      let(:html_body) do
+        '<header class="job-profile-hero">
+          <div data-sf-element="Row">
+            <div id="MainContentTop_T41A29498007_Col00" class="sf_colsIn" data-sf-element="Container" data-placeholder-label="Job Profile Hero Container"><div class="content-container">
+              <div class="breadcrumbs govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                  <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Home: Explore careers</a></li>
+                  <li class="govuk-breadcrumbs__list-item">Archivist</li>
+                </ol>
+              </div>
+            </div>
+            <div class="content-container">
+              <div class="grid-row">
+                <div class="column-desktop-two-thirds">
+                  <h1 class="heading-xlarge"> Archivist</h1>
+                  <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>Curator, records manager</h2>
+                  <p>Archivists look after and preserve documents.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>'
+      end
+
+      it 'returns from the method' do
+        expect(job_profile.sub_hero_copy).to be nil
+      end
     end
 
     it 'extracts the additional copy' do
