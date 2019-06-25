@@ -23,3 +23,24 @@ Style/GuardClause:
   MinBodyLength: 2
 Layout/AccessModifierIndentation:
   Enabled: false
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+  FunctionalMethods:
+    - before
+    - given
+    - given!
+    - watch
+    - times
+    - try
+    # logger methods that can take blocks
+    - debug
+    - error
+    - info
+    - warning
+    # Rubocop defaults which may otherwise be overwritten
+    - let
+    - let!
+    - subject
+    - watch
+    - html
+    - json
