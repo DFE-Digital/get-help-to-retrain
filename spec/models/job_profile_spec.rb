@@ -86,4 +86,56 @@ RSpec.describe JobProfile do
       expect(described_class.search(nil)).to eq(job_profiles)
     end
   end
+
+  describe '.import' do
+    subject(:import) { described_class.import('foo', 'https://foobar.com') }
+
+    context 'with new job profile' do
+      it 'creates the job profile' do
+        expect { import }.to change(described_class, :count).by(1)
+      end
+
+      it 'sets the default name from slug' do
+        import
+        expect(described_class.last.name).to eq 'Foo'
+      end
+    end
+
+    context 'with existing job profile' do
+      before { create :job_profile, slug: 'foo', name: 'Bar' }
+
+      it 'does not creates a new job profile' do
+        expect { import }.not_to change(described_class, :count)
+      end
+
+      it 'does not overwrite existing name' do
+        import
+        expect(described_class.last.name).to eq 'Bar'
+      end
+    end
+  end
+
+  describe '#scrape', vcr: { cassette_name: 'explore_my_careers_job_profile' } do
+    let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
+    let(:job_profile) { build :job_profile, source_url: url }
+    let!(:customer_service) { create :skill, name: 'customer service skills' }
+
+    before { job_profile.scrape }
+
+    it 'updates name with scraped title' do
+      expect(job_profile.name).to eq 'Admin assistant'
+    end
+
+    it 'updates description with scraped description' do
+      expect(job_profile.description).to match 'organising meetings'
+    end
+
+    it 'updates content with scraped body' do
+      expect(job_profile.content).to match 'National Careers Service'
+    end
+
+    it 'updates skills with scraped skill names' do
+      expect(job_profile.skills).to include customer_service
+    end
+  end
 end

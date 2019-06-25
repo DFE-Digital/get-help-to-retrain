@@ -15,4 +15,18 @@ class Category < ApplicationRecord
       .by_name
       .where.not(id: category)
   end
+
+  def self.import(slug, url)
+    find_or_create_by(slug: slug) do |category|
+      category.update(source_url: url, name: slug.titleize)
+    end
+  end
+
+  def scrape
+    scraper = CategoryScraper.new
+    scraped = scraper.scrape(source_url)
+
+    update(name: scraped['title'])
+    self.job_profiles = JobProfile.where(slug: scraper.job_profile_slugs)
+  end
 end

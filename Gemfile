@@ -54,6 +54,9 @@ group :development, :test do
   gem 'faker', '~> 1.9'
 end
 
+# Web scraper
+gem 'wombat', '~> 2.8'
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -83,6 +86,10 @@ group :test do
 
     # Test coverage reporting
   gem 'simplecov', '~> 0.16', require: false
+
+  # Web request caching for tests
+  gem 'vcr', '~> 5.0', require: false
+  gem 'webmock', '~> 3.6', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

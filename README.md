@@ -69,3 +69,28 @@ or
 (if you want a report in a nicer format).
 
 Please check https://brakemanscanner.org/docs/ for more details.
+
+
+## Importing data
+
+Job profiles, categories and skills are imported by screen scraping the National Careers Service "Explore My Careers" site (with consent).
+
+The rake tasks assume no existing data is present. To clear any existing data (USE WITH CAUTION!) run:
+
+```bash
+  bundle exec rails db:drop db:create db:schema_load
+```
+
+To import the data into an empty database run:
+
+```bash
+  bundle exec rails data_import:import_sitemap
+  bundle exec rails data_import:scrape_categories
+  bundle exec rails data_import:scrape_job_profiles
+```
+
+Alternatively for development mode only, it's possible to create random data created using Faker and factories by running:
+
+```bash
+  bundle exec rails db:seed
+```

@@ -4,6 +4,7 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'simplecov'
+require 'vcr'
 SimpleCov.start
 
 begin
@@ -11,6 +12,13 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
+end
+
+VCR.configure do |vcr|
+  vcr.cassette_library_dir = 'spec/fixtures/vcr'
+  vcr.hook_into :webmock
+  vcr.ignore_localhost = true
+  vcr.configure_rspec_metadata!
 end
 
 RSpec.configure do |config|
