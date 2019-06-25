@@ -34,7 +34,7 @@ class JobProfileDecorator < SimpleDelegator
              .children[0]
              .text
              .strip
-             .gsub('to', '-')
+             .gsub('to', ' - ')
              .delete(' ')
   end
 
