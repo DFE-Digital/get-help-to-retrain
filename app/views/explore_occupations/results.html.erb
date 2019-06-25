@@ -23,10 +23,10 @@
         <% @job_profiles.each do |job_profile| %>
           <li class="govuk-!-padding-bottom-1">
             <h3 class="govuk-!-margin-0">
-              <a class="govuk-link no-text-decoration" href="#"><%= job_profile.name %></a>
+               <%= link_to job_profile.name, job_profile_path(job_profile.slug), class: 'govuk-link no-text-decoration' %>
             </h3>
             <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
-            <p class="govuk-body-s govuk-!-margin-bottom-1 strong">Salary: £15,500 to £21,000</p>
+            <p class="govuk-body-s govuk-!-margin-bottom-1 strong"><%= job_profile.salary_range %></p>
             <p class="govuk-body-s muted-text">Found in:
               <%= job_profile_category_list(job_profile) %>
             </p>

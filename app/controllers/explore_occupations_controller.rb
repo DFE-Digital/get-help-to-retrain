@@ -4,7 +4,9 @@ class ExploreOccupationsController < ApplicationController
   end
 
   def results
-    @job_profiles = JobProfile.search(job_profile_params[:name])
+    @job_profiles = JobProfile.search(job_profile_params[:name]).includes(:categories).map { |job_profile|
+      JobProfileDecorator.new(job_profile)
+    }
   end
 
   private

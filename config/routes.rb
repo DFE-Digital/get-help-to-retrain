@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get :results, on: :collection
   end
 
+  resources :job_profiles, only: %i[show]
+
   resources :explore_occupations, only: %i[index] do
     get :results, on: :collection
   end
