@@ -122,7 +122,6 @@ RSpec.describe JobProfileDecorator do
               <div class="grid-row">
                 <div class="column-desktop-two-thirds">
                   <h1 class="heading-xlarge"> Archivist</h1>
-                  <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>Curator, records manager</h2>
                   <p>Archivists look after and preserve documents.</p>
                 </div>
               </div>
