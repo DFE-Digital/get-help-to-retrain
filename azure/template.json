@@ -38,6 +38,12 @@
         "description": "The default port for the psql server."
       }
     },
+    "databaseIPWhiteList": {
+      "type": "array",
+      "metadata": {
+        "description": "List of IP Addresses to whitelist on the database firewall"
+      }
+    },
     "securityAlertEmail": {
       "type": "string",
       "metadata": {
@@ -46,7 +52,7 @@
     },
     "dockerHubOrg": {
       "type": "string",
-      "metadata":{
+      "metadata": {
         "description": "The name of the docker hub organization to fecth the container from."
       }
     },
@@ -75,7 +81,6 @@
       "type": "int",
       "defaultValue": 1
     }
-
   },
   "variables": {
     "deploymentUrlBase": "https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/",
@@ -86,7 +91,6 @@
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "databaseServerName": "[concat(variables('resourceNamePrefix'), '-psql')]",
     "appServiceRuntimeStack": "[concat('DOCKER|', parameters('dockerHubOrg'), '/', parameters('containerImageReference'))]"
-
   },
   "resources": [
     {
@@ -154,6 +158,32 @@
           },
           "databaseName": {
             "value": "[parameters('databaseName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "postgresql-server"
+      ]
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "postgresql-server-firewall-rules",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'postgresql-server-firewall-rules.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "firewallRuleNamePrefix": {
+            "value": "[concat(variables('appServicePlanName'),'-AZURE_IP-')]"
+          },
+          "ipAddresses": {
+            "value": "[concat(reference('app-service').outputs.possibleOutboundIpAddresses.value,parameters('databaseIPWhiteList'))]"
+          },
+          "serverName": {
+            "value": "[variables('databaseServerName')]"
           }
         }
       },
