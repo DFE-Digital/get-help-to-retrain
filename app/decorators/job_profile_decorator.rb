@@ -1,4 +1,4 @@
-class JobProfileDecorator < SimpleDelegator
+class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLength
   include ActionView::Helpers::TagHelper
 
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
@@ -11,13 +11,13 @@ class JobProfileDecorator < SimpleDelegator
   APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']".freeze
   DIRECT_APPLICATION_SECTION_XPATH = "//section[@id='directapplication']".freeze
   WORK_SECTION_XPATH = "//section[@id='work']".freeze
-  SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]".freeze
-  WWYD_TASKS_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]".freeze
-  WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze
+  SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]".freeze # rubocop:disable Metrics/LineLength
+  WWYD_TASKS_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]".freeze # rubocop:disable Metrics/LineLength
+  WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze # rubocop:disable Metrics/LineLength
   CAREER_PATH_SECTION_XPATH = "//section[@id='CareerPathAndProgression']".freeze
-  RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze
-  CAREER_TIPS_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']".freeze
-  OTHER_ROUTES_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]".freeze
+  RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze # rubocop:disable Metrics/LineLength
+  CAREER_TIPS_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']".freeze # rubocop:disable Metrics/LineLength
+  OTHER_ROUTES_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]".freeze # rubocop:disable Metrics/LineLength
 
   def salary_range
     min_salary = html_body.xpath(SALARY_MIN_XPATH).children[0]
@@ -34,8 +34,7 @@ class JobProfileDecorator < SimpleDelegator
              .children[0]
              .text
              .strip
-             .gsub('to', ' - ')
-             .delete(' ')
+             .gsub('to', '-')
   end
 
   def working_hours_patterns

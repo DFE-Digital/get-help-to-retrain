@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="45px" height="50px" viewBox="0 0 45 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
-    <title>cal</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="cal" transform="translate(0.000000, -2.000000)">
-            <path d="M40.5,6.75 L38.25,6.75 L38.25,2.25 L33.75,2.25 L33.75,6.75 L11.25,6.75 L11.25,2.25 L6.75,2.25 L6.75,6.75 L4.5,6.75 C2.025,6.75 1.77635684e-15,8.775 1.77635684e-15,11.25 L1.77635684e-15,47.25 C1.77635684e-15,49.725 2.025,51.75 4.5,51.75 L40.5,51.75 C42.975,51.75 45,49.725 45,47.25 L45,11.25 C45,8.775 42.975,6.75 40.5,6.75 Z M40.5,47.25 L4.5,47.25 L4.5,18 L40.5,18 L40.5,47.25 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
-            <polygon id="Shape" points="0 0 45 0 45 54 0 54"></polygon>
-        </g>
+  <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+  <title>cal</title>
+  <desc>Created with Sketch.</desc>
+  <defs></defs>
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="cal" transform="translate(0.000000, -2.000000)">
+      <path d="M40.5,6.75 L38.25,6.75 L38.25,2.25 L33.75,2.25 L33.75,6.75 L11.25,6.75 L11.25,2.25 L6.75,2.25 L6.75,6.75 L4.5,6.75 C2.025,6.75 1.77635684e-15,8.775 1.77635684e-15,11.25 L1.77635684e-15,47.25 C1.77635684e-15,49.725 2.025,51.75 4.5,51.75 L40.5,51.75 C42.975,51.75 45,49.725 45,47.25 L45,11.25 C45,8.775 42.975,6.75 40.5,6.75 Z M40.5,47.25 L4.5,47.25 L4.5,18 L40.5,18 L40.5,47.25 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+      <polygon id="Shape" points="0 0 45 0 45 54 0 54"></polygon>
     </g>
+  </g>
 </svg>
