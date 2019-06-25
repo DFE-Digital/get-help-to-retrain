@@ -72,26 +72,27 @@
 .strong {
   font-weight: bold;
 }
+
 .profile-highlights {
   display: flex;
-  width:55px;
+  width: 55px;
   height: 55px;
 }
 
 .salary-icon {
-  background:url('../images/pound.svg');
+  background: url('../images/pound.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .calendar-icon {
-  background:url('../images/cal.svg');
+  background: url('../images/cal.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .time-icon {
-  background:url('../images/time.svg');
+  background: url('../images/time.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
