@@ -101,7 +101,7 @@ RSpec.describe JobProfileDecorator do
     end
 
     it 'extracts the sub hero copy' do
-      expect(job_profile.sub_hero_copy).to eq 'Alternative titles for this job include Curator, records manager'
+      expect(job_profile.sub_hero_copy).to eq 'Curator, records manager'
     end
 
     it 'extracts the additional copy' do
