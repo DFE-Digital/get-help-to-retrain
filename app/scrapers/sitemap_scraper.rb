@@ -14,7 +14,7 @@ class SitemapScraper
   def categories
     category_urls = @parse['urls'].select { |url| url =~ /job-categories/ }
     category_urls.reduce({}) do |hash, url|
-      slug = url.match(/job-categories\/(.*)$/)[1]
+      slug = url.match(%r{job-categories/(.*)$})[1]
       hash.merge(slug => url)
     end
   end
@@ -22,7 +22,7 @@ class SitemapScraper
   def job_profiles
     job_profile_urls = @parse['urls'].select { |url| url =~ /job-profiles/ }
     job_profile_urls.reduce({}) do |hash, url|
-      slug = url.match(/job-profiles\/(.*)$/)[1]
+      slug = url.match(%r{job-profiles/(.*)$})[1]
       hash.merge(slug => url)
     end
   end

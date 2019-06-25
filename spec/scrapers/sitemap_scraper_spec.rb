@@ -18,41 +18,38 @@ RSpec.describe SitemapScraper, vcr: { cassette_name: 'explore_my_careers_sitemap
   end
 
   describe '#scrape' do
-    subject { scraper.scrape }
+    subject(:scraped) { scraper.scrape }
 
     it 'returns an array of urls' do
-      expect(subject).to have_key 'urls'
-      expect(subject['urls']).to be_an(Array)
+      expect(scraped['urls']).to be_an(Array)
     end
   end
 
-  describe
-
   describe '#categories' do
-    subject { scraper.categories }
+    subject(:scraped_categories) { scraper.categories }
 
-    before(:each) { scraper.scrape }
+    before { scraper.scrape }
 
     it 'includes only category urls and slugs' do
-      expect(subject).to include(categories)
+      expect(scraped_categories).to include(categories)
     end
 
     it 'excludes other urls' do
-      expect(subject).to_not include(job_profiles)
+      expect(scraped_categories).not_to include(job_profiles)
     end
   end
 
   describe '#job_profiles' do
-    subject { scraper.job_profiles }
+    subject(:scraped_job_profiles) { scraper.job_profiles }
 
-    before(:each) { scraper.scrape }
+    before { scraper.scrape }
 
     it 'includes only job profile urls and slugs' do
-      expect(subject).to include job_profiles
+      expect(scraped_job_profiles).to include job_profiles
     end
 
     it 'excludes other urls' do
-      expect(subject).to_not include categories
+      expect(scraped_job_profiles).not_to include categories
     end
   end
 end

@@ -57,29 +57,29 @@ RSpec.describe Category do
   end
 
   describe '.import' do
-    subject { described_class.import('foo', 'https://foobar.com') }
+    subject(:import) { described_class.import('foo', 'https://foobar.com') }
 
-    context 'new category' do
+    context 'with new category' do
       it 'creates the category' do
-        expect { subject }.to change { Category.count }.by(1)
+        expect { import }.to change(described_class, :count).by(1)
       end
 
       it 'sets the default name from slug' do
-        subject
-        expect(Category.last.name).to eq 'Foo'
+        import
+        expect(described_class.last.name).to eq 'Foo'
       end
     end
 
-    context 'existing category' do
+    context 'with existing category' do
       before { create :category, slug: 'foo', name: 'Bar' }
 
       it 'does not creates a new category' do
-        expect { subject }.to_not change { Category.count }
+        expect { import }.not_to change(described_class, :count)
       end
 
       it 'does not overwrite existing name' do
-        subject
-        expect(Category.last.name).to eq 'Bar'
+        import
+        expect(described_class.last.name).to eq 'Bar'
       end
     end
   end
@@ -88,19 +88,15 @@ RSpec.describe Category do
     let(:slug) { 'administration' }
     let(:url) { 'https://nationalcareers.service.gov.uk/job-categories/administration' }
     let(:category) { build :category, slug: slug, source_url: url }
-    let!(:admin_assistant) { create :job_profile, slug: 'admin-assistant' }
     let!(:bookkeeper) { create :job_profile, slug: 'bookkeeper' }
 
-    subject { category.scrape }
+    before { category.scrape }
 
     it 'updates name with scraped title' do
-      subject
       expect(category.name).to eq 'Administration'
     end
 
     it 'updates job profiles with scraped links' do
-      subject
-      expect(category.job_profiles).to include admin_assistant
       expect(category.job_profiles).to include bookkeeper
     end
   end

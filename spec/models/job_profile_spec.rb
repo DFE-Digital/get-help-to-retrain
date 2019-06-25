@@ -88,29 +88,29 @@ RSpec.describe JobProfile do
   end
 
   describe '.import' do
-    subject { described_class.import('foo', 'https://foobar.com') }
+    subject(:import) { described_class.import('foo', 'https://foobar.com') }
 
-    context 'new job profile' do
+    context 'with new job profile' do
       it 'creates the job profile' do
-        expect { subject }.to change { JobProfile.count }.by(1)
+        expect { import }.to change(described_class, :count).by(1)
       end
 
       it 'sets the default name from slug' do
-        subject
-        expect(JobProfile.last.name).to eq 'Foo'
+        import
+        expect(described_class.last.name).to eq 'Foo'
       end
     end
 
-    context 'existing job profile' do
+    context 'with existing job profile' do
       before { create :job_profile, slug: 'foo', name: 'Bar' }
 
       it 'does not creates a new job profile' do
-        expect { subject }.to_not change { JobProfile.count }
+        expect { import }.not_to change(described_class, :count)
       end
 
       it 'does not overwrite existing name' do
-        subject
-        expect(JobProfile.last.name).to eq 'Bar'
+        import
+        expect(described_class.last.name).to eq 'Bar'
       end
     end
   end
@@ -118,29 +118,23 @@ RSpec.describe JobProfile do
   describe '#scrape', vcr: { cassette_name: 'explore_my_careers_job_profile' } do
     let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
     let(:job_profile) { build :job_profile, source_url: url }
-    let!(:administration) { create :skill, name: 'administration skills' }
     let!(:customer_service) { create :skill, name: 'customer service skills' }
 
-    subject { job_profile.scrape }
+    before { job_profile.scrape }
 
     it 'updates name with scraped title' do
-      subject
       expect(job_profile.name).to eq 'Admin assistant'
     end
 
     it 'updates description with scraped description' do
-      subject
       expect(job_profile.description).to match 'organising meetings'
     end
 
     it 'updates content with scraped body' do
-      subject
       expect(job_profile.content).to match 'National Careers Service'
     end
 
     it 'updates skills with scraped skill names' do
-      subject
-      expect(job_profile.skills).to include administration
       expect(job_profile.skills).to include customer_service
     end
   end

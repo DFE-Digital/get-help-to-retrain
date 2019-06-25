@@ -9,6 +9,6 @@ class CategoryScraper
   end
 
   def job_profile_slugs
-    @parse['links'].map { |href| href.match(/job-profiles\/(.*)$/)[1] }
+    @parse['links'].map { |href| href.match(%r{job-profiles/(.*)$})[1] }
   end
 end

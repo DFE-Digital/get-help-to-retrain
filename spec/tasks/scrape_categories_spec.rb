@@ -5,7 +5,6 @@ RSpec.describe 'data_import:scrape_categories', vcr: { cassette_name: 'explore_m
   let(:slug) { 'administration' }
   let(:url) { 'https://nationalcareers.service.gov.uk/job-categories/administration' }
   let!(:category) { create :category, slug: slug, source_url: url }
-  let!(:admin_assistant) { create :job_profile, slug: 'admin-assistant' }
   let!(:bookkeeper) { create :job_profile, slug: 'bookkeeper' }
 
   it 'updates category names' do
@@ -15,7 +14,6 @@ RSpec.describe 'data_import:scrape_categories', vcr: { cassette_name: 'explore_m
 
   it 'links categories to job profiles' do
     task.execute
-    expect(category.job_profiles).to include admin_assistant
     expect(category.job_profiles).to include bookkeeper
   end
 end

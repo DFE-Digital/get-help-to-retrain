@@ -11,6 +11,9 @@ Metrics/LineLength:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
+RSpec/DescribeClass:
+  Exclude:
+  - tasks/**/*.rb
 RSpec/ExampleLength:
   Enabled: false
 Lint/AmbiguousBlockAssociation:
