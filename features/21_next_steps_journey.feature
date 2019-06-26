@@ -1,4 +1,9 @@
 Feature:As a customer, I want to be advised about what I should do next, now I've completed the current journey, So that I can find another (better) job
+    
+    Background:
+        Given there is user with criteria:
+            | journey status      |
+            | Uncompleted journey |
 
     @bdd @21
     Scenario: User returns to uncompleted journey

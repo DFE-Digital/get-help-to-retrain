@@ -7,10 +7,10 @@
     "copy-webpack-plugin": "^5.0.3",
     "govuk-frontend": "^2.13.0",
     "rails-ujs": "^5.2.3",
-    "turbolinks": "^5.2.0",
-    "pa11y": "^5.1.0"
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.7.2",
+    "pa11y-ci": "^2.3.0"
   }
 }
