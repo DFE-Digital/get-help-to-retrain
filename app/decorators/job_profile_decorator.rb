@@ -1,5 +1,7 @@
 class JobProfileDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
+  include ActionView::Context
+  include ActionView::Helpers::TextHelper
 
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
   SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
@@ -71,6 +73,14 @@ class JobProfileDecorator < SimpleDelegator
     mutate_html_body
 
     @doc.to_html.gsub(/<a.*?>(.+?)<\/a>/, '\1').concat(separator_line)
+  end
+
+  def skills_list
+    content_tag :ul, class: 'govuk-list govuk-list--bullet' do
+      __getobj__.skills.each do |skill|
+        concat content_tag :li, skill.name
+      end
+    end
   end
 
   private

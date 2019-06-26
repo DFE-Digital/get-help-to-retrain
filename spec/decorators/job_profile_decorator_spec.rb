@@ -1,10 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe JobProfileDecorator do
-  let(:job_profile) do
-    described_class.new(
-      build_stubbed(:job_profile, content: html_body)
-    )
+  subject(:job_profile) {
+    described_class.new(build_stubbed(:job_profile, content: html_body))
+  }
+
+  describe 'skills_list' do
+    subject(:job_profile) {
+      described_class.new(build_stubbed(:job_profile, skills: [skill]))
+    }
+
+    let(:skill) { build_stubbed(:skill, name: 'test skill') }
+
+    let(:expected_html) {
+      '<ul class="govuk-list govuk-list--bullet"><li>test skill</li></ul>'
+    }
+
+    it 'returns an unordered HTML list of skills' do
+      expect(job_profile.skills_list).to eq expected_html
+    end
   end
 
   describe '#salary_range' do
