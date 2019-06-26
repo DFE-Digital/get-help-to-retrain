@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     get :results, on: :collection
   end
 
-  resources :job_profiles, only: %i[show]
+  resources :job_profiles, only: %i[show] do
+    get :skills, on: :member
+  end
 
   resources :explore_occupations, only: %i[index] do
     get :results, on: :collection

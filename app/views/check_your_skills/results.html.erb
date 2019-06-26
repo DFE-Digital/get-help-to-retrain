@@ -19,7 +19,7 @@
     <% else %>
       <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
       <p class="govuk-body-l govuk-!-margin-bottom-1"><%= t('.body') %></p>
-      <%= render "shared/search/results_list", job_profiles: @job_profiles%>
+      <%= render "shared/search/results_list", job_profiles: @job_profiles, link_to_job_skills: true %>
     <% end %>
   </div>
   <%= render "shared/contact_us" %>
