@@ -177,6 +177,26 @@ RSpec.describe JobProfileDecorator do
       job_profile.section(xpath: xpath)
     end
 
+    context 'when links present' do
+      let(:html_body) do
+        '<section class="job-profile-subsection" id="Apprenticeship">
+          <h3>Apprenticeship</h3><div class="job-profile-subsection-content">
+            <p>You could take a software developer higher apprenticeship</p>
+            <p>You could also do a digital and technology solutions degree apprenticeship.</p>
+            <h4><a href="google.com">Entry requirements</a></h4>
+            <p>You\'ll usually need:</p>
+            <ul class="list-reqs">
+              <li><a href="google.com">4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels<a></li>
+            </ul>
+          </div>
+        </section>'
+      end
+
+      it 'removes all links' do
+        expect(Nokogiri::HTML(mutated_html_body).xpath('//a[@href]')).to be_empty
+      end
+    end
+
     it 'mutates the html snippet to use our styles' do
       mutated_tags.each do |tag|
         expect(mutated_html_body).to include(tag)

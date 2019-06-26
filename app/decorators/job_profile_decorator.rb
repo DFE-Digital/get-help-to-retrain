@@ -70,7 +70,7 @@ class JobProfileDecorator < SimpleDelegator
 
     mutate_html_body
 
-    @doc.to_html.concat(separator_line)
+    @doc.to_html.gsub(/<a.*?>(.+?)<\/a>/, '\1').concat(separator_line)
   end
 
   private
