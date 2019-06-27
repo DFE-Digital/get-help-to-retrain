@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) do |repo|
+  "https://github.com/#{repo}.git"
+end
 
 ruby File.read('.ruby-version').chomp
 
@@ -84,7 +86,7 @@ group :test do
   # Easy installation and use of browser drivers to run system tests with different browsers
   gem 'webdrivers', '~> 4.0'
 
-    # Test coverage reporting
+  # Test coverage reporting
   gem 'simplecov', '~> 0.16', require: false
 
   # Web request caching for tests
