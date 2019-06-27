@@ -41,6 +41,7 @@ en:
   home:
     index:
       title: Get help to retrain
+  pages:
     task_list:
       title: Get help to retrain
     find_training_courses:

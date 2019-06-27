@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unprocessable_entity', via: :all
   get '/500', to: 'errors#internal_server_error', via: :all
 
-  get :task_list, to: 'home#task_list'
-  get :find_training_courses, to: 'home#find_training_courses'
+  get :task_list, to: 'pages#task_list'
+  get :find_training_courses, to: 'pages#find_training_courses'
 
   resources :check_your_skills, only: %i[index] do
     get :results, on: :collection
