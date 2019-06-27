@@ -75,14 +75,6 @@ class JobProfileDecorator < SimpleDelegator
     @doc.to_html.gsub(/<a.*?>(.+?)<\/a>/, '\1').concat(separator_line)
   end
 
-  def skills_list
-    content_tag :ul, class: 'govuk-list govuk-list--bullet' do
-      __getobj__.skills.each do |skill|
-        concat content_tag :li, skill.name
-      end
-    end
-  end
-
   private
 
   def html_body

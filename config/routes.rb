@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, only: %i[show] do
-    get :skills, on: :member
+    resources :skills, only: %i[index]
   end
 
   resources :explore_occupations, only: %i[index] do

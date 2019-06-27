@@ -5,22 +5,6 @@ RSpec.describe JobProfileDecorator do
     described_class.new(build_stubbed(:job_profile, content: html_body))
   }
 
-  describe 'skills_list' do
-    subject(:job_profile) {
-      described_class.new(build_stubbed(:job_profile, skills: [skill]))
-    }
-
-    let(:skill) { build_stubbed(:skill, name: 'test skill') }
-
-    let(:expected_html) {
-      '<ul class="govuk-list govuk-list--bullet"><li>test skill</li></ul>'
-    }
-
-    it 'returns an unordered HTML list of skills' do
-      expect(job_profile.skills_list).to eq expected_html
-    end
-  end
-
   describe '#salary_range' do
     let(:html_body) do
       '<div id="Salary" class="column-40 job-profile-heroblock">
