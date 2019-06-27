@@ -1,7 +1,5 @@
 class JobProfileDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
-  include ActionView::Context
-  include ActionView::Helpers::TextHelper
 
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
   SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
