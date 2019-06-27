@@ -8,7 +8,7 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
   @bdd @32
   Scenario: Transferable skills
     Given I am on the homepage
-    When I click the "Start now" button
+    When I click the text link "Start now"
     And I click the text link "Check your existing skills"
     When I enter "Construction Supervisor" in "Enter your job title" field
     When I click the ".search-button" button

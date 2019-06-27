@@ -4,7 +4,7 @@ Feature: As a customer
 
   Background:
     Given I am on the homepage
-    When I click the "Start now" button
+    When I click the text link "Start now"
 
   @bdd @30
   Scenario: Hub Page - Your existing skills

@@ -7,5 +7,5 @@ Feature: As a user, I only want to see certain attributes from the explore caree
 
   @bdd @86
   Scenario: Check attributes
-    Given that I am on the job profile information page
+    Given I am on the "job profile information" page
     Then I only see the attributes outlined on the attached CSV file

@@ -4,7 +4,7 @@ Feature:As a customer, I want to see information about the occupation I have sel
   Scenario Outline: View Job Profile Information
     Given I am on the "careers-search" page
     When I click the text link "<Occupation>"
-    And I click on first occupation
+    And I click on first job title
     Then I should see the "show occupation information" page
     Examples:
       | Occupation     |
