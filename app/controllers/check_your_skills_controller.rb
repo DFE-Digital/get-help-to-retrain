@@ -1,6 +1,8 @@
 class CheckYourSkillsController < ApplicationController
   def results
-    @job_profiles = JobProfile.search(job_profile_params[:name])
+    @job_profiles = JobProfile.search(job_profile_params[:name]).map do |job_profile| 
+      JobProfileDecorator.new(job_profile)
+    end
   end
 
   private
