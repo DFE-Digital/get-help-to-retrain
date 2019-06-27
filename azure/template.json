@@ -192,6 +192,26 @@
       ]
     },
     {
+      "apiVersion": "2017-05-10",
+      "name": "app-insights",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'), 'application-insights.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appInsightsName": {
+            "value": "[variables('appServiceName')]"
+          },
+          "attachedService": {
+            "value": "[variables('appServiceName')]"
+          }
+        }
+      }
+    },
+    {
       "name": "app-service-plan",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
@@ -239,6 +259,10 @@
           },
           "appServiceAppSettings": {
             "value": [
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference('app-insights').outputs.instrumentationKey.value]"
+              },
               {
                 "name": "DB_DATABASE",
                 "value": "[parameters('databaseName')]"
