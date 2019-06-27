@@ -1,27 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe JobProfileDecorator do
-  subject(:job_profile) {
-    described_class.new(build_stubbed(:job_profile, content: html_body))
-  }
+  subject(:job_profile) { described_class.new(model) }
+
+  let(:model) { build_stubbed :job_profile, content: html_body }
 
   describe '#salary_range' do
-    let(:html_body) do
-      '<div id="Salary" class="column-40 job-profile-heroblock">
-        <h2>
-          Average salary
-          <span>(a year)</span>
-        </h2>
-        <div class="job-profile-salary job-profile-heroblock-content">
-          <p class="dfc-code-jpsstarter">£18,000 <span>Starter</span></p>
-          <i class="sr-hidden">to</i>
-          <p class="dfc-code-jpsexperienced">£30,000 <span>Experienced</span></p>
-        </div>
-      </div>'
+    context 'with defined minimum and maximum' do
+      let(:model) { build_stubbed :job_profile, salary_min: 18_000, salary_max: 30_000 }
+
+      it 'formats the salary range' do
+        expect(job_profile.salary_range).to eq '£18,000 - £30,000'
+      end
     end
 
-    it 'extracts the correct date range values' do
-      expect(job_profile.salary_range).to eq '£18,000 - £30,000'
+    context 'with missing minimum or maximum' do
+      let(:model) { build_stubbed :job_profile }
+
+      it 'returns Variable' do
+        expect(job_profile.salary_range).to eq 'Variable'
+      end
     end
   end
 

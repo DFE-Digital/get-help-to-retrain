@@ -21,8 +21,16 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
       expect(scraped['description']).to match 'organising meetings'
     end
 
+    it 'parses job profile minimum salary' do
+      expect(scraped['salary_min']).to eq 14_000
+    end
+
+    it 'parses job profile maximum salary' do
+      expect(scraped['salary_max']).to eq 30_000
+    end
+
     it 'parses job profile full page' do
-      expect(scraped['body']).to match 'National Careers Service'
+      expect(scraped['content']).to match 'National Careers Service'
     end
 
     it 'parses skills' do
