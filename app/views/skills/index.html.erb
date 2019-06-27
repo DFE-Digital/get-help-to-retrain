@@ -1,0 +1,25 @@
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.your_skills'),
+      [
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.task_list'), task_list_path],
+        [t('breadcrumb.check_your_skills'), check_your_skills_path],
+        [t('breadcrumb.search_results'), results_check_your_skills_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <span class="govuk-caption-xl">Your current skills</span>
+    <%= render 'job_profiles/brief' %>
+    <%= render 'skills_list' %>
+    <div class="govuk-grid-column-full">
+      <%= link_to('Explore jobs you could do', explore_occupations_path, class: 'govuk-button govuk-!-margin-top-6  govuk-!-margin-bottom-9') %>
+    </div>
+  </div>
+
+  <%= render 'shared/contact_us' %>
+</div>

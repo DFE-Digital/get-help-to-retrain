@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe JobProfileDecorator do
-  let(:job_profile) do
-    described_class.new(
-      build_stubbed(:job_profile, content: html_body)
-    )
-  end
+  subject(:job_profile) {
+    described_class.new(build_stubbed(:job_profile, content: html_body))
+  }
 
   describe '#salary_range' do
     let(:html_body) do
