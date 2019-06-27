@@ -38,7 +38,7 @@ en-GB:
       placeholder: Enter your job title
       no_results: 0 results found - try again using a different job title
       results: "%{count} results found"
-      body: Select a job profile from the results below to find out what the role involves, and what skills and training are required.
+      body: Select a role from the results below to find out what it involves, and what skills and training are required. These are job profiles, not live jobs you can apply for.
   categories:
     show:
       other_categories: Other job categories
