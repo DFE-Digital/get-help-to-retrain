@@ -27,7 +27,7 @@ en-GB:
       placeholder: Enter your job title
       no_results: 0 results found - try again using a different job title
       results: "%{count} results found"
-      body: Select a job from results below to see the accociated skills.
+      body: Select the job profile closest to the job you currently do to see what skills you already have.
   explore_occupations:
     index:
       title: Explore occupations
