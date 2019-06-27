@@ -57,9 +57,7 @@
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-            <a class="app-task-list__task-name govuk-link" href="#">
-              Find out what you can do next
-            </a>
+            <%= link_to 'Find out what you can do next', next_steps_path, class: 'app-task-list__task-name govuk-link'%>
           </li>
         </ul>
       </li>

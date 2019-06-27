@@ -5,6 +5,7 @@ en:
     check_your_skills: Check your existing skills
     explore_occupations: Explore occupations
     find_training_courses: Find and apply to training courses near you
+    next_steps: Next steps
     job_category: Job category
     search_results: Search results
   contact_us:
@@ -41,7 +42,10 @@ en:
   home:
     index:
       title: Get help to retrain
+  pages:
     task_list:
       title: Get help to retrain
     find_training_courses:
       title: Find and apply to a training course near you
+    next_steps:
+      title: Find out what you can do next

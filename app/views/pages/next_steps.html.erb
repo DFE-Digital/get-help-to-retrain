@@ -1,0 +1,31 @@
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.next_steps'),
+      [
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.task_list'), task_list_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body-l">Get advice and help in your search for a new role.</p>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Advice on how to look for and apply for jobs</h3>
+    <p class="govuk-body"><%= link_to 'Use the National Careers Service', 'https://nationalcareers.service.gov.uk/get-a-job', class: 'govuk-link' %> to find out more about the different stages of job hunting, including CV-writing tips, cover letter guidance and interview advice.</p>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Find a job</h3>
+    <p class="govuk-body"><%= link_to "Use DWP's Find a job service", 'https://findajob.dwp.gov.uk/', class: 'govuk-link' %> to search for jobs available now in your local area.</p>
+
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-1">Find an apprenticeship</h3>
+    <p class="govuk-body"><%= link_to 'Use the National Apprenticeships Service', 'https://www.gov.uk/apprenticeships-guide', class: 'govuk-link' %> to find apprenticeships in your local area, offering opportunities to train on-the-job.</p>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  </div>
+  <%= render "shared/contact_us" %>
+</div>
