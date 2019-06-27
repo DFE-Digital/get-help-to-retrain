@@ -76,7 +76,6 @@
 .profile-highlights {
   width: 55px;
   height: 55px;
-  display: block;
 }
 
 .salary-icon {
@@ -97,3 +96,8 @@
   background-repeat: no-repeat;
 }
 
+.extended-container {
+  @include govuk-media-query($from: tablet) {
+    width: 150% !important;
+  }
+}
