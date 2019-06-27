@@ -31,5 +31,8 @@ unless Rails.env.test?
       # the background worker thread will poll the queue every 0.5 seconds for new items
       tc.channel.sender.send_interval = 0.5
     end
+
+    # setup unhandled exception handler
+    ApplicationInsights::UnhandledException.collect(app_insights_key)
   end
 end
