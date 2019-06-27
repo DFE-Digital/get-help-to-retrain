@@ -88,3 +88,7 @@ Then('I should see a list of occupations for {string}') do |string|
     "Error: occupation has an invalid value (#{string})"
   end
 end
+
+Given("there is user with criteria:") do |table|
+  print "todo: need to define test data"
+end
