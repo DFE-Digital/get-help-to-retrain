@@ -28,5 +28,7 @@ module GetHelpToRetrain
     # the framework and any gems in your application.
 
     config.exceptions_app = routes
+
+    config.i18n.default_locale = :'en-GB'
   end
 end
