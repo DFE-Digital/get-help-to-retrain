@@ -62,12 +62,6 @@ jobs:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
-        $DOCKER_RUN bundle exec govuk-lint-ruby app lib spec
-      displayName: GovUK linter
-      env:
-        DOCKER_RUN: $(dockerRun)
-
-    - script: |
         $DOCKER_RUN bundle exec rubocop
       displayName: Rubocop linter
       env:
