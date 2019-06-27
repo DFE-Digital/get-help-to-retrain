@@ -5,7 +5,7 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
       | Atttibute | Job title         |
       | All     | Construction Supervisor |
 
-  @bdd @32
+  @wip @32
   Scenario: Transferable skills
     Given I am on the homepage
     When I click the text link "Start now"

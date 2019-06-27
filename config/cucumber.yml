@@ -6,6 +6,5 @@ std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --strict --tags 'not 
 %>
 default: <%= std_opts %> --tags @ci features
 ci: --tags @ci
-bdd: --tags @bdd
 wip: --tags @wip:3 --wip features
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags 'not @wip'

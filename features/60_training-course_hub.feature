@@ -5,7 +5,7 @@ Feature: As a customer, I want to see a summary all the training I am recommende
       | journey status                    |
       | Existing training recommendations |
 
-  @bdd @60
+  @wip @60
   Scenario: Hub Page - Your existing skills
     Given I am on the homepage
     When I click the text link "Start now"

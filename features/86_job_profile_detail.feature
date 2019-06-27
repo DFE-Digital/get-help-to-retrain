@@ -5,7 +5,7 @@ Feature: As a user, I only want to see certain attributes from the explore caree
       | Atttibute |
       | All     |
 
-  @bdd @86
+  @wip @86
   Scenario: Check attributes
     Given I am on the "job profile information" page
     Then I only see the attributes outlined on the attached CSV file
