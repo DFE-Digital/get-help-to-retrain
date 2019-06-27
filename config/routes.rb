@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get :task_list, to: 'pages#task_list'
   get :find_training_courses, to: 'pages#find_training_courses'
+  get :next_steps, to: 'pages#next_steps'
 
   resources :check_your_skills, only: %i[index] do
     get :results, on: :collection
