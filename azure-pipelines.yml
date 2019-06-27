@@ -68,6 +68,12 @@ jobs:
         DOCKER_RUN: $(dockerRun)
 
     - script: |
+        $DOCKER_RUN bundle exec rubocop
+      displayName: Rubocop linter
+      env:
+        DOCKER_RUN: $(dockerRun)
+
+    - script: |
         $DOCKER_RUN bundle exec brakeman
       displayName: Brakeman check
       env:
