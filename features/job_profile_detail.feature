@@ -1,11 +1,18 @@
-Feature: As a user, I only want to see certain attributes from the explore careers scraping, So that I only have to read information relevant to me
+Feature:As a customer, I want to see information about the occupation I have selected, So that I can decide if it is suitable for me
 
   Background:
-    Given there is job profile that thas attributes
-      | Atttibute |
-      | All     |
+    Given a job profile exists for a Construction manager
 
-  @wip @86
-  Scenario: Check attributes
-    Given I am on the "job profile information" page
-    Then I only see the attributes outlined on the attached CSV file
+  @ci @26
+  Scenario: View Job Profile Information
+    Given I am on the "Construction manager" job profile page
+    Then I should see "Construction manager"
+    And I should see "Average Salary"
+    And I should see "Typical hours"
+    And I should see "You could work"
+
+  @ci @161
+  Scenario: Verify training course link
+    Given I am on the "Construction manager" job profile page
+    And I click on "Find a training course"
+    Then I should see "Find and apply to a training course near you"

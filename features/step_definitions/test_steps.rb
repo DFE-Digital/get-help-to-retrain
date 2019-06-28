@@ -1,11 +1,3 @@
-Given('I am on the homepage') do
-  visit(root_path)
-end
-
-Given('a job profile exists with the name {string}') do |name|
-  create(:job_profile, name: name)
-end
-
 Then('the correct eligibility criteria is displayed') do
   expect(page).to have_content('you\'re employed')
   expect(page).to have_content('you do not have a degree')
@@ -38,14 +30,6 @@ end
 
 When('I enter {string} in {string} field') do |string, string2|
   fill_in string2, with: string
-end
-
-When('I click the {string} button') do |string|
-  find(string).click
-end
-
-Then('I should see the {string} page') do |title|
-  has_title? title
 end
 
 Then('I see error message {string}') do |error|
@@ -154,12 +138,6 @@ Then("I can see a list of my existing skills that have been inferred from my occ
   expect(page).to have_content('to be able to carry out basic tasks on a computer or hand-held device')
   expect(page).to have_content('thinking and reasoning skills')
   expect(page).to have_content('excellent verbal communication skills')
-  expect(page).to have_content('the ability to work well with others')
-  expect(page).to have_content('to be thorough and pay attention to detail')
-  expect(page).to have_content('leadership skills')
-  expect(page).to have_content('customer service skills')
-  expect(page).to have_content('patience and the ability to remain calm in stressful situations')
-  expect(page).to have_content('sensitivity and understanding')
 end
 
 Given("there is job profile that thas attributes") do |table|

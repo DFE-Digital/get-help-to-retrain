@@ -3,7 +3,7 @@ Feature: As a customer
   So that I can explore which jobs might be suitable for me
 
   Background:
-    Given a job profile exists with the name "Construction Supervisor"
+    Given a job profile exists with the name "Manufacturing Supervisor"
 
   @ci @56
   Scenario: Happy Path
@@ -11,7 +11,7 @@ Feature: As a customer
     When I enter "Supervisor" in "Enter your job title" field
     And I click the ".search-button" button
     Then I should see the "job profile search results" page
-    And I should see "Manufacturing supervisor"
+    And I should see "Manufacturing Supervisor"
 
   @ci @56
   Scenario: Unhappy Path
