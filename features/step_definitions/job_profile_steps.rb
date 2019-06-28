@@ -1,8 +1,8 @@
-Given(/^a job profile exists with the name "(.*?)"$/) do |name|
+Given('a job profile exists with the name {string}') do |name|
   create(:job_profile, name: name)
 end
 
-Given(/^a job profile exists for a Construction manager$/) do
+Given('a job profile exists for a Construction manager') do
   content = Rails.root.join('features', 'fixtures', 'construction_manager_content.html').read
   create(
     :job_profile,
@@ -19,8 +19,13 @@ Given(/^a job profile exists for a Construction manager$/) do
   )
 end
 
-When(/^I am on the "(.*?)" job profile page$/) do |name|
+When('I am on the {string} job profile page') do |name|
   slug = JobProfile.find_by(name: name).slug
   visit("/job_profiles/#{slug}")
+end
+
+When('I am on the {string} job profile skills page') do |name|
+  slug = JobProfile.find_by(name: name).slug
+  visit("/job_profiles/#{slug}/skills")
 end
 
