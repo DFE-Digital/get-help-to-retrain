@@ -5,7 +5,7 @@ class JobProfile < ApplicationRecord
   has_many :skills, through: :job_profile_skills, inverse_of: :job_profiles
 
   def self.search(name)
-    where('name ILIKE ?', "%#{name}%")
+    where('name ILIKE ?', "%#{name&.squish}%")
   end
 
   def self.import(slug, url)
