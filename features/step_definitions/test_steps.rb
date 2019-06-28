@@ -1,7 +1,3 @@
-When('I am on the {string} page') do |path|
-  visit("/#{path}")
-end
-
 Given('I am on the homepage') do
   visit(root_path)
 end
@@ -17,20 +13,8 @@ Then('the correct eligibility criteria is displayed') do
   expect(page).to have_content('aged 24 or over')
 end
 
-Then('the current page contains text {string}') do |content|
-  expect(page).to have_content(content)
-end
-
-Then('I click on the button {string}') do |string|
-  click(string)
-end
-
 Then('I should see all stages of the journey') do
   pending # Write code here that turns the phrase above into concrete actions
-end
-
-When('I click the text link {string}') do |string|
-  click_link(string)
 end
 
 When('there are placeholders for {string}') do |string|

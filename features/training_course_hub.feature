@@ -5,5 +5,5 @@ Feature: As a customer, I want to see a summary all the training I am recommende
 
   @ci @60
   Scenario: Hub Page - Your existing skills
-    When I click the text link "Find and apply to training courses near you"
-    Then the current page contains text "Find and apply to a training course near you"
+    When I click on "Find and apply to training courses near you"
+    Then I should see "Find and apply to a training course near you"

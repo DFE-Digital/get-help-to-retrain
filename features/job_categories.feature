@@ -5,7 +5,7 @@ Feature: As a customer
   @ci @62
   Scenario Outline: Careers Search By Occupation
     Given I am on the "explore_occupations" page
-    When I click the text link "<Occupation>"
+    When I click on "<Occupation>"
     Then I should see a list of occupations for "<Occupation>"
     Examples:
       | Occupation     |
@@ -17,8 +17,8 @@ Feature: As a customer
   Scenario Outline: Find a Course Service unavailable
     Given I am on the "explore_occupations" page
     And Find a Course Service is unavailable
-    When I click the text link "Healthcare"
+    When I click on "Healthcare"
     Then I see error message "The Service is currently unavailable - please try later"
     When Find a Course Service is available again
-    And  I click the text link "healthcare"
+    And  I click on "healthcare"
     Then I should see a list of occupations for "Service"
