@@ -29,6 +29,9 @@ Capybara.register_driver :headless_chrome do |app|
                                  desired_capabilities: capabilities
 end
 
+Capybara.app_host = 'http://localhost:3000'
+Capybara.run_server = false # don't start Rack
+
 # Capybara.javascript_driver = :headless_chrome
 Capybara.javascript_driver = :headless_chrome
 Capybara.default_driver = :headless_chrome

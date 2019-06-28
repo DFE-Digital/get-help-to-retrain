@@ -38,9 +38,9 @@ bundle exec rspec
 ```
 cucumber -p a-profile-name-from-cucumber-yml-file
 ```
-Example: To run only tests with @bdd tag
+Example: To run only tests with @wip tag
 ```
-cucumber -p bdd
+cucumber -p wip
 ```
 
 ## Linting

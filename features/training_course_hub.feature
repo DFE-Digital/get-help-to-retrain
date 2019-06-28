@@ -5,8 +5,8 @@ Feature: As a customer, I want to see a summary all the training I am recommende
       | journey status                    |
       | Existing training recommendations |
 
-  @wip @60
+  @ci @60
   Scenario: Hub Page - Your existing skills
     Given I am on the homepage
     When I click the text link "Start now"
-    Then the current page contains text "Find and apply to a training course near you"
+    Then the current page contains text "Find and apply to training courses near you"

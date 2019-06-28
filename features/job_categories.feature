@@ -2,7 +2,7 @@ Feature: As a customer
   I want to see a list of jobs within a category
   So that I can explore which jobs might be suitable for me
 
-  @wip @62
+  @ci @62
   Scenario Outline: Careers Search By Occupation
     Given I am on the "explore_occupations" page
     When I click the text link "<Occupation>"
@@ -11,7 +11,7 @@ Feature: As a customer
       | Occupation     |
       | Healthcare     |
       | Administration |
-      | Animal Care    |
+      | Animal care    |
 
   @wip @62
   Scenario Outline: Find a Course Service unavailable

@@ -2,7 +2,7 @@ Feature:As a customer, I want to see information about the occupation I have sel
 
   @wip @26
   Scenario Outline: View Job Profile Information
-    Given I am on the "careers-search" page
+    Given I am on the "explore_occupations" page
     When I click the text link "<Occupation>"
     And I click on first job title
     Then I should see the "show occupation information" page
@@ -10,4 +10,4 @@ Feature:As a customer, I want to see information about the occupation I have sel
       | Occupation     |
       | Healthcare     |
       | Administration |
-      | Animal Care    |
+      | Animal care    |

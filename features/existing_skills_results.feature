@@ -5,7 +5,7 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
       | journey status |
       | beginning    |
 
-  @wip @31
+  @ci @31
   Scenario: Transferable skills
     Given that I have chosen an occupation from successful existing skills search results page
     Then I can see a list of my existing skills that have been inferred from my occupation
