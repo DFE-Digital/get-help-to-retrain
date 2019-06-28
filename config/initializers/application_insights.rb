@@ -1,11 +1,11 @@
 unless Rails.env.test?
   Rails.application.configure do
-    if (app_insights_key = ENV["APPINSIGHTS_INSTRUMENTATIONKEY"]) && app_insights_key.present?
+    if (app_insights_key = ENV['APPINSIGHTS_INSTRUMENTATIONKEY']) && app_insights_key.present?
       # the optional extra params are buffer_size (= 500) and send_interval (= 60),
       # leaving for now as they appear sensible
       config.middleware.use(ApplicationInsights::Rack::TrackRequest, app_insights_key)
-      if 'true' ==  ENV["APPINSIGHTS_JAVASCRIPT_ENABLED"]
-          config.middleware.use(ApplicationInsights::Rack::InjectJavaScriptTracking, app_insights_key)
+      if ENV['APPINSIGHTS_JAVASCRIPT_ENABLED'] == 'true'
+        config.middleware.use(ApplicationInsights::Rack::InjectJavaScriptTracking, app_insights_key)
       end
     end
 
@@ -19,7 +19,7 @@ unless Rails.env.test?
     sender = ApplicationInsights::Channel::AsynchronousSender.new
     queue = ApplicationInsights::Channel::AsynchronousQueue.new(sender)
     channel = ApplicationInsights::Channel::TelemetryChannel.new(nil, queue)
-    #
+
     TELEMETRY_CLIENT = ApplicationInsights::TelemetryClient.new(app_insights_key, channel).tap do |tc|
       # flush telemetry if we have 10 or more telemetry items in our queue
       tc.channel.queue.max_queue_length = 10

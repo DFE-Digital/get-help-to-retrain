@@ -5,6 +5,9 @@ end
 
 ruby File.read('.ruby-version').chomp
 
+# To use Azure application insights
+gem 'application_insights', '~> 0.5.6'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 gem 'rails-i18n', '~> 5.1'
@@ -32,8 +35,6 @@ gem 'foreman'
 
 # Canonical meta tag
 gem 'canonical-rails'
-
-gem 'application_insights'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
