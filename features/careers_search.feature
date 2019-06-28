@@ -11,7 +11,7 @@ Feature: As a customer
     When I enter "Supervisor" in "Enter your job title" field
     And I click the ".search-button" button
     Then I should see the "job profile search results" page
-    And the current page contains text "Construction Supervisor"
+    And the current page contains text "Manufacturing supervisor"
 
   @ci @56
   Scenario: Unhappy Path
