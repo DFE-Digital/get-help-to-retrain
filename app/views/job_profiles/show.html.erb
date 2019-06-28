@@ -1,11 +1,10 @@
 <% content_for :breadcrumb do
     generate_breadcrumbs(
-      @job_profile.hero_copy,
+      t('breadcrumb.job_profile'),
       [
-        [t('breadcrumb.home'), root_path],
-        [t('breadcrumb.task_list'), task_list_path],
+        [t('breadcrumb.task_list_home'), task_list_path],
         [t('breadcrumb.explore_occupations'), explore_occupations_path],
-        [job_profile_breadcrumbs_for(request.referer), request.referer]
+        job_profile_breadcrumbs_for(request.referer)
       ]
     )
   end
