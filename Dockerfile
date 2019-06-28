@@ -2,7 +2,7 @@ FROM ruby:2.6-alpine as assets
 
 ENV RAILS_ENV production
 ENV NODE_ENV production
-ENV BUILD_PACKAGES build-base nodejs yarn tzdata postgresql-dev
+ENV BUILD_PACKAGES build-base nodejs yarn tzdata postgresql-dev git
 
 # Update and install all of the required packages.
 # At the end, remove the apk cache
