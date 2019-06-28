@@ -28,4 +28,3 @@ When('I am on the {string} job profile skills page') do |name|
   slug = JobProfile.find_by(name: name).slug
   visit("/job_profiles/#{slug}/skills")
 end
-

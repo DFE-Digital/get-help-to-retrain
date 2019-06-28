@@ -48,7 +48,6 @@ end
 #   has_link? string
 # end
 
-
 # Given("there is user with criteria:") do |table|
 #   print "todo: need to define test data"
 # end
