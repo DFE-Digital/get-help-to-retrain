@@ -14,7 +14,7 @@
     <h3 class="govuk-heading-l"><%= t('.title') %></h3>
     <%= render "shared/search/results_form", search_path: results_explore_occupations_path, scope: 'explore_occupations.results' %>
     <% if @job_profiles.blank? %>
-      <p class="govuk-body-m"><%= t('.no_results')%></p>
+      <p class="govuk-body-m"><%= render '/shared/search/no_results' %></p>
     <% else %>
       <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
       <div class="govuk-inset-text"><%= t('.body') %></div>
