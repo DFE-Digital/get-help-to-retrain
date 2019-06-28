@@ -130,6 +130,14 @@ RSpec.describe JobProfile do
       expect(job_profile.description).to match 'organising meetings'
     end
 
+    it 'updates salary minimum with scraped salary' do
+      expect(job_profile.salary_min).to eq 14_000
+    end
+
+    it 'updates salary maximum with scraped salary' do
+      expect(job_profile.salary_max).to eq 30_000
+    end
+
     it 'updates content with scraped body' do
       expect(job_profile.content).to match 'National Careers Service'
     end

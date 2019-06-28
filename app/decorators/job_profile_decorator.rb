@@ -3,10 +3,9 @@
 # which should remove the need to disable rubocop rules here.
 class JobProfileDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::NumberHelper
 
   # rubocop:disable Metrics/LineLength
-  SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
-  SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
   WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
   HERO_COPY_XPATH = "//header[@class='job-profile-hero']//h1[@class='heading-xlarge']".freeze
@@ -25,13 +24,9 @@ class JobProfileDecorator < SimpleDelegator
   # rubocop:enable Metrics/LineLength
 
   def salary_range
-    min_salary = html_body.xpath(SALARY_MIN_XPATH).children[0]
+    return 'Variable' unless salary_min && salary_max
 
-    return 'Variable' unless min_salary
-
-    max_salary = html_body.xpath(SALARY_MAX_XPATH).children[0]
-
-    "#{min_salary.text.strip} - #{max_salary.text.strip}"
+    "#{number_to_currency(salary_min, precision: 0)} - #{number_to_currency(salary_max, precision: 0)}"
   end
 
   def working_hours
@@ -81,7 +76,7 @@ class JobProfileDecorator < SimpleDelegator
   private
 
   def html_body
-    @html_body ||= Nokogiri::HTML(__getobj__ .content)
+    @html_body ||= Nokogiri::HTML(content)
   end
 
   def mutate_html_body

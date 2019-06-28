@@ -3,6 +3,15 @@ class JobProfileScraper
 
   title css: 'h1.heading-xlarge'
   description css: '.column-desktop-two-thirds p'
-  body 'css=body', :html
+
+  salary_min css: '#Salary p.dfc-code-jpsstarter/text()' do |min|
+    min.gsub(/\D/, '').to_i if min =~ /\d/
+  end
+
+  salary_max css: '#Salary p.dfc-code-jpsexperienced/text()' do |max|
+    max.gsub(/\D/, '').to_i if max =~ /\d/
+  end
+
+  content 'css=body', :html
   skills 'css=#Skills ul li', :list
 end
