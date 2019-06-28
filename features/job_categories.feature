@@ -2,23 +2,29 @@ Feature: As a customer
   I want to see a list of jobs within a category
   So that I can explore which jobs might be suitable for me
 
-  @ci @62
-  Scenario Outline: Careers Search By Occupation
-    Given I am on the "explore_occupations" page
-    When I click on "<Occupation>"
-    Then I should see a list of occupations for "<Occupation>"
-    Examples:
-      | Occupation     |
-      | Healthcare     |
-      | Administration |
-      | Animal care    |
+  Background:
+    Given the following categories are available
+    | Name                      |
+    |  Administration           |
+    |  Home services            |
+    |  Bookkeeper               |
+    And the following job profiles are available
+    | Name                      | Category       |
+    |    Accommodation warden   | Home services  |
+    |    Admin assistant        | Administration |
+    |    Auditor                | Administration |
 
-  @wip @62
-  Scenario Outline: Find a Course Service unavailable
+  @ci @62
+  Scenario: Explore occupations categories
     Given I am on the "explore_occupations" page
-    And Find a Course Service is unavailable
-    When I click on "Healthcare"
-    Then I see error message "The Service is currently unavailable - please try later"
-    When Find a Course Service is available again
-    And  I click on "healthcare"
-    Then I should see a list of occupations for "Service"
+    Then I should see "Administration"
+    And I should see "Home services"
+    And I should not see "Bookkeeper"
+
+  @ci @62
+  Scenario: Careers Search By Occupation categories
+    Given I am on the "explore_occupations" page
+    When I click on "Administration"
+    Then I should see "Admin assistant"
+    And I should see "Auditor"
+

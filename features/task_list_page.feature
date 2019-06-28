@@ -9,19 +9,19 @@ Feature: As a customer
   @ci @30
   Scenario: Hub Page - Your existing skills
     When I click on "Check your existing skills"
-    And there are placeholders for "courses hub"
+    Then there are placeholders for "courses hub"
 
   @ci @30
   Scenario: Hub Page - Find a new occupation
     When I click on "Search for the types of jobs you could retrain to do "
-    And there are placeholders for "occupations"
+    Then there are placeholders for "occupations"
 
   @ci @30
   Scenario: Hub Page - Apply for a training course
     When I click on "Find and apply to training courses near you"
-    And there are placeholders for "training courses"
+    Then there are placeholders for "training courses"
 
   @ci @30
   Scenario: Hub Page - Next Steps
     When I click on "Find out what you can do next"
-    And there are placeholders for "current course"
+    Then there are placeholders for "current course"

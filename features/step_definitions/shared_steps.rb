@@ -10,6 +10,10 @@ Then(/^I should see "(.*?)"$/) do |text|
   expect(page.body).to match(CGI.escapeHTML(text))
 end
 
+Then(/^I should not see "(.*?)"$/) do |text|
+  expect(page.body).not_to match(CGI.escapeHTML(text))
+end
+
 When(/^I am on the "(.*?)" page$/) do |path|
   visit("/#{path}")
 end
@@ -25,7 +29,17 @@ end
 Given(/^the following job profiles are available$/) do |table|
   table.hashes.each do |row|
     name = row.fetch('Name')
+    category_name = row.fetch('Category')
+    category = Category.find_by(name: category_name)
 
-    create(:job_profile, name: name)
+    create(:job_profile, name: name, categories: [category])
+  end
+end
+
+Given(/^the following categories are available$/) do |table|
+  table.hashes.each do |row|
+    name = row.fetch('Name')
+
+    create(:category, name: name)
   end
 end

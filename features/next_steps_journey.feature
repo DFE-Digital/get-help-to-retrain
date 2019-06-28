@@ -1,12 +1,11 @@
 Feature:As a customer, I want to be advised about what I should do next, now I've completed the current journey, So that I can find another (better) job
 
   Background:
-    Given there is user with criteria:
-      | journey status    |
-      | Uncompleted journey |
+    Given I am on the "task_list" page
 
-  @wip @21
+  @ci @21
   Scenario: User returns to uncompleted journey
-    Given I have a user part way through a journey
-    When I am on the "next steps" page
-    Then I can learn what all my next options are
+    When I click on "Find out what you can do next"
+    Then I should see "Advice on how to look for and apply for jobs"
+    And I should see "Find a job"
+    And I should see "Find an apprenticeship"

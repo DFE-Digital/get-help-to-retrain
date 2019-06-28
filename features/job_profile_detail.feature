@@ -14,5 +14,5 @@ Feature:As a customer, I want to see information about the occupation I have sel
   @ci @161
   Scenario: Verify training course link
     Given I am on the "Construction manager" job profile page
-    And I click on "Find a training course"
+    When I click on "Find a training course"
     Then I should see "Find and apply to a training course near you"

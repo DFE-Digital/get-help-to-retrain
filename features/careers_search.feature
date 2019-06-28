@@ -10,14 +10,14 @@ Feature: As a customer
   Given I am on the "check_your_skills" page
     When I enter "Supervisor" in "Enter your job title" field
     And I click the ".search-button" button
-    Then I should see the "job profile search results" page
+    Then I should see "Search results for"
     And I should see "Manufacturing Supervisor"
 
   @ci @56
   Scenario: Unhappy Path
     Given I am on the "check_your_skills" page
     When I enter "zzzzzzz" in "name" field
-    When I click the ".search-button" button
+    And I click the ".search-button" button
     Then I see error message "0 results found - try again using a different job title"
 
 # Scenario: Check pagination
