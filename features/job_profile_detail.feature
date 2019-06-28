@@ -7,9 +7,7 @@ Feature:As a customer, I want to see information about the occupation I have sel
   Scenario: View Job Profile Information
     Given I am on the "Construction manager" job profile page
     Then I should see "Construction manager"
-    And I should see "Average Salary"
-    And I should see "Typical hours"
-    And I should see "You could work"
+    And I can see all the information I need to learn more about that occupation
 
   @ci @161
   Scenario: Verify training course link

@@ -4,10 +4,10 @@ Feature: As a customer
 
   Background:
     Given a job profile exists with the name "Manufacturing Supervisor"
+    And I am on the "check_your_skills" page
 
   @ci @56
   Scenario: Happy Path
-  Given I am on the "check_your_skills" page
     When I enter "Supervisor" in "Enter your job title" field
     And I click the ".search-button" button
     Then I should see "Search results for"
@@ -15,7 +15,6 @@ Feature: As a customer
 
   @ci @56
   Scenario: Unhappy Path
-    Given I am on the "check_your_skills" page
     When I enter "zzzzzzz" in "name" field
     And I click the ".search-button" button
     Then I see error message "0 results found - try again using a different job title"

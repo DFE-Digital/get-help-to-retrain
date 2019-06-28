@@ -44,10 +44,12 @@ Given('the following categories are available') do |table|
   end
 end
 
+# TODO: revise
 # When('the link {string} is inactive') do |string|
 #   has_link? string
 # end
 
+# TODO: revise
 # Given("there is user with criteria:") do |table|
 #   print "todo: need to define test data"
 # end

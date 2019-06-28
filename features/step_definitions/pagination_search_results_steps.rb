@@ -1,3 +1,17 @@
+# TODO: revise example step creates multiple instances of job profile
+Given('there exists {string} results for the job profile {string}') do |number, name|
+  create_list(:job_profile, number.to_i, name: name)
+end
+
+# TODO: revise example step uses multiple steps
+Given('I have searched for the occupation {string}') do |name|
+  steps %(
+    Given I am on the 'explore_occupations' page
+    And I enter "#{name}" in "name" field
+    And I click the ".search-button" button
+  )
+end
+
 Given('that I search existing skills that results in less than one page of results') do
   fill_in 'name', with: 'manager'
   find('button.search-button').click
@@ -27,10 +41,12 @@ Given('that I search existing skills that results in more than one page of resul
   find('button.search-button').click
 end
 
+# TODO: revise
 When('I click the last page link') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
+# TODO: revise
 Then('I see the end of results') do
   pending # Write code here that turns the phrase above into concrete actions
 end

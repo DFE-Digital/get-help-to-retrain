@@ -28,3 +28,9 @@ When('I am on the {string} job profile skills page') do |name|
   slug = JobProfile.find_by(name: name).slug
   visit("/job_profiles/#{slug}/skills")
 end
+
+When('I can see all the information I need to learn more about that occupation') do
+  expect(page.body).to have_content('Average Salary')
+  expect(page.body).to have_content('Typical hours')
+  expect(page.body).to have_content('You could work')
+end
