@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/microsoft/ApplicationInsights-Ruby.git
+  revision: a74292001cf12f6de957dfdcefaf8dbe415d7181
+  ref: a7429200
+  specs:
+    application_insights (0.5.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -44,7 +51,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    application_insights (0.5.6)
     arel (9.0.0)
     ast (2.4.0)
     backports (3.15.0)
@@ -322,7 +328,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  application_insights
+  application_insights!
   bootsnap (>= 1.1.0)
   brakeman (~> 4.5)
   byebug
