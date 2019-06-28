@@ -4,7 +4,7 @@
       [
         [t('breadcrumb.task_list_home'), task_list_path],
         [t('breadcrumb.explore_occupations'), explore_occupations_path],
-        job_profile_breadcrumbs_for(request.referer)
+        [t('breadcrumb.search_results'), results_explore_occupations_path(name: params[:explore_occupations_result])]
       ]
     )
   end
