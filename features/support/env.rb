@@ -8,10 +8,10 @@ DatabaseCleaner.allow_remote_database_url = true
 begin
   DatabaseCleaner.strategy = :truncation
 rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
 
-Around do |scenario, block|
+Around do |_scenario, block|
   DatabaseCleaner.cleaning(&block)
 end
 
@@ -21,17 +21,15 @@ end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu window-size=1280,2000 no-sandbox) }
+    chromeOptions: { args: %w[headless disable-gpu window-size=1280,2000 no-sandbox] }
   )
 
   Capybara::Selenium::Driver.new app,
-    browser: :chrome,
-    desired_capabilities: capabilities
+                                 browser: :chrome,
+                                 desired_capabilities: capabilities
 end
 
 Capybara.javascript_driver = :headless_chrome
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 World(FactoryBot::Syntax::Methods)
-
-

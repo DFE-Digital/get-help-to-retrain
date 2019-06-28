@@ -1,6 +1,10 @@
+# rubocop:disable Metrics/ClassLength
+# TODO: Most of the xpath expressions within this class will be migrated to JobProfileScraper over time
+# which should remove the need to disable rubocop rules here.
 class JobProfileDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
 
+  # rubocop:disable Metrics/LineLength
   SALARY_MIN_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsstarter']".freeze
   SALARY_MAX_XPATH = "//div[@id='Salary']//p[@class='dfc-code-jpsexperienced']".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
@@ -18,6 +22,7 @@ class JobProfileDecorator < SimpleDelegator
   RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze
   CAREER_TIPS_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']".freeze
   OTHER_ROUTES_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]".freeze
+  # rubocop:enable Metrics/LineLength
 
   def salary_range
     min_salary = html_body.xpath(SALARY_MIN_XPATH).children[0]
@@ -70,7 +75,7 @@ class JobProfileDecorator < SimpleDelegator
 
     mutate_html_body
 
-    @doc.to_html.gsub(/<a.*?>(.+?)<\/a>/, '\1').concat(separator_line)
+    @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').concat(separator_line)
   end
 
   private
@@ -131,3 +136,4 @@ class JobProfileDecorator < SimpleDelegator
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 end
+# rubocop:enable Metrics/ClassLength

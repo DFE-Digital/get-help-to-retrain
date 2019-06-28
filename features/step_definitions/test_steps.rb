@@ -1,39 +1,39 @@
-When("I am on the {string} page") do |path|
+When('I am on the {string} page') do |path|
   visit("/#{path}")
 end
 
-Given("I am on the homepage") do
+Given('I am on the homepage') do
   visit(root_path)
 end
 
-Given("a job profile exists with the name {string}") do |name|
+Given('a job profile exists with the name {string}') do |name|
   create(:job_profile, name: name)
 end
 
-Then("the correct eligibility criteria is displayed") do
+Then('the correct eligibility criteria is displayed') do
   expect(page).to have_content('you\'re employed')
   expect(page).to have_content('you do not have a degree')
   expect(page).to have_content('you’re based in the Manchester area')
   expect(page).to have_content('aged 24 or over')
 end
 
-Then("the current page contains text {string}") do |content|
+Then('the current page contains text {string}') do |content|
   expect(page).to have_content(content)
 end
 
-Then("I click on the button {string}") do |string|
+Then('I click on the button {string}') do |string|
   click(string)
 end
 
-Then("I should see all stages of the journey") do
+Then('I should see all stages of the journey') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When("I click the text link {string}") do |string|
+When('I click the text link {string}') do |string|
   click_link(string)
 end
 
-When("there are placeholders for {string}") do |string|
+When('there are placeholders for {string}') do |string|
   case string
   when 'occupations'
     expect(page).to have_content('Explore the type of jobs you could retrain to do')
@@ -48,35 +48,35 @@ When("there are placeholders for {string}") do |string|
   end
 end
 
-When("the link {string} is inactive") do |string|
-  has_link? (string)
+When('the link {string} is inactive') do |string|
+  has_link? string
 end
 
-When("I enter {string} in {string} field") do |string, string2|
+When('I enter {string} in {string} field') do |string, string2|
   fill_in string2, with: string
 end
 
-When("I click the {string} button") do |string|
+When('I click the {string} button') do |string|
   find(string).click
 end
 
-Then("I should see the {string} page") do |title|
+Then('I should see the {string} page') do |title|
   has_title? title
 end
 
-Then("I see error message {string}") do |error|
+Then('I see error message {string}') do |error|
   expect(page).to have_content(error)
 end
 
-Then("Find a Course Service is unavailable") do |string|
+Then('Find a Course Service is unavailable') do |_string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then("Find a Course Service is available again") do |string|
+Then('Find a Course Service is available again') do |_string|
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then("I should see a list of occupations for {string}") do |string|
+Then('I should see a list of occupations for {string}') do |string|
   case string
   when 'Healthcare'
     expect(page).to have_content('Doctor')
