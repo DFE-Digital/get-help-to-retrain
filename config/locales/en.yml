@@ -2,12 +2,14 @@ en:
   breadcrumb:
     home: Home
     task_list: Get help to retrain
+    task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
     explore_occupations: Explore occupations
     find_training_courses: Find and apply to training courses near you
     next_steps: Next steps
     job_category: Job category
     search_results: Search results
+    job_profile: Job profile details
     your_skills: Your skills
   contact_us:
     title: Want to speak with an adviser?

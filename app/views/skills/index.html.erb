@@ -2,10 +2,9 @@
     generate_breadcrumbs(
       t('breadcrumb.your_skills'),
       [
-        [t('breadcrumb.home'), root_path],
-        [t('breadcrumb.task_list'), task_list_path],
+        [t('breadcrumb.task_list_home'), task_list_path],
         [t('breadcrumb.check_your_skills'), check_your_skills_path],
-        [t('breadcrumb.search_results'), request.referer]
+        [t('breadcrumb.search_results'), results_check_your_skills_path(name: params[:check_your_skills_result])]
       ]
     )
   end
