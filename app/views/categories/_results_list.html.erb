@@ -4,7 +4,6 @@
       <h3 class="govuk-!-margin-0">
         <%= link_to job_profile.name, job_profile_path(job_profile.slug, category: params[:id]), class: 'govuk-link no-text-decoration' %>
       </h3>
-      <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.sub_hero_copy %></p>
       <p class="govuk-!-margin-0"><%= job_profile.description %></p>
     </li>
   <% end %>
