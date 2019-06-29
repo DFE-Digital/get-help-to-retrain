@@ -1,4 +1,4 @@
-Feature:As a customer, I want to see information about the occupation I have selected, So that I can decide if it is suitable for me
+Feature: As a customer, I want to see information about the occupation I have selected, So that I can decide if it is suitable for me
 
   Background:
     Given a job profile exists for a Construction manager
@@ -6,8 +6,7 @@ Feature:As a customer, I want to see information about the occupation I have sel
   @ci @26
   Scenario: View Job Profile Information
     Given I am on the "Construction manager" job profile page
-    Then I should see "Construction manager"
-    And I can see all the information I need to learn more about that occupation
+    Then I can see all the information I need to learn more about that occupation
 
   @ci @161
   Scenario: Verify training course link

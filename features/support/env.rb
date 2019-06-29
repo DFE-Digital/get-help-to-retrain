@@ -33,3 +33,5 @@ Capybara.javascript_driver = :headless_chrome
 
 Cucumber::Rails::Database.javascript_strategy = :truncation
 World(FactoryBot::Syntax::Methods)
+
+Capybara.default_driver = :headless_chrome if ENV['DRIVER'] == 'headless'

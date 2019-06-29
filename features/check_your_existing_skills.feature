@@ -12,7 +12,7 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
     And I click the ".search-button" button
     Then I should see "Search results for"
     And I click on "Construction manager"
-    And I should see list of existing skills relevant for job title
+    Then I should see list of existing skills relevant for job title
 
   @ci @31 @32
   Scenario: Transferable skills
