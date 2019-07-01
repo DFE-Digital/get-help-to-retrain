@@ -17,7 +17,7 @@
       <p class="govuk-body-m"><%= render '/shared/search/no_results' %></p>
     <% else %>
       <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
-      <p class="govuk-inset-text"><%= t('.body') %></p>
+      <p class="govuk-inset-text govuk-!-margin-bottom-2"><%= t('.body') %></p>
       <%= render "results_list", job_profiles: @job_profiles %>
     <% end %>
   </div>
