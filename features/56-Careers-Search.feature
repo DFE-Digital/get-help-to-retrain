@@ -17,7 +17,7 @@ Feature: As a customer
   Scenario: Unhappy Path
     When I enter "zzzzzzz" in "name" field
     When I click the ".search-button" button
-    Then I see error message "0 results found - try again using a different job title"
+    Then I see error message "0 results"
 
 # Scenario: Check pagination
 
