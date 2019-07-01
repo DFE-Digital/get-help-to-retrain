@@ -19,6 +19,13 @@ Feature: As a customer
     And I click the ".search-button" button
     Then I see error message "0 results found - try again using a different job title"
 
+  @ci @56
+  Scenario: Unhappy Path (case sensitivity)
+    When I enter "supervisor" in "Enter your job title" field
+    And I click the ".search-button" button
+    Then I should see "Search results for"
+    And I should see "Manufacturing Supervisor"
+
 # Scenario: Check pagination
 
 # Scenario: Check number of results per page

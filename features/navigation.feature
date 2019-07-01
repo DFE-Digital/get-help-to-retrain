@@ -3,9 +3,13 @@ Feature: As a customer
   So that it is easier to jump steps I have followed.
 
   @ci @138
-  Scenario: Check Breadcrumb Navigation
-    Given I am on the homepage
-    And I click on "Start now"
-    When I click on "Check your existing skills"
+  Scenario Outline: Check Breadcrumb Navigation
+    Given I am on the "<path>" page
     And I click on "Home: Get help to retrain"
     Then I should see "Get help to retrain"
+    Examples:
+      | path                                          |
+      | explore_occupations                           |
+      | check_your_skills                             |
+      | find_training_courses                         |
+      | next_steps                                    |
