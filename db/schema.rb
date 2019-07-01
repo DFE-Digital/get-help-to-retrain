@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_26_115718) do
+ActiveRecord::Schema.define(version: 2019_07_01_155237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2019_06_26_115718) do
     t.datetime "updated_at", null: false
     t.integer "salary_min"
     t.integer "salary_max"
+    t.string "alternative_titles", default: [], null: false, array: true
     t.index ["slug"], name: "index_job_profiles_on_slug", unique: true
   end
 
