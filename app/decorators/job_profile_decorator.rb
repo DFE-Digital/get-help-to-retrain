@@ -26,7 +26,7 @@ class JobProfileDecorator < SimpleDelegator
   def salary_range
     return 'Variable' unless salary_min && salary_max
 
-    "#{number_to_currency(salary_min, precision: 0)} - #{number_to_currency(salary_max, precision: 0)}"
+    "#{number_to_currency(salary_min, precision: 0)} to #{number_to_currency(salary_max, precision: 0)}"
   end
 
   def working_hours
