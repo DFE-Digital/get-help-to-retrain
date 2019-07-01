@@ -1,4 +1,4 @@
-unless Rails.env.test?
+if Rails.env.production?
   Rails.application.configure do
     if (app_insights_key = ENV['APPINSIGHTS_INSTRUMENTATIONKEY']) && app_insights_key.present?
       # the optional extra params are buffer_size (= 500) and send_interval (= 60),
