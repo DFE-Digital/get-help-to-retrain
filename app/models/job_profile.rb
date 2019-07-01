@@ -14,8 +14,7 @@ class JobProfile < ApplicationRecord
     end
   end
 
-  def scrape
-    scraper = JobProfileScraper.new
+  def scrape(scraper = JobProfileScraper.new)
     scraped = scraper.scrape(source_url)
 
     self.name = scraped.delete('title')
