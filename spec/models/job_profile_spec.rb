@@ -17,6 +17,8 @@ RSpec.describe JobProfile do
   end
 
   describe 'relationships' do
+    let(:related_job_profile) { build_stubbed(:job_profile) }
+
     before do
       recommended_job.categories << category
       recommended_job.skills << skill
@@ -28,6 +30,12 @@ RSpec.describe JobProfile do
 
     it 'has many skills' do
       expect(recommended_job.skills).to match [skill]
+    end
+
+    it 'has many and belongs to many related_job_profiles' do
+      discouraged_job.related_job_profiles << related_job_profile
+
+      expect(discouraged_job.related_job_profiles).to contain_exactly(related_job_profile)
     end
   end
 

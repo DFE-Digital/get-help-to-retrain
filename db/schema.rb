@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 2019_07_01_155237) do
     t.index ["slug"], name: "index_job_profiles_on_slug", unique: true
   end
 
+  create_table "related_job_profiles", id: false, force: :cascade do |t|
+    t.integer "job_profile_id"
+    t.integer "related_job_profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_profile_id"], name: "index_related_job_profiles_on_job_profile_id"
+    t.index ["related_job_profile_id"], name: "index_related_job_profiles_on_related_job_profile_id"
+  end
+
   create_table "skills", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
