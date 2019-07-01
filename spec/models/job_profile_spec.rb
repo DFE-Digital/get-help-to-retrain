@@ -32,6 +32,12 @@ RSpec.describe JobProfile do
   end
 
   describe '.search' do
+    it 'returns a job profile if a name has accidental spaces' do
+      job_profile = create(:job_profile, name: 'Music therapist')
+
+      expect(described_class.search('Music    therapist      ')).to contain_exactly(job_profile)
+    end
+
     it 'returns a job profile if a name matches exactly' do
       job_profile = create(:job_profile, name: 'Beverage Dissemination Officer')
 

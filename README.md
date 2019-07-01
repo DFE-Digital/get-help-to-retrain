@@ -107,3 +107,9 @@ Alternatively for development mode only, it's possible to create random data cre
 ```bash
   bundle exec rails db:seed
 ```
+
+If job profiles have been previously scraped and `content` is populated, it's possible to run the following rake task to refresh the persisted job profile attributes (e.g. name, description, skills, salary_min, salary_max etc.):
+
+```bash
+  bundle exec rails data_import:refresh_job_profiles
+```
