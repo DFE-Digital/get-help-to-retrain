@@ -155,5 +155,15 @@ RSpec.describe JobProfile do
     it 'updates skills with scraped skill names' do
       expect(job_profile.skills).to include customer_service
     end
+
+    it 'updates the related_profiles with scraped related job profiles data' do
+      expect(job_profile.related_job_profiles.pluck(:slug)).to contain_exactly(
+        'data-entry-clerk',
+        'health-records-clerk',
+        'hotel-receptionist',
+        'local-government-administrative-assistant',
+        'personal-assistant'
+      )
+    end
   end
 end
