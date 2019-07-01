@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Explore Occupations', type: :feature do
-  let(:job_profile) do
+  let!(:job_profile) do
     create(
       :job_profile,
       name: 'Zombie Killer',
