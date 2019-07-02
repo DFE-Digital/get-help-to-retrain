@@ -37,7 +37,7 @@ RSpec.feature 'Explore Occupations', type: :feature do
     fill_in('name', with: 'Embalmer')
     find('.search-button').click
 
-    expect(page).to have_text('0 results found')
+    expect(page).to have_text('0 results')
   end
 
   scenario 'User continues journey to finding a training course' do

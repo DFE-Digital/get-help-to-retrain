@@ -32,6 +32,6 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('name', with: 'Embalmer')
     find('.search-button').click
 
-    expect(page).to have_text('0 results found')
+    expect(page).to have_text('0 results')
   end
 end
