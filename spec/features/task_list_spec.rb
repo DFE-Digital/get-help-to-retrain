@@ -24,14 +24,14 @@ RSpec.feature 'Tasks List', type: :feature do
 
   scenario 'User finds a training course' do
     visit(task_list_path)
-    click_on('Find and apply to training courses near you ')
+    click_on('Talk to an adviser to find and apply to a training course near you')
 
     expect(page).to have_text('Find and apply to a training course near you')
   end
 
   scenario 'User finds ouy next steps' do
     visit(task_list_path)
-    click_on('Find out what you can do next')
+    click_on('Get more support to help you on your new career path')
 
     expect(page).to have_text('Get advice and help in your search for a new role.')
   end
