@@ -5,5 +5,5 @@ Feature: As a customer, I want to see a summary all the training I am recommende
 
   @ci @60
   Scenario: Hub Page - Your existing skills
-    When I click on "Find and apply to training courses near you"
-    Then I should see "Find and apply to a training course near you"
+    When I click on "Search for the types of jobs you could retrain to do "
+    Then I should see "Explore the type of jobs you could retrain to do"

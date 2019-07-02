@@ -1,6 +1,8 @@
 Then('the correct eligibility criteria is displayed') do
-  expect(page).to have_content('you\'re employed')
-  expect(page).to have_content('you do not have a degree')
-  expect(page).to have_content('you’re based in the Manchester area')
-  expect(page).to have_content('aged 24 or over')
+  lineValues = ['you\'re employed','you do not have a degree','you\'re based in the Liverpool area','you\'re aged 24 or over','you\'re earning below £35,000 per year']
+
+  lineValues.each do |item|
+    expect(page).to have_content(item)
+  end
 end
+

@@ -3,5 +3,5 @@ Feature: As a customer, I want to be advised about what I should do next, now I'
   @ci @21
   Scenario: User returns to uncompleted journey
     Given I am on the "task_list" page
-    When I click on "Find out what you can do next"
+    When I click on "Get more support to help you on your new career path"
     Then I can learn what all my next options are

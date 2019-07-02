@@ -17,7 +17,8 @@ Feature: As a customer
   Scenario: Unhappy Path
     When I enter "zzzzzzz" in "name" field
     And I click the ".search-button" button
-    Then I see error message "0 results found - try again using a different job title"
+    Then I see error message "0 results"
+    And I see error message "Try again using a different job title"
 
   @ci @56
   Scenario: Unhappy Path (case sensitivity)

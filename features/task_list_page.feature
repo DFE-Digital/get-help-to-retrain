@@ -18,10 +18,10 @@ Feature: As a customer
 
   @ci @30
   Scenario: Hub Page - Apply for a training course
-    When I click on "Find and apply to training courses near you"
+    When I click on "Talk to an adviser to find and apply to a training course near you"
     Then there are placeholders for "training courses"
 
   @ci @30
   Scenario: Hub Page - Next Steps
-    When I click on "Find out what you can do next"
+    When I click on "Get more support to help you on your new career path"
     Then there are placeholders for "current course"
