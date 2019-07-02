@@ -1,5 +1,5 @@
 # TODO: revise
-When('I enter at least two letters of a {string} field') do |string|
+When('I enter at least two letters of a {string} field') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
@@ -18,6 +18,6 @@ end
 #   pending # Write code here that turns the phrase above into concrete actions
 # end
 
-Then("I should see the related occupations") do
+Then('I should see the related occupations') do
   pending # Write code here that turns the phrase above into concrete actions
 end
