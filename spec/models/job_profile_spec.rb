@@ -74,22 +74,18 @@ RSpec.describe JobProfile do
       expect(described_class.search('Beverage Dissemination Officer')).to be_empty
     end
 
-    it 'returns all records if empty name is supplied' do
-      job_profiles = [
-        create(:job_profile, name: 'Dream Alchemist'),
-        create(:job_profile, name: 'Beverage Dissemination Officer')
-      ]
+    it 'returns no records if empty name is supplied' do
+      create(:job_profile, name: 'Dream Alchemist')
+      create(:job_profile, name: 'Beverage Dissemination Officer')
 
-      expect(described_class.search('')).to eq(job_profiles)
+      expect(described_class.search('')).to be_empty
     end
 
-    it 'returns all records if no name is supplied' do
-      job_profiles = [
-        create(:job_profile, name: 'Dream Alchemist'),
-        create(:job_profile, name: 'Beverage Dissemination Officer')
-      ]
+    it 'returns no records if no name is supplied' do
+      create(:job_profile, name: 'Dream Alchemist')
+      create(:job_profile, name: 'Beverage Dissemination Officer')
 
-      expect(described_class.search(nil)).to eq(job_profiles)
+      expect(described_class.search(nil)).to be_empty
     end
   end
 
