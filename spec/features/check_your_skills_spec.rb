@@ -12,8 +12,7 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User checks their current skills' do
-    visit(task_list_path)
-    click_on('Check your existing skills')
+    visit(check_your_skills_path)
     fill_in('name', with: 'Bodyguard')
     find('.search-button').click
     click_on('Bodyguard')

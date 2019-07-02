@@ -15,8 +15,7 @@ RSpec.feature 'Explore Occupations', type: :feature do
   end
 
   scenario 'User explores their career through categories' do
-    visit(task_list_path)
-    click_on('Search for the types of jobs you could retrain to do')
+    visit(explore_occupations_path)
     click_on('Apocalyptic services')
     click_on('Zombie Killer')
 

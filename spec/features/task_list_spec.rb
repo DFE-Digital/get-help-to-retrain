@@ -8,6 +8,20 @@ RSpec.feature 'Tasks List', type: :feature do
     expect(page).to have_text('Check what you need to do to retrain for another job')
   end
 
+  scenario 'User checks their existing skills' do
+    visit(task_list_path)
+    click_on('Check your existing skills')
+
+    expect(page).to have_text('Check your existing skills')
+  end
+
+  scenario 'User explores their occupation' do
+    visit(task_list_path)
+    click_on('Search for the types of jobs you could retrain to do')
+
+    expect(page).to have_text('Explore occupations')
+  end
+
   scenario 'User finds a training course' do
     visit(task_list_path)
     click_on('Find and apply to training courses near you ')
