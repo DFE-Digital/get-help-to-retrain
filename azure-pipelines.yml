@@ -92,7 +92,7 @@ jobs:
     - script: |
         docker push $(dockerRegistry)/$(imageName):latest
       displayName: Push Latest Docker Image
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
