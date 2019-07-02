@@ -10,7 +10,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
-/vendor
 
 # Ignore uploaded files in development
 /storage/*

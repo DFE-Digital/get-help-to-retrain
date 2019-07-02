@@ -6,7 +6,11 @@
     <div class="govuk-grid-column-three-quarters">
       <h4 class="govuk-heading-s govuk-!-margin-top-5">Average Salary</h4>
       <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3">
-      <p class="govuk-body" id="salary_range"><%= @job_profile.salary_range %></p>
+      <ul class="govuk-list">
+        <li>
+          <%= @job_profile.salary_range %>
+        </li>
+      </ul>
     </div>
   </div>
 </div>
