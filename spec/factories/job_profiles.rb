@@ -11,5 +11,11 @@ FactoryBot.define do
     trait :recommended do
       recommended { true }
     end
+
+    trait :with_html_content do
+      template = Rails.root.join('spec', 'fixtures', 'files', 'job_profile_content.html.erb').read
+
+      content { ERB.new(template).result(binding) }
+    end
   end
 end

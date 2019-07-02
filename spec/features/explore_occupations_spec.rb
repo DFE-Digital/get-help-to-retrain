@@ -4,12 +4,13 @@ RSpec.feature 'Explore Occupations', type: :feature do
   let!(:job_profile) do
     create(
       :job_profile,
+      :with_html_content,
       name: 'Zombie Killer',
-      content: file_fixture('zombie_killer_content.html').read,
-      salary_min: 17_000,
-      salary_max: 28_000,
       categories: [
         create(:category, name: 'Apocalyptic services')
+      ],
+      skills: [
+        create(:skill, name: 'the ability to work well with the deceased')
       ]
     )
   end
