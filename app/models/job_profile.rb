@@ -23,7 +23,7 @@ class JobProfile < ApplicationRecord
   end
 
   def self.bulk_import(slugs)
-    slugs.map { |slug| find_or_create_by(slug: slug) }
+    slugs.map { |slug| find_by(slug: slug) }.compact
   end
 
   def scrape(scraper = JobProfileScraper.new)
