@@ -18,3 +18,5 @@ RSpec/ExampleLength:
   Enabled: false
 Lint/AmbiguousBlockAssociation:
   Enabled: false
+Capybara/FeatureMethods:
+  Enabled: false

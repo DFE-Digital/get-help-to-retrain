@@ -10,7 +10,7 @@ RSpec.describe JobProfileDecorator do
       let(:model) { build_stubbed :job_profile, salary_min: 18_000, salary_max: 30_000 }
 
       it 'formats the salary range' do
-        expect(job_profile.salary_range).to eq '£18,000 - £30,000'
+        expect(job_profile.salary_range).to eq '£18,000 to £30,000'
       end
     end
 

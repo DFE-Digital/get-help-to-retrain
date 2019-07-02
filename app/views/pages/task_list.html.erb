@@ -21,9 +21,12 @@
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-            <%= link_to check_your_skills_path, class: 'app-task-list__task-name govuk-link' do %>
-              Check your existing skills <span class="app-step-nav__context">5 minutes</span>
-            <% end %>
+            <div class="app-task-list__task-name">
+              <%= link_to check_your_skills_path, class: 'govuk-link' do %>
+                Check your existing skills <span class="app-step-nav__context">5 minutes</span>
+              <% end %>
+              <p class="govuk-body govuk-!-margin-bottom-0">You’ll be surprised at what you already know</p>
+            </div>
           </li>
         </ul>
       </li>
@@ -33,9 +36,12 @@
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-            <%= link_to explore_occupations_path, class: 'app-task-list__task-name govuk-link' do %>
-              Search for the types of jobs you could retrain to do <span class="app-step-nav__context">5 to 20 minutes</span>
-            <% end %>
+            <div class="app-task-list__task-name">
+              <%= link_to explore_occupations_path, class: 'govuk-link' do %>
+                Search for the types of jobs you could retrain to do <span class="app-step-nav__context">5 to 20 minutes</span>
+              <% end %>
+              <p class="govuk-body govuk-!-margin-bottom-0">These are not live jobs you can apply to – they’re the types of jobs you’ll be able to do with your existing skills or once you do some training</p>
+            </div>
           </li>
         </ul>
       </li>
@@ -45,9 +51,12 @@
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-            <%= link_to find_training_courses_path, class: 'app-task-list__task-name govuk-link' do %>
-              Find and apply to training courses near you <span class="app-step-nav__context">10 to 20 minutes</span>
-            <% end %>
+            <div class="app-task-list__task-name">
+              <%= link_to find_training_courses_path, class: 'govuk-link' do %>
+                Talk to an adviser to find and apply to a training course near you <span class="app-step-nav__context">10 to 20 minutes</span>
+              <% end %>
+              <p class="govuk-body govuk-!-margin-bottom-0">Training can help you access a broader range of jobs</p>
+            </div>
           </li>
         </ul>
       </li>
@@ -57,7 +66,10 @@
         </h2>
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
-            <%= link_to 'Find out what you can do next', next_steps_path, class: 'app-task-list__task-name govuk-link'%>
+            <div class="app-task-list__task-name">
+              <%= link_to 'Get more support to help you on your new career path', next_steps_path, class: 'govuk-link' %>
+              <p class="govuk-body govuk-!-margin-bottom-0">For example, advice on how to look and apply for jobs or help with childcare options</p>
+            </div>
           </li>
         </ul>
       </li>
