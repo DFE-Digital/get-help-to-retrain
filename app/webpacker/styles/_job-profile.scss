@@ -101,3 +101,9 @@
     width: 150% !important;
   }
 }
+
+.related_profiles {
+  @include govuk-media-query($from: tablet) {
+    margin-top: 180px;
+  }
+}
