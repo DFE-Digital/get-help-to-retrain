@@ -11,6 +11,21 @@ en-GB:
     search_results: Search results
     job_profile: Job profile details
     your_skills: Your skills
+
+  page_titles:
+    default: Get help to retrain
+    home: Get help to retrain - Home
+    task_list: Get help to retrain - Tasks
+    check_your_skills: Get help to retrain - Check your skills
+    check_skills_results: Get help to retrain - Check skills results
+    your_skills: Get help to retrain - Your skills
+    explore_occupations: Get help to retrain - Explore occupations
+    job_category: Get help to retrain - Job category
+    job_profile_results: Get help to retrain - Search results
+    job_profile: Get help to retrain - Job profile
+    find_training_courses: Get help to retrain - Training courses
+    next_steps: Get help to retrain - Next steps
+
   contact_us:
     title: Want to speak with an adviser?
     body: Call
