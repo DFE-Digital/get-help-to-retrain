@@ -37,7 +37,8 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
         'data-entry-clerk',
         'hotel-receptionist',
         'personal-assistant',
-        'health-records-clerk')
+        'health-records-clerk'
+      )
     end
   end
 

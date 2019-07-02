@@ -129,38 +129,47 @@ RSpec.describe JobProfile do
     let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
     let(:job_profile) { build :job_profile, source_url: url }
     let!(:customer_service) { create :skill, name: 'customer service skills' }
-    let!(:data_entry_clerk_profile) { create :job_profile, slug: 'data-entry-clerk' }
 
-    before { job_profile.scrape }
+    context 'with no profiles scraped prior' do
+      before { job_profile.scrape }
 
-    it 'updates name with scraped title' do
-      expect(job_profile.name).to eq 'Admin assistant'
+      it 'updates name with scraped title' do
+        expect(job_profile.name).to eq 'Admin assistant'
+      end
+
+      it 'updates description with scraped description' do
+        expect(job_profile.description).to match 'organising meetings'
+      end
+
+      it 'updates salary minimum with scraped salary' do
+        expect(job_profile.salary_min).to eq 14_000
+      end
+
+      it 'updates salary maximum with scraped salary' do
+        expect(job_profile.salary_max).to eq 30_000
+      end
+
+      it 'updates content with scraped body' do
+        expect(job_profile.content).to match 'National Careers Service'
+      end
+
+      it 'updates skills with scraped skill names' do
+        expect(job_profile.skills).to include customer_service
+      end
     end
 
-    it 'updates description with scraped description' do
-      expect(job_profile.description).to match 'organising meetings'
-    end
+    context 'with scraped profiles prior' do
+      before do
+        create :job_profile, slug: 'data-entry-clerk'
 
-    it 'updates salary minimum with scraped salary' do
-      expect(job_profile.salary_min).to eq 14_000
-    end
+        job_profile.scrape
+      end
 
-    it 'updates salary maximum with scraped salary' do
-      expect(job_profile.salary_max).to eq 30_000
-    end
-
-    it 'updates content with scraped body' do
-      expect(job_profile.content).to match 'National Careers Service'
-    end
-
-    it 'updates skills with scraped skill names' do
-      expect(job_profile.skills).to include customer_service
-    end
-
-    it 'updates the related_profiles with scraped related job profiles data' do
-      expect(job_profile.related_job_profiles.pluck(:slug)).to contain_exactly(
-        'data-entry-clerk'
-      )
+      it 'updates the related_profiles with scraped related job profiles data' do
+        expect(job_profile.related_job_profiles.pluck(:slug)).to contain_exactly(
+          'data-entry-clerk'
+        )
+      end
     end
   end
 end
