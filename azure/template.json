@@ -14,6 +14,13 @@
         "description": "The abbreviation of the service name to be used when naming a resource."
       }
     },
+    "customHostName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The custom hostname to add to the app service."
+      }
+    },
     "databaseName": {
       "type": "string",
       "metadata": {
@@ -48,6 +55,20 @@
       "type": "string",
       "metadata": {
         "description": "The email address to be used for psql security alerts."
+      }
+    },
+    "keyVaultName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The name of the key vault."
+      }
+    },
+    "keyVaultResourceGroup": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The resource group for the key vault."
       }
     },
     "dockerHubOrg": {
@@ -104,6 +125,7 @@
     "deploymentUrlBase": "https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/",
     "resourceNamePrefix": "[toLower(concat( parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
+    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-kv')",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
     "workerAppServiceName": "[concat(variables('resourceNamePrefix'), 'wkr-as')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
@@ -314,6 +336,9 @@
                 "value": "[parameters('secretKeyBase')]"
               }
             ]
+          },
+          "customHostName": {
+            "value": "[parameters('customHostName')]"
           }
         }
       },
@@ -352,6 +377,22 @@
       "dependsOn": [
         "app-service"
       ]
+    },
+    {
+      "name": "key-vault",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'), 'keyvault.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          }
+        }
     }
   ],
   "outputs": {
