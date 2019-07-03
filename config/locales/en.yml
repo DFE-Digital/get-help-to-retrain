@@ -14,17 +14,20 @@ en-GB:
 
   page_titles:
     default: Get help to retrain
-    home: Get help to retrain - Home
-    task_list: Get help to retrain - Tasks
-    check_your_skills: Get help to retrain - Check your skills
-    check_skills_results: Get help to retrain - Check skills results
-    your_skills: Get help to retrain - Your skills
-    explore_occupations: Get help to retrain - Explore occupations
-    job_category: Get help to retrain - Job category
-    job_profile_results: Get help to retrain - Search results
-    job_profile: Get help to retrain - Job profile
-    find_training_courses: Get help to retrain - Training courses
-    next_steps: Get help to retrain - Next steps
+    home_index: Get help to retrain - Home
+    pages_task_list: Get help to retrain - Tasks
+    check_your_skills_index: Get help to retrain - Check your skills
+    check_your_skills_results: Get help to retrain - Check your skills results
+    skills_index: Get help to retrain - Your skills
+    explore_occupations_index: Get help to retrain - Explore occupations
+    categories_show: Get help to retrain - Job category
+    explore_occupations_results: Get help to retrain - Explore occupations results
+    job_profiles_show: Get help to retrain - Job profile
+    pages_find_training_courses: Get help to retrain - Training courses
+    pages_next_steps: Get help to retrain - Next steps
+    errors_not_found: Get help to retrain - Not found
+    errors_unprocessable_entity: Get help to retrain - Unprocessable entity
+    errors_internal_server_error: Get help to retrain - Internal server error
 
   contact_us:
     title: Want to speak with an adviser?
@@ -59,6 +62,7 @@ en-GB:
   home:
     index:
       title: Get help to retrain
+
   pages:
     task_list:
       title: Get help to retrain

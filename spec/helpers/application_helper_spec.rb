@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ApplicationHelper do
   describe '.page_title' do
     it 'returns correct translated page title' do
-      helper.page_title(:home)
+      helper.page_title(:home_index)
       expect(helper.content_for(:page_title)).to eq 'Get help to retrain - Home'
     end
 
