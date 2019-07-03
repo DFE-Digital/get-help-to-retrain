@@ -130,7 +130,7 @@ RSpec.describe JobProfile do
     let(:job_profile) { build :job_profile, source_url: url }
     let!(:customer_service) { create :skill, name: 'customer service skills' }
 
-    context 'with no profiles scraped prior' do
+    context 'with no persisted job profiles' do
       before { job_profile.scrape }
 
       it 'updates name with scraped title' do
@@ -158,7 +158,7 @@ RSpec.describe JobProfile do
       end
     end
 
-    context 'with scraped profiles prior' do
+    context 'with persisted job profiles' do
       before do
         create :job_profile, slug: 'data-entry-clerk'
         create :job_profile, slug: 'non-existing-profile'
