@@ -14,11 +14,13 @@
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">
     <span class="govuk-caption-xl">Your current skills</span>
-    <%= render 'job_profiles/brief' %>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3" ><%= @job_profile.hero_copy %></h1>
+    <% @job_profile.additional_hero_copy.each do |paragraph| %>
+      <p class="govuk-body-l"><%= paragraph %></p>
+    <% end %>
+    <h2 class="govuk-heading-m">Skills you may have:</h2>
     <%= render 'skills_list' %>
-    <div class="govuk-grid-column-full">
-      <%= link_to('Explore jobs you could do', explore_occupations_path, class: 'govuk-button govuk-!-margin-top-6  govuk-!-margin-bottom-9') %>
-    </div>
+    <%= link_to('Explore jobs you could do', explore_occupations_path, class: 'govuk-button') %>
   </div>
 
   <%= render 'shared/contact_us' %>
