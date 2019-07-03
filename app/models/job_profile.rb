@@ -29,15 +29,27 @@ class JobProfile < ApplicationRecord
   def scrape(scraper = JobProfileScraper.new)
     scraped = scraper.scrape(source_url)
 
-    self.name = scraped.delete('title')
+    ActiveRecord::Base.transaction do
+      self.name = scraped.delete('title')
 
-    self.skills = Skill.import scraped.delete('skills')
+      skills_to_import = Skill.import scraped.delete('skills')
 
-    scraped_profile_slugs = scraped.delete('related_profiles')
+      related_profiles_to_import = JobProfile.bulk_import(
+        remove_value_from(
+          collection: scraped.delete('related_profiles'),
+          value: slug
+        )
+      )
 
-    self.related_job_profiles = JobProfile.bulk_import remove_value_from(collection: scraped_profile_slugs, value: slug)
+      clean_related_profiles
 
-    update!(scraped)
+      self.skills = skills_to_import
+      self.related_job_profiles = related_profiles_to_import
+
+      update!(scraped)
+    rescue StandardError => e
+      puts "Could not resume scraping, rolling back. Reason: #{e.message}"
+    end
   end
 
   private
@@ -46,5 +58,9 @@ class JobProfile < ApplicationRecord
     collection.delete(value) if value
 
     collection
+  end
+
+  def clean_related_profiles
+    related_job_profiles.destroy_all
   end
 end

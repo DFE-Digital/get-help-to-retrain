@@ -174,5 +174,44 @@ RSpec.describe JobProfile do
         )
       end
     end
+
+    context 'when an exception is raised during scraping' do
+      let(:skill) { create(:skill, name: 'communication') }
+      let(:related_profile) { create(:job_profile, slug: 'hotel-receptionist') }
+
+      let(:job_profile) {
+        create(
+          :job_profile,
+          name: 'Old name',
+          skills: [skill],
+          related_job_profiles: [related_profile],
+          source_url: url
+        )
+      }
+
+      it 'rollbacks the name' do
+        allow(Skill).to receive(:import).and_raise('Error')
+        
+        job_profile.scrape
+
+        expect(job_profile.reload.name).to eq 'Old name'
+      end
+
+      it 'rollbacks the skills' do
+        allow(Skill).to receive(:import).and_raise('Error')
+
+        job_profile.scrape
+
+        expect(job_profile.reload.skills).to match_array([skill])
+      end
+
+      it 'rollbacks the related job profile associations' do
+        allow(described_class).to receive(:bulk_import).and_raise('Error')
+
+        job_profile.scrape
+
+        expect(job_profile.reload.related_job_profiles).to match_array([related_profile])
+      end
+    end
   end
 end
