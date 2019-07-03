@@ -159,8 +159,10 @@ RSpec.describe JobProfile do
     end
 
     context 'with persisted job profiles' do
+      let(:job_profile) { create :job_profile, slug: 'data-entry-clerk', source_url: url }
+
       before do
-        create :job_profile, slug: 'data-entry-clerk'
+        create :job_profile, slug: 'hotel-receptionist'
         create :job_profile, slug: 'non-existing-profile'
 
         job_profile.scrape
@@ -168,7 +170,7 @@ RSpec.describe JobProfile do
 
       it 'updates the related_profiles with scraped related job profiles data' do
         expect(job_profile.related_job_profiles.pluck(:slug)).to contain_exactly(
-          'data-entry-clerk'
+          'hotel-receptionist'
         )
       end
     end

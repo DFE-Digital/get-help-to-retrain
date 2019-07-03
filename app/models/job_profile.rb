@@ -30,9 +30,21 @@ class JobProfile < ApplicationRecord
     scraped = scraper.scrape(source_url)
 
     self.name = scraped.delete('title')
+
     self.skills = Skill.import scraped.delete('skills')
-    self.related_job_profiles = JobProfile.bulk_import scraped.delete('related_profiles')
+
+    scraped_profile_slugs = scraped.delete('related_profiles')
+
+    self.related_job_profiles = JobProfile.bulk_import remove_value_from(collection: scraped_profile_slugs, value: slug)
 
     update!(scraped)
+  end
+
+  private
+
+  def remove_value_from(collection:, value:)
+    collection.delete(value) if value
+
+    collection
   end
 end
