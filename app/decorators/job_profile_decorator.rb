@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 # TODO: Most of the xpath expressions within this class will be migrated to JobProfileScraper over time
 # which should remove the need to disable rubocop rules here.
 class JobProfileDecorator < SimpleDelegator
@@ -9,7 +8,6 @@ class JobProfileDecorator < SimpleDelegator
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
   WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
   HERO_COPY_XPATH = "//header[@class='job-profile-hero']//h1[@class='heading-xlarge']".freeze
-  SUB_HERO_COPY_XPATH = "//header[@class='job-profile-hero']//h2[@class='heading-secondary']".freeze
   ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
   APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']".freeze
   DIRECT_APPLICATION_SECTION_XPATH = "//section[@id='directapplication']".freeze
@@ -47,14 +45,6 @@ class JobProfileDecorator < SimpleDelegator
 
   def hero_copy
     html_body.xpath(HERO_COPY_XPATH).text.strip
-  end
-
-  def sub_hero_copy
-    parsed_section = html_body.xpath(SUB_HERO_COPY_XPATH)
-
-    return unless parsed_section.any?
-
-    parsed_section.children.last.text
   end
 
   def additional_hero_copy
@@ -131,4 +121,3 @@ class JobProfileDecorator < SimpleDelegator
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 end
-# rubocop:enable Metrics/ClassLength

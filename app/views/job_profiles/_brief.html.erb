@@ -1,6 +1,6 @@
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-2" ><%= @job_profile.hero_copy %></h1>
-<% if @job_profile.sub_hero_copy.present? %>
-  <p class="govuk-body-l muted-text"><%= @job_profile.sub_hero_copy %></p>
+<% if @job_profile.alternative_titles.any? %>
+  <p class="govuk-body-l muted-text"><%= alternative_names(@job_profile.alternative_titles) %></p>
 <% end %>
 <% @job_profile.additional_hero_copy.each do |paragraph| %>
   <p class="govuk-body-l"><%= paragraph %></p>
