@@ -5,6 +5,9 @@ end
 
 ruby File.read('.ruby-version').chomp
 
+# To use Azure application insights
+gem 'application_insights', github: 'microsoft/ApplicationInsights-Ruby', ref: 'a7429200'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 gem 'rails-i18n', '~> 5.1'

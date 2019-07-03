@@ -1,3 +1,4 @@
+<% page_title :explore_occupations_index %>
 <% content_for :breadcrumb do
     generate_breadcrumbs(
       t('breadcrumb.explore_occupations'),
@@ -16,7 +17,7 @@
       <% @categories.each do |category| %>
         <li class="govuk-!-padding-top-1 column-list-item">
           <h4 class="govuk-!-margin-0">
-            <%= link_to category.name, category_path(category), class: 'govuk-link' %>
+            <%= link_to category.name, category_path(category.slug), class: 'govuk-link' %>
           </h4>
         </li>
       <% end %>
