@@ -13,11 +13,10 @@ When('I click on a random job title') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-# TODO: revise
-# Then('I should see the {string} page') do |string|
-#   pending # Write code here that turns the phrase above into concrete actions
-# end
+Then('I should see the {string} page') do |path|
+  expect(page.current_path).to have_current_path(path)
+end
 
 Then('I should see the related occupations') do
-  pending # Write code here that turns the phrase above into concrete actions
+  find('.related-occupations').visible?
 end

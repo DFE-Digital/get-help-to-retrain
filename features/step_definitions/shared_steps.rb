@@ -6,8 +6,8 @@ When('I am on the {string} page') do |path|
   visit("/#{path}")
 end
 
-When('I click on {string}') do |txt|
-  click_on(txt)
+When('the current url path is {string}') do |path|
+  expect(page.current_path).to have_current_path(path)
 end
 
 Then('I should see {string}') do |text|
@@ -24,6 +24,10 @@ end
 
 When('I click the {string} button') do |identifier|
   find(identifier).click
+end
+
+When('I click on {string}') do |string|
+  click_link(string)
 end
 
 Given('the following job profiles are available') do |table|

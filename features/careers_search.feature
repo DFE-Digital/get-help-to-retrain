@@ -20,6 +20,17 @@ Feature: As a customer
     Then I see error message "0 results"
     And I see error message "Try again using a different job title"
 
+  @wip @104
+  Scenario: Search with blank search field
+    When I am on the "/check_your_skills" page
+    And I click the ".search-button" button
+    Then I should see "Check your existing skills"
+    And the current url path is "/check_your_skills"
+    When I am on the "/explore_occupations" page
+    And I click the ".search-button" button
+    Then I should see "Explore by job category"
+    And the current url path is "/explore_occupations"
+
   @ci @56
   Scenario: Unhappy Path (case sensitivity)
     When I enter "supervisor" in "Enter your job title" field
