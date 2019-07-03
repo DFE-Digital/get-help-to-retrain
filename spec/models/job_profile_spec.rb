@@ -191,7 +191,7 @@ RSpec.describe JobProfile do
 
       it 'rollbacks the name' do
         allow(Skill).to receive(:import).and_raise('Error')
-        
+
         job_profile.scrape
 
         expect(job_profile.reload.name).to eq 'Old name'
