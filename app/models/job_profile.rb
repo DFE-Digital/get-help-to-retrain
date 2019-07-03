@@ -4,6 +4,8 @@ class JobProfile < ApplicationRecord
   has_many :categories, through: :job_profile_categories, inverse_of: :job_profiles
   has_many :skills, through: :job_profile_skills, inverse_of: :job_profiles
 
+  attr_accessor :scraped
+
   has_and_belongs_to_many :related_job_profiles,
                           class_name: 'JobProfile',
                           join_table: :related_job_profiles,
@@ -27,24 +29,13 @@ class JobProfile < ApplicationRecord
   end
 
   def scrape(scraper = JobProfileScraper.new)
-    scraped = scraper.scrape(source_url)
+    self.scraped = scraper.scrape(source_url)
 
     ActiveRecord::Base.transaction do
       self.name = scraped.delete('title')
 
-      skills_to_import = Skill.import scraped.delete('skills')
-
-      related_profiles_to_import = JobProfile.bulk_import(
-        remove_value_from(
-          collection: scraped.delete('related_profiles'),
-          value: slug
-        )
-      )
-
-      clean_related_profiles
-
-      self.skills = skills_to_import
-      self.related_job_profiles = related_profiles_to_import
+      update_skills
+      update_related_jobs
 
       update!(scraped)
     rescue StandardError => e
@@ -62,5 +53,23 @@ class JobProfile < ApplicationRecord
 
   def clean_related_profiles
     related_job_profiles.destroy_all
+  end
+
+  def update_skills
+    imported_skills = Skill.import(scraped.delete('skills'))
+    self.skills = imported_skills
+  end
+
+  def update_related_jobs
+    imported_related_job_profiles = JobProfile.bulk_import(
+      remove_value_from(
+        collection: scraped.delete('related_profiles'),
+        value: slug
+      )
+    )
+
+    clean_related_profiles
+
+    self.related_job_profiles = imported_related_job_profiles
   end
 end
