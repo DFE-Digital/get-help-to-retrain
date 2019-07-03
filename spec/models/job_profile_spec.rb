@@ -161,6 +161,7 @@ RSpec.describe JobProfile do
     context 'with scraped profiles prior' do
       before do
         create :job_profile, slug: 'data-entry-clerk'
+        create :job_profile, slug: 'non-existing-profile'
 
         job_profile.scrape
       end
