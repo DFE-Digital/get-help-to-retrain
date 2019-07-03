@@ -68,8 +68,6 @@ class JobProfile < ApplicationRecord
       )
     )
 
-    clean_related_profiles
-
     self.related_job_profiles = imported_related_job_profiles
   end
 end
