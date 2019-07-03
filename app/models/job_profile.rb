@@ -4,8 +4,6 @@ class JobProfile < ApplicationRecord
   has_many :categories, through: :job_profile_categories, inverse_of: :job_profiles
   has_many :skills, through: :job_profile_skills, inverse_of: :job_profiles
 
-  attr_accessor :scraped
-
   has_and_belongs_to_many :related_job_profiles,
                           class_name: 'JobProfile',
                           join_table: :related_job_profiles,
@@ -29,45 +27,12 @@ class JobProfile < ApplicationRecord
   end
 
   def scrape(scraper = JobProfileScraper.new)
-    self.scraped = scraper.scrape(source_url)
+    scraped = scraper.scrape(source_url)
 
-    ActiveRecord::Base.transaction do
-      self.name = scraped.delete('title')
+    self.name = scraped.delete('title')
+    self.skills = Skill.import scraped.delete('skills')
+    self.related_job_profiles = JobProfile.bulk_import(scraped.delete('related_profiles') - [slug])
 
-      update_skills
-      update_related_jobs
-
-      update!(scraped)
-    rescue StandardError => e
-      puts "Could not resume scraping, rolling back. Reason: #{e.message}"
-    end
-  end
-
-  private
-
-  def remove_value_from(collection:, value:)
-    collection.delete(value) if value
-
-    collection
-  end
-
-  def clean_related_profiles
-    related_job_profiles.destroy_all
-  end
-
-  def update_skills
-    imported_skills = Skill.import(scraped.delete('skills'))
-    self.skills = imported_skills
-  end
-
-  def update_related_jobs
-    imported_related_job_profiles = JobProfile.bulk_import(
-      remove_value_from(
-        collection: scraped.delete('related_profiles'),
-        value: slug
-      )
-    )
-
-    self.related_job_profiles = imported_related_job_profiles
+    update!(scraped)
   end
 end
