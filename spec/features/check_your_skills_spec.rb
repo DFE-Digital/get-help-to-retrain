@@ -28,10 +28,20 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User cannot find occupation through search' do
-    visit(explore_occupations_path)
+    visit(check_your_skills_path)
     fill_in('name', with: 'Embalmer')
     find('.search-button').click
 
     expect(page).to have_text('0 results')
+  end
+
+  feature 'when searching with no data', js: true, driver: :selenium_chrome_headless do
+    scenario 'User cannot see any results' do
+      visit(check_your_skills_path)
+      fill_in('name', with: '')
+      find('.search-button').click
+
+      expect(page).not_to have_text('Search results for')
+    end
   end
 end
