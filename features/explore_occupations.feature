@@ -1,4 +1,4 @@
-Feature: TBD
+Feature: As a user, I want to be able to search for jobs by title, so I can find an appropriate job
 
   Background:
     Given a job profile exists for a Construction manager

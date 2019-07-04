@@ -1,4 +1,4 @@
-Feature: TBD
+Feature: As a user, I want to see alternate job titles on job detail page, in order to see alaternative relevant jobs.
 
 Given I visit Check your existing skills page
 And I Search for a job title keyword
