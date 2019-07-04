@@ -28,7 +28,7 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User cannot find occupation through search' do
-    visit(explore_occupations_path)
+    visit(check_your_skills_path)
     fill_in('name', with: 'Embalmer')
     find('.search-button').click
 
