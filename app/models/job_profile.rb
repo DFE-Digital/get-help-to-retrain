@@ -22,16 +22,12 @@ class JobProfile < ApplicationRecord
     end
   end
 
-  def self.bulk_import(slugs)
-    where(slug: slugs)
-  end
-
   def scrape(scraper = JobProfileScraper.new)
     scraped = scraper.scrape(source_url)
 
     self.name = scraped.delete('title')
     self.skills = Skill.import scraped.delete('skills')
-    self.related_job_profiles = JobProfile.bulk_import(scraped.delete('related_profiles') - [slug])
+    self.related_job_profiles = JobProfile.where(slug: scraped.delete('related_profiles') - [slug])
 
     update!(scraped)
   end
