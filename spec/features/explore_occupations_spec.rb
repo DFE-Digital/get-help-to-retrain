@@ -46,14 +46,4 @@ RSpec.feature 'Explore Occupations', type: :feature do
 
     expect(page).to have_text('Find and apply to a training course near you')
   end
-
-  feature 'when searching with no data', js: true, driver: :selenium_chrome_headless do
-    scenario 'User cannot see any results' do
-      visit(explore_occupations_path)
-      fill_in('name', with: '')
-      find('.search-button').click
-
-      expect(page).not_to have_text('Search results for')
-    end
-  end
 end
