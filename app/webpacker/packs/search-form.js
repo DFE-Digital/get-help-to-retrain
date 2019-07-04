@@ -9,7 +9,9 @@ function SearchForm () {
   }
 
   function disableEmptyForm($form, $field) {
+
     if ($form) {
+      $field.required = false;
       $form.addEventListener('submit', event => {
         if ($field.value.trim().length == 0) {
           event.preventDefault();
