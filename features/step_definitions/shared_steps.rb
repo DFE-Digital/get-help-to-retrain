@@ -43,7 +43,6 @@ end
 Given('the following categories are available') do |table|
   table.hashes.each do |row|
     name = row.fetch('Name')
-
     create(:category, name: name)
   end
 end
