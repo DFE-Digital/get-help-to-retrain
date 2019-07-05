@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def page_title(key)
+    content_for(:page_title, I18n.t(key, scope: 'page_titles'))
+  end
+
   def generate_breadcrumbs(current_page, previous_pages)
     safe_join(
       [

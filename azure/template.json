@@ -62,6 +62,17 @@
         "description": "The container image to pull from the server. Should be in image:tag format."
       }
     },
+    "appInsightsJavaScriptEnabled": {
+      "type": "bool",
+      "defaultValue": false,
+      "allowedValues": [
+        true,
+        false
+      ],
+      "metadata": {
+        "description": "whether to enable JS page tracking for Application Insights"
+      }
+    },
     "secretKeyBase": {
       "type": "string",
       "metadata": {
@@ -262,6 +273,10 @@
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
                 "value": "[reference('app-insights').outputs.instrumentationKey.value]"
+              },
+              {
+                "name": "APPINSIGHTS_JAVASCRIPT_ENABLED",
+                "value": "[parameters('appInsightsJavaScriptEnabled')]"
               },
               {
                 "name": "DB_DATABASE",

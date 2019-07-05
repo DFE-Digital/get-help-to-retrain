@@ -30,6 +30,18 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
     end
   end
 
+  describe 'related profiles' do
+    it 'parses the right slugs' do
+      expect(scraped['related_profiles']).to contain_exactly(
+        'local-government-administrative-assistant',
+        'data-entry-clerk',
+        'hotel-receptionist',
+        'personal-assistant',
+        'health-records-clerk'
+      )
+    end
+  end
+
   describe 'salary_max' do
     it 'parses job profile maximum salary' do
       expect(scraped['salary_max']).to eq 30_000
@@ -81,6 +93,57 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
 
       it 'returns nil' do
         expect(scraped['salary_min']).to be_nil
+      end
+    end
+  end
+
+  describe 'alternative_titles' do
+    let(:fake_page) { Mechanize::Page.new nil, nil, body, 200, scraper.mechanize }
+
+    around do |example|
+      scraper.metadata.page fake_page
+      example.run
+      scraper.metadata.page nil
+    end
+
+    context 'with available alternative titles' do
+      let(:body) do
+        '<div class="column-desktop-two-thirds">
+          <h1 class="heading-xlarge"> Admin assistant</h1>
+          <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>Office administrator, clerical assistant, administrative assistant</h2>
+          <p>Admin assistants give support to offices by organising meetings, typing documents and updating computer records.</p>
+        </div>'
+      end
+
+      it 'parses alternative titles' do
+        expect(scraped['alternative_titles']).to contain_exactly('Office administrator', 'clerical assistant', 'administrative assistant')
+      end
+    end
+
+    context 'with single alternative title' do
+      let(:body) do
+        '<div class="column-desktop-two-thirds">
+          <h1 class="heading-xlarge"> Admin assistant</h1>
+          <h2 class="heading-secondary"><span class="sr-hidden">Alternative titles for this job include </span>Office administrator</h2>
+          <p>Admin assistants give support to offices by organising meetings, typing documents and updating computer records.</p>
+        </div>'
+      end
+
+      it 'parses alternative titles' do
+        expect(scraped['alternative_titles']).to contain_exactly('Office administrator')
+      end
+    end
+
+    context 'with no alternative titles' do
+      let(:body) do
+        '<div class="column-desktop-two-thirds">
+          <h1 class="heading-xlarge"> Admin assistant</h1>
+          <p>Admin assistants give support to offices by organising meetings, typing documents and updating computer records.</p>
+        </div>'
+      end
+
+      it 'returns empty array' do
+        expect(scraped['alternative_titles']).to be_empty
       end
     end
   end

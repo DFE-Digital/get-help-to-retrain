@@ -12,6 +12,12 @@ class JobProfileScraper
     max.gsub(/\D/, '').to_i if max =~ /\d/
   end
 
+  alternative_titles css: 'h2.heading-secondary/text()[last()]' do |titles|
+    titles ? titles.split(', ') : []
+  end
+
+  related_profiles 'css=.job-profile-related ul li a/@href', :list
+
   content 'css=body', :html
   skills 'css=#Skills ul li', :list
 end
