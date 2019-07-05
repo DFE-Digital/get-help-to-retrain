@@ -14,11 +14,32 @@
         "description": "The abbreviation of the service name to be used when naming a resource."
       }
     },
+    "keyVaultName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The name of the key vault."
+      }
+    },
+    "keyVaultResourceGroup": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The resource group for the key vault."
+      }
+    },
     "customHostName": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
         "description": "The custom hostname to add to the app service."
+      }
+    },
+    "certificateName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The name of the certificate in key vault."
       }
     },
     "databaseName": {
@@ -47,6 +68,7 @@
     },
     "databaseIPWhiteList": {
       "type": "array",
+      "defaultValue": [],
       "metadata": {
         "description": "List of IP Addresses to whitelist on the database firewall"
       }
@@ -55,20 +77,6 @@
       "type": "string",
       "metadata": {
         "description": "The email address to be used for psql security alerts."
-      }
-    },
-    "keyVaultName": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The name of the key vault."
-      }
-    },
-    "keyVaultResourceGroup": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The resource group for the key vault."
       }
     },
     "dockerHubOrg": {
@@ -107,6 +115,24 @@
         "description:": "The secret_key_base for Rails"
       }
     },
+    "keysPermissions": {
+      "type": "array",
+      "defaultValue": [
+        "all"
+      ]
+    },
+    "secretsPermissions": {
+      "type": "array",
+      "defaultValue": [
+        "all"
+      ]
+    },
+    "certificatePermissions": {
+      "type": "array",
+      "defaultValue": [
+        "all"
+      ]
+    },
     "appServicePlanSize": {
       "type": "string",
       "allowedValues": [
@@ -125,7 +151,7 @@
     "deploymentUrlBase": "https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/",
     "resourceNamePrefix": "[toLower(concat( parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
-    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-kv')",
+    "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
     "workerAppServiceName": "[concat(variables('resourceNamePrefix'), 'wkr-as')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
@@ -133,6 +159,30 @@
     "appServiceRuntimeStack": "[concat('DOCKER|', parameters('dockerHubOrg'), '/', parameters('containerImageReference'))]"
   },
   "resources": [
+    {
+      "condition": "[greater(length(parameters('customHostName')), 0)]",
+      "name": "app-service-certificate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'), 'app-service-certificate.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultCertificateName": {
+            "value": "[variables('keyVaultCertificateName')]"
+          },
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          },
+          "keyVaultResourceGroup": {
+            "value": "[parameters('keyVaultResourceGroup')]"
+          }
+        }
+      }
+    },
     {
       "name": "storage-account",
       "type": "Microsoft.Resources/deployments",
@@ -232,24 +282,36 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
-      "name": "app-insights",
+      "name": "app-service-logs",
       "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(variables('deploymentUrlBase'), 'application-insights.json')]",
+          "uri": "[concat(variables('deploymentUrlBase'), 'app-service-logs.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "appInsightsName": {
+          "appServiceName": {
             "value": "[variables('appServiceName')]"
           },
-          "attachedService": {
-            "value": "[variables('appServiceName')]"
+          "applicationLogsFileSystem": {
+            "value": "Error"
+          },
+          "httpLoggingEnabled": {
+            "value": true
+          },
+          "requestTracingEnabled": {
+            "value": true
+          },
+          "detailedErrorLoggingEnabled": {
+            "value": true
           }
         }
-      }
+      },
+      "dependsOn": [
+        "app-service"
+      ]
     },
     {
       "name": "app-service-plan",
@@ -339,6 +401,9 @@
           },
           "customHostName": {
             "value": "[parameters('customHostName')]"
+          },
+          "certificateThumbprint": {
+            "value": "[if(greater(length(parameters('customHostname')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
           }
         }
       },
@@ -347,52 +412,24 @@
       ]
     },
     {
-      "name": "app-service-logs",
-      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
+      "name": "app-insights",
+      "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(variables('deploymentUrlBase'), 'app-service-logs.json')]",
+          "uri": "[concat(variables('deploymentUrlBase'), 'application-insights.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "appServiceName": {
+          "appInsightsName": {
             "value": "[variables('appServiceName')]"
           },
-          "applicationLogsFileSystem": {
-            "value": "Error"
-          },
-          "httpLoggingEnabled": {
-            "value": true
-          },
-          "requestTracingEnabled": {
-            "value": true
-          },
-          "detailedErrorLoggingEnabled": {
-            "value": true
+          "attachedService": {
+            "value": "[variables('appServiceName')]"
           }
         }
-      },
-      "dependsOn": [
-        "app-service"
-      ]
-    },
-    {
-      "name": "key-vault",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(variables('deploymentUrlBase'), 'keyvault.json')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "keyVaultName": {
-            "value": "[parameters('keyVaultName')]"
-          }
-        }
+      }
     }
   ],
   "outputs": {

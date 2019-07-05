@@ -6,7 +6,7 @@ module ApplicationHelper
   def generate_breadcrumbs(current_page, previous_pages)
     safe_join(
       [
-        previous_pages.map {|title, link|
+        previous_pages.map { |title, link|
           content_tag(:li, nil, class: 'govuk-breadcrumbs__list-item') {
             link_to(title, link, class: 'govuk-breadcrumbs__link')
           }
