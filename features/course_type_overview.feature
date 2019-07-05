@@ -2,6 +2,6 @@ Feature: As a customer, I want to be informed of the different types of training
 
     @wip @120
     Scenario: Type of course
-        Given that I am on the Course Type Overview page
+        Given that I am on the "course_overview" page
         Then I can see the details of the type of course I clicked on on the previous page
         
