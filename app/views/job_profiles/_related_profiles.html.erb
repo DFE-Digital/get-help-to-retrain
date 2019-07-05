@@ -1,5 +1,8 @@
-<h2 class="govuk-heading-m">Related occupations</h2>
-<% @job_profile.related_job_profiles.each do |related_profile| %>
-  <p><%= link_to related_profile.name, job_profile_path(related_profile.slug), class: 'govuk-link no-text-decoration' %></p>
-  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-<% end %>
+<div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container">
+  <h2 class="govuk-heading-m">Related occupations</h2>
+  <% @job_profile.related_job_profiles.each do |related_profile| %>
+    <p><%= link_to related_profile.name, job_profile_path(related_profile.slug), class: 'govuk-link no-text-decoration' %></p>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  <% end %>
+</div>
+

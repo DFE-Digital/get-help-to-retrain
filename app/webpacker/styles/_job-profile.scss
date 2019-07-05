@@ -107,3 +107,9 @@
     margin-top: 180px;
   }
 }
+
+.related-profiles-right-padding-0 {
+  @include govuk-media-query($from: tablet) {
+    padding-right: 0;
+  }
+}
