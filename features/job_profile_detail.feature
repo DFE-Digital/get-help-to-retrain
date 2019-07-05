@@ -17,4 +17,5 @@ Feature: As a customer, I want to see information about the occupation I have se
   @wip @153
   Scenario: Verify training course link
     Given I am on the "Construction manager" job profile page
-    Then I should see the related occupations
+    Then I should see "Related occupations"
+    And I should see the related occupations

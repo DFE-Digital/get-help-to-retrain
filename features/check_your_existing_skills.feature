@@ -3,7 +3,7 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
   Background:
     Given a job profile exists for a Construction manager
 
-  @ci @31 @32
+  @ci @31 @32 @160
   Scenario: Transferable skills
     Given I am on the homepage
     When I click on "Start now"
@@ -11,7 +11,8 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
     And I enter "Construction manager" in "Enter your job title" field
     And I click the ".search-button" button
     Then I should see "Search results for"
-    And I click on "Construction manager"
+    And I should see "Select the job profile closest to the job you currently do to see what skills you already have"
+    When I click on "Construction manager"
     Then I should see list of existing skills relevant for job title
 
   @ci @31 @32
