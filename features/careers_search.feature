@@ -6,7 +6,7 @@ Feature: As a customer
     Given a job profile exists with the name "Manufacturing Supervisor"
     And I am on the "check_your_skills" page
 
-  @ci @56
+  @ci @56 @168
   Scenario: Happy Path
     When I enter " Supervisor" in "Enter your job title" field
     And I click the ".search-button" button
@@ -31,7 +31,7 @@ Feature: As a customer
     Then I should see "Explore by job category"
     And the current url path is "/explore_occupations"
 
-  @ci @56
+  @ci @56 @168
   Scenario: Unhappy Path (case sensitivity)
     When I enter "supervisor " in "Enter your job title" field
     And I click the ".search-button" button
