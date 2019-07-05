@@ -14,8 +14,7 @@ Feature: As a customer, I want to see information about the occupation I have se
     When I click on "Find a training course"
     Then I should see "Find and apply to a training course near you"
 
-  @wip @153
+  @ci @153
   Scenario: Verify training course link
     Given I am on the "Construction manager" job profile page
     Then I should see "Related occupations"
-    And I should see the related occupations

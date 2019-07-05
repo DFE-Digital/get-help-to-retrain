@@ -18,5 +18,5 @@ Then('I should see the {string} page') do |path|
 end
 
 Then('I should see the related occupations') do
-  find('.govuk-related-items').visible?
+  find('h2.govuk-heading-m').visible?
 end
