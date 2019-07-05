@@ -12,6 +12,11 @@
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <%= render "shared/search/form", search_path: results_explore_occupations_path, scope: 'explore_occupations.index' %>
+    <h2 class="govuk-heading-m govuk-!-padding-left-3">Explore by job category</h2>
+    <ul class="govuk-list column-list govuk-!-padding-left-3">
+    <% if Flipflop.enabled?(:search_jobs_form)  %>
+      <%= render "shared/search/form", search_path: results_explore_occupations_path, scope: 'explore_occupations.index' %>
+    <% end %>
     <h2 class="govuk-heading-m">Explore by job category</h2>
     <ul class="govuk-list column-list">
       <% @categories.each do |category| %>

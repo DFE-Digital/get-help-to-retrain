@@ -1,4 +1,8 @@
 Rails.application.configure do
+  # Before filter for Flipflop dashboard. Replace with a lambda or method name
+  # defined in ApplicationController to implement access control.
+  config.flipflop.dashboard_access_filter = nil
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = true
   # Settings specified here will take precedence over those in config/application.rb.

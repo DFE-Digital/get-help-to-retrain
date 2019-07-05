@@ -6,7 +6,9 @@
     <p class="govuk-body">Use this service to discover your skills, explore jobs you could do and check training courses that will help you find a better job.</p>
     <p class="govuk-body">This service will help you find a job that you can keep in the future, when technology might change the kinds of jobs available.</p>
     <div class="govuk-inset-text">You might find that you can apply to a different type of job than the one you have now with the skills you already have, or that you can retrain to do something else.</div>
-    <%= link_to 'Start now', task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
+    <% if Flipflop.enabled?(:start_button)  %>
+      <%= link_to 'Start now', task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
+    <% end %>
     <h2 class="govuk-heading-m">Before you start</h2>
     <p class="govuk-body">You’ll get the most out of this service if all of the following apply to you:</p>
     <ul class="govuk-list govuk-list--bullet">
