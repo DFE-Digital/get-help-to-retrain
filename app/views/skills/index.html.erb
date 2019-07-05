@@ -13,14 +13,23 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">
-    <span class="govuk-caption-xl">Your current skills</span>
-    <h1 class="govuk-heading-xl govuk-!-margin-bottom-3" ><%= @job_profile.hero_copy %></h1>
-    <% @job_profile.additional_hero_copy.each do |paragraph| %>
-      <p class="govuk-body-l"><%= paragraph %></p>
-    <% end %>
-    <h2 class="govuk-heading-m">Skills you may have:</h2>
-    <%= render 'skills_list' %>
-    <%= link_to('Explore jobs you could do', explore_occupations_path, class: 'govuk-button') %>
+    <div class="govuk-grid-column-full govuk-!-padding-0 extended-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <span class="govuk-caption-xl">Your current skills</span>
+          <h1 class="govuk-heading-xl govuk-!-margin-bottom-3" ><%= @job_profile.hero_copy %></h1>
+          <% @job_profile.additional_hero_copy.each do |paragraph| %>
+            <p class="govuk-body-l"><%= paragraph %></p>
+          <% end %>
+          <h2 class="govuk-heading-m">Skills you may have:</h2>
+          <%= render 'skills_list' %>
+          <%= link_to('Explore jobs you could do', explore_occupations_path, class: 'govuk-button') %>
+        </div>
+        <div class='related-profiles govuk-grid-column-one-third govuk-!-padding-left-5 related-profiles-right-padding-0'>
+          <%= render 'job_profiles/related_profiles' %>
+        </div>
+      </div>
+    </div>
   </div>
 
   <%= render 'shared/contact_us' %>

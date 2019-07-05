@@ -16,6 +16,8 @@ class JobProfileScraper
     titles ? titles.split(', ') : []
   end
 
+  related_profiles 'css=.job-profile-related ul li a/@href', :list
+
   content 'css=body', :html
   skills 'css=#Skills ul li', :list
 end

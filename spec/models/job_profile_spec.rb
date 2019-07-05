@@ -17,6 +17,8 @@ RSpec.describe JobProfile do
   end
 
   describe 'relationships' do
+    let(:related_job_profile) { build_stubbed(:job_profile) }
+
     before do
       recommended_job.categories << category
       recommended_job.skills << skill
@@ -28,6 +30,12 @@ RSpec.describe JobProfile do
 
     it 'has many skills' do
       expect(recommended_job.skills).to match [skill]
+    end
+
+    it 'has many and belongs to many related_job_profiles' do
+      discouraged_job.related_job_profiles << related_job_profile
+
+      expect(discouraged_job.related_job_profiles).to contain_exactly(related_job_profile)
     end
   end
 
@@ -122,30 +130,49 @@ RSpec.describe JobProfile do
     let(:job_profile) { build :job_profile, source_url: url }
     let!(:customer_service) { create :skill, name: 'customer service skills' }
 
-    before { job_profile.scrape }
+    context 'with no persisted job profiles' do
+      before { job_profile.scrape }
 
-    it 'updates name with scraped title' do
-      expect(job_profile.name).to eq 'Admin assistant'
+      it 'updates name with scraped title' do
+        expect(job_profile.name).to eq 'Admin assistant'
+      end
+
+      it 'updates description with scraped description' do
+        expect(job_profile.description).to match 'organising meetings'
+      end
+
+      it 'updates salary minimum with scraped salary' do
+        expect(job_profile.salary_min).to eq 14_000
+      end
+
+      it 'updates salary maximum with scraped salary' do
+        expect(job_profile.salary_max).to eq 30_000
+      end
+
+      it 'updates content with scraped body' do
+        expect(job_profile.content).to match 'National Careers Service'
+      end
+
+      it 'updates skills with scraped skill names' do
+        expect(job_profile.skills).to include customer_service
+      end
     end
 
-    it 'updates description with scraped description' do
-      expect(job_profile.description).to match 'organising meetings'
-    end
+    context 'with persisted job profiles' do
+      let(:job_profile) { create :job_profile, slug: 'data-entry-clerk', source_url: url }
 
-    it 'updates salary minimum with scraped salary' do
-      expect(job_profile.salary_min).to eq 14_000
-    end
+      before do
+        create :job_profile, slug: 'hotel-receptionist'
+        create :job_profile, slug: 'non-existing-profile'
 
-    it 'updates salary maximum with scraped salary' do
-      expect(job_profile.salary_max).to eq 30_000
-    end
+        job_profile.scrape
+      end
 
-    it 'updates content with scraped body' do
-      expect(job_profile.content).to match 'National Careers Service'
-    end
-
-    it 'updates skills with scraped skill names' do
-      expect(job_profile.skills).to include customer_service
+      it 'updates the related_profiles with scraped related job profiles data' do
+        expect(job_profile.related_job_profiles.pluck(:slug)).to contain_exactly(
+          'hotel-receptionist'
+        )
+      end
     end
   end
 end

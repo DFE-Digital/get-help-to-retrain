@@ -30,6 +30,18 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
     end
   end
 
+  describe 'related profiles' do
+    it 'parses the right slugs' do
+      expect(scraped['related_profiles']).to contain_exactly(
+        'local-government-administrative-assistant',
+        'data-entry-clerk',
+        'hotel-receptionist',
+        'personal-assistant',
+        'health-records-clerk'
+      )
+    end
+  end
+
   describe 'salary_max' do
     it 'parses job profile maximum salary' do
       expect(scraped['salary_max']).to eq 30_000
