@@ -1,12 +1,9 @@
 Given('a job profile exists with the name {string}') do |name|
-  create(:job_profile, name: name)
-end
-
-Given('a job profile exists for a Construction manager') do
   create(
     :job_profile,
     :with_html_content,
-    name: 'Construction manager',
+    name: name,
+    alternative_titles: 'Damage controller, Construction maniac',
     salary_min: 27_000,
     salary_max: 70_000,
     skills: [

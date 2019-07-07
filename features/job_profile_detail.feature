@@ -1,7 +1,7 @@
 Feature: As a customer, I want to see information about the occupation I have selected, So that I can decide if it is suitable for me
 
   Background:
-    Given a job profile exists for a Construction manager
+    Given a job profile exists with the name "Construction manager"
 
   @ci @26
   Scenario: View Job Profile Information
