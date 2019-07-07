@@ -55,7 +55,7 @@ Your screenshot will be saved to the `tmp/capybara/` directory
 ## Running Pa11y
 ```
   export TEST_SRV=http://localhost:3000
-  pa11y-ci -c .pa11yci.conf.js
+  ./node_modules/.bin/pa11y-ci -c ./config/pa11yci.conf.js
 ```
 
 ## Linting
