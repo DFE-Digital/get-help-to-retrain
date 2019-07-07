@@ -3,12 +3,12 @@ Feature: As a customer
   So that I can explore which jobs might be suitable for me
 
   Background:
-    Given a job profile exists with the name "Manufacturing Supervisor"
+    # Given a job profile exists with the name "Manufacturing Supervisor"
     And I am on the "check_your_skills" page
 
-  @ci @56
+  @ci @56 @168
   Scenario: Happy Path
-    When I enter "Supervisor" in "Enter your job title" field
+    When I enter " Supervisor" in "Enter your job title" field
     And I click the ".search-button" button
     Then I should see "Search results for"
     And I should see "Manufacturing Supervisor"
@@ -31,9 +31,9 @@ Feature: As a customer
     Then I should see "Explore by job category"
     And the current url path is "/explore_occupations"
 
-  @ci @56
+  @ci @56 @168
   Scenario: Unhappy Path (case sensitivity)
-    When I enter "supervisor" in "Enter your job title" field
+    When I enter "supervisor " in "Enter your job title" field
     And I click the ".search-button" button
     Then I should see "Search results for"
     And I should see "Manufacturing Supervisor"

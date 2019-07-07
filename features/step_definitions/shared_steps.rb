@@ -47,6 +47,10 @@ Given('the following categories are available') do |table|
   end
 end
 
+Then('I should see error {string}') do |string|
+  expect(page).to have_content(string)
+end
+
 # TODO: revise
 # When('the link {string} is inactive') do |string|
 #   has_link? string

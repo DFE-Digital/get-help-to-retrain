@@ -2,7 +2,7 @@ Feature: As a user, I want to see courses sorted by distance from my postcode (s
 
     @wip @123
     Scenario: Signup for a course
-        Given that I am on the "courses near me" page
+        Given I am on the "courses near me" page
         Then I can see a list of courses
         And they are sorted by distance with the shortest distance first
 

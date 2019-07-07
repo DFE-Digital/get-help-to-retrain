@@ -3,7 +3,7 @@ Feature: As a customer, I want to see the eligibility criteria and be able to co
   @ci @35
   Scenario: Verify Landing Page
     Given I am on the homepage
-    Then I should see "Get Help to Retrain"
+    Then I should see "Get help to retrain"
 
   @ci @35
   Scenario: Verify Landing Page

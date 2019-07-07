@@ -1,7 +1,7 @@
 Feature: As a user, I want to see what page of search results I am on, So that I can navigate through my search results
 
-  Background:
-    Given there exists "10" results for the job profile "manager"
+  # Background:
+  #   Given there exists "10" results for the job profile "manager"
 
   @wip @101
   Scenario: Search Existing Skills (Results pagination)
