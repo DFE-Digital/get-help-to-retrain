@@ -1,6 +1,6 @@
 # TODO: revise
 Then('there is a phone number present to contact a careers adviser') do
-  expect(page.body).to have_content('0800 123 123')
+  expect(page).to have_content('0800 123 123')
 end
 
 # TODO: revise

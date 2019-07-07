@@ -1,7 +1,7 @@
 Feature: As a customer, I want to see my existing skills, So that I can understand what transferable skills I already have that employers would be looking for
 
-  # Background:
-  #   Given a job profile exists for a Construction manager
+  Background:
+    Given a job profile exists for a Construction manager
 
   @ci @31 @32 @160
   Scenario: Transferable skills

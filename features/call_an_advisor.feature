@@ -10,5 +10,5 @@ Feature: As a customer
     Examples:
       | Page                                      |
       | check_your_skills                         |
-      | explore_careers                           |
+      | explore_occupations                           |
       | job_profiles/construction-labourer/skills |

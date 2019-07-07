@@ -3,7 +3,7 @@ Feature: As a customer
   So that I can explore which jobs might be suitable for me
 
   Background:
-    # Given a job profile exists with the name "Manufacturing Supervisor"
+    Given a job profile exists with the name "Manufacturing Supervisor"
     And I am on the "check_your_skills" page
 
   @ci @56 @168
