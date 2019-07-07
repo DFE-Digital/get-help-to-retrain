@@ -22,11 +22,10 @@ Feature: As a customer
 
   @wip @104
   Scenario: Search with blank search field
-    When I am on the "/check_your_skills" page
     And I click the ".search-button" button
     Then I should see "Check your existing skills"
     And the current url path is "/check_your_skills"
-    When I am on the "/explore_occupations" page
+    When I am on the "explore_occupations" page
     And I click the ".search-button" button
     Then I should see "Explore by job category"
     And the current url path is "/explore_occupations"

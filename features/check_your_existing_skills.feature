@@ -16,7 +16,7 @@ Feature: As a customer, I want to see my existing skills, So that I can understa
     Then I should see list of existing skills relevant for job title
 
   @ci @31 @32
-  Scenario: Transferable skills
+  Scenario: Explore jobs link from job profile page
     Given I am on the "Construction manager" job profile skills page
     When I click on "Explore jobs you could do"
     Then I should see "Explore occupations"

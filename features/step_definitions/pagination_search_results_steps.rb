@@ -35,7 +35,7 @@ Then('I should not see the pagination on the page') do
 end
 
 Given('that I search existing skills that results in more than one page of results') do
-  visit('/check_your_skills')
+  visit('check_your_skills')
   fill_in 'name', with: 'manager'
   find('button.search-button').click
 end
