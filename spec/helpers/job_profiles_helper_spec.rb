@@ -22,18 +22,4 @@ RSpec.describe JobProfilesHelper do
       )
     end
   end
-
-  describe '.alternative_names' do
-    it 'returns a comma delimited list of alternative titles' do
-      expect(helper.alternative_names(['Curator', 'records manager'])).to eq('Curator, records manager')
-    end
-
-    it 'returns a single name of alternative titles if its only one' do
-      expect(helper.alternative_names(['Curator'])).to eq('Curator')
-    end
-
-    it 'returns nothing if no titles included' do
-      expect(helper.alternative_names([])).to be_empty
-    end
-  end
 end
