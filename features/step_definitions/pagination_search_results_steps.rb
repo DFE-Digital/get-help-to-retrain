@@ -5,13 +5,10 @@ end
 
 # TODO: revise example step uses multiple steps
 Given('I have searched for the occupation {string}') do |name|
-  # steps %(
-  #   Given I am on the 'explore_occupations' page
-  #   And I enter "#{name}" in "name" field
-  #   And I click the ".search-button" button
-  # )
-  fill_in 'name', with: name
-  find('button.search-button').click
+  steps %(
+    And I enter "#{name}" in "name" field
+    And I click the ".search-button" button
+  )
 end
 
 Given('that I search existing skills that results in less than one page of results') do
