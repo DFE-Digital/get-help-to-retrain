@@ -1,6 +1,6 @@
 # TODO: revise
-When('I enter at least two letters of a {string} field') do
-  pending # Write code here that turns the phrase above into concrete actions
+When('I enter at least two letters in the {string} field') do |field|
+  fill_in(field, with: 'Ma')
 end
 
 # TODO: revise
