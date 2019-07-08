@@ -10,7 +10,7 @@
 %>
 
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-7">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-body-l">Call the Get help to retrain helpline to speak with an adviser and get free guidance. They'll be able to recommend training courses near you.</p>
     <h2 class="govuk-heading-m">Why you need to retrain</h2>
@@ -21,4 +21,5 @@
     <p class="govuk-body-m govuk-!-margin-bottom-0">Monday to Friday, 10am to 4pm</p>
     <%= link_to "Find out about call charges", 'https://www.gov.uk/call-charges', class: 'govuk-link govuk-body-s', target: '_blank' %>
   </div>
+  <%= render 'shared/what_you_can_do_next' %>
 </div>
