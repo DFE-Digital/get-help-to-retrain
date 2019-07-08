@@ -7,6 +7,7 @@ Given('a job profile exists for a Construction manager') do
     :job_profile,
     :with_html_content,
     name: 'Construction manager',
+    alternative_titles: 'Damage controller',
     salary_min: 27_000,
     salary_max: 70_000,
     skills: [
