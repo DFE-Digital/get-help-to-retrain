@@ -1,13 +1,28 @@
+
 Feature: As a user, I want to see alternate job titles on job detail page, in order to see alaternative relevant jobs.
 
-Given I visit Check your existing skills page
-And I Search for a job title keyword
-And I see results on the page
-Then I should see the alternative title under the result's title
-If that is also present on https://nationalcareers.service.gov.uk
+  Background:
+    Given a job profile exists with the name "Construction manager"
 
-Given I visit Explore occupations page
-And I Search for a job title keyword
-And I see results on the page
-Then I should see the alternative title under the result's title
-If that is also present on https://nationalcareers.service.gov.uk
+  @wip @169
+  Scenario: Alternate Job Title On Job Detail Page From Existing Skills Search Page
+    Given I am on the "check_your_skills" page
+    When I have searched for the occupation "Construction manager"
+    Then I should see the alternative titles under the first result title
+    And I should see "Damage controller, Construction maniac"
+
+  @wip @169
+  Scenario: Alternate Job Title On Job Detail Page From Explore Occupations Search Page
+    Given I am on the "explore_occupations" page
+    When I have searched for the occupation "Construction manager"
+    Then I should see the alternative titles under the first result title
+    And I should see "Damage controller, Construction maniac"
+
+  @wip @177
+  Scenario: Search includes alternative job titles
+    Given I am on the "explore_occupations" page
+    When I have searched for the occupation "Damage controller"
+    Then I should see "Construction manager"
+    When I am on the "check_your_skills" page
+    And I have searched for the occupation "Construction maniac"
+Then I should see "Construction manager"
