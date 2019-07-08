@@ -10,10 +10,32 @@ class JobProfile < ApplicationRecord
                           foreign_key: :job_profile_id,
                           association_foreign_key: :related_job_profile_id
 
-  def self.search(name)
-    return none unless name.present?
+  def self.search(string)
+    return none unless string.present?
 
-    where('name ILIKE ?', "%#{name&.squish}%")
+    query_string = QueryStringFormatter.format(string)
+
+    select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max)
+      .where(build_text_search_query, query_string: query_string)
+      .order(
+        Arel.sql(build_rank_query(query_string)) => :desc
+      )
+  end
+
+  def self.build_text_search_query
+    <<-SQL
+      to_tsvector('english', name) @@ to_tsquery('english', :query_string)
+      OR to_tsvector('english', alternative_titles) @@ to_tsquery('english', :query_string)
+      OR to_tsvector('english', description) @@ to_tsquery('english', :query_string)
+    SQL
+  end
+
+  def self.build_rank_query(query_string)
+    qouted_query_string = ActiveRecord::Base.connection.quote(query_string)
+
+    <<-RANK
+      ts_rank(to_tsvector('english', name), to_tsquery('english', #{qouted_query_string}))
+    RANK
   end
 
   def self.import(slug, url)
