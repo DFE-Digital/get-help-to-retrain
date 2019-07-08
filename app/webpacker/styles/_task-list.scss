@@ -5,7 +5,7 @@
   margin-bottom: 0;
 
   @include govuk-media-query($from: tablet) {
-    min-width: 550px;
+    min-width: 355px;
   }
 }
 
