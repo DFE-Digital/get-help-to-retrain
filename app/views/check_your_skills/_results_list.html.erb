@@ -4,7 +4,9 @@
       <h3 class="govuk-!-margin-0">
         <%= link_to job_profile.name, job_profile_skills_path(job_profile.slug, check_your_skills_result: params[:name]), class: 'govuk-link no-text-decoration' %>
       </h3>
-      <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= alternative_names(job_profile.alternative_titles) %></p>
+      <% if job_profile.alternative_titles.present? %>
+        <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
+      <% end %>
       <p class="govuk-!-margin-0"><%= job_profile.description %></p>
     </li>
   <% end %>
