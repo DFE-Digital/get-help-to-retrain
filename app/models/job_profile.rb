@@ -31,10 +31,10 @@ class JobProfile < ApplicationRecord
   end
 
   def self.build_rank_query(query_string)
-    qouted_query_string = ActiveRecord::Base.connection.quote(query_string)
+    quoted_query_string = ActiveRecord::Base.connection.quote(query_string)
 
     <<-RANK
-      ts_rank(to_tsvector('english', name), to_tsquery('english', #{qouted_query_string}))
+      ts_rank(to_tsvector('english', name), to_tsquery('english', #{quoted_query_string}))
     RANK
   end
 

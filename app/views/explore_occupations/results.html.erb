@@ -17,7 +17,7 @@
     <% if @job_profiles.blank? %>
       <p class="govuk-body-m"><%= render '/shared/search/no_results' %></p>
     <% else %>
-      <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
+      <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.size) %></p>
       <p class="govuk-inset-text"><%= t('.body') %></p>
       <ul class="govuk-list">
         <% @job_profiles.each do |job_profile| %>

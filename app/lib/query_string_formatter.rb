@@ -3,7 +3,7 @@ module QueryStringFormatter
     normalize(string)
       .squish
       .split(/\s/)
-      .map { |str| str + ':*' }
+      .map { |str| str.concat(':*') }
       .join(' | ')
   end
 
