@@ -1,11 +1,9 @@
 function SearchForm () {
   this.start = function () {
-    document.addEventListener("turbolinks:load", function() {
-      var $jobProfileName = document.querySelector('#name');
-      var $jobProfileSearchForm = document.querySelector('#job-profile-search');
+    const $jobProfileName = document.querySelector('#name');
+    const $jobProfileSearchForm = document.querySelector('#job-profile-search');
 
-      disableEmptyForm($jobProfileSearchForm, $jobProfileName);
-    });
+    disableEmptyForm($jobProfileSearchForm, $jobProfileName);
   }
 
   function disableEmptyForm($form, $field) {
