@@ -95,6 +95,74 @@ RSpec.describe JobProfile do
 
       expect(described_class.search(nil)).to be_empty
     end
+
+    it 'returns a record if value is in alternative titles only' do
+      job_profile = create(:job_profile, name: 'Chef', alternative_titles: 'Cook, Kitchen manager')
+
+      expect(described_class.search('cook')).to contain_exactly(job_profile)
+    end
+
+    it 'returns a record if value is in the description only' do
+      job_profile = create(:job_profile, name: 'Chef', alternative_titles: 'Cook', description: 'Kitchen manager')
+
+      expect(described_class.search('Kitchen manager')).to contain_exactly(job_profile)
+    end
+
+    it 'matches different records in query' do
+      job_profiles = [
+        create(:job_profile, name: 'Head Chef'),
+        create(:job_profile, alternative_titles: 'Cook'),
+        create(:job_profile, description: 'Street food traders ')
+      ]
+
+      expect(described_class.search('food cook chef')).to eq(job_profiles)
+    end
+
+    it 'matches query words as prefixes to records' do
+      job_profile = create(:job_profile, name: 'Chief executive')
+
+      expect(described_class.search('exec')).to contain_exactly(job_profile)
+    end
+
+    it 'matches query words through stemming to records' do
+      job_profile = create(:job_profile, name: 'Chief executive')
+
+      expect(described_class.search('chiefs')).to contain_exactly(job_profile)
+    end
+
+    it 'ignores unicode characters in query string' do
+      job_profile = create(:job_profile, name: 'Chief executive')
+
+      expect(described_class.search("ṩ ® chief's àⅣ <>; /")).to contain_exactly(job_profile)
+    end
+
+    it 'ignores irrelevant characters in query string' do
+      job_profile = create(:job_profile, name: 'Script Writer')
+
+      expect(described_class.search('<script> alert("PWNED!") </script>')).to contain_exactly(job_profile)
+    end
+
+    it 'guards against injection in string' do
+      job_profile = create(:job_profile, name: 'Table Writer')
+
+      expect(described_class.search('name; drop table job_profiles;')).to contain_exactly(job_profile)
+    end
+
+    it 'orders records according to matched name' do
+      cook = create(:job_profile, alternative_titles: 'Cook')
+      head_chef = create(:job_profile, name: 'Head Chef')
+      food_trader = create(:job_profile, description: 'Street food traders ')
+      kitchen_chef = create(:job_profile, name: 'Kitchen Chef')
+
+      job_profiles_in_order = [
+        head_chef,
+        kitchen_chef,
+        cook,
+        food_trader
+      ]
+
+      expect(described_class.search('food cook chef')).to eq(job_profiles_in_order)
+    end
   end
 
   describe '.import' do
