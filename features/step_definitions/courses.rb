@@ -14,7 +14,7 @@ Then('they are sorted by distance with the shortest distance first') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I can see the details of the type of course I clicked on on the previous page') do
+Then('I can see the details of the type of course I clicked on the previous page') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
