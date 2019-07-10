@@ -11,3 +11,4 @@ Feature: As a customer, I want the service to tell me why the service is not des
         And I click on "yes I have a degree"
         And I click on "check"
         Then I should see "qualifications ineligible"
+        

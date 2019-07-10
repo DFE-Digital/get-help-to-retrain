@@ -2,3 +2,4 @@ Feature: As a customer, I want to be informed of the value and training courses 
 
     @wip @118
     Scenario: Course Hub Page
+    

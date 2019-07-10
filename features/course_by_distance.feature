@@ -9,3 +9,4 @@ Feature: As a user, I want to see courses sorted by distance from my postcode (s
     @wip @123
     Scenario: No courses available within 5 miles of my postcode 
         Given there are no courses within 5 miles of my postcode show error message
+        

@@ -7,3 +7,4 @@ Feature: As a customer, I want to find out that I am not in a private beta area 
     Scenario: Location Ineligible
         Given I am on the "courses near me" page
         Then I do not see any courses that are not listed on the list of approved providers
+        

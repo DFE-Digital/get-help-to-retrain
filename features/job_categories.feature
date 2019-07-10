@@ -27,4 +27,3 @@ Feature: As a customer
     When I click on "Administration"
     Then I should see "Admin assistant"
     And I should see "Auditor"
-
