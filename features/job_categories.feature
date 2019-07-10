@@ -4,15 +4,15 @@ Feature: As a customer
 
   Background:
     Given the following categories are available
-    | Name                      |
-    |  Administration           |
-    |  Home services            |
-    |  Bookkeeper               |
+      | Name           |
+      | Administration |
+      | Home services  |
+      | Bookkeeper     |
     And the following job profiles are available
-    | Name                      | Category       |
-    |    Accommodation warden   | Home services  |
-    |    Admin assistant        | Administration |
-    |    Auditor                | Administration |
+      | Name                 | Category       | Alternative titles |
+      | Accommodation warden | Home services  | Housing officer    |
+      | Admin assistant      | Administration | Admin clerk        |
+      | Auditor              | Administration | Senior Auditor     |
 
   @ci @62
   Scenario: Explore occupations categories

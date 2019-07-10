@@ -32,8 +32,8 @@ en-GB:
   contact_us:
     title: Want to speak with an adviser?
     body: Call
-    telephone: 0800 123 123
-    telephone_link: tel:+442079476330
+    telephone: 0800 051 0459
+    telephone_link: tel:00448000510459
 
   check_your_skills:
     index:
@@ -70,3 +70,6 @@ en-GB:
       title: Find and apply to a training course near you
     next_steps:
       title: Find out what you can do next
+  what_you_can_do_next:
+    title: Find out what you can do next
+    body: Get more support to help you on your new career path

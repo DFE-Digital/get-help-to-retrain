@@ -4,7 +4,7 @@ Feature: As a user, I want to be able to search for jobs by title, so I can find
     Given a job profile exists with the name "Construction manager"
 
   @ci @168
-  Scenario: Search occupations by job title
+  Scenario: Transferable skills
     Given I am on the "task_list" page
     When I click on "Search for the types of jobs you could retrain to do"
     And I enter "Construction manager " in "name" field

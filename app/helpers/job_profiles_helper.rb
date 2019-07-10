@@ -8,8 +8,4 @@ module JobProfilesHelper
       )]
     end
   end
-
-  def alternative_names(names)
-    names.join(', ')
-  end
 end

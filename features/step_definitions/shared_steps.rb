@@ -33,10 +33,11 @@ end
 Given('the following job profiles are available') do |table|
   table.hashes.each do |row|
     name = row.fetch('Name')
+    alternative_titles = row.fetch('Alternative titles')
     category_name = row.fetch('Category')
     category = Category.find_by(name: category_name)
 
-    create(:job_profile, name: name, categories: [category])
+    create(:job_profile, name: name, categories: [category], alternative_titles: [alternative_titles])
   end
 end
 

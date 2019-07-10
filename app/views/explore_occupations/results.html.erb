@@ -17,7 +17,7 @@
     <% if @job_profiles.blank? %>
       <p class="govuk-body-m"><%= render '/shared/search/no_results' %></p>
     <% else %>
-      <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.count) %></p>
+      <p class="govuk-body-m" ><%= t('.results', count: @job_profiles.size) %></p>
       <p class="govuk-inset-text"><%= t('.body') %></p>
       <ul class="govuk-list">
         <% @job_profiles.each do |job_profile| %>
@@ -25,7 +25,9 @@
             <h3 class="govuk-!-margin-bottom-0">
                <%= link_to job_profile.name, job_profile_path(job_profile.slug, explore_occupations_result: params[:name]), class: 'govuk-link no-text-decoration' %>
             </h3>
-            <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= alternative_names(job_profile.alternative_titles) %></p>
+            <% if job_profile.alternative_titles.present? %>
+              <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
+            <% end %>
             <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
             <p class="govuk-body-s govuk-!-margin-bottom-1 strong">Salary: <%= job_profile.salary_range %></p>
             <p class="govuk-body-s muted-text">Found in:

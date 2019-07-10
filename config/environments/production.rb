@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -77,15 +78,20 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # Use a different logger for distributed setups.
-  # require 'syslog/logger'
-  # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    stdout_logger           = ActiveSupport::Logger.new(STDOUT)
+    stdout_logger.formatter = config.log_formatter
+    config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
+
+    if ENV['LOGGLY_TOKEN'].present?
+      loggly_url              = "https://logs-01.loggly.com/inputs/#{ENV['LOGGLY_TOKEN']}/tag/ruby/"
+      loggly_logger           = Logglier.new(loggly_url, threaded: true)
+      loggly_logger.formatter = config.log_formatter
+      config.logger.extend(ActiveSupport::Logger.broadcast(loggly_logger))
+    end
   end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end
+# rubocop:enable Metrics/BlockLength

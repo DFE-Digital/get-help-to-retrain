@@ -5,3 +5,8 @@ Feature: As a customer, I want to be advised about what I should do next, now I'
     Given I am on the "task_list" page
     When I click on "Get more support to help you on your new career path"
     Then I can learn what all my next options are
+
+  @ci @185
+  Scenario: Next Steps = Find Traning Course
+    Given I am on the "find_training_courses" page
+    Then I can learn what all my next training options are

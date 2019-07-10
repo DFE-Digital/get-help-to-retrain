@@ -29,3 +29,7 @@ end
 Given('I am a customer with a degree') do
   pending # Write code here that turns the phrase above into concrete actions
 end
+
+Given("there are no courses within {int} miles of my postcode show error message") do |int|
+  pending # Write code here that turns the phrase above into concrete actions
+end

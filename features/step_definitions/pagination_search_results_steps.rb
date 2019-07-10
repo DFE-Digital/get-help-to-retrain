@@ -6,7 +6,7 @@ end
 # TODO: revise example step uses multiple steps
 Given('I have searched for the occupation {string}') do |name|
   steps %(
-    Given I enter "#{name}" in "name" field
+    And I enter "#{name}" in "name" field
     And I click the ".search-button" button
   )
 end

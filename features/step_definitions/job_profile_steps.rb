@@ -3,7 +3,7 @@ Given('a job profile exists with the name {string}') do |name|
     :job_profile,
     :with_html_content,
     name: name,
-    alternative_titles: 'Damage controller, Construction maniac',
+    alternative_titles: 'Damage controller',
     salary_min: 27_000,
     salary_max: 70_000,
     skills: [

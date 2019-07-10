@@ -116,7 +116,7 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
       end
 
       it 'parses alternative titles' do
-        expect(scraped['alternative_titles']).to contain_exactly('Office administrator', 'clerical assistant', 'administrative assistant')
+        expect(scraped['alternative_titles']).to eq('Office administrator, clerical assistant, administrative assistant')
       end
     end
 
@@ -130,7 +130,7 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
       end
 
       it 'parses alternative titles' do
-        expect(scraped['alternative_titles']).to contain_exactly('Office administrator')
+        expect(scraped['alternative_titles']).to eq('Office administrator')
       end
     end
 
@@ -143,7 +143,7 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
       end
 
       it 'returns empty array' do
-        expect(scraped['alternative_titles']).to be_empty
+        expect(scraped['alternative_titles']).to be_nil
       end
     end
   end
