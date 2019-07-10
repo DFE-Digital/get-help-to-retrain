@@ -49,6 +49,8 @@ group :development, :test do
   # GOV.UK interpretation of rubocop for linting Ruby
   gem 'govuk-lint'
 
+  gem 'rspec_junit_formatter', '~> 0.4.1'
+
   # Debugging
   gem 'pry-byebug'
 

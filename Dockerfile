@@ -12,7 +12,11 @@ RUN apk add --update $BUILD_PACKAGES && \
 # Generate Assets
 WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN bundle install --clean --force --without "development"
+RUN bundle install --clean --force --without "development" \
+     && rm -rf /usr/local/bundle/cache/*.gem \
+     && find /usr/local/bundle/gems/ -name "*.c" -delete \
+     && find /usr/local/bundle/gems/ -name "*.o" -delete
+
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
