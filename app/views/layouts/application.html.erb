@@ -8,6 +8,7 @@
     <%= tag :meta, name: 'viewport', content: 'width=device-width, initial-scale=1' %>
     <%= tag :meta, property: 'og:image', content: '/assets/images/govuk-opengraph-image.png' %>
     <%= tag :meta, name: 'theme-color', content: '#0b0c0c' %>
+    <%= tag :meta, name: 'robots', content: 'noindex, nofollow, noarchive, nosnippet, noimageindex' %>
     <%= favicon_link_tag '/assets/images/favicon.ico' %>
     <%= favicon_link_tag '/assets/images/govuk-mask-icon.svg', rel: 'mask-icon', type: 'image/svg', color: "#0b0c0c" %>
     <%= favicon_link_tag '/assets/images/govuk-apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
@@ -50,7 +51,7 @@
           <p class="govuk-phase-banner__content">
             <strong class="govuk-tag govuk-phase-banner__content__tag ">beta</strong>
             <span class="govuk-phase-banner__text">
-              This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+              This is a new service – your <%= link_to 'feedback', 'https://www.smartsurvey.co.uk/s/get-help-to-retrain/', class: 'govuk-link', target: '_blank'%> will help us to improve it.
             </span>
           </p>
         </div>
