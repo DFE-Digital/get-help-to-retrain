@@ -1,6 +1,6 @@
 function TrackEvents () {
   this.start = function () {
-    if (appInsights) {
+    if (typeof(appInsights) === 'object') {
       document.querySelectorAll('[data-tracked-event]').forEach(function (element) {
         $this = element;
 
