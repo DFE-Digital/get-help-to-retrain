@@ -9,7 +9,7 @@
     "rails-ujs": "^5.2.3"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.7.2",
-    "pa11y-ci": "^2.3.0"
+    "pa11y-ci": "^2.3.0",
+    "webpack-dev-server": "^3.7.2"
   }
 }
