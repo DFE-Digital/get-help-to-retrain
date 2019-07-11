@@ -37,8 +37,9 @@
         <% end %>
       </ul>
     <% end %>
+    <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
+      <%= paginate @search_results %>
+    </div>
   </div>
   <%= render "shared/contact_us" %>
 </div>
-
-<%= paginate @search_results %>

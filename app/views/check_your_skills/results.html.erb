@@ -21,8 +21,9 @@
       <p class="govuk-inset-text govuk-!-margin-bottom-2"><%= t('.body') %></p>
       <%= render "results_list", job_profiles: @job_profiles %>
     <% end %>
+    <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
+      <%= paginate @job_profiles %>
+    </div>
   </div>
   <%= render "shared/contact_us" %>
 </div>
-
-<%= paginate @job_profiles %>

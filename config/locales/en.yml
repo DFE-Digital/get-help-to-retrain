@@ -73,3 +73,7 @@ en-GB:
   what_you_can_do_next:
     title: Find out what you can do next
     body: Get more support to help you on your new career path
+  pagination:
+    previous: Previous
+    next: Next
+    truncate: ...
