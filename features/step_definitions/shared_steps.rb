@@ -52,6 +52,11 @@ Then('I should see error {string}') do |string|
   expect(page).to have_content(string)
 end
 
+Then('the page should contain link text {string}') do |link|
+  page.find_link(link)
+end
+
+
 # TODO: revise
 # When('the link {string} is inactive') do |string|
 #   has_link? string
