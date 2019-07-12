@@ -4,8 +4,7 @@ import TrackEvents from './track-events';
 import Rails from 'rails-ujs';
 import { initAll } from 'govuk-frontend';
 
-
-SearchForm.start();
 TrackEvents.start();
+SearchForm.start();
 Rails.start();
 initAll();

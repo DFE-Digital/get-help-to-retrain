@@ -2,18 +2,18 @@ function TrackEvents () {
   this.start = function () {
     if (typeof(appInsights) === 'object') {
       document.querySelectorAll('[data-tracked-event]').forEach(function (element) {
-        $this = element;
-
-        if ($this.dataset.type === 'link') {
-          $this.onclick = function sendEvent(e) {
-            if ($this.dataset.trackedEvent) {
-              appInsights.trackEvent($this.dataset.trackedEvent)
+        if (element.dataset.type === 'link') {
+          element.onclick = function sendEvent() {
+            if (element.dataset.trackedEvent) {
+              setTimeout(function () {
+                appInsights.trackEvent(element.dataset.trackedEvent);
+              }, 0);
             }
-          }
+          };
         }
       });
     }
-  }
+  };
 }
 
-module.exports = new TrackEvents();
+export default new TrackEvents();
