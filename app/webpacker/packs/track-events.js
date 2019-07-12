@@ -1,19 +1,25 @@
 function TrackEvents () {
   this.start = function () {
-    if (typeof(appInsights) === 'object') {
+    if (typeof(appInsights) !== 'undefined') {
       document.querySelectorAll('[data-tracked-event]').forEach(function (element) {
-        if (element.dataset.type === 'link') {
-          element.onclick = function sendEvent() {
-            if (element.dataset.trackedEvent) {
-              setTimeout(function () {
-                appInsights.trackEvent(element.dataset.trackedEvent);
-              }, 0);
-            }
-          };
-        }
+        trackComponentOnClick(element);
       });
     }
   };
+
+  function sendEvent() {
+    var eventLabel = this.dataset.trackedEvent;
+
+    setTimeout(function () {
+      appInsights.trackEvent(eventLabel);
+    }, 0);
+  };
+
+  function trackComponentOnClick(element) {
+    if (element.dataset.trackedEvent) {
+      element.addEventListener('click', sendEvent, false);
+    }
+  }
 }
 
 export default new TrackEvents();
