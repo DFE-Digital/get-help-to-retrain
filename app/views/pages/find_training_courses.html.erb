@@ -18,7 +18,7 @@
     <p class="govuk-inset-text">You’ll get personalised advice and support along the way, so you can find training that fits around your schedule and your personal needs – for example, with childcare or IT skills, or if you have not studied in a while and feel unsure about what you should do.</p>
     <p class="govuk-heading-m govuk-!-margin-bottom-2">Get help to retrain helpline</p>
     <p class="govuk-body-m govuk-!-margin-bottom-0">Telephone: <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-!-padding-left-1 govuk-link no-text-decoration' %></p>
-    <p class="govuk-body-m govuk-!-margin-bottom-0">Monday to Friday, 9am to 5pm</p>
+    <p class="govuk-body-m govuk-!-margin-bottom-0"><%= t('contact_us.telephone_times') %></p>
     <%= link_to "Find out about call charges", 'https://www.gov.uk/call-charges', class: 'govuk-link govuk-body-s', target: '_blank' %>
   </div>
   <%= render 'shared/what_you_can_do_next' %>
