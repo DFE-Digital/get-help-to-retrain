@@ -12,7 +12,7 @@ RUN apk add --update $BUILD_PACKAGES && \
 # Generate Assets
 WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
-RUN bundle install --clean --without "development"
+RUN bundle install --clean --force --without "development"
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
