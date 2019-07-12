@@ -34,4 +34,23 @@ RSpec.feature 'Check your skills', type: :feature do
 
     expect(page).to have_text('0 results')
   end
+
+  scenario 'paginates results of search' do
+    create_list(:job_profile, 12, name: 'Hacker')
+    visit(check_your_skills_path)
+    fill_in('name', with: 'Hacker')
+    find('.search-button').click
+
+    expect(page).to have_selector('ul.govuk-list li', count: 10)
+  end
+
+  scenario 'allows user to paginate through results' do
+    create_list(:job_profile, 12, name: 'Hacker')
+    visit(check_your_skills_path)
+    fill_in('name', with: 'Hacker')
+    find('.search-button').click
+    click_on('Next')
+
+    expect(page).to have_selector('ul.govuk-list li', count: 2)
+  end
 end

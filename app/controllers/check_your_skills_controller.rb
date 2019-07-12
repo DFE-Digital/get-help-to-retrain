@@ -1,6 +1,6 @@
 class CheckYourSkillsController < ApplicationController
   def results
-    @job_profiles = JobProfile.search(job_profile_params[:name])
+    @job_profiles = JobProfile.search(job_profile_params[:name]).page(params[:page])
   end
 
   private
