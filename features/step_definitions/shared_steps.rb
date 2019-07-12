@@ -56,6 +56,10 @@ Then('the page should contain link text {string}') do |link|
   page.find_link(link)
 end
 
+Then('the link text {string} goes to {string}') do |link, url|
+  page.find_link(link)
+  page.assert_selector(:css, 'a[href="' + url + '"]')
+end
 
 # TODO: revise
 # When('the link {string} is inactive') do |string|

@@ -13,6 +13,6 @@ Feature: As a customer, I want to see the eligibility criteria and be able to co
   @ci @35 @210
   Scenario: Verify landing page links to task list
     Given I am on the homepage
-    And the link text "GOV.UK" goes to "https://gov.uk"
+    And the link text "GOV.UK" goes to "https://www.gov.uk/"
     When I click on "Start now"
     Then I should see "Check what you need to do to retrain"
