@@ -10,7 +10,7 @@ RSpec.describe JobProfilesHelper do
     end
 
     it 'returns explore occupations results breadcrumbs if referer path is a defined result' do
-      params = { explore_occupations_result: 'Developer' }
+      params = { search: 'Developer' }
       expect(helper.job_profile_breadcrumbs_for(params)).to eq(
         [t('breadcrumb.search_results'), results_explore_occupations_path(name: 'Developer')]
       )
