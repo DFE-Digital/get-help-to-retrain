@@ -18,4 +18,4 @@ function SearchForm () {
   }
 }
 
-module.exports = new SearchForm();
+export default new SearchForm();

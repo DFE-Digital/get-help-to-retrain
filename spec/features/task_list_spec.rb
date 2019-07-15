@@ -35,4 +35,30 @@ RSpec.feature 'Tasks List', type: :feature do
 
     expect(page).to have_text('Get advice and help in your search for a new role.')
   end
+
+  scenario 'Smart survey link is present on the top banner' do
+    visit(task_list_path)
+
+    link = find_link('feedback')
+
+    expect([link[:href], link[:target]]).to eq(
+      [
+        'https://www.smartsurvey.co.uk/s/get-help-to-retrain/',
+        '_blank'
+      ]
+    )
+  end
+
+  scenario 'Smart survey link is present under Help improve this service section' do
+    visit(task_list_path)
+
+    link = find_link('Take a quick survey and tell us about your experience ')
+
+    expect([link[:href], link[:target]]).to eq(
+      [
+        'https://www.smartsurvey.co.uk/s/get-help-to-retrain/',
+        '_blank'
+      ]
+    )
+  end
 end
