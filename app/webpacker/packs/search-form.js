@@ -1,6 +1,6 @@
 function SearchForm () {
   this.start = function () {
-    const $jobProfileName = document.querySelector('#name');
+    const $jobProfileName = document.querySelector('#search');
     const $jobProfileSearchForm = document.querySelector('#job-profile-search');
 
     disableEmptyForm($jobProfileSearchForm, $jobProfileName);
