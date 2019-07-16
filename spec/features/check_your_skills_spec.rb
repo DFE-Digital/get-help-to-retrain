@@ -13,7 +13,7 @@ RSpec.feature 'Check your skills', type: :feature do
 
   scenario 'User checks their current skills' do
     visit(check_your_skills_path)
-    fill_in('name', with: 'Bodyguard')
+    fill_in('search', with: 'Bodyguard')
     find('.search-button').click
     click_on('Bodyguard')
 
@@ -29,7 +29,7 @@ RSpec.feature 'Check your skills', type: :feature do
 
   scenario 'User cannot find occupation through search' do
     visit(check_your_skills_path)
-    fill_in('name', with: 'Embalmer')
+    fill_in('search', with: 'Embalmer')
     find('.search-button').click
 
     expect(page).to have_text('0 results')
@@ -38,7 +38,7 @@ RSpec.feature 'Check your skills', type: :feature do
   scenario 'paginates results of search' do
     create_list(:job_profile, 12, name: 'Hacker')
     visit(check_your_skills_path)
-    fill_in('name', with: 'Hacker')
+    fill_in('search', with: 'Hacker')
     find('.search-button').click
 
     expect(page).to have_selector('ul.govuk-list li', count: 10)
@@ -47,7 +47,7 @@ RSpec.feature 'Check your skills', type: :feature do
   scenario 'allows user to paginate through results' do
     create_list(:job_profile, 12, name: 'Hacker')
     visit(check_your_skills_path)
-    fill_in('name', with: 'Hacker')
+    fill_in('search', with: 'Hacker')
     find('.search-button').click
     click_on('Next')
 

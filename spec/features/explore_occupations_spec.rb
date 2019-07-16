@@ -25,7 +25,7 @@ RSpec.feature 'Explore Occupations', type: :feature do
 
   scenario 'User explores their occupations through search' do
     visit(explore_occupations_path)
-    fill_in('name', with: 'Zombie Killer')
+    fill_in('search', with: 'Zombie Killer')
     find('.search-button').click
     click_on('Zombie Killer')
 
@@ -34,7 +34,7 @@ RSpec.feature 'Explore Occupations', type: :feature do
 
   scenario 'User cannot find occupation through search' do
     visit(explore_occupations_path)
-    fill_in('name', with: 'Embalmer')
+    fill_in('search', with: 'Embalmer')
     find('.search-button').click
 
     expect(page).to have_text('0 results')
@@ -45,5 +45,24 @@ RSpec.feature 'Explore Occupations', type: :feature do
     click_on('Find a training course')
 
     expect(page).to have_text('Find and apply to a training course near you')
+  end
+
+  scenario 'paginates results of search' do
+    create_list(:job_profile, 12, name: 'Hacker')
+    visit(explore_occupations_path)
+    fill_in('search', with: 'Hacker')
+    find('.search-button').click
+
+    expect(page).to have_selector('ul.govuk-list li', count: 10)
+  end
+
+  scenario 'allows user to paginate through results' do
+    create_list(:job_profile, 12, name: 'Hacker')
+    visit(explore_occupations_path)
+    fill_in('search', with: 'Hacker')
+    find('.search-button').click
+    click_on('Next')
+
+    expect(page).to have_selector('ul.govuk-list li', count: 2)
   end
 end
