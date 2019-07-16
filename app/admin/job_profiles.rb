@@ -49,7 +49,6 @@ ActiveAdmin.register JobProfile do
       row :salary_max
       row :alternative_titles
     end
-    active_admin_comments
   end
 
   form do |f|

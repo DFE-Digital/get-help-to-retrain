@@ -1,6 +1,4 @@
 ActiveAdmin.register Skill do
-  menu priority: 3
-
   actions :index
 
   filter :name
