@@ -3,18 +3,17 @@
 <div class="govuk-grid-row govuk-!-padding-top-4">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-    <p class="govuk-body">Use this service to discover your skills, explore jobs you could do and check training courses that will help you find a better job.</p>
-    <p class="govuk-body">This service will help you find a job that you can keep in the future, when technology might change the kinds of jobs available.</p>
-    <div class="govuk-inset-text">You might find that you can apply to a different type of job than the one you have now with the skills you already have, or that you can retrain to do something else.</div>
+    <p class="govuk-body">Use this service to find out what other jobs you can do with your current skills. You can also find out how to get new skills that could help you find a better job.</p>
     <%= link_to 'Start now', task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
     <h2 class="govuk-heading-m">Before you start</h2>
     <p class="govuk-body">You’ll get the most out of this service if all of the following apply to you:</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>you're employed</li>
-      <li>you do not have a degree</li>
-      <li>you're based in the Liverpool area</li>
+      <li>you don't have a degree</li>
+      <li>you're based in the Manchester area</li>
       <li>you're aged 24 or over</li>
       <li>you're earning below £35,000 per year</li>
     </ul>
+    <p class="govuk-body">If these don’t all apply to you, try visiting the <%= link_to 'National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link', target: '_blank' %> or your local <%= link_to 'Jobcentre Plus', 'https://www.jobcentreplusoffices.com/', class: 'govuk-link', target: '_blank' %> instead.</p>
   </div>
 </div>
