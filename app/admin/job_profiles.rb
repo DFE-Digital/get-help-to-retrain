@@ -1,7 +1,8 @@
+# rubocop:disable Metrics/BlockLength
 ActiveAdmin.register JobProfile do
   menu priority: 2
 
-  actions :all, except: [:new, :destroy]
+  actions :all, except: %i[new destroy]
 
   permit_params :recommended
 
@@ -66,3 +67,4 @@ ActiveAdmin.register JobProfile do
     f.actions
   end
 end
+# rubocop:enable Metrics/BlockLength

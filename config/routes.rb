@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
+  ActiveAdmin.routes(self) if Rails.env.development?
 
   get '/pages/:page', to: 'pages#show'
 
