@@ -20,6 +20,12 @@ resources:
       POSTGRES_DB: 'get-help-to-retrain'
       POSTGRES_USER: 'test'
       POSTGRES_PASSWORD: 'test'
+  - container: 'selenium'
+    image: 'selenium/standalone-chrome:3'
+    ports:
+      - 4444:4444/tcp
+    volumes:
+      - /dev/shm:/dev/shm
 
 stages:
 - stage: Build
@@ -33,13 +39,18 @@ stages:
 
     services:
       postgres: postgres
+      selenium: selenium
 
     steps:
       - script: |
           git_sha=$(git rev-parse --short HEAD)
           echo "##vso[build.updatebuildnumber]$git_sha"
-          echo "##vso[task.setvariable variable=ImageTag;]$git_sha"
         displayName: 'Set Image Tags'
+
+      - script: |
+          gateway_ip=$(docker network inspect bridge --format='{{range .IPAM.Config}}{{.Gateway}}{{end}}')
+          echo "##vso[task.setvariable variable=SeleniumRemoteAddress;]$gateway_ip"
+        displayName: 'Set Task Variables'
 
       - task: Docker@1
         displayName: Docker Hub login
@@ -103,7 +114,7 @@ stages:
           volumes: $(Build.SourcesDirectory):/build
           containerCommand: bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
           runInBackground: false
-          arguments: --net host -e DATABASE_URL=$(postgresUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
+          arguments: --net host -e SELENIUM_REMOTE_ADDRESS=$(SeleniumRemoteAddress) -e DATABASE_URL=$(postgresUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
 
       - task: PublishTestResults@2
         condition: succeededOrFailed()
