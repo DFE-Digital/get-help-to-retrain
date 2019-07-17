@@ -1,0 +1,56 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "serviceName": {
+            "value": "ci"
+        },
+        "databaseName": {
+            "value": "ghtr"
+        },
+        "databaseUsername": {
+          "reference": {
+            "keyVault": {
+              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
+            },
+            "secretName": "dev-databaseUsername"
+          }
+        },
+        "databasePort": {
+            "value": "5432"
+        },
+        "databasePassword": {
+          "reference": {
+            "keyVault": {
+              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
+            "secretName": "ci-databasePassword"
+          }
+        },
+        "secretKeyBase": {
+          "reference": {
+            "keyVault": {
+              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
+            "secretName": "ci-secretKeyBase"
+          }
+        },
+        "dockerHubOrg": {
+            "value": "dfedigital"
+        },
+        "containerImageReference": {
+            "value": "get-help-to-retrain:latest"
+        },
+        "customHostName": {
+            "value": "ci.nrs-ghtr.org.uk"
+        },
+        "certificateName": {
+            "value": "nrs-ghtr-org-uk"
+        },
+        "keyVaultName": {
+            "value": "s108d01-shared-kv-01"
+        },
+        "keyVaultResourceGroup": {
+            "value": "s108d01-shared"
+        }
+
+    }
+}

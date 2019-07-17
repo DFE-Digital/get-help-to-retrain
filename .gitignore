@@ -28,4 +28,4 @@ yarn-debug.log*
 .env
 *.log
 coverage
-**/*parameters.json
+**/local-parameters.json
