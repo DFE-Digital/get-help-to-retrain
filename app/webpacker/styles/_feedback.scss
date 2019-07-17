@@ -1,0 +1,109 @@
+.gem-c-feedback {
+  max-width: $govuk-page-width;
+  margin: 0 auto;
+
+  .visually-hidden {
+    @include govuk-visually-hidden;
+  }
+}
+
+.gem-c-feedback--top-margin {
+  margin-top: govuk-spacing(6);
+
+  @include govuk-media-query($from: tablet) {
+    margin-top: govuk-spacing(9);
+  }
+}
+
+// hide without js
+// show with js, unless also has the js-hidden class
+.gem-c-feedback__js-show,
+.gem-c-feedback__form,
+.gem-c-feedback__prompt-success,
+.gem-c-feedback__js-prompt-questions,
+.gem-c-feedback__error-summary {
+  display: none;
+
+  .js-enabled & {
+    display: block;
+
+    &.js-hidden {
+      display: none;
+    }
+  }
+}
+
+@include govuk-grid-row($class: "gem-c-feedback__grid-row");
+
+.gem-c-feedback__column-two-thirds {
+  @include govuk-grid-column(two-thirds, $class: false)
+}
+
+.gem-c-feedback__prompt {
+  @include govuk-clearfix;
+  background-color: govuk-colour("blue");
+  color: govuk-colour("white");
+  padding: govuk-spacing(2) govuk-spacing(3) 0;
+  outline: 0;
+  margin-left: 16%;
+  margin-right: 18%;
+  height: 19px;
+}
+
+.gem-c-feedback__prompt-question,
+.gem-c-feedback__prompt-success {
+  @include govuk-font(19, $weight: bold);
+  display: inline-block;
+
+  // There's a global h3 rule in some layouts that interferes with this component
+  margin: 0;
+
+  &:focus {
+    outline: 0;
+  }
+
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font(16, $weight: bold);
+    float: left;
+  }
+}
+
+.gem-c-feedback__prompt-link {
+  @include govuk-link-common;
+  @include govuk-font(19);
+  margin-left: govuk-spacing(3);
+
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font(16);
+    float: left; // needed to ensure vertical alignment consistent with prompt-link--wrong
+    margin-left: govuk-spacing(2);
+    margin-bottom: govuk-spacing(2);
+  }
+}
+
+.gem-c-feedback__prompt-link:link,
+.gem-c-feedback__prompt-link:visited {
+  color: govuk-colour("white");
+
+  &:focus {
+    color: $govuk-focus-text-colour;
+  }
+}
+
+.gem-c-feedback__prompt-link--wrong {
+  display: block;
+  clear: both;
+  margin-top: govuk-spacing(3);
+  margin-left: 0;
+
+  @include govuk-media-query($from: tablet) {
+    float: right;
+    clear: none;
+    margin-top: 0;
+    margin-left: govuk-spacing(2);
+  }
+}
+
+.govuk-footer {
+  border-top: 8px solid #005ea5;
+}

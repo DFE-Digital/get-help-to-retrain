@@ -64,6 +64,36 @@
       </main>
     </div>
 
+    <div class="gem-c-feedback__js-prompt-questions js-hidden">
+      <%= render 'shared/feedback/survey' %>
+    </div>
+
+    <div class="gem-c-feedback__prompt feedback-footer" >
+      <h2 class="gem-c-feedback__prompt-question">Is this page useful?</h2>
+      <%= link_to '#', {
+        class: 'gem-c-feedback__prompt-link govuk-link',
+        data: {
+          'track-category' => 'yesNoFeedbackForm',
+          'track-action' => 'ffYesClick'
+        },
+        'aria-expanded': false,
+        role: 'button',
+      } do %>
+        Yes
+      <% end %>
+
+      <%= link_to '#', {
+        class: 'gem-c-feedback__prompt-link govuk-link answer-no',
+        role: 'button'
+      } do %>
+        No
+      <% end %>
+
+      <div class="gem-c-feedback__prompt-success js-prompt-success js-hidden">
+        Thank you for your feedback
+      </div>
+    </div>
+
     <footer class="govuk-footer " role="contentinfo">
       <div class="govuk-width-container ">
         <div class="govuk-footer__meta">
