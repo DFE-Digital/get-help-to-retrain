@@ -1,4 +1,4 @@
-Feature: As a customer, I want *to confirm that I do not have qualifications at a level that mean the GHtR service is not best suited to me, So that I don't waste time using the service
+Feature: As a customer, I want to confirm that I do not have qualifications at a level that mean the GHtR service is not best suited to me, So that I don't waste time using the service
 
   @wip @114
   Scenario: Check qualifications eligibility (no option selected)

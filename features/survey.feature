@@ -1,4 +1,4 @@
-Feature: User storyAs NRSI need to capture qualitative feedback from unmoderated users of the serviceSo that we can continually improve the service based on user feedback and insights
+Feature: As a data analyst, I need to capture qualitative feedback from unmoderated users of the service, so that we can continually improve the service based on user feedback and insights
 
   @ci @134
   Scenario Outline: Survey link visible on all pages

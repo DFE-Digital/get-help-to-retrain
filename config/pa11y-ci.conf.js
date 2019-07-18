@@ -16,15 +16,15 @@ function myPa11yCiConfiguration (host) {
     },
     urls: [
       `${host}`,
-      `${host}/job-categories/government-services`,
+      `${host}/categories/government-services`,
       `${host}/explore-occupations`,
-      `${host}/explore-occupations/results?utf8=✓&search=test`,
+      `${host}/explore-occupations/results?search=test`,
       `${host}/check-your-skills`,
-      `${host}/check-your_skills/results?utf8=✓&search=manager`,
+      `${host}/check-your-skills/results?search=manager`,
       `${host}/find-training-courses`,
       `${host}/next-steps`,
-      `${host}/explore-occupations/results?utf8=✓&search=construction`,
-      `${host}/find-training-course`
+      `${host}/explore-occupations/results?search=construction`,
+      `${host}/find-training-courses`
     ]
   };
 };
