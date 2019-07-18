@@ -9,6 +9,6 @@ Feature: As a customer
     And I can click on the phone number if I am using mobile
     Examples:
       | Page                  |
-      | check_your_skills     |
-      | explore_occupations   |
-      | next_steps            |
+      | check-your-skills     |
+      | explore-occupations   |
+      | next-steps            |

@@ -25,7 +25,7 @@ Feature: As a customer
 
   @ci @30 @160
   Scenario: Hub Page - Apply for a training course
-    When I click on "Talk to an adviser to find and apply to a training course near you"
+    When I click on "Find a training course"
     Then I should see "Call the Get help to retrain helpline to speak with an adviser and get free guidance."
     And there are placeholders for "training courses"
 

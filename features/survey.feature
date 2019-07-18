@@ -6,8 +6,8 @@ Feature: User storyAs NRSI need to capture qualitative feedback from unmoderated
         Then the page should contain link text "feedback"
         Examples:
             | page                  |
-            | explore_occupations   |
-            | check_your_skills     |
-            | find_training_courses |
-            | next_steps            |
-            | find_training_courses |
+            | explore-occupations   |
+            | check-your-skills     |
+            | find-training-courses |
+            | next-steps            |
+            | find-training-courses |

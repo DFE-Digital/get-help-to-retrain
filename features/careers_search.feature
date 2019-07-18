@@ -4,7 +4,7 @@ Feature: As a customer
 
   Background:
     Given a job profile exists with the name "Manufacturing Supervisor"
-    And I am on the "check_your_skills" page
+    And I am on the "check-your-skills" page
 
   @ci @56 @168
   Scenario: Happy Path
@@ -15,7 +15,7 @@ Feature: As a customer
 
   @ci @56
   Scenario: Unhappy Path
-    When I enter "zzzzzzz" in "name" field
+    When I enter "zzzzzzz" in "search" field
     And I click the ".search-button" button
     Then I see error message "0 results"
     And I see error message "Try again using a different job title"
@@ -25,7 +25,7 @@ Feature: As a customer
     And I click the ".search-button" button
     Then I should see "Check your existing skills"
     And the current url path is "/check_your_skills"
-    When I am on the "explore_occupations" page
+    When I am on the "explore-occupations" page
     And I click the ".search-button" button
     Then I should see "Explore by job category"
     And the current url path is "/explore_occupations"

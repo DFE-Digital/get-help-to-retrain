@@ -16,14 +16,14 @@ Feature: As a customer
 
   @ci @62
   Scenario: Explore occupations categories
-    Given I am on the "explore_occupations" page
+    Given I am on the "explore-occupations" page
     Then I should see "Administration"
     And I should see "Home services"
     And I should not see "Bookkeeper"
 
   @ci @62
   Scenario: Careers Search By Occupation categories
-    Given I am on the "explore_occupations" page
+    Given I am on the "explore-occupations" page
     When I click on "Administration"
     Then I should see "Admin assistant"
     And I should see "Auditor"

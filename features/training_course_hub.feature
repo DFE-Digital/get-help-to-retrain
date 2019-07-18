@@ -1,7 +1,7 @@
 Feature: As a customer, I want to see a summary all the training I am recommended to do, So that I can explore my training options
 
   Background:
-    Given I am on the "task_list" page
+    Given I am on the "task-list" page
 
   @ci @60
   Scenario: Hub Page - Your existing skills

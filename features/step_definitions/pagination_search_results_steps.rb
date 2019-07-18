@@ -6,23 +6,23 @@ end
 # TODO: revise example step uses multiple steps
 Given('I have searched for the occupation {string}') do |name|
   steps %(
-    And I enter "#{name}" in "name" field
+    And I enter "#{name}" in "search" field
     And I click the ".search-button" button
   )
 end
 
 Given('that I search existing skills that results in less than one page of results') do
-  fill_in 'name', with: 'manager'
+  fill_in 'search', with: 'manager'
   find('button.search-button').click
 end
 
 Given('that I search by job title that results in more than one page of results') do
-  fill_in 'name', with: 'manager'
+  fill_in 'search', with: 'manager'
   find('button.search-button').click
 end
 
 Given('that I search by job title that results in less than one page of results') do
-  fill_in 'name', with: 'manager'
+  fill_in 'search', with: 'manager'
   find('button.search-button').click
 end
 
@@ -36,7 +36,7 @@ end
 
 Given('that I search existing skills that results in more than one page of results') do
   visit('check_your_skills')
-  fill_in 'name', with: 'manager'
+  fill_in 'search', with: 'manager'
   find('button.search-button').click
 end
 
