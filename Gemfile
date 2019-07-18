@@ -85,7 +85,7 @@ group :development do
   gem 'rubocop-rspec', '~> 1.32'
 
   # Admin pages
-  gem 'activeadmin', '~> 2.1'
+  gem 'activeadmin', '~> 2.2'
 end
 
 group :test do
