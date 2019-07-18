@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self) if Rails.env.development?
+
   get '/pages/:page', to: 'pages#show'
 
   get '/404', to: 'errors#not_found', via: :all

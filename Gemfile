@@ -83,6 +83,9 @@ group :development do
   # Ruby code analyzer and formatter
   gem 'rubocop', '~> 0.68'
   gem 'rubocop-rspec', '~> 1.32'
+
+  # Admin pages
+  gem 'activeadmin', '~> 2.2'
 end
 
 group :test do
