@@ -5,7 +5,8 @@
     pa11y-ci -c .pa11yci.conf.js
 */
 
-var config = {
+function myPa11yCiConfiguration (host) {
+  return {
     defaults: {
       screenCapture: './_pa11y-screen-capture.png',
       standard: 'WCAG2AAA',
@@ -14,34 +15,18 @@ var config = {
       wait: 1500
     },
     urls: [
-        '${HOST}',
-        '${HOST}/job-categories/government-services',
-        '${HOST}/explore-occupations',
-        '${HOST}/explore-occupations/results?utf8=✓&search=test',
-        '${HOST}/check-your-skills',
-        '${HOST}/check-your_skills/results?utf8=✓&search=manager',
-        '${HOST}/find-training-courses',
-        '${HOST}/next-steps',
-        '${HOST}/explore-occupations/results?utf8=✓&search=construction',
-        '${HOST}/find-training-courses'
+      `${host}`,
+      `${host}/job-categories/government-services`,
+      `${host}/explore-occupations`,
+      `${host}/explore-occupations/results?utf8=✓&search=test`,
+      `${host}/check-your-skills`,
+      `${host}/check-your_skills/results?utf8=✓&search=manager`,
+      `${host}/find-training-courses`,
+      `${host}/next-steps`,
+      `${host}/explore-occupations/results?utf8=✓&search=construction`,
+      `${host}/find-training-course`
     ]
   };
+};
 
-  function myPa11yCiConfiguration (urls, defaults) {
-
-    console.error('Env:', process.env.HOST);
-
-    for (var idx = 0; idx < urls.length; idx++) {
-      urls[ idx ] = urls[ idx ].replace('${HOST}', process.env.HOST);
-    }
-
-    return {
-      defaults: defaults,
-      urls: urls
-    }
-  };
-
-  // Important ~ call the function, don't just return a reference to it!
-  module.exports = myPa11yCiConfiguration (config.urls, config.defaults);
-
-  // End config.
+module.exports = myPa11yCiConfiguration(process.env.HOST);
