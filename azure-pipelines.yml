@@ -6,104 +6,137 @@ trigger:
 
 pr: none
 
-jobs:
-- job: TestsAndBuild
-  displayName: Run Tests And Build Image
+variables:
+  IMAGE_NAME: '$(dockerHubUserName)/get-help-to-retrain'
+  postgresUrl: postgres://test:test@localhost:5432/get-help-to-retrain
 
-  pool:
-    vmImage: 'ubuntu-16.04'
+resources:
+  containers:
+  - container: 'postgres'
+    image: 'postgres:11-alpine'
+    ports:
+      - 5432:5432/tcp
+    env:
+      POSTGRES_DB: 'get-help-to-retrain'
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
 
-  variables:
-  - group: get-help-to-retrain
-  - name: postgresImage
-    value: postgres:11-alpine
-  - name: postgresPassword
-    value: test
-  - name: postgresDatabaseUrl
-    value: postgres://postgres:test@postgres/get-help-to-retrain
-  - name: dockerRun
-    value: docker run --rm --link $(postgresImage) -e DATABASE_URL=$(postgresDatabaseUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test $(dockerRegistry)/$(imageName):$(imageTag)
+stages:
+- stage: Build
+  displayName: Build image
 
-  steps:
-    - script: |
-        git_sha=$(git rev-parse --short HEAD)
-        echo "##vso[build.updatebuildnumber]$git_sha"
-        echo "##vso[task.setvariable variable=ImageTag;]$git_sha"
-      displayName: 'Set Image Tags'
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-16.04'
 
-    - script: docker login -u $(dockerRegistry) -u $(dockerId) -p $pswd
-      env:
-        pswd: $(dockerPassword)
-      displayName: Docker Login
+    services:
+      postgres: postgres
 
-    - script: |
-        docker run --name=postgres -e POSTGRESS_PASSWORD=$(postgresPassword) -d $(postgresImage)
-      displayName: Launch Postgres
+    steps:
+      - script: |
+          git_sha=$(git rev-parse --short HEAD)
+          echo "##vso[build.updatebuildnumber]$git_sha"
+          echo "##vso[task.setvariable variable=ImageTag;]$git_sha"
+        displayName: 'Set Image Tags'
 
-    - script: |
-        docker pull $(dockerRegistry)/$(imageName):latest || true
-      displayName: Retrieve latest Docker build to use as cache
-      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+      - task: Docker@1
+        displayName: Docker Hub login
+        inputs:
+          command: login
+          containerregistrytype: Container Registry
+          dockerRegistryEndpoint: DFE-Digital Docker Hub
 
-    - script: |
-        docker build -f Dockerfile --cache-from=$(dockerRegistry)/$(imageName):latest -t $(dockerRegistry)/$(imageName):$(imageTag) .
-      displayName: Build Docker Image using Cache
-      condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+      - script: docker pull $(IMAGE_NAME):latest || true
+        displayName: "Pull latest docker image to cache"
 
-    - script: |
-        docker build -f Dockerfile -t $(dockerRegistry)/$(imageName):$(imageTag) -t $(dockerRegistry)/$(imageName):latest .
-      displayName: Build Docker Image without Cache
-      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      - task: Docker@1
+        displayName: Build docker image
+        inputs:
+          command: build
+          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
+          dockerFile: Dockerfile
+          arguments: '--cache-from $(IMAGE_NAME):latest'
 
-    - script: |
-        $DOCKER_RUN bundle exec rake db:create db:test:prepare
-      displayName: Database Setup
-      env:
-        DOCKER_RUN: $(dockerRun)
+      - task: Docker@1
+        displayName: Run Rubocop
+        inputs:
+          command: run
+          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
+          containerCommand: bundle exec rubocop --format clang
+          runInBackground: false
+          arguments: -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
 
-    - script: |
-        $DOCKER_RUN bundle exec rubocop
-      displayName: Rubocop linter
-      env:
-        DOCKER_RUN: $(dockerRun)
+      - task: Docker@1
+        displayName: Run Brakeman
+        inputs:
+          command: Run an image
+          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
+          containerCommand: bundle exec brakeman
+          runInBackground: false
+          arguments: -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
 
-    - script: |
-        $DOCKER_RUN bundle exec brakeman
-      displayName: Brakeman check
-      env:
-        DOCKER_RUN: $(dockerRun)
+      - task: Docker@1
+        displayName: Run GovUK Sass linter
+        inputs:
+          command: Run an image
+          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
+          containerCommand: bundle exec govuk-lint-sass app/webpacker/styles
+          runInBackground: false
+          arguments: -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
 
-    - script: |
-        $DOCKER_RUN bundle exec govuk-lint-sass app/webpacker/styles
-      displayName: GovUK Sass linter
-      env:
-        DOCKER_RUN: $(dockerRun)
+      - task: Docker@1
+        displayName: Database Setup
+        inputs:
+          command: run
+          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
+          containerCommand: bundle exec rake db:create db:test:prepare
+          runInBackground: false
+          arguments: --net host -e DATABASE_URL=$(postgresUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
 
-    - script: |
-        $DOCKER_RUN bundle exec rspec
-      displayName: Rspec
-      env:
-        DOCKER_RUN: $(dockerRun)
+      - task: Docker@1
+        displayName: Run Rspec tests
+        inputs:
+          command: Run an image
+          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
+          volumes: $(Build.SourcesDirectory):/build
+          containerCommand: bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
+          runInBackground: false
+          arguments: --net host -e DATABASE_URL=$(postgresUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
 
-    - script: |
-        docker push $(dockerRegistry)/$(imageName):$(imageTag)
-      displayName: 'Push Docker Image'
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: JUnit
+          testResultsFiles: '*.xml'
+          failedTaskOnFailedTest: true
 
-    - script: |
-        docker push $(dockerRegistry)/$(imageName):latest
-      displayName: Push Latest Docker Image
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      - task: Docker@2
+        displayName: Push new image with current tag
+        inputs:
+          command: push
+          repository: $(IMAGE_NAME)
+          tags: $(Build.BuildNumber)
 
-    - task: CopyFiles@2
-      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-      inputs:
-        Contents: |
-          azure/**
-        TargetFolder: '$(build.artifactstagingdirectory)'
-        OverWrite: true
+      - task: Docker@2
+        displayName: Push tagged image (latest) if master
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          command: push
+          repository: $(IMAGE_NAME)
+          tags: latest
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-        ArtifactName: 'ARMTemplates'
+      - task: CopyFiles@2
+        displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+        inputs:
+          Contents: |
+            azure/**
+          TargetFolder: '$(build.artifactstagingdirectory)'
+          OverWrite: true
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+          ArtifactName: 'ARMTemplates'

@@ -4,7 +4,7 @@ module JobProfilesHelper
       [t('breadcrumb.job_category'), category_path(params[:category])]
     else
       [t('breadcrumb.search_results'), results_explore_occupations_path(
-        name: params[:explore_occupations_result]
+        search: params[:search]
       )]
     end
   end

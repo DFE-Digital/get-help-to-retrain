@@ -39,6 +39,9 @@ gem 'canonical-rails'
 # Logging
 gem 'logglier', '~> 0.5'
 
+# Pagination
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -48,6 +51,8 @@ group :development, :test do
 
   # GOV.UK interpretation of rubocop for linting Ruby
   gem 'govuk-lint'
+
+  gem 'rspec_junit_formatter', '~> 0.4.1'
 
   # Debugging
   gem 'pry-byebug'

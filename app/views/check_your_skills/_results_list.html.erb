@@ -2,7 +2,7 @@
   <% job_profiles.each do |job_profile| %>
     <li class="govuk-!-padding-bottom-3 govuk-!-padding-top-4">
       <h3 class="govuk-!-margin-0">
-        <%= link_to job_profile.name, job_profile_skills_path(job_profile.slug, check_your_skills_result: params[:name]), class: 'govuk-link no-text-decoration' %>
+        <%= link_to job_profile.name, job_profile_skills_path(job_profile.slug, search: params[:search]), class: 'govuk-link no-text-decoration' %>
       </h3>
       <% if job_profile.alternative_titles.present? %>
         <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
