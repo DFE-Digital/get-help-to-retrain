@@ -52,6 +52,15 @@ page.save_screenshot 'screenshot.png'
 ```
 Your screenshot will be saved to the `tmp/capybara/` directory
 
+## Running Pa11y
+
+To run accessibility tests in Pa11y, define the host example: `HOST=http://localhost:3000`
+and run
+
+```bash
+  HOST=your-host-for-tests yarn run pa11y-ci --config config/pa11y-ci.conf.js
+```
+
 ## Linting
 
 It's best to lint just your app directories and not those belonging to the framework, e.g.

@@ -33,10 +33,11 @@ end
 Given('the following job profiles are available') do |table|
   table.hashes.each do |row|
     name = row.fetch('Name')
+    alternative_titles = row.fetch('Alternative titles')
     category_name = row.fetch('Category')
     category = Category.find_by(name: category_name)
 
-    create(:job_profile, name: name, categories: [category])
+    create(:job_profile, name: name, categories: [category], alternative_titles: [alternative_titles])
   end
 end
 
@@ -45,6 +46,19 @@ Given('the following categories are available') do |table|
     name = row.fetch('Name')
     create(:category, name: name)
   end
+end
+
+Then('I should see error {string}') do |string|
+  expect(page).to have_content(string)
+end
+
+Then('the page should contain link text {string}') do |link|
+  page.find_link(link)
+end
+
+Then('the link text {string} goes to {string}') do |link, url|
+  page.find_link(link)
+  page.assert_selector(:css, 'a[href="' + url + '"]')
 end
 
 # TODO: revise
