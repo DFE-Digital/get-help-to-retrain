@@ -66,6 +66,18 @@ RSpec.feature 'Explore Occupations', type: :feature do
     expect(page).to have_selector('ul.govuk-list li', count: 2)
   end
 
+  scenario 'search form required field available when no js running' do
+    visit(explore_occupations_path)
+
+    expect(page).to have_selector('#search[required]')
+  end
+
+  scenario 'search form required field disabled by default', js: true do
+    visit(explore_occupations_path)
+
+    expect(page).not_to have_selector('#search[required]')
+  end
+
   scenario 'cannot send search form with no input', js: true do
     visit(explore_occupations_path)
     fill_in('search', with: '')
