@@ -26,23 +26,22 @@ var config = {
         '${TEST_SRV}/find_training_courses'
     ]
   };
-  
+
   function myPa11yCiConfiguration (urls, defaults) {
-  
+
     console.error('Env:', process.env.TEST_SRV);
-  
+
     for (var idx = 0; idx < urls.length; idx++) {
       urls[ idx ] = urls[ idx ].replace('${TEST_SRV}', process.env.TEST_SRV);
     }
-  
+
     return {
       defaults: defaults,
       urls: urls
     }
   };
-  
+
   // Important ~ call the function, don't just return a reference to it!
   module.exports = myPa11yCiConfiguration (config.urls, config.defaults);
-  
+
   // End config.
-  

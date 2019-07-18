@@ -1,4 +1,3 @@
-
 Feature: As a user, I want to see alternate job titles on job detail page, in order to see alaternative relevant jobs.
 
   Background:
