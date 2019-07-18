@@ -72,13 +72,13 @@ RSpec.feature 'Explore Occupations', type: :feature do
     expect(page).to have_selector('#search[required]')
   end
 
-  scenario 'search form required field disabled by default', js: true do
+  scenario 'search form required field disabled by default', :js do
     visit(explore_occupations_path)
 
     expect(page).not_to have_selector('#search[required]')
   end
 
-  scenario 'cannot send search form with no input', js: true do
+  scenario 'cannot send search form with no input', :js do
     visit(explore_occupations_path)
     fill_in('search', with: '')
     find('.search-button').click
@@ -86,7 +86,7 @@ RSpec.feature 'Explore Occupations', type: :feature do
     expect(page).to have_current_path(explore_occupations_path)
   end
 
-  scenario 'cannot send results search form with no input', js: true do
+  scenario 'cannot send results search form with no input', :js do
     create(:job_profile, name: 'Hacker')
     visit(results_explore_occupations_path(search: 'Hacker'))
     fill_in('search', with: '')
