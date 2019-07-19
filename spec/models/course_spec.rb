@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Course, type: :model do
   describe '.find_courses_near' do
-    it 'returns nothing if no address entered' do
-      expect(described_class.find_courses_near(address: nil)).to be_empty
+    it 'returns nothing if no postcode entered' do
+      expect(described_class.find_courses_near(search_postcode: nil)).to be_empty
     end
 
-    it 'returns nothing if empty address entered' do
-      expect(described_class.find_courses_near(address: '')).to be_empty
+    it 'returns nothing if empty postcode entered' do
+      expect(described_class.find_courses_near(search_postcode: '')).to be_empty
     end
 
-    it 'returns courses ordered by distance to address entered' do
+    it 'returns courses ordered by distance to postcode entered' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
       )
@@ -19,12 +19,26 @@ RSpec.describe Course, type: :model do
       course2 = create(:course, latitude: 0.1, longitude: 1.003)
       course3 = create(:course, latitude: 0.1, longitude: 1.002)
 
-      expect(described_class.find_courses_near(address: 'NW6 8ET', distance: 2)).to eq(
+      expect(described_class.find_courses_near(search_postcode: 'NW6 8ET', distance: 2)).to eq(
         [course1, course3, course2]
       )
     end
 
-    it 'limist courses to distance entered from address' do
+    it 'scopes courses by topic' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+
+      create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
+      course2 = create(:course, latitude: 0.1, longitude: 1, topic: 'english')
+      create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
+
+      expect(described_class.find_courses_near(search_postcode: 'NW6 8ET', distance: 2, topic: 'english')).to contain_exactly(
+        course2
+      )
+    end
+
+    it 'limist courses to distance entered from postcode' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
       )
@@ -33,12 +47,12 @@ RSpec.describe Course, type: :model do
       create(:course, latitude: 0.1, longitude: 1.2)
       create(:course, latitude: 0.1, longitude: 1.3)
 
-      expect(described_class.find_courses_near(address: 'NW6 8ET', distance: 1)).to eq(
+      expect(described_class.find_courses_near(search_postcode: 'NW6 8ET', distance: 1)).to eq(
         [course1]
       )
     end
 
-    it 'returns nothing if address entered is too far' do
+    it 'returns nothing if postcode entered is too far' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
       )
@@ -47,17 +61,17 @@ RSpec.describe Course, type: :model do
       create(:course, latitude: 0.1, longitude: 3)
       create(:course, latitude: 0.1, longitude: 4)
 
-      expect(described_class.find_courses_near(address: 'NW6 8ET', distance: 10)).to be_empty
+      expect(described_class.find_courses_near(search_postcode: 'NW6 8ET', distance: 10)).to be_empty
     end
 
-    it 'raises error if address entered if invalid' do
-      expect { described_class.find_courses_near(address: 'NW6 ET') }.to raise_error(described_class::InvalidAddressError)
+    it 'raises error if postcode entered if invalid' do
+      expect { described_class.find_courses_near(search_postcode: 'NW6 ET') }.to raise_error(described_class::InvalidPostcodeError)
     end
 
     it 'raises error if API for geocoding not available' do
       allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
 
-      expect { described_class.find_courses_near(address: 'NW6 8ET') }.to raise_error(described_class::GeocoderAPIError)
+      expect { described_class.find_courses_near(search_postcode: 'NW6 8ET') }.to raise_error(described_class::GeocoderAPIError)
     end
   end
 
