@@ -20,6 +20,7 @@ VCR.configure do |vcr|
   vcr.hook_into :webmock
   vcr.ignore_localhost = true
   vcr.configure_rspec_metadata!
+  vcr.allow_http_connections_when_no_cassette = true
 end
 
 RSpec.configure do |config|
