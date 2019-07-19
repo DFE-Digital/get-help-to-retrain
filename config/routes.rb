@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: [:show]
+  resources :courses, only: [:show]
 
   root to: 'home#index'
 end
