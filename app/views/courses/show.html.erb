@@ -2,6 +2,7 @@
 
 <% content_for :breadcrumb do
     generate_breadcrumbs(
+      nil,
       [
         [t('breadcrumb.task_list_home'), task_list_path],
         [t('breadcrumb.courses_near_me'), find_training_courses_path]

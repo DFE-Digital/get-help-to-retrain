@@ -1,5 +1,5 @@
 class CoursesService
-  # Still need to figure out how that would fit 
+  # Still need to figure out how that would fit
   # in a prd enviroment safely while we wait for the real data
   def self.seed
     new.seed

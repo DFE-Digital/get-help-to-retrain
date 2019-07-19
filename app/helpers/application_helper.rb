@@ -3,7 +3,7 @@ module ApplicationHelper
     content_for(:page_title, I18n.t(key, scope: 'page_titles'))
   end
 
-  def generate_breadcrumbs(current_page = nil, previous_pages)
+  def generate_breadcrumbs(current_page, previous_pages)
     links = [
       previous_pages.map { |title, link|
         content_tag(:li, nil, class: 'govuk-breadcrumbs__list-item') {

@@ -16,7 +16,7 @@ RSpec.describe CourseDecorator do
 
   describe '#full_address' do
     it 'returns the full address block' do
-      expect(decorated_course.full_address).to eq "Flat 5, Street 1<br>Manchester, Great Manchester<br>1DF 3HG"
+      expect(decorated_course.full_address).to eq 'Flat 5, Street 1<br>Manchester, Great Manchester<br>1DF 3HG'
     end
   end
 end
