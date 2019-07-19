@@ -4,5 +4,6 @@ Geocoder.configure(
   language: :en,
   use_https: true,
   units: :mi,
-  distances: :spherical
+  distances: :spherical,
+  always_raise: :all
 )
