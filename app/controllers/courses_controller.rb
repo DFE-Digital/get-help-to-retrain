@@ -3,6 +3,8 @@ class CoursesController < ApplicationController
 
   def show
     @courses = Course.where(topic: params[:id]).map { |c| CourseDecorator.new(c) }
+
+    raise ActionController::RoutingError.new('Page Not Found') unless @courses.any?
   end
 
   private
