@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :course do
     title { Faker::Educator.course_name }
     provider { Faker::Educator.university }
-    url { Faker::Internet.url }
+    url { 'http://example.com/' }
     address_line_1 { Faker::Address.street_name }
     address_line_2 { Faker::Address.street_address }
     town { Faker::Address.city }

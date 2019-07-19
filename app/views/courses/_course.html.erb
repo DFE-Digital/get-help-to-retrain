@@ -3,5 +3,5 @@
 <p class="govuk-body govuk-!-margin-bottom-1">Distance: <b>3 miles</b></p>
 <p class="govuk-body-s"><%= course.full_address %></p>
 <p class="govuk-body-s">Tel:<%= link_to(course.phone_number, "tel:#{course.phone_number}", class: 'govuk-!-padding-left-1' ) %></p>
-<%= button_to 'Visit website', '#', remote: true, class: 'govuk-!-margin-bottom-6 govuk-button' %>
+<%= link_to 'Visit website', course.url, class: 'govuk-!-margin-bottom-6 govuk-button', target: '_blank', data: { tracked_event: "Courses - Clicked course link: #{course.url}" } %>
 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
