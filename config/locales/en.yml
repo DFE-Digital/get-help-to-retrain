@@ -11,6 +11,7 @@ en-GB:
     search_results: Search results
     job_profile: Job profile details
     your_skills: Your skills
+    courses_near_me: Find and apply to training courses near you
 
   page_titles:
     default: Get help to retrain
@@ -74,6 +75,9 @@ en-GB:
   what_you_can_do_next:
     title: Find out what you can do next
     body: Get more support to help you on your new career path
+  help_improve_this_service:
+    title: Help improve this service
+    body: Take a quick survey and tell us about your experience
   pagination:
     previous: Previous
     next: Next

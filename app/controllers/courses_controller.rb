@@ -1,8 +1,8 @@
-class CoursesController < ActionController::Base
+class CoursesController < ApplicationController
   before_action :handle_missing_courses
 
   def show
-    @courses = Course.where(topic: params[:id])
+    @courses = Course.where(topic: params[:id]).map{|c| CourseDecorator.new(c)}
   end
 
   private
