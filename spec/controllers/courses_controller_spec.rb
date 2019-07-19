@@ -15,6 +15,7 @@ RSpec.describe CoursesController, type: :controller do
     context 'when no courses are present' do
       it 'returns to /task-lists page' do
         get :show, params: { id: 'maths' }
+        
         expect(response).to redirect_to task_list_path
       end
     end
