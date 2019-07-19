@@ -24,7 +24,12 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: [:show]
-  resources :courses, only: [:show]
+
+  resources :courses, only: [:show] do
+    collection do
+      get '/:topic_id', to: 'courses#index'
+    end
+  end
 
   root to: 'home#index'
 end

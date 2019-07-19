@@ -12,7 +12,7 @@
 %>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl govuk-!-margin-top-6"><%= params[:id].titleize %> courses near me</h1>
+    <h1 class="govuk-heading-xl govuk-!-margin-top-6"><%= params[:topic_id].titleize %> courses near me</h1>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= render partial: 'course', collection: @courses %>   
     </div>
@@ -37,7 +37,7 @@
     <div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container">
       <h2 class="govuk-heading-m"><%= t('help_improve_this_service.title') %></h2>
       <p class="govuk-body-m">
-        <%= link_to t('help_improve_this_service.body'), 'https://app.smartsurvey.co.uk/survey/editor/id/614354' , class: 'govuk-link', target: '_blank', data: { tracked_event: "Courses - User Exit Survey Link" } %>
+        <%= link_to t('help_improve_this_service.body'), 'https://www.smartsurvey.co.uk/s/get-help-to-retrain/' , class: 'govuk-link', target: '_blank', data: { tracked_event: "Courses - Help improve this service survey link" } %>
       </p>
     </div>
   </div>

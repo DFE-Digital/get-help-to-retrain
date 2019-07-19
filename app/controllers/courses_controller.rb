@@ -1,10 +1,10 @@
 class CoursesController < ApplicationController
   before_action :handle_missing_courses
 
-  def show
-    @courses = Course.where(topic: params[:id]).map { |c| CourseDecorator.new(c) }
+  def index
+    @courses = Course.where(topic: params[:topic_id]).map { |c| CourseDecorator.new(c) }
 
-    raise ActionController::RoutingError.new('Page Not Found') unless @courses.any?
+    redirect_to '/404' unless @courses.any?
   end
 
   private
