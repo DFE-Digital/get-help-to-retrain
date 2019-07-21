@@ -1,5 +1,3 @@
-# TODO: Most of the xpath expressions within this class will be migrated to JobProfileScraper over time
-# which should remove the need to disable rubocop rules here.
 class CourseDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
 
