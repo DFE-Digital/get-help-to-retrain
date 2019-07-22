@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceName": {
-            "value": "ci"
+            "value": "test"
         },
         "databaseName": {
             "value": "ghtr"
@@ -11,8 +11,9 @@
         "databaseUsername": {
           "reference": {
             "keyVault": {
-              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "ci-databaseUsername"
+              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
+            },
+            "secretName": "test-databaseUsername"
           }
         },
         "databasePort": {
@@ -22,14 +23,14 @@
           "reference": {
             "keyVault": {
               "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "ci-databasePassword"
+            "secretName": "test-databasePassword"
           }
         },
         "secretKeyBase": {
           "reference": {
             "keyVault": {
               "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "ci-secretKeyBase"
+            "secretName": "test-secretKeyBase"
           }
         },
         "dockerHubOrg": {
@@ -39,16 +40,16 @@
             "value": "get-help-to-retrain:latest"
         },
         "customHostName": {
-            "value": "ci.nrs-ghtr.org.uk"
+            "value": "test.nrs-ghtr.org.uk"
         },
         "certificateName": {
             "value": "nrs-ghtr-org-uk"
         },
         "keyVaultName": {
-            "value": "s108d01-shared-kv-01"
+            "value": "s108t01-shared-kv-01"
         },
         "keyVaultResourceGroup": {
-            "value": "s108d01-shared"
+            "value": "s108t01-shared"
         }
 
     }
