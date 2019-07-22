@@ -28,6 +28,41 @@ resources:
       - /dev/shm:/dev/shm
 
 stages:
+- stage: Checks
+  displayName: Preflight checks
+
+  jobs:
+    - job: Tests
+      displayName: Rubocop tests
+      pool:
+        vmImage: 'ubuntu-16.04'
+
+      steps:
+        - task: UseRubyVersion@0
+          inputs:
+            versionSpec: '>= 2.6.2'
+            addToPath: true # Optional
+
+        # Todo: Look for support in the build box for the same ruby minor version.
+        - script: |
+            echo "2.6.2" > .ruby-version
+            sudo apt-get install libpq-dev
+            gem install bundler
+            bundle install --retry=3 --jobs=4
+          displayName: 'bundle install'
+
+        - script: |
+            bundle exec rubocop --format clang
+          displayName: 'rubocop'
+
+        - script: |
+            bundle exec brakeman
+          displayName: 'brakeman'
+
+        - script: |
+            bundle exec govuk-lint-sass app/webpacker/styles
+          displayName: 'GovUK lint'
+
 - stage: Build
   displayName: Build image
 
@@ -151,3 +186,70 @@ stages:
         inputs:
           PathtoPublish: '$(build.artifactstagingdirectory)'
           ArtifactName: 'ARMTemplates'
+
+- stage: Deployment
+  displayName: Deployment
+
+  jobs:
+    - job: CI
+      displayName: Deploy to CI
+      pool:
+        vmImage: 'vs2017-win2016'
+
+      variables:
+        - group: 'Release Common'
+        - name: resourceGroupName
+          value: s108d01-ci
+        - name: azureSubscription
+          value: azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc
+
+      steps:
+        - task: AzureResourceGroupDeployment@2
+          displayName: 'Azure Deployment:Create Or Update Resource Group action on $(resourceEnvironmentName)-$(serviceName)'
+          inputs:
+            action: 'Create Or Update Resource Group'
+            location: 'West Europe'
+            azureSubscription: azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc
+            resourceGroupName: s108d01-ci
+            csmFile: './azure/template.json'
+            csmParametersFile: './azure/config/ci.parameters.json'
+            overrideParameters: '-containerImageReference $(IMAGE_NAME):$(Build.BuildNumber) -securityAlertEmail $(securityAlertEmail)'
+            deploymentOutputs: DeploymentOutput
+
+        - task: RasmusWatjen.ARMOutputParserExtension.ARMOutputConverter.ARMOutputParserExtension@1
+          displayName: 'Parse ARM Deployment Outputs into variables'
+          inputs:
+            armOutput: $(DeploymentOutput)
+            variablePrefix: arm_
+
+        - script: |
+            env
+          displayName: 'debug'
+
+        - task: AzureAppServiceManage@0
+          displayName: 'Start Azure App Service: $(appServiceName)'
+          inputs:
+            azureSubscription: azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc
+            Action: 'Start Azure App Service'
+            WebAppName: $(arm_appServiceName)
+            SpecifySlotOrASE: true
+            resourceGroupName: s108d01-ci
+            Slot: staging
+
+        - task: AzureAppServiceManage@0
+          displayName: 'Swap Slots: $(appServiceName)'
+          inputs:
+            azureSubscription: azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc
+            WebAppName: $(arm_appServiceName)
+            resourceGroupName: 's108d01-ci'
+            SourceSlot: staging
+
+        - task: AzureAppServiceManage@0
+          displayName: 'Stop Azure App Service: $(appServiceName)'
+          inputs:
+            azureSubscription: azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc
+            Action: 'Stop Azure App Service'
+            WebAppName: $(arm_appServiceName)
+            SpecifySlotOrASE: true
+            resourceGroupName: s108d01-ci
+            Slot: staging

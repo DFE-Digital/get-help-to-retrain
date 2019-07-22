@@ -2,12 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "resourceEnvironmentName": {
-      "type": "string",
-      "metadata": {
-        "description": "The environment of the resource."
-      }
-    },
     "serviceName": {
       "type": "string",
       "metadata": {
@@ -149,14 +143,14 @@
   },
   "variables": {
     "deploymentUrlBase": "https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/",
-    "resourceNamePrefix": "[toLower(concat( parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
+    "resourceNamePrefix": "[toLower(resourceGroup().name)]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
     "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
     "workerAppServiceName": "[concat(variables('resourceNamePrefix'), 'wkr-as')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "databaseServerName": "[concat(variables('resourceNamePrefix'), '-psql')]",
-    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('dockerHubOrg'), '/', parameters('containerImageReference'))]"
+    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]"
   },
   "resources": [
     {
@@ -181,7 +175,10 @@
             "value": "[parameters('keyVaultResourceGroup')]"
           }
         }
-      }
+      },
+      "dependsOn": [
+        "app-service-plan"
+      ]
     },
     {
       "name": "storage-account",
