@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_07_143458) do
+ActiveRecord::Schema.define(version: 2019_07_19_081758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,26 @@ ActiveRecord::Schema.define(version: 2019_07_07_143458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "provider", null: false
+    t.string "url", null: false
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "town"
+    t.string "county"
+    t.string "postcode", null: false
+    t.string "email"
+    t.string "topic", null: false
+    t.string "phone_number"
+    t.boolean "active", default: false
+    t.float "latitude", default: 0.0, null: false
+    t.float "longitude", default: 0.0, null: false
+    t.index ["longitude", "latitude"], name: "index_courses_on_longitude_and_latitude"
+    t.index ["postcode"], name: "index_courses_on_postcode"
+    t.index ["topic"], name: "index_courses_on_topic"
   end
 
   create_table "job_profile_categories", force: :cascade do |t|

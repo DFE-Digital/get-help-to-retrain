@@ -4,27 +4,26 @@ Feature: As a customer
 
   Background:
     Given the following categories are available
-    | Name                      |
-    |  Administration           |
-    |  Home services            |
-    |  Bookkeeper               |
+      | Name           |
+      | Administration |
+      | Home services  |
+      | Bookkeeper     |
     And the following job profiles are available
-    | Name                      | Category       |
-    |    Accommodation warden   | Home services  |
-    |    Admin assistant        | Administration |
-    |    Auditor                | Administration |
+      | Name                 | Category       | Alternative titles |
+      | Accommodation warden | Home services  | Housing officer    |
+      | Admin assistant      | Administration | Admin clerk        |
+      | Auditor              | Administration | Senior Auditor     |
 
   @ci @62
   Scenario: Explore occupations categories
-    Given I am on the "explore_occupations" page
+    Given I am on the "explore-occupations" page
     Then I should see "Administration"
     And I should see "Home services"
     And I should not see "Bookkeeper"
 
   @ci @62
   Scenario: Careers Search By Occupation categories
-    Given I am on the "explore_occupations" page
+    Given I am on the "explore-occupations" page
     When I click on "Administration"
     Then I should see "Admin assistant"
     And I should see "Auditor"
-

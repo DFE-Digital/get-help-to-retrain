@@ -9,7 +9,7 @@ Feature: As a customer
     Then I should see "Get help to retrain"
     Examples:
       | path                                          |
-      | explore_occupations                           |
-      | check_your_skills                             |
-      | find_training_courses                         |
-      | next_steps                                    |
+      | explore-occupations                           |
+      | check-your-skills                             |
+      | find-training-courses                         |
+      | next-steps                                    |

@@ -16,10 +16,18 @@ Feature: As a customer
     When I click on "Search for the types of jobs you could retrain to do "
     Then there are placeholders for "occupations"
 
-  @ci @30
+  @ci @30 @160
+  Scenario: Hub Page - Find out what to do next
+    When I click on "Get more support to help you on your new career path"
+    Then I should see "Advice on how to look for and apply for jobs"
+    Then I should see "Find a job"
+    Then I should see "Find an apprenticeship"
+
+  @ci @30 @160
   Scenario: Hub Page - Apply for a training course
-    When I click on "Talk to an adviser to find and apply to a training course near you"
-    Then there are placeholders for "training courses"
+    When I click on "Find a training course"
+    Then I should see "Call the Get help to retrain helpline to speak with an adviser and get free guidance."
+    And there are placeholders for "training courses"
 
   @ci @30
   Scenario: Hub Page - Next Steps

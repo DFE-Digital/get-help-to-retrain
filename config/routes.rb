@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self) if Rails.env.development?
+
   get '/pages/:page', to: 'pages#show'
 
   get '/404', to: 'errors#not_found', via: :all
@@ -8,6 +10,8 @@ Rails.application.routes.draw do
   get 'task-list', to: 'pages#task_list'
   get 'find-training-courses', to: 'pages#find_training_courses'
   get 'next-steps', to: 'pages#next_steps'
+
+  get 'courses/:topic_id', to: 'courses#index'
 
   resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
     get :results, on: :collection

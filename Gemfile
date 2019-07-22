@@ -42,6 +42,12 @@ gem 'logglier', '~> 0.5'
 # Pagination
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 
+# Postcode geocoding and geospatial queries
+gem 'geocoder', '~> 1.5', '>= 1.5.1'
+
+# Postcode validation
+gem 'uk_postcode', '~> 2.1', '>= 2.1.4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -83,6 +89,9 @@ group :development do
   # Ruby code analyzer and formatter
   gem 'rubocop', '~> 0.68'
   gem 'rubocop-rspec', '~> 1.32'
+
+  # Admin pages
+  gem 'activeadmin', '~> 2.2'
 end
 
 group :test do
