@@ -4,6 +4,7 @@ require File.expand_path('../config/environment', __dir__)
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'support/capybara'
+require 'support/geocoder'
 require 'simplecov'
 require 'vcr'
 SimpleCov.start
@@ -20,6 +21,7 @@ VCR.configure do |vcr|
   vcr.hook_into :webmock
   vcr.ignore_localhost = true
   vcr.configure_rspec_metadata!
+  vcr.allow_http_connections_when_no_cassette = true
 end
 
 RSpec.configure do |config|
