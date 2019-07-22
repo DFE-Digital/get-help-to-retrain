@@ -5,7 +5,7 @@ end
 
 ruby File.read('.ruby-version').chomp
 
-# To use Azure application insights
+# Azure application insights (custom release)
 gem 'application_insights', github: 'microsoft/ApplicationInsights-Ruby', ref: 'a7429200'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -23,9 +23,6 @@ gem 'uglifier', '>= 1.3.0'
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -47,6 +44,13 @@ gem 'geocoder', '~> 1.5', '>= 1.5.1'
 
 # Postcode validation
 gem 'uk_postcode', '~> 2.1', '>= 2.1.4'
+
+# Web scraper
+gem 'wombat', '~> 2.8'
+
+# Feature flags
+gem 'flipflop', '~> 2.6'
+gem 'splitclient-rb', '~> 6.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -73,9 +77,6 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'
 end
-
-# Web scraper
-gem 'wombat', '~> 2.8'
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -114,6 +115,3 @@ group :test do
   gem 'vcr', '~> 5.0', require: false
   gem 'webmock', '~> 3.6', require: false
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
