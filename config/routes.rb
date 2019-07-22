@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'find-training-courses', to: 'pages#find_training_courses'
   get 'next-steps', to: 'pages#next_steps'
 
+  get 'courses/:topic_id', to: 'courses#index'
+
   resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
     get :results, on: :collection
   end
