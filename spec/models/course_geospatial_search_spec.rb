@@ -2,14 +2,18 @@ require 'rails_helper'
 
 RSpec.describe CourseGeospatialSearch do
   describe '#find_courses' do
-    it 'returns nothing if no postcode entered' do
+    it 'returns all courses if no postcode entered' do
+      create_list(:course, 2)
+
       search = described_class.new(postcode: nil, topic: nil, distance: 5)
-      expect(search.find_courses).to be_empty
+      expect(search.find_courses.size).to eq(2)
     end
 
-    it 'returns nothing if empty postcode entered' do
+    it 'returns all courses if empty postcode entered' do
+      create_list(:course, 2)
+
       search = described_class.new(postcode: '', topic: nil, distance: 5)
-      expect(search.find_courses).to be_empty
+      expect(search.find_courses.size).to eq(2)
     end
 
     it 'returns courses ordered by distance to postcode entered' do

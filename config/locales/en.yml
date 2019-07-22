@@ -83,3 +83,6 @@ en-GB:
     previous: Previous
     next: Next
     truncate: ...
+  courses:
+    invalid_postcode_error: Please enter a valid address
+    api_down_error: We cannot verify your address at the current time
