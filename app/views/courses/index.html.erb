@@ -10,11 +10,40 @@
     )
   end
 %>
+
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= params[:topic_id].titleize %> courses near me</h1>
     <div class="govuk-grid-column-full govuk-!-padding-0">
-      <%= render partial: 'course', collection: @courses %>   
+      <%= form_tag courses_path, method: 'get', id: 'courses-search' do %>
+        <div class="govuk-form-group <%='govuk-form-group--error' if flash.now[:error] %>">
+          <label class="govuk-label" for="postcode">
+            Postcode
+          </label>
+          <% if flash.now[:error] %>
+            <span id="national-insurance-number-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> <%= flash.now[:error] %>
+            </span>
+          <% end %>
+          <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-!-width-one-half #{'govuk-input--error' if flash.now[:error]}", required: true) %>
+          <%= button_tag('', class: 'search-button-results', name: nil) %>
+        </div>
+      <% end %>
+    </div>
+    <div class="govuk-grid-column-full govuk-!-padding-0">
+      <% if @courses.empty? %>
+        <p class="govuk-body-m">0 courses found</p>
+        <h2 class="govuk-heading-s">Try again using a different postcode.</h2>
+        <p class="govuk-body">You could try:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>double checking your postcode</li>
+          <li>using a different postcode</li>
+        </ul>
+      <% else %>
+        <ul class="govuk-list">
+          <%= render partial: 'course', collection: @courses %>
+        </ul>
+      <% end %>
     </div>
   </div>
 

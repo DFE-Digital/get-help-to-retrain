@@ -7,7 +7,7 @@ FactoryBot.define do
     address_line_2 { Faker::Address.street_address }
     town { Faker::Address.city }
     county { Faker::Address.state }
-    postcode { ['EC1A 1AA', 'EC1A 1JJ', 'EC1A 1JN', 'EC1A 2AH', 'EC1P 1AB', 'EC1P 1EW', 'EC1P 1NY'].sample }
+    postcode { ['NW11 8QE', 'NW11 7PT', 'NW11 7HB', 'NW10 7SF', 'NW10 7NZ', 'NW10 6HJ'].sample }
     email { Faker::Internet.email }
     phone_number { Faker::PhoneNumber.phone_number }
     active { false }

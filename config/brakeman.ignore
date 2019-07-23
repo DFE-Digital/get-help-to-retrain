@@ -23,48 +23,29 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "58567a2928b73c89859d881ce0acff99ee2ceb48cd9f9233c11161cac22ee98a",
+      "fingerprint": "365fd9ea8cee0c69534a037daf9ffb9a53443fce909bcbf94046dc52347fc842",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/courses/_course.html.erb",
-      "line": 6,
+      "line": 7,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :target => \"_blank\", :data => ({ :tracked_event => (\"Courses - Clicked course link: #{(Unresolved Model).new.url}\") }))",
+      "code": "link_to(\"Visit website\", Course.new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :target => \"_blank\", :data => ({ :tracked_event => (\"Courses - Clicked course link: #{Course.new.url}\") }))",
       "render_path": [
         {
-          "type": "template",
-          "name": "courses/show",
-          "line": 17,
-          "file": "app/views/courses/show.html.erb",
+          "type": "controller",
+          "class": "CoursesController",
+          "method": "index",
+          "line": 6,
+          "file": "app/controllers/courses_controller.rb",
           "rendered": {
-            "name": "courses/_course",
-            "file": "app/views/courses/_course.html.erb"
+            "name": "courses/index",
+            "file": "app/views/courses/index.html.erb"
           }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "courses/_course"
-      },
-      "user_input": "(Unresolved Model).new.url",
-      "confidence": "Weak",
-      "note": "This is a well known false positive issued by brakeman. We trust our data."
-    },
-    {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 4,
-      "fingerprint": "ebb71a6ea809f271551663c77d050194229ee6d7f84e683cb7c36550890d2393",
-      "check_name": "LinkToHref",
-      "message": "Potentially unsafe model attribute in `link_to` href",
-      "file": "app/views/courses/_course.html.erb",
-      "line": 6,
-      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :target => \"_blank\", :data => ({ :tracked_event => (\"Courses - Clicked course link: #{(Unresolved Model).new.url}\") }))",
-      "render_path": [
+        },
         {
           "type": "template",
           "name": "courses/index",
-          "line": 17,
+          "line": 44,
           "file": "app/views/courses/index.html.erb",
           "rendered": {
             "name": "courses/_course",
@@ -76,11 +57,11 @@
         "type": "template",
         "template": "courses/_course"
       },
-      "user_input": "(Unresolved Model).new.url",
+      "user_input": "Course.new.url",
       "confidence": "Weak",
       "note": "This is a known false positive from brakeman. We trust our data."
     }
   ],
-  "updated": "2019-07-19 17:47:33 +0100",
+  "updated": "2019-07-23 09:40:00 +0100",
   "brakeman_version": "4.5.1"
 }

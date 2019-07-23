@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# TODO: move this to spec/routes
 RSpec.describe CoursesController, type: :controller do
   describe 'GET #index' do
     context 'when an existing course topic is accessed' do
@@ -13,12 +14,8 @@ RSpec.describe CoursesController, type: :controller do
     end
 
     context 'when a non-existing course topic is accessed' do
-      it 'redirects /404' do
-        create(:course, :maths)
-
-        get :index, params: { topic_id: 'history' }
-
-        expect(response).to redirect_to '/404'
+      it 'is not routable' do
+        expect(get: :index, params: { topic_id: 'history' }).not_to be_routable # rubocop:disable RSpec/ExpectActual
       end
     end
 
