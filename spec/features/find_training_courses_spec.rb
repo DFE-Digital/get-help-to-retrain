@@ -31,7 +31,7 @@ RSpec.feature 'Find training courses', type: :feature do
     fill_in('postcode', with: 'NW6 8E')
     find('.search-button-results').click
 
-    expect(page).to have_text(/Please enter a valid address/)
+    expect(page).to have_text(/Please enter a valid postcode/)
   end
 
   scenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
@@ -42,7 +42,7 @@ RSpec.feature 'Find training courses', type: :feature do
     fill_in('postcode', with: 'NW6 8ET')
     find('.search-button-results').click
 
-    expect(page).to have_text(/We cannot verify your address/)
+    expect(page).to have_text(/We cannot verify your postcode/)
   end
 
   scenario 'search form required field available when no js running' do

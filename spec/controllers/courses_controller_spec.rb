@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# TODO: move this to spec/routes
 RSpec.describe CoursesController, type: :controller do
   describe 'GET #index' do
     context 'when an existing course topic is accessed' do

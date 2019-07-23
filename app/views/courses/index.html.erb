@@ -25,7 +25,7 @@
               <span class="govuk-visually-hidden">Error:</span> <%= flash.now[:error] %>
             </span>
           <% end %>
-          <%= text_field(nil, :postcode, value: params[:postcode], class: "search-input govuk-input govuk-!-width-one-half #{'govuk-input--error' if flash.now[:error]}", required: true) %>
+          <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-!-width-one-half #{'govuk-input--error' if flash.now[:error]}", required: true) %>
           <%= button_tag('', class: 'search-button-results', name: nil) %>
         </div>
       <% end %>
