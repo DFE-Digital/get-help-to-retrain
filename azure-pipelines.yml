@@ -189,6 +189,7 @@ stages:
 
 - stage: Deployment
   displayName: Deployment
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
 
   jobs:
     - job: CI
