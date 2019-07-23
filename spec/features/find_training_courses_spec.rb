@@ -34,6 +34,17 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Please enter a valid address/)
   end
 
+  scenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
+    allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
+    create(:course, topic: 'maths')
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+
+    expect(page).to have_text(/We cannot verify your address/)
+  end
+
   scenario 'search form required field available when no js running' do
     create(:course, topic: 'maths')
     visit(courses_path(topic_id: 'maths'))

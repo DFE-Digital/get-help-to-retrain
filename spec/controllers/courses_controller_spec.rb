@@ -12,6 +12,12 @@ RSpec.describe CoursesController, type: :controller do
       end
     end
 
+    context 'when a non-existing course topic is accessed' do
+      it 'is not routable' do
+        expect(get: :index, params: { topic_id: 'history' }).not_to be_routable # rubocop:disable RSpec/ExpectActual
+      end
+    end
+
     context 'when no courses are present' do
       it 'returns to /task-lists page' do
         get :index, params: { topic_id: 'maths' }
