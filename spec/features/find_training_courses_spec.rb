@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'Find training courses', type: :feature do
-  scenario 'User can see a list of all training courses for a topic' do
+  scenario 'User cannot see a list of all training courses for a topic without postcode' do
     create_list(:course, 2, topic: 'maths')
     visit(courses_path(topic_id: 'maths'))
 
-    expect(page).to have_selector('ul.govuk-list li', count: 2)
+    expect(page).to have_text('0 courses found')
   end
 
   scenario 'User can find training courses near them' do

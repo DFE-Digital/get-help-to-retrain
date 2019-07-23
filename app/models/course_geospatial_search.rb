@@ -11,7 +11,7 @@ class CourseGeospatialSearch
   end
 
   def find_courses
-    return Course.all unless postcode.present?
+    return Course.none unless postcode.present?
 
     courses.near(coordinates, distance, units: :mi, order: :distance)
   end
