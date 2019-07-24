@@ -16,15 +16,21 @@ function myPa11yCiConfiguration (host) {
     },
     urls: [
       `${host}`,
-      `${host}/categories/government-services`,
-      `${host}/explore-occupations`,
-      `${host}/explore-occupations/results?search=test`,
+      `${host}/task-list`,
       `${host}/check-your-skills`,
       `${host}/check-your-skills/results?search=manager`,
-      `${host}/find-training-courses`,
-      `${host}/next-steps`,
+      `${host}/job-profiles/yoga-therapist/skills?search=manager`,
+      `${host}/check-your-skills/results?search=nonexisting`,
+      `${host}/explore-occupations`,
       `${host}/explore-occupations/results?search=construction`,
-      `${host}/find-training-courses`
+      `${host}/job-profiles/construction-site-supervisor`,
+      `${host}/explore-occupations/results?search=nonexisting`,
+      `${host}/categories/administration`,
+      `${host}/find-training-courses`,
+      `${host}/courses/maths`,
+      `${host}/courses/maths?postcode=NW11+7HB`,
+      `${host}/courses/maths?postcode=invalid`,
+      `${host}/next-steps`
     ]
   };
 };
