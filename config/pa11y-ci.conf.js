@@ -9,7 +9,7 @@ function myPa11yCiConfiguration (host) {
   return {
     defaults: {
       screenCapture: './_pa11y-screen-capture.png',
-      standard: 'WCAG2AAA',
+      standard: 'WCAG2AA',
       level: 'error',
       timeout: 5000,
       wait: 1500
