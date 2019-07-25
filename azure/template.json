@@ -394,6 +394,10 @@
                 "value": "[parameters('logglyToken')]"
               },
               {
+                "name": "SPLIT_API_KEY",
+                "value": "[parameters('splitApiKey')]"
+              },
+              {
                 "name": "POSTGRESQL_SERVICE_PORT",
                 "value": "[parameters('databasePort')]"
               },

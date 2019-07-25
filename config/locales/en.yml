@@ -91,7 +91,8 @@ en-GB:
   flipflop:
     title: Get help to retrain features
     feature: Feature
+    clear: clear
     description: Description
     feature_states:
-      enabled: 'On'
-      disabled: 'Off'
+      enabled: 'on'
+      disabled: 'off'
