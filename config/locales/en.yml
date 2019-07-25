@@ -29,8 +29,8 @@ en-GB:
     pages_find_training_courses: Get help to retrain - Find training
     courses_index: Get help to retrain - Courses near me
     pages_next_steps: Get help to retrain - Next steps
-    maths_overview: Get help to retrain - Benefits of maths
-    english_overview: Get help to retrain - Benefits of English
+    pages_maths_overview: Get help to retrain - Benefits of maths
+    pages_english_overview: Get help to retrain - Benefits of English
     errors_not_found: Get help to retrain - Not found
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity
     errors_internal_server_error: Get help to retrain - Internal server error
