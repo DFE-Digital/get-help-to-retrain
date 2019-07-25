@@ -1,0 +1,28 @@
+<% page_title :maths_overview %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.maths_overview'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.find_training_courses'), find_training_courses_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <h2 class="govuk-heading-m">How will a maths course help my career ?</h2>
+    <p class="govuk-body">Employers often say they want candidates with maths skills – and having a qualification is one way to show you have those skills.</p>
+    <p class="govuk-body">Doing a maths course as an adult isn’t the same as learning it at school. You can find a course that focuses on using maths in your everyday job. </p>
+    <p class="govuk-body">Doing a maths course can improve your confidence and help show employers you’re able to use numbers at work. This can really boost your job prospects.</p>
+    <h2 class="govuk-heading-m">The right course for you</h2>
+    <p class="govuk-body">Lots of different maths courses are taught in your area, so you’ll be able to find a course at the right level for your needs. The course provider will help assess what level of course is right for you. You can also find courses that offer flexible learning and part time study to fit around your life.</p>
+    <p class="govuk-body">Many courses are available for free in your area.</p>
+    <%= link_to 'Find a maths course', courses_path('maths'), class: 'govuk-button govuk-!-margin-top-5'%>
+  </div>
+  <%= render "shared/contact_us" %>
+  <%= render 'shared/what_you_can_do_next' %>
+  <%= render 'shared/help_improve_this_service' %>
+</div>
