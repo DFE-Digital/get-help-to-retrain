@@ -20,7 +20,7 @@ RSpec.feature 'Course overview page', type: :feature do
   scenario 'User navigates to english overview page' do
     visit(english_overview_path)
 
-    expect(page).to have_text('Benefits of an English course')
+    expect(page).to have_text('Benefits of doing an English course')
   end
 
   scenario 'User continues journey to explore English courses' do
