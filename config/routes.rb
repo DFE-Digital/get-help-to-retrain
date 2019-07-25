@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get 'task-list', to: 'pages#task_list'
   get 'find-training-courses', to: 'pages#find_training_courses'
   get 'next-steps', to: 'pages#next_steps'
+  get 'maths-overview', to: 'pages#maths_overview'
+  get 'english-overview', to: 'pages#english_overview'
 
   resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
 
