@@ -1,0 +1,8 @@
+# Example feature flags for split.io client strategy unit tests.
+# See: https://help.split.io/hc/en-us/articles/360020673251#localhost-mode
+
+- foo:
+    treatment: 'on'
+
+- bar:
+    treatment: 'off'
