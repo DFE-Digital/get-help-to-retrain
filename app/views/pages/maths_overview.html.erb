@@ -20,7 +20,7 @@
     <h2 class="govuk-heading-m">The right course for you</h2>
     <p class="govuk-body">Lots of different maths courses are taught in your area, so you’ll be able to find a course at the right level for your needs. The course provider will help assess what level of course is right for you. You can also find courses that offer flexible learning and part time study to fit around your life.</p>
     <p class="govuk-body">Many courses are available for free in your area.</p>
-    <%= link_to 'Find a maths course', courses_path('maths'), class: 'govuk-button govuk-!-margin-top-5'%>
+    <%= link_to 'Find a maths course', courses_path('maths'), class: 'govuk-button govuk-!-margin-top-5', target: '_blank' %>
   </div>
   <%= render "shared/contact_us" %>
   <%= render 'shared/what_you_can_do_next' %>
