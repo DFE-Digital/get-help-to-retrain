@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self) if Rails.env.development?
+  mount Flipflop::Engine => '/features' if Rails.env.development?
 
   get '/pages/:page', to: 'pages#show'
 
