@@ -1,4 +1,5 @@
 if defined?(ActiveAdmin)
+  # rubocop:disable Metrics/BlockLength
   ActiveAdmin.register_page 'Dashboard' do
     menu priority: 1, label: proc { I18n.t('active_admin.dashboard') }
 
@@ -22,8 +23,14 @@ if defined?(ActiveAdmin)
               link_to Skill.count, admin_skills_path
             end
           end
+          panel 'Courses' do
+            h1 do
+              link_to Course.count, admin_courses_path
+            end
+          end
         end
       end
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end
