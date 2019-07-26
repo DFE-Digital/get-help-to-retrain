@@ -26,7 +26,7 @@
             </span>
           <% end %>
           <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-!-width-one-half #{'govuk-input--error' if flash.now[:error]}", required: true) %>
-          <%= button_tag('', class: 'search-button-results', name: nil) %>
+          <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }) %>
         </div>
       <% end %>
     </div>
