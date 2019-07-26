@@ -1,5 +1,5 @@
 namespace :data_import do
-  # bin/rails data_import:scrape_job_profiles
+  # bin/rails data_import:refresh_job_profiles
   task refresh_job_profiles: :environment do
     print 'Refreshing job profile attributes with previously scraped content'
     if JobProfile.any?
