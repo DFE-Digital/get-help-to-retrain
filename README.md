@@ -122,3 +122,13 @@ If job profiles have been previously scraped and `content` is populated, it's po
 ```bash
   bundle exec rails data_import:refresh_job_profiles
 ```
+
+## Courses data
+
+Courses are currently persisted locally within the database. These are presently being collated for subsequent import into the service. In the meantime, sample data using fake attributes can be populated by running:
+
+```bash
+  bundle exec rails data_import:sample_courses
+```
+
+**Note** that this will erase any existing course data first
