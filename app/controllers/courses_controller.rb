@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
   private
 
   def handle_missing_courses
-    redirect_to task_list_path if Course.count.zero?
+    protect_feature(:course_directory)
   end
 
   def courses_params

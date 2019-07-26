@@ -103,6 +103,13 @@
         "description:": "Optional token for Loggly logging service"
       }
     },
+    "splitApiKey": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Optional token for Split.io feature flag service"
+      }
+    },
     "secretKeyBase": {
       "type": "string",
       "metadata": {
@@ -385,6 +392,10 @@
               {
                 "name": "LOGGLY_TOKEN",
                 "value": "[parameters('logglyToken')]"
+              },
+              {
+                "name": "SPLIT_API_KEY",
+                "value": "[parameters('splitApiKey')]"
               },
               {
                 "name": "POSTGRESQL_SERVICE_PORT",
