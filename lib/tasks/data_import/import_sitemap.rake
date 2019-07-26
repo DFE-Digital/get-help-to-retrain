@@ -1,5 +1,6 @@
 namespace :data_import do
   # bin/rails data_import:import_sitemap
+  desc 'Import sitemap from National Careers Service site'
   task import_sitemap: :environment do
     print 'Importing sitemap from National Careers Service site'
     sitemap = SitemapScraper.new

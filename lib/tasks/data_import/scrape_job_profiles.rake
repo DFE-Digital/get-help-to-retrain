@@ -1,5 +1,6 @@
 namespace :data_import do
   # bin/rails data_import:scrape_job_profiles
+  desc 'Scrape job profiles from National Careers Service site'
   task scrape_job_profiles: :environment do
     print 'Scraping job profiles from National Careers Service site'
     if JobProfile.any?

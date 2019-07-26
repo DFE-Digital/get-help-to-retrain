@@ -1,5 +1,6 @@
 namespace :data_import do
   # bin/rails data_import:scrape_categories
+  desc 'Scrape categories from National Careers Service site'
   task scrape_categories: :environment do
     print 'Scraping categories from National Careers Service site'
     if Category.any?
