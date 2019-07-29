@@ -92,7 +92,8 @@ en-GB:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience
   courses:
-    invalid_postcode_error: Please enter a valid postcode
+    invalid_postcode_error: Enter a valid postcode.
+    nonexisting_postcode_error: Enter a real postcode.
     api_down_error: We cannot verify your postcode at the current time
 
   pagination:
