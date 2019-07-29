@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe CourseGeospatialSearch do
   it 'returns nothing if no postcode entered' do
     search = described_class.new(postcode: nil, topic: nil, distance: 5)
-    expect(search.courses).to be_empty
+    expect(search.find_courses).to be_empty
   end
 
   it 'returns nothing if empty postcode entered' do
     search = described_class.new(postcode: '', topic: nil, distance: 5)
-    expect(search.courses).to be_empty
+    expect(search.find_courses).to be_empty
   end
 
   it 'returns courses ordered by distance to postcode entered' do
@@ -22,7 +22,7 @@ RSpec.describe CourseGeospatialSearch do
 
     search = described_class.new(postcode: 'NW6 8ET', distance: 2, topic: nil)
 
-    expect(search.courses).to eq(
+    expect(search.find_courses).to eq(
       [course1, course3, course2]
     )
   end
@@ -37,7 +37,7 @@ RSpec.describe CourseGeospatialSearch do
     create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
     search = described_class.new(postcode: 'NW6 8ET', distance: 2, topic: 'english')
 
-    expect(search.courses).to contain_exactly(
+    expect(search.find_courses).to contain_exactly(
       course2
     )
   end
@@ -52,7 +52,7 @@ RSpec.describe CourseGeospatialSearch do
     create(:course, latitude: 0.1, longitude: 1.3)
     search = described_class.new(postcode: 'NW6 8ET', distance: 1, topic: nil)
 
-    expect(search.courses).to eq(
+    expect(search.find_courses).to eq(
       [course1]
     )
   end
@@ -67,24 +67,24 @@ RSpec.describe CourseGeospatialSearch do
     create(:course, latitude: 0.1, longitude: 4)
     search = described_class.new(postcode: 'NW6 8ET', distance: 10, topic: nil)
 
-    expect(search.courses).to be_empty
+    expect(search.find_courses).to be_empty
   end
 
   it 'is invalid if postcode entered is invalid' do
     search = described_class.new(postcode: 'NW6 8E', distance: nil, topic: nil)
 
-    expect(search.errors.count).to eq(1)
+    expect(search).not_to be_valid
   end
 
   it 'is invalid if postcode is not entered' do
     search = described_class.new(postcode: nil, distance: nil, topic: nil)
 
-    expect(search.errors.count).to eq(1)
+    expect(search).not_to be_valid
   end
 
   it 'is invalid if API for geocoding not available' do
     allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
     search = described_class.new(postcode: 'NW6 8ET', distance: nil, topic: nil)
-    expect(search.errors.count).to eq(1)
+    expect(search).not_to be_valid
   end
 end

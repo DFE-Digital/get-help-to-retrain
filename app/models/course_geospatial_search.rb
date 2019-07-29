@@ -2,12 +2,12 @@ class CourseGeospatialSearch
   include ActiveModel::Validations
 
   attr_reader :postcode, :topic, :distance, :courses
+  validate :postcode_in_uk, :coordinates
 
   def initialize(postcode:, topic: nil, distance: 20)
     @postcode = postcode
     @topic = topic
     @distance = distance
-    @courses = find_courses
   end
 
   def find_courses
@@ -19,6 +19,8 @@ class CourseGeospatialSearch
   private
 
   def coordinates
+    return unless valid_uk_postcode?
+
     @coordinates ||= Geocoder.coordinates(uk_postcode.to_s)
   rescue SocketError, Timeout::Error, Geocoder::Error => e
     Rails.logger.error("Geocoder API error: #{e.message}")
@@ -27,10 +29,11 @@ class CourseGeospatialSearch
   end
 
   def valid_uk_postcode?
-    return true if postcode.present? && uk_postcode.full_valid?
+    postcode.present? && uk_postcode.full_valid?
+  end
 
-    errors.add(:postcode, I18n.t('courses.invalid_postcode_error'))
-    return # rubocop:disable Style/RedundantReturn
+  def postcode_in_uk
+    errors.add(:postcode, I18n.t('courses.invalid_postcode_error')) unless valid_uk_postcode?
   end
 
   def uk_postcode

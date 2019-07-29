@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
 
   def index
     @search = course_geospatial_search
-    @courses = course_geospatial_search.courses.map { |c| CourseDecorator.new(c) }
+    @courses = @search.valid? ? course_geospatial_search.find_courses.map { |c| CourseDecorator.new(c) } : Course.none
   end
 
   private
