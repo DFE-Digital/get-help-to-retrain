@@ -14,19 +14,19 @@
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-body-l">This will be used to check if we can offer you any training courses near you.</p>
     <%= form_tag location_eligibility_path, method: 'get', id: 'location-eligibility' do %>
-      <div class="govuk-form-group <%='govuk-form-group--error' if flash.now[:error] %>">
+      <div class="govuk-form-group <%='govuk-form-group--error' if @search.errors.any? %>">
         <label class="govuk-label" for="postcode">
           Postcode
         </label>
         <span id="postcode-hint" class="govuk-hint">
           For example, SW1P 3BP
         </span>
-        <% if flash.now[:error] %>
+        <% if @search.errors.any? %>
           <span id="national-insurance-number-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span> <%= flash.now[:error] %>
+            <span class="govuk-visually-hidden">Error:</span> <%= @search.errors[:postcode] %>
           </span>
         <% end %>
-        <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-input--width-10 #{'govuk-input--error' if flash.now[:error]}", aria: 'postcode-hint', required: true) %>
+        <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-input--width-10 #{'govuk-input--error' if @search.errors.any?}", aria: 'postcode-hint', required: true) %>
       </div>
       <%= button_tag('Continue', class: 'govuk-button') %>
     <% end %>
