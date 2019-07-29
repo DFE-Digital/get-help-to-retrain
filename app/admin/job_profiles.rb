@@ -67,6 +67,25 @@ if defined?(ActiveAdmin)
       end
       f.actions
     end
+
+    controller do
+      def scoped_collection
+        super.includes :skills
+      end
+    end
+
+    csv do
+      column :id
+      column :slug
+      column :name
+      column :recommended
+      column :salary_min
+      column :salary_max
+      column :alternative_titles
+      column :skills do |job_profile|
+        job_profile.skills.map(&:name)
+      end
+    end
   end
   # rubocop:enable Metrics/BlockLength
 end
