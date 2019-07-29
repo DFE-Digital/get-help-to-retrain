@@ -9,10 +9,14 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_server_error', via: :all
 
   get 'task-list', to: 'pages#task_list'
-  get 'find-training-courses', to: 'pages#find_training_courses'
   get 'next-steps', to: 'pages#next_steps'
-  get 'maths-course-overview', to: 'pages#maths_overview'
-  get 'english-course-overview', to: 'pages#english_overview'
+  get 'find-training-courses', to: 'pages#find_training_courses'
+
+  constraints(->(_req) { Flipflop.course_directory? }) do
+    get 'maths-course-overview', to: 'pages#maths_overview'
+    get 'english-course-overview', to: 'pages#english_overview'
+    get 'training-hub', to: 'pages#training_hub'
+  end
 
   resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
 
