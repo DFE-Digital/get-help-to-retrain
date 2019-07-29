@@ -1,0 +1,34 @@
+<% page_title :pages_location_eligibility %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.location_eligibility'),
+      [
+        [t('breadcrumb._home'), root_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body-l">This will be used to check if we can offer you any training courses near you.</p>
+    <%= form_tag location_eligibility_path, method: 'get', id: 'location-eligibility' do %>
+      <div class="govuk-form-group <%='govuk-form-group--error' if flash.now[:error] %>">
+        <label class="govuk-label" for="postcode">
+          Postcode
+        </label>
+        <span id="postcode-hint" class="govuk-hint">
+          For example, SW1P 3BP
+        </span>
+        <% if flash.now[:error] %>
+          <span id="national-insurance-number-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> <%= flash.now[:error] %>
+          </span>
+        <% end %>
+        <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-input--width-10 #{'govuk-input--error' if flash.now[:error]}", aria: 'postcode-hint', required: true) %>
+      </div>
+      <%= button_tag('Continue', class: 'govuk-button') %>
+    <% end %>
+  </div>
+</div>
