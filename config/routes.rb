@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   ActiveAdmin.routes(self) if Rails.env.development?
   mount Flipflop::Engine => '/features' if Rails.env.development?
@@ -36,3 +37,4 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 end
+# rubocop:enable Metrics/BlockLength
