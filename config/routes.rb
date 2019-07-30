@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get 'training-hub', to: 'pages#training_hub'
   end
 
+  get 'location-eligibility', to: 'pages#location_eligibility', constraints: ->(_req) { Flipflop.location_eligibility? }
+
   resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
 
   resources :check_your_skills, path: 'check-your-skills', only: %i[index] do

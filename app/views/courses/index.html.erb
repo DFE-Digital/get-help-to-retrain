@@ -16,18 +16,14 @@
     <h1 class="govuk-heading-xl"><%= params[:topic_id].titleize %> courses near me</h1>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= form_tag courses_path, method: 'get', id: 'courses-search' do %>
-        <div class="govuk-form-group <%='govuk-form-group--error' if flash.now[:error] %>">
+        <%= form_group_tag @search, :postcode do %>
           <label class="govuk-label" for="postcode">
             Postcode
           </label>
-          <% if flash.now[:error] %>
-            <span id="national-insurance-number-error" class="govuk-error-message">
-              <span class="govuk-visually-hidden">Error:</span> <%= flash.now[:error] %>
-            </span>
-          <% end %>
-          <%= text_field_tag(:postcode, params[:postcode], class: "search-input govuk-input govuk-!-width-one-half #{'govuk-input--error' if flash.now[:error]}", required: true) %>
+          <%= errors_tag @search, :postcode %>
+          <%= text_field_tag(:postcode, params[:postcode], class: css_classes_for_input(@search, :postcode, "search-input govuk-input govuk-!-width-one-half"), required: true) %>
           <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }) %>
-        </div>
+        <% end %>
       <% end %>
     </div>
     <div class="govuk-grid-column-full govuk-!-padding-0">
