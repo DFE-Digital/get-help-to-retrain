@@ -53,7 +53,7 @@
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
             <div class="app-task-list__task-name">
-              <%= link_to find_training_courses_path, class: 'govuk-link' do %>
+              <%= link_to Flipflop.course_directory? ? training_hub_path : find_training_courses_path, class: 'govuk-link' do %>
                 Find a training course <span class="app-step-nav__context">10 to 20 minutes</span>
               <% end %>
               <p class="govuk-body govuk-!-margin-bottom-0">Training can help you access a broader range of jobs and stay in secure work.</p>

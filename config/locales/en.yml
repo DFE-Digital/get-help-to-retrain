@@ -14,6 +14,7 @@ en-GB:
     training_courses_near_you: Training courses near you
     maths_overview: Benefits of maths
     english_overview: Benefits of English
+    training_hub: Training hub
     location_eligibility: Your location
 
   page_titles:
@@ -32,6 +33,7 @@ en-GB:
     pages_next_steps: Get help to retrain - Next steps
     pages_maths_overview: Get help to retrain - Benefits of maths
     pages_english_overview: Get help to retrain - Benefits of English
+    pages_training_hub: Get help to retrain - Training Hub
     pages_location_eligibility: Get help to retrain - Your location
     errors_not_found: Get help to retrain - Not found
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity

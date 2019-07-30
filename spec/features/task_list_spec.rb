@@ -23,6 +23,8 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User finds a training course' do
+    disable_feature! :course_directory
+
     visit(task_list_path)
     click_on('Find a training course')
 
@@ -60,5 +62,13 @@ RSpec.feature 'Tasks List', type: :feature do
         '_blank'
       ]
     )
+  end
+
+  scenario 'User navigates to task list page when course directory feature is enabled' do
+    enable_feature! :course_directory
+
+    visit(task_list_path)
+
+    expect(page).to have_selector(:css, 'a[href="/training-hub"]')
   end
 end
