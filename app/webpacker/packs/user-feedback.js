@@ -1,16 +1,26 @@
 
 function UserFeedback () {
   this.start = function () {
-    document.querySelector('.answer-no').onclick = function(e) {
-      e.preventDefault();
-      document.querySelector('.feedback-prompt-questions').classList.remove('hidden');
-      document.querySelector('.feedback-prompt').remove();
-    }
+    var yesLink = document.querySelector('.answer-yes');
+    var noLink = document.querySelector('.answer-no');
 
-    document.querySelector('.answer-yes').onclick = function(e) {
+    handleSuccessAnswer(yesLink);
+    handleRejectionAnswer(noLink);
+  }
+
+  function handleSuccessAnswer(element) {
+    element.onclick = function(e) {
       e.preventDefault();
       document.querySelector('.feedback-prompt-full-question').classList.add('hidden');
       document.querySelector('.feedback-prompt-success').classList.remove('hidden');
+    }
+  }
+
+  function handleRejectionAnswer(element) {
+    element.onclick = function(e) {
+      e.preventDefault();
+      document.querySelector('.feedback-prompt-questions').classList.remove('hidden');
+      document.querySelector('.feedback-prompt').remove();
     }
   }
 }
