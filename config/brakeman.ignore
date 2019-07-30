@@ -23,29 +23,18 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "365fd9ea8cee0c69534a037daf9ffb9a53443fce909bcbf94046dc52347fc842",
+      "fingerprint": "ebb71a6ea809f271551663c77d050194229ee6d7f84e683cb7c36550890d2393",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/courses/_course.html.erb",
       "line": 7,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"Visit website\", Course.new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :target => \"_blank\", :data => ({ :tracked_event => (\"Courses - Clicked course link: #{Course.new.url}\") }))",
+      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :target => \"_blank\", :data => ({ :tracked_event => (\"Courses - Clicked course link: #{(Unresolved Model).new.url}\") }))",
       "render_path": [
-        {
-          "type": "controller",
-          "class": "CoursesController",
-          "method": "index",
-          "line": 6,
-          "file": "app/controllers/courses_controller.rb",
-          "rendered": {
-            "name": "courses/index",
-            "file": "app/views/courses/index.html.erb"
-          }
-        },
         {
           "type": "template",
           "name": "courses/index",
-          "line": 44,
+          "line": 40,
           "file": "app/views/courses/index.html.erb",
           "rendered": {
             "name": "courses/_course",
@@ -57,11 +46,11 @@
         "type": "template",
         "template": "courses/_course"
       },
-      "user_input": "Course.new.url",
+      "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
       "note": "This is a known false positive from brakeman. We trust our data."
     }
   ],
-  "updated": "2019-07-23 09:40:00 +0100",
+  "updated": "2019-07-29 17:42:49 +0100",
   "brakeman_version": "4.5.1"
 }

@@ -7,10 +7,6 @@ class Course < ApplicationRecord
   after_validation :format_postcode
   after_validation :geocode, if: -> { postcode_changed? && !latitude_changed? && !longitude_changed? }
 
-  def self.find_courses_near(postcode:, topic: nil, distance: 5)
-    CourseGeospatialSearch.new(postcode: postcode, topic: topic, distance: distance).find_courses
-  end
-
   def format_postcode
     return unless postcode
 

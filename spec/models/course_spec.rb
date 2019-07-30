@@ -1,36 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
-  describe '.find_courses_near' do
-    it 'returns courses ordered by distance to postcode entered' do
-      Geocoder::Lookup::Test.add_stub(
-        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-      )
-
-      course1 = create(:course, latitude: 0.1, longitude: 1.001)
-      course2 = create(:course, latitude: 0.1, longitude: 1.003)
-      course3 = create(:course, latitude: 0.1, longitude: 1.002)
-
-      expect(described_class.find_courses_near(postcode: 'NW6 8ET', distance: 2)).to eq(
-        [course1, course3, course2]
-      )
-    end
-
-    it 'returns courses ordered by distance to postcode entered and scoped by topic' do
-      Geocoder::Lookup::Test.add_stub(
-        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-      )
-
-      create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
-      course2 = create(:course, latitude: 0.1, longitude: 1, topic: 'english')
-      create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
-
-      expect(described_class.find_courses_near(postcode: 'NW6 8ET', distance: 2, topic: 'english')).to contain_exactly(
-        course2
-      )
-    end
-  end
-
   describe '#format_postcode' do
     it 'formats postcode on creation' do
       course = create(:course, postcode: 'nw6  8et')

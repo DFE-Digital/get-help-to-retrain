@@ -35,10 +35,23 @@ RSpec.feature 'Find training courses', type: :feature do
     fill_in('postcode', with: 'NW6 8E')
     find('.search-button-results').click
 
-    expect(page).to have_text(/Please enter a valid postcode/)
+    expect(page).to have_text(/Enter a valid postcode/)
   end
 
-  scenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
+  scenario 'User gets relevant messaging if their address is valid but not real' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => nil }]
+    )
+    create(:course, topic: 'maths')
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+
+    expect(page).to have_text(/Enter a real postcode/)
+  end
+
+  xscenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
     allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
     create(:course, topic: 'maths')
 

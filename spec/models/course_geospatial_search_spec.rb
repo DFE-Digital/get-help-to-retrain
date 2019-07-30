@@ -70,11 +70,28 @@ RSpec.describe CourseGeospatialSearch do
 
       expect(search.find_courses).to be_empty
     end
+  end
 
-    it 'raises error if postcode entered if invalid' do
+  describe 'validation' do
+    it 'is invalid if postcode entered is invalid' do
       search = described_class.new(postcode: 'NW6 8E', distance: nil, topic: nil)
 
-      expect { search.find_courses }.to raise_error(described_class::InvalidPostcodeError)
+      expect(search).not_to be_valid
+    end
+
+    it 'is invalid if postcode is not entered' do
+      search = described_class.new(postcode: nil, distance: nil, topic: nil)
+
+      expect(search).not_to be_valid
+    end
+
+    it 'is invalid if postcode is valid but does not exist' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => nil }]
+      )
+
+      search = described_class.new(postcode: 'NW6 8ET')
+      expect(search).not_to be_valid
     end
 
     it 'raises error if API for geocoding not available' do
