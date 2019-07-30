@@ -2,8 +2,11 @@ class CoursesController < ApplicationController
   before_action :handle_missing_courses
 
   def index
-    @search = course_geospatial_search
-    @courses = @search.valid? ? course_geospatial_search.find_courses.map { |c| CourseDecorator.new(c) } : Course.none
+    @search = CourseGeospatialSearch.new(
+      postcode: courses_params[:postcode],
+      topic: courses_params[:topic_id]
+    )
+    @courses = @search.find_courses.map { |c| CourseDecorator.new(c) }
   end
 
   private
@@ -14,12 +17,5 @@ class CoursesController < ApplicationController
 
   def courses_params
     params.permit(:postcode, :topic_id)
-  end
-
-  def course_geospatial_search
-    @course_geospatial_search ||= CourseGeospatialSearch.new(
-      postcode: courses_params[:postcode],
-      topic: courses_params[:topic_id]
-    )
   end
 end

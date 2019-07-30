@@ -5,6 +5,13 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     enable_feature! :location_eligibility
   end
 
+  scenario 'User is taken to location eligiblity page from start page' do
+    visit(root_path)
+    click_on('Start now')
+
+    expect(page).to have_current_path(location_eligibility_path)
+  end
+
   scenario 'User is taken back to start page if postcode is not eligible' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
@@ -80,10 +87,11 @@ RSpec.feature 'Check your location is eligible', type: :feature do
       disable_feature! :location_eligibility
     end
 
-    scenario 'User is taken back to start page if' do
+    scenario 'User is taken to task list page from start page' do
       create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
 
-      visit(location_eligibility_path)
+      visit(root_path)
+      click_on('Start now')
       expect(page).to have_current_path(task_list_path)
     end
   end

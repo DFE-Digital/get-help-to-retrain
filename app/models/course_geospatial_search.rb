@@ -12,7 +12,7 @@ class CourseGeospatialSearch
   end
 
   def find_courses
-    return Course.none unless valid_uk_postcode? && coordinates.present?
+    return Course.none unless valid?
 
     scope.near(coordinates, distance, units: :mi, order: :distance)
   end
