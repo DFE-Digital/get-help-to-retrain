@@ -30,5 +30,7 @@ if defined?(ActiveAdmin)
         skill.job_profiles.map(&:name)
       end
     end
+
+    config.sort_order = 'id_asc'
   end
 end

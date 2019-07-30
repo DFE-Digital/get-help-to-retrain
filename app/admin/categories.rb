@@ -13,5 +13,7 @@ if defined?(ActiveAdmin)
       column :created_at
       column :updated_at
     end
+
+    config.sort_order = 'id_asc'
   end
 end

@@ -86,6 +86,8 @@ if defined?(ActiveAdmin)
         job_profile.skills.map(&:name)
       end
     end
+
+    config.sort_order = 'id_asc'
   end
   # rubocop:enable Metrics/BlockLength
 end
