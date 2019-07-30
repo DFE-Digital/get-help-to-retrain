@@ -1,6 +1,8 @@
 if defined?(ActiveAdmin)
   ActiveAdmin.register Skill do
-    actions :index
+    actions :all, except: %i[new destroy]
+
+    permit_params :name, :enabled
 
     filter :name
 
@@ -11,6 +13,7 @@ if defined?(ActiveAdmin)
       column :job_profiles
       column :created_at
       column :updated_at
+      actions
     end
 
     controller do
