@@ -46,7 +46,7 @@
             "value": "get-help-to-retrain:latest"
         },
         "customHostName": {
-            "value": "dev1.nrs-ghtr.org.uk"
+            "value": "dev2.nrs-ghtr.org.uk"
         },
         "certificateName": {
             "value": "nrs-ghtr-org-uk"
