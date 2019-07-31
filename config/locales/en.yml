@@ -16,6 +16,7 @@ en-GB:
     english_overview: Benefits of English
     training_hub: Training hub
     location_eligibility: Your location
+    location_ineligible: No courses in your area
 
   page_titles:
     default: Get help to retrain
@@ -35,6 +36,7 @@ en-GB:
     pages_english_overview: Get help to retrain - Benefits of English
     pages_training_hub: Get help to retrain - Training Hub
     pages_location_eligibility: Get help to retrain - Your location
+    pages_location_ineligible: Get help to retrain - No courses in your area
     errors_not_found: Get help to retrain - Not found
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity
     errors_internal_server_error: Get help to retrain - Internal server error
@@ -87,6 +89,8 @@ en-GB:
       title: Benefits of doing an English course
     location_eligibility:
       title: What is your postcode?
+    location_ineligible:
+      title: No courses are available in your area yet
   what_you_can_do_next:
     title: Find out what you can do next
     body: Get more support to help you on your new career path

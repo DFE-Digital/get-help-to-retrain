@@ -12,7 +12,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     expect(page).to have_current_path(location_eligibility_path)
   end
 
-  scenario 'User is taken back to start page if postcode is not eligible' do
+  scenario 'User is taken to location ineligible page if postcode is not eligible' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -23,7 +23,14 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     fill_in('postcode', with: 'NW6 8ET')
     find('.govuk-button').click
 
-    expect(page).to have_current_path(root_path)
+    expect(page).to have_current_path(location_ineligible_path)
+  end
+
+  scenario 'User can proceed to tasklist if postcode is not eligible' do
+    visit(location_ineligible_path)
+    find('.govuk-button').click
+
+    expect(page).to have_current_path(task_list_path)
   end
 
   scenario 'User follows through to task list page if postcode eligible' do

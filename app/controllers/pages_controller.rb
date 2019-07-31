@@ -9,7 +9,7 @@ class PagesController < ApplicationController
     )
 
     if eligibility_params[:postcode].present? && @search.valid?
-      @search.find_courses.any? ? redirect_to(task_list_path) : redirect_to(root_path)
+      @search.find_courses.any? ? redirect_to(task_list_path) : redirect_to(location_ineligible_path)
     end
   end
 
