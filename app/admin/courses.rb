@@ -1,4 +1,5 @@
 if defined?(ActiveAdmin)
+  # rubocop:disable Metrics/BlockLength
   ActiveAdmin.register Course do
     permit_params :title, :provider, :url, :address_line_1, :address_line_2, :town, :county, :postcode,
                   :email, :topic, :phone_number, :active, :latitude, :longitude
@@ -53,4 +54,5 @@ if defined?(ActiveAdmin)
 
     config.sort_order = 'id_asc'
   end
+  # rubocop:enable Metrics/BlockLength
 end
