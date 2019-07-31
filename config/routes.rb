@@ -22,8 +22,8 @@ Rails.application.routes.draw do
   constraints(->(_req) { Flipflop.location_eligibility? }) do
     get 'location-eligibility', to: 'pages#location_eligibility'
     get 'location-ineligible', to: 'pages#location_ineligible'
+    get 'postcode-search-error', to: 'errors#postcode_search_error'
   end
-
 
   resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
 

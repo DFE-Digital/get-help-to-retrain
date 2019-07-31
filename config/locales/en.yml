@@ -40,6 +40,7 @@ en-GB:
     errors_not_found: Get help to retrain - Not found
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity
     errors_internal_server_error: Get help to retrain - Internal server error
+    errors_postcode_search_error: Get help to retrain - Postcode search error
 
   contact_us:
     title: Want to speak with an adviser?
@@ -100,7 +101,6 @@ en-GB:
   courses:
     invalid_postcode_error: Enter a valid postcode.
     nonexisting_postcode_error: Enter a real postcode.
-    api_down_error: We cannot verify your postcode at the current time
 
   pagination:
     previous: Previous

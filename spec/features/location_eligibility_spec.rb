@@ -67,14 +67,21 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     expect(page).to have_text(/Enter a real postcode/)
   end
 
-  xscenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
+  scenario 'User is redirected to error page if their postcode coordinates could not be retrieved' do
     allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
 
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
     find('.govuk-button').click
 
-    expect(page).to have_text(/We cannot verify your postcode/)
+    expect(page).to have_text(/Sorry, there is a problem with this service/)
+  end
+
+  scenario 'User can continue to task list even if postcode service is down' do
+    visit(postcode_search_error_path)
+    find('.govuk-button').click
+
+    expect(page).to have_current_path(task_list_path)
   end
 
   scenario 'search form required field available when no js running' do
