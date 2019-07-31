@@ -61,7 +61,7 @@
         </div>
         <%= yield %>
       </main>
-      <% if ENV.fetch('USER_FEEDBACK_SMART_SURVEY_LINK', nil).present? %>
+      <% if ENV['USER_FEEDBACK_SMART_SURVEY_LINK'].present? %>
         <%= render 'shared/feedback/survey' %>
       <% end %>
     </div>
