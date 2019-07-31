@@ -87,7 +87,7 @@ RSpec.describe CourseGeospatialSearch do
 
     it 'is invalid if postcode is valid but does not exist' do
       Geocoder::Lookup::Test.add_stub(
-        'NW6 8ET', [{ 'coordinates' => nil }]
+        'NW6 8ET', [{ 'coordinates' => [] }]
       )
 
       search = described_class.new(postcode: 'NW6 8ET')

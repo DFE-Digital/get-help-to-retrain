@@ -80,7 +80,7 @@ RSpec.describe Course, type: :model do
 
     it 'does not set lat/long if postcode does not exist' do
       Geocoder::Lookup::Test.add_stub(
-        'NW6 8ET', [{ 'coordinates' => [nil, nil] }]
+        'NW6 8ET', [{ 'coordinates' => [] }]
       )
 
       course = create(:course, postcode: 'nw68et')
