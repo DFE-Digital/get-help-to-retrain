@@ -1,14 +1,11 @@
-.feedback-prompt {
+.feedback-prompt-container {
   background-color: govuk-colour('blue');
   color: govuk-colour('white');
   padding: govuk-spacing(2) govuk-spacing(3) 0;
-  margin-left: 16%;
-  margin-right: 18%;
   height: 19px;
 }
 
-.feedback-prompt-question,
-.feedback-prompt-success {
+.feedback-prompt-content {
   @include govuk-font(19, $weight: bold);
   display: inline-block;
   margin: 0;
@@ -44,4 +41,32 @@
 
 .govuk-footer {
   border-top: 8px solid govuk-colour('blue');
+}
+
+.feedback-survey {
+  width: 100%;
+  border: 0;
+}
+
+.feedback-survey-container {
+  overflow: hidden;
+  padding-top: 35%;
+  position: relative;
+
+  @include govuk-media-query($from: tablet, $until: desktop) {
+    padding-top: 54%;
+  }
+
+  @include govuk-media-query($until: tablet) {
+    padding-top: 67%;
+  }
+}
+
+.feedback-survey-container iframe {
+  border: 0;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
 }

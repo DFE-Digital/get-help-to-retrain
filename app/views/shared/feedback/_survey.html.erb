@@ -1,12 +1,13 @@
-<div class="feedback-prompt-questions hidden">
-  <iframe id="ss-embed-frame" onload="window.parent.parent.scrollTo(0,0)" src="http://www.smartsurvey.co.uk/s/8IBQ1/" style="width:100%;height:296px;border:0px;padding-bottom:4px;" frameborder="0"></iframe>
+<div id="feedback-survey-container" class="feedback-survey-container hidden">
+  <iframe id="ss-embed-frame" src="http://www.smartsurvey.co.uk/s/8IBQ1/" frameborder="0" ></iframe>
 </div>
 
-<div class="feedback-prompt feedback-footer" >
-  <div class="feedback-prompt-full-question">
-    <h2 class="feedback-prompt-question">Is this page useful?</h2>
+<div id="feedback-prompt-container" class="feedback-prompt-container" >
+  <div id="feedback-prompt-question">
+    <h2 class="feedback-prompt-content">Is this page useful?</h2>
     <%= link_to '#', {
-      class: 'feedback-prompt-link govuk-link answer-yes',
+      class: 'feedback-prompt-link govuk-link',
+      id: 'answer-yes',
       data: {
         tracked_event: 'User Feedback On Page Survey',
         tracked_event_props: { 'answer': 'yes' }
@@ -16,7 +17,8 @@
     <% end %>
 
     <%= link_to '#', {
-      class: 'feedback-prompt-link govuk-link answer-no',
+      class: 'feedback-prompt-link govuk-link',
+      id: 'answer-no',
       data: {
         tracked_event: 'User Feedback On Page Survey',
         tracked_event_props: { 'answer': 'no' }
@@ -26,7 +28,7 @@
     <% end %>
   </div>
 
-  <div class="feedback-prompt-success hidden">
+  <div id="feedback-prompt-success" class="feedback-prompt-content hidden">
     Thank you for your feedback
   </div>
 </div>
