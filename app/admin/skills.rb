@@ -11,8 +11,6 @@ if defined?(ActiveAdmin)
       column :enabled
       column :name
       column :job_profiles
-      column :created_at
-      column :updated_at
       actions
     end
 

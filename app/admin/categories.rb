@@ -10,8 +10,6 @@ if defined?(ActiveAdmin)
       column :id
       column :slug
       column :name
-      column :created_at
-      column :updated_at
     end
 
     config.sort_order = 'id_asc'
