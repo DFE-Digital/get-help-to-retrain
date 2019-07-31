@@ -151,7 +151,7 @@
       "type": "string",
       "defaultValue": "", 
       "metadata": {
-        "description:": "User feedback in page Smart Survey"
+        "description:": "User feedback in page Smart Survey URL"
       }
     }
   },
