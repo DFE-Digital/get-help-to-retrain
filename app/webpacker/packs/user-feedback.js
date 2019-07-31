@@ -4,8 +4,13 @@ function UserFeedback () {
     var yesLink = document.querySelector('#answer-yes');
     var noLink = document.querySelector('#answer-no');
 
-    handleSuccessAnswer(yesLink);
-    handleRejectionAnswer(noLink);
+    if (typeof(yesLink) !== 'undefined' && yesLink != null) {
+      handleSuccessAnswer(yesLink);
+    }
+
+    if (typeof(noLink) !== 'undefined' && noLink != null) {
+      handleRejectionAnswer(noLink);
+    }
   }
 
   function handleSuccessAnswer(element) {
