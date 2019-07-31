@@ -50,7 +50,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
   scenario 'User gets relevant messaging if their address is valid but not real' do
     Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => nil }]
+      'NW6 8ET', [{ 'coordinates' => [] }]
     )
 
     visit(location_eligibility_path)

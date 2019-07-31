@@ -40,7 +40,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
   scenario 'User gets relevant messaging if their address is valid but not real' do
     Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => nil }]
+      'NW6 8ET', [{ 'coordinates' => [] }]
     )
     create(:course, topic: 'maths')
 
