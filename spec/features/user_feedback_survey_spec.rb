@@ -9,7 +9,7 @@ RSpec.feature 'User Feedback In Page Survey' do
     expect(page).not_to have_text('Is this page useful?')
   end
 
-  scenario 'User gets a thank you message when clicking yes' do
+  scenario 'User gets a thank you message when clicking yes', :js do
     visit(root_path)
 
     find('#answer-yes').click
@@ -17,7 +17,7 @@ RSpec.feature 'User Feedback In Page Survey' do
     expect(page).to have_text('Thank you for your feedback')
   end
 
-  scenario 'User gets the SmartSurvey iframe when clicking no' do
+  scenario 'User gets the SmartSurvey iframe when clicking no', :js do
     visit(root_path)
 
     find('#answer-no').click
