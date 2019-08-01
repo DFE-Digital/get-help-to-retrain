@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceName": {
-            "value": "test"
+            "value": "uat"
         },
         "databaseName": {
             "value": "ghtr"
@@ -12,7 +12,7 @@
           "reference": {
             "keyVault": {
               "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"},
-            "secretName": "test-databaseUsername"
+            "secretName": "uat-databaseUsername"
           }
         },
         "databasePort": {
@@ -22,28 +22,28 @@
           "reference": {
             "keyVault": {
               "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"},
-            "secretName": "test-databasePassword"
+            "secretName": "uat-databasePassword"
           }
         },
         "secretKeyBase": {
           "reference": {
             "keyVault": {
               "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"},
-            "secretName": "test-secretKeyBase"
+            "secretName": "uat-secretKeyBase"
           }
         },
         "splitApiKey": {
           "reference": {
             "keyVault": {
               "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"},
-            "secretName": "test-splitApiKey"
+            "secretName": "uat-splitApiKey"
           }
         },
         "dockerHubOrg": {
             "value": "dfedigital"
         },
         "customHostName": {
-            "value": "test.nrs-ghtr.org.uk"
+            "value": "uat.nrs-ghtr.org.uk"
         },
         "certificateName": {
             "value": "nrs-ghtr-org-uk"
@@ -53,9 +53,6 @@
         },
         "keyVaultResourceGroup": {
             "value": "s108t01-shared"
-        },
-        "userFeedbackSmartSurveyLink": {
-            "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
         }
 
     }
