@@ -22,6 +22,26 @@ class SkillMatcher
       end
     end
 
+    def option_2(skill_ids)
+      Benchmark.measure do
+        result = JobProfileSkill.where(skill_id: skill_ids).each_with_object({}) do |s, hash|
+          hash[s.skill_id] ||= []
+          hash[s.skill_id] << s.job_profile_id
+        end
+
+        profile_ids = result.values.flatten.each_with_object(Hash.new(0)) { |s, hash| hash[s] += 1 }.sort_by{|_k, v| -v }.map{|arr| arr[0]}
+
+        JobProfile.where(id: profile_ids).map do |job_profile|
+          {
+            name: job_profile.name,
+            description: job_profile.description,
+            salary_min: job_profile.salary_min,
+            salary_max: job_profile.salary_max
+          }
+        end
+      end
+    end
+
     # Group by skill_id to find out the occurence of wach skill in job profiles and also sort DESC by number of job profiles
     def group_by_skill_ids
       JobProfileSkill.group(:skill_id)
@@ -40,14 +60,17 @@ class SkillMatcher
     end
 
     def main
-      puts 'Active record skill id match - user feeds in first 5 most freq skills...'
-      recommend_jobs_from(pluck_skill_ids_by_frequency(5))
+      # puts 'Active record skill id match - user feeds in first 5 most freq skills...'
+      # recommend_jobs_from(pluck_skill_ids_by_frequency(20))
 
       # puts 'Active record skill id match - user feeds in first 100 most freq skills...'
       # recommend_jobs_from(pluck_skill_ids_by_frequency(100))
 
       # puts 'Active record skill id match - all skills...'
       # recommend_jobs_from(pluck_skill_ids_by_frequency(Skill.count))
+
+      puts 'Option 2'
+      option_2(pluck_skill_ids_by_frequency(20))
     end
   end
 end
