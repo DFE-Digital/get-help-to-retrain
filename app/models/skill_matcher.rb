@@ -23,6 +23,7 @@ class SkillMatcher
     end
 
     def option_2(skill_ids)
+      # TO DO: Still needs joining the job_profiles table and ordering
       Benchmark.measure do
         result = JobProfileSkill.where(skill_id: skill_ids).each_with_object({}) do |s, hash|
           hash[s.skill_id] ||= []
@@ -31,7 +32,9 @@ class SkillMatcher
 
         profile_ids = result.values.flatten.each_with_object(Hash.new(0)) { |s, hash| hash[s] += 1 }.sort_by{|_k, v| -v }.map{|arr| arr[0]}
 
-        JobProfile.where(id: profile_ids).map do |job_profile|
+        puts profile_ids.join(',')
+
+        results = JobProfile.where(id: profile_ids).map do |job_profile|
           {
             name: job_profile.name,
             description: job_profile.description,
@@ -39,6 +42,8 @@ class SkillMatcher
             salary_max: job_profile.salary_max
           }
         end
+
+        puts results.to_s
       end
     end
 
@@ -60,8 +65,8 @@ class SkillMatcher
     end
 
     def main
-      # puts 'Active record skill id match - user feeds in first 5 most freq skills...'
-      # recommend_jobs_from(pluck_skill_ids_by_frequency(20))
+      puts 'Active record skill id match - user feeds in first 5 most freq skills...'
+      recommend_jobs_from(pluck_skill_ids_by_frequency(100))
 
       # puts 'Active record skill id match - user feeds in first 100 most freq skills...'
       # recommend_jobs_from(pluck_skill_ids_by_frequency(100))
@@ -69,8 +74,8 @@ class SkillMatcher
       # puts 'Active record skill id match - all skills...'
       # recommend_jobs_from(pluck_skill_ids_by_frequency(Skill.count))
 
-      puts 'Option 2'
-      option_2(pluck_skill_ids_by_frequency(20))
+      # puts 'Option 2'
+      # option_2(pluck_skill_ids_by_frequency(5))
     end
   end
 end
