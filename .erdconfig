@@ -1,0 +1,8 @@
+attributes:
+ - content
+ - foreign_key
+ - inheritance
+title: Get help to retrain data model
+inheritance: false
+polymorphism: false
+warn: false

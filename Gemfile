@@ -73,6 +73,9 @@ group :development, :test do
   # Handle env vars
   gem 'dotenv-rails'
 
+  # Entity relationship diagrams
+  gem 'rails-erd', '~> 1.6'
+
   # Test data
   gem 'factory_bot_rails', '~> 5.0'
   gem 'faker', '~> 1.9'

@@ -25,6 +25,9 @@
 yarn-debug.log*
 .yarn-integrity
 
+# Ignore generated documentation
+erd.pdf
+
 .env
 .env.*.local
 *.log
