@@ -42,6 +42,11 @@ en-GB:
     errors_internal_server_error: Get help to retrain - Internal server error
     errors_postcode_search_error: Get help to retrain - Postcode search error
 
+  events:
+    check_your_skills_index_search: Check your skills - Job search
+    explore_occupations_index_search: Explore occupations - Job search
+    courses_index_search: Courses near me - Postcode search
+
   contact_us:
     title: Want to speak with an adviser?
     body: Call
