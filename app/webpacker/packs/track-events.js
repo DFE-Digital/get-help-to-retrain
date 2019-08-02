@@ -9,9 +9,16 @@ function TrackEvents () {
 
   function sendEvent() {
     var eventLabel = this.dataset.trackedEvent;
-
+    var eventProps = this.dataset.trackedEventProps;
+    
+    if (typeof(eventProps) !== 'undefined') {
+      eventProps = JSON.parse(eventProps);
+    } else {
+      eventProps = {};
+    }
+      
     setTimeout(function () {
-      appInsights.trackEvent(eventLabel);
+      appInsights.trackEvent(eventLabel, eventProps);
     }, 0);
   };
 

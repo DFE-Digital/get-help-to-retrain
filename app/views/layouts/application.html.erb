@@ -23,7 +23,6 @@
     <script>
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
-
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
     <header class="govuk-header " role="banner" data-module="header">
@@ -62,9 +61,13 @@
         </div>
         <%= yield %>
       </main>
+      <% if ENV['USER_FEEDBACK_SMART_SURVEY_LINK'].present? %>
+        <%= render 'shared/feedback/survey' %>
+      <% end %>
     </div>
 
-    <footer class="govuk-footer " role="contentinfo">
+
+    <footer class="govuk-footer" role="contentinfo">
       <div class="govuk-width-container ">
         <div class="govuk-footer__meta">
           <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">

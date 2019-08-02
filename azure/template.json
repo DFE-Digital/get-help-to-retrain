@@ -146,6 +146,13 @@
     "appServicePlanInstances": {
       "type": "int",
       "defaultValue": 1
+    },
+    "userFeedbackSmartSurveyLink": {
+      "type": "string",
+      "defaultValue": "", 
+      "metadata": {
+        "description:": "User feedback in page Smart Survey URL"
+      }
     }
   },
   "variables": {
@@ -404,6 +411,10 @@
               {
                 "name": "SECRET_KEY_BASE",
                 "value": "[parameters('secretKeyBase')]"
+              },
+              {
+                "name": "USER_FEEDBACK_SMART_SURVEY_LINK",
+                "value": "[parameters('userFeedbackSmartSurveyLink')]"
               }
             ]
           },

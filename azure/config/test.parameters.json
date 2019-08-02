@@ -56,6 +56,9 @@
         },
         "keyVaultResourceGroup": {
             "value": "s108t01-shared"
+        },
+        "userFeedbackSmartSurveyLink": {
+            "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
         }
 
     }

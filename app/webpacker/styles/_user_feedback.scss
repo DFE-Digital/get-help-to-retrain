@@ -1,0 +1,72 @@
+.feedback-prompt-container {
+  background-color: govuk-colour('blue');
+  color: govuk-colour('white');
+  padding: govuk-spacing(2) govuk-spacing(3) 0;
+  height: 19px;
+}
+
+.feedback-prompt-content {
+  @include govuk-font(19, $weight: bold);
+  display: inline-block;
+  margin: 0;
+
+  @include govuk-media-query($from: tablet) {
+    @include govuk-font(16, $weight: bold);
+    float: left;
+  }
+}
+
+.feedback-prompt-link {
+  margin-left: govuk-spacing(3);
+
+  @include govuk-media-query($from: tablet) {
+    float: left;
+    margin-left: govuk-spacing(2);
+    margin-bottom: govuk-spacing(2);
+  }
+}
+
+.feedback-prompt-link:link,
+.feedback-prompt-link:visited {
+  color: govuk-colour("white");
+
+  &:focus {
+    color: $govuk-focus-text-colour;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.govuk-footer {
+  border-top: 8px solid govuk-colour('blue');
+}
+
+.feedback-survey {
+  width: 100%;
+  border: 0;
+}
+
+.feedback-survey-container {
+  overflow: hidden;
+  padding-top: 35%;
+  position: relative;
+
+  @include govuk-media-query($from: tablet, $until: desktop) {
+    padding-top: 54%;
+  }
+
+  @include govuk-media-query($until: tablet) {
+    padding-top: 67%;
+  }
+}
+
+.feedback-survey-container iframe {
+  border: 0;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
