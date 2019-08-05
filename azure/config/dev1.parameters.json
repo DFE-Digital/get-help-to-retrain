@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serviceName": {
-            "value": "dev"
-        },
         "databaseName": {
             "value": "ghtr"
         },
@@ -38,9 +35,6 @@
               "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
             "secretName": "dev-splitApiKey"
           }
-        },
-        "dockerHubOrg": {
-            "value": "dfedigital"
         },
         "customHostName": {
             "value": "dev1.nrs-ghtr.org.uk"

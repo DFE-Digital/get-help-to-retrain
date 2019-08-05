@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serviceName": {
-            "value": "ci"
-        },
         "databaseName": {
             "value": "ghtr"
         },
@@ -32,9 +29,6 @@
             "secretName": "ci-secretKeyBase"
           }
         },
-        "dockerHubOrg": {
-            "value": "dfedigital"
-        },
         "customHostName": {
             "value": "ci.nrs-ghtr.org.uk"
         },
@@ -46,7 +40,9 @@
         },
         "keyVaultResourceGroup": {
             "value": "s108d01-shared"
+        },
+        "applyAlerts": {
+          "value": true
         }
-
     }
 }
