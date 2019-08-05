@@ -15,6 +15,10 @@ RSpec.feature 'Explore Occupations', type: :feature do
     )
   end
 
+  background do
+    disable_feature! :course_directory
+  end
+
   scenario 'User explores their career through categories' do
     visit(explore_occupations_path)
     click_on('Apocalyptic services')
@@ -45,6 +49,15 @@ RSpec.feature 'Explore Occupations', type: :feature do
     click_on('Find a training course')
 
     expect(page).to have_text('Find and apply to a training course near you')
+  end
+
+  scenario 'User continues journey to training hub if course feature enabled' do
+    enable_feature! :course_directory
+
+    visit(job_profile_path(job_profile.slug))
+    click_on('Find a training course')
+
+    expect(page).to have_text('Find training that boosts your job options')
   end
 
   scenario 'paginates results of search' do
