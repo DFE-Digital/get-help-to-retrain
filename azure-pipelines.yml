@@ -9,6 +9,7 @@ pr: none
 variables:
   IMAGE_NAME: '$(dockerHubUserName)/get-help-to-retrain'
   postgresUrl: postgres://test:test@localhost:5432/get-help-to-retrain
+  BUNDLE_CACHE_FOLDER: $(Pipeline.Workspace)/vendor/bundle
 
 resources:
   containers:
@@ -29,39 +30,87 @@ resources:
 
 stages:
 - stage: Checks
-  displayName: Preflight checks
+  displayName: Run Tests
 
   jobs:
-    - job: Tests
-      displayName: Rubocop tests
-      pool:
-        vmImage: 'ubuntu-16.04'
+  - job: Tests
+    pool:
+      vmImage: 'ubuntu-16.04'
+    services:
+      postgres: postgres
+      selenium: selenium
 
-      steps:
-        - task: UseRubyVersion@0
-          inputs:
-            versionSpec: '>= 2.6.2'
-            addToPath: true # Optional
+    steps:
+      - script: |
+          gateway_ip=$(docker network inspect bridge --format='{{range .IPAM.Config}}{{.Gateway}}{{end}}')
+          echo "##vso[task.setvariable variable=GatewayIP;]$gateway_ip"
+        displayName: 'Set Task Variables'
 
-        # Todo: Look for support in the build box for the same ruby minor version.
-        - script: |
-            echo "2.6.2" > .ruby-version
-            sudo apt-get install libpq-dev
-            gem install bundler
-            bundle install --retry=3 --jobs=4
-          displayName: 'bundle install'
+      - script: |
+          sudo apt-get install libpq-dev bison libgdbm-dev libsqlite3-dev libyaml-dev sqlite3 libreadline6-dev
+          gpg --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+          curl -sSL https://get.rvm.io | bash -s -- --autolibs=read-fail
+          source /home/vsts/.rvm/scripts/rvm
+          rvm install "ruby-2.6.3"
+          rvm --default use ruby-2.6.3
+          echo "##vso[task.prependpath]$(HOME)/.rvm/rubies/ruby-2.6.3/bin"
+        displayName: 'Install dependencies'
 
-        - script: |
-            bundle exec rubocop --format clang
-          displayName: 'rubocop'
+      - task: CacheBeta@0
+        inputs:
+          key: $(Build.SourcesDirectory)/Gemfile.lock
+          path: $(BUNDLE_CACHE_FOLDER)
+          cacheHitVar: CACHE_RESTORED_BUNDLE
+        displayName: Cache bundle
 
-        - script: |
-            bundle exec brakeman
-          displayName: 'brakeman'
+      - script: |
+          gem install bundler
+          bundle install --jobs=4 --retry=3 --path $(BUNDLE_CACHE_FOLDER) --without development
+        displayName: 'bundle install'
 
-        - script: |
-            bundle exec govuk-lint-sass app/webpacker/styles
-          displayName: 'GovUK lint'
+      - script: |
+          chmod -R +x $(BUNDLE_CACHE_FOLDER)/ruby/2.6.0/bin
+        condition: eq(variables.CACHE_RESTORED_BUNDLE, 'true')
+        displayName: Restore executable bundle bit
+       # Temporary fix for https://github.com/microsoft/azure-pipelines-tasks/issues/10841
+
+      - script: |
+          bundle exec rubocop --format clang
+        displayName: 'rubocop'
+
+      - script: |
+          bundle exec brakeman
+        displayName: 'brakeman'
+
+      - script: |
+          bundle exec govuk-lint-sass app/webpacker/styles
+        displayName: 'GovUK lint'
+
+      - script: |
+          yarn install
+        displayName: 'yarn install'
+
+      - script: |
+          bundle exec rake db:create db:schema:load
+        displayName: 'Database Setup'
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: $(postgresUrl)
+
+      - script: |
+          bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
+        displayName: 'Run Rspec tests'
+        env:
+          DATABASE_URL: $(postgresUrl)
+          SELENIUM_REMOTE_ADDRESS: $(GatewayIP)
+
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: JUnit
+          searchFolder: /build/
+          testResultsFiles: '*.xml'
+          failedTaskOnFailedTest: true
 
 - stage: Build
   displayName: Build image
@@ -72,20 +121,11 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
 
-    services:
-      postgres: postgres
-      selenium: selenium
-
     steps:
       - script: |
           git_sha=$(git rev-parse --short HEAD)
           echo "##vso[build.updatebuildnumber]$git_sha"
         displayName: 'Set Image Tags'
-
-      - script: |
-          gateway_ip=$(docker network inspect bridge --format='{{range .IPAM.Config}}{{.Gateway}}{{end}}')
-          echo "##vso[task.setvariable variable=SeleniumRemoteAddress;]$gateway_ip"
-        displayName: 'Set Task Variables'
 
       - task: Docker@1
         displayName: Docker Hub login
@@ -103,60 +143,6 @@ stages:
           command: build
           imageName: $(IMAGE_NAME):$(Build.BuildNumber)
           dockerFile: Dockerfile
-          arguments: '--cache-from $(IMAGE_NAME):latest'
-
-      - task: Docker@1
-        displayName: Run Rubocop
-        inputs:
-          command: run
-          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
-          containerCommand: bundle exec rubocop --format clang
-          runInBackground: false
-          arguments: -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
-
-      - task: Docker@1
-        displayName: Run Brakeman
-        inputs:
-          command: Run an image
-          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
-          containerCommand: bundle exec brakeman
-          runInBackground: false
-          arguments: -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
-
-      - task: Docker@1
-        displayName: Run GovUK Sass linter
-        inputs:
-          command: Run an image
-          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
-          containerCommand: bundle exec govuk-lint-sass app/webpacker/styles
-          runInBackground: false
-          arguments: -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
-
-      - task: Docker@1
-        displayName: Database Setup
-        inputs:
-          command: run
-          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
-          containerCommand: bundle exec rake db:create db:test:prepare
-          runInBackground: false
-          arguments: --net host -e DATABASE_URL=$(postgresUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
-
-      - task: Docker@1
-        displayName: Run Rspec tests
-        inputs:
-          command: Run an image
-          imageName: $(IMAGE_NAME):$(Build.BuildNumber)
-          volumes: $(Build.SourcesDirectory):/build
-          containerCommand: bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
-          runInBackground: false
-          arguments: --net host -e SELENIUM_REMOTE_ADDRESS=$(SeleniumRemoteAddress) -e DATABASE_URL=$(postgresUrl) -e RAILS_ENV=test -e RACK_ENV=test -e NODE_ENV=test
-
-      - task: PublishTestResults@2
-        condition: succeededOrFailed()
-        inputs:
-          testRunner: JUnit
-          testResultsFiles: '*.xml'
-          failedTaskOnFailedTest: true
 
       - task: Docker@2
         displayName: Push new image with current tag
