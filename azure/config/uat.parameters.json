@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serviceName": {
-            "value": "uat"
-        },
         "databaseName": {
             "value": "ghtr"
         },
@@ -39,9 +36,6 @@
             "secretName": "uat-splitApiKey"
           }
         },
-        "dockerHubOrg": {
-            "value": "dfedigital"
-        },
         "customHostName": {
             "value": "uat.nrs-ghtr.org.uk"
         },
@@ -56,7 +50,9 @@
         },
         "userFeedbackSmartSurveyLink": {
             "value": "https://www.smartsurvey.co.uk/s/1BBQK/"
+        },
+        "applyAlerts": {
+          "value": true
         }
-
     }
 }

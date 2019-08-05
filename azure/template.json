@@ -2,12 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "serviceName": {
-      "type": "string",
-      "metadata": {
-        "description": "The abbreviation of the service name to be used when naming a resource."
-      }
-    },
     "keyVaultName": {
       "type": "string",
       "defaultValue": "",
@@ -67,18 +61,6 @@
         "description": "List of IP Addresses to whitelist on the database firewall"
       }
     },
-    "securityAlertEmail": {
-      "type": "string",
-      "metadata": {
-        "description": "The email address to be used for psql security alerts."
-      }
-    },
-    "dockerHubOrg": {
-      "type": "string",
-      "metadata": {
-        "description": "The name of the docker hub organization to fecth the container from."
-      }
-    },
     "containerImageReference": {
       "type": "string",
       "metadata": {
@@ -116,24 +98,6 @@
         "description:": "The secret_key_base for Rails"
       }
     },
-    "keysPermissions": {
-      "type": "array",
-      "defaultValue": [
-        "all"
-      ]
-    },
-    "secretsPermissions": {
-      "type": "array",
-      "defaultValue": [
-        "all"
-      ]
-    },
-    "certificatePermissions": {
-      "type": "array",
-      "defaultValue": [
-        "all"
-      ]
-    },
     "appServicePlanSize": {
       "type": "string",
       "allowedValues": [
@@ -153,6 +117,37 @@
       "metadata": {
         "description:": "User feedback in page Smart Survey URL"
       }
+    },
+    "applyAlerts": {
+      "type": "bool",
+      "defaultValue": false
+    },
+    "actionGroupShortName": {
+        "type": "string",
+        "defaultValue": "ghtr-support"
+    },
+    "supportEmailAddresses": {
+      "type": "array"
+    },
+    "thresholdHttpErrors": {
+      "type": "string",
+      "defaultValue": "2"
+    },
+    "thresholdResponseTime": {
+        "type": "string",
+        "defaultValue": "30"
+    },
+    "thresholdPostgresActiveConnections": {
+        "type": "string",
+        "defaultValue": "10"
+    },
+    "thresholdPostgresCPUPercent": {
+        "type": "string",
+        "defaultValue": "50"
+    },
+    "thresholdPostgresStoragePercent": {
+        "type": "string",
+        "defaultValue": "50"
     }
   },
   "variables": {
@@ -161,9 +156,9 @@
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
     "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
-    "workerAppServiceName": "[concat(variables('resourceNamePrefix'), 'wkr-as')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "databaseServerName": "[concat(variables('resourceNamePrefix'), '-psql')]",
+    "actionGroupName": "[concat(variables('resourceNamePrefix'), '-ag')]",
     "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]"
   },
   "resources": [
@@ -232,7 +227,7 @@
             "value": "[parameters('databasePassword')]"
           },
           "securityAlertEmailAddress": {
-            "value": "[parameters('securityAlertEmail')]"
+            "value": "[coalesce(parameters('supportEmailAddresses'))[0].email]"
           },
           "storageAccountName": {
             "value": "[variables('storageAccountName')]"
@@ -449,16 +444,58 @@
           }
         }
       }
-    }
+    },
+    {
+      "apiVersion": "2018-05-01",
+      "name": "alerts",
+      "type": "Microsoft.Resources/deployments",
+      "condition": "[parameters('applyAlerts')]",
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "contentVersion": "1.0.0.0",
+              "uri": "[concat(variables('deploymentUrlBase'), 'alerting.json')]"
+            },
+          "parameters": {
+              "webAppName": {
+                "value": "[variables('appServiceName')]"
+              },
+              "databaseName": {
+                  "value": "[variables('databaseServerName')]"
+              },
+              "actionGroupName": {
+                  "value": "[variables('actionGroupName')]"
+              },
+              "actionGroupShortName": {
+                  "value": "[parameters('actionGroupShortName')]"
+              },
+              "supportEmailAddresses": {
+                  "value": "[parameters('supportEmailAddresses')]"
+              },
+              "thresholdHttpErrors": {
+                  "value": "[parameters('thresholdHttpErrors')]"
+              },
+              "thresholdResponseTime": {
+                  "value": "[parameters('thresholdResponseTime')]"
+              },
+              "thresholdPostgresActiveConnections": {
+                  "value": "[parameters('thresholdPostgresActiveConnections')]"
+              },
+              "thresholdPostgresCPUPercent": {
+                  "value": "[parameters('thresholdPostgresCPUPercent')]"
+              },
+              "thresholdPostgresStoragePercent": {
+                  "value": "[parameters('thresholdPostgresStoragePercent')]"
+              }
+          }
+      },
+      "dependsOn": ["app-service-plan","postgresql-database"]
+  }
   ],
   "outputs": {
     "appServiceName": {
       "type": "string",
       "value": "[variables('appServiceName')]"
-    },
-    "workerAppServiceName": {
-      "type": "string",
-      "value": "[variables('workerAppServiceName')]"
     }
   }
 }

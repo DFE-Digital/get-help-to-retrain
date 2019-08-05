@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "serviceName": {
-            "value": "dev"
-        },
         "databaseName": {
             "value": "ghtr"
         },
@@ -39,9 +36,6 @@
             "secretName": "dev-splitApiKey"
           }
         },
-        "dockerHubOrg": {
-            "value": "dfedigital"
-        },
         "customHostName": {
             "value": "dev3.nrs-ghtr.org.uk"
         },
@@ -57,6 +51,5 @@
         "userFeedbackSmartSurveyLink": {
             "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
         }
-
     }
 }

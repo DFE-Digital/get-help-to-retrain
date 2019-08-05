@@ -220,7 +220,7 @@ stages:
             resourceGroupName: s108d01-ci
             csmFile: './azure/template.json'
             csmParametersFile: './azure/config/ci.parameters.json'
-            overrideParameters: '-containerImageReference $(IMAGE_NAME):$(Build.BuildNumber) -securityAlertEmail $(securityAlertEmail)'
+            overrideParameters: '-containerImageReference $(IMAGE_NAME):$(Build.BuildNumber) -supportEmailAddresses $(supportEmailAddresses)'
             deploymentOutputs: DeploymentOutput
 
         - task: RasmusWatjen.ARMOutputParserExtension.ARMOutputConverter.ARMOutputParserExtension@1
