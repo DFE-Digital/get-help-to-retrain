@@ -4,16 +4,20 @@ class PagesController < ApplicationController
   end
 
   def location_eligibility
-    @search = CourseGeospatialSearch.new(
-      postcode: eligibility_params[:postcode]
-    )
+    track_event(:pages_location_eligibility_search, search: postcode) if postcode.present?
 
-    location_eligibility_through_courses if eligibility_params[:postcode].present? && @search.valid?
+    @search = CourseGeospatialSearch.new(postcode: postcode)
+
+    location_eligibility_through_courses if postcode.present? && @search.valid?
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to postcode_search_error_path
   end
 
   private
+
+  def postcode
+    eligibility_params[:postcode]
+  end
 
   def eligibility_params
     params.permit(:postcode)
