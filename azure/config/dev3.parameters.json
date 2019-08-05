@@ -42,9 +42,6 @@
         "dockerHubOrg": {
             "value": "dfedigital"
         },
-        "containerImageReference": {
-            "value": "get-help-to-retrain:latest"
-        },
         "customHostName": {
             "value": "dev3.nrs-ghtr.org.uk"
         },

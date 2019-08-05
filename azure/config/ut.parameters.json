@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "serviceName": {
-            "value": "ci"
+            "value": "ut"
         },
         "databaseName": {
             "value": "ghtr"
@@ -12,7 +12,7 @@
           "reference": {
             "keyVault": {
               "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "ci-databaseUsername"
+            "secretName": "ut-databaseUsername"
           }
         },
         "databasePort": {
@@ -22,21 +22,21 @@
           "reference": {
             "keyVault": {
               "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "ci-databasePassword"
+            "secretName": "ut-databasePassword"
           }
         },
         "secretKeyBase": {
           "reference": {
             "keyVault": {
               "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "ci-secretKeyBase"
+            "secretName": "ut-secretKeyBase"
           }
         },
         "dockerHubOrg": {
             "value": "dfedigital"
         },
         "customHostName": {
-            "value": "ci.nrs-ghtr.org.uk"
+            "value": "ut.nrs-ghtr.org.uk"
         },
         "certificateName": {
             "value": "nrs-ghtr-org-uk"
@@ -46,6 +46,9 @@
         },
         "keyVaultResourceGroup": {
             "value": "s108d01-shared"
+        },
+        "userFeedbackSmartSurveyLink": {
+            "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
         }
 
     }
