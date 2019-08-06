@@ -8,16 +8,6 @@ RSpec.describe Flipflop::Strategies::SplitClientStrategy do
   let(:api_key) { 'localhost' }
   let(:path) { Rails.root.join('spec', 'fixtures', 'files', 'split.yml') }
 
-  describe '#initialize' do
-    context 'with invalid configuration' do
-      let(:api_key) { 'eXaMpLeApIkEy' }
-
-      it 'raises exception with invalid path configuration' do
-        expect { strategy }.to raise_error(RuntimeError)
-      end
-    end
-  end
-
   describe '.enabled?' do
     it 'is true for enabled feature' do
       expect(strategy.enabled?(:foo)).to be true
@@ -29,6 +19,19 @@ RSpec.describe Flipflop::Strategies::SplitClientStrategy do
 
     it 'is false for unknown feature' do
       expect(strategy.enabled?(:baz)).to be false
+    end
+
+    it 'defaults to false for all features when we cannot connect to SplitIO' do
+      allow(SplitIoClient::SplitFactoryBuilder).to receive(:build).and_raise(Faraday::ConnectionFailed)
+      expect(strategy.enabled?(:foo)).to be(false)
+    end
+
+    context 'with invalid configuration' do
+      let(:api_key) { 'eXaMpLeApIkEy' }
+
+      it 'defaults to false for all features' do
+        expect(strategy.enabled?(:foo)).to be(false)
+      end
     end
   end
 end
