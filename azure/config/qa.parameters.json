@@ -47,10 +47,10 @@
       "value": "nrs-ghtr-org-uk"
     },
     "keyVaultName": {
-      "value": "s108d01-shared-kv-01"
+      "value": "s108t01-shared-kv-01"
     },
     "keyVaultResourceGroup": {
-      "value": "s108d01-shared"
+      "value": "s108t01-shared"
     },
     "userFeedbackSmartSurveyLink": {
       "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"

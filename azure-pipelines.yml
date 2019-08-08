@@ -244,7 +244,7 @@ stages:
           inputs:
             azureSubscription: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
             WebAppName: $(arm_appServiceName)
-            resourceGroupName: 's108d01-ci'
+            resourceGroupName: 's108t01-qa'
             SourceSlot: staging
 
         - task: AzureAppServiceManage@0
