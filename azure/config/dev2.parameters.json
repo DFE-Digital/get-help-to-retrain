@@ -1,56 +1,59 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "databaseName": {
-            "value": "ghtr"
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "databaseName": {
+      "value": "ghtr"
+    },
+    "databaseUsername": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
         },
-        "databaseUsername": {
-          "reference": {
-            "keyVault": {
-              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "dev-databaseUsername"
-          }
+        "secretName": "dev-databaseUsername"
+      }
+    },
+    "databasePort": {
+      "value": "5432"
+    },
+    "databasePassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
         },
-        "databasePort": {
-            "value": "5432"
+        "secretName": "dev-databasePassword"
+      }
+    },
+    "secretKeyBase": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
         },
-        "databasePassword": {
-          "reference": {
-            "keyVault": {
-              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "dev-databasePassword"
-          }
+        "secretName": "dev-secretKeyBase"
+      }
+    },
+    "splitApiKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
         },
-        "secretKeyBase": {
-          "reference": {
-            "keyVault": {
-              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "dev-secretKeyBase"
-          }
-        },
-        "splitApiKey": {
-          "reference": {
-            "keyVault": {
-              "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"},
-            "secretName": "dev-splitApiKey"
-          }
-        },
-        "customHostName": {
-            "value": "dev2.nrs-ghtr.org.uk"
-        },
-        "certificateName": {
-            "value": "nrs-ghtr-org-uk"
-        },
-        "keyVaultName": {
-            "value": "s108d01-shared-kv-01"
-        },
-        "keyVaultResourceGroup": {
-            "value": "s108d01-shared"
-        },
-        "userFeedbackSmartSurveyLink": {
-            "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
-        }
-
+        "secretName": "dev-splitApiKey"
+      }
+    },
+    "customHostName": {
+      "value": "dev2.nrs-ghtr.org.uk"
+    },
+    "certificateName": {
+      "value": "nrs-ghtr-org-uk"
+    },
+    "keyVaultName": {
+      "value": "s108d01-shared-kv-01"
+    },
+    "keyVaultResourceGroup": {
+      "value": "s108d01-shared"
+    },
+    "userFeedbackSmartSurveyLink": {
+      "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
     }
+  }
 }
