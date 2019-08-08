@@ -159,7 +159,10 @@
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "databaseServerName": "[concat(variables('resourceNamePrefix'), '-psql')]",
     "actionGroupName": "[concat(variables('resourceNamePrefix'), '-ag')]",
-    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]"
+    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]",
+    "WEBSITES_CONTAINER_START_TIME_LIMIT": "60",
+    "WEBSITE_SWAP_WARMUP_PING_PATH": "/check-your-skills/results?search=healthcheck",
+    "WEBSITE_SWAP_WARMUP_PING_STATUSES": "200"
   },
   "resources": [
     {
@@ -367,6 +370,18 @@
           },
           "appServiceAppSettings": {
             "value": [
+              {
+                "name": "WEBSITES_CONTAINER_START_TIME_LIMIT",
+                "value": "[variables('WEBSITES_CONTAINER_START_TIME_LIMIT')]"
+              },
+              {
+                "name": "WEBSITE_SWAP_WARMUP_PING_PATH",
+                "value": "[variables('WEBSITE_SWAP_WARMUP_PING_PATH')]"
+              },
+              {
+                "name": "WEBSITE_SWAP_WARMUP_PING_STATUSES",
+                "value": "[variables('WEBSITE_SWAP_WARMUP_PING_STATUSES')]"
+              },
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
                 "value": "[reference('app-insights').outputs.instrumentationKey.value]"
