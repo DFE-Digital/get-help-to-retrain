@@ -8,7 +8,11 @@ class PagesController < ApplicationController
 
     @search = CourseGeospatialSearch.new(postcode: postcode)
 
-    location_eligibility_through_courses if postcode.present? && @search.valid?
+    if postcode.present? && @search.valid?
+      session[:postcode] = postcode
+
+      location_eligibility_through_courses
+    end
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to postcode_search_error_path
   end

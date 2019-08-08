@@ -1,15 +1,17 @@
 module FeatureFlags
-  def enable_feature!(feature_name)
-    switch_feature!(feature_name, true)
+  def enable_feature!(*feature_names)
+    switch_feature!(feature_names, true)
   end
 
-  def disable_feature!(feature_name)
-    switch_feature!(feature_name, false)
+  def disable_feature!(*feature_names)
+    switch_feature!(feature_names, false)
   end
 
-  def switch_feature!(feature_name, enabled)
+  def switch_feature!(feature_names, enabled)
     test_strategy = Flipflop::FeatureSet.current.test!
-    test_strategy.switch!(feature_name, enabled)
+    feature_names.each do |feature|
+      test_strategy.switch!(feature, enabled)
+    end
   end
 end
 

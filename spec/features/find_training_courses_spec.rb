@@ -12,7 +12,47 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text('0 courses found')
   end
 
-  scenario 'User can find training courses near them' do
+  scenario 'The postcode is persisted on Maths courses page when user comes from training hub page' do
+    capture_user_location('NW6 1JF')
+
+    visit(training_hub_path)
+
+    click_on('Find a maths course')
+
+    expect(find_field('postcode').value).to eq 'NW6 1JF'
+  end
+
+  scenario 'The postcode is persisted on English courses page when user comes from training hub page' do
+    capture_user_location('NW6 1JF')
+
+    visit(training_hub_path)
+
+    click_on('Find an English course')
+
+    expect(find_field('postcode').value).to eq 'NW6 1JF'
+  end
+
+  scenario 'The postcode is persisted on maths courses page when user comes from math course overview page' do
+    capture_user_location('NW6 1JF')
+
+    visit(maths_course_overview_path)
+
+    click_on('Find a maths course')
+
+    expect(find_field('postcode').value).to eq 'NW6 1JF'
+  end
+
+  scenario 'The postcode is persisted on english courses page when user comes from an english course overview page' do
+    capture_user_location('NW6 1JF')
+
+    visit(english_course_overview_path)
+
+    click_on('Find an English course')
+
+    expect(find_field('postcode').value).to eq 'NW6 1JF'
+  end
+
+  scenario 'Users can find training courses near them' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -74,5 +114,13 @@ RSpec.feature 'Find training courses', type: :feature do
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).not_to have_selector('#postcode[required]')
+  end
+
+  def capture_user_location(postcode)
+    enable_feature! :course_directory, :location_eligibility
+
+    visit(location_eligibility_path)
+    fill_in('postcode', with: postcode)
+    find('.govuk-button').click
   end
 end
