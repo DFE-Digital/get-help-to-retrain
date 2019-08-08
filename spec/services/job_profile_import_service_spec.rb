@@ -4,7 +4,7 @@ RSpec.describe JobProfileImportService do
   subject(:importer) { described_class.new }
 
   let(:path) { Rails.root.join('spec', 'fixtures', 'files', 'job_profile_growth.xlsx').to_s }
-  let(:ceo) { JobProfile.find_by(name: 'Chief executive') }
+  let(:ceo) { JobProfile.find_by_name('Chief executive') }
 
   before do
     create :job_profile, name: 'Chief executive'

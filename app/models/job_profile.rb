@@ -10,6 +10,10 @@ class JobProfile < ApplicationRecord
                           foreign_key: :job_profile_id,
                           association_foreign_key: :related_job_profile_id
 
+  def self.find_by_name(name)
+    where('lower(name) = ?', name.downcase).first
+  end
+
   def self.search(string)
     return none unless string.present?
 

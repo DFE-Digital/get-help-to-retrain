@@ -35,7 +35,7 @@ class JobProfileImportService
 
   def update_job_profile(data)
     name = data.delete(:name).strip
-    job_profile = JobProfile.find_by(name: name)
+    job_profile = JobProfile.find_by_name(name)
     if job_profile.present?
       job_profile.update(data)
     else

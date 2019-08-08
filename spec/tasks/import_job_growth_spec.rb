@@ -3,7 +3,7 @@ require 'support/tasks'
 
 RSpec.describe 'rake data_import:import_job_growth' do
   let(:path) { Rails.root.join('spec', 'fixtures', 'files', 'job_profile_growth.xlsx').to_s }
-  let(:ceo) { JobProfile.find_by(name: 'Chief executive') }
+  let(:ceo) { JobProfile.find_by_name('chief executive') }
 
   before do
     create :job_profile, name: 'Chief executive'
