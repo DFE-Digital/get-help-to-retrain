@@ -7,7 +7,7 @@ trigger:
 pr: none
 
 variables:
-  IMAGE_NAME: '$(dockerHubUserName)/get-help-to-retrain'
+  IMAGE_NAME: dfedigital/get-help-to-retrain
   postgresUrl: postgres://test:test@localhost:5432/get-help-to-retrain
   BUNDLE_CACHE_FOLDER: $(Pipeline.Workspace)/vendor/bundle
 
