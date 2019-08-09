@@ -5,11 +5,12 @@ if defined?(ActiveAdmin)
 
     actions :all, except: %i[new destroy]
 
-    permit_params :recommended
+    permit_params :recommended, :soc, :extended_soc, :growth
 
     filter :categories
     filter :skills
     filter :related_job_profiles
+    filter :extended_soc
     filter :slug
     filter :name
     filter :source_url
@@ -22,19 +23,21 @@ if defined?(ActiveAdmin)
 
     index do
       column :id
+      column :extended_soc
       column :slug
       column :name
       column :recommended
-      column :created_at
-      column :updated_at
       column :salary_min
       column :salary_max
+      column :growth
       column :alternative_titles
       actions
     end
 
     show do
       attributes_table do
+        row :soc
+        row :extended_soc
         row :slug
         row :name
         row :source_url
@@ -49,6 +52,7 @@ if defined?(ActiveAdmin)
         row :updated_at
         row :salary_min
         row :salary_max
+        row :growth
         row :alternative_titles
       end
     end
@@ -56,12 +60,15 @@ if defined?(ActiveAdmin)
     form do |f|
       f.semantic_errors
       f.inputs do
+        f.input :soc
+        f.input :extended_soc
         f.input :slug, input_html: { disabled: true, readonly: true }
         f.input :name, input_html: { disabled: true, readonly: true }
         f.input :source_url, input_html: { disabled: true, readonly: true }
         f.input :description, input_html: { disabled: true, readonly: true }
         f.input :salary_min, input_html: { disabled: true, readonly: true }
         f.input :salary_max, input_html: { disabled: true, readonly: true }
+        f.input :growth
         f.input :alternative_titles, input_html: { disabled: true, readonly: true }
         f.input :recommended
       end
@@ -76,11 +83,14 @@ if defined?(ActiveAdmin)
 
     csv do
       column :id
+      column :soc
+      column :extended_soc
       column :slug
       column :name
       column :recommended
       column :salary_min
       column :salary_max
+      column :growth
       column :alternative_titles
       column :skills do |job_profile|
         job_profile.skills.map(&:name)
