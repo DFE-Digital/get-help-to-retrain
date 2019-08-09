@@ -16,8 +16,6 @@ RSpec/DescribeClass:
   - tasks/**/*.rb
 RSpec/ExampleLength:
   Enabled: false
-RSpec/MultipleExpectations:
-  Enabled: false
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 Capybara/FeatureMethods:

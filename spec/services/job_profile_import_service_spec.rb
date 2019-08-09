@@ -16,12 +16,13 @@ RSpec.describe JobProfileImportService do
       expect { importer.import_growth('foo.xlsx') }.to raise_exception(IOError)
     end
 
-    it 'updates matching job profiles' do
+    it 'does not raise error with valid filename' do
       expect { importer.import_growth(path) }.not_to raise_exception
+    end
 
-      expect(ceo.soc).to eq '1115'
-      expect(ceo.extended_soc).to eq '1115A'
-      expect(ceo.growth).to be_within(0.1).of(72.6)
+    it 'updates matching job profiles' do
+      importer.import_growth(path)
+      expect(ceo).to have_attributes(soc: '1115', extended_soc: '1115A', growth: (a_value > 72))
     end
   end
 
