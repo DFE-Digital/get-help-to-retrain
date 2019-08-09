@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
   end
 
   def postcode
-    courses_params[:postcode]
+    @postcode ||= courses_params[:postcode] || session[:postcode]
   end
 
   def courses_params
