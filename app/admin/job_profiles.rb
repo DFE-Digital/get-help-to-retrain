@@ -5,7 +5,7 @@ if defined?(ActiveAdmin)
 
     actions :all, except: %i[new destroy]
 
-    permit_params :recommended
+    permit_params :recommended, :soc, :extended_soc, :growth
 
     filter :categories
     filter :skills
@@ -60,8 +60,8 @@ if defined?(ActiveAdmin)
     form do |f|
       f.semantic_errors
       f.inputs do
-        f.input :soc, input_html: { disabled: true, readonly: true }
-        f.input :extended_soc, input_html: { disabled: true, readonly: true }
+        f.input :soc
+        f.input :extended_soc
         f.input :slug, input_html: { disabled: true, readonly: true }
         f.input :name, input_html: { disabled: true, readonly: true }
         f.input :source_url, input_html: { disabled: true, readonly: true }
