@@ -1,19 +1,12 @@
 class JobProfilesSkillsController < ApplicationController
   def index
+    skills_builder.build
+
     if skills_valid?
-      redirect skills_path
+      redirect_to(skills_path(job_profile_id: skills_params[:job_profile_id]))
     else
-      @skills = job_profile.skills
-      @skills.errors.add(:postcode, 'Select at least one skill')
+      render 'job_profiles/skills/index'
     end
-  end
-
-  def current_job_skills
-
-  end
-
-  def your_skills
-    @skills = job_profile.skills
   end
 
   private
@@ -24,11 +17,19 @@ class JobProfilesSkillsController < ApplicationController
     )
   end
 
-  def skills_params
-    params.permit(:job_profile_id, skill_ids: [])
+  def skills_builder
+    @skills_builder ||= SkillsBuilder.new(
+      skills_params: skills_params[:skill_ids],
+      job_profile_skills: job_profile.skills,
+      user_session: session
+    )
   end
 
   def skills_valid?
-    skills_params[:skill_ids].present? && skills_params[:skill_ids].count > 1
+    skills_params[:skill_ids].present? && skills_builder.valid?
+  end
+
+  def skills_params
+    params.permit(:job_profile_id, skill_ids: [])
   end
 end

@@ -1,6 +1,12 @@
 class SkillsController < ApplicationController
   def index
-    @skills = job_profile.skills
+    if Flipflop.skills_builder?
+      job_profile
+      @skills = Skill.find(session[:skill_ids])
+      render 'index_v2'
+    else
+      @skills = job_profile.skills
+    end
   end
 
   private

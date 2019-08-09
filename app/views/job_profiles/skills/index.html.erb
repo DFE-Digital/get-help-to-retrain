@@ -1,0 +1,47 @@
+<% page_title :skills_current_job_skills %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.current_job_skills'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.check_your_skills'), check_your_skills_path],
+        [t('breadcrumb.search_results'), results_check_your_skills_path(search: params[:search])]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full govuk-!-padding-0">
+      <%= form_tag job_profile_skills_path, method: 'get' do %>
+        <%= form_group_tag @skills_builder, :skills do %>
+          <fieldset class="govuk-fieldset" aria-describedby="current-job-skills-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+              <h1 class="govuk-fieldset__heading govuk-!-margin-bottom-3">
+                <%= @job_profile.hero_copy %>
+              </h1>
+              <p class="govuk-body-l">We’ll use this list to suggest other types of job you can do.</p>
+              <span id="current-job-skills-hint" class="govuk-hint">
+                If you want to remove any of these skills, click the tick to remove it from the list.
+              </span>
+            </legend>
+            <%= errors_tag @skills_builder, :skills %>
+            <div class="govuk-checkboxes">
+              <%= hidden_field_tag('skill_ids[]', nil, id: 'skill_ids') %>
+              <% @skills_builder.job_profile_skills.each do |skill| %>
+                <div class="govuk-checkboxes__item">
+                  <%= check_box_tag('skill_ids[]', skill.id, @skills_builder.skill_ids.include?(skill.id), id: dom_id(skill), class: 'govuk-checkboxes__input') %>
+                  <%= label_tag(dom_id(skill), skill.name, class: 'govuk-label govuk-checkboxes__label') %>
+                </div>
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+        <%= button_tag('Select these skills', class: 'govuk-button', aria: { label: 'Select these skills button' }) %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render 'shared/contact_us' %>
+</div>
