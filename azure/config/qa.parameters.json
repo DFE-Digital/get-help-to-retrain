@@ -10,7 +10,7 @@
         "keyVault": {
           "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
         },
-        "secretName": "uat-databaseUsername"
+        "secretName": "qa-databaseUsername"
       }
     },
     "databasePort": {
@@ -21,7 +21,7 @@
         "keyVault": {
           "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
         },
-        "secretName": "uat-databasePassword"
+        "secretName": "qa-databasePassword"
       }
     },
     "secretKeyBase": {
@@ -29,7 +29,7 @@
         "keyVault": {
           "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
         },
-        "secretName": "uat-secretKeyBase"
+        "secretName": "qa-secretKeyBase"
       }
     },
     "splitApiKey": {
@@ -37,11 +37,11 @@
         "keyVault": {
           "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
         },
-        "secretName": "uat-splitApiKey"
+        "secretName": "qa-splitApiKey"
       }
     },
     "customHostName": {
-      "value": "beta.nrs-ghtr.org.uk"
+      "value": "qa.nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"
@@ -53,7 +53,7 @@
       "value": "s108t01-shared"
     },
     "userFeedbackSmartSurveyLink": {
-      "value": "https://www.smartsurvey.co.uk/s/1BBQK/"
+      "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
     },
     "applyAlerts": {
       "value": true
