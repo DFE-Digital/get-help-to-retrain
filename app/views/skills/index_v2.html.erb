@@ -1,0 +1,43 @@
+<% page_title :skills_index %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.your_skills'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.check_your_skills'), check_your_skills_path],
+        [t('breadcrumb.search_results'), results_check_your_skills_path(search: params[:search])],
+        [t('breadcrumb.current_job_skills'), job_profile_skills_path(job_profile_id: params[:job_profile_id], search: params[:search])]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full govuk-!-padding-0">
+      <h1 class="govuk-heading-xl">Your skills</h1>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-1"><%= @job_profile.hero_copy %></h2>
+      <table class="govuk-table">
+        <caption class="govuk-table__caption small govuk-visually-hidden">Your skills</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header govuk-section-break__xl govuk-!-padding-0" scope="col">
+              <p class="govuk-body">You gained these skills from working as a <%= @job_profile.hero_copy %></p>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <% @skills.each do |skill| %>
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell govuk-!-padding-bottom-4 govuk-!-padding-top-4"><%= skill.name %></th>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- TODO amend in skill matcher story -->
+      <%= link_to('Find out what you can do with these skills', '#', class: 'govuk-button') %>
+    </div>
+  </div>
+
+  <%= render 'shared/contact_us' %>
+</div>

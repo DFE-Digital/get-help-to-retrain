@@ -32,8 +32,12 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, path: 'job-profiles', only: %i[show] do
-    resources :skills, only: %i[index]
+    resources :skills, only: %i[index] do
+      get :index, controller: 'job_profiles_skills', on: :collection, constraints: ->(_req) { Flipflop.skills_builder? }
+    end
   end
+
+  resources :skills, only: %i[index], constraints: ->(_req) { Flipflop.skills_builder? }
 
   resources :explore_occupations, path: 'explore-occupations', only: %i[index] do
     get :results, on: :collection

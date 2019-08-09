@@ -1,0 +1,13 @@
+.govuk-section-break__xl {
+  border-bottom-width: 2px;
+  border-bottom-color: $govuk-text-colour;
+}
+
+.govuk-table__body {
+  tr:last-child {
+    td {
+      border-bottom-width: 2px;
+      border-bottom-color: $govuk-text-colour;
+    }
+  }
+}

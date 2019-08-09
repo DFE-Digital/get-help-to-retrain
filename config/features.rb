@@ -8,4 +8,5 @@ Flipflop.configure do
   feature :foo, description: 'Example feature flag', default: true
   feature :course_directory, description: 'Training courses feature'
   feature :location_eligibility, description: 'Location eligibility feature'
+  feature :skills_builder, description: 'Skills builder feature'
 end

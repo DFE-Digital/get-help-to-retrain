@@ -17,6 +17,7 @@ en-GB:
     training_hub: Training hub
     location_eligibility: Your location
     location_ineligible: No courses in your area
+    current_job_skills: Current job skills
 
   page_titles:
     default: Get help to retrain
@@ -25,6 +26,7 @@ en-GB:
     check_your_skills_index: Get help to retrain - Check your skills
     check_your_skills_results: Get help to retrain - Check your skills results
     skills_index: Get help to retrain - Your skills
+    skills_current_job_skills: Get help to retrain - Current job skills
     explore_occupations_index: Get help to retrain - Explore occupations
     categories_show: Get help to retrain - Job category
     explore_occupations_results: Get help to retrain - Explore occupations results
@@ -83,7 +85,8 @@ en-GB:
   home:
     index:
       title: Get help to retrain
-
+  skills:
+    invalid_skills_selected_error: Select at least one skill
   pages:
     task_list:
       title: Get help to retrain
