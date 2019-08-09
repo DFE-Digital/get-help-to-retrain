@@ -95,6 +95,7 @@ Please check https://brakemanscanner.org/docs/ for more details.
 
 ## Importing data
 
+### Scraped content
 Job profiles, categories and skills are imported by screen scraping the National Careers Service "Explore My Careers" site (with consent).
 
 The rake tasks assume no existing data is present. To clear any existing data (USE WITH CAUTION!) run:
@@ -122,6 +123,15 @@ If job profiles have been previously scraped and `content` is populated, it's po
 ```bash
   bundle exec rails data_import:refresh_job_profiles
 ```
+
+### Additional job profile data
+Growth information and SOC codes for job profiles are imported via an Excel spreadsheet and used to update specific attributes of existing job profiles (i.e. these must have been previously imported by running the scraping tasks). Copy the relevant spreadsheet locally and then run rake task:
+
+```bash
+  bundle exec rails data_import:import_job_growth['Job growth 05082019.xlsx']
+```
+
+This will produce console output detailing any job profiles that were not found (these are matched by job title) and stats for job profiles that are missing growth details. The rake task can be run multiple times without issue but will throw an error if used in production mode.
 
 ## Courses data
 
