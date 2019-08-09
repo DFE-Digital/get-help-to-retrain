@@ -5,7 +5,7 @@ RSpec.feature 'Tasks List', type: :feature do
     visit(root_path)
     click_on('Start now')
 
-    expect(page).to have_text('Check what you need to do to retrain for another job')
+    expect(page).to have_text('Here\'s what you need to do to retrain for another job.')
   end
 
   scenario 'User checks their existing skills' do
