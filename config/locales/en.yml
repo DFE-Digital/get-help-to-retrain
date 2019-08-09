@@ -49,7 +49,8 @@ en-GB:
     courses_index_search: Courses near me - Postcode search
 
   contact_us:
-    title: Want to speak with an adviser?
+    title: Speak to an adviser
+    sub_title: Get advice on finding work and training. 
     body: Call
     telephone: 0800 051 0459
     telephone_link: tel:00448000510459
@@ -99,8 +100,8 @@ en-GB:
     location_ineligible:
       title: No courses are available in your area yet
   what_you_can_do_next:
-    title: Find out what you can do next
-    body: Get more support to help you on your new career path
+    title: Further help to find work
+    body: Other ways to change jobs
   help_improve_this_service:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience
