@@ -29,6 +29,7 @@
             <%= errors_tag @skills_builder, :skills %>
             <div class="govuk-checkboxes">
               <%= hidden_field_tag('skill_ids[]', nil, id: 'skill_ids') %>
+              <%= hidden_field_tag('search', params[:search], id: 'search') %>
               <% @skills_builder.job_profile_skills.each do |skill| %>
                 <div class="govuk-checkboxes__item">
                   <%= check_box_tag('skill_ids[]', skill.id, @skills_builder.skill_ids.include?(skill.id), id: dom_id(skill), class: 'govuk-checkboxes__input') %>

@@ -6,7 +6,7 @@
         [t('breadcrumb.task_list_home'), task_list_path],
         [t('breadcrumb.check_your_skills'), check_your_skills_path],
         [t('breadcrumb.search_results'), results_check_your_skills_path(search: params[:search])],
-        [t('breadcrumb.current_job_skills'), job_profile_skills_path(job_profile_id: params[:job_profile_id])]
+        [t('breadcrumb.current_job_skills'), job_profile_skills_path(job_profile_id: params[:job_profile_id], search: params[:search])]
       ]
     )
   end
@@ -34,6 +34,7 @@
           <% end %>
         </tbody>
       </table>
+      <!-- TODO amend in skill matcher story -->
       <%= link_to('Find out what you can do with these skills', '#', class: 'govuk-button') %>
     </div>
   </div>

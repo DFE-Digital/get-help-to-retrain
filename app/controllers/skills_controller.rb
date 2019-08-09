@@ -13,7 +13,11 @@ class SkillsController < ApplicationController
 
   def job_profile
     @job_profile ||= JobProfileDecorator.new(
-      JobProfile.find_by(slug: params[:job_profile_id])
+      JobProfile.find_by(slug: skills_params[:job_profile_id])
     )
+  end
+
+  def skills_params
+    params.permit(:job_profile_id)
   end
 end

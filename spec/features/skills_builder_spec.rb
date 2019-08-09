@@ -58,6 +58,17 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_text(/Select at least one skill/)
   end
 
+  scenario 'breadcrumbs navigate back to search results from your skills' do
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Hitman')
+    find('.search-button').click
+    click_on('Hitman')
+    find('.govuk-button').click
+    click_on('Search results')
+
+    expect(page).to have_text(/Hitman/)
+  end
+
   context 'when feature disabled' do
     background do
       disable_feature! :skills_builder
