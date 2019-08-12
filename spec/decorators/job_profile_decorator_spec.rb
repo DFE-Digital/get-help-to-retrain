@@ -248,4 +248,36 @@ RSpec.describe JobProfileDecorator do
       end
     end
   end
+
+  describe '#recent_job_growth' do
+    it 'returns nothing if job growth is not populated' do
+      model = build(:job_profile, growth: nil)
+      job_profile = described_class.new(model)
+      expect(job_profile.recent_job_growth).to be_nil
+    end
+
+    it 'returns failing if job growth is less than 5' do
+      model = build(:job_profile, growth: -7.12)
+      job_profile = described_class.new(model)
+      expect(job_profile.recent_job_growth).to eq('falling')
+    end
+
+    it 'returns stable if job growth is between -5 and 5' do
+      model = build(:job_profile, growth: 0.01)
+      job_profile = described_class.new(model)
+      expect(job_profile.recent_job_growth).to eq('stable')
+    end
+
+    it 'returns growing if job growth is between 5 and 50' do
+      model = build(:job_profile, growth: 10.1)
+      job_profile = described_class.new(model)
+      expect(job_profile.recent_job_growth).to eq('growing')
+    end
+
+    it 'returns growing if job growth is more than 50' do
+      model = build(:job_profile, growth: 100.102)
+      job_profile = described_class.new(model)
+      expect(job_profile.recent_job_growth).to eq('growing strongly')
+    end
+  end
 end

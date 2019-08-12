@@ -1,7 +1,6 @@
 # TODO: Most of the xpath expressions within this class will be migrated to JobProfileScraper over time
 # which should remove the need to disable rubocop rules here.
-# rubocop:disable Metrics/ClassLength
-class JobProfileDecorator < SimpleDelegator
+class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLength
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::NumberHelper
 
@@ -144,4 +143,3 @@ class JobProfileDecorator < SimpleDelegator
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 end
-# rubocop:enable Metrics/ClassLength
