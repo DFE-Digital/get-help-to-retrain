@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Tasks List', type: :feature do
   scenario 'User navigates to task list page' do
+    disable_feature! :location_eligibility
     visit(root_path)
     click_on('Start now')
 

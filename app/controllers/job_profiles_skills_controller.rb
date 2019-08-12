@@ -21,7 +21,7 @@ class JobProfilesSkillsController < ApplicationController
   def skills_builder
     @skills_builder ||= SkillsBuilder.new(
       skills_params: skills_params[:skill_ids],
-      job_profile_skills: job_profile.skills,
+      job_profile: job_profile,
       user_session: session
     )
   end
