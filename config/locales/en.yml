@@ -68,7 +68,6 @@ en-GB:
       title: Your current job
       placeholder: Enter your current job title
       no_results: 0 results found - try again using a different job title
-      results: "%{count} results found"
       body: Click the job title that best matches what you do now.
   explore_occupations:
     index:
@@ -78,7 +77,6 @@ en-GB:
     results:
       title: Your current job
       placeholder: Enter your current job title
-      results: "%{count} results found"
       body: Click the job title that best matches what you do now.
   categories:
     show:
