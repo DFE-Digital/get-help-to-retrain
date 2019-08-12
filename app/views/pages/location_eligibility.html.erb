@@ -12,7 +12,7 @@
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-    <p class="govuk-body-l">This will be used to check if we can offer you any training courses near you.</p>
+    <p class="govuk-body-l">We'll use this to find training courses near you.</p>
     <%= form_tag location_eligibility_path, method: 'get', id: 'location-eligibility' do %>
       <%= form_group_tag @search, :postcode do %>
         <label class="govuk-label" for="postcode">
