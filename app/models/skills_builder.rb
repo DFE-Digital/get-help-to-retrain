@@ -1,23 +1,26 @@
 class SkillsBuilder
   include ActiveModel::Validations
 
-  attr_reader :skills_params, :job_profile_skills, :user_session
+  attr_reader :skills_params, :job_profile, :user_session
   validate :skill_ids_presence
 
-  def initialize(skills_params:, job_profile_skills:, user_session:)
+  def initialize(skills_params:, job_profile:, user_session:)
     @skills_params = skills_params
-    @job_profile_skills = job_profile_skills
+    @job_profile = job_profile
     @user_session = user_session
+    @user_session[:job_profile_skills] = user_session[:job_profile_skills] || {}
   end
 
   def build
     return unless skills_params.present?
 
-    user_session[:skill_ids] = formatted_skill_params
+    user_session[:job_profile_skills][job_profile.id.to_s] = formatted_skill_params
   end
 
   def skill_ids
-    user_session[:skill_ids] || job_profile_skills.pluck(:id)
+    @skill_ids ||=
+      user_session[:job_profile_skills][job_profile.id.to_s] ||
+      job_profile.skills.pluck(:id)
   end
 
   private
