@@ -57,14 +57,13 @@ RSpec.describe JobProfileDecorator do
     end
 
     context 'when the job profile has no growth score' do
-      let(:model) { build_stubbed :job_profile, growth: nil}
+      let(:model) { build_stubbed :job_profile, growth: nil }
 
       it 'returns an empty css class' do
         expect(job_profile.growth_icon).to eq ''
       end
     end
   end
-
 
   describe '#growth_type' do
     context 'when the job is falling' do
