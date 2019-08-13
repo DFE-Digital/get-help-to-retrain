@@ -7,7 +7,7 @@
       </div>
       <div class="govuk-grid-column-three-quarters">
         <h4 class="govuk-heading-s govuk-!-margin-top-5">Average Salary</h4>
-        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3">
+        <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
         <ul class="govuk-list">
           <li>
             <%= @job_profile.salary_range %>
@@ -24,7 +24,7 @@
       </div>
       <div class="govuk-grid-column-three-quarters">
         <h4 class="govuk-heading-s govuk-!-margin-top-5">Typical hours</h4>
-        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3">
+        <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
         <p class="govuk-body"><span id="hours"><%= @job_profile.working_hours %></span> a week</p>
       </div>
     </div>
@@ -39,7 +39,7 @@
       </div>
       <div class="govuk-grid-column-three-quarters">
         <h4 class="govuk-heading-s govuk-!-margin-top-5">You could work</h4>
-        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3">
+        <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
         <p id="lifestyle" class="govuk-body"><%= @job_profile.working_hours_patterns %></p>
       </div>
     </div>
@@ -53,11 +53,11 @@
         </div>
         <div class="govuk-grid-column-three-quarters">
           <h4 class="govuk-heading-s govuk-!-margin-top-5">Recent job growth</h4>
-          <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3">
+          <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
           <p id="lifestyle" class="govuk-body"><%= @job_profile.growth_type %></p>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-<hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-7">
+<hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-7 govuk-!-margin-top-7">

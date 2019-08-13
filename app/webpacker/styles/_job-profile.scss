@@ -82,43 +82,72 @@
   height: 55px;
 }
 
+%responsive-icon {
+  @include govuk-media-query($from: mobile, $until: tablet) {
+    float: left;
+    margin-right: 20px;
+    height: 62px;
+  }
+}
+
+.responsive-section-break {
+  @include govuk-media-query($from: mobile, $until: tablet) {
+    width: 40%;
+    margin-left: 0px;
+  }
+}
+
 .salary-icon {
+  @extend %responsive-icon;
+
   background: url('../images/pound.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .calendar-icon {
+  @extend %responsive-icon;
+
   background: url('../images/cal.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .time-icon {
+  @extend %responsive-icon;
+
   background: url('../images/time.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .arrow-falling-icon {
+  @extend %responsive-icon;
+
   background: url('../images/arrow_falling.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .arrow-growing-icon {
+  @extend %responsive-icon;
+
   background: url('../images/arrow_growing.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .arrow-growing-strongly-icon {
+  @extend %responsive-icon;
+
   background: url('../images/arrow_growing_strongly.svg');
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .arrow-stable-icon {
+  @extend %responsive-icon;
+
   background: url('../images/arrow_stable.svg');
   background-position: center;
   background-repeat: no-repeat;
