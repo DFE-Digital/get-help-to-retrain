@@ -127,7 +127,6 @@ stages:
     steps:
       - script: |
           git_sha=$(git rev-parse --short HEAD)
-          echo "##vso[build.updatebuildnumber]$git_sha"
         displayName: 'Set Image Tags'
 
       - task: Docker@1
