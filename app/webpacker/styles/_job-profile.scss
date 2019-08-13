@@ -93,7 +93,7 @@
 .responsive-section-break {
   @include govuk-media-query($from: mobile, $until: desktop) {
     width: 40%;
-    margin-left: 0px;
+    margin-left: 0;
   }
 }
 
