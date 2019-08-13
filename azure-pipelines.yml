@@ -125,10 +125,6 @@ stages:
       vmImage: 'ubuntu-16.04'
 
     steps:
-      - script: |
-          git_sha=$(git rev-parse --short HEAD)
-        displayName: 'Set Image Tags'
-
       - task: Docker@1
         displayName: Docker Hub login
         inputs:
