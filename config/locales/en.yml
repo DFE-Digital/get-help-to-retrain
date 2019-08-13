@@ -104,7 +104,12 @@ en-GB:
       title: No courses are available in your area yet
   what_you_can_do_next:
     title: Further help to find work
-    body: Other ways to change jobs
+    sub_title: Support to move into a new role.
+    cta_copy: Other ways to change jobs
+  boost_job_prospects:
+    title: Boost your job prospects
+    sub_title: Access free and flexible training that improves your job options.
+    cta_copy: Find a training course
   help_improve_this_service:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience

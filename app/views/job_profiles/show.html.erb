@@ -21,12 +21,19 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
           <%= render 'relevant_sections' %>
-          <%= link_to('Find a training course', Flipflop.course_directory? ? training_hub_path : find_training_courses_path, class: 'govuk-button govuk-!-margin-top-6 govuk-!-margin-bottom-9') %>
-        </div>
-        <div class="govuk-grid-column-one-third govuk-!-padding-left-5 related-profiles-right-padding-0">
-          <%= render 'related_profiles' %>
+          <%= link_to('Back to top', '#', class: 'govuk-link') %>
         </div>
       </div>
+    </div>
+  </div>
+  <%= render 'shared/boost_job_prospects' %>
+  <div class="govuk-grid-column-one-third">
+    <div class="govuk-related-items govuk-!-padding-bottom-1 top-border__container">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-0"><%= t('what_you_can_do_next.title') %></h2>
+      <p class="govuk-body"><%= t('what_you_can_do_next.sub_title') %></p>
+      <p class="govuk-body">
+        <%= link_to t('what_you_can_do_next.cta_copy'), next_steps_path, class: 'govuk-button govuk-button-full govuk-!-margin-bottom-1' %>
+      </p>
     </div>
   </div>
   <%= render 'shared/contact_us' %>
