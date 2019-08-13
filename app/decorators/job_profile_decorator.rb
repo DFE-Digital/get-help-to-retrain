@@ -63,6 +63,26 @@ class JobProfileDecorator < SimpleDelegator
     @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').concat(separator_line)
   end
 
+  def growth_icon
+    return '' unless growth
+
+    return 'arrow-falling-icon' if growth <= -5
+    return 'arrow-stable-icon' if (growth > -5 && growth <= 5)
+    return 'arrow-growing-icon' if (growth > 5 && growth <= 50)
+
+    'arrow-growing-strongly-icon'
+  end
+
+  def growth_type
+    return unless growth
+    
+    return 'Falling' if growth <= -5
+    return 'Stable' if (growth > -5 && growth <= 5)
+    return 'Growing' if (growth > 5 && growth <= 50)
+
+    'Growing strongly'
+  end
+
   private
 
   def html_body
