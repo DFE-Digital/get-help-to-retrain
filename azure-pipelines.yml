@@ -196,8 +196,8 @@ stages:
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
 
   jobs:
-    - job: CI
-      displayName: Deploy to CI
+    - job: QA
+      displayName: Deploy to QA
       pool:
         vmImage: 'vs2017-win2016'
 
