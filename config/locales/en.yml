@@ -53,6 +53,7 @@ en-GB:
   contact_us:
     title: Speak to an adviser
     sub_title: Get advice on finding work and training. 
+    by_phone: By phone
     body: Call
     telephone: 0800 051 0459
     telephone_link: tel:00448000510459
@@ -60,25 +61,23 @@ en-GB:
 
   check_your_skills:
     index:
-      title: Check your existing skills
-      body: Search for the job that you currently do to see what skills you already have
-      placeholder: Enter your job title
+      title: Check what skills you already have
+      body: Tell us your current job title and we’ll suggest other types of jobs you could do using skills you already have or with a bit more training.
+      placeholder: Enter your current job title
     results:
-      title: Search results for
-      placeholder: Enter your job title
+      title: Your current job
+      placeholder: Enter your current job title
       no_results: 0 results found - try again using a different job title
-      results: "%{count} results found"
-      body: Select the job profile closest to the job you currently do to see what skills you already have.
+      body: Click the job title that best matches what you do now.
   explore_occupations:
     index:
       title: Explore occupations
       body: Explore the type of jobs you could retrain to do
-      placeholder: Enter a job title
+      placeholder: Enter your current job title
     results:
-      title: Search results for
-      placeholder: Enter your job title
-      results: "%{count} results found"
-      body: Select a role from the results below to find out what it involves, and what skills and training are required. These are job profiles, not live jobs you can apply for.
+      title: Your current job
+      placeholder: Enter your current job title
+      body: Click the job title that best matches what you do now.
   categories:
     show:
       other_categories: Other job categories
@@ -93,7 +92,7 @@ en-GB:
     find_training_courses:
       title: Find and apply to a training course near you
     next_steps:
-      title: Find out what you can do next
+      title: Further help to find work
     maths_overview:
       title: Benefits of doing a maths course
     english_overview:

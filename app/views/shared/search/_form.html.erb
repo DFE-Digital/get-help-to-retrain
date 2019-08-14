@@ -1,10 +1,9 @@
-<div class="search-container govuk-grid-column-full govuk-!-padding-top-5 govuk-!-padding-bottom-5 govuk-!-margin-bottom-7">
-  <h1 class="govuk-heading-xl"><%= t('title', scope: scope) %></h1>
-  <p class="govuk-body-l"><%= t('body', scope: scope) %></p>
-  <%= form_tag search_path, method: 'get', id: 'job-profile-search' do %>
-    <div class="govuk-form-group govuk-!-margin-bottom-0">
-      <%= text_field(nil, :search, class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), required: true, aria: { label: 'Search' }) %>
-      <%= button_tag('', class: 'search-button', name: nil, aria: { label: 'Search button' }) %>
-    </div>
-  <% end %>
-</div>
+<h1 class="govuk-heading-xl"><%= t('title', scope: scope) %></h1>
+<p class="govuk-body-l"><%= t('body', scope: scope) %></p>
+<%= form_tag search_path, method: 'get', id: 'job-profile-search' do %>
+  <div class="govuk-form-group govuk-!-margin-bottom-0">
+    <%= text_field(nil, :search, class: 'govuk-input search-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), required: true, aria: { label: 'Search' }) %>
+    <%= button_tag('Search', class: 'govuk-button search-button', aria: { label: 'Search button' }) %>
+  </div>
+<% end %>
+

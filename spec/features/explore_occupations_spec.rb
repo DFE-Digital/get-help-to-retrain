@@ -91,13 +91,4 @@ RSpec.feature 'Explore Occupations', type: :feature do
 
     expect(page).to have_current_path(explore_occupations_path)
   end
-
-  scenario 'cannot send results search form with no input', :js do
-    create(:job_profile, name: 'Hacker')
-    visit(results_explore_occupations_path(search: 'Hacker'))
-    fill_in('search', with: '')
-    find('.search-button-results').click
-
-    expect(page).to have_text('1 results found')
-  end
 end

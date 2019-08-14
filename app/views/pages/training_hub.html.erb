@@ -13,11 +13,15 @@
   <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-7">
     <h1 class="govuk-heading-xl">Find training that boosts your job options</h1>
     <p class="govuk-body-l">You could get a better job by adding to the skills you already have. Complete a short course in maths or English and you could find you have a wider range of job options. Many courses are free and offer flexible times to fit round your life.</p>
-    <h2 class="govuk-heading-m">What’s on offer in your area?</h2>
+    <p class="govuk-body-l">This is a new scheme - a wider range of courses will be added in future.</p>
+    <h2 class="govuk-heading-m">What’s on offer?</h2>
     <%= render 'shared/training_hub/maths' %>
     <%= render 'shared/training_hub/english' %>
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-1 title">Further help to find work</h2>
+    <p class="govuk-body-m govuk-!-margin-bottom-1">Access support to find and apply for jobs, or find other ways to move into a new role.</p>
+    <%= link_to('Other ways to change jobs', next_steps_path, class: 'govuk-button govuk-!-margin-top-5 govuk-button govuk-!-margin-bottom-2') %>
+    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   </div>
   <%= render "shared/contact_us" %>
-  <%= render 'shared/what_you_can_do_next' %>
   <%= render 'shared/help_improve_this_service' %>
 </div>
