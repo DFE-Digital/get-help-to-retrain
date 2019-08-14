@@ -104,7 +104,7 @@ RSpec.describe SkillsMatcher do
       expect(matcher.match).to eq([job_profile4, job_profile5, job_profile2])
     end
 
-    it 'scopes job profiles to user session job profile if job profile id supplied' do
+    it 'scopes job profiles to user session job profile if job profile current id exists' do
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)
@@ -114,8 +114,8 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill1, skill2, skill3, skill4])
       job_profile3 = create(:job_profile, skills: [skill1, skill3])
       matcher = described_class.new(
-        job_profile_id: job_profile1.id.to_s,
         user_session: {
+          current_job_id: job_profile1.id,
           job_profile_skills: {
             job_profile2.id.to_s => [skill1.id, skill2.id],
             job_profile1.id.to_s => [skill1.id, skill3.id, skill4.id]
@@ -244,8 +244,8 @@ RSpec.describe SkillsMatcher do
       job_profile3 = create(:job_profile, skills: [skill1, skill2])
       create(:job_profile, skills: [skill2])
       matcher = described_class.new(
-        job_profile_id: job_profile2.id.to_s,
         user_session: {
+          current_job_id: job_profile2.id,
           job_profile_skills: {
             job_profile1.id.to_s => [skill2.id],
             job_profile2.id.to_s => [skill1.id, skill3.id]

@@ -1,9 +1,8 @@
 class SkillsMatcher
   attr_reader :user_session, :job_profile_id
 
-  def initialize(user_session:, job_profile_id: nil)
+  def initialize(user_session:)
     @user_session = user_session
-    @job_profile_id = job_profile_id
   end
 
   def match
@@ -56,14 +55,18 @@ class SkillsMatcher
   end
 
   def user_skill_ids
-    return user_session[:job_profile_skills][job_profile_id] if job_profile_id.present?
+    return user_session[:job_profile_skills][current_job_id.to_s] if current_job_id.present?
 
     user_session[:job_profile_skills].values.flatten.uniq
   end
 
   def user_job_profile_ids
-    return [job_profile_id.to_i] if job_profile_id.present?
+    return [current_job_id] if current_job_id.present?
 
     user_session[:job_profile_skills].keys.flatten.map(&:to_i)
+  end
+
+  def current_job_id
+    user_session[:current_job_id]
   end
 end

@@ -1,13 +1,23 @@
 <% page_title :job_profiles_show %>
 <% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.job_profile'),
-      [
-        [t('breadcrumb.task_list_home'), task_list_path],
-        [t('breadcrumb.explore_occupations'), explore_occupations_path],
-        job_profile_breadcrumbs_for(params)
-      ]
-    )
+    if Flipflop.skills_builder?
+      generate_breadcrumbs(
+        t('breadcrumb.job_profile'),
+        [
+          [t('breadcrumb.task_list_home'), task_list_path],
+          [t('breadcrumb.job_matches'), skills_matcher_index_path],
+        ]
+      )
+    else
+      generate_breadcrumbs(
+        t('breadcrumb.job_profile'),
+        [
+          [t('breadcrumb.task_list_home'), task_list_path],
+          [t('breadcrumb.explore_occupations'), explore_occupations_path],
+          job_profile_breadcrumbs_for(params)
+        ]
+      )
+    end
   end
 %>
 

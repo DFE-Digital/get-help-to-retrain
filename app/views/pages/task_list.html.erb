@@ -38,7 +38,7 @@
         <ul class="app-task-list__items">
           <li class="app-task-list__item">
             <div class="app-task-list__task-name">
-              <%= link_to explore_occupations_path, class: 'govuk-link' do %>
+              <%= link_to Flipflop.skills_builder? ? skills_matcher_index_path : explore_occupations_path, class: 'govuk-link' do %>
                 Search for the types of jobs you could retrain to do <span class="app-step-nav__context">5 to 20 minutes</span>
               <% end %>
               <p class="govuk-body govuk-!-margin-bottom-0">These are not live jobs you can apply to – they're the types of jobs you'll be able to do with your existing skills or once you do some training.</p>
