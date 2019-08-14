@@ -85,6 +85,20 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 
+  def skills_match(score) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    return unless score
+
+    if score <= 25
+      'low'
+    elsif score > 25 && score <= 50
+      'reasonable'
+    elsif score > 50 && score <= 75
+      'good'
+    elsif score > 75
+      'excellent'
+    end
+  end
+
   private
 
   def html_body

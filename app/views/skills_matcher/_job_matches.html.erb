@@ -9,8 +9,8 @@
       <% end %>
       <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
       <p class="govuk-body-s govuk-!-margin-bottom-1">Salary: <span class="strong"><%= job_profile.salary_range %></span></p>
-      <p class="govuk-body-s govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.salary_range %></span></p>
-      <% if job_profile.growth %>
+      <p class="govuk-body-s govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) %></span></p>
+      <% if job_profile.growth.present? %>
         <p class="govuk-body-s govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.recent_job_growth %></span></p>
       <% end %>
     </li>
