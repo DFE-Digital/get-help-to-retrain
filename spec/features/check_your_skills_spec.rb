@@ -33,7 +33,17 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Embalmer')
     find('.search-button').click
 
-    expect(page).to have_text('0 results')
+    expect(page).to have_text('No results found')
+  end
+
+  scenario 'User can return to the search form when no results are found' do
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Embalmer')
+    find('.search-button').click
+
+    click_on('Search again')
+
+    expect(current_path).to eql(check_your_skills_path)
   end
 
   scenario 'paginates results of search' do
@@ -73,14 +83,5 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(page).to have_current_path(check_your_skills_path)
-  end
-
-  scenario 'cannot send results search form with no input', :js do
-    create(:job_profile, name: 'Hacker')
-    visit(results_check_your_skills_path(search: 'Hacker'))
-    fill_in('search', with: '')
-    find('.search-button-results').click
-
-    expect(page).to have_text('1 results found')
   end
 end
