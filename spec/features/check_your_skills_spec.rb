@@ -43,7 +43,7 @@ RSpec.feature 'Check your skills', type: :feature do
 
     click_on('Search again')
 
-    expect(current_path).to eql(check_your_skills_path)
+    expect(page).to have_current_path(check_your_skills_path)
   end
 
   scenario 'paginates results of search' do
