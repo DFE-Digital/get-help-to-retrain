@@ -249,35 +249,27 @@ RSpec.describe JobProfileDecorator do
     end
   end
 
-  describe '#recent_job_growth' do
-    it 'returns nothing if job growth is not populated' do
-      model = build(:job_profile, growth: nil)
-      job_profile = described_class.new(model)
-      expect(job_profile.recent_job_growth).to be_nil
+  describe '#skills_match' do
+    subject(:job_profile) { described_class.new(build(:job_profile)) }
+
+    it 'returns nothing if no score given' do
+      expect(job_profile.skills_match(nil)).to be_nil
     end
 
-    it 'returns failing if job growth is less than 5' do
-      model = build(:job_profile, growth: -7.12)
-      job_profile = described_class.new(model)
-      expect(job_profile.recent_job_growth).to eq('falling')
+    it 'returns Low if score is less than 25' do
+      expect(job_profile.skills_match(23.333)).to eq('Low')
     end
 
-    it 'returns stable if job growth is between -5 and 5' do
-      model = build(:job_profile, growth: 0.01)
-      job_profile = described_class.new(model)
-      expect(job_profile.recent_job_growth).to eq('stable')
+    it 'returns Reasonable if score is between 25 and 50' do
+      expect(job_profile.skills_match(45.55)).to eq('Reasonable')
     end
 
-    it 'returns growing if job growth is between 5 and 50' do
-      model = build(:job_profile, growth: 10.1)
-      job_profile = described_class.new(model)
-      expect(job_profile.recent_job_growth).to eq('growing')
+    it 'returns Good if score is between 50 and 75' do
+      expect(job_profile.skills_match(66.667)).to eq('Good')
     end
 
-    it 'returns growing if job growth is more than 50' do
-      model = build(:job_profile, growth: 100.102)
-      job_profile = described_class.new(model)
-      expect(job_profile.recent_job_growth).to eq('growing strongly')
+    it 'returns Excellent if score is more than 75' do
+      expect(job_profile.skills_match(88.8)).to eq('Excellent')
     end
   end
 end

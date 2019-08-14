@@ -89,13 +89,13 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     return unless score
 
     if score <= 25
-      'low'
+      'Low'
     elsif score > 25 && score <= 50
-      'reasonable'
+      'Reasonable'
     elsif score > 50 && score <= 75
-      'good'
+      'Good'
     elsif score > 75
-      'excellent'
+      'Excellent'
     end
   end
 

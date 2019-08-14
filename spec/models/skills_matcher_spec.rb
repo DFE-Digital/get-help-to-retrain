@@ -8,26 +8,10 @@ RSpec.describe SkillsMatcher do
         user_session: {}
       )
 
-      matcher.match
       expect(matcher.match).to be_empty
     end
 
-    it 'returns a job matching skills selected ignoring job profiles in the session' do
-      skill = create(:skill)
-      job_profile1 = create(:job_profile, skills: [skill])
-      job_profile2 = create(:job_profile, skills: [skill])
-      matcher = described_class.new(
-        user_session: {
-          job_profile_skills: {
-            job_profile1.id.to_s => [skill.id]
-          }
-        }
-      )
-
-      expect(matcher.match).to contain_exactly(job_profile2)
-    end
-
-    it 'returns multiple jobs matching skill selected' do
+    it 'returns multiple jobs matching skill selected ignoring job profiles in the session' do
       skill = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill])
@@ -43,7 +27,7 @@ RSpec.describe SkillsMatcher do
       expect(matcher.match).to contain_exactly(job_profile2, job_profile3)
     end
 
-    it 'returns multiple jobs matching different skills selected' do
+    it 'returns multiple jobs matching different skills within profiles selected' do
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)
@@ -62,7 +46,7 @@ RSpec.describe SkillsMatcher do
       expect(matcher.match).to contain_exactly(job_profile2, job_profile3)
     end
 
-    it 'returns multiple jobs matching multiple job skills selected' do
+    it 'returns multiple jobs matching different skills across profiles selected' do
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)
@@ -134,8 +118,7 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, name: 'Researcher', skills: [skill2])
       job_profile3 = create(:job_profile, name: 'Beekeeper', skills: [skill1, skill2, skill3])
       job_profile4 = create(:job_profile, name: 'Admin', skills: [skill1, skill2, skill3])
-      job_profile5 = create(:job_profile, skills: [skill1, skill3])
-      job_profile6 = create(:job_profile, name: 'Boat builder', skills: [skill3])
+      job_profile5 = create(:job_profile, name: 'Boat builder', skills: [skill3])
       matcher = described_class.new(
         user_session: {
           job_profile_skills: {
@@ -149,7 +132,6 @@ RSpec.describe SkillsMatcher do
           job_profile4,
           job_profile3,
           job_profile5,
-          job_profile6,
           job_profile2
         ]
       )

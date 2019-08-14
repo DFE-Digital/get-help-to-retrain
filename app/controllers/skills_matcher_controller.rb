@@ -1,6 +1,6 @@
 class SkillsMatcherController < ApplicationController
   def index
-    @results = Kaminari.paginate_array(skills_matcher.match).page(params[:page]).per(10)
+    @results = Kaminari.paginate_array(skills_matcher.match).page(params[:page])
     @scores = skills_matcher.job_profile_scores
     @job_profiles = @results.map { |job_profile|
       JobProfileDecorator.new(job_profile)
