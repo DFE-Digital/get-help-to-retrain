@@ -25,6 +25,7 @@ Layout/AccessModifierIndentation:
   Enabled: false
 Style/BlockDelimiters:
   EnforcedStyle: semantic
+  AllowBracesOnProceduralOneLiners: true
   FunctionalMethods:
     - before
     - given

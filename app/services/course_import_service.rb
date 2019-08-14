@@ -50,7 +50,7 @@ class CourseImportService
 
   def create_course(data)
     # Cleanup data format
-    data.each do |_key, value| value&.strip! end
+    data.each { |_key, value| value&.strip! }
     data[:active] = data[:active]&.downcase == 'yes'
     data[:topic]&.downcase!
 
