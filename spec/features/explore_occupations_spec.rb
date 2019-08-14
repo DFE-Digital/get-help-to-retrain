@@ -44,14 +44,7 @@ RSpec.feature 'Explore Occupations', type: :feature do
     expect(page).to have_text('0 results')
   end
 
-  scenario 'User continues journey to finding a training course' do
-    visit(job_profile_path(job_profile.slug))
-    click_on('Find a training course')
-
-    expect(page).to have_text('Find and apply to a training course near you')
-  end
-
-  scenario 'User continues journey to training hub if course feature enabled' do
+  scenario 'User continues journey to training hub' do
     enable_feature! :course_directory
 
     visit(job_profile_path(job_profile.slug))
