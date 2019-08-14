@@ -135,13 +135,19 @@ This will produce console output detailing any job profiles that were not found 
 
 ## Courses data
 
-Courses are currently persisted locally within the database. These are presently being collated for subsequent import into the service. In the meantime, sample data using fake attributes can be populated by running:
+Courses are currently persisted locally within the database. These may be either imported from a courses spreadsheet or setup with sample data (using faker attributes) by running the appropriate task:
+
+```bash
+  bundle exec rails data_import:import_courses['P2 Training Providers.xlsx']
+```
+
+or
 
 ```bash
   bundle exec rails data_import:sample_courses
 ```
 
-**Note** that this will erase any existing course data first
+**Note** that these tasks both erase any existing course data first
 
 ## Documentation
 ### Database schema
