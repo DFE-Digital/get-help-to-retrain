@@ -23,6 +23,90 @@ RSpec.describe JobProfileDecorator do
     end
   end
 
+  describe '#growth_icon' do
+    context 'when the job is falling' do
+      let(:model) { build(:job_profile, :falling) }
+
+      it 'returns a falling arrow css class' do
+        expect(job_profile.growth_icon).to eq 'arrow-falling-icon'
+      end
+    end
+
+    context 'when the job is stable' do
+      let(:model) { build(:job_profile, :stable) }
+
+      it 'returns a stable arrow css class' do
+        expect(job_profile.growth_icon).to eq 'arrow-stable-icon'
+      end
+    end
+
+    context 'when the job is growing' do
+      let(:model) { build(:job_profile, :growing) }
+
+      it 'returns a growing arrow css class' do
+        expect(job_profile.growth_icon).to eq 'arrow-growing-icon'
+      end
+    end
+
+    context 'when the job is growing strongly' do
+      let(:model) { build(:job_profile, :growing_strongly) }
+
+      it 'returns a growing strongly arrow css class' do
+        expect(job_profile.growth_icon).to eq 'arrow-growing-strongly-icon'
+      end
+    end
+
+    context 'when the job profile has no growth score' do
+      let(:model) { build_stubbed :job_profile, growth: nil }
+
+      it 'returns an empty css class' do
+        expect(job_profile.growth_icon).to eq ''
+      end
+    end
+  end
+
+  describe '#growth_type' do
+    context 'when the job is falling' do
+      let(:model) { build(:job_profile, :falling) }
+
+      it 'returns the type falling' do
+        expect(job_profile.growth_type).to eq 'Falling'
+      end
+    end
+
+    context 'when the job is stable' do
+      let(:model) { build(:job_profile, :stable) }
+
+      it 'returns the type stable' do
+        expect(job_profile.growth_type).to eq 'Stable'
+      end
+    end
+
+    context 'when the job is growing' do
+      let(:model) { build(:job_profile, :growing) }
+
+      it 'returns the type growing' do
+        expect(job_profile.growth_type).to eq 'Growing'
+      end
+    end
+
+    context 'when the job is growing strongly' do
+      let(:model) { build(:job_profile, :growing_strongly) }
+
+      it 'returns the type growing strongly' do
+        expect(job_profile.growth_type).to eq 'Growing strongly'
+      end
+    end
+
+    context 'when the job is missing the growth score' do
+      let(:model) { build(:job_profile, growth: nil) }
+
+      it 'returns nil' do
+        expect(job_profile.growth_type).to be nil
+      end
+    end
+  end
+
   describe '#working_hours' do
     let(:html_body) do
       '<div id="WorkingHours" class="column-30 job-profile-heroblock">

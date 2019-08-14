@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="45px" viewBox="0 0 40 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow_falling</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="arrow_falling" transform="translate(-3.000000, -5.000000)">
+            <polygon id="Shape" points="0 0 45 0 45 54 0 54"></polygon>
+            <g id="Group" transform="translate(23.000000, 27.500000) rotate(180.000000) translate(-23.000000, -27.500000) translate(3.000000, 5.000000)" fill="#000000" fill-rule="nonzero">
+                <polygon id="Triangle" points="20 0 40 22 0 22"></polygon>
+                <rect id="Rectangle" x="12" y="13" width="16" height="32"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
