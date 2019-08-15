@@ -124,6 +124,17 @@ If job profiles have been previously scraped and `content` is populated, it's po
   bundle exec rails data_import:refresh_job_profiles
 ```
 
+### Recommended job profiles
+The service is intended for users without degrees, so should not recommend future job roles that require a degree level qualification. Job profiles include a `recommended` attribute for this purpose, that is respected by the skills matcher when computing matches.
+
+The list of job profiles that require a degree has been manually curated by reviewing each of the current job roles scraped from NCS site. A rake task allows setting the recommended attribute correctly for known job profiles. Any new job profiles that are discovered during subsequent scraping will be excluded by default, but can manually be recommended via the admin interface.
+
+Once job profiles have been scraped from NCS, run the relevant rake task (a one off exercise):
+
+```bash
+  bundle exec rails data_import:update_recommended_job_profiles
+```
+
 ### Additional job profile data
 Growth information and SOC codes for job profiles are imported via an Excel spreadsheet and used to update specific attributes of existing job profiles (i.e. these must have been previously imported by running the scraping tasks). Copy the relevant spreadsheet locally and then run rake task:
 
