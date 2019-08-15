@@ -1,13 +1,12 @@
-<hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-7">
-<div class="govuk-grid-row">
+<div class="govuk-grid-row govuk-!-margin-bottom-5">
   <div class="govuk-grid-column-one-half">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-7 govuk-!-margin-bottom-6">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
         <div class="profile-highlights salary-icon"></div>
       </div>
       <div class="govuk-grid-column-three-quarters">
-        <h4 class="govuk-heading-s govuk-!-margin-top-5">Average Salary</h4>
-        <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
+        <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Average Salary</h4>
+        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
         <ul class="govuk-list">
           <li>
             <%= @job_profile.salary_range %>
@@ -19,12 +18,12 @@
 
   <div class="govuk-grid-column-one-half">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-7 govuk-!-margin-bottom-6">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
         <div class="profile-highlights time-icon"></div>
       </div>
       <div class="govuk-grid-column-three-quarters">
-        <h4 class="govuk-heading-s govuk-!-margin-top-5">Typical hours</h4>
-        <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
+        <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Typical hours</h4>
+        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
         <p class="govuk-body"><span id="hours"><%= @job_profile.working_hours %></span> a week</p>
       </div>
     </div>
@@ -34,12 +33,12 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-half">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-7 govuk-!-margin-bottom-6">
+      <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
         <div class="profile-highlights calendar-icon"></div>
       </div>
       <div class="govuk-grid-column-three-quarters">
-        <h4 class="govuk-heading-s govuk-!-margin-top-5">You could work</h4>
-        <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
+        <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">You could work</h4>
+        <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
         <p id="lifestyle" class="govuk-body"><%= @job_profile.working_hours_patterns %></p>
       </div>
     </div>
@@ -48,16 +47,16 @@
   <% if @job_profile.growth %>
     <div class="govuk-grid-column-one-half">
       <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-quarter govuk-!-margin-top-7 govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
           <div class="profile-highlights <%= @job_profile.growth_icon %>"></div>
         </div>
         <div class="govuk-grid-column-three-quarters">
-          <h4 class="govuk-heading-s govuk-!-margin-top-5">Recent job growth</h4>
-          <hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-3 responsive-section-break">
+          <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Recent job growth</h4>
+          <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
           <p id="lifestyle" class="govuk-body"><%= @job_profile.growth_type %></p>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-<hr class="govuk-section-break--m govuk-section-break--visible govuk-!-margin-bottom-7 govuk-!-margin-top-7">
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-margin-top-5">
