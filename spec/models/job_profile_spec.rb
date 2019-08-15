@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe JobProfile do
   let(:category) { build_stubbed(:category) }
   let(:skill) { build_stubbed(:skill) }
-  let(:recommended_job) { build_stubbed(:job_profile, :recommended) }
-  let(:discouraged_job) { build_stubbed(:job_profile) }
+  let(:recommended_job) { build_stubbed(:job_profile) }
+  let(:discouraged_job) { build_stubbed(:job_profile, :excluded) }
 
   describe '#recommended' do
     it 'is true for recommended job profiles' do

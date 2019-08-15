@@ -30,6 +30,7 @@ class SkillsMatcher
 
   def job_profiles_subquery
     JobProfile
+      .recommended
       .select(:skills_matched, 'array_agg(id order by name ASC) as alphabetically_ordered_ids')
       .from(Arel.sql("(#{job_profile_skills_subquery}) as ranked_job_profiles"))
       .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')

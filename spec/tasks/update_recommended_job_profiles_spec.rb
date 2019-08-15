@@ -7,7 +7,7 @@ RSpec.describe 'data_import:update_recommended_job_profiles' do
 
   it 'excludes specific named jobs' do
     task.execute
-    expect(astronaut.reload).to be_excluded
+    expect(astronaut.reload).not_to be_recommended
   end
 
   it 'recommends all other jobs' do

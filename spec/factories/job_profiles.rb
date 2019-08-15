@@ -3,13 +3,14 @@ FactoryBot.define do
     name { Faker::Job.title }
     description { Faker::Company.catch_phrase }
     content { Faker::Lorem.paragraphs.join }
+    recommended { true }
 
     sequence :slug do |n|
       "#{name.parameterize.underscore}_#{n}"
     end
 
-    trait :recommended do
-      recommended { true }
+    trait :excluded do
+      recommended { false }
     end
 
     trait :falling do

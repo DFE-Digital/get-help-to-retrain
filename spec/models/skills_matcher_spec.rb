@@ -137,10 +137,10 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    xit 'ignores unrecommended jobs' do
+    it 'ignores unrecommended jobs' do
       skill = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill])
-      create(:job_profile, skills: [skill], recommended: false)
+      create(:job_profile, :excluded, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill])
       matcher = described_class.new(
         user_session: {
