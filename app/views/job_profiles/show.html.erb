@@ -25,6 +25,7 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= render 'brief' %>
+      <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-top-5 govuk-!-margin-bottom-5">
     </div>
     <%= render 'highlights' %>
     <div class="govuk-grid-column-full govuk-!-padding-0 extended-container">
@@ -40,9 +41,9 @@
   <div class="govuk-grid-column-one-third">
     <div class="govuk-related-items govuk-!-padding-bottom-1 top-border__container">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-0"><%= t('what_you_can_do_next.title') %></h2>
-      <p class="govuk-body"><%= t('what_you_can_do_next.sub_title') %></p>
+      <p class="govuk-body govuk-!-margin-top-1"><%= t('what_you_can_do_next.sub_title') %></p>
       <p class="govuk-body">
-        <%= link_to t('what_you_can_do_next.cta_copy'), next_steps_path, class: 'govuk-button govuk-button-full govuk-!-margin-bottom-1' %>
+        <%= link_to t('what_you_can_do_next.cta_copy'), next_steps_path, class: 'govuk-button govuk-button-full govuk-!-margin-bottom-1 govuk-!-margin-top-1' %>
       </p>
     </div>
   </div>
