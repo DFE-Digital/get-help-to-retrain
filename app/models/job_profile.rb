@@ -10,6 +10,9 @@ class JobProfile < ApplicationRecord
                           foreign_key: :job_profile_id,
                           association_foreign_key: :related_job_profile_id
 
+  scope :recommended, -> { where(recommended: true) }
+  scope :excluded, -> { where(recommended: false) }
+
   def self.find_by_name(name)
     where('lower(name) = ?', name.downcase).first
   end
