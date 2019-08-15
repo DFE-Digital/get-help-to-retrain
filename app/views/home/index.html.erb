@@ -4,16 +4,21 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-body">Use this service to find out what other jobs you can do with your current skills. You can also find out how to get new skills that could help you find a better job.</p>
-    <%= link_to 'Start now', Flipflop.location_eligibility? ? location_eligibility_path : task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
-    <h2 class="govuk-heading-m">Before you start</h2>
     <p class="govuk-body">This service is designed to help if:</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>you're employed</li>
       <li>you don't have a degree</li>
-      <li>you're based in the Liverpool area</li>
+      <li>you're based in Liverpool, the West Midlands or the North East</li>
       <li>you're aged 24 or over</li>
       <li>and you're earning below £35,000 a year</li>
     </ul>
     <p class="govuk-body">If these don’t all apply to you, try visiting the <%= link_to 'National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link', target: '_blank' %> or your local <%= link_to 'Jobcentre Plus', 'https://find-your-nearest-jobcentre.dwp.gov.uk/', class: 'govuk-link', target: '_blank' %> instead.</p>
+    <%= link_to 'Start now', Flipflop.location_eligibility? ? location_eligibility_path : task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
+    <p class="govuk-body govuk-!-margin-bottom-1">Other ways to use this service</p>
+    <h2 class="govuk-heading-s govuk-!-margin-bottom-2"><%= t('contact_us.by_phone') %></h2>
+    <p class="govuk-body-m govuk-!-margin-bottom-0">
+      <%= t('contact_us.body') %> <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-!-padding-left-1 govuk-link' %>
+    </p>
+    <p class="govuk-body-s muted-text"><%= t('contact_us.telephone_times') %></p>
   </div>
 </div>

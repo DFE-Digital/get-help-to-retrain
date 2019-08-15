@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :skills_matcher, path: 'job-matches', only: %i[index], constraints: ->(_req) { Flipflop.skills_builder? }
   resources :skills, only: %i[index], constraints: ->(_req) { Flipflop.skills_builder? }
 
   resources :explore_occupations, path: 'explore-occupations', only: %i[index] do

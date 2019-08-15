@@ -1,6 +1,6 @@
 # TODO: Most of the xpath expressions within this class will be migrated to JobProfileScraper over time
 # which should remove the need to disable rubocop rules here.
-class JobProfileDecorator < SimpleDelegator
+class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLength
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::NumberHelper
 
@@ -61,6 +61,42 @@ class JobProfileDecorator < SimpleDelegator
     mutate_html_body
 
     @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').concat(separator_line)
+  end
+
+  # rubocop:disable Metrics/CyclomaticComplexity
+  def growth_icon
+    return '' unless growth
+
+    return 'arrow-falling-icon' if growth <= -5
+    return 'arrow-stable-icon' if growth > -5 && growth <= 5
+    return 'arrow-growing-icon' if growth > 5 && growth <= 50
+
+    'arrow-growing-strongly-icon'
+  end
+
+  def growth_type
+    return unless growth
+
+    return 'Falling' if growth <= -5
+    return 'Stable' if growth > -5 && growth <= 5
+    return 'Growing' if growth > 5 && growth <= 50
+
+    'Growing strongly'
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity
+
+  def skills_match(score) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    return unless score
+
+    if score <= 25
+      'Low'
+    elsif score > 25 && score <= 50
+      'Reasonable'
+    elsif score > 50 && score <= 75
+      'Good'
+    elsif score > 75
+      'Excellent'
+    end
   end
 
   private

@@ -1,0 +1,18 @@
+<ul class="govuk-list">
+  <% job_profiles.each do |job_profile| %>
+    <li class="govuk-!-padding-bottom-1">
+      <h3 class="govuk-!-margin-bottom-0">
+         <%= link_to job_profile.name, job_profile_path(job_profile.slug, search: params[:search]), class: 'govuk-link no-text-decoration' %>
+      </h3>
+      <% if job_profile.alternative_titles.present? %>
+        <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
+      <% end %>
+      <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
+      <p class="govuk-body-s govuk-!-margin-bottom-1">Salary: <span class="strong"><%= job_profile.salary_range %></span></p>
+      <p class="govuk-body-s govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) %></span></p>
+      <% if job_profile.growth.present? %>
+        <p class="govuk-body-s govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.growth_type %></span></p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
