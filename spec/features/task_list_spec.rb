@@ -26,13 +26,9 @@ RSpec.feature 'Tasks List', type: :feature do
 
   scenario 'User navigates to skills matcher results page' do
     enable_feature! :skills_builder
-    job_profile = create(
-      :job_profile,
-      name: 'Assassin',
-      skills: [
-        create(:skill, name: 'Chameleon-like blend in tactics')
-      ]
-    )
+    skill = create(:skill)
+    job_profile = create(:job_profile, name: 'Assassin', skills: [skill])
+    create(:job_profile, name: 'Hitman', skills: [skill])
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     find('.govuk-button').click
