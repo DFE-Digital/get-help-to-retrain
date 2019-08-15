@@ -17,10 +17,29 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User explores their occupation' do
+    disable_feature! :skills_builder
     visit(task_list_path)
     click_on('Search for the types of jobs you could retrain to do')
 
     expect(page).to have_text('Explore occupations')
+  end
+
+  scenario 'User navigates to skills matcher results page' do
+    enable_feature! :skills_builder
+    job_profile = create(
+      :job_profile,
+      name: 'Assassin',
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics')
+      ]
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    find('.govuk-button').click
+    visit(task_list_path)
+    click_on('Search for the types of jobs you could retrain to do')
+
+    expect(page).to have_text('Types of jobs that match your skills')
   end
 
   scenario 'User finds a training course' do

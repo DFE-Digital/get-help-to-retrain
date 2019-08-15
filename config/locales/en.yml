@@ -5,6 +5,7 @@ en-GB:
     task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
     explore_occupations: Explore occupations
+    job_matches: Your job matches
     find_training_courses: Find training
     next_steps: Next steps
     job_category: Job category
@@ -27,6 +28,7 @@ en-GB:
     check_your_skills_results: Get help to retrain - Check your skills results
     skills_index: Get help to retrain - Your skills
     skills_current_job_skills: Get help to retrain - Current job skills
+    skills_matcher_index: Get help to retrain - Your job matches
     explore_occupations_index: Get help to retrain - Explore occupations
     categories_show: Get help to retrain - Job category
     explore_occupations_results: Get help to retrain - Explore occupations results
@@ -52,7 +54,7 @@ en-GB:
 
   contact_us:
     title: Speak to an adviser
-    sub_title: Get advice on finding work and training. 
+    sub_title: Get advice on finding work and training.
     by_phone: By phone
     body: Call
     telephone: 0800 051 0459
@@ -78,6 +80,9 @@ en-GB:
       title: Your current job
       placeholder: Enter your current job title
       body: Click the job title that best matches what you do now.
+  skills_matcher:
+    index:
+      title: Types of jobs that match your skills
   categories:
     show:
       other_categories: Other job categories

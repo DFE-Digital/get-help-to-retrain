@@ -248,4 +248,28 @@ RSpec.describe JobProfileDecorator do
       end
     end
   end
+
+  describe '#skills_match' do
+    subject(:job_profile) { described_class.new(build(:job_profile)) }
+
+    it 'returns nothing if no score given' do
+      expect(job_profile.skills_match(nil)).to be_nil
+    end
+
+    it 'returns Low if score is less than 25' do
+      expect(job_profile.skills_match(23.333)).to eq('Low')
+    end
+
+    it 'returns Reasonable if score is between 25 and 50' do
+      expect(job_profile.skills_match(45.55)).to eq('Reasonable')
+    end
+
+    it 'returns Good if score is between 50 and 75' do
+      expect(job_profile.skills_match(66.667)).to eq('Good')
+    end
+
+    it 'returns Excellent if score is more than 75' do
+      expect(job_profile.skills_match(88.8)).to eq('Excellent')
+    end
+  end
 end
