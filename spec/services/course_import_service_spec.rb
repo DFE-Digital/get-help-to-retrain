@@ -25,7 +25,7 @@ RSpec.describe CourseImportService do
       expect(course).to have_attributes(title: 'Basic English', provider: 'Acme Training Inc.', url: 'english url',
                                         address_line_1: 'Address 1', address_line_2: 'Address 2', town: 'London',
                                         county: 'Londonshire', postcode: 'NW11 8QE', email: nil, topic: 'english',
-                                        active: true, latitude: 0.1, longitude: 0.2)
+                                        phone_number: '01 811 8055', active: true, latitude: 0.1, longitude: 0.2)
     end
   end
 

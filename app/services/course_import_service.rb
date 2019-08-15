@@ -37,7 +37,7 @@ class CourseImportService
     {
       courses_total: Course.count,
       courses_with_geocoding: Course.geocoded.count,
-      courses_without_geocoding: Course.not_geocoded.count,
+      courses_without_geocoding: courses_without_geocoding.count,
       errors: @errors.count
     }
   end
