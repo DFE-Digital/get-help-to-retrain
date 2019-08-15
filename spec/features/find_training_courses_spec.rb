@@ -91,7 +91,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Enter a real postcode/)
   end
 
-  xscenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
+  scenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
     allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
     create(:course, topic: 'maths')
 
@@ -99,7 +99,7 @@ RSpec.feature 'Find training courses', type: :feature do
     fill_in('postcode', with: 'NW6 8ET')
     find('.search-button-results').click
 
-    expect(page).to have_text(/We cannot verify your postcode/)
+    expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
   scenario 'search form required field available when no js running' do

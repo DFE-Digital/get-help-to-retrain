@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get 'maths-course-overview', to: 'pages#maths_overview'
     get 'english-course-overview', to: 'pages#english_overview'
     get 'training-hub', to: 'pages#training_hub'
+    get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
   end
 
   constraints(->(_req) { Flipflop.location_eligibility? }) do

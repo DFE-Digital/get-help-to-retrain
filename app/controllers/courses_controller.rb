@@ -9,6 +9,8 @@ class CoursesController < ApplicationController
       topic: courses_params[:topic_id]
     )
     @courses = @search.find_courses.map { |c| CourseDecorator.new(c) }
+  rescue CourseGeospatialSearch::GeocoderAPIError
+    redirect_to course_postcode_search_error_path
   end
 
   private
