@@ -93,6 +93,18 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_text(/Hitman/)
   end
 
+  scenario 'redirected to task list path if no job profile selected' do
+    visit(skills_path)
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'redirected to task list path if job profile selected but no skills selected' do
+    visit(skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
   context 'when feature disabled' do
     background do
       disable_feature! :skills_builder

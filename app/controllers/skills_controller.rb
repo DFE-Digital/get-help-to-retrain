@@ -1,6 +1,8 @@
 class SkillsController < ApplicationController
   def index
     if Flipflop.skills_builder?
+      return redirect_to task_list_path unless job_profile_and_skills_present
+
       session[:current_job_id] = job_profile.id
       @skills = Skill.find(skill_ids)
 
@@ -24,5 +26,9 @@ class SkillsController < ApplicationController
 
   def skills_params
     params.permit(:job_profile_id)
+  end
+
+  def job_profile_and_skills_present
+    job_profile.present? && skill_ids.present?
   end
 end
