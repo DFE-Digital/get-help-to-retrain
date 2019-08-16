@@ -1,3 +1,7 @@
 <h3 class="govuk-heading-xl">No results found</h3>
-<p class="govuk-body">We couldn’t find any results for this job title. Is there any other name for the job you do?</p>
-<p class="govuk-body"><%= link_to 'Search again', check_your_skills_path %></p>
+<%= render "shared/search/results_form", search_path: results_check_your_skills_path, scope: 'check_your_skills.results' %>
+<p class="govuk-body">You could try:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>checking your spelling</li>
+  <li>using a different name for the job you do</li>
+</ul>
