@@ -1,6 +1,6 @@
 <div class="govuk-grid-column-full govuk-!-padding-0">
   <%= form_tag search_path, method: 'get', id: 'job-profile-search' do %>
-    <div class="govuk-form-group">
+    <div class="govuk-form-group govuk-!-margin-bottom-0">
       <%= text_field(nil, :search, value: params[:search], class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), required: true, aria: { label: 'Search' }) %>
       <%= button_tag('Search', class: 'search-button govuk-button', aria: { label: 'Search button' }) %>
     </div>
