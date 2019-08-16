@@ -97,4 +97,13 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     expect(page).to have_selector('ul.govuk-list li', count: 2)
   end
+
+  scenario 'returns no results if no job profiles match skills search' do
+    job_profile = create(:job_profile, name: 'Admin', skills: [create(:skill)])
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    find('.govuk-button').click
+    click_on('Find out what you can do with these skills')
+
+    expect(page).to have_text('More information needed')
+  end
 end
