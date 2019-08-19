@@ -1,0 +1,11 @@
+<h2 class="app-task-list__section">
+  <span class="app-task-list__section-number">4. </span> Further help to find work
+</h2>
+<ul class="app-task-list__items">
+  <li class="app-task-list__item">
+    <div class="app-task-list__task-name">
+      <%= render 'pages/task_list_items/body', enabled: user_session.page_visited?('training_hub') || user_session.page_visited?('next_steps'), path: next_steps_path, cta: t('pages.next_steps.cta'), time_to_complete: nil, span_id: '4' %>
+      <p class="govuk-body govuk-!-margin-bottom-0"><%= t('pages.next_steps.description') %></p>
+    </div>
+  </li>
+</ul>

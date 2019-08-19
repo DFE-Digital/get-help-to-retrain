@@ -1,0 +1,18 @@
+<% if enabled %>
+  <%= link_to path, class: 'govuk-link' do %>
+    <%= cta %>
+    <% if local_assigns[:time_to_complete].present? %>
+      <span class="app-step-nav__context"><%= time_to_complete %></span>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="govuk-grid-row govuk-body">
+    <div class="govuk-grid-column-full">
+      <span id='section-<%= span_id %>-blocked' class="govuk-tag app-task-list__task-not-active">Can’t start yet</span>
+      <%= cta %>
+      <% if local_assigns[:time_to_complete].present? %>
+        <span class="app-step-nav__context"><%= time_to_complete %></span>
+      <% end %>
+    </div>
+  </div>
+<% end %>

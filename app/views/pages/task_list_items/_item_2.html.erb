@@ -1,0 +1,11 @@
+<h2 class="app-task-list__section">
+  <span class="app-task-list__section-number">2. </span> <%= t('pages.job_matches.title') %>
+</h2>
+<ul class="app-task-list__items">
+  <li class="app-task-list__item">
+    <div class="app-task-list__task-name">
+      <%= render 'pages/task_list_items/body', enabled: user_session.page_visited?('skills_matcher_index'), path: skills_matcher_index_path, cta: t('pages.job_matches.cta'), time_to_complete: t('pages.job_matches.time'), span_id: '2' %>
+      <p class="govuk-body govuk-!-margin-bottom-0"><%= t('pages.job_matches.description') %></p>
+    </div>
+  </li>
+</ul>
