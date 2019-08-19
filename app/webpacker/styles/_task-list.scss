@@ -51,23 +51,15 @@
 
   @include govuk-media-query($from: 450px) {
     float: left;
-    width: 75%;
+    width: 100%;
   }
 }
 
-.app-task-list__task-completed {
-  margin-top: govuk-spacing(2);
-  margin-bottom: govuk-spacing(1);
-
-  @include govuk-media-query($from: 450px) {
-    float: right;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  &--hidden {
-    display: none;
-  }
+.app-task-list__task-not-active {
+  color: govuk-colour("white");
+  background-color: govuk-colour("grey-1");
+  margin-left: 5%;
+  float: right;
 }
 
 .app-step-nav__context {

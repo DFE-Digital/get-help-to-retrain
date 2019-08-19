@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  def user_session
+    @user_session ||= ::UserSession.new(session)
+  end
+
+  helper_method :user_session
+
   private
 
   def track_event(event_key, properties = {})

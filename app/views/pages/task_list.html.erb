@@ -17,77 +17,19 @@
     </p>
     <ol class="app-task-list">
       <li>
-        <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">1. </span> Check what you are good at
-        </h2>
-        <ul class="app-task-list__items">
-          <li class="app-task-list__item">
-            <div class="app-task-list__task-name">
-              <%= link_to check_your_skills_path, class: 'govuk-link' do %>
-                Check your existing skills <span class="app-step-nav__context">5 minutes</span>
-              <% end %>
-              <p class="govuk-body govuk-!-margin-bottom-0">You'll be surprised at what you already know.</p>
-            </div>
-          </li>
-        </ul>
+        <%= render 'pages/task_list_items/item_1' %>
       </li>
       <li>
-        <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">2. </span> Explore the types of jobs you could do
-        </h2>
-        <ul class="app-task-list__items">
-          <li class="app-task-list__item">
-            <div class="app-task-list__task-name">
-              <%= link_to Flipflop.skills_builder? ? skills_matcher_index_path : explore_occupations_path, class: 'govuk-link' do %>
-                Search for the types of jobs you could retrain to do <span class="app-step-nav__context">5 to 20 minutes</span>
-              <% end %>
-              <p class="govuk-body govuk-!-margin-bottom-0">These are not live jobs you can apply to – they're the types of jobs you'll be able to do with your existing skills or once you do some training.</p>
-            </div>
-          </li>
-        </ul>
+        <%= render 'pages/task_list_items/item_2' %>
       </li>
       <li>
-        <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">3. </span> Find training that's right for you
-        </h2>
-        <ul class="app-task-list__items">
-          <li class="app-task-list__item">
-            <div class="app-task-list__task-name">
-              <%= link_to Flipflop.course_directory? ? training_hub_path : find_training_courses_path, class: 'govuk-link' do %>
-                Find a training course <span class="app-step-nav__context">10 to 20 minutes</span>
-              <% end %>
-              <p class="govuk-body govuk-!-margin-bottom-0">Training can help you access a broader range of jobs and stay in secure work.</p>
-            </div>
-          </li>
-        </ul>
+        <%= render 'pages/task_list_items/item_3' %>
       </li>
       <li>
-        <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">4. </span> Find out what you can do next
-        </h2>
-        <ul class="app-task-list__items">
-          <li class="app-task-list__item">
-            <div class="app-task-list__task-name">
-              <%= link_to 'Get more support to help you on your new career path', next_steps_path, class: 'govuk-link' %>
-              <p class="govuk-body govuk-!-margin-bottom-0">For example, advice on how to find and apply for jobs.</p>
-            </div>
-          </li>
-        </ul>
+        <%= render 'pages/task_list_items/item_4' %>
       </li>
       <li>
-        <h2 class="app-task-list__section">
-          <span class="app-task-list__section-number">5. </span> Help improve this service
-        </h2>
-        <ul class="app-task-list__items">
-          <li class="app-task-list__item">
-            <div class="app-task-list__task-name">
-              <%= link_to 'https://www.smartsurvey.co.uk/s/get-help-to-retrain/', class: 'govuk-link', data: { tracked_event: 'TaskList - User Exit Survey Link' }, target: '_blank' do %>
-                Take a quick survey and tell us about your experience <span class="app-step-nav__context">3 to 5 minutes</span>
-              <% end %>
-              <p class="govuk-body govuk-!-margin-bottom-0">This is a new service – your feedback will help us improve it.</p>
-            </div>
-          </li>
-        </ul>
+        <%= render 'pages/task_list_items/item_5' %>
       </li>
     </ol>
   </div>
