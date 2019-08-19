@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  # TO DO: This needs to be removed as it's never being hit
+  # TODO: This needs to be removed as it's never being hit
   def show
     render template: "pages/#{params[:page]}"
   end
