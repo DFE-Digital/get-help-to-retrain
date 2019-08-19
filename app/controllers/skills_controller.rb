@@ -6,6 +6,8 @@ class SkillsController < ApplicationController
       session[:current_job_id] = job_profile.id
       @skills = Skill.find(skill_ids)
 
+      track_event(:skills_index_selected, job_profile.slug => skill_ids)
+
       render 'index_v2'
     else
       @skills = job_profile.skills
