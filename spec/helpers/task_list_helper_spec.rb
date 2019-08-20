@@ -27,17 +27,15 @@ RSpec.describe TaskListHelper do
       )
     end
 
-    context 'when supplied with a block that is not enabled' do
-      it 'adds a cannot start yet section and wraps block in body tag' do
-        expected_classes = 'govuk-!-margin-bottom-4 govuk-!-margin-top-0'
+    it 'adds a cannot start yet section and wraps block in body tag when disabled' do
+      expected_classes = 'govuk-!-margin-bottom-4 govuk-!-margin-top-0'
 
-        expect(helper.link_or_blocked('/some-path', false, 1) { 'some text' }).to eq(
-          <<~HTML.strip
-            <span class="govuk-tag app-task-list__task-not-active" id="section-1-blocked">Can't start yet</span>\
-            <p class="#{expected_classes}">some text</p>
-          HTML
-        )
-      end
+      expect(helper.link_or_blocked('/some-path', false, 1) { 'some text' }).to eq(
+        <<~HTML.strip
+          <span class="govuk-tag app-task-list__task-not-active" id="section-1-blocked">Can't start yet</span>\
+          <p class="#{expected_classes}">some text</p>
+        HTML
+      )
     end
   end
 end

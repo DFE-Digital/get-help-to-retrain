@@ -5,7 +5,7 @@
   <ul class="app-task-list__items">
     <li class="app-task-list__item">
       <div class="app-task-list__task-name">
-        <%= link_or_blocked 'https://www.smartsurvey.co.uk/s/get-help-to-retrain/', user_session.page_visited?('training_hub') || user_session.page_visited?('next_steps'), 5, data: { tracked_event: 'TaskList - User Exit Survey Link' }, target: '_blank' do %>
+        <%= link_or_blocked 'https://www.smartsurvey.co.uk/s/get-help-to-retrain/', user_session.unblock_all_sections?, 5, data: { tracked_event: 'TaskList - User Exit Survey Link' }, target: '_blank' do %>
           Take a quick survey <span class="app-step-nav__context">3 to 5 minutes</span>
         <% end %>
         <p class="govuk-body govuk-!-margin-bottom-0">Tell us about your experience using Get help to retrain.</p>
