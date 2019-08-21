@@ -237,7 +237,7 @@ stages:
             resourceGroupName: s108t01-qa
             Slot: staging
 
-        - powershell:  Invoke-WebRequest -Uri "https://s108t01-qa-as-staging.azurewebsites.net"
+        - powershell:  Invoke-WebRequest -RetryIntervalSec 10 -MaximumRetryCount 5 -Uri "https://s108t01-qa-as-staging.azurewebsites.net"
           ignoreLASTEXITCODE: true
 
         - task: AzureAppServiceManage@0
