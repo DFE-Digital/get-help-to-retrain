@@ -97,18 +97,8 @@ en-GB:
       title: Get help to retrain
     find_training_courses:
       title: Find training that's right for you
-      cta: Find a training course
-      description: Training can help you access a broader range of jobs and stay in secure work.
-      time: 10 to 20 minutes
     next_steps:
       title: Further help to find work
-      cta: Find other ways to change jobs
-      description: Connecting you to further advice, ideas and help.
-    job_matches:
-      title: Explore the types of jobs you could do
-      cta: See types of jobs that match your skills
-      description: You already have many of the skills to do these types of jobs. Find out what additional training you might need.
-      time: 5 to 20 minutes
     maths_overview:
       title: Benefits of doing a maths course
     english_overview:
@@ -128,9 +118,6 @@ en-GB:
   help_improve_this_service:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience
-    cta: Take a quick survey
-    description: Tell us about your experience using Get help to retrain.
-    time: 3 to 5 minutes
   courses:
     invalid_postcode_error: Enter a valid postcode.
     nonexisting_postcode_error: Enter a real postcode.
