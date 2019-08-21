@@ -1,12 +1,10 @@
 module TaskListHelper
-  def link_or_blocked(path, enabled, span_id, **options, &block)
-    if enabled
-      classes = 'govuk-link govuk-body govuk-!-margin-bottom-4 govuk-!-margin-top-0'
-      link_to(path, class: classes, data: options[:data], target: options[:target]) do
-        yield
-      end
-    else
-      blocked_section(span_id, &block)
+  def link_or_blocked(path:, enabled:, span_id:, **options, &block)
+    return blocked_section(span_id, &block) unless enabled
+
+    classes = 'govuk-link govuk-body govuk-!-margin-bottom-4 govuk-!-margin-top-0'
+    link_to(path, class: classes, data: options[:data], target: options[:target]) do
+      yield
     end
   end
 

@@ -6,7 +6,7 @@ RSpec.describe TaskListHelper do
       block_html = ('some text' + content_tag(:span, 'other text')).html_safe
       expected_classes = 'govuk-link govuk-body govuk-!-margin-bottom-4 govuk-!-margin-top-0'
 
-      expect(helper.link_or_blocked('some-path', true, 1) { block_html }).to eq(
+      expect(helper.link_or_blocked(path: 'some-path', enabled: true, span_id: 1) { block_html }).to eq(
         <<~HTML.strip
           <a class="#{expected_classes}" href="some-path">some text<span>other text</span></a>
         HTML
@@ -18,7 +18,11 @@ RSpec.describe TaskListHelper do
 
       expect(
         helper.link_or_blocked(
-          'some-path', true, 1, data: { tracked_event: 'task' }, target: '_blank'
+          path: 'some-path',
+          enabled: true,
+          span_id: 1,
+          data: { tracked_event: 'task' },
+          target: '_blank'
         ) { 'some text' }
       ).to eq(
         <<~HTML.strip
@@ -30,7 +34,7 @@ RSpec.describe TaskListHelper do
     it 'adds a cannot start yet section and wraps block in body tag when disabled' do
       expected_classes = 'govuk-!-margin-bottom-4 govuk-!-margin-top-0'
 
-      expect(helper.link_or_blocked('/some-path', false, 1) { 'some text' }).to eq(
+      expect(helper.link_or_blocked(path: '/some-path', enabled: false, span_id: 1) { 'some text' }).to eq(
         <<~HTML.strip
           <span class="govuk-tag app-task-list__task-not-active" id="section-1-blocked">Can't start yet</span>\
           <p class="#{expected_classes}">some text</p>

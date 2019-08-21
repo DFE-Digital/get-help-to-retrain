@@ -5,7 +5,7 @@
   <ul class="app-task-list__items">
     <li class="app-task-list__item">
       <div class="app-task-list__task-name">
-        <%= link_or_blocked next_steps_path, user_session.unblock_all_sections?, 4 do %>
+        <%= link_or_blocked(path: next_steps_path, enabled: user_session.unblock_all_sections?, span_id: 4) do %>
           Find other ways to change jobs
         <% end %>
         <p class="govuk-body govuk-!-margin-bottom-0">Connecting you to further advice, ideas and help.</p>
