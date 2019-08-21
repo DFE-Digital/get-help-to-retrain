@@ -1,11 +1,15 @@
-<h2 class="app-task-list__section">
-  <span class="app-task-list__section-number">3. </span> Find training that's right for you
-</h2>
-<ul class="app-task-list__items">
-  <li class="app-task-list__item">
-    <div class="app-task-list__task-name">
-      <%= render 'pages/task_list_items/body', enabled: user_session.page_visited?('training_hub') || user_session.page_visited?('next_steps'), path: training_hub_path, cta: t('pages.find_training_courses.cta'), time_to_complete: t('pages.find_training_courses.time'), span_id: '3' %>
-      <p class="govuk-body govuk-!-margin-bottom-0"><%= t('pages.find_training_courses.description') %></p>
-    </div>
-  </li>
-</ul>
+<li>
+  <h2 class="app-task-list__section">
+    <span class="app-task-list__section-number">3. </span> Find training that's right for you
+  </h2>
+  <ul class="app-task-list__items">
+    <li class="app-task-list__item">
+      <div class="app-task-list__task-name">
+        <%= link_or_blocked(path: training_hub_path, enabled: user_session.unblock_all_sections?, span_id: 3) do %>
+          Find a training course <span class="app-step-nav__context">10 to 20 minutes</span>
+        <% end %>
+        <p class="govuk-body govuk-!-margin-bottom-0">Training can help you access a broader range of jobs and stay in secure work.</p>
+      </div>
+    </li>
+  </ul>
+</li>

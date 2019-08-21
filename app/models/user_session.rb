@@ -17,4 +17,9 @@ class UserSession
   def job_profile_skills?
     session.fetch(:job_profile_skills, {}).keys.present?
   end
+
+  def unblock_all_sections?
+    page_visited?('skills_matcher_index') &&
+      (page_visited?('training_hub') || page_visited?('next_steps'))
+  end
 end
