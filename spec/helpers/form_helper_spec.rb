@@ -18,6 +18,12 @@ RSpec.describe FormHelper do
         search.errors.add(:topic, 'Test error')
         expect(helper.form_group_tag(search, :postcode) {}).not_to have_css('.govuk-form-group--error')
       end
+
+      it 'add extra classes if passed in to group tag' do
+        expect(helper.form_group_tag(search, :postcode, tag_class: ['some-class']) { content_tag(:div) }).to eq(
+          '<div class="govuk-form-group some-class"><div></div></div>'
+        )
+      end
     end
   end
 
