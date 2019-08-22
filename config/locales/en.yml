@@ -72,6 +72,8 @@ en-GB:
       placeholder: Enter your current job title
       no_results: 0 results found - try again using a different job title
       body: Click the job title that best matches what you do now.
+  job_profiles_search:
+    no_term_error: Enter a job title
   explore_occupations:
     index:
       title: Explore occupations
