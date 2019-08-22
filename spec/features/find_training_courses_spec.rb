@@ -102,18 +102,12 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
-  scenario 'search form required field available when no js running' do
+  scenario 'User gets relevant messaging if no address is entered' do
     create(:course, topic: 'maths')
     visit(courses_path(topic_id: 'maths'))
+    find('.search-button-results').click
 
-    expect(page).to have_selector('#postcode[required]')
-  end
-
-  scenario 'search form required field disabled by default', :js do
-    create(:course, topic: 'maths')
-    visit(courses_path(topic_id: 'maths'))
-
-    expect(page).not_to have_selector('#postcode[required]')
+    expect(page).to have_text(/Enter a postcode/)
   end
 
   def capture_user_location(postcode)

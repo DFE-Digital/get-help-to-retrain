@@ -16,13 +16,13 @@
     <h1 class="govuk-heading-xl"><%= params[:topic_id].titleize %> courses near me</h1>
     <p class="govuk-body-l">Apply for a course by calling the course provider or visiting their website.</p>
     <div class="govuk-grid-column-full govuk-!-padding-0">
-      <%= form_tag courses_path, method: 'get', id: 'courses-search' do %>
+      <%= form_tag courses_path, method: 'get' do %>
         <%= form_group_tag @search, :postcode do %>
           <label class="govuk-label" for="postcode">
             Postcode
           </label>
           <%= errors_tag @search, :postcode %>
-          <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@search, :postcode, "course-search-input govuk-input govuk-!-width-one-half"), required: true) %>
+          <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@search, :postcode, "course-search-input govuk-input govuk-!-width-one-half")) %>
           <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }) %>
         <% end %>
       <% end %>

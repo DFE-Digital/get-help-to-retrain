@@ -119,8 +119,9 @@ en-GB:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience
   courses:
-    invalid_postcode_error: Enter a valid postcode.
-    nonexisting_postcode_error: Enter a real postcode.
+    invalid_postcode_error: Enter a valid postcode
+    nonexisting_postcode_error: Enter a real postcode
+    no_postcode_error: Enter a postcode
 
   pagination:
     previous: Previous
