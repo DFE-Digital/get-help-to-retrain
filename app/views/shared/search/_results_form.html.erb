@@ -1,8 +1,9 @@
 <div class="govuk-grid-column-full govuk-!-padding-0">
-  <%= form_tag search_path, method: 'get', id: 'job-profile-search' do %>
-    <div class="govuk-form-group govuk-!-margin-bottom-0">
-      <%= text_field(nil, :search, value: params[:search], class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), required: true, aria: { label: 'Search' }) %>
-      <%= button_tag('Search', class: 'search-button govuk-button', aria: { label: 'Search button' }) %>
-    </div>
+  <%= form_tag search_path, method: 'get' do %>
+    <%= form_group_tag @job_profile_search, :term, tag_class: ['job-search-form-group-tag'] do %>
+      <%= errors_tag @job_profile_search, :term %>
+      <%= text_field(nil, :search, value: params[:search], class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), aria: { label: 'Search' }) %>
+      <%= button_tag('Search', class: 'govuk-button search-button', aria: { label: 'Search button' }) %>
+    <% end %>
   <% end %>
 </div>

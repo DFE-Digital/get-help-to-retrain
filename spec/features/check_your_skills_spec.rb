@@ -55,32 +55,19 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_selector('ul.govuk-list li', count: 2)
   end
 
-  scenario 'search form required field available when no js running' do
+  scenario 'User gets relevant messaging if no search is entered' do
     visit(check_your_skills_path)
-
-    expect(page).to have_selector('#search[required]')
-  end
-
-  scenario 'search form required field disabled by default', :js do
-    visit(check_your_skills_path)
-
-    expect(page).not_to have_selector('#search[required]')
-  end
-
-  scenario 'cannot send search form with no input', :js do
-    visit(check_your_skills_path)
-    fill_in('search', with: '')
     find('.search-button').click
 
-    expect(page).to have_current_path(check_your_skills_path)
+    expect(page).to have_text(/Enter a job title/)
   end
 
-  scenario 'cannot send results search form with no input', :js do
+  scenario 'User gets relevant messaging if no search in results is entered' do
     create(:job_profile, name: 'Hacker')
     visit(results_check_your_skills_path(search: 'Hacker'))
     fill_in('search', with: '')
     find('.search-button').click
 
-    expect(page).to have_text('Hacker')
+    expect(page).to have_text(/Enter a job title/)
   end
 end

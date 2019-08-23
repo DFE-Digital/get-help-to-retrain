@@ -1,6 +1,6 @@
 module FormHelper
-  def form_group_tag(object, attribute, &_block)
-    css_classes = ['govuk-form-group']
+  def form_group_tag(object, attribute, tag_class: [], &_block)
+    css_classes = ['govuk-form-group'] + tag_class
     css_classes << 'govuk-form-group--error' if object.errors.key?(attribute)
     content_tag(:div, class: css_classes) do
       yield

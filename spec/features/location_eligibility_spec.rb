@@ -84,16 +84,11 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'search form required field available when no js running' do
+  scenario 'User gets relevant messaging if no address is entered' do
     visit(location_eligibility_path)
+    find('.govuk-button').click
 
-    expect(page).to have_selector('#postcode[required]')
-  end
-
-  scenario 'search form required field disabled by default', :js do
-    visit(location_eligibility_path)
-
-    expect(page).not_to have_selector('#postcode[required]')
+    expect(page).to have_text(/Enter a postcode/)
   end
 
   context 'when feature disabled' do

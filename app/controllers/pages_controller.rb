@@ -14,10 +14,8 @@ class PagesController < ApplicationController
 
   def location_eligibility
     track_event(:pages_location_eligibility_search, search: postcode) if postcode.present?
-
     @search = CourseGeospatialSearch.new(postcode: postcode)
-
-    if postcode.present? && @search.valid?
+    if postcode && @search.valid?
       session[:postcode] = postcode
 
       location_eligibility_through_courses

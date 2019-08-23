@@ -12,6 +12,8 @@
 }
 
 .search-button {
+  margin-bottom: 0;
+
   @include govuk-media-query($from: desktop) {
     margin-left: govuk-spacing(2);
   }
@@ -181,5 +183,13 @@
 .related-profiles-right-padding-0 {
   @include govuk-media-query($from: tablet) {
     padding-right: 0;
+  }
+}
+
+.job-search-form-group-tag {
+  margin-bottom: 40px;
+
+  @include govuk-media-query($from: tablet) {
+    margin-bottom: 62px;
   }
 }
