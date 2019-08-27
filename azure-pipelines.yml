@@ -21,6 +21,8 @@ resources:
       POSTGRES_DB: 'get-help-to-retrain'
       POSTGRES_USER: 'test'
       POSTGRES_PASSWORD: 'test'
+      LANG: en_GB.UTF-8
+      LC_ALL: en_GB.UTF-8
   - container: 'selenium'
     image: 'selenium/standalone-chrome:3'
     ports:
