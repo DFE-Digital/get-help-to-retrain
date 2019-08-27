@@ -16,6 +16,8 @@ class CheckYourSkillsController < ApplicationController
   private
 
   def profile_ids_to_exclude
+    return [] unless Flipflop.skills_builder_v2?
+
     user_session.job_profile_ids
   end
 
