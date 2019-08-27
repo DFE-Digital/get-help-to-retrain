@@ -32,4 +32,14 @@ class JobProfile < ApplicationRecord
 
     update!(scraped)
   end
+
+  def with_skills(skill_ids)
+    {
+      profile_id: id,
+      profile_slug: slug,
+      hero_copy: name,
+      skills: skills.each_with_object({}) { |skill, hash| hash[skill.id] = skill.name }
+                    .slice(*skill_ids)
+    }
+  end
 end

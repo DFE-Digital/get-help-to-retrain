@@ -46,6 +46,13 @@ class UserSession
     session[:current_job_id]
   end
 
+  def job_profiles_cap_reached?
+    job_profile_skills
+      .reject { |_k, v| v.size.zero? }
+      .keys
+      .size > 4
+  end
+
   def unblock_all_sections?
     page_visited?('skills_matcher_index') &&
       (page_visited?('training_hub') || page_visited?('next_steps'))

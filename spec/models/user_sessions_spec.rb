@@ -205,4 +205,28 @@ RSpec.describe UserSession do
       expect(user_session.skill_ids_for_profile(11)).to contain_exactly(2, 3, 5)
     end
   end
+
+  describe '#job_profiles_cap_reached?' do
+    let(:session) {
+      {
+        job_profile_skills: {
+          '11' => [2, 3, 5],
+          '12' => [2, 9, 4],
+          '8' => [3, 5],
+          '4' => [9],
+          '6' => []
+        }
+      }
+    }
+
+    it 'returns false if the number profile ids with at least one skill is less than 5' do
+      expect(user_session.job_profiles_cap_reached?).to be false
+    end
+
+    it 'returns true if the number profile ids with at least one skill is greater or equal than 5' do
+      session[:job_profile_skills]['6'] = [5, 1]
+
+      expect(user_session.job_profiles_cap_reached?).to be true
+    end
+  end
 end

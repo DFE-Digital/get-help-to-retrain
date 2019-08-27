@@ -39,7 +39,7 @@
           </tbody>
         </table>
       <% end %>
-      <% if user_session.job_profile_ids.size < 5 %>
+      <% unless user_session.job_profiles_cap_reached? %>
         <div class='govuk-!-margin-top-7 govuk-!-margin-bottom-3'>
           <%= link_to('Add more skills from another role', check_your_skills_path, class: 'govuk-link') %>
         </div>

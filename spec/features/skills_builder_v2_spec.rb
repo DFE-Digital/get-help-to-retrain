@@ -72,6 +72,34 @@ RSpec.feature 'Build your skills V2', type: :feature do
     expect(page).not_to have_text('Baldness')
   end
 
+  scenario 'User unticks all skills for a second profile then that profile should not be on Your Skills page' do
+    hitman = create(
+      :job_profile,
+      :with_html_content,
+      :with_skill,
+      name: 'Hitman'
+    )
+
+    assassin = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Assasin',
+      skills: [
+        create(:skill, name: 'Classic')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: hitman.slug))
+    find('.govuk-button').click
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    find('.govuk-button').click
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    uncheck('Classic', allow_label_click: true)
+    find('.govuk-button').click
+    visit(skills_path)
+
+    expect(page).not_to have_text('Assassin')
+  end
+
   scenario 'User chooses which skills to select and continues to see those selected skills' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
@@ -148,6 +176,14 @@ RSpec.feature 'Build your skills V2', type: :feature do
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     expect(page).not_to have_link('Add more skills from another role')
+  end
+
+  scenario 'User can not search for job profiles anymore when one has 5 profiles persisted on the session' do
+    build_max_job_profiles
+
+    click_on('Check your existing skills')
+
+    expect(page).to have_current_path(skills_path)
   end
 
   scenario 'User can not select skills for a 6th job and gets redirected to Your Skills page with 5 profiles' do

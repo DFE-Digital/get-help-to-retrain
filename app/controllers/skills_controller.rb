@@ -51,20 +51,13 @@ class SkillsController < ApplicationController
     return redirect_to task_list_path unless job_profiles.any?
 
     @job_profiles_with_skills ||= job_profiles.map { |job_profile|
-      {
-        profile_id: job_profile.id,
-        profile_slug: job_profile.slug,
-        hero_copy: job_profile.name,
-        skills: user_checked_skills_for(job_profile)
-      }
-    }
+      skill_ids_from_session = user_session.skill_ids_for_profile(job_profile.id)
+
+      next unless skill_ids_from_session.present?
+
+      job_profile.with_skills(skill_ids_from_session)
+    }.compact
 
     render 'skills/v3/index'
-  end
-
-  def user_checked_skills_for(job_profile)
-    job_profile.skills
-               .each_with_object({}) { |skill, hash| hash[skill.id] = skill.name }
-               .slice(*user_session.skill_ids_for_profile(job_profile.id))
   end
 end
