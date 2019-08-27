@@ -34,5 +34,9 @@ FactoryBot.define do
 
       content { ERB.new(template).result(binding) }
     end
+
+    trait :with_skill do
+      skills { [create(:skill)] }
+    end
   end
 end

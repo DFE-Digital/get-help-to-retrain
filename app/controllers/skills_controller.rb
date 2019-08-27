@@ -1,14 +1,9 @@
 class SkillsController < ApplicationController
   def index
     if Flipflop.skills_builder?
-      return redirect_to task_list_path unless job_profile_and_skills_present
-
-      session[:current_job_id] = job_profile.id
-      @skills = Skill.find(skill_ids)
-
-      track_event(:skills_index_selected, job_profile.slug => skill_ids)
-
-      render 'index_v2'
+      show_skills_builder
+    elsif Flipflop.skills_builder_v2?
+      show_skills_builder_v2
     else
       @skills = job_profile.skills
     end
@@ -16,14 +11,15 @@ class SkillsController < ApplicationController
 
   private
 
+  # Skills Builder v1 methods
   def job_profile
     @job_profile ||= JobProfileDecorator.new(
       JobProfile.find_by(slug: skills_params[:job_profile_id])
     )
   end
 
-  def skill_ids
-    session.fetch(:job_profile_skills, {})[job_profile.id.to_s] || []
+  def skill_ids_for_job_profile
+    @skill_ids_for_job_profile ||= user_session.skill_ids_for_profile(job_profile.id)
   end
 
   def skills_params
@@ -31,6 +27,44 @@ class SkillsController < ApplicationController
   end
 
   def job_profile_and_skills_present
-    job_profile.present? && skill_ids.present?
+    job_profile.present? && skill_ids_for_job_profile.present?
+  end
+
+  def show_skills_builder
+    return redirect_to task_list_path unless job_profile_and_skills_present
+
+    user_session.store_at(key: :current_job_id, value: job_profile.id)
+
+    @skills = Skill.find(skill_ids_for_job_profile)
+
+    track_event(:skills_index_selected, job_profile.slug => skill_ids_for_job_profile)
+
+    render 'skills/v2/index'
+  end
+
+  # Skills Builder v2 methods
+  def job_profiles
+    @job_profiles ||= JobProfile.includes(:skills).where(id: user_session.job_profile_ids)
+  end
+
+  def show_skills_builder_v2
+    return redirect_to task_list_path unless job_profiles.any?
+
+    @job_profiles_with_skills ||= job_profiles.map { |job_profile|
+      {
+        profile_id: job_profile.id,
+        profile_slug: job_profile.slug,
+        hero_copy: job_profile.name,
+        skills: user_checked_skills_for(job_profile)
+      }
+    }
+
+    render 'skills/v3/index'
+  end
+
+  def user_checked_skills_for(job_profile)
+    job_profile.skills
+               .each_with_object({}) { |skill, hash| hash[skill.id] = skill.name }
+               .slice(*user_session.skill_ids_for_profile(job_profile.id))
   end
 end

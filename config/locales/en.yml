@@ -18,7 +18,7 @@ en-GB:
     training_hub: Find training
     location_eligibility: Your location
     location_ineligible: No courses in your area
-    current_job_skills: Current job skills
+    current_job_skills: Job skills
 
   page_titles:
     default: Get help to retrain
@@ -67,6 +67,11 @@ en-GB:
       title: Check what skills you already have
       body: Tell us your current job title and we’ll suggest other types of jobs you could do using skills you already have or with a bit more training.
       placeholder: Enter your current job title
+      additional_skills:
+        title: Add more skills
+        body: Tell us another job you’ve done.
+        placeholder: Enter a job title
+
     results:
       title: Your current job
       placeholder: Enter your current job title

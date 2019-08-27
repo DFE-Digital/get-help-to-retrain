@@ -11,7 +11,11 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
-    <%= render "shared/search/form", search_path: check_your_skills_path, scope: 'check_your_skills.index' %>
+    <% if Flipflop.skills_builder_v2? && user_session.job_profile_ids.size > 0 %>
+      <%= render "shared/search/form", search_path: check_your_skills_path, scope: 'check_your_skills.index.additional_skills' %>
+    <% else %>
+      <%= render "shared/search/form", search_path: check_your_skills_path, scope: 'check_your_skills.index' %>
+    <% end %>
   </div>
   <%= render "shared/contact_us" %>
 </div>

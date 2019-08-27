@@ -77,4 +77,132 @@ RSpec.describe UserSession do
       expect(user_session).not_to be_unblock_all_sections
     end
   end
+
+  describe '#skill_ids' do
+    context 'when there is a current_job_id on the session and we are using Skills Builder v1' do
+      let(:session) {
+        {
+          current_job_id: 11,
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns the skill ids on the session that belong to job profile id: 11' do
+        enable_feature! :skills_builder
+
+        expect(user_session.skill_ids).to contain_exactly(2, 3, 5)
+      end
+    end
+
+    context 'when there is no current_job_id on the session' do
+      let(:session) {
+        {
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns the all skill ids on the session' do
+        expect(user_session.skill_ids).to contain_exactly(2, 3, 5, 9, 4)
+      end
+    end
+  end
+
+  describe '#job_profile_ids' do
+    context 'when there is a current_job_id on the session and we are using Skills Builder v1' do
+      let(:session) {
+        {
+          current_job_id: 12,
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns just the current job profile id on the session' do
+        enable_feature! :skills_builder
+
+        expect(user_session.job_profile_ids).to contain_exactly(12)
+      end
+    end
+
+    context 'when there is no current_job_id on the session' do
+      let(:session) {
+        {
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns all the job profile ids on the session' do
+        enable_feature! :skills_builder
+
+        expect(user_session.job_profile_ids).to contain_exactly(11, 12)
+      end
+    end
+  end
+
+  describe '#store_at' do
+    it 'stores the given value at the given key isnide the session' do
+      user_session.store_at(key: :some_key, value: 'some_value')
+
+      expect(session[:some_key]).to eq 'some_value'
+    end
+  end
+
+  describe '#current_job?' do
+    context 'when current_job_id key is on the session' do
+      let(:session) {
+        {
+          current_job_id: 12,
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns true when current_job_id key is on the session' do
+        expect(user_session.current_job?).to be true
+      end
+    end
+
+    context 'when current_job_id key is not on the session' do
+      let(:session) {
+        {
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns false when current_job_id key is not on the session' do
+        expect(user_session.current_job?).to be false
+      end
+    end
+  end
+
+  describe '#skill_ids_for_profile' do
+    let(:session) {
+      {
+        job_profile_skills: {
+          '11' => [2, 3, 5],
+          '12' => [2, 9, 4]
+        }
+      }
+    }
+
+    it 'returns the skills for a given job profile id' do
+      expect(user_session.skill_ids_for_profile(11)).to contain_exactly(2, 3, 5)
+    end
+  end
 end

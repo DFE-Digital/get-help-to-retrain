@@ -90,7 +90,7 @@ RSpec.feature 'Build your skills', type: :feature do
     find('.govuk-button').click
     click_on('Search results')
 
-    expect(page).to have_text(/Hitman/)
+    expect(page).not_to have_text(/Hitman/)
   end
 
   scenario 'redirected to task list path if no job profile selected' do
