@@ -126,10 +126,14 @@ RSpec.describe SkillsMatcher do
           job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id]
         }
       }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      puts "Profile #{job_profile4.name} skills: " + job_profile4.skills.pluck(:name).join(', ')
+      puts "Profile #{job_profile3.name} skills: " + job_profile3.skills.pluck(:name).join(', ')
 
-      expect(matcher.match).to eq(
+      user_session = UserSession.new(session)
+      matcher = described_class.new(user_session).match
+      puts 'Profile scores: ' + matcher.map(&:skills_matched).join(', ')
+
+      expect(matcher).to eq(
         [
           job_profile4,
           job_profile3,
