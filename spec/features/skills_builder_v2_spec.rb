@@ -260,6 +260,18 @@ RSpec.feature 'Build your skills V2', type: :feature do
     expect(page).to have_text(/Select at least one skill/)
   end
 
+  scenario 'redirects from skills page if no skills present on session for a job profile' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    uncheck('License to kill', allow_label_click: true)
+    uncheck('Baldness', allow_label_click: true)
+
+    find('.govuk-button').click
+    visit(skills_path)
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
   scenario 'User navigates to the last added job profile skills page from breadcrumbs' do
     build_max_job_profiles
 
