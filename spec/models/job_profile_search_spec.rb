@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe JobProfileSearch do
   describe '.search' do
+    it 'does not return job profiles that are already stored on the session' do
+      dog_trainer_job = create(:job_profile, name: 'Dog trainer')
+      music_therapist_job = create(:job_profile, name: 'Music therapist')
+
+      expect(described_class.new(term: 'Music therapist', profile_ids_to_exclude: [dog_trainer_job.id]).search).to contain_exactly(music_therapist_job)
+    end
     it 'returns a job profile if a name has accidental spaces' do
       job_profile = create(:job_profile, name: 'Music therapist')
 

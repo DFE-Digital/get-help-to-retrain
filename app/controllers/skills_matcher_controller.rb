@@ -12,6 +12,6 @@ class SkillsMatcherController < ApplicationController
   private
 
   def skills_matcher
-    @skills_matcher ||= SkillsMatcher.new(user_session: session)
+    @skills_matcher ||= SkillsMatcher.new(user_session)
   end
 end

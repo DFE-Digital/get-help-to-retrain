@@ -117,4 +117,38 @@ RSpec.describe JobProfile do
       end
     end
   end
+
+  describe '#with_skills' do
+    let(:skill_1) {
+      build_stubbed(:skill, name: 'Skill1')
+    }
+
+    let(:skill_2) {
+      build_stubbed(:skill, name: 'Skill2')
+    }
+
+    let(:skill_3) {
+      build_stubbed(:skill, name: 'Skill3')
+    }
+
+    let(:job_profile) {
+      build_stubbed(:job_profile, skills: [skill_1, skill_2, skill_3])
+    }
+
+    let(:expected_hash) {
+      {
+        profile_id: job_profile.id,
+        profile_slug: job_profile.slug,
+        hero_copy: job_profile.name,
+        skills: {
+          skill_2.id => 'Skill2',
+          skill_3.id => 'Skill3'
+        }
+      }
+    }
+
+    it 'returns a hash with just the passed skill_ids' do
+      expect(job_profile.with_skills([skill_2.id, skill_3.id])).to eq(expected_hash)
+    end
+  end
 end
