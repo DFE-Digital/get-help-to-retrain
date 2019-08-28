@@ -186,6 +186,16 @@ RSpec.feature 'Build your skills V2', type: :feature do
     expect(page).to have_current_path(skills_path)
   end
 
+  scenario 'Breadcrumbs: Search results redirects to Your Skills when one has 5 profiles persisted on the session' do
+    build_max_job_profiles
+
+    visit(skills_path)
+
+    click_on('Search results')
+
+    expect(page).to have_current_path(skills_path)
+  end
+
   scenario 'User can not select skills for a 6th job and gets redirected to Your Skills page with 5 profiles' do
     build_max_job_profiles
 

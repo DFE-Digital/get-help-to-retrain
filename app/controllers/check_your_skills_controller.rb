@@ -7,6 +7,8 @@ class CheckYourSkillsController < ApplicationController
   end
 
   def results
+    redirect_to(skills_path) if Flipflop.skills_builder_v2? && user_session.job_profiles_cap_reached?
+
     track_event(:check_your_skills_index_search, search: search) if search.present?
 
     @job_profile_search = JobProfileSearch.new(term: search, profile_ids_to_exclude: profile_ids_to_exclude)
