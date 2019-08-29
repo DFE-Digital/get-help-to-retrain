@@ -39,10 +39,6 @@ Rails.application.routes.draw do
   resources :skills, only: %i[index],
                      constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
 
-  resources :explore_occupations, path: 'explore-occupations', only: %i[index] do
-    get :results, on: :collection
-  end
-
   resources :categories, only: [:show]
 
   root to: 'home#index'

@@ -20,14 +20,6 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_text('Patience and the ability to remain calm in stressful situations')
   end
 
-  scenario 'User continues journey to explore their careers' do
-    disable_feature! :skills_builder
-    visit(job_profile_skills_path(job_profile.slug))
-    click_on('Explore jobs you could do')
-
-    expect(page).to have_text('Explore occupations')
-  end
-
   scenario 'User cannot find occupation through search' do
     visit(check_your_skills_path)
     fill_in('search', with: 'Embalmer')
