@@ -91,8 +91,6 @@ RSpec.describe UserSession do
       }
 
       it 'returns the skill ids on the session that belong to job profile id: 11' do
-        enable_feature! :skills_builder
-
         expect(user_session.skill_ids).to contain_exactly(2, 3, 5)
       end
     end
@@ -126,8 +124,6 @@ RSpec.describe UserSession do
       }
 
       it 'returns just the current job profile id on the session' do
-        enable_feature! :skills_builder
-
         expect(user_session.job_profile_ids).to contain_exactly(12)
       end
     end
@@ -143,8 +139,6 @@ RSpec.describe UserSession do
       }
 
       it 'returns all the job profile ids on the session' do
-        enable_feature! :skills_builder
-
         expect(user_session.job_profile_ids).to contain_exactly(11, 12)
       end
     end

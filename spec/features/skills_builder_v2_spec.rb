@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'Build your skills V2', type: :feature do
   background do
-    disable_feature! :skills_builder
     enable_feature! :skills_builder_v2
   end
 

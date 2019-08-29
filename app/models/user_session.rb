@@ -23,13 +23,13 @@ class UserSession
   end
 
   def skill_ids
-    return skill_ids_for_profile(current_job_id) if Flipflop.skills_builder? && current_job?
+    return skill_ids_for_profile(current_job_id) if current_job?
 
     job_profile_skills.values.flatten.uniq
   end
 
   def job_profile_ids
-    return [current_job_id] if Flipflop.skills_builder? && current_job?
+    return [current_job_id] if current_job?
 
     job_profile_skills.keys.flatten.map(&:to_i)
   end

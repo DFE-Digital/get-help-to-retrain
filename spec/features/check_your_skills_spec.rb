@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Check your skills', type: :feature do
-  let!(:job_profile) do
+  background do
     create(
       :job_profile,
       name: 'Bodyguard',

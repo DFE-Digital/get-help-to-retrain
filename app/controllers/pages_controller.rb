@@ -1,9 +1,4 @@
 class PagesController < ApplicationController
-  # TODO: This needs to be removed as it's never being hit
-  def show
-    render template: "pages/#{params[:page]}"
-  end
-
   def training_hub
     user_session.track_page('training_hub')
   end

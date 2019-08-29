@@ -28,17 +28,13 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, path: 'job-profiles', only: %i[show] do
-    resources :skills, only: %i[index] do
-      get :index, controller: 'job_profiles_skills', on: :collection,
-                  constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
+    resources :skills do
+      get :index, controller: 'job_profiles_skills', on: :collection
     end
   end
 
-  resources :skills_matcher, path: 'job-matches', only: %i[index],
-                             constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
-  resources :skills, only: %i[index],
-                     constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
-
+  resources :skills_matcher, path: 'job-matches', only: %i[index]
+  resources :skills, only: %i[index]
   resources :categories, only: [:show]
 
   root to: 'home#index'
