@@ -13,7 +13,7 @@
       <li>and you're earning below £35,000 a year</li>
     </ul>
     <p class="govuk-body">If these don’t all apply to you, try visiting the <%= link_to 'National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link', target: '_blank' %> or your local <%= link_to 'Jobcentre Plus', 'https://find-your-nearest-jobcentre.dwp.gov.uk/', class: 'govuk-link', target: '_blank' %> instead.</p>
-    <%= link_to 'Start now', Flipflop.location_eligibility? ? location_eligibility_path : task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
+    <%= link_to 'Start now', location_eligibility_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button' %>
     <p class="govuk-body govuk-!-margin-bottom-1">Other ways to use this service</p>
     <h2 class="govuk-heading-s govuk-!-margin-bottom-2"><%= t('contact_us.by_phone') %></h2>
     <p class="govuk-body-m govuk-!-margin-bottom-0">

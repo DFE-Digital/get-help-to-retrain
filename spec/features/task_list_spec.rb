@@ -1,14 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks List', type: :feature do
-  scenario 'User navigates to task list page' do
-    disable_feature! :location_eligibility
-    visit(root_path)
-    click_on('Start now')
-
-    expect(page).to have_text('Here\'s what you need to do to retrain for another job.')
-  end
-
   scenario 'User checks their existing skills' do
     visit(task_list_path)
     click_on('Check your existing skills')
@@ -47,7 +39,6 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'With a clean new session the user will see sections 2,3,4,5 locked' do
-    disable_feature! :location_eligibility
     visit(task_list_path)
 
     (2..5).each do |section_no|
@@ -56,7 +47,6 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'With a clean new session the user will not be able to click sections 2,3,4,5' do
-    disable_feature! :location_eligibility
     visit(task_list_path)
 
     ['See types of jobs that match your skills', 'Find a training course', 'Find other ways to change jobs', 'Take a quick survey'].each do |link|

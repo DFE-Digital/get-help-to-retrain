@@ -20,11 +20,9 @@ Rails.application.routes.draw do
     get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
   end
 
-  constraints(->(_req) { Flipflop.location_eligibility? }) do
-    get 'location-eligibility', to: 'pages#location_eligibility'
-    get 'location-ineligible', to: 'pages#location_ineligible'
-    get 'postcode-search-error', to: 'errors#postcode_search_error'
-  end
+  get 'location-eligibility', to: 'pages#location_eligibility'
+  get 'location-ineligible', to: 'pages#location_ineligible'
+  get 'postcode-search-error', to: 'errors#postcode_search_error'
 
   resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
 
