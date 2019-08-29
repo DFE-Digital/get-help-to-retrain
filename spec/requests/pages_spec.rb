@@ -25,8 +25,6 @@ RSpec.describe 'Pages', type: :request do
 
   describe 'GET #training_hub' do
     it 'presists next steps page on the session' do
-      enable_feature! :course_directory
-
       get training_hub_path
 
       expect(session[:visited_pages]).to eq(['training_hub'])

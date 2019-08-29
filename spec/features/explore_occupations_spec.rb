@@ -15,10 +15,6 @@ RSpec.feature 'Explore Occupations', type: :feature do
     )
   end
 
-  background do
-    disable_feature! :course_directory
-  end
-
   scenario 'User explores their career through categories' do
     visit(explore_occupations_path)
     click_on('Apocalyptic services')
@@ -45,8 +41,6 @@ RSpec.feature 'Explore Occupations', type: :feature do
   end
 
   scenario 'User continues journey to training hub' do
-    enable_feature! :course_directory
-
     visit(job_profile_path(job_profile.slug))
     click_on('Find a training course')
 

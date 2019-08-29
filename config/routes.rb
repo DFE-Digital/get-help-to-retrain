@@ -11,14 +11,11 @@ Rails.application.routes.draw do
 
   get 'task-list', to: 'pages#task_list'
   get 'next-steps', to: 'pages#next_steps'
-  get 'find-training-courses', to: 'pages#find_training_courses'
 
-  constraints(->(_req) { Flipflop.course_directory? }) do
-    get 'maths-course-overview', to: 'pages#maths_overview'
-    get 'english-course-overview', to: 'pages#english_overview'
-    get 'training-hub', to: 'pages#training_hub'
-    get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
-  end
+  get 'maths-course-overview', to: 'pages#maths_overview'
+  get 'english-course-overview', to: 'pages#english_overview'
+  get 'training-hub', to: 'pages#training_hub'
+  get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
 
   get 'location-eligibility', to: 'pages#location_eligibility'
   get 'location-ineligible', to: 'pages#location_ineligible'

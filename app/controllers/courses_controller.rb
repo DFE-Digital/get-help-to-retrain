@@ -1,6 +1,4 @@
 class CoursesController < ApplicationController
-  before_action :handle_missing_courses
-
   def index
     track_event(:courses_index_search, search: postcode) if postcode.present?
 
@@ -14,10 +12,6 @@ class CoursesController < ApplicationController
   end
 
   private
-
-  def handle_missing_courses
-    protect_feature(:course_directory)
-  end
 
   def postcode
     @postcode ||= courses_params[:postcode] || session[:postcode]

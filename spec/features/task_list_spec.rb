@@ -55,7 +55,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks skill matcher section when clicking on Find out what you can do with these skills from /jobs-match' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     skill = create(:skill)
 
@@ -83,7 +83,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'Unlocking skill matcher section does not unlock sections 3,4,5' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -106,7 +106,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'Unlocking skill matcher section does not allow clicking sections 3,4,5' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -129,7 +129,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks the training course section by clicking Other ways to change jobs from job profile page' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -153,7 +153,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks the training course section by clicking Find a training course from job profile page' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -177,7 +177,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks next steps section by clicking Find a training course from job profile page' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -201,7 +201,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks next steps section by clicking Other ways to change jobs from job profile page' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -225,7 +225,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks survey section by clicking Find a training course from job profile page' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -255,7 +255,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User unlocks survey section by clicking Other ways to change jobs from job profile page' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
 
     job_profile = create(
       :job_profile,
@@ -285,7 +285,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User does not unlock 3,4,5 by deep linking into training course' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
     visit(training_hub_path)
     visit(task_list_path)
 
@@ -295,7 +295,7 @@ RSpec.feature 'Tasks List', type: :feature do
   end
 
   scenario 'User does not unlock 3,4,5 by deep linking into next steps' do
-    enable_feature! :course_directory, :skills_builder
+    enable_feature! :skills_builder
     visit(next_steps_path)
     visit(task_list_path)
 

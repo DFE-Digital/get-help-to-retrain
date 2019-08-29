@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Course overview page', type: :feature do
-  background do
-    enable_feature! :course_directory
-  end
-
   scenario 'User navigates to maths overview page' do
     visit(maths_course_overview_path)
 
