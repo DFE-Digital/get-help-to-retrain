@@ -12,7 +12,7 @@ class CheckYourSkillsController < ApplicationController
     track_event(:check_your_skills_index_search, search: search) if search.present?
 
     @job_profile_search = JobProfileSearch.new(term: search, profile_ids_to_exclude: profile_ids_to_exclude)
-    @job_profiles = @job_profile_search.search.page(params[:page])
+    @job_profiles = Kaminari.paginate_array(@job_profile_search.search).page(params[:page])
   end
 
   private
