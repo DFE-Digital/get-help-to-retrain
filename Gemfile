@@ -9,8 +9,8 @@ ruby File.read('.ruby-version').chomp
 gem 'application_insights', github: 'microsoft/ApplicationInsights-Ruby', ref: 'a7429200'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
-gem 'rails-i18n', '~> 5.1'
+gem 'rails', '~> 6.0.0'
+gem 'rails-i18n', '~> 6.0.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
