@@ -161,6 +161,34 @@ RSpec.feature 'Build your skills V2', type: :feature do
     end
   end
 
+  scenario 'User jobs ordered correctly on skills page' do
+    job_profile1 = create(
+      :job_profile,
+      :with_html_content,
+      :with_skill,
+      name: 'Hitman1'
+    )
+    job_profile2 = create(
+      :job_profile,
+      :with_html_content,
+      :with_skill,
+      name: 'Hitman2'
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile2.slug))
+    find('.govuk-button').click
+
+    visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
+    find('.govuk-button').click
+
+    expect(page.all('div.govuk-grid-column-two-thirds h2.govuk-heading-m').collect(&:text)).to eq(
+      [
+        "#{job_profile2.name} edit these skills",
+        "#{job_profile1.name} edit these skills"
+      ]
+    )
+  end
+
   scenario 'User can not add more than 5 profiles' do
     build_max_job_profiles
 
