@@ -71,7 +71,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
 
   # Handle env vars
-  gem 'dotenv-rails'
+  gem 'dotenv-rails', '~> 2.7.0'
 
   # Entity relationship diagrams
   gem 'rails-erd', '~> 1.6'
