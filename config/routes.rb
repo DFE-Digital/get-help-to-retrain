@@ -11,20 +11,15 @@ Rails.application.routes.draw do
 
   get 'task-list', to: 'pages#task_list'
   get 'next-steps', to: 'pages#next_steps'
-  get 'find-training-courses', to: 'pages#find_training_courses'
 
-  constraints(->(_req) { Flipflop.course_directory? }) do
-    get 'maths-course-overview', to: 'pages#maths_overview'
-    get 'english-course-overview', to: 'pages#english_overview'
-    get 'training-hub', to: 'pages#training_hub'
-    get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
-  end
+  get 'maths-course-overview', to: 'pages#maths_overview'
+  get 'english-course-overview', to: 'pages#english_overview'
+  get 'training-hub', to: 'pages#training_hub'
+  get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
 
-  constraints(->(_req) { Flipflop.location_eligibility? }) do
-    get 'location-eligibility', to: 'pages#location_eligibility'
-    get 'location-ineligible', to: 'pages#location_ineligible'
-    get 'postcode-search-error', to: 'errors#postcode_search_error'
-  end
+  get 'location-eligibility', to: 'pages#location_eligibility'
+  get 'location-ineligible', to: 'pages#location_ineligible'
+  get 'postcode-search-error', to: 'errors#postcode_search_error'
 
   resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
 
@@ -33,22 +28,13 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, path: 'job-profiles', only: %i[show] do
-    resources :skills, only: %i[index] do
-      get :index, controller: 'job_profiles_skills', on: :collection,
-                  constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
+    resources :skills do
+      get :index, controller: 'job_profiles_skills', on: :collection
     end
   end
 
-  resources :skills_matcher, path: 'job-matches', only: %i[index],
-                             constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
-  resources :skills, only: %i[index],
-                     constraints: ->(_req) { Flipflop.skills_builder? || Flipflop.skills_builder_v2? }
-
-  resources :explore_occupations, path: 'explore-occupations', only: %i[index] do
-    get :results, on: :collection
-  end
-
-  resources :categories, only: [:show]
+  resources :skills_matcher, path: 'job-matches', only: %i[index]
+  resources :skills, only: %i[index]
 
   root to: 'home#index'
 end

@@ -14,9 +14,7 @@ class JobProfilesSkillsController < ApplicationController
   private
 
   def job_profile
-    @job_profile ||= JobProfileDecorator.new(
-      JobProfile.find_by(slug: skills_params[:job_profile_id])
-    )
+    @job_profile ||= JobProfile.find_by(slug: skills_params[:job_profile_id])
   end
 
   def skills_builder

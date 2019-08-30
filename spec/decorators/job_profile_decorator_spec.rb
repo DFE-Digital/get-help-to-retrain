@@ -151,7 +151,7 @@ RSpec.describe JobProfileDecorator do
     end
   end
 
-  describe '#hero_copy' do
+  describe '#additional_hero_copy' do
     let(:html_body) do
       '<header class="job-profile-hero">
         <div data-sf-element="Row">
@@ -174,10 +174,6 @@ RSpec.describe JobProfileDecorator do
           </div>
         </div>
       </header>'
-    end
-
-    it 'extracts the hero copy' do
-      expect(job_profile.hero_copy).to eq 'Archivist'
     end
 
     it 'extracts the additional copy' do

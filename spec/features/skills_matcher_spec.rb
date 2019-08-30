@@ -25,7 +25,6 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   background do
-    enable_feature! :skills_builder
     create(:job_profile, :with_html_content, name: 'Assasin', skills: [skill1, skill2])
   end
 
@@ -57,6 +56,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'if user changes their current job profile skills, it should be reflected in profile results' do
+    disable_feature! :skills_builder_v2
     alternative_job_profile = create(:job_profile, name: 'Hacker', skills: [skill2])
 
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))

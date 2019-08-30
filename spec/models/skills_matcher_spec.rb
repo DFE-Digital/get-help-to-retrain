@@ -89,8 +89,6 @@ RSpec.describe SkillsMatcher do
     end
 
     it 'scopes job profiles to user session job profile if job profile current id exists for Skills Builder v1' do
-      enable_feature! :skills_builder
-
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)
@@ -224,8 +222,6 @@ RSpec.describe SkillsMatcher do
     end
 
     it 'returns job profiles matched to multiple skills across multiple jobs profiles scoped to profile for Skills Builder v1' do
-      enable_feature! :skills_builder
-
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)

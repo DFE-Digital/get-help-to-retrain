@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Check your location is eligible', type: :feature do
-  background do
-    enable_feature! :location_eligibility
-  end
-
   scenario 'User is taken to location eligiblity page from start page' do
     visit(root_path)
     click_on('Start now')
@@ -89,19 +85,5 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     find('.govuk-button').click
 
     expect(page).to have_text(/Enter a postcode/)
-  end
-
-  context 'when feature disabled' do
-    background do
-      disable_feature! :location_eligibility
-    end
-
-    scenario 'User is taken to task list page from start page' do
-      create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
-
-      visit(root_path)
-      click_on('Start now')
-      expect(page).to have_current_path(task_list_path)
-    end
   end
 end

@@ -4,11 +4,8 @@ en-GB:
     task_list: Get help to retrain
     task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
-    explore_occupations: Explore occupations
     job_matches: Your job matches
-    find_training_courses: Find training
     next_steps: Next steps
-    job_category: Job category
     search_results: Search results
     job_profile: Job profile details
     your_skills: Your skills
@@ -29,11 +26,7 @@ en-GB:
     skills_index: Get help to retrain - Your skills
     skills_current_job_skills: Get help to retrain - Current job skills
     skills_matcher_index: Get help to retrain - Your job matches
-    explore_occupations_index: Get help to retrain - Explore occupations
-    categories_show: Get help to retrain - Job category
-    explore_occupations_results: Get help to retrain - Explore occupations results
     job_profiles_show: Get help to retrain - Job profile
-    pages_find_training_courses: Get help to retrain - Find training
     courses_index: Get help to retrain - Courses near me
     pages_next_steps: Get help to retrain - Next steps
     pages_maths_overview: Get help to retrain - Benefits of maths
@@ -49,7 +42,6 @@ en-GB:
   events:
     pages_location_eligibility_search: Your location - Postcode search
     check_your_skills_index_search: Check your skills - Job search
-    explore_occupations_index_search: Explore occupations - Job search
     courses_index_search: Courses near me - Postcode search
     skills_index_selected: Current job skills - Skills selected
 
@@ -79,21 +71,9 @@ en-GB:
       body: Click the job title that best matches what you do now.
   job_profiles_search:
     no_term_error: Enter a job title
-  explore_occupations:
-    index:
-      title: Explore occupations
-      body: Explore the type of jobs you could retrain to do
-      placeholder: Enter your current job title
-    results:
-      title: Your current job
-      placeholder: Enter your current job title
-      body: Click the job title that best matches what you do now.
   skills_matcher:
     index:
       title: Types of jobs that match your skills
-  categories:
-    show:
-      other_categories: Other job categories
   home:
     index:
       title: Get help to retrain
@@ -102,8 +82,6 @@ en-GB:
   pages:
     task_list:
       title: Get help to retrain
-    find_training_courses:
-      title: Find training that's right for you
     next_steps:
       title: Further help to find work
     maths_overview:

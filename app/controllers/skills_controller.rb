@@ -1,21 +1,24 @@
 class SkillsController < ApplicationController
   def index
-    if Flipflop.skills_builder?
-      show_skills_builder
-    elsif Flipflop.skills_builder_v2?
+    if Flipflop.skills_builder_v2?
       show_skills_builder_v2
     else
-      @skills = job_profile.skills
+      show_skills_builder
     end
   end
 
   private
 
-  # Skills Builder v1 methods
   def job_profile
-    @job_profile ||= JobProfileDecorator.new(
-      JobProfile.find_by(slug: skills_params[:job_profile_id])
-    )
+    @job_profile ||= JobProfile.find_by(slug: skills_params[:job_profile_id])
+  end
+
+  def show_skills_builder
+    return redirect_to task_list_path unless job_profile_and_skills_present
+
+    user_session.store_at(key: :current_job_id, value: job_profile.id)
+    @skills = Skill.find(skill_ids_for_job_profile)
+    track_event(:skills_index_selected, job_profile.slug => skill_ids_for_job_profile)
   end
 
   def skill_ids_for_job_profile
@@ -30,21 +33,9 @@ class SkillsController < ApplicationController
     job_profile.present? && skill_ids_for_job_profile.present?
   end
 
-  def show_skills_builder
-    return redirect_to task_list_path unless job_profile_and_skills_present
-
-    user_session.store_at(key: :current_job_id, value: job_profile.id)
-
-    @skills = Skill.find(skill_ids_for_job_profile)
-
-    track_event(:skills_index_selected, job_profile.slug => skill_ids_for_job_profile)
-
-    render 'skills/v2/index'
-  end
-
   # Skills Builder v2 methods
   def job_profiles
-    @job_profiles ||= JobProfile.includes(:skills).where(id: user_session.job_profile_ids)
+    @job_profiles ||= JobProfile.includes(:skills).find(user_session.job_profile_ids)
   end
 
   def show_skills_builder_v2
@@ -58,6 +49,6 @@ class SkillsController < ApplicationController
       job_profile.with_skills(skill_ids_from_session)
     }.compact
 
-    render 'skills/v3/index'
+    render 'skills/v2/index'
   end
 end

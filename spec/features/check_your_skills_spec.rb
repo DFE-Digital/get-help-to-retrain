@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Check your skills', type: :feature do
-  let!(:job_profile) do
+  background do
     create(
       :job_profile,
       name: 'Bodyguard',
@@ -18,14 +18,6 @@ RSpec.feature 'Check your skills', type: :feature do
     click_on('Bodyguard')
 
     expect(page).to have_text('Patience and the ability to remain calm in stressful situations')
-  end
-
-  scenario 'User continues journey to explore their careers' do
-    disable_feature! :skills_builder
-    visit(job_profile_skills_path(job_profile.slug))
-    click_on('Explore jobs you could do')
-
-    expect(page).to have_text('Explore occupations')
   end
 
   scenario 'User cannot find occupation through search' do

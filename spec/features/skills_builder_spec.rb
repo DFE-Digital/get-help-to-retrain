@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Build your skills', type: :feature do
-  background do
-    enable_feature! :skills_builder
-  end
-
   let!(:job_profile) do
     create(
       :job_profile,
@@ -83,6 +79,8 @@ RSpec.feature 'Build your skills', type: :feature do
   end
 
   scenario 'breadcrumbs navigate back to search results from your skills' do
+    disable_feature! :skills_builder_v2
+
     visit(check_your_skills_path)
     fill_in('search', with: 'Hitman')
     find('.search-button').click
@@ -103,20 +101,5 @@ RSpec.feature 'Build your skills', type: :feature do
     visit(skills_path(job_profile_id: job_profile.slug))
 
     expect(page).to have_current_path(task_list_path)
-  end
-
-  context 'when feature disabled' do
-    background do
-      disable_feature! :skills_builder
-    end
-
-    scenario 'User is taken to static list of skills' do
-      visit(check_your_skills_path)
-      fill_in('search', with: 'Hitman')
-      find('.search-button').click
-      click_on('Hitman')
-
-      expect(page).not_to have_selector('div.govuk-checkboxes div.govuk-checkboxes__item')
-    end
   end
 end
