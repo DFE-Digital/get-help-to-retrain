@@ -139,7 +139,7 @@ RSpec.describe JobProfile do
       {
         profile_id: job_profile.id,
         profile_slug: job_profile.slug,
-        hero_copy: job_profile.name,
+        name: job_profile.name,
         skills: {
           skill_2.id => 'Skill2',
           skill_3.id => 'Skill3'

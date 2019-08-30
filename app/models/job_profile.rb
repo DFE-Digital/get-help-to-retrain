@@ -37,7 +37,7 @@ class JobProfile < ApplicationRecord
     {
       profile_id: id,
       profile_slug: slug,
-      hero_copy: name,
+      name: name,
       skills: skills.each_with_object({}) { |skill, hash| hash[skill.id] = skill.name }
                     .slice(*skill_ids)
     }

@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   resources :skills_matcher, path: 'job-matches', only: %i[index]
   resources :skills, only: %i[index]
-  resources :categories, only: [:show]
 
   root to: 'home#index'
 end
