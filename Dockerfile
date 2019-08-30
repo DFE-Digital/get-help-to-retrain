@@ -1,4 +1,4 @@
-FROM ruby:2.6-alpine as assets
+FROM ruby:2.6.4-alpine as assets
 
 ENV RAILS_ENV production
 ENV NODE_ENV production
