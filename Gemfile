@@ -68,7 +68,7 @@ group :development, :test do
   gem 'pry-byebug'
 
   # Testing framework
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
 
   # Handle env vars
   gem 'dotenv-rails', '~> 2.7.0'
