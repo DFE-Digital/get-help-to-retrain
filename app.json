@@ -1,9 +1,18 @@
 {
   "name": "get_help_to_retrain",
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate db:seed"
+    "postdeploy": "pg_dump $DEV_DATABASE_URL | psql $DATABASE_URL && bundle exec rails db:migrate"
   },
   "env": {
+    "SPLIT_API_KEY": {
+      "required": true
+    },
+    "USER_FEEDBACK_SMART_SURVEY_LINK": {
+      "required": true
+    },
+	  "DEV_DATABASE_URL": {
+	    "required": true
+	  },
     "LANG": {
       "required": true
     },
