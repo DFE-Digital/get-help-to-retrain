@@ -44,7 +44,7 @@ class SkillsController < ApplicationController
 
   # Skills Builder v2 methods
   def job_profiles
-    @job_profiles ||= JobProfile.includes(:skills).where(id: user_session.job_profile_ids)
+    @job_profiles ||= JobProfile.includes(:skills).find(user_session.job_profile_ids)
   end
 
   def show_skills_builder_v2
