@@ -1,5 +1,3 @@
-require 'flipflop/split_client_strategy'
-
 Flipflop.configure do
   strategy :test unless Rails.env.production?
   strategy :query_string unless Rails.env.production?

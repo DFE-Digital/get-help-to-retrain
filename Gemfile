@@ -9,8 +9,8 @@ ruby File.read('.ruby-version').chomp
 gem 'application_insights', github: 'microsoft/ApplicationInsights-Ruby', ref: 'a7429200'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
-gem 'rails-i18n', '~> 5.1'
+gem 'rails', '~> 6.0.0'
+gem 'rails-i18n', '~> 6.0.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
@@ -52,6 +52,9 @@ gem 'wombat', '~> 2.8'
 gem 'flipflop', '~> 2.6'
 gem 'splitclient-rb', '~> 6.4'
 
+# Hashdiff is a ruby library to compute the smallest difference between two hashes.
+gem 'hashdiff', '~> 1.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -68,10 +71,10 @@ group :development, :test do
   gem 'pry-byebug'
 
   # Testing framework
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
 
   # Handle env vars
-  gem 'dotenv-rails'
+  gem 'dotenv-rails', '~> 2.7.0'
 
   # Entity relationship diagrams
   gem 'rails-erd', '~> 1.6'
