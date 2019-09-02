@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'support/capybara'
 require 'support/geocoder'
 require 'support/feature_flags'
+require 'support/session_helper'
 require 'simplecov'
 require 'vcr'
 SimpleCov.start

@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe SkillsBuilder do
   describe '#build' do
     it 'does not set user_session if no skills params available' do
+      session = create_fake_session({})
       job_profile = create(:job_profile, skills: [create(:skill)])
       builder = described_class.new(
         skills_params: nil,
         job_profile: job_profile,
-        user_session: UserSession.new({})
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -15,11 +16,12 @@ RSpec.describe SkillsBuilder do
     end
 
     it 'sets user_session to correct skills format if skills params available' do
+      session = create_fake_session({})
       job_profile = create(:job_profile, skills: [create(:skill)])
       builder = described_class.new(
         skills_params: %w[1 2],
         job_profile: job_profile,
-        user_session: UserSession.new({})
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -27,11 +29,12 @@ RSpec.describe SkillsBuilder do
     end
 
     it 'ignores empty skill param ids when setting user_session' do
+      session = create_fake_session({})
       job_profile = create(:job_profile, skills: [create(:skill)])
       builder = described_class.new(
         skills_params: ['1', ''],
         job_profile: job_profile,
-        user_session: UserSession.new({})
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -40,12 +43,11 @@ RSpec.describe SkillsBuilder do
 
     it 'overrides existing user session with new skill param ids' do
       job_profile = create(:job_profile, skills: [create(:skill)])
+      session = create_fake_session(job_profile_skills: { job_profile.id.to_s => [3, 4] })
       builder = described_class.new(
         skills_params: ['1', '', '5', '6'],
         job_profile: job_profile,
-        user_session: UserSession.new(
-          job_profile_skills: { job_profile.id.to_s => [3, 4] }
-        )
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -55,12 +57,11 @@ RSpec.describe SkillsBuilder do
     it 'handles existing user session with new skill param ids if another job profile present' do
       job_profile1 = create(:job_profile, skills: [create(:skill)])
       job_profile2 = create(:job_profile, skills: [create(:skill)])
+      session = create_fake_session(job_profile_skills: { job_profile1.id.to_s => [3, 4] })
       builder = described_class.new(
         skills_params: ['1', '', '5', '6'],
         job_profile: job_profile2,
-        user_session: UserSession.new(
-          job_profile_skills: { job_profile1.id.to_s => [3, 4] }
-        )
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -73,15 +74,16 @@ RSpec.describe SkillsBuilder do
     it 'updates existing user session with skill param ids if another job profile present' do
       job_profile1 = create(:job_profile, skills: [create(:skill)])
       job_profile2 = create(:job_profile, skills: [create(:skill)])
+      session = create_fake_session(
+        job_profile_skills: {
+          job_profile1.id.to_s => [3, 4],
+          job_profile2.id.to_s => [3]
+        }
+      )
       builder = described_class.new(
         skills_params: ['1', '', '5', '6'],
         job_profile: job_profile2,
-        user_session: UserSession.new(
-          job_profile_skills: {
-            job_profile1.id.to_s => [3, 4],
-            job_profile2.id.to_s => [3]
-          }
-        )
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -94,6 +96,7 @@ RSpec.describe SkillsBuilder do
 
   describe '#skill_ids' do
     it 'returns all job profile skill ids if no user_session' do
+      session = create_fake_session({})
       skill1 = create(:skill)
       skill2 = create(:skill)
       job_profile = create(:job_profile, skills: [skill1, skill2])
@@ -101,7 +104,7 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: nil,
         job_profile: job_profile,
-        user_session: UserSession.new({})
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -112,12 +115,13 @@ RSpec.describe SkillsBuilder do
       skill1 = create(:skill)
       skill2 = create(:skill)
       job_profile = create(:job_profile, skills: [skill1, skill2])
+      session = create_fake_session(
+        job_profile_skills: { job_profile.id.to_s => [skill1.id] }
+      )
       builder = described_class.new(
         skills_params: nil,
         job_profile: job_profile,
-        user_session: UserSession.new(
-          job_profile_skills: { job_profile.id.to_s => [skill1.id] }
-        )
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -128,13 +132,14 @@ RSpec.describe SkillsBuilder do
       skill1 = create(:skill)
       skill2 = create(:skill)
       job_profile = create(:job_profile, skills: [skill1, skill2])
+      session = create_fake_session(
+        job_profile_skills: { job_profile.id.to_s => [3, 4] }
+      )
 
       builder = described_class.new(
         skills_params: ['1', '', '2'],
         job_profile: job_profile,
-        user_session: UserSession.new(
-          job_profile_skills: { job_profile.id.to_s => [3, 4] }
-        )
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -147,16 +152,17 @@ RSpec.describe SkillsBuilder do
       skill3 = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill1, skill2])
       job_profile2 = create(:job_profile, skills: [skill1, skill3])
+      session = create_fake_session(
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill1.id],
+          job_profile2.id.to_s => [skill1.id]
+        }
+      )
 
       builder = described_class.new(
         skills_params: [skill3.id.to_s, ''],
         job_profile: job_profile2,
-        user_session: UserSession.new(
-          job_profile_skills: {
-            job_profile1.id.to_s => [skill1.id],
-            job_profile2.id.to_s => [skill1.id]
-          }
-        )
+        user_session: UserSession.new(session)
       )
 
       builder.build
@@ -166,22 +172,24 @@ RSpec.describe SkillsBuilder do
 
   describe 'validation' do
     it 'is invalid if no skills selected' do
+      session = create_fake_session({})
       job_profile = create(:job_profile, skills: [create(:skill)])
       builder = described_class.new(
         skills_params: [''],
         job_profile: job_profile,
-        user_session: UserSession.new({})
+        user_session: UserSession.new(session)
       )
 
       expect(builder).not_to be_valid
     end
 
     it 'is valid if skills selected' do
+      session = create_fake_session({})
       job_profile = create(:job_profile, skills: [create(:skill)])
       builder = described_class.new(
         skills_params: ['1', '', '4'],
         job_profile: job_profile,
-        user_session: UserSession.new({})
+        user_session: UserSession.new(session)
       )
 
       expect(builder).to be_valid

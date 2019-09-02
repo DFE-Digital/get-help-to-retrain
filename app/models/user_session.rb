@@ -2,9 +2,16 @@ class UserSession
   attr_reader :session
 
   def initialize(session)
+    session.destroy unless session[:version] == expected_version
+
     @session = session
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
+    @session[:version] ||= expected_version
+  end
+
+  def version
+    session[:version]
   end
 
   def postcode
@@ -71,5 +78,9 @@ class UserSession
 
   def current_job_id
     session[:current_job_id]
+  end
+
+  def expected_version
+    Flipflop.skills_builder_v2? ? 2 : 1
   end
 end
