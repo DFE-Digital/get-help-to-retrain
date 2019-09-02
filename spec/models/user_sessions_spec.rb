@@ -5,6 +5,46 @@ RSpec.describe UserSession do
 
   let(:session) { HashWithIndifferentAccess.new }
 
+  describe '#postcode' do
+    it 'returns postcode value if set' do
+      session[:postcode] = 'NW118QE'
+
+      expect(user_session.postcode).to eq('NW118QE')
+    end
+
+    it 'returns nil if no postcode set' do
+      expect(user_session.postcode).to be_nil
+    end
+  end
+
+  describe '#job_profile_skills' do
+    it 'returns job_profile_skills value if set' do
+      session[:job_profile_skills] = { '1' => [2, 3] }
+
+      expect(user_session.job_profile_skills).to eq('1' => [2, 3])
+    end
+
+    it 'returns empty hash if no job_profile_skills set' do
+      expect(user_session.job_profile_skills).to eq({})
+    end
+  end
+
+  describe '#store_at' do
+    it 'stores the given value at the given key isnide the session' do
+      user_session.store_at(key: :some_key, value: 'some_value')
+
+      expect(session[:some_key]).to eq 'some_value'
+    end
+  end
+
+  describe '#set_skills_ids_for_profile' do
+    it 'stores the given skills for a job profile id' do
+      user_session.set_skills_ids_for_profile(1, [2, 3])
+
+      expect(user_session.job_profile_skills).to eq('1' => [2, 3])
+    end
+  end
+
   describe '#track_page' do
     it 'does store the tracked page in the session under visited_pages key' do
       user_session.track_page('some_page')
@@ -18,6 +58,39 @@ RSpec.describe UserSession do
       end
 
       expect(session[:visited_pages]).to contain_exactly('some_page')
+    end
+  end
+
+  describe '#current_job?' do
+    context 'when current_job_id key is on the session' do
+      let(:session) {
+        {
+          current_job_id: 12,
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns true when current_job_id key is on the session' do
+        expect(user_session.current_job?).to be true
+      end
+    end
+
+    context 'when current_job_id key is not on the session' do
+      let(:session) {
+        {
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
+        }
+      }
+
+      it 'returns false when current_job_id key is not on the session' do
+        expect(user_session.current_job?).to be false
+      end
     end
   end
 
@@ -45,15 +118,27 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#postcode' do
-    it 'returns postcode value if set' do
-      session[:postcode] =  'NW118QE'
+  describe '#job_profiles_cap_reached?' do
+    let(:session) {
+      {
+        job_profile_skills: {
+          '11' => [2, 3, 5],
+          '12' => [2, 9, 4],
+          '8' => [3, 5],
+          '4' => [9],
+          '6' => []
+        }
+      }
+    }
 
-      expect(user_session.postcode).to eq('NW118QE')
+    it 'returns false if the number profile ids with at least one skill is less than 5' do
+      expect(user_session.job_profiles_cap_reached?).to be false
     end
 
-    it 'returns nil if no postcode set' do
-      expect(user_session.postcode).to be_nil
+    it 'returns true if the number profile ids with at least one skill is greater or equal than 5' do
+      session[:job_profile_skills]['6'] = [5, 1]
+
+      expect(user_session.job_profiles_cap_reached?).to be true
     end
   end
 
@@ -156,47 +241,6 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#store_at' do
-    it 'stores the given value at the given key isnide the session' do
-      user_session.store_at(key: :some_key, value: 'some_value')
-
-      expect(session[:some_key]).to eq 'some_value'
-    end
-  end
-
-  describe '#current_job?' do
-    context 'when current_job_id key is on the session' do
-      let(:session) {
-        {
-          current_job_id: 12,
-          job_profile_skills: {
-            '11' => [2, 3, 5],
-            '12' => [2, 9, 4]
-          }
-        }
-      }
-
-      it 'returns true when current_job_id key is on the session' do
-        expect(user_session.current_job?).to be true
-      end
-    end
-
-    context 'when current_job_id key is not on the session' do
-      let(:session) {
-        {
-          job_profile_skills: {
-            '11' => [2, 3, 5],
-            '12' => [2, 9, 4]
-          }
-        }
-      }
-
-      it 'returns false when current_job_id key is not on the session' do
-        expect(user_session.current_job?).to be false
-      end
-    end
-  end
-
   describe '#skill_ids_for_profile' do
     let(:session) {
       {
@@ -209,30 +253,6 @@ RSpec.describe UserSession do
 
     it 'returns the skills for a given job profile id' do
       expect(user_session.skill_ids_for_profile(11)).to contain_exactly(2, 3, 5)
-    end
-  end
-
-  describe '#job_profiles_cap_reached?' do
-    let(:session) {
-      {
-        job_profile_skills: {
-          '11' => [2, 3, 5],
-          '12' => [2, 9, 4],
-          '8' => [3, 5],
-          '4' => [9],
-          '6' => []
-        }
-      }
-    }
-
-    it 'returns false if the number profile ids with at least one skill is less than 5' do
-      expect(user_session.job_profiles_cap_reached?).to be false
-    end
-
-    it 'returns true if the number profile ids with at least one skill is greater or equal than 5' do
-      session[:job_profile_skills]['6'] = [5, 1]
-
-      expect(user_session.job_profiles_cap_reached?).to be true
     end
   end
 end

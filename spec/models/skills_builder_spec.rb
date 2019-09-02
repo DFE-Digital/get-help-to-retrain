@@ -7,11 +7,11 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: nil,
         job_profile: job_profile,
-        user_session: {}
+        user_session: UserSession.new({})
       )
 
       builder.build
-      expect(builder.user_session[:job_profile_skills]).to be_empty
+      expect(builder.user_session.job_profile_skills).to be_empty
     end
 
     it 'sets user_session to correct skills format if skills params available' do
@@ -19,11 +19,11 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: %w[1 2],
         job_profile: job_profile,
-        user_session: {}
+        user_session: UserSession.new({})
       )
 
       builder.build
-      expect(builder.user_session).to eq(job_profile_skills: { job_profile.id.to_s => [1, 2] })
+      expect(builder.user_session.job_profile_skills).to eq(job_profile.id.to_s => [1, 2])
     end
 
     it 'ignores empty skill param ids when setting user_session' do
@@ -31,11 +31,11 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: ['1', ''],
         job_profile: job_profile,
-        user_session: {}
+        user_session: UserSession.new({})
       )
 
       builder.build
-      expect(builder.user_session).to eq(job_profile_skills: { job_profile.id.to_s => [1] })
+      expect(builder.user_session.job_profile_skills).to eq(job_profile.id.to_s => [1])
     end
 
     it 'overrides existing user session with new skill param ids' do
@@ -43,11 +43,13 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: ['1', '', '5', '6'],
         job_profile: job_profile,
-        user_session: { job_profile_skills: { job_profile.id.to_s => [3, 4] } }
+        user_session: UserSession.new(
+          job_profile_skills: { job_profile.id.to_s => [3, 4] }
+        )
       )
 
       builder.build
-      expect(builder.user_session).to eq(job_profile_skills: { job_profile.id.to_s => [1, 5, 6] })
+      expect(builder.user_session.job_profile_skills).to eq(job_profile.id.to_s => [1, 5, 6])
     end
 
     it 'handles existing user session with new skill param ids if another job profile present' do
@@ -56,15 +58,15 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: ['1', '', '5', '6'],
         job_profile: job_profile2,
-        user_session: { job_profile_skills: { job_profile1.id.to_s => [3, 4] } }
+        user_session: UserSession.new(
+          job_profile_skills: { job_profile1.id.to_s => [3, 4] }
+        )
       )
 
       builder.build
-      expect(builder.user_session).to eq(
-        job_profile_skills: {
-          job_profile1.id.to_s => [3, 4],
-          job_profile2.id.to_s => [1, 5, 6]
-        }
+      expect(builder.user_session.job_profile_skills).to eq(
+        job_profile1.id.to_s => [3, 4],
+        job_profile2.id.to_s => [1, 5, 6]
       )
     end
 
@@ -74,20 +76,18 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: ['1', '', '5', '6'],
         job_profile: job_profile2,
-        user_session: {
+        user_session: UserSession.new(
           job_profile_skills: {
             job_profile1.id.to_s => [3, 4],
             job_profile2.id.to_s => [3]
           }
-        }
+        )
       )
 
       builder.build
-      expect(builder.user_session).to eq(
-        job_profile_skills: {
-          job_profile1.id.to_s => [3, 4],
-          job_profile2.id.to_s => [1, 5, 6]
-        }
+      expect(builder.user_session.job_profile_skills).to eq(
+        job_profile1.id.to_s => [3, 4],
+        job_profile2.id.to_s => [1, 5, 6]
       )
     end
   end
@@ -101,7 +101,7 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: nil,
         job_profile: job_profile,
-        user_session: {}
+        user_session: UserSession.new({})
       )
 
       builder.build
@@ -115,7 +115,9 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: nil,
         job_profile: job_profile,
-        user_session: { job_profile_skills: { job_profile.id.to_s => [skill1.id] } }
+        user_session: UserSession.new(
+          job_profile_skills: { job_profile.id.to_s => [skill1.id] }
+        )
       )
 
       builder.build
@@ -130,7 +132,9 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: ['1', '', '2'],
         job_profile: job_profile,
-        user_session: { job_profile_skills: { job_profile.id.to_s => [3, 4] } }
+        user_session: UserSession.new(
+          job_profile_skills: { job_profile.id.to_s => [3, 4] }
+        )
       )
 
       builder.build
@@ -147,12 +151,12 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: [skill3.id.to_s, ''],
         job_profile: job_profile2,
-        user_session: {
+        user_session: UserSession.new(
           job_profile_skills: {
             job_profile1.id.to_s => [skill1.id],
             job_profile2.id.to_s => [skill1.id]
           }
-        }
+        )
       )
 
       builder.build
@@ -166,7 +170,7 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: [''],
         job_profile: job_profile,
-        user_session: {}
+        user_session: UserSession.new({})
       )
 
       expect(builder).not_to be_valid
@@ -177,7 +181,7 @@ RSpec.describe SkillsBuilder do
       builder = described_class.new(
         skills_params: ['1', '', '4'],
         job_profile: job_profile,
-        user_session: {}
+        user_session: UserSession.new({})
       )
 
       expect(builder).to be_valid
