@@ -7,7 +7,7 @@ class Course < ApplicationRecord
   after_validation :format_postcode
   after_validation :geocode, if: -> { postcode_changed? && !latitude_changed? && !longitude_changed? }
 
-  scope :geocoded, -> { where.not(latitude: 0, longitude: 0) }
+  scope :geocoded, -> { where.not(latitude: 0).where.not(longitude: 0) }
   scope :not_geocoded, -> { where(latitude: 0, longitude: 0) }
 
   def format_postcode
