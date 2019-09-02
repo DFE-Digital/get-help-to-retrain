@@ -6,6 +6,10 @@ class UserSession
     @session[:visited_pages] ||= []
   end
 
+  def postcode
+    session[:postcode]
+  end
+
   def track_page(page_key)
     session[:visited_pages] << page_key unless session[:visited_pages].include?(page_key)
   end

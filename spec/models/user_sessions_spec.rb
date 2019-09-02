@@ -45,6 +45,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#postcode' do
+    it 'returns postcode value if set' do
+      session[:postcode] =  'NW118QE'
+
+      expect(user_session.postcode).to eq('NW118QE')
+    end
+
+    it 'returns nil if no postcode set' do
+      expect(user_session.postcode).to be_nil
+    end
+  end
+
   describe '#unblock_all_sections?' do
     it 'returns false if there are no sessions for all pages' do
       expect(user_session).not_to be_unblock_all_sections
