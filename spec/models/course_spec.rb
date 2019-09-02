@@ -9,7 +9,7 @@ RSpec.describe Course, type: :model do
 
     it 'formats postcode on update' do
       course = create(:course, postcode: 'NW6 9ET')
-      course.update_attributes(postcode: ' ne10PT ')
+      course.update(postcode: ' ne10PT ')
       expect(course.postcode).to eq('NE1 0PT')
     end
   end
@@ -60,7 +60,7 @@ RSpec.describe Course, type: :model do
 
     it 'does not change lat/long values when course data is updated' do
       course = create(:course, postcode: 'sw1p3bt', latitude: 51.498029, longitude: -0.130039)
-      course.update_attributes(title: 'New Course title')
+      course.update(title: 'New Course title')
 
       expect(course.attributes).to include(
         'latitude' => 51.498029,
@@ -70,7 +70,7 @@ RSpec.describe Course, type: :model do
 
     it 'changes lat/long values when postcode is updated' do
       course = create(:course, postcode: 'sw1p3bt', latitude: 51.498029, longitude: -0.130039)
-      course.update_attributes(postcode: 'sw1p3bs')
+      course.update(postcode: 'sw1p3bs')
 
       expect(course.attributes).to include(
         'latitude' => 40.7143528,
