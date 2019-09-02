@@ -2,9 +2,9 @@ class UserSession
   attr_reader :session
 
   def initialize(session)
-    session.destroy unless session[:version] == expected_version
-
     @session = session
+    @session.destroy unless version == expected_version
+
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
     @session[:version] ||= expected_version
@@ -18,12 +18,20 @@ class UserSession
     session[:postcode]
   end
 
-  def job_profile_skills
-    session[:job_profile_skills]
+  def postcode=(value)
+    session[:postcode] = value
   end
 
-  def store_at(key:, value:)
-    session[key] = value
+  def current_job_id
+    session[:current_job_id]
+  end
+
+  def current_job_id=(value)
+    session[:current_job_id] = value
+  end
+
+  def job_profile_skills
+    session[:job_profile_skills]
   end
 
   def set_skills_ids_for_profile(job_profile_id, skill_ids)
@@ -31,7 +39,7 @@ class UserSession
   end
 
   def track_page(page_key)
-    session[:visited_pages] << page_key unless session[:visited_pages].include?(page_key)
+    session[:visited_pages] << page_key unless page_visited?(page_key)
   end
 
   def current_job?
@@ -75,10 +83,6 @@ class UserSession
   end
 
   private
-
-  def current_job_id
-    session[:current_job_id]
-  end
 
   def expected_version
     Flipflop.skills_builder_v2? ? 2 : 1

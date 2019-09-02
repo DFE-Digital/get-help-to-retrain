@@ -9,9 +9,9 @@ class SessionKlass < SimpleDelegator
 end
 
 module SessionHelper
-  def create_fake_session(values, version: true)
+  def create_fake_session(values, versioned: true)
     expected_version = Flipflop.skills_builder_v2? ? 2 : 1
-    values = version ? values.merge(version: expected_version) : values
+    values.merge!(version: expected_version) if versioned
     SessionKlass.new(values)
   end
 end

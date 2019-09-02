@@ -12,14 +12,14 @@ RSpec.describe UserSession do
 
   describe '#version' do
     it 'sets version on new session' do
-      user_session = described_class.new(create_fake_session(session, version: false))
+      user_session = described_class.new(create_fake_session(session, versioned: false))
 
       expect(user_session.version).to eq(1)
     end
 
     it 'retains correct version on existing session' do
       session = { version: 1 }
-      user_session = described_class.new(create_fake_session(session, version: false))
+      user_session = described_class.new(create_fake_session(session, versioned: false))
 
       expect(user_session.version).to eq(1)
     end
@@ -29,14 +29,14 @@ RSpec.describe UserSession do
         version: 1,
         job_profile_skills: { '11' => [2, 3, 5] }
       }
-      user_session = described_class.new(create_fake_session(session, version: false))
+      user_session = described_class.new(create_fake_session(session, versioned: false))
 
       expect(user_session.job_profile_skills).to eq('11' => [2, 3, 5])
     end
 
     it 'resets version when existing version does not equal current version' do
       session = { version: 0 }
-      user_session = described_class.new(create_fake_session(session, version: false))
+      user_session = described_class.new(create_fake_session(session, versioned: false))
 
       expect(user_session.version).to eq(1)
     end
@@ -46,14 +46,14 @@ RSpec.describe UserSession do
         version: 0,
         job_profile_skills: { '11' => [2, 3, 5] }
       }
-      user_session = described_class.new(create_fake_session(session, version: false))
+      user_session = described_class.new(create_fake_session(session, versioned: false))
 
       expect(user_session.job_profile_skills).to be_empty
     end
 
     it 'reset session when existing session does not have a version' do
       session = { job_profile_skills: { '11' => [2, 3, 5] } }
-      user_session = described_class.new(create_fake_session(session, version: false))
+      user_session = described_class.new(create_fake_session(session, versioned: false))
 
       expect(user_session.job_profile_skills).to be_empty
     end
@@ -65,7 +65,7 @@ RSpec.describe UserSession do
           version: 1,
           job_profile_skills: { '11' => [2, 3, 5] }
         }
-        user_session = described_class.new(create_fake_session(session, version: false))
+        user_session = described_class.new(create_fake_session(session, versioned: false))
 
         expect(user_session.job_profile_skills).to be_empty
       end
@@ -74,13 +74,25 @@ RSpec.describe UserSession do
 
   describe '#postcode' do
     it 'returns postcode value if set' do
-      session[:postcode] = 'NW118QE'
+      user_session.postcode = 'NW118QE'
 
       expect(user_session.postcode).to eq('NW118QE')
     end
 
     it 'returns nil if no postcode set' do
       expect(user_session.postcode).to be_nil
+    end
+  end
+
+  describe '#current_job_id' do
+    it 'returns current_job_id value if set' do
+      user_session.current_job_id = 1
+
+      expect(user_session.current_job_id).to eq(1)
+    end
+
+    it 'returns nil if no postcode set' do
+      expect(user_session.current_job_id).to be_nil
     end
   end
 
@@ -93,14 +105,6 @@ RSpec.describe UserSession do
 
     it 'returns empty hash if no job_profile_skills set' do
       expect(user_session.job_profile_skills).to eq({})
-    end
-  end
-
-  describe '#store_at' do
-    it 'stores the given value at the given key isnide the session' do
-      user_session.store_at(key: :some_key, value: 'some_value')
-
-      expect(session[:some_key]).to eq 'some_value'
     end
   end
 
