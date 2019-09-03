@@ -118,13 +118,12 @@ RSpec.describe SkillsMatcher do
           job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id]
         }
       )
-      puts "Profile #{job_profile4.name} skills: " + job_profile4.skills.pluck(:name).join(', ')
-      puts "Profile #{job_profile3.name} skills: " + job_profile3.skills.pluck(:name).join(', ')
 
-      matcher = described_class.new(UserSession.new(session)).match
-      puts 'Profile scores: ' + matcher.map(&:skills_matched).join(', ')
+      matcher = described_class.new(UserSession.new(session))
+      puts matcher.send(:build_query).to_sql
+      puts ActiveRecord::Base.connection.execute('select datname, datcollate from pg_database;').first
 
-      expect(matcher).to eq(
+      expect(matcher.match).to eq(
         [
           job_profile4,
           job_profile3,
