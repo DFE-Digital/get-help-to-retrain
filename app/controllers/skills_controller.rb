@@ -16,7 +16,7 @@ class SkillsController < ApplicationController
   def show_skills_builder
     return redirect_to task_list_path unless job_profile_and_skills_present
 
-    user_session.store_at(key: :current_job_id, value: job_profile.id)
+    user_session.current_job_id = job_profile.id
     @skills = Skill.find(skill_ids_for_job_profile)
     track_event(:skills_index_selected, job_profile.slug => skill_ids_for_job_profile)
   end

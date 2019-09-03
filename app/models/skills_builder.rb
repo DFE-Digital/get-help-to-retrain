@@ -8,18 +8,17 @@ class SkillsBuilder
     @skills_params = skills_params
     @job_profile = job_profile
     @user_session = user_session
-    @user_session[:job_profile_skills] = user_session[:job_profile_skills] || {}
   end
 
   def build
     return unless skills_params.present?
 
-    user_session[:job_profile_skills][job_profile.id.to_s] = formatted_skill_params
+    user_session.set_skills_ids_for_profile(job_profile.id, formatted_skill_params)
   end
 
   def skill_ids
     @skill_ids ||=
-      user_session[:job_profile_skills][job_profile.id.to_s] ||
+      user_session.job_profile_skills[job_profile.id.to_s] ||
       job_profile.skills.pluck(:id)
   end
 

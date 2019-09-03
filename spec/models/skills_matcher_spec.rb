@@ -3,10 +3,9 @@ require 'rails_helper'
 RSpec.describe SkillsMatcher do
   describe '#match' do
     it 'returns no jobs if no session skills selected' do
-      user_session = UserSession.new({})
-
+      session = create_fake_session({})
       create(:job_profile, skills: [create(:skill)])
-      matcher = described_class.new(user_session)
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to be_empty
     end
@@ -16,13 +15,12 @@ RSpec.describe SkillsMatcher do
       job_profile1 = create(:job_profile, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill])
       job_profile3 = create(:job_profile, skills: [skill])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to contain_exactly(job_profile2, job_profile3)
     end
@@ -35,13 +33,12 @@ RSpec.describe SkillsMatcher do
       create(:job_profile, skills: [skill2])
       job_profile2 = create(:job_profile, skills: [skill2, skill3])
       job_profile3 = create(:job_profile, skills: [skill1, skill3])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id, skill3.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to contain_exactly(job_profile2, job_profile3)
     end
@@ -55,14 +52,13 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill3])
       job_profile3 = create(:job_profile, skills: [skill3])
       job_profile4 = create(:job_profile, skills: [skill1])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id],
           job_profile2.id.to_s => [skill3.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to contain_exactly(job_profile3, job_profile4)
     end
@@ -76,14 +72,13 @@ RSpec.describe SkillsMatcher do
       job_profile3 = create(:job_profile, skills: [skill1, skill2, skill3])
       job_profile4 = create(:job_profile, skills: [skill1, skill2, skill3])
       job_profile5 = create(:job_profile, skills: [skill1, skill3])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile3.id.to_s => [skill1.id, skill2.id],
           job_profile1.id.to_s => [skill1.id, skill3.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to eq([job_profile4, job_profile5, job_profile2])
     end
@@ -97,15 +92,14 @@ RSpec.describe SkillsMatcher do
       create(:job_profile, skills: [skill2])
       job_profile2 = create(:job_profile, skills: [skill1, skill2, skill3, skill4])
       job_profile3 = create(:job_profile, skills: [skill1, skill3])
-      session = {
+      session = create_fake_session(
         current_job_id: job_profile1.id,
         job_profile_skills: {
           job_profile2.id.to_s => [skill1.id, skill2.id],
           job_profile1.id.to_s => [skill1.id, skill3.id, skill4.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to eq([job_profile2, job_profile3])
     end
@@ -119,16 +113,15 @@ RSpec.describe SkillsMatcher do
       job_profile3 = create(:job_profile, name: 'Beekeeper', skills: [skill1, skill2, skill3])
       job_profile4 = create(:job_profile, name: 'Admin', skills: [skill1, skill2, skill3])
       job_profile5 = create(:job_profile, name: 'Boat builder', skills: [skill3])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id]
         }
-      }
+      )
       puts "Profile #{job_profile4.name} skills: " + job_profile4.skills.pluck(:name).join(', ')
       puts "Profile #{job_profile3.name} skills: " + job_profile3.skills.pluck(:name).join(', ')
 
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session).match
+      matcher = described_class.new(UserSession.new(session)).match
       puts 'Profile scores: ' + matcher.map(&:skills_matched).join(', ')
 
       expect(matcher).to eq(
@@ -146,13 +139,12 @@ RSpec.describe SkillsMatcher do
       job_profile1 = create(:job_profile, skills: [skill])
       create(:job_profile, :excluded, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.match).to contain_exactly(job_profile2)
     end
@@ -164,13 +156,12 @@ RSpec.describe SkillsMatcher do
       job_profile1 = create(:job_profile, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill])
       job_profile3 = create(:job_profile, skills: [skill])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.job_profile_scores).to eq(
         job_profile2.id => 100.0,
@@ -184,13 +175,12 @@ RSpec.describe SkillsMatcher do
       job_profile1 = create(:job_profile, skills: [skill1, skill2])
       job_profile2 = create(:job_profile, skills: [skill1])
       job_profile3 = create(:job_profile, skills: [skill1, skill2])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id, skill2.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.job_profile_scores).to eq(
         job_profile2.id => 50.0,
@@ -205,15 +195,14 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill1])
       job_profile3 = create(:job_profile, skills: [skill1, skill2])
       job_profile4 = create(:job_profile, skills: [skill2])
-      session = {
+      session = create_fake_session(
         job_profile_skills: {
           job_profile1.id.to_s => [skill2.id],
           job_profile2.id.to_s => [skill1.id]
         }
-      }
+      )
 
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.job_profile_scores).to eq(
         job_profile4.id => 50.0,
@@ -229,15 +218,14 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill1])
       job_profile3 = create(:job_profile, skills: [skill1, skill2])
       create(:job_profile, skills: [skill2])
-      session = {
+      session = create_fake_session(
         current_job_id: job_profile2.id,
         job_profile_skills: {
           job_profile1.id.to_s => [skill2.id],
           job_profile2.id.to_s => [skill1.id, skill3.id]
         }
-      }
-      user_session = UserSession.new(session)
-      matcher = described_class.new(user_session)
+      )
+      matcher = described_class.new(UserSession.new(session))
 
       expect(matcher.job_profile_scores).to eq(
         job_profile1.id => 50.0,
