@@ -55,6 +55,9 @@ gem 'splitclient-rb', '~> 6.4'
 # Hashdiff is a ruby library to compute the smallest difference between two hashes.
 gem 'hashdiff', '~> 1.0'
 
+# Session store backed by ActiveRecord
+gem 'activerecord-session_store', '~> 1.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
