@@ -1,3 +1,2 @@
-class Session < ApplicationRecord
-  connects_to database: { writing: :restricted, reading: :restricted }
+class Session < RestrictedActiveRecordBase
 end

@@ -1,6 +1,4 @@
-class JobProfile < ApplicationRecord
-  connects_to database: { writing: :primary, reading: :primary }
-
+class JobProfile < PrimaryActiveRecordBase
   has_many :job_profile_categories
   has_many :job_profile_skills
   has_many :categories, through: :job_profile_categories, inverse_of: :job_profiles
