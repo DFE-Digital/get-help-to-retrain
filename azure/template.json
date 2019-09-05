@@ -113,7 +113,7 @@
     },
     "userFeedbackSmartSurveyLink": {
       "type": "string",
-      "defaultValue": "", 
+      "defaultValue": "",
       "metadata": {
         "description:": "User feedback in page Smart Survey URL"
       }
@@ -389,6 +389,22 @@
               },
               {
                 "name": "DB_HOST",
+                "value": "[reference('postgresql-server').outputs.fullyQualifiedDomainName.value]"
+              },
+              {
+                "name": "RESTRICTED_DB_DATABASE",
+                "value": "[parameters('databaseName')]"
+              },
+              {
+                "name": "RESTRICTED_DB_PASSWORD",
+                "value": "[parameters('databasePassword')]"
+              },
+              {
+                "name": "RESTRICTED_DB_USERNAME",
+                "value": "[concat(parameters('databaseUsername'), '@', variables('databaseServerName'))]"
+              },
+              {
+                "name": "RESTRICTED_DB_HOST",
                 "value": "[reference('postgresql-server').outputs.fullyQualifiedDomainName.value]"
               },
               {

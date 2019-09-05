@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  connects_to database: { writing: :primary, reading: :primary }
+
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true
   validates :postcode, presence: true, postcode: true
   validates_presence_of :title, :url, :provider, :topic

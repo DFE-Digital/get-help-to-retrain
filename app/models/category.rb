@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  connects_to database: { writing: :primary, reading: :primary }
+
   has_many :job_profile_categories
   has_many :job_profiles, through: :job_profile_categories, inverse_of: :categories
   scope :by_name, -> { order(:name) }
