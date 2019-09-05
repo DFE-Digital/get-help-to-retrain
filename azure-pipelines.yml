@@ -8,17 +8,26 @@ pr: none
 
 variables:
   IMAGE_NAME: dfedigital/get-help-to-retrain
-  postgresUrl: postgres://test:test@localhost:5432/get-help-to-retrain
+  postgresUrlPrimary: postgres://test:test@localhost:5432/get-help-to-retrain-primary
+  postgresUrlRestricted: postgres://test:test@localhost:5433/get-help-to-retrain-restricted
   BUNDLE_CACHE_FOLDER: $(Pipeline.Workspace)/vendor/bundle
 
 resources:
   containers:
-  - container: 'postgres'
+  - container: 'postgres-primary'
     image: 'postgres:11-alpine'
     ports:
       - 5432:5432/tcp
     env:
-      POSTGRES_DB: 'get-help-to-retrain'
+      POSTGRES_DB: 'get-help-to-retrain-primary'
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
+  - container: 'postgres-restricted'
+    image: 'postgres:11-alpine'
+    ports:
+      - 5433:5432/tcp
+    env:
+      POSTGRES_DB: 'get-help-to-retrain-restricted'
       POSTGRES_USER: 'test'
       POSTGRES_PASSWORD: 'test'
   - container: 'selenium'
@@ -37,7 +46,8 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     services:
-      postgres: postgres
+      postgres_primary: postgres-primary
+      postgres_restricted: postgres-restricted
       selenium: selenium
 
     steps:
@@ -94,17 +104,25 @@ stages:
         displayName: 'yarn install'
 
       - script: |
-          bundle exec rake db:create db:schema:load
-        displayName: 'Database Setup'
+          bundle exec rake db:migrate:primary
+        displayName: 'Primary Database Setup'
         env:
           RAILS_ENV: test
-          DATABASE_URL: $(postgresUrl)
+          PRIMARY_DATABASE_URL: $(postgresUrlPrimary)
+
+      - script: |
+          bundle exec rake db:migrate:restricted
+        displayName: 'Restricted Database Setup'
+        env:
+          RAILS_ENV: test
+          RESTRICTED_DATABASE_URL: $(postgresUrlRestricted)
 
       - script: |
           bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
         displayName: 'Run Rspec tests'
         env:
-          DATABASE_URL: $(postgresUrl)
+          PRIMARY_DATABASE_URL: $(postgresUrlPrimary)
+          RESTRICTED_DATABASE_URL: $(postgresUrlRestricted)
           SELENIUM_REMOTE_ADDRESS: $(GatewayIP)
 
       - task: PublishTestResults@2
