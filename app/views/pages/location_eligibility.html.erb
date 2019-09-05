@@ -22,9 +22,9 @@
           For example, SW1P 3BP
         </span>
         <%= errors_tag @search, :postcode %>
-        <%= text_field_tag(:postcode, params[:postcode], class: css_classes_for_input(@search, :postcode, "search-input govuk-input govuk-input--width-10")) %>
+        <%= text_field_tag(:postcode, params[:postcode], data: { cy: "postcode-field" }, class: css_classes_for_input(@search, :postcode, "search-input govuk-input govuk-input--width-10")) %>
       <% end %>
-      <%= button_tag('Continue', class: 'govuk-button') %>
+      <%= button_tag('Continue', class: 'govuk-button', data: { cy: "postcode-submit-btn" }) %>
     <% end %>
   </div>
 </div>
