@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_09_04_130544) do
 
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
-    t.json "data", default: "{}", null: false
+    t.jsonb "data", default: "{}", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true

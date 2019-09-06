@@ -1,9 +1,12 @@
 {
   "name": "get_help_to_retrain",
   "scripts": {
-    "postdeploy": "pg_dump $DEV_DATABASE_URL | psql $DATABASE_URL && bundle exec rails db:create:restricted && bundle exec rails db:migrate",
+    "postdeploy": "pg_dump $DEV_DATABASE_URL | psql $DATABASE_URL && bundle exec rails db:migrate"
   },
   "env": {
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
     "SPLIT_API_KEY": {
       "required": true
     },
@@ -13,12 +16,6 @@
 	  "DEV_DATABASE_URL": {
 	    "required": true
 	  },
-    "PRIMARY_DATABASE_URL": {
-      "required": true
-    },
-    "RESTRICTED_DATABASE_URL": {
-      "required": true
-    },
     "LANG": {
       "required": true
     },

@@ -33,13 +33,13 @@ production:
     database: <%= ENV['DB_DATABASE'] %>
     username: <%= ENV['DB_USERNAME'] %>
     password: <%= ENV['DB_PASSWORD'] %>
-    url: <%= ENV['PRIMARY_DATABASE_URL'] %>
+    url: <%= ENV['HEROKU_APP_NAME'].present? ? ENV['DATABASE_URL'] : ENV['PRIMARY_DATABASE_URL']  %>
   restricted:
     <<: *default
     host: <%= ENV['RESTRICTED_DB_HOST'] %>
     database: <%= ENV['RESTRICTED_DB_DATABASE'] %>
     username: <%= ENV['RESTRICTED_DB_USERNAME'] %>
     password: <%= ENV['RESTRICTED_DB_PASSWORD'] %>
-    url: <%= ENV['RESTRICTED_DATABASE_URL'] %>
+    url: <%= ENV['HEROKU_APP_NAME'].present? ? ENV['DATABASE_URL'] : ENV['RESTRICTED_DATABASE_URL']  %>
     migrations_paths: db/restricted_migrate
 

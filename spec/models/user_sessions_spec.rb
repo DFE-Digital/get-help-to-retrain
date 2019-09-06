@@ -179,7 +179,7 @@ RSpec.describe UserSession do
 
   describe '#job_profile_skills?' do
     it 'returns true if the session already contains job profile skills' do
-      session[:job_profile_skills] = { '1' => [2, 3] }
+      session[:job_profile_ids] = [1]
 
       expect(user_session.job_profile_skills?).to be true
     end
@@ -299,10 +299,7 @@ RSpec.describe UserSession do
     context 'when there is no current_job_id on the session' do
       let(:session) {
         create_fake_session(
-          job_profile_skills: {
-            '11' => [2, 3, 5],
-            '12' => [2, 9, 4]
-          }
+          job_profile_ids: [11, 12]
         )
       }
 

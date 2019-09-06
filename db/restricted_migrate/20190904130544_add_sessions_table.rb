@@ -2,7 +2,7 @@ class AddSessionsTable < ActiveRecord::Migration[6.0]
   def change
     create_table :sessions do |t|
       t.string :session_id, null: false
-      t.json :data, null: false, default: '{}'
+      t.jsonb :data, null: false, default: '{}'
       t.timestamps
     end
 

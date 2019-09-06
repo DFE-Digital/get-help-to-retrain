@@ -16,6 +16,7 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill])
       job_profile3 = create(:job_profile, skills: [skill])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill.id]
         }
@@ -34,6 +35,7 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill2, skill3])
       job_profile3 = create(:job_profile, skills: [skill1, skill3])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id, skill3.id]
         }
@@ -53,6 +55,7 @@ RSpec.describe SkillsMatcher do
       job_profile3 = create(:job_profile, skills: [skill3])
       job_profile4 = create(:job_profile, skills: [skill1])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id, job_profile2.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id],
           job_profile2.id.to_s => [skill3.id]
@@ -73,6 +76,7 @@ RSpec.describe SkillsMatcher do
       job_profile4 = create(:job_profile, skills: [skill1, skill2, skill3])
       job_profile5 = create(:job_profile, skills: [skill1, skill3])
       session = create_fake_session(
+        job_profile_ids: [job_profile3.id, job_profile1.id],
         job_profile_skills: {
           job_profile3.id.to_s => [skill1.id, skill2.id],
           job_profile1.id.to_s => [skill1.id, skill3.id]
@@ -94,6 +98,7 @@ RSpec.describe SkillsMatcher do
       job_profile3 = create(:job_profile, skills: [skill1, skill3])
       session = create_fake_session(
         current_job_id: job_profile1.id,
+        job_profile_ids: [job_profile2.id, job_profile1.id],
         job_profile_skills: {
           job_profile2.id.to_s => [skill1.id, skill2.id],
           job_profile1.id.to_s => [skill1.id, skill3.id, skill4.id]
@@ -114,6 +119,7 @@ RSpec.describe SkillsMatcher do
       job_profile4 = create(:job_profile, name: 'Admin', skills: [skill1, skill2, skill3])
       job_profile5 = create(:job_profile, name: 'Boat builder', skills: [skill3])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id]
         }
@@ -139,6 +145,7 @@ RSpec.describe SkillsMatcher do
       create(:job_profile, :excluded, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill.id]
         }
@@ -156,6 +163,7 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill])
       job_profile3 = create(:job_profile, skills: [skill])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill.id]
         }
@@ -175,6 +183,7 @@ RSpec.describe SkillsMatcher do
       job_profile2 = create(:job_profile, skills: [skill1])
       job_profile3 = create(:job_profile, skills: [skill1, skill2])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill1.id, skill2.id]
         }
@@ -195,6 +204,7 @@ RSpec.describe SkillsMatcher do
       job_profile3 = create(:job_profile, skills: [skill1, skill2])
       job_profile4 = create(:job_profile, skills: [skill2])
       session = create_fake_session(
+        job_profile_ids: [job_profile1.id, job_profile2.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill2.id],
           job_profile2.id.to_s => [skill1.id]
@@ -219,6 +229,7 @@ RSpec.describe SkillsMatcher do
       create(:job_profile, skills: [skill2])
       session = create_fake_session(
         current_job_id: job_profile2.id,
+        job_profile_ids: [job_profile1.id, job_profile2.id],
         job_profile_skills: {
           job_profile1.id.to_s => [skill2.id],
           job_profile2.id.to_s => [skill1.id, skill3.id]
