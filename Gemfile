@@ -58,6 +58,9 @@ gem 'hashdiff', '~> 1.0'
 # Session store backed by ActiveRecord
 gem 'activerecord-session_store', '~> 1.1'
 
+# Notify service - send SMS/Email notifications
+gem 'notifications-ruby-client', '~> 4.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
