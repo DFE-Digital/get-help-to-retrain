@@ -93,7 +93,8 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.active_record.database_selector = { delay: 2.seconds }
-  config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
-  config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  # Required for use when having replica setup for databases
+  # config.active_record.database_selector = { delay: 2.seconds }
+  # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
+  # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end

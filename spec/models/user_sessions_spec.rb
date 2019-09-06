@@ -299,11 +299,22 @@ RSpec.describe UserSession do
     context 'when there is no current_job_id on the session' do
       let(:session) {
         create_fake_session(
-          job_profile_ids: [11, 12]
+          job_profile_ids: [11, 12],
+          job_profile_skills: {
+            '11' => [2, 3, 5],
+            '12' => [2, 9, 4]
+          }
         )
       }
 
       it 'returns all the job profile ids on the session' do
+        expect(user_session.job_profile_ids).to contain_exactly(11, 12)
+      end
+
+      it 'does not add duplicates do job profile ids' do
+        user_session.set_skills_ids_for_profile(11, [2, 3])
+        user_session.set_skills_ids_for_profile(11, [2, 5])
+        user_session.set_skills_ids_for_profile(11, [2, 3, 5])
         expect(user_session.job_profile_ids).to contain_exactly(11, 12)
       end
     end

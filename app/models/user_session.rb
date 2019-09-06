@@ -37,7 +37,7 @@ class UserSession
 
   def set_skills_ids_for_profile(job_profile_id, skill_ids)
     job_profile_skills[job_profile_id.to_s] = skill_ids
-    session[:job_profile_ids] << job_profile_id
+    session[:job_profile_ids] << job_profile_id unless job_profile_ids.include?(job_profile_id)
   end
 
   def track_page(page_key)
@@ -77,7 +77,7 @@ class UserSession
   def job_profile_ids
     return [current_job_id] if current_job?
 
-    session[:job_profile_ids].uniq
+    session[:job_profile_ids]
   end
 
   def skill_ids_for_profile(id)

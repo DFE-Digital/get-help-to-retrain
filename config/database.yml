@@ -20,6 +20,7 @@ test: &test
     <<: *default
     database: get_help_to_retrain_restricted_test
     migrations_paths: db/restricted_migrate
+    # Required for the azure pipelines setup
     url: <%= ENV['RESTRICTED_DATABASE_URL'] %>
 
 cucumber:
@@ -38,6 +39,8 @@ production:
     database: <%= ENV['RESTRICTED_DB_DATABASE'] %>
     username: <%= ENV['RESTRICTED_DB_USERNAME'] %>
     password: <%= ENV['RESTRICTED_DB_PASSWORD'] %>
+    # Required in Heroku review apps to use the same endpoint
+    # for both databases
     url: <%= ENV['RESTRICTED_DATABASE_URL'] || ENV['DATABASE_URL'] %>
     migrations_paths: db/restricted_migrate
 
