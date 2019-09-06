@@ -4,9 +4,6 @@
     "postdeploy": "pg_dump $DEV_DATABASE_URL | psql $DATABASE_URL && bundle exec rails db:migrate"
   },
   "env": {
-    "HEROKU_APP_NAME": {
-      "required": true
-    },
     "SPLIT_API_KEY": {
       "required": true
     },

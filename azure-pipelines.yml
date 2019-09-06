@@ -108,7 +108,7 @@ stages:
         displayName: 'Primary Database Setup'
         env:
           RAILS_ENV: test
-          PRIMARY_DATABASE_URL: $(postgresUrlPrimary)
+          DATABASE_URL: $(postgresUrlPrimary)
 
       - script: |
           bundle exec rake db:migrate:restricted
@@ -121,7 +121,7 @@ stages:
           bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
         displayName: 'Run Rspec tests'
         env:
-          PRIMARY_DATABASE_URL: $(postgresUrlPrimary)
+          DATABASE_URL: $(postgresUrlPrimary)
           RESTRICTED_DATABASE_URL: $(postgresUrlRestricted)
           SELENIUM_REMOTE_ADDRESS: $(GatewayIP)
 
