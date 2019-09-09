@@ -118,6 +118,13 @@
         "description:": "User feedback in page Smart Survey URL"
       }
     },
+    "notifyApiKey": {
+      "type": "string",
+      "defaultValue": "", 
+      "metadata": {
+        "description:": "GOV.UK Notify Service - API KEY"
+      }
+    },
     "applyAlerts": {
       "type": "bool",
       "defaultValue": false
@@ -426,6 +433,10 @@
               {
                 "name": "USER_FEEDBACK_SMART_SURVEY_LINK",
                 "value": "[parameters('userFeedbackSmartSurveyLink')]"
+              },
+              {
+                "name": "NOTIFY_API_KEY",
+                "value": "[parameters('notifyApiKey')]"
               }
             ]
           },
