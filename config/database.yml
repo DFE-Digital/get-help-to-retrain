@@ -21,7 +21,7 @@ test: &test
     database: get_help_to_retrain_restricted_test
     migrations_paths: db/restricted_migrate
     # Required for the azure pipelines setup
-    url: <%= ENV['RESTRICTED_DATABASE_URL'] %>
+    url: <%= ENV['DATABASE_URL'] %>
 
 cucumber:
   <<: *test
