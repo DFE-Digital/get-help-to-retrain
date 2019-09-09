@@ -1,0 +1,2 @@
+class Session < RestrictedActiveRecordBase
+end

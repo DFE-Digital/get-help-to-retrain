@@ -94,7 +94,7 @@ stages:
         displayName: 'yarn install'
 
       - script: |
-          bundle exec rake db:create db:schema:load
+          bundle exec rake db:schema:load
         displayName: 'Database Setup'
         env:
           RAILS_ENV: test

@@ -1,4 +1,4 @@
-class Category < ApplicationRecord
+class Category < PrimaryActiveRecordBase
   has_many :job_profile_categories
   has_many :job_profiles, through: :job_profile_categories, inverse_of: :categories
   scope :by_name, -> { order(:name) }

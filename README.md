@@ -93,6 +93,19 @@ or
 Please check https://brakemanscanner.org/docs/ for more details.
 
 
+## Database Setup
+The setup consists of two databases, the primary database, which contains modifiable data for job profiles and skills, and the restricted database which contains user relevant data.
+
+Migrations relevant to the primary database reside in the `db/migrate` folder, while the restricted database migrations in `db/restricted_migrate`. See `database.yml` for more details
+
+To run the setup for each database separately append the name of the database to the command, example:
+
+```
+db:create:restricted
+db:migrate:restricted
+```
+If general commands are run without appending the name, setup is done for both databases and migrations.
+
 ## Importing data
 
 ### Scraped content
