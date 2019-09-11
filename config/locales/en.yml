@@ -112,6 +112,9 @@ en-GB:
     no_postcode_error: Enter a postcode
   user_personal_data:
     title: Your information
+  save_your_results:
+    title: Save your results
+    sub_title: If you like, you can save these results so you can come back to them later.
 
   pagination:
     previous: Previous

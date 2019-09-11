@@ -84,6 +84,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#registered' do
+    it 'returns registered value if set' do
+      user_session.registered = true
+
+      expect(user_session.registered).to eq(true)
+    end
+
+    it 'returns nil if no registered set' do
+      expect(user_session.registered).to be_nil
+    end
+  end
+
   describe '#current_job_id' do
     it 'returns current_job_id value if set' do
       user_session.current_job_id = 1

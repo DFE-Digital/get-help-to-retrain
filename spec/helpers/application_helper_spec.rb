@@ -22,4 +22,42 @@ RSpec.describe ApplicationHelper do
       expect(helper.generate_breadcrumbs('Current Page', [['Previous Page', '/']])).to match(/Previous Page/)
     end
   end
+
+  describe '.user_not_authenticated_or_registered' do
+    before do
+      enable_feature! :user_authentication
+      helper.singleton_class.class_eval do
+        def current_user; end
+
+        def user_session
+          UserSession.new(session)
+        end
+      end
+    end
+
+    it 'returns true if user is not authenticated or registered' do
+      expect(helper.user_not_authenticated_or_registered).to be_truthy
+    end
+
+    it 'returns false if user is authenticated' do
+      allow(helper).to receive(:current_user).and_return(create(:user))
+
+      expect(helper.user_not_authenticated_or_registered).to be_falsey
+    end
+
+    it 'returns false if user is registered' do
+      user_session = UserSession.new(session)
+      user_session.registered = true
+
+      expect(helper.user_not_authenticated_or_registered).to be_falsey
+    end
+
+    it 'returns false if user_authentication flag is off' do
+      disable_feature! :user_authentication
+      user_session = UserSession.new(session)
+      user_session.registered = true
+
+      expect(helper.user_not_authenticated_or_registered).to be_falsey
+    end
+  end
 end

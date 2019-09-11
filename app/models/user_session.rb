@@ -23,6 +23,14 @@ class UserSession
     session[:postcode] = value
   end
 
+  def registered
+    session[:registered]
+  end
+
+  def registered=(value)
+    session[:registered] = value
+  end
+
   def current_job_id
     session[:current_job_id]
   end
