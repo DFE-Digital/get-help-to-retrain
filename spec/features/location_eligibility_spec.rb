@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Check your location is eligible', type: :feature do
+  background do
+    disable_feature! :user_personal_data
+  end
+
   scenario 'User is taken to location eligiblity page from start page' do
     visit(root_path)
     click_on('Start now')
@@ -29,6 +33,15 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'User can will proceed to your information even if postcode is not eligible' do
+    enable_feature! :user_personal_data
+
+    visit(location_ineligible_path)
+    find('.govuk-button').click
+
+    expect(page).to have_current_path(your_information_path)
+  end
+
   scenario 'User follows through to task list page if postcode eligible' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
@@ -41,6 +54,22 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     find('.govuk-button').click
 
     expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'User follows through to your information page if postcode eligible and feature is on' do
+    enable_feature! :user_personal_data
+
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
+
+    visit(location_eligibility_path)
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.govuk-button').click
+
+    expect(page).to have_current_path(your_information_path)
   end
 
   scenario 'User gets relevant messaging if their address is not valid' do

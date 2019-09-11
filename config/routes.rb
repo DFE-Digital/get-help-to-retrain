@@ -36,6 +36,15 @@ Rails.application.routes.draw do
   resources :skills_matcher, path: 'job-matches', only: %i[index]
   resources :skills, only: %i[index]
 
+  # Feature flags
+  constraints ->(_req) { Flipflop.user_personal_data? } do
+    get 'your-information', to: 'user_personal_data#index'
+    post 'your-information', to: 'user_personal_data#create'
+    get 'skip-step', to: 'user_personal_data#skip'
+
+    resources :user_personal_data, only: %i[index create]
+  end
+
   root to: 'home#index'
 end
 # rubocop:enable Metrics/BlockLength
