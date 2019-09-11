@@ -1,4 +1,4 @@
-<%= form_with model: @user_personal_data, url: your_information_path, local: true do |f| %>
+<%= form_with model: @user_personal_data, url: your_information_path, local: true, html: { novalidate: true } do |f| %>
   <%= form_group_tag @user_personal_data, :first_name do %>
     <%= f.label :first_name, class: 'govuk-label' %>
     <%= errors_tag @user_personal_data, :first_name %>

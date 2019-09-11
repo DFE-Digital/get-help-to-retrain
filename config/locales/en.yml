@@ -137,7 +137,7 @@ en-GB:
             last_name:
               blank: Enter your last name
             gender:
-              blank: Enter a gender or chose 'Prefer not to say'
+              blank: Enter a gender or choose 'Prefer not to say'
             postcode:
               blank: Enter a postcode
             dob:
