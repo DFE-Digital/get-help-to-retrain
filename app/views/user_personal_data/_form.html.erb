@@ -1,0 +1,71 @@
+<%= form_with model: @user_personal_data, url: your_information_path, local: true do |f| %>
+  <%= form_group_tag @user_personal_data, :first_name do %>
+    <%= f.label :first_name, class: 'govuk-label' %>
+    <%= errors_tag @user_personal_data, :first_name %>
+    <%= f.text_field :first_name, class: css_classes_for_input(@user_personal_data, :first_name, 'govuk-input govuk-!-width-two-thirds') %>
+  <% end %>
+  <%= form_group_tag @user_personal_data, :last_name do %>
+    <%= f.label :last_name, class: 'govuk-label' %>
+    <%= errors_tag @user_personal_data, :last_name %>
+    <%= f.text_field :last_name, class: css_classes_for_input(@user_personal_data, :last_name, 'govuk-input govuk-!-width-two-thirds') %>
+  <% end %>
+  <%= form_group_tag @user_personal_data, :postcode do %>
+    <%= f.label 'Postcode', class: 'govuk-label' %>
+    <%= errors_tag @user_personal_data, :postcode %>
+    <%= f.text_field :postcode, class: css_classes_for_input(@user_personal_data, :postcode, 'govuk-input govuk-input--width-10') %>
+  <% end %>
+  <div class="govuk-form-group">
+    <%= form_group_tag @user_personal_data, :dob do %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+        Date of birth
+      </h3>
+      <span id="passport-issued-hint" class="govuk-hint">
+        For example, 12 11 1980
+      </span>
+      <%= errors_tag @user_personal_data, :dob %>
+      <div class="govuk-date-input">
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <%= f.label :day, class: 'govuk-label' %>
+            <%= f.number_field :birth_day, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2') %>
+          </div>
+        </div>
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <%= f.label :month, class: 'govuk-label' %>
+            <%= f.number_field :birth_month, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2') %>
+          </div>
+        </div>
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <%= f.label :year, class: 'govuk-label' %>
+            <%= f.number_field :birth_year, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-4') %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="govuk-radios">
+    <%= form_group_tag @user_personal_data, :gender do %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
+        Gender
+      </h3>
+      <%= errors_tag @user_personal_data, :gender %>
+      <div class="govuk-radios__item">
+        <%= f.radio_button :gender, :male, class: 'govuk-radios__input' %>
+        <%= f.label :male, class: 'govuk-label govuk-radios__label' %>
+      </div>
+      <div class="govuk-radios__item">
+        <%= f.radio_button :gender, :female, class: 'govuk-radios__input' %>
+        <%= f.label :female, class: 'govuk-label govuk-radios__label' %>
+      </div>
+      <div class="govuk-radios__item">
+        <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input' %>
+        <%= f.label :prefer_not_to_say, class: 'govuk-label govuk-radios__label' %>
+      </div>
+    <% end %>
+  </div>
+  <p class="govuk-body govuk-!-margin-top-8">By continuing you agree to allow us to use your information as explained in our <%= link_to 'privacy policy', '#', class: 'govuk-link'  %>.</p>
+  <p class="govuk-body govuk-!-margin-top-8"><%= link_to 'Skip this step', skip_step_path, class:'govuk-link' %></p>
+  <%= f.button('Continue', class: 'govuk-button govuk-!-margin-top-0 govuk-button govuk-!-margin-bottom-2') %>
+<% end %>

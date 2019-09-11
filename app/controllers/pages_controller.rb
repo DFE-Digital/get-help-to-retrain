@@ -30,6 +30,10 @@ class PagesController < ApplicationController
   end
 
   def location_eligibility_through_courses
-    @search.find_courses.any? ? redirect_to(task_list_path) : redirect_to(location_ineligible_path)
+    if @search.find_courses.any?
+      Flipflop.user_personal_data? ? redirect_to(your_information_path) : redirect_to(task_list_path)
+    else
+      redirect_to(location_ineligible_path)
+    end
   end
 end

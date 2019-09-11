@@ -16,6 +16,7 @@ en-GB:
     location_eligibility: Your location
     location_ineligible: No courses in your area
     current_job_skills: Job skills
+    user_personal_data: Your information
 
   page_titles:
     default: Get help to retrain
@@ -33,6 +34,7 @@ en-GB:
     pages_english_overview: Get help to retrain - Benefits of English
     pages_training_hub: Get help to retrain - Training Hub
     pages_location_eligibility: Get help to retrain - Your location
+    user_personal_data: Get help to retrain - Your information
     pages_location_ineligible: Get help to retrain - No courses in your area
     errors_not_found: Get help to retrain - Not found
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity
@@ -44,6 +46,7 @@ en-GB:
     check_your_skills_index_search: Check your skills - Job search
     courses_index_search: Courses near me - Postcode search
     skills_index_selected: Current job skills - Skills selected
+    user_personal_information_skipped: User personal information - Skip this step link clicked
 
   contact_us:
     title: Speak to an adviser
@@ -107,6 +110,8 @@ en-GB:
     invalid_postcode_error: Enter a valid postcode
     nonexisting_postcode_error: Enter a real postcode
     no_postcode_error: Enter a postcode
+  user_personal_data:
+    title: Your information
 
   pagination:
     previous: Previous
@@ -121,3 +126,19 @@ en-GB:
     feature_states:
       enabled: 'on'
       disabled: 'off'
+
+  activerecord:
+    errors:
+      models:
+        user_personal_data:
+          attributes:
+            first_name:
+              blank: Enter your first name
+            last_name:
+              blank: Enter your last name
+            gender:
+              blank: Enter a gender or chose 'Prefer not to say'
+            postcode:
+              blank: Enter a postcode
+            dob:
+              invalid: Enter a valid date of birth

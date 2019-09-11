@@ -5,4 +5,5 @@ Flipflop.configure do
 
   feature :foo, description: 'Example feature flag', default: true
   feature :skills_builder_v2, description: 'Skills builder V2 feature'
+  feature :user_personal_data, description: 'User personal data collection feature'
 end
