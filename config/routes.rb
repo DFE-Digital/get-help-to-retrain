@@ -45,6 +45,14 @@ Rails.application.routes.draw do
     resources :user_personal_data, only: %i[index create]
   end
 
+  constraints ->(_req) { Flipflop.user_authentication? } do
+    get 'save-your-results', to: 'users#new'
+    post 'save-your-results', to: 'users#create'
+    get 'link-sent', to: 'users#show'
+
+    get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
+  end
+
   root to: 'home#index'
 end
 # rubocop:enable Metrics/BlockLength
