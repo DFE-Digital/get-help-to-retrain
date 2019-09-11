@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'User Registration' do
+RSpec.feature 'User authentication in sidebar' do
   let!(:skill1) { create(:skill, name: 'Chameleon-like blend in tactics') }
   let!(:skill2) { create(:skill, name: 'License to kill') }
   let!(:skill3) { create(:skill, name: 'Baldness') }
@@ -18,59 +18,29 @@ RSpec.feature 'User Registration' do
     )
   end
 
-  let(:save_your_progress_paths) {
-    [
-      skills_path,
-      check_your_skills_path,
-      skills_matcher_index_path,
-      job_profile_path(job_profile1.slug),
-      training_hub_path,
-      english_course_overview_path,
-      maths_course_overview_path,
-      courses_path('english'),
-      next_steps_path
-    ]
-  }
-
   before do
     enable_feature!(:user_authentication, :skills_builder_v2)
   end
 
-  def unlock_pages
+  scenario 'user sees save your results page when navigating from sidebar' do
     visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
     find('.govuk-button').click
-
-    click_on('Find out what you can do with these skills')
+    click_on('Save my results')
+    expect(page).to have_current_path(save_your_results_path)
   end
 
-  scenario 'user sees save your results in sidebar' do
-    unlock_pages
+  scenario 'User gets relevant messaging if no email is entered' do
+    visit(save_your_results_path)
+    click_on('Save your results')
 
-    save_your_progress_paths.each do |path|
-      visit(path)
-
-      expect(page).to have_text('Save your results')
-    end
+    expect(page).to have_text(/Enter an email address/)
   end
 
-  scenario 'user does not see save your results with no previously selected skills' do
-    visit(check_your_skills_path)
+  scenario 'User gets relevant messaging if invalid email is entered' do
+    visit(save_your_results_path)
+    fill_in('email', with: 'wrong email')
+    click_on('Save your results')
 
-    expect(page).not_to have_text('Save your results')
-  end
-
-  context 'when user authentication feature is off' do
-    before do
-      disable_feature! :user_authentication
-    end
-
-    scenario 'user does not see save your results in sidebar' do
-      unlock_pages
-
-      save_your_progress_paths.each do |path|
-        visit(path)
-        expect(page).not_to have_text('Save your results')
-      end
-    end
+    expect(page).to have_text(/Enter a valid email address/)
   end
 end

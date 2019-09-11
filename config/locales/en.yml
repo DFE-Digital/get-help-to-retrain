@@ -1,4 +1,12 @@
 en-GB:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 'Enter an email address'
+              invalid: 'Enter a valid email address'
   breadcrumb:
     home: Home
     task_list: Get help to retrain
@@ -17,6 +25,7 @@ en-GB:
     location_ineligible: No courses in your area
     current_job_skills: Job skills
     user_personal_data: Your information
+    save_your_results: Save your results
 
   page_titles:
     default: Get help to retrain
@@ -40,6 +49,7 @@ en-GB:
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity
     errors_internal_server_error: Get help to retrain - Internal server error
     errors_postcode_search_error: Get help to retrain - Postcode search error
+    save_your_results: Get help to retrain - Save your results
 
   events:
     pages_location_eligibility_search: Your location - Postcode search
@@ -115,6 +125,9 @@ en-GB:
   save_your_results:
     title: Save your results
     sub_title: If you like, you can save these results so you can come back to them later.
+  users:
+    new:
+      title: Save your results
 
   pagination:
     previous: Previous

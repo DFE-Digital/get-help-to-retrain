@@ -96,6 +96,34 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#registration_triggered_path' do
+    it 'returns registration_triggered value if set' do
+      session[:registration_triggered] = 'some-path'
+
+      expect(user_session.registration_triggered_path).to eq('some-path')
+    end
+
+    it 'returns nil if no registration_triggered set' do
+      expect(user_session.registration_triggered_path).to be_nil
+    end
+  end
+
+  describe '#registration_triggered_from' do
+    it 'sets registration_triggered if path is part of app' do
+      referer = 'http://myapp/skills?job_profile_id=hitman'
+      user_session.registration_triggered_from(referer)
+
+      expect(user_session.registration_triggered_path).to eq('/skills?job_profile_id=hitman')
+    end
+
+    it 'does not set registration_triggered if path is not part of app' do
+      referer = 'http://not-my-app/dodgy-path'
+      user_session.registration_triggered_from(referer)
+
+      expect(user_session.registration_triggered_path).to be_nil
+    end
+  end
+
   describe '#current_job_id' do
     it 'returns current_job_id value if set' do
       user_session.current_job_id = 1
