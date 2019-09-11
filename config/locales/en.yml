@@ -26,6 +26,7 @@ en-GB:
     current_job_skills: Job skills
     user_personal_data: Your information
     save_your_results: Save your results
+    link_sent: Link sent
 
   page_titles:
     default: Get help to retrain
@@ -50,6 +51,7 @@ en-GB:
     errors_internal_server_error: Get help to retrain - Internal server error
     errors_postcode_search_error: Get help to retrain - Postcode search error
     save_your_results: Get help to retrain - Save your results
+    link_sent: Get help to retrain - Link sent
 
   events:
     pages_location_eligibility_search: Your location - Postcode search
@@ -128,6 +130,8 @@ en-GB:
   users:
     new:
       title: Save your results
+    show:
+      title: Your results have been saved
 
   pagination:
     previous: Previous

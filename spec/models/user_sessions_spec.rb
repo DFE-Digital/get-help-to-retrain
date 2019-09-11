@@ -97,26 +97,26 @@ RSpec.describe UserSession do
   end
 
   describe '#registration_triggered_path' do
-    it 'returns registration_triggered value if set' do
-      session[:registration_triggered] = 'some-path'
+    it 'returns registration_triggered_path value if set' do
+      session[:registration_triggered_path] = 'some-path'
 
       expect(user_session.registration_triggered_path).to eq('some-path')
     end
 
-    it 'returns nil if no registration_triggered set' do
+    it 'returns nil if no registration_triggered_path set' do
       expect(user_session.registration_triggered_path).to be_nil
     end
   end
 
   describe '#registration_triggered_from' do
-    it 'sets registration_triggered if path is part of app' do
+    it 'sets registration_triggered_path if path is part of app' do
       referer = 'http://myapp/skills?job_profile_id=hitman'
       user_session.registration_triggered_from(referer)
 
       expect(user_session.registration_triggered_path).to eq('/skills?job_profile_id=hitman')
     end
 
-    it 'does not set registration_triggered if path is not part of app' do
+    it 'does not set registration_triggered_path if path is not part of app' do
       referer = 'http://not-my-app/dodgy-path'
       user_session.registration_triggered_from(referer)
 
@@ -133,6 +133,34 @@ RSpec.describe UserSession do
 
     it 'returns nil if no postcode set' do
       expect(user_session.current_job_id).to be_nil
+    end
+  end
+
+  describe '#merge_session' do
+    it 'merges old data into new session for selected keys' do
+      old_session = {
+        postcode: 'NW118QE',
+        session_id: 2
+      }
+      user_session = described_class.new(create_fake_session({ session_id: 1 }, versioned: true))
+      user_session.merge_session(old_session)
+
+      expect(user_session.session.to_h).to include(postcode: 'NW118QE', session_id: 1)
+    end
+
+    it 'overrides set values in current session with old ones' do
+      old_session = {
+        version: 5,
+        job_profile_skills: { '11' => [2, 3, 5] }
+      }
+      new_session = {
+        version: 2,
+        job_profile_skills: { '11' => [4] }
+      }
+      user_session = described_class.new(create_fake_session(new_session, versioned: true))
+      user_session.merge_session(old_session)
+
+      expect(user_session.session.to_h).to include(version: 5, job_profile_skills: { '11' => [2, 3, 5] })
     end
   end
 

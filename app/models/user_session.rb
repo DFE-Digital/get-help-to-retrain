@@ -1,6 +1,16 @@
 class UserSession
   attr_reader :session
 
+  KEYS_TO_RESTORE = %i[
+    visited_pages
+    job_profile_skills
+    job_profile_ids
+    postcode
+    current_job_id
+    visited_pages
+    version
+  ].freeze
+
   def initialize(session)
     @session = session
     @session.destroy unless version == expected_version
@@ -32,12 +42,12 @@ class UserSession
   end
 
   def registration_triggered_path
-    session[:registration_triggered]
+    session[:registration_triggered_path]
   end
 
   def registration_triggered_from(referer)
     path = URI(referer).request_uri
-    session[:registration_triggered] = path if Rails.application.routes.recognize_path(path)
+    session[:registration_triggered_path] = path if Rails.application.routes.recognize_path(path)
   rescue ActionController::RoutingError => e
     Rails.logger.error("Geocoder API error: #{e.message}")
   end
@@ -52,6 +62,10 @@ class UserSession
 
   def job_profile_skills
     session[:job_profile_skills]
+  end
+
+  def merge_session(previous_session_data)
+    session.merge!(previous_session_data.slice(*KEYS_TO_RESTORE))
   end
 
   def set_skills_ids_for_profile(job_profile_id, skill_ids)

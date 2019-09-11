@@ -3,6 +3,10 @@ class SessionKlass < SimpleDelegator
     super
   end
 
+  def id
+    self[:id]
+  end
+
   def destroy
     clear
   end
