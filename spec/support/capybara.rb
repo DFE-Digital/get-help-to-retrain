@@ -23,6 +23,11 @@ RSpec.configure do |config|
     Capybara.javascript_driver = :selenium_chrome_headless
   end
 
+  config.before(:all, type: :feature) do
+    PrimaryActiveRecordBase.connection.reconnect!
+    RestrictedActiveRecordBase.connection.reconnect!
+  end
+
   config.prepend_after(:each, type: :feature) do
     Capybara.reset_sessions!
   end

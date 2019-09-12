@@ -6,7 +6,7 @@ RSpec.feature 'User authentication in sidebar' do
       :job_profile,
       :with_skill,
       :with_html_content,
-      name: 'Hitman',
+      name: 'Hitman'
     )
   end
 
