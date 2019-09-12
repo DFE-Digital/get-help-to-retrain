@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
-    user_session.registration_triggered_from(request.referer) if request.referer
+    user_session.registration_triggered_from(request.referer, [save_your_results_path]) if request.referer
   end
 
   def create

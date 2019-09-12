@@ -117,6 +117,16 @@ RSpec.feature 'User registration' do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'User redirected to task list page if they went back from save your results page' do
+    register_user
+    click_on('enter your email address again')
+    fill_in('email', with: 'test@test.test')
+    click_on('Save your results')
+    click_on('Continue')
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
   scenario 'User sent confirmation email when registering for first time' do
     register_user
 

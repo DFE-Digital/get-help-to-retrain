@@ -122,6 +122,13 @@ RSpec.describe UserSession do
 
       expect(user_session.registration_triggered_path).to be_nil
     end
+
+    it 'does not set registration_triggered_path if its part of urls to ignore' do
+      referer = 'http://myapp/save-my-results'
+      user_session.registration_triggered_from(referer, ['/save-my-results'])
+
+      expect(user_session.registration_triggered_path).to be_nil
+    end
   end
 
   describe '#current_job_id' do
