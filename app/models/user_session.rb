@@ -7,7 +7,6 @@ class UserSession
     job_profile_ids
     postcode
     current_job_id
-    visited_pages
     version
   ].freeze
 
@@ -49,7 +48,7 @@ class UserSession
     path = URI(referer).request_uri
     session[:registration_triggered_path] = path if Rails.application.routes.recognize_path(path)
   rescue ActionController::RoutingError => e
-    Rails.logger.error("Geocoder API error: #{e.message}")
+    Rails.logger.error("Route not from app when registering: #{e.message}")
   end
 
   def current_job_id

@@ -84,6 +84,15 @@ RSpec.feature 'User registration' do
     expect(page).to have_text(/Save your results/)
   end
 
+  scenario 'User does not get error message if they enter their same email but different case' do
+    register_user
+    click_on('enter your email address again')
+    fill_in('email', with: 'Test@Test.test')
+    click_on('Save your results')
+
+    expect(page).to have_text(/Your results have been saved/)
+  end
+
   scenario 'User can resend email and is redirected to same page' do
     register_user
     click_on('send it again')
@@ -126,6 +135,17 @@ RSpec.feature 'User registration' do
   scenario 'User sent sign in email if they click send email again' do
     register_user
     click_on('send it again')
+
+    expect(client).to have_received(:send_email)
+      .with(confirmation_email)
+      .with(sign_in_email)
+  end
+
+  scenario 'User sent sign in email if they enter their same email but in different case' do
+    register_user
+    click_on('enter your email address again')
+    fill_in('email', with: 'Test@Test.test')
+    click_on('Save your results')
 
     expect(client).to have_received(:send_email)
       .with(confirmation_email)

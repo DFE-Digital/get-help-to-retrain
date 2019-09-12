@@ -153,7 +153,7 @@ RSpec.describe User do
       email_address: email,
       template_id: NotifyService::CONFIRMATION_TEMPLATE_ID,
       personalisation: {
-        'URL' => /url/
+        'URL' => 'url'
       }
     }
   end
