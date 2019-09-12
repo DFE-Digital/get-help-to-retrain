@@ -1,12 +1,4 @@
 en-GB:
-  activerecord:
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              blank: 'Enter an email address'
-              invalid: 'Enter a valid email address'
   breadcrumb:
     home: Home
     task_list: Get help to retrain
@@ -150,6 +142,11 @@ en-GB:
   activerecord:
     errors:
       models:
+        user:
+          attributes:
+            email:
+              blank: 'Enter an email address'
+              invalid: 'Enter a valid email address'
         user_personal_data:
           attributes:
             first_name:
