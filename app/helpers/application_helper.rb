@@ -17,6 +17,6 @@ module ApplicationHelper
   end
 
   def user_not_authenticated_or_registered?
-    Flipflop.user_authentication? && !(current_user || user_session.registered)
+    Flipflop.user_authentication? && !(current_user || user_session.registered?)
   end
 end

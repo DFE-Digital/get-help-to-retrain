@@ -12,6 +12,9 @@ class UsersController < ApplicationController
     else
       render(:new)
     end
+  rescue NotifyService::NotifyAPIError
+    # TODO: show user an error page, for now render link sent page
+    render(:show)
   end
 
   private
@@ -22,10 +25,10 @@ class UsersController < ApplicationController
 
   def setup_user
     if @user.new_record?
-      @user.register(user_session, request.base_url)
+      @user.register_new_user(user_session, request.base_url)
     else
       passwordless_session = build_passwordless_session(@user)
-      @user.sign_in(passwordless_session, request.base_url)
+      @user.register_existing_user(passwordless_session, request.base_url, user_session)
     end
   end
 end

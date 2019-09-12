@@ -32,7 +32,7 @@ class UserSession
     session[:postcode] = value
   end
 
-  def registered
+  def registered?
     session[:registered]
   end
 
@@ -45,10 +45,11 @@ class UserSession
   end
 
   def registration_triggered_from(referer, paths_to_ignore = [])
-    path = URI(referer).request_uri
-    return if paths_to_ignore.include?(path)
+    uri = URI(referer)
+    return if paths_to_ignore.include?(uri.path)
+    return unless Rails.application.routes.recognize_path(uri.request_uri)
 
-    session[:registration_triggered_path] = path if Rails.application.routes.recognize_path(path)
+    session[:registration_triggered_path] = uri.request_uri
   rescue ActionController::RoutingError => e
     Rails.logger.error("Route not from app when registering: #{e.message}")
   end

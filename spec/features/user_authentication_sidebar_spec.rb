@@ -14,6 +14,8 @@ RSpec.feature 'User authentication in sidebar' do
     [
       skills_path,
       check_your_skills_path,
+      results_check_your_skills_path,
+      job_profile_skills_path(job_profile.slug),
       skills_matcher_index_path,
       job_profile_path(job_profile.slug),
       training_hub_path,
@@ -30,7 +32,7 @@ RSpec.feature 'User authentication in sidebar' do
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
-  def unlock_pages
+  def unlock_tasklist_steps
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     find('.govuk-button').click
 
@@ -38,15 +40,15 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   def register_user
-    unlock_pages
+    unlock_tasklist_steps
     visit(save_your_results_path)
     fill_in('email', with: 'test@test.test')
-
+    page.driver.header('User-Agent', 'some-agent')
     click_on('Save your results')
   end
 
   scenario 'user sees save your results in sidebar' do
-    unlock_pages
+    unlock_tasklist_steps
 
     save_your_progress_paths.each do |path|
       visit(path)
@@ -56,6 +58,18 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   scenario 'user does not see save your results in sidebar if user registered' do
+    register_user
+
+    save_your_progress_paths.each do |path|
+      visit(path)
+
+      expect(page).not_to have_text('Save your results')
+    end
+  end
+
+  scenario 'user does not see save your results in sidebar if user existed before' do
+    register_user
+    Capybara.reset_sessions!
     register_user
 
     save_your_progress_paths.each do |path|
@@ -77,7 +91,7 @@ RSpec.feature 'User authentication in sidebar' do
     end
 
     scenario 'user does not see save your results in sidebar' do
-      unlock_pages
+      unlock_tasklist_steps
 
       save_your_progress_paths.each do |path|
         visit(path)

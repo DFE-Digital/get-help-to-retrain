@@ -7,7 +7,7 @@ class User < RestrictedActiveRecordBase
 
   passwordless_with :email
 
-  def register(user_session, url)
+  def register_new_user(user_session, url)
     return unless user_session && url
 
     add_session_to_user(user_session.session)
@@ -19,9 +19,10 @@ class User < RestrictedActiveRecordBase
     )
   end
 
-  def sign_in(passwordless_session, url)
+  def register_existing_user(passwordless_session, url, user_session)
     return unless url && passwordless_session&.save
 
+    user_session.registered = true
     magic_link = url + token_sign_in_path(token: passwordless_session.token)
     notify_service.send_email(
       email_address: email,

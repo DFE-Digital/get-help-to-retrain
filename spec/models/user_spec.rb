@@ -7,14 +7,14 @@ RSpec.describe User do
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
-  describe '#register' do
+  describe '#register_new_user' do
     it 'sets the request session to the user' do
       user = create(:user)
       session = create(:session)
       user_session = UserSession.new(
         create_fake_session(id: session.session_id)
       )
-      user.register(user_session, 'url')
+      user.register_new_user(user_session, 'url')
 
       expect(user.session).to eq(session)
     end
@@ -25,9 +25,9 @@ RSpec.describe User do
       user_session = UserSession.new(
         create_fake_session(id: session.session_id)
       )
-      user.register(user_session, 'url')
+      user.register_new_user(user_session, 'url')
 
-      expect(user_session.registered).to be_truthy
+      expect(user_session).to be_registered
     end
 
     it 'sends a confirmation email' do
@@ -36,14 +36,14 @@ RSpec.describe User do
       user_session = UserSession.new(
         create_fake_session(id: session.session_id)
       )
-      user.register(user_session, 'url')
+      user.register_new_user(user_session, 'url')
 
       expect(client).to have_received(:send_email).with(confirmation_email(user.email))
     end
 
     it 'does nothing if no session set' do
       user = create(:user)
-      user.register(nil, 'url')
+      user.register_new_user(nil, 'url')
 
       expect(client).not_to have_received(:send_email).with(confirmation_email(user.email))
     end
@@ -54,25 +54,33 @@ RSpec.describe User do
       user_session = UserSession.new(
         create_fake_session(id: session.session_id)
       )
-      user.register(user_session, nil)
+      user.register_new_user(user_session, nil)
 
       expect(user.session).to be_nil
     end
   end
 
-  describe '#sign_in' do
+  describe '#register_existing_user' do
     it 'persists passwordless_session' do
       user = create(:user)
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
       passwordless_session = build(:passwordless_session, authenticatable: user)
-      user.sign_in(passwordless_session, 'url')
+      user.register_existing_user(passwordless_session, 'url', user_session)
 
       expect(passwordless_session).to be_persisted
     end
 
     it 'sets the magic link url' do
       user = create(:user)
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
       passwordless_session = build(:passwordless_session, authenticatable: user)
-      user.sign_in(passwordless_session, 'http://example.com')
+      user.register_existing_user(passwordless_session, 'http://example.com', user_session)
 
       expect(client).to have_received(:send_email).with(
         hash_including(
@@ -83,33 +91,61 @@ RSpec.describe User do
       )
     end
 
+    it 'marks the user as registered' do
+      user = create(:user)
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
+      passwordless_session = create(:passwordless_session, authenticatable: user)
+      user.register_existing_user(passwordless_session, 'url', user_session)
+
+      expect(user_session).to be_registered
+    end
+
     it 'sends a sign in email' do
       user = create(:user)
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
       passwordless_session = create(:passwordless_session, authenticatable: user)
-      user.sign_in(passwordless_session, 'url')
+      user.register_existing_user(passwordless_session, 'url', user_session)
 
       expect(client).to have_received(:send_email).with(sign_in_email(user.email))
     end
 
     it 'does nothing if no passwordless_session set' do
       user = create(:user)
-      user.sign_in(nil, 'url')
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
+      user.register_existing_user(nil, 'url', user_session)
 
       expect(client).not_to have_received(:send_email).with(sign_in_email(user.email))
     end
 
     it 'does nothing if no url set' do
       user = create(:user)
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
       passwordless_session = build(:passwordless_session)
-      user.sign_in(passwordless_session, nil)
+      user.register_existing_user(passwordless_session, nil, user_session)
 
       expect(passwordless_session).not_to be_persisted
     end
 
     it 'does nothing if passwordless_session not valid' do
       user = create(:user)
+      session = create(:session)
+      user_session = UserSession.new(
+        create_fake_session(id: session.session_id)
+      )
       passwordless_session = build(:passwordless_session)
-      user.sign_in(passwordless_session, 'url')
+      user.register_existing_user(passwordless_session, 'url', user_session)
 
       expect(passwordless_session).not_to be_persisted
     end

@@ -88,11 +88,11 @@ RSpec.describe UserSession do
     it 'returns registered value if set' do
       user_session.registered = true
 
-      expect(user_session.registered).to eq(true)
+      expect(user_session).to be_registered
     end
 
     it 'returns nil if no registered set' do
-      expect(user_session.registered).to be_nil
+      expect(user_session).not_to be_registered
     end
   end
 
@@ -126,6 +126,13 @@ RSpec.describe UserSession do
     it 'does not set registration_triggered_path if its part of urls to ignore' do
       referer = 'http://myapp/save-my-results'
       user_session.registration_triggered_from(referer, ['/save-my-results'])
+
+      expect(user_session.registration_triggered_path).to be_nil
+    end
+
+    it 'does not set registration_triggered_path if its part of urls to ignore and theres a query' do
+      referer = 'http://myapp/save-your-results?some-query'
+      user_session.registration_triggered_from(referer, ['/save-your-results'])
 
       expect(user_session.registration_triggered_path).to be_nil
     end
