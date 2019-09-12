@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'routes for Your information page', type: :routing do
+  before do
+    disable_feature! :user_personal_data
+  end
+
   it 'does not map user_personal_data#index' do
     expect(get(your_information_path)).not_to route_to('user_personal_data#index')
   end
