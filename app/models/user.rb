@@ -31,11 +31,11 @@ class User < RestrictedActiveRecordBase
     )
   end
 
-  def restore_session(user_session)
-    return unless user_session
+  def restore_session(new_session)
+    return unless new_session
 
-    user_session.merge_session(session.data)
-    add_session_to_user(user_session.session)
+    UserSession.merge_session(new_session, session.data)
+    add_session_to_user(new_session)
   end
 
   private

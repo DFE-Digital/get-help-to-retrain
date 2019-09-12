@@ -155,11 +155,9 @@ RSpec.describe User do
     it 'sets the current request session to the user' do
       user = create(:user, session: create(:session))
       session = create(:session)
-      user_session = UserSession.new(
-        create_fake_session(id: session.session_id)
-      )
+      new_session = create_fake_session(id: session.session_id)
 
-      user.restore_session(user_session)
+      user.restore_session(new_session)
 
       expect(user.session).to eq(session)
     end
@@ -167,11 +165,9 @@ RSpec.describe User do
     it 'overrides current session data set to user' do
       user = create(:user, session: create(:session, data: { postcode: 'bar' }))
       session = create(:session, data: { postcode: 'baz' })
-      user_session = UserSession.new(
-        create_fake_session(id: session.session_id)
-      )
+      new_session = create_fake_session(id: session.session_id)
 
-      user.restore_session(user_session)
+      user.restore_session(new_session)
 
       expect(user.session.data).to eq(session.data)
     end
