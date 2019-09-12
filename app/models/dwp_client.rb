@@ -1,6 +1,6 @@
 class DwpClient
   def search(payload)
-    response = connection.get(api_base.concat(payload.merge(api_key: api_key, api_id: api_id).to_query)).body
+    response = connection.get('search?'.concat(payload.merge(api_key: api_key, api_id: api_id).to_query)).body
 
     JSON.parse(response)
   end
@@ -8,7 +8,7 @@ class DwpClient
   private
 
   def api_base
-    @api_base ||= 'https://findajob.dwp.gov.uk/api/search?'
+    @api_base ||= 'https://findajob.dwp.gov.uk/api/'
   end
 
   def api_key
