@@ -139,28 +139,28 @@ RSpec.describe UserSession do
   describe '#merge_session' do
     it 'merges old data into new session for selected keys' do
       old_session = {
-        postcode: 'NW118QE',
-        session_id: 2
+        'postcode' => 'NW118QE',
+        'session_id' => 2
       }
-      user_session = described_class.new(create_fake_session({ session_id: 1 }, versioned: true))
+      user_session = described_class.new(create_fake_session({ 'session_id' => 1 }, versioned: true))
       user_session.merge_session(old_session)
 
-      expect(user_session.session.to_h).to include(postcode: 'NW118QE', session_id: 1)
+      expect(user_session.session.to_h).to include('postcode' => 'NW118QE', 'session_id' => 1)
     end
 
     it 'overrides set values in current session with old ones' do
       old_session = {
-        version: 5,
-        job_profile_skills: { '11' => [2, 3, 5] }
+        'version' => 5,
+        'job_profile_skills' => { '11' => [2, 3, 5] }
       }
       new_session = {
-        version: 2,
-        job_profile_skills: { '11' => [4] }
+        'version' => 2,
+        'job_profile_skills' => { '11' => [4] }
       }
       user_session = described_class.new(create_fake_session(new_session, versioned: true))
       user_session.merge_session(old_session)
 
-      expect(user_session.session.to_h).to include(version: 5, job_profile_skills: { '11' => [2, 3, 5] })
+      expect(user_session.session.to_h).to include('version' => 5, 'job_profile_skills' => { '11' => [2, 3, 5] })
     end
   end
 

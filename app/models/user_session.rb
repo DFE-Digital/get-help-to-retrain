@@ -1,7 +1,7 @@
 class UserSession
   attr_reader :session
 
-  KEYS_TO_RESTORE = %i[
+  KEYS_TO_RESTORE = %w[
     visited_pages
     job_profile_skills
     job_profile_ids
