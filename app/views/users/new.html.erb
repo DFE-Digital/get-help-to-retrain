@@ -1,0 +1,29 @@
+<% page_title :save_your_results %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.save_your_results'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path]
+      ]
+    )
+  end
+%>
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body">If you like, you can save your skills list and job matches so you can return to them later.</p>
+    <p class="govuk-body">To save your results, just enter your email address below.</p>
+    <%= form_with model: @user, local: true, url: save_your_results_path do |form| %>
+      <%= form_group_tag @user, :email do %>
+        <label class="govuk-label" for="email">
+          Email
+        </label>
+        <%= errors_tag @user, :email %>
+        <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds")) %>
+      <% end %>
+      <p class="govuk-body">We'll send you a confirmation email to this email address.</p>
+      <%= button_tag('Save your results', class: 'govuk-button') %>
+    <% end %>
+  </div>
+  <%= render "shared/contact_us" %>
+</div>

@@ -45,4 +45,5 @@
   </div>
 
   <%= render 'shared/contact_us' %>
+  <%= render "shared/save_your_results" if Flipflop.skills_builder_v2? && user_session.job_profile_skills? %>
 </div>

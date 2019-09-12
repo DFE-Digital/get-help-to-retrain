@@ -1,6 +1,15 @@
 class UserSession
   attr_reader :session
 
+  KEYS_TO_RESTORE = %w[
+    visited_pages
+    job_profile_skills
+    job_profile_ids
+    postcode
+    current_job_id
+    version
+  ].freeze
+
   def initialize(session)
     @session = session
     @session.destroy unless version == expected_version
@@ -23,6 +32,28 @@ class UserSession
     session[:postcode] = value
   end
 
+  def registered?
+    session[:registered]
+  end
+
+  def registered=(value)
+    session[:registered] = value
+  end
+
+  def registration_triggered_path
+    session[:registration_triggered_path]
+  end
+
+  def registration_triggered_from(referer, paths_to_ignore = [])
+    uri = URI(referer)
+    return if paths_to_ignore.include?(uri.path)
+    return unless Rails.application.routes.recognize_path(uri.request_uri)
+
+    session[:registration_triggered_path] = uri.request_uri
+  rescue ActionController::RoutingError => e
+    Rails.logger.error("Route not from app when registering: #{e.message}")
+  end
+
   def current_job_id
     session[:current_job_id]
   end
@@ -33,6 +64,10 @@ class UserSession
 
   def job_profile_skills
     session[:job_profile_skills]
+  end
+
+  def merge_session(previous_session_data)
+    session.merge!(previous_session_data.slice(*KEYS_TO_RESTORE))
   end
 
   def set_skills_ids_for_profile(job_profile_id, skill_ids)

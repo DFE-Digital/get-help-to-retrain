@@ -1,9 +1,17 @@
 class ApplicationController < ActionController::Base
+  include Passwordless::ControllerHelpers
+
   def user_session
     @user_session ||= UserSession.new(session)
   end
 
-  helper_method :user_session
+  # The authenticate method comes from the passwordless gem.
+  #  This is authenticating the passwordless session.
+  def current_user
+    @current_user ||= authenticate_by_session(User)
+  end
+
+  helper_method :user_session, :current_user
 
   private
 

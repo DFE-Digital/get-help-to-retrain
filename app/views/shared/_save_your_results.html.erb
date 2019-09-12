@@ -1,0 +1,8 @@
+<% return unless user_not_authenticated_or_registered? %>
+<div class="govuk-grid-column-one-third">
+  <div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container">
+    <h2 class="govuk-heading-m"><%= t('save_your_results.title') %></h2>
+    <p class="govuk-body"><%= t('save_your_results.sub_title') %></p>
+    <%= link_to 'Save my results', save_your_results_path, class: 'govuk-button govuk-button--secondary govuk-!-width-full govuk-!-margin-top-1' %>
+  </div>
+</div>

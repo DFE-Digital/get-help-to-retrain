@@ -9,6 +9,7 @@ require 'support/feature_flags'
 require 'support/session_helper'
 require 'simplecov'
 require 'vcr'
+require 'notifications/client'
 SimpleCov.start
 
 begin
