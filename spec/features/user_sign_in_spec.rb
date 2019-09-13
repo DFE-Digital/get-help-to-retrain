@@ -240,4 +240,31 @@ RSpec.feature 'User sign in' do
 
     expect(page).to have_selector('tbody tr', count: 2)
   end
+
+  scenario 'if user signs in, they should be redirected to task list page' do
+    register_user
+    sign_in_user
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'if user signs in, and token expired user should be redirected to 404' do
+    register_user
+    send_sign_in_email
+    Capybara.reset_sessions!
+    Passwordless::Session.last.update(timeout_at: Time.now - 1.day)
+
+    expect {
+      visit(token_sign_in_path(token: Passwordless::Session.last.token))
+    }.to raise_error(ActionController::RoutingError)
+  end
+
+  scenario 'if user signs in, and token claimed user should be redirected to 404' do
+    register_user
+    sign_in_user
+
+    expect {
+      visit(token_sign_in_path(token: Passwordless::Session.last.token))
+    }.to raise_error(ActionController::RoutingError)
+  end
 end

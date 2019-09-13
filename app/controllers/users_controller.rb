@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     end
   rescue NotifyService::NotifyAPIError
     # TODO: show user an error page, for now render link sent page
-    render(:show)
+    redirect_to(link_sent_path(email: @user.email))
   end
 
   private
