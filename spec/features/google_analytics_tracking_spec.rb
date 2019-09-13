@@ -6,7 +6,7 @@ RSpec.feature 'Google Analytics tracking' do
 
     visit(root_path)
 
-    expect(page.source).to match('gtag')
+    expect(page.source).to include("gtag('config', 'FOO')")
   end
 
   scenario 'snippet is not included when disabled in configuration' do
@@ -14,6 +14,6 @@ RSpec.feature 'Google Analytics tracking' do
 
     visit(root_path)
 
-    expect(page.source).not_to match('gtag')
+    expect(page.source).not_to include('gtag')
   end
 end
