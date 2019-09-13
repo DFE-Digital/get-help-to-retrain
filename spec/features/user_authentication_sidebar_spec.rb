@@ -189,6 +189,35 @@ RSpec.feature 'User authentication in sidebar' do
       end
     end
 
+    scenario 'user sees save your results in sidebar if user sends sign in email through sign in' do
+      visit(root_path)
+      fill_in('email', with: 'test@test.test')
+      click_on('Send a link')
+      unlock_tasklist_steps
+
+      save_your_progress_paths.each do |path|
+        visit(path)
+
+        expect(page).to have_text('Save your results')
+      end
+    end
+
+    scenario 'user does not see save your results in sidebar if user signs in' do
+      register_user
+
+      visit(root_path)
+      fill_in('email', with: 'test@test.test')
+      click_on('Send a link')
+      Capybara.reset_sessions!
+      visit(token_sign_in_path(token: Passwordless::Session.last.token))
+
+      save_your_progress_paths.each do |path|
+        visit(path)
+
+        expect(page).not_to have_text('Save your results')
+      end
+    end
+
     context 'when user authentication feature is off' do
       before do
         disable_feature! :user_authentication

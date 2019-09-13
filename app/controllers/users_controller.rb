@@ -42,10 +42,11 @@ class UsersController < ApplicationController
     else
       sign_in_user
     end
+    user_session.registered = true
   end
 
   def sign_in_user
     passwordless_session = build_passwordless_session(@user)
-    @user.register_existing_user(passwordless_session, request.base_url, user_session)
+    @user.register_existing_user(passwordless_session, request.base_url)
   end
 end
