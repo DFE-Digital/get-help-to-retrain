@@ -173,7 +173,20 @@ RSpec.feature 'User authentication in sidebar' do
       end
     end
 
-    xscenario 'user does not see return to saved results in sidebar if user signs in through sign in' do
+    scenario 'user does not see return to saved results in sidebar if user signs in through sign in' do
+      register_user
+
+      visit(root_path)
+      fill_in('email', with: 'test@test.test')
+      click_on('Send a link')
+      Capybara.reset_sessions!
+      visit(token_sign_in_path(token: Passwordless::Session.last.token))
+
+      sign_in_paths.each do |path|
+        visit(path)
+
+        expect(page).not_to have_text('Return to saved results')
+      end
     end
 
     context 'when user authentication feature is off' do

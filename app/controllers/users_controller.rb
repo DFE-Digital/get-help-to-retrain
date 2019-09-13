@@ -8,18 +8,21 @@ class UsersController < ApplicationController
     @user = User.find_or_initialize_by(email: user_params[:email])
     if @user.valid?
       register_user
-      render(:show)
+      render(:registration_link_sent)
     else
       render(:new)
     end
   rescue NotifyService::NotifyAPIError
     # TODO: show user an error page, for now render link sent page
-    render(:show)
+    render(:registration_link_sent)
   end
 
   def sign_in
     @user = User.find_or_initialize_by(email: user_params[:email])
-    unless @user.valid?
+    if @user.valid?
+      sign_in_user unless @user.new_record?
+      redirect_to(link_sent_path(email: @user.email))
+    else
       redirect_back(fallback_location: root_path, flash: { error: @user.errors[:email] })
     end
   rescue NotifyService::NotifyAPIError
