@@ -8,7 +8,7 @@ RSpec.feature 'Google Analytics tracking' do
 
     expect(page.source).to match('gtag')
   end
-  
+
   scenario 'snippet is not included when disabled in configuration' do
     allow(Rails.configuration).to receive(:google_analytics_tracking_id).and_return(nil)
 

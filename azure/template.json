@@ -125,6 +125,13 @@
         "description:": "GOV.UK Notify Service - API KEY"
       }
     },
+    "googleAnalyticsTrackingId": {
+      "type": "string",
+      "defaultValue": "", 
+      "metadata": {
+        "description:": "Google Analytics - Tracking ID"
+      }
+    },
     "applyAlerts": {
       "type": "bool",
       "defaultValue": false
@@ -437,6 +444,10 @@
               {
                 "name": "NOTIFY_API_KEY",
                 "value": "[parameters('notifyApiKey')]"
+              },
+              {
+                "name": "GOOGLE_ANALYTICS_TRACKING_ID",
+                "value": "[parameters('googleAnalyticsTrackingId')]"
               }
             ]
           },
