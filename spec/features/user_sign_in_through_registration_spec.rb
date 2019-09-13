@@ -42,7 +42,7 @@ RSpec.feature 'User sign in through registration' do
   scenario 'user restores their session after signing in' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
-    find('.govuk-button').click
+    click_on('Select these skills')
     sign_in_user
     visit(skills_path)
 
@@ -53,7 +53,7 @@ RSpec.feature 'User sign in through registration' do
     register_user
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
-    find('.govuk-button').click
+    click_on('Select these skills')
     sign_in_user
     visit(skills_path)
 
@@ -64,7 +64,7 @@ RSpec.feature 'User sign in through registration' do
     sign_in_user
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
-    find('.govuk-button').click
+    click_on('Select these skills')
     sign_in_user
     visit(skills_path)
 

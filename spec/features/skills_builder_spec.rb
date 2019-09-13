@@ -30,7 +30,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
   scenario 'User continues to see all skills selected' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
 
     expect(page).to have_selector('tbody tr', count: 3)
   end
@@ -38,7 +38,7 @@ RSpec.feature 'Build your skills', type: :feature do
   scenario 'User chooses which skills to select and continues to see those selected skills' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
-    find('.govuk-button').click
+    click_on('Select these skills')
 
     expect(page).to have_selector('tbody tr', count: 2)
   end
@@ -60,7 +60,7 @@ RSpec.feature 'Build your skills', type: :feature do
     click_on('Hitman')
     uncheck('Baldness', allow_label_click: true)
     uncheck('License to kill', allow_label_click: true)
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Search results')
     click_on('Assassin')
 
@@ -73,7 +73,7 @@ RSpec.feature 'Build your skills', type: :feature do
     uncheck('License to kill', allow_label_click: true)
     uncheck('Baldness', allow_label_click: true)
 
-    find('.govuk-button').click
+    click_on('Select these skills')
 
     expect(page).to have_text(/Select at least one skill/)
   end
@@ -85,7 +85,7 @@ RSpec.feature 'Build your skills', type: :feature do
     fill_in('search', with: 'Hitman')
     find('.search-button').click
     click_on('Hitman')
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Search results')
 
     expect(page).to have_text(/Hitman/)

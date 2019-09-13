@@ -111,6 +111,7 @@ RSpec.feature 'User authentication in sidebar' do
     context 'when user authentication feature is off' do
       before do
         disable_feature! :user_authentication
+        enable_feature!(:skills_builder_v2, :user_personal_data)
       end
 
       scenario 'user does not see save your results in sidebar' do
@@ -178,6 +179,7 @@ RSpec.feature 'User authentication in sidebar' do
     context 'when user authentication feature is off' do
       before do
         disable_feature! :user_authentication
+        enable_feature!(:skills_builder_v2, :user_personal_data)
       end
 
       scenario 'user does not see return to saved results in sidebar' do

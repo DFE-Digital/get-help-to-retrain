@@ -109,6 +109,6 @@ RSpec.feature 'Find training courses', type: :feature do
   def capture_user_location(postcode)
     visit(location_eligibility_path)
     fill_in('postcode', with: postcode)
-    find('.govuk-button').click
+    click_on('Continue')
   end
 end
