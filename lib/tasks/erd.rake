@@ -1,8 +1,8 @@
 desc 'Generate Entity-Relationship diagrams for primary and restricted models'
 task erd: :environment do
-  # Explicitly list models to include on each diagram
-  primary_models = [JobProfile, Category, Skill, JobProfileCategory, JobProfileSkill, Course]
-  restricted_models = [User, Session, UserPersonalData, Passwordless::Session]
+  Zeitwerk::Loader.eager_load_all
+  primary_models = PrimaryActiveRecordBase.descendants
+  restricted_models = RestrictedActiveRecordBase.descendants + [Passwordless::Session]
 
   primary_options = {
     title: 'Get help to retrain primary data model',
@@ -18,7 +18,6 @@ task erd: :environment do
 
   puts 'Generating Entity-Relationship Diagrams...'
 
-  require 'rails_erd/diagram/graphviz'
   RailsERD::Diagram::Graphviz.create(primary_options)
   RailsERD::Diagram::Graphviz.create(restricted_options)
 

@@ -183,6 +183,4 @@ bundle exec rails erd
 
 This will output two files named `primary_erd.pdf` and 'restricted_erd.pdf` corresponding to the two databases. These files should not be added to git as they can be generated on demand.
 
-**Note** the list of models included on each diagram is specified within `erd.rake` and will need to be modified as more models are added to the codebase.
-
 Graphviz also needs to be installed (`brew install graphviz`) for this to work. For more details see: https://github.com/voormedia/rails-erd
