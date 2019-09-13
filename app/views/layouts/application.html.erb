@@ -17,6 +17,7 @@
     <%= favicon_link_tag '/assets/images/govuk-apple-touch-icon-180x180.png', rel: 'apple-touch-icon', type: 'image/png', size: '180x180' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application', defer: true %>
+    <%= render 'shared/tracking/google_analytics' %>
   </head>
 
   <body class="govuk-template__body ">
@@ -40,7 +41,7 @@
             </span>
           <% end %>
         </div>
-        <%= render partial: '/shared/navigation/main_header' %>
+        <%= render 'shared/navigation/main_header' %>
       </div>
     </header>
 
@@ -61,9 +62,7 @@
         </div>
         <%= yield %>
       </main>
-      <% if ENV['USER_FEEDBACK_SMART_SURVEY_LINK'].present? %>
-        <%= render 'shared/feedback/survey' %>
-      <% end %>
+      <%= render 'shared/feedback/survey' %>
     </div>
 
 

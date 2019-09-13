@@ -46,6 +46,9 @@
     },
     "userFeedbackSmartSurveyLink": {
       "value": "https://www.smartsurvey.co.uk/s/8IBQ1/"
+    },
+    "googleAnalyticsTrackingId": {
+      "value": ""
     }
   }
 }
