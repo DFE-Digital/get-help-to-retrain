@@ -10,14 +10,14 @@ RSpec.describe UserSession do
     session[:version] = 1
   end
 
-  describe '.merge_session' do
+  describe '.merge_sessions' do
     it 'merges old data into new session for selected keys' do
       old_session = {
         'postcode' => 'NW118QE',
         'session_id' => 2
       }
       new_session = { 'session_id' => 1 }
-      described_class.merge_session(new_session, old_session)
+      described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
 
       expect(new_session).to eq('postcode' => 'NW118QE', 'session_id' => 1)
     end
@@ -31,7 +31,7 @@ RSpec.describe UserSession do
         'version' => 2,
         'job_profile_skills' => { '11' => [4] }
       }
-      described_class.merge_session(new_session, old_session)
+      described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
 
       expect(new_session).to eq('version' => 5, 'job_profile_skills' => { '11' => [2, 3, 5] })
     end

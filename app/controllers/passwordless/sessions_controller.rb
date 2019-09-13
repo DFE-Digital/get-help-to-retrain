@@ -3,6 +3,7 @@ Passwordless::SessionsController.class_eval do
   after_action :restore_user_session, only: [:show], if: -> { current_user }
 
   def show
+    # Make it "slow" on purpose to make brute-force attacks more of a hassle
     BCrypt::Password.create(params[:token])
 
     sign_in passwordless_session

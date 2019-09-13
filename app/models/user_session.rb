@@ -10,7 +10,7 @@ class UserSession
     version
   ].freeze
 
-  def self.merge_session(new_session, previous_session_data)
+  def self.merge_sessions(new_session:, previous_session_data:)
     new_session.merge!(previous_session_data.slice(*KEYS_TO_RESTORE))
   end
 

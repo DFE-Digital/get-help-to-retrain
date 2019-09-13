@@ -5,11 +5,9 @@
     <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
     <%= form_with local: true, url: sign_in_path do |form| %>
       <%= form_group_tag user_with_validation, :email do %>
-        <label class="govuk-label" for="email">
-          Email
-        </label>
+        <%= form.label(:email, class: 'govuk-label') %>
         <%= errors_tag user_with_validation, :email %>
-        <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(user_with_validation, :email, " govuk-!-width-full")) %>
+        <%= form.text_field(:email, value: params[:email], class: css_classes_for_input(user_with_validation, :email, " govuk-!-width-full")) %>
       <% end %>
       <%= button_tag('Send a link', class: 'govuk-button govuk-button--secondary govuk-!-width-full govuk-!-margin-top-1') %>
     <% end %>

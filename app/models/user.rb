@@ -32,7 +32,10 @@ class User < RestrictedActiveRecordBase
   def restore_session(new_session)
     return unless new_session
 
-    UserSession.merge_session(new_session, session.data)
+    UserSession.merge_sessions(
+      new_session: new_session,
+      previous_session_data: session.data
+    )
     add_session_to_user(new_session)
   end
 
