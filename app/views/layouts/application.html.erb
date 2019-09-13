@@ -40,7 +40,7 @@
             </span>
           <% end %>
         </div>
-        <%= render partial: '/shared/navigation/main_header' %>
+        <%= render 'shared/navigation/main_header' %>
       </div>
     </header>
 
@@ -61,9 +61,7 @@
         </div>
         <%= yield %>
       </main>
-      <% if ENV['USER_FEEDBACK_SMART_SURVEY_LINK'].present? %>
-        <%= render 'shared/feedback/survey' %>
-      <% end %>
+      <%= render 'shared/feedback/survey' %>
     </div>
 
 

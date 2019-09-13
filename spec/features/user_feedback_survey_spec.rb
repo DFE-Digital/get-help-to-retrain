@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'User Feedback In Page Survey' do
-  scenario 'Feedback form is not present unless enabled from ENV' do
-    allow(ENV).to receive(:[]).with('USER_FEEDBACK_SMART_SURVEY_LINK').and_return(nil)
+  scenario 'Feedback form is not present when disabled in configuration' do
+    allow(Rails.configuration).to receive(:smart_survey_user_feedback_link).and_return(nil)
 
     visit(root_path)
 
