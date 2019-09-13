@@ -2,7 +2,11 @@ class DwpClient
   def search(payload)
     response = connection.get('search?'.concat(payload.merge(api_key: api_key, api_id: api_id).to_query)).body
 
-    JSON.parse(response)
+    json_response = JSON.parse(response)
+
+    json_response['jobs']&.map do |job|
+      puts "title: #{job['title']}, apply: https://findajob.dwp.gov.uk/apply/#{job['id']}, location: #{job['location']}, type: #{job['contract_type']}\n"
+    end
   end
 
   private
@@ -21,7 +25,6 @@ class DwpClient
 
   def connection
     @connection ||= Faraday.new(url: api_base) do |faraday|
-      faraday.response :logger, ::Logger.new(STDOUT), bodies: true
       faraday.adapter Faraday.default_adapter
     end
   end
