@@ -31,6 +31,8 @@ module GetHelpToRetrain
     config.exceptions_app = routes
 
     config.i18n.default_locale = :'en-GB'
+
+    config.google_analytics_tracking_id = ENV['GOOGLE_ANALYTICS_TRACKING_ID']
     config.smart_survey_user_feedback_link = ENV['USER_FEEDBACK_SMART_SURVEY_LINK']
   end
 end
