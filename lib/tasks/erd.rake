@@ -2,7 +2,7 @@ desc 'Generate Entity-Relationship diagrams for primary and restricted models'
 task erd: :environment do
   # Explicitly list models to include on each diagram
   primary_models = [JobProfile, Category, Skill, JobProfileCategory, JobProfileSkill, Course]
-  restricted_models = [User, Session, Passwordless::Session]
+  restricted_models = [User, Session, UserPersonalData, Passwordless::Session]
 
   primary_options = {
     title: 'Get help to retrain primary data model',
