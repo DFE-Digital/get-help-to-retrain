@@ -79,6 +79,14 @@ RSpec.feature 'User sign in' do
     expect(page).to have_text(/Enter a valid email address/)
   end
 
+  scenario 'User is redirected back to page if email invalid with email' do
+    visit(root_path)
+    fill_in('email', with: 'wrong-email')
+    click_on('Send a link')
+
+    expect(page).to have_current_path(root_path(email: 'wrong-email'))
+  end
+
   scenario 'User does not see validation error if they continue on from page' do
     visit(root_path)
     fill_in('email', with: 'wrong email')

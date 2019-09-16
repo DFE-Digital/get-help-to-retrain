@@ -135,33 +135,19 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#registration_triggered_from' do
-    it 'sets registration_triggered_path if path is part of app' do
-      referer = 'http://myapp/skills?job_profile_id=hitman'
-      user_session.registration_triggered_from(referer)
+  describe '#registration_triggered_path' do
+    it 'sets registration_triggered_path' do
+      referer = '/skills?job_profile_id=hitman'
+      user_session.registration_triggered_path = referer
 
       expect(user_session.registration_triggered_path).to eq('/skills?job_profile_id=hitman')
     end
 
-    it 'does not set registration_triggered_path if path is not part of app' do
-      referer = 'http://not-my-app/dodgy-path'
-      user_session.registration_triggered_from(referer)
+    it 'does not overwrite registration_triggered_path if there is no referer' do
+      session[:registration_triggered_path] = 'some-path'
+      user_session.registration_triggered_path = nil
 
-      expect(user_session.registration_triggered_path).to be_nil
-    end
-
-    it 'does not set registration_triggered_path if its part of urls to ignore' do
-      referer = 'http://myapp/save-my-results'
-      user_session.registration_triggered_from(referer, ['/save-my-results'])
-
-      expect(user_session.registration_triggered_path).to be_nil
-    end
-
-    it 'does not set registration_triggered_path if its part of urls to ignore and theres a query' do
-      referer = 'http://myapp/save-your-results?some-query'
-      user_session.registration_triggered_from(referer, ['/save-your-results'])
-
-      expect(user_session.registration_triggered_path).to be_nil
+      expect(user_session.registration_triggered_path).to eq('some-path')
     end
   end
 

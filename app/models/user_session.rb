@@ -48,14 +48,10 @@ class UserSession
     session[:registration_triggered_path]
   end
 
-  def registration_triggered_from(referer, paths_to_ignore = [])
-    uri = URI(referer)
-    return if paths_to_ignore.include?(uri.path)
-    return unless Rails.application.routes.recognize_path(uri.request_uri)
+  def registration_triggered_path=(url)
+    return unless url
 
-    session[:registration_triggered_path] = uri.request_uri
-  rescue ActionController::RoutingError => e
-    Rails.logger.error("Route not from app when registering: #{e.message}")
+    session[:registration_triggered_path] = url
   end
 
   def current_job_id
