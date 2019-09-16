@@ -51,15 +51,11 @@ class UsersController < ApplicationController
   end
 
   def set_redirect_path_for_registration
-    return unless request.referer
-
     redirect_url = url_parser.get_redirect_path(paths_to_ignore: [save_your_results_path])
     user_session.registration_triggered_path = redirect_url
   end
 
   def build_redirect_url
-    return unless request.referer
-
     url_parser.build_redirect_url_with(
       param_name: 'email',
       param_value: @user.email,

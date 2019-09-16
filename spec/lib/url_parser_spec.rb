@@ -11,7 +11,7 @@ RSpec.describe UrlParser do
           param_value: 'test@test.test',
           anchor: 'email'
         )
-      ). to be_nil
+      ).to be_nil
     end
 
     it 'add params to url as well as anchor' do
@@ -23,7 +23,7 @@ RSpec.describe UrlParser do
           param_value: 'test@test.test',
           anchor: 'email'
         )
-      ). to eq(
+      ).to eq(
         'http://myhost.com/skills?email=test%40test.test#email'
       )
     end
@@ -37,7 +37,7 @@ RSpec.describe UrlParser do
           param_value: 'test@test.test',
           anchor: 'email'
         )
-      ). to eq(
+      ).to eq(
         'http://myhost.com/skills?email=test%40test.test#email'
       )
     end
@@ -51,9 +51,21 @@ RSpec.describe UrlParser do
           param_value: 'test@test.test',
           anchor: 'email'
         )
-      ). to eq(
+      ).to eq(
         'http://myhost.com/skills?some-params=test&email=test%40test.test#email'
       )
+    end
+
+    it 'returns nothing if no url passed' do
+      parser = described_class.new(nil, 'myhost.com')
+
+      expect(
+        parser.build_redirect_url_with(
+          param_name: 'email',
+          param_value: 'test@test.test',
+          anchor: 'email'
+        )
+      ).to be_nil
     end
   end
 
@@ -62,28 +74,34 @@ RSpec.describe UrlParser do
       referer = 'http://myhost.com/skills?job_profile_id=hitman'
       parser = described_class.new(referer, 'myhost.com')
 
-      expect(parser.get_redirect_path). to eq('/skills?job_profile_id=hitman')
+      expect(parser.get_redirect_path).to eq('/skills?job_profile_id=hitman')
     end
 
     it 'does not return path if host is not part of app' do
       referer = 'http://not-my-app/dodgy-path'
       parser = described_class.new(referer, 'myhost.com')
 
-      expect(parser.get_redirect_path). to be_nil
+      expect(parser.get_redirect_path).to be_nil
     end
 
     it 'does not return path if its part of urls to ignore' do
       referer = 'http://myhost.com/save-my-results'
       parser = described_class.new(referer, 'myhost.com')
 
-      expect(parser.get_redirect_path(paths_to_ignore: ['/save-my-results'])). to be_nil
+      expect(parser.get_redirect_path(paths_to_ignore: ['/save-my-results'])).to be_nil
     end
 
     it 'does not return path if its part of urls to ignore and theres a query' do
       referer = 'http://myhost.com/save-my-results?some-query'
       parser = described_class.new(referer, 'myhost.com')
 
-      expect(parser.get_redirect_path(paths_to_ignore: ['/save-my-results'])). to be_nil
+      expect(parser.get_redirect_path(paths_to_ignore: ['/save-my-results'])).to be_nil
+    end
+
+    it 'returns nothing if no url passed' do
+      parser = described_class.new(nil, 'myhost.com')
+
+      expect(parser.get_redirect_path(paths_to_ignore: ['/save-my-results'])).to be_nil
     end
   end
 end

@@ -2,7 +2,7 @@ class UrlParser
   attr_reader :uri, :host
 
   def initialize(referer, host)
-    @uri = URI(referer)
+    @uri = URI(referer) if referer
     @host = host
   end
 
@@ -17,8 +17,8 @@ class UrlParser
   end
 
   def get_redirect_path(paths_to_ignore: [])
-    return if paths_to_ignore.include?(uri.path)
     return unless recognized_host?
+    return if paths_to_ignore.include?(uri.path)
 
     uri.request_uri
   end
@@ -26,6 +26,8 @@ class UrlParser
   private
 
   def recognized_host?
+    return unless uri
+
     uri.host == host
   rescue ArgumentError, URI::Error
     false
