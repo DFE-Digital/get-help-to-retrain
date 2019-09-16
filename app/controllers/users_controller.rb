@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
-    user_session.registration_triggered_from(request.referer, [save_your_results_path]) if request.referer
+    set_redirect_path_for_registration
   end
 
   def create
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       sign_in_user unless @user.new_record?
       redirect_to(link_sent_path(email: @user.email))
     else
-      redirect_back(fallback_location: root_path, flash: { error: @user.errors[:email] })
+      redirect_to(build_redirect_url || root_path, flash: { error: @user.errors[:email] })
     end
   rescue NotifyService::NotifyAPIError
     # TODO: show user an error page, for now render link sent page
@@ -48,5 +48,22 @@ class UsersController < ApplicationController
   def sign_in_user
     passwordless_session = build_passwordless_session(@user)
     @user.register_existing_user(passwordless_session, request.base_url)
+  end
+
+  def set_redirect_path_for_registration
+    redirect_url = url_parser.get_redirect_path(paths_to_ignore: [save_your_results_path])
+    user_session.registration_triggered_path = redirect_url
+  end
+
+  def build_redirect_url
+    url_parser.build_redirect_url_with(
+      param_name: 'email',
+      param_value: @user.email,
+      anchor: 'sign-in'
+    )
+  end
+
+  def url_parser
+    @url_parser ||= UrlParser.new(request.referer, request.host)
   end
 end
