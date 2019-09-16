@@ -4,9 +4,9 @@ RSpec.feature 'User authentication in sidebar' do
   let!(:job_profile1) do
     create(
       :job_profile,
-      :with_skill,
       :with_html_content,
-      name: 'Hitman'
+      name: 'Hitman',
+      skills: [create(:skill, name: 'Baldness')]
     )
   end
 
@@ -142,6 +142,14 @@ RSpec.feature 'User authentication in sidebar' do
 
         expect(page).to have_text('Return to saved results')
       end
+    end
+
+    scenario 'user sees return to saved results in sidebar if user selects empty job skills' do
+      visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
+      uncheck('Baldness', allow_label_click: true)
+      click_on('Select these skills')
+
+      expect(page).to have_text('Return to saved results')
     end
 
     scenario 'user does not see return to save results when having atleast one job profile skill' do

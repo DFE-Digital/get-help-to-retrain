@@ -84,13 +84,11 @@ class UserSession
   end
 
   def job_profile_skills?
-    job_profile_ids.present?
+    job_profiles_with_skills.present?
   end
 
   def job_profiles_cap_reached?
-    job_profile_skills
-      .reject { |_k, v| v.size.zero? }
-      .keys
+    job_profiles_with_skills
       .size > 4
   end
 
@@ -119,5 +117,11 @@ class UserSession
 
   def expected_version
     Flipflop.skills_builder_v2? ? 2 : 1
+  end
+
+  def job_profiles_with_skills
+    job_profile_skills
+      .reject { |_k, v| v.size.zero? }
+      .keys
   end
 end

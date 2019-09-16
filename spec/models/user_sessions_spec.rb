@@ -246,12 +246,18 @@ RSpec.describe UserSession do
 
   describe '#job_profile_skills?' do
     it 'returns true if the session already contains job profile skills' do
-      session[:job_profile_ids] = [1]
+      session[:job_profile_skills] = { '1' => [1] }
 
       expect(user_session.job_profile_skills?).to be true
     end
 
     it 'returns false if the session does not contain job profile skills' do
+      expect(user_session.job_profile_skills?).to be false
+    end
+
+    it 'returns false if the session contains job profiles with no skills' do
+      session[:job_profile_skills] = { '1' => [] }
+
       expect(user_session.job_profile_skills?).to be false
     end
   end
