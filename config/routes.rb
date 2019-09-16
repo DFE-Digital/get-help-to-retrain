@@ -55,5 +55,7 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
+
+  resources :status_check, only: [:index]
 end
 # rubocop:enable Metrics/BlockLength
