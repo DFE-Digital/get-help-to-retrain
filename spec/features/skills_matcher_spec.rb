@@ -20,7 +20,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
   def visit_skills_for_current_job_profile
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
   end
 
@@ -60,9 +60,9 @@ RSpec.feature 'Skills matcher', type: :feature do
     alternative_job_profile = create(:job_profile, name: 'Hacker', skills: [skill2])
 
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     visit(job_profile_skills_path(job_profile_id: alternative_job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     expect(page.all('ul.govuk-list li a').collect(&:text)).to eq(['Assasin', current_job_profile.name])
@@ -72,7 +72,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     create(:job_profile, name: 'Hacker', skills: [skill2])
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
     uncheck(skill2.name, allow_label_click: true)
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     expect(page).not_to have_text('Hacker')
@@ -115,7 +115,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   scenario 'returns no results if no job profiles match skills search' do
     job_profile = create(:job_profile, name: 'Admin', skills: [create(:skill)])
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     expect(page).to have_text('More information needed')

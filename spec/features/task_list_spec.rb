@@ -14,7 +14,7 @@ RSpec.feature 'Tasks List', type: :feature do
     create(:job_profile, name: 'Hitman', skills: [skill])
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     visit(task_list_path)
@@ -69,7 +69,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     visit(task_list_path)
@@ -90,7 +90,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     visit(task_list_path)
@@ -111,7 +111,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
     visit(task_list_path)
@@ -132,7 +132,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     visit(job_profile_path(job_profile.slug))
     click_on('Other ways to change jobs')
@@ -154,7 +154,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     visit("job-profiles/#{job_profile.slug}")
     click_on('Find a training course')
@@ -176,7 +176,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     visit("job-profiles/#{job_profile.slug}")
     click_on('Find a training course')
@@ -198,7 +198,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     visit("job-profiles/#{job_profile.slug}")
     click_on('Other ways to change jobs')
@@ -220,7 +220,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     visit("job-profiles/#{job_profile.slug}")
     click_on('Find a training course')
@@ -248,7 +248,7 @@ RSpec.feature 'Tasks List', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     visit("job-profiles/#{job_profile.slug}")
     click_on('Other ways to change jobs')

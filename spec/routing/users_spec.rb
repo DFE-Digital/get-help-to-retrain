@@ -13,6 +13,10 @@ RSpec.describe 'routes for Users', type: :routing do
     expect(get(link_sent_path)).not_to route_to('users#show')
   end
 
+  it 'does not route to users#sign_in' do
+    expect(post(sign_in_path)).not_to route_to('users#sign_in')
+  end
+
   it 'does not route to passwordless/sessions#show' do
     expect(get(token_sign_in_path(token: 'token'))).not_to route_to('passwordless/sessions#show')
   end
@@ -28,6 +32,10 @@ RSpec.describe 'routes for Users', type: :routing do
 
     it 'successfully routes to users#show' do
       expect(get(link_sent_path)).to route_to('users#show')
+    end
+
+    it 'successfully routes to users#sign_in' do
+      expect(post(sign_in_path)).to route_to('users#sign_in')
     end
 
     it 'successfully routes to passwordless/sessions#show' do

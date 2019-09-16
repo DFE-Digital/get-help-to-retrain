@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   constraints ->(_req) { Flipflop.user_authentication? } do
     get 'save-your-results', to: 'users#new'
     post 'save-your-results', to: 'users#create'
+    post 'sign-in', to: 'users#sign_in'
     get 'link-sent', to: 'users#show'
 
     get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in

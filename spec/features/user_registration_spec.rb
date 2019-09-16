@@ -45,7 +45,7 @@ RSpec.feature 'User registration' do
 
   scenario 'user sees save your results page when navigating from sidebar' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    find('.govuk-button').click
+    click_on('Select these skills')
     click_on('Save my results')
     expect(page).to have_current_path(save_your_results_path)
   end

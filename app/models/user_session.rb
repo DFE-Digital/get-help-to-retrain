@@ -10,6 +10,10 @@ class UserSession
     version
   ].freeze
 
+  def self.merge_sessions(new_session:, previous_session_data:)
+    new_session.merge!(previous_session_data.slice(*KEYS_TO_RESTORE))
+  end
+
   def initialize(session)
     @session = session
     @session.destroy unless version == expected_version
@@ -64,10 +68,6 @@ class UserSession
 
   def job_profile_skills
     session[:job_profile_skills]
-  end
-
-  def merge_session(previous_session_data)
-    session.merge!(previous_session_data.slice(*KEYS_TO_RESTORE))
   end
 
   def set_skills_ids_for_profile(job_profile_id, skill_ids)

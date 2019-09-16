@@ -11,7 +11,6 @@ class User < RestrictedActiveRecordBase
     return unless user_session && url
 
     add_session_to_user(user_session.session)
-    user_session.registered = true
     notify_service.send_email(
       email_address: email,
       template_id: NotifyService::CONFIRMATION_TEMPLATE_ID,
@@ -19,10 +18,9 @@ class User < RestrictedActiveRecordBase
     )
   end
 
-  def register_existing_user(passwordless_session, url, user_session)
+  def register_existing_user(passwordless_session, url)
     return unless url && passwordless_session&.save
 
-    user_session.registered = true
     magic_link = url + token_sign_in_path(token: passwordless_session.token)
     notify_service.send_email(
       email_address: email,
@@ -31,11 +29,14 @@ class User < RestrictedActiveRecordBase
     )
   end
 
-  def restore_session(user_session)
-    return unless user_session
+  def restore_session(new_session)
+    return unless new_session
 
-    user_session.merge_session(session.data)
-    add_session_to_user(user_session.session)
+    UserSession.merge_sessions(
+      new_session: new_session,
+      previous_session_data: session.data
+    )
+    add_session_to_user(new_session)
   end
 
   private

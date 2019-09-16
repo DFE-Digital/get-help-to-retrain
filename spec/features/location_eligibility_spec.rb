@@ -21,14 +21,14 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_current_path(location_ineligible_path)
   end
 
   scenario 'User can proceed to tasklist if postcode is not eligible' do
     visit(location_ineligible_path)
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_current_path(task_list_path)
   end
@@ -37,7 +37,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     enable_feature! :user_personal_data
 
     visit(location_ineligible_path)
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_current_path(your_information_path)
   end
@@ -51,7 +51,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_current_path(task_list_path)
   end
@@ -67,7 +67,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_current_path(your_information_path)
   end
@@ -75,7 +75,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
   scenario 'User gets relevant messaging if their address is not valid' do
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8E')
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_text(/Enter a valid postcode/)
   end
@@ -87,7 +87,7 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_text(/Enter a real postcode/)
   end
@@ -97,21 +97,21 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
   scenario 'User can continue to task list even if postcode service is down' do
     visit(postcode_search_error_path)
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_current_path(task_list_path)
   end
 
   scenario 'User gets relevant messaging if no address is entered' do
     visit(location_eligibility_path)
-    find('.govuk-button').click
+    click_on('Continue')
 
     expect(page).to have_text(/Enter a postcode/)
   end
