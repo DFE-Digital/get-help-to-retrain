@@ -23,9 +23,6 @@ test: &test
     # Required for the azure pipelines setup
     url: <%= ENV['DATABASE_URL'] %>
 
-cucumber:
-  <<: *test
-
 production:
   primary:
     <<: *default

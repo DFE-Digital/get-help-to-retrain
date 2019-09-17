@@ -34,24 +34,6 @@ bundle exec rake
 bundle exec rspec
 ```
 
-## Running Cucumber/Capybara test
-```bash
-cucumber -p a-profile-name-from-cucumber-yml-file
-```
-Example: To run only tests with @wip tag
-```bash
-cucumber -p wip
-```
-Run tests with headless browser
-```bash
-DRIVER=headless cucumber
-```
-To take a screenshot in a test add the following line to the step
-```bash
-page.save_screenshot 'screenshot.png'
-```
-Your screenshot will be saved to the `tmp/capybara/` directory
-
 ## Running Pa11y
 
 To run accessibility tests in Pa11y, define the host example: `HOST=http://localhost:3000`
