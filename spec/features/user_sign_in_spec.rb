@@ -275,4 +275,20 @@ RSpec.feature 'User sign in' do
       visit(token_sign_in_path(token: Passwordless::Session.last.token))
     }.to raise_error(ActionController::RoutingError)
   end
+
+  scenario 'if user submits location eligibility form then sign in form user should not see one validation message' do
+    visit(location_eligibility_path)
+    click_on('Continue')
+    click_on('Send a link')
+
+    expect(page).not_to have_text(/Enter a postcode/)
+  end
+
+  scenario 'if user submits check your skills form then sign in form user should not see one validation message' do
+    visit(check_your_skills_path)
+    click_on('Search')
+    click_on('Send a link')
+
+    expect(page).not_to have_text(/Enter a job title/)
+  end
 end

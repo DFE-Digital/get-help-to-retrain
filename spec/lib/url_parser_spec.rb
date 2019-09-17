@@ -7,8 +7,7 @@ RSpec.describe UrlParser do
 
       expect(
         parser.build_redirect_url_with(
-          param_name: 'email',
-          param_value: 'test@test.test',
+          params: { 'email' => 'test@test.test' },
           anchor: 'email'
         )
       ).to be_nil
@@ -19,8 +18,7 @@ RSpec.describe UrlParser do
 
       expect(
         parser.build_redirect_url_with(
-          param_name: 'email',
-          param_value: 'test@test.test',
+          params: { 'email' => 'test@test.test' },
           anchor: 'email'
         )
       ).to eq(
@@ -33,8 +31,7 @@ RSpec.describe UrlParser do
 
       expect(
         parser.build_redirect_url_with(
-          param_name: 'email',
-          param_value: 'test@test.test',
+          params: { 'email' => 'test@test.test' },
           anchor: 'email'
         )
       ).to eq(
@@ -42,17 +39,16 @@ RSpec.describe UrlParser do
       )
     end
 
-    it 'adds params to url safely with existing params' do
+    it 'adds params to url safely with existing params and removes those params' do
       parser = described_class.new('http://myhost.com/skills?some-params=test', 'myhost.com')
 
       expect(
         parser.build_redirect_url_with(
-          param_name: 'email',
-          param_value: 'test@test.test',
+          params: { 'email' => 'test@test.test' },
           anchor: 'email'
         )
       ).to eq(
-        'http://myhost.com/skills?some-params=test&email=test%40test.test#email'
+        'http://myhost.com/skills?email=test%40test.test#email'
       )
     end
 
@@ -61,8 +57,7 @@ RSpec.describe UrlParser do
 
       expect(
         parser.build_redirect_url_with(
-          param_name: 'email',
-          param_value: 'test@test.test',
+          params: { 'email' => 'test@test.test' },
           anchor: 'email'
         )
       ).to be_nil
