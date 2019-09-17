@@ -9,7 +9,6 @@ AllCops:
     - db/**/*
     - 'node_modules/**/*'
     - 'tmp/**/*'
-    - 'lib/tasks/cucumber.rake'
     - 'config/initializers/canonical_rails.rb'
     - 'config/puma.rb'
     - 'spec/spec_helper.rb'
