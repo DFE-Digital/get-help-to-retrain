@@ -57,8 +57,7 @@ class UsersController < ApplicationController
 
   def build_redirect_url
     url_parser.build_redirect_url_with(
-      param_name: 'email',
-      param_value: @user.email,
+      params: { 'email' => @user.email },
       anchor: 'sign-in'
     )
   end
