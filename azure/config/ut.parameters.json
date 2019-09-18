@@ -32,6 +32,22 @@
         "secretName": "ut-secretKeyBase"
       }
     },
+    "splitApiKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
+        },
+        "secretName": "ut-splitApiKey"
+      }
+    },
+    "notifyApiKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
+        },
+        "secretName": "ut-notifyApiKey"
+      }
+    },
     "customHostName": {
       "value": "ut.nrs-ghtr.org.uk"
     },
