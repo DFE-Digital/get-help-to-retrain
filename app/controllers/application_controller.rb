@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include Passwordless::ControllerHelpers
 
-  before_action :set_request_path
-
   def user_session
     @user_session ||= UserSession.new(session)
   end
@@ -25,9 +23,5 @@ class ApplicationController < ActionController::Base
 
   def protect_feature(feature)
     redirect_to task_list_path unless Flipflop.enabled?(feature)
-  end
-
-  def set_request_path
-    user_session.request_path = request.path
   end
 end
