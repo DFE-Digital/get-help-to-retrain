@@ -19,6 +19,7 @@ en-GB:
     user_personal_data: Your information
     save_your_results: Save your results
     link_sent: Link sent
+    results_saved: Results saved
 
   page_titles:
     default: Get help to retrain
@@ -44,6 +45,7 @@ en-GB:
     errors_postcode_search_error: Get help to retrain - Postcode search error
     save_your_results: Get help to retrain - Save your results
     link_sent: Get help to retrain - Link sent
+    results_saved: Get help to retrain - Results saved
 
   events:
     pages_location_eligibility_search: Your location - Postcode search
@@ -122,7 +124,7 @@ en-GB:
   users:
     new:
       title: Save your results
-    registration_link_sent:
+    registration_results_saved:
       title: Your results have been saved
     show:
       title: Link sent
