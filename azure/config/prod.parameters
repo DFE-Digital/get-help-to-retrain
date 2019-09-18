@@ -1,0 +1,73 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "databaseName": {
+      "value": "ghtr"
+    },
+    "databaseUsername": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-databaseUsername"
+      }
+    },
+    "databasePort": {
+      "value": "5432"
+    },
+    "databasePassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-databasePassword"
+      }
+    },
+    "secretKeyBase": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-secretKeyBase"
+      }
+    },
+    "splitApiKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-splitApiKey"
+      }
+    },
+    "notifyApiKey": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-notifyApiKey"
+      }
+    },
+    "customHostName": {
+      "value": "origin.nrs-ghtr.org.uk"
+    },
+    "certificateName": {
+      "value": "nrs-ghtr-org-uk"
+    },
+    "keyVaultName": {
+      "value": "s108p01-shared-kv-01"
+    },
+    "keyVaultResourceGroup": {
+      "value": "s108p01-shared"
+    },
+    "userFeedbackSmartSurveyLink": {
+      "value": "https://www.smartsurvey.co.uk/s/1BBQK/"
+    },
+    "googleAnalyticsTrackingId": {
+      "value": "UA-147538067-1"
+    },
+    "applyAlerts": {
+      "value": true
+    }
+  }
+}
