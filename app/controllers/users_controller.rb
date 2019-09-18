@@ -17,6 +17,15 @@ class UsersController < ApplicationController
     render(:registration_results_saved)
   end
 
+  def registration_send_email_again
+    @user = User.find_or_initialize_by(email: user_params[:email])
+    register_user
+    render(:registration_email_sent_again)
+  rescue NotifyService::NotifyAPIError
+    # TODO: show user an error page, for now render email sent again page
+    render(:registration_email_sent_again)
+  end
+
   def sign_in
     @user = User.find_or_initialize_by(email: user_params[:email])
     if @user.valid?

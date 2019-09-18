@@ -1,0 +1,24 @@
+<% page_title :email_sent_again %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.email_sent_again'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path]
+      ]
+    )
+  end
+%>
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body">We've sent an email to</p>
+    <h3 class="govuk-heading-m"><%= params[:email] %></h3>
+    <p class="govuk-body">If you haven't received this email</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>check the email address you entered is correct</li>
+      <li>check your junk mail</li>
+    </ul>
+    <%= link_to 'Continue', user_session.registration_triggered_path || task_list_path, class: 'govuk-button' %>
+  </div>
+  <%= render "shared/contact_us" %>
+</div>

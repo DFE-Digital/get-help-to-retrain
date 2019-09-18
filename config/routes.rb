@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     get 'save-your-results', to: 'users#new'
     post 'save-your-results', to: 'users#create'
     post 'sign-in', to: 'users#sign_in'
+    post 'email-sent-again', to: 'users#registration_send_email_again'
     get 'link-sent', to: 'users#show'
 
     get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
