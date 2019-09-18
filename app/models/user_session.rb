@@ -36,10 +36,6 @@ class UserSession
     session[:postcode] = value
   end
 
-  def request_path=(value)
-    session[:request_path] = value
-  end
-
   def registered?
     session[:registered]
   end
