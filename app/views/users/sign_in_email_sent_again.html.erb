@@ -1,7 +1,7 @@
-<% page_title :link_sent %>
+<% page_title :link_sent_again %>
 <% content_for :breadcrumb do
     generate_breadcrumbs(
-      t('breadcrumb.link_sent'),
+      t('breadcrumb.link_sent_again'),
       [
         [t('breadcrumb.task_list_home'), task_list_path]
       ]
@@ -14,7 +14,12 @@
     <p class="govuk-body">We've sent an email to</p>
     <h3 class="govuk-heading-m"><%= params[:email] %></h3>
     <p class="govuk-body">This email contains a link that will take you back to your saved information.</p>
-    <p class="govuk-body">If you haven't received this email you can <%= link_to 'send it again', link_sent_again_path(email: params[:email]), method: :post, class: 'govuk-link' %>.</p>
+    <p class="govuk-body">The link expires after one hour.</p>
+    <p class="govuk-body">If you haven't received this email</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>check the email address you entered is correct</li>
+      <li>check your junk mail</li>
+    </ul>
   </div>
   <%= render "shared/contact_us" %>
 </div>
