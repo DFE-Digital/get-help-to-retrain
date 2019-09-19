@@ -11,4 +11,5 @@ Rails.application.config.filter_parameters += %i[
   birth_year
   postcode
   email
+  authenticity_token
 ]
