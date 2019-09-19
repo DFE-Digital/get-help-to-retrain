@@ -5,7 +5,6 @@ module HealthCheck
     end
 
     def value
-      @output = Flipflop::FeatureSet.current.features.map(&:as_json)
       @value ||= Flipflop.health_check?
     rescue StandardError => e
       @output = "SplitIO error: #{e.inspect}"
