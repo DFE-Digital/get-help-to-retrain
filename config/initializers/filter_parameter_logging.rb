@@ -12,4 +12,5 @@ Rails.application.config.filter_parameters += %i[
   postcode
   email
   authenticity_token
+  token
 ]
