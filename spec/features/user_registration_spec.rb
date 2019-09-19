@@ -93,11 +93,29 @@ RSpec.feature 'User registration' do
     expect(page).to have_text(/Your results have been saved/)
   end
 
-  scenario 'User can resend email and is redirected to same page' do
+  scenario 'User can resend email and is redirected to email sent page' do
     register_user
     click_on('send it again')
 
-    expect(page).to have_text(/Your results have been saved/)
+    expect(page).to have_current_path(email_sent_again_path(email: 'test@test.test'))
+  end
+
+  scenario 'User resends email and can see their email on email sent again page' do
+    register_user
+    click_on('send it again')
+
+    expect(page).to have_text(/test@test.test/)
+  end
+
+  scenario 'User can resume their journey from resend page to where they first clicked save my results' do
+    visit(next_steps_path)
+    click_on('Save my results')
+    fill_in('email', with: 'test@test.test')
+    click_on('Save your results')
+    click_on('send it again')
+    click_on('Continue')
+
+    expect(page).to have_current_path(next_steps_path)
   end
 
   scenario 'User can resume their journey to where they first clicked save my results' do
@@ -108,6 +126,14 @@ RSpec.feature 'User registration' do
     click_on('Continue')
 
     expect(page).to have_current_path(next_steps_path)
+  end
+
+  scenario 'User redirected to task list page if they directly linked to email sent page' do
+    register_user
+    click_on('send it again')
+    click_on('Continue')
+
+    expect(page).to have_current_path(task_list_path)
   end
 
   scenario 'User redirected to task list page if they directly linked to save results page' do
@@ -122,6 +148,17 @@ RSpec.feature 'User registration' do
     click_on('enter your email address again')
     fill_in('email', with: 'test@test.test')
     click_on('Save your results')
+    click_on('Continue')
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'User redirected to task list page if they went back from save your results page on resend' do
+    register_user
+    click_on('enter your email address again')
+    fill_in('email', with: 'test@test.test')
+    click_on('Save your results')
+    click_on('send it again')
     click_on('Continue')
 
     expect(page).to have_current_path(task_list_path)

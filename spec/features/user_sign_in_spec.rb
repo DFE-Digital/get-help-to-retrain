@@ -132,12 +132,20 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
   end
 
-  scenario 'User can resend email and is redirected to same page' do
+  scenario 'User can resend email and is redirected to link sent again page' do
     register_user
     send_sign_in_email
     click_on('send it again')
 
-    expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
+    expect(page).to have_current_path(link_sent_again_path(email: 'test@test.test'))
+  end
+
+  scenario 'User resends email and can see their email on email sent again page' do
+    register_user
+    send_sign_in_email
+    click_on('send it again')
+
+    expect(page).to have_text(/test@test.test/)
   end
 
   scenario 'User receives sign in email if email valid and user exists' do

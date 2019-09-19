@@ -17,6 +17,14 @@ RSpec.describe 'routes for Users', type: :routing do
     expect(post(sign_in_path)).not_to route_to('users#sign_in')
   end
 
+  it 'does not route to users#registration_send_email_again' do
+    expect(post(email_sent_again_path)).not_to route_to('users#registration_send_email_again')
+  end
+
+  it 'does not route to users#sign_in_send_email_again' do
+    expect(post(link_sent_again_path)).not_to route_to('users#sign_in_send_email_again')
+  end
+
   it 'does not route to passwordless/sessions#show' do
     expect(get(token_sign_in_path(token: 'token'))).not_to route_to('passwordless/sessions#show')
   end
@@ -45,6 +53,14 @@ RSpec.describe 'routes for Users', type: :routing do
         authenticatable: 'user',
         token: 'token'
       )
+    end
+
+    it 'successfully routes users#registration_send_email_again' do
+      expect(post(email_sent_again_path)).to route_to('users#registration_send_email_again')
+    end
+
+    it 'successfully routes users#sign_in_send_email_again' do
+      expect(post(link_sent_again_path)).to route_to('users#sign_in_send_email_again')
     end
   end
 end

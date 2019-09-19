@@ -19,6 +19,9 @@ en-GB:
     user_personal_data: Your information
     save_your_results: Save your results
     link_sent: Link sent
+    results_saved: Results saved
+    email_sent_again: Email sent again
+    link_sent_again: Link sent again
 
   page_titles:
     default: Get help to retrain
@@ -44,6 +47,9 @@ en-GB:
     errors_postcode_search_error: Get help to retrain - Postcode search error
     save_your_results: Get help to retrain - Save your results
     link_sent: Get help to retrain - Link sent
+    results_saved: Get help to retrain - Results saved
+    email_sent_again: Get help to retrain - Email sent again
+    link_sent_again: Get help to retrain - Link sent again
 
   events:
     pages_location_eligibility_search: Your location - Postcode search
@@ -122,10 +128,14 @@ en-GB:
   users:
     new:
       title: Save your results
-    registration_link_sent:
+    registration_results_saved:
       title: Your results have been saved
     show:
       title: Link sent
+    registration_email_sent_again:
+      title: Email sent again
+    sign_in_email_sent_again:
+      title: Link sent again
   return_to_saved_results:
     title: Return to saved results
     sub_title: If you've already used this service before and saved your results, enter your email address. We'll send you a link you can use to return to your saved results.
