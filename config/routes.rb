@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     post 'sign-in', to: 'users#sign_in'
     post 'email-sent-again', to: 'users#registration_send_email_again'
     get 'link-sent', to: 'users#show'
+    post 'link-sent-again', to: 'users#sign_in_send_email_again'
 
     get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
   end
