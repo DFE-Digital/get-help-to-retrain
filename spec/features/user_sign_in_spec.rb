@@ -264,24 +264,60 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'if user signs in, and token expired user should be redirected to 404' do
+  scenario 'if user signs in, and token expired user should be redirected to link-expired path' do
     register_user
     send_sign_in_email
     Capybara.reset_sessions!
     Passwordless::Session.last.update(timeout_at: Time.now - 1.day)
 
-    expect {
-      visit(token_sign_in_path(token: Passwordless::Session.last.token))
-    }.to raise_error(ActionController::RoutingError)
+    visit(token_sign_in_path(token: Passwordless::Session.last.token))
+
+    expect(page).to have_current_path(link_expired_path)
   end
 
-  scenario 'if user signs in, and token claimed user should be redirected to 404' do
+  scenario 'if user signs in, and token claimed user should be redirected to link-expired path' do
     register_user
     sign_in_user
 
-    expect {
-      visit(token_sign_in_path(token: Passwordless::Session.last.token))
-    }.to raise_error(ActionController::RoutingError)
+    visit(token_sign_in_path(token: Passwordless::Session.last.token))
+
+    expect(page).to have_current_path(link_expired_path)
+  end
+
+  scenario 'when the user lands on link-expired page one can navigate to Return to saved results page' do
+    visit link_expired_path
+
+    click_on('send yourself the link again')
+
+    expect(page).to have_current_path(return_to_saved_results_path)
+  end
+
+  scenario 'empty email submission on Return to saved results page prompts error' do
+    visit return_to_saved_results_path
+
+    click_on('Send link')
+
+    expect(page).to have_text(/Enter an email address/)
+  end
+
+  scenario 'invalid email submission on Return to saved results page prompts error' do
+    visit return_to_saved_results_path
+
+    fill_in('email', with: 'dummy-mail')
+
+    click_on('Send link')
+
+    expect(page).to have_text(/Enter a valid email address/)
+  end
+
+  scenario 'valid email submission redirects to link sent page' do
+    visit return_to_saved_results_path
+
+    fill_in('email', with: 'hello@test.com')
+
+    click_on('Send link')
+
+    expect(page).to have_current_path(link_sent_path(email: 'hello@test.com'))
   end
 
   scenario 'if user submits location eligibility form then sign in form user should not see one validation message' do

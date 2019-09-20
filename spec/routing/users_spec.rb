@@ -29,6 +29,14 @@ RSpec.describe 'routes for Users', type: :routing do
     expect(get(token_sign_in_path(token: 'token'))).not_to route_to('passwordless/sessions#show')
   end
 
+  it 'does not route to users#link_expired' do
+    expect(get(link_expired_path)).not_to route_to('users#link_expired')
+  end
+
+  it 'does not route to users#return_to_saved_results' do
+    expect(get(return_to_saved_results_path)).not_to route_to('users#return_to_saved_results')
+  end
+
   context 'when :user_authentication feature is ON' do
     before do
       enable_feature! :user_authentication
@@ -61,6 +69,14 @@ RSpec.describe 'routes for Users', type: :routing do
 
     it 'successfully routes users#sign_in_send_email_again' do
       expect(post(link_sent_again_path)).to route_to('users#sign_in_send_email_again')
+    end
+
+    it 'successfully routes to users#link_expired' do
+      expect(get(link_expired_path)).to route_to('users#link_expired')
+    end
+
+    it 'successfully routes to users#return_to_saved_results' do
+      expect(get(return_to_saved_results_path)).to route_to('users#return_to_saved_results')
     end
   end
 end
