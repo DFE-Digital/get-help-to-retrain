@@ -9,7 +9,9 @@ Passwordless::SessionsController.class_eval do
     sign_in passwordless_session
 
     redirect_to main_app.task_list_path
-  rescue Passwordless::Errors::TokenAlreadyClaimedError, Passwordless::Errors::SessionTimedOutError
+  rescue Passwordless::Errors::TokenAlreadyClaimedError,
+         Passwordless::Errors::SessionTimedOutError,
+         ActiveRecord::RecordNotFound
     redirect_to main_app.link_expired_path
   end
 

@@ -284,6 +284,15 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(link_expired_path)
   end
 
+  scenario 'if user signs in, and token does not exist user should be redirected to link-expired path' do
+    register_user
+    sign_in_user
+
+    visit(token_sign_in_path(token: '123eextr'))
+
+    expect(page).to have_current_path(link_expired_path)
+  end
+
   scenario 'when the user lands on link-expired page one can navigate to Return to saved results page' do
     visit link_expired_path
 
