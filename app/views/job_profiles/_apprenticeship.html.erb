@@ -1,0 +1,7 @@
+<% apprenticeship_section = @job_profile.section(xpath: JobProfileDecorator::APPRENTICESHIP_SECTION_XPATH) %>
+
+<% if apprenticeship_section.present? %>
+  <h2 class='govuk-heading-m'>Apprenticeship</h2>
+  <p class="govuk-body-m">You can do an apprenticeship at any age. You can often work and learn at your existing level of pay and seniority.</p>
+  <%= apprenticeship_section.html_safe %>
+<% end %>

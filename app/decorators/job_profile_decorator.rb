@@ -8,7 +8,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
   WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
   ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
-  APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']".freeze
+  APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']/div[@class='job-profile-subsection-content']".freeze
   DIRECT_APPLICATION_SECTION_XPATH = "//section[@id='directapplication']".freeze
   WORK_SECTION_XPATH = "//section[@id='work']".freeze
   SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]".freeze
