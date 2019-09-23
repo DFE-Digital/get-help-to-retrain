@@ -69,8 +69,8 @@ en-GB:
 
   check_your_skills:
     index:
-      title: Check what skills you already have
-      body: Tell us your current job title and we’ll suggest other types of jobs you could do using skills you already have or with a bit more training.
+      title: Tell us your job title
+      body: Tell us your current job title so we know what skills you already have.
       placeholder: Enter your current job title
       additional_skills:
         title: Add more skills
