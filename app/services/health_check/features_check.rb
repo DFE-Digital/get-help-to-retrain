@@ -8,11 +8,11 @@ module HealthCheck
       @value ||= Flipflop.health_check?
     rescue StandardError => e
       @output = "SplitIO error: #{e.inspect}"
-      nil
+      false
     end
 
     def unit
-      'JSON'
+      'Boolean'
     end
 
     def status

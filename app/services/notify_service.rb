@@ -26,7 +26,7 @@ class NotifyService
     client.send_email(
       email_address: HEALTH_CHECK_EMAIL,
       template_id: HEALTH_CHECK_TEMPLATE_ID
-    )
+    ).id
   end
 
   private

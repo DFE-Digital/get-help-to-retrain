@@ -72,4 +72,44 @@ RSpec.describe NotifyService do
       end
     end
   end
+
+  describe '#health_check' do
+    context 'with successful API call' do
+      let(:id) { SecureRandom.uuid }
+      let(:response) { instance_double(Notifications::Client::ResponseNotification, id: id) }
+
+      before do
+        allow(Notifications::Client).to receive(:new).and_return(client)
+        allow(client).to receive(:send_email).and_return(response)
+      end
+
+      it 'passes the correct payload to the Notify service' do
+        service.health_check
+
+        expect(client).to have_received(:send_email).with(
+          email_address: described_class::HEALTH_CHECK_EMAIL,
+          template_id: described_class::HEALTH_CHECK_TEMPLATE_ID
+        )
+      end
+
+      it 'returns fake sent message id' do
+        expect(service.health_check).to eq(id)
+      end
+    end
+
+    context 'with failed API call' do
+      let(:response) { instance_double(Net::HTTPResponse, code: 500, body: 'FUBAR') }
+
+      before do
+        allow(Notifications::Client).to receive(:new).and_return(client)
+        allow(client).to receive(:send_email).and_raise(Notifications::Client::RequestError, response)
+      end
+
+      it 'throws exception' do
+        expect {
+          service.health_check
+        }.to raise_error(Notifications::Client::RequestError)
+      end
+    end
+  end
 end

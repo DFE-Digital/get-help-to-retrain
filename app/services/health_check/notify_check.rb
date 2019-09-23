@@ -5,14 +5,14 @@ module HealthCheck
     end
 
     def value
-      @value ||= NotifyService.new.health_check.id
-    rescue Notifications::Client::RequestError, RuntimeError => e
+      @value ||= NotifyService.new.health_check
+    rescue Notifications::Client::RequestError, RuntimeError, ArgumentError => e
       @output = "Notify API error: #{e.message}"
       nil
     end
 
     def unit
-      'GUID'
+      'UUID'
     end
 
     def status

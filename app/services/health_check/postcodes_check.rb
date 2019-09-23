@@ -8,7 +8,7 @@ module HealthCheck
       @value ||= Geocoder.coordinates('B1 2JP')
     rescue SocketError, Timeout::Error, Geocoder::Error => e
       @output = "Geocoder API error: #{e.message}"
-      nil
+      []
     end
 
     def unit

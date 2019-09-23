@@ -1,3 +1,8 @@
+unless Rails.env.production?
+  # Explicitly load health check classes in development and test mode
+  Dir.glob(Rails.root.join('app', 'services', 'health_check', '*.rb')) { |f| require f }
+end
+
 module HealthCheck
   class ReportService
     def report
@@ -27,17 +32,7 @@ module HealthCheck
     end
 
     def checks
-      @checks ||= begin
-        preload_check_classes
-        CheckBase.descendants.map(&:new)
-      end
-    end
-
-    def preload_check_classes
-      # Zeitwerk handles eager loading all classes in production mode
-      return if Rails.env.production?
-
-      Dir.glob(Rails.root.join('app', 'services', 'health_check', '*.rb')) { |f| require f }
+      @checks ||= CheckBase.descendants.map(&:new)
     end
   end
 end
