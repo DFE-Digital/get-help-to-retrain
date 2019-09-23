@@ -19,8 +19,10 @@
       <% if @job_profiles_with_skills.any? %>
         <%= render 'skills/v2/job_profiles_with_skills', job_profiles_with_skills: @job_profiles_with_skills %>
       <% else %>
-        <div class='govuk-body govuk-!-margin-bottom-2'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</div>
-        <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
+        <div class='skills-builder-margin'>
+          <p class='govuk-body'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</p>
+          <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
+        </div>
       <% end %>
     </div>
   </div>

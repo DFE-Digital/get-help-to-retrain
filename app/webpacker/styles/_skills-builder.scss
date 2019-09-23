@@ -19,3 +19,11 @@
 .remove-role {
   float: right;
 }
+
+.skills-builder-margin {
+  margin-bottom: 20px;
+
+  @include govuk-media-query($from: tablet) {
+    margin-bottom: 145px;
+  }
+}
