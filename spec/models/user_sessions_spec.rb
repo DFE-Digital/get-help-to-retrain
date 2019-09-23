@@ -181,6 +181,40 @@ RSpec.describe UserSession do
 
       expect(user_session.job_profile_skills).to eq('1' => [2, 3])
     end
+
+    it 'stores the given job profile id in job profile ids' do
+      user_session.set_skills_ids_for_profile(1, [2, 3])
+
+      expect(user_session.job_profile_ids).to eq([1])
+    end
+  end
+
+  describe '#remove_job_profile' do
+    it 'removes a job profile from job profile skills' do
+      user_session.set_skills_ids_for_profile(1, [2, 3])
+      user_session.remove_job_profile(1)
+
+      expect(user_session.job_profile_skills).to eq({})
+    end
+
+    it 'removes a job profile from job profile ids' do
+      user_session.set_skills_ids_for_profile(1, [2, 3])
+      user_session.remove_job_profile(1)
+
+      expect(user_session.job_profile_ids).to eq([])
+    end
+
+    it 'does nothing if a job profile does not exist in job profile skills' do
+      user_session.remove_job_profile(1)
+
+      expect(user_session.job_profile_skills).to eq({})
+    end
+
+    it 'does nothing if job profiles does not exist in job profile ids' do
+      user_session.remove_job_profile(1)
+
+      expect(user_session.job_profile_ids).to eq([])
+    end
   end
 
   describe '#track_page' do

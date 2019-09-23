@@ -71,6 +71,11 @@ class UserSession
     session[:job_profile_ids] << job_profile_id unless job_profile_ids.include?(job_profile_id)
   end
 
+  def remove_job_profile(job_profile_id)
+    job_profile_skills.delete(job_profile_id.to_s)
+    job_profile_ids.delete(job_profile_id)
+  end
+
   def track_page(page_key)
     session[:visited_pages] << page_key unless page_visited?(page_key)
   end

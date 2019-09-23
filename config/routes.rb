@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     get :results, on: :collection
   end
 
-  resources :job_profiles, path: 'job-profiles', only: %i[show] do
+  resources :job_profiles, path: 'job-profiles', only: %i[show destroy] do
     resources :skills do
       get :index, controller: 'job_profiles_skills', on: :collection
     end
