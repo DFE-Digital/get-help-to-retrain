@@ -32,6 +32,14 @@ RSpec.feature 'Build your skills V2', type: :feature do
     end
   end
 
+  def unselect_all_skills_for(job_profile)
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    uncheck('License to kill', allow_label_click: true)
+    uncheck('Baldness', allow_label_click: true)
+    click_on('Select these skills')
+  end
+
   scenario 'User sees a list of skills when checking their Job skills' do
     visit(check_your_skills_path)
     fill_in('search', with: 'Hitman')
@@ -277,23 +285,13 @@ RSpec.feature 'Build your skills V2', type: :feature do
   end
 
   scenario 'skill builder requires at least one skill selected' do
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
-    uncheck('License to kill', allow_label_click: true)
-    uncheck('Baldness', allow_label_click: true)
-
-    click_on('Select these skills')
+    unselect_all_skills_for(job_profile)
 
     expect(page).to have_text(/Select at least one skill/)
   end
 
   scenario 'redirects from skills page if no skills present on session for a job profile' do
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
-    uncheck('License to kill', allow_label_click: true)
-    uncheck('Baldness', allow_label_click: true)
-
-    click_on('Select these skills')
+    unselect_all_skills_for(job_profile)
     visit(skills_path)
 
     expect(page).to have_current_path(task_list_path)
@@ -319,5 +317,68 @@ RSpec.feature 'Build your skills V2', type: :feature do
     visit(skills_path(job_profile_id: job_profile.slug))
 
     expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'if user deselects all skills on job profile they should appear deselected' do
+    unselect_all_skills_for(job_profile)
+
+    expect(page).not_to have_selector('input[checked="checked"]')
+  end
+
+  scenario 'user deselects all skills on job profile should not be remembered' do
+    unselect_all_skills_for(job_profile)
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_selector('input[checked="checked"]', count: 3)
+  end
+
+  scenario 'user still finds their job in search if they deselects all skills on job profile' do
+    unselect_all_skills_for(job_profile)
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Hitman')
+    find('.search-button').click
+
+    expect(page).to have_text('Hitman')
+  end
+
+  scenario 'user cannot remove job profile by unselecting all skills' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    unselect_all_skills_for(job_profile)
+    visit(skills_path)
+
+    expect(page).to have_text('Hitman')
+  end
+
+  scenario 'user cannot update job profile skills by unselecting all skills' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('License to kill', allow_label_click: true)
+    uncheck('Baldness', allow_label_click: true)
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_selector('input[checked="checked"]', count: 2)
+  end
+
+  scenario 'user does not reach cap and redirect if they unselect all skills' do
+    4.times do |i|
+      job_profile = create(
+        :job_profile,
+        :with_html_content,
+        :with_skill,
+        name: "Hitman#{i}"
+      )
+
+      visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+      click_on('Select these skills')
+    end
+
+    unselect_all_skills_for(job_profile)
+    visit(check_your_skills_path)
+
+    expect(page).to have_current_path(check_your_skills_path)
   end
 end

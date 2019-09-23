@@ -246,7 +246,7 @@ RSpec.describe UserSession do
 
   describe '#job_profile_skills?' do
     it 'returns true if the session already contains job profile skills' do
-      session[:job_profile_skills] = { '1' => [1] }
+      session[:job_profile_ids] = [1]
 
       expect(user_session.job_profile_skills?).to be true
     end
@@ -254,24 +254,12 @@ RSpec.describe UserSession do
     it 'returns false if the session does not contain job profile skills' do
       expect(user_session.job_profile_skills?).to be false
     end
-
-    it 'returns false if the session contains job profiles with no skills' do
-      session[:job_profile_skills] = { '1' => [] }
-
-      expect(user_session.job_profile_skills?).to be false
-    end
   end
 
   describe '#job_profiles_cap_reached?' do
     let(:session) {
       create_fake_session(
-        job_profile_skills: {
-          '11' => [2, 3, 5],
-          '12' => [2, 9, 4],
-          '8' => [3, 5],
-          '4' => [9],
-          '6' => []
-        }
+        job_profile_ids: [11, 12, 8, 4]
       )
     }
 
@@ -280,7 +268,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns true if the number profile ids with at least one skill is greater or equal than 5' do
-      session[:job_profile_skills]['6'] = [5, 1]
+      session[:job_profile_ids] << 6
 
       expect(user_session.job_profiles_cap_reached?).to be true
     end
