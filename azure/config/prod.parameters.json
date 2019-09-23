@@ -2,26 +2,42 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "databaseName": {
-      "value": "ghtr"
+    "domainDatabaseName": {
+      "value": "domain"
     },
-    "databaseUsername": {
+    "domainDatabaseUsername": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
         },
-        "secretName": "prod-databaseUsername"
+        "secretName": "prod-domainDatabaseUsername"
       }
     },
-    "databasePort": {
-      "value": "5432"
-    },
-    "databasePassword": {
+    "domainDatabasePassword": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
         },
-        "secretName": "prod-databasePassword"
+        "secretName": "prod-domainDatabasePassword"
+      }
+    },
+    "restrictedDatabaseName": {
+      "value": "restricted"
+    },
+    "restrictedDatabaseUsername": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-restrictedDatabaseUsername"
+      }
+    },
+    "restrictedDatabasePassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-restrictedDatabasePassword"
       }
     },
     "secretKeyBase": {

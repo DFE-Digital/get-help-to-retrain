@@ -2,26 +2,42 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "databaseName": {
-      "value": "ghtr"
+    "domainDatabaseName": {
+      "value": "domain"
     },
-    "databaseUsername": {
+    "domainDatabaseUsername": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
         },
-        "secretName": "qa-databaseUsername"
+        "secretName": "qa-domainDatabaseUsername"
       }
     },
-    "databasePort": {
-      "value": "5432"
-    },
-    "databasePassword": {
+    "domainDatabasePassword": {
       "reference": {
         "keyVault": {
           "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
         },
-        "secretName": "qa-databasePassword"
+        "secretName": "qa-domainDatabasePassword"
+      }
+    },
+    "restrictedDatabaseName": {
+      "value": "restricted"
+    },
+    "restrictedDatabaseUsername": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
+        },
+        "secretName": "qa-restrictedDatabaseUsername"
+      }
+    },
+    "restrictedDatabasePassword": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
+        },
+        "secretName": "qa-restrictedDatabasePassword"
       }
     },
     "secretKeyBase": {
