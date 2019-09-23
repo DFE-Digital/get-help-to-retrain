@@ -27,11 +27,13 @@ Rails.application.routes.draw do
     get :results, on: :collection
   end
 
-  resources :job_profiles, path: 'job-profiles', only: %i[show destroy] do
+  resources :job_profiles, path: 'job-profiles', only: %i[show] do
     resources :skills do
       get :index, controller: 'job_profiles_skills', on: :collection
     end
   end
+
+  delete '/job-profiles/:id', to: 'job_profiles#destroy', constraints: ->(_req) { Flipflop.skills_builder_v2? }
 
   resources :skills_matcher, path: 'job-matches', only: %i[index]
   resources :skills, only: %i[index]
