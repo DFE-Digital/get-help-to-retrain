@@ -20,7 +20,7 @@ class SkillsBuilder
     @skill_ids ||= begin
       return [] if skills_params.present? && !valid?
 
-      user_session.job_profile_skills[job_profile.id.to_s] ||
+      user_session.skill_ids_for_profile(job_profile.id).presence ||
         job_profile.skills.pluck(:id)
     end
   end

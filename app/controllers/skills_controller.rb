@@ -40,7 +40,7 @@ class SkillsController < ApplicationController
 
   def show_skills_builder_v2
     return redirect_to task_list_path unless
-      skills_params[:job_profile_id] ||
+      skills_params[:job_profile_id].present? ||
       (job_profiles.any? && user_session.skill_ids.any?)
 
     @job_profiles_with_skills ||= job_profiles.map { |job_profile|

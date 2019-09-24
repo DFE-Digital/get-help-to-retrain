@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'routes for Job Profiles', type: :routing do
+  before do
+    disable_feature! :skills_builder_v2
+  end
+
   it 'successfully routes to job_profiles#show' do
     job_profile = create(:job_profile)
 
