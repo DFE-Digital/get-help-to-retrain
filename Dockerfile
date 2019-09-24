@@ -1,8 +1,5 @@
 FROM ruby:2.6.4-alpine as assets
 
-ARG GIT_SHA="unknown"
-ENV GIT_SHA="${GIT_SHA}"
-
 ENV RAILS_ENV production
 ENV NODE_ENV production
 ENV BUILD_PACKAGES build-base nodejs yarn tzdata postgresql-dev git
@@ -34,7 +31,8 @@ ENV RAILS_LOG_TO_STDOUT true
 ENV NODE_ENV production
 ENV BUILD_PACKAGES nodejs yarn tzdata libpq
 
-RUN export GIT_SHA=$(git rev-parse --short HEAD)
+ARG GIT_SHA="unknown"
+ENV GIT_SHA=${GIT_SHA}
 
 RUN apk add --update $BUILD_PACKAGES && \
     rm -rf /var/cache/apk/*
