@@ -1,0 +1,27 @@
+<% page_title :return_to_saved_results %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.return_to_saved_results'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('return_to_saved_results.title') %></h1>
+    <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
+    <p class="govuk-body">The link expires after one hour.</p>
+    <%= form_with local: true, url: sign_in_path do |form| %>
+      <%= form_group_tag user_with_validation, :email do %>
+        <%= form.label :email, class: 'govuk-label' %>
+        <%= errors_tag user_with_validation, :email %>
+        <%= text_field_tag(:email, params[:email], class: css_classes_for_input(user_with_validation, :email, "govuk-input govuk-!-width-two-thirds")) %>
+      <% end %>
+      <%= button_tag('Send link', class: 'govuk-button') %>
+    <% end %>
+  </div>
+  <%= render "shared/contact_us" %>
+</div>

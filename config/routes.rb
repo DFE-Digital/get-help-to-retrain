@@ -49,6 +49,8 @@ Rails.application.routes.draw do
 
   constraints ->(_req) { Flipflop.user_authentication? } do
     get 'save-your-results', to: 'users#new'
+    get 'return-to-saved-results', to: 'users#return_to_saved_results'
+    get 'link-expired', to: 'users#link_expired'
     post 'save-your-results', to: 'users#create'
     post 'sign-in', to: 'users#sign_in'
     post 'email-sent-again', to: 'users#registration_send_email_again'

@@ -18,10 +18,12 @@ en-GB:
     current_job_skills: Job skills
     user_personal_data: Your information
     save_your_results: Save your results
+    return_to_saved_results: Return to saved results
     link_sent: Link sent
     results_saved: Results saved
     email_sent_again: Email sent again
     link_sent_again: Link sent again
+    link_expired: Link expired
 
   page_titles:
     default: Get help to retrain
@@ -46,10 +48,12 @@ en-GB:
     errors_internal_server_error: Get help to retrain - Internal server error
     errors_postcode_search_error: Get help to retrain - Postcode search error
     save_your_results: Get help to retrain - Save your results
+    return_to_saved_results: Get help to retrain - Return to saved results
     link_sent: Get help to retrain - Link sent
     results_saved: Get help to retrain - Results saved
     email_sent_again: Get help to retrain - Email sent again
     link_sent_again: Get help to retrain - Link sent again
+    link_expired: Get help to retrain - Link expired
 
   events:
     pages_location_eligibility_search: Your location - Postcode search
