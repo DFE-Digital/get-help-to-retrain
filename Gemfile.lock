@@ -364,6 +364,8 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
+    sentry-raven (2.11.2)
+      faraday (>= 0.7.6, < 1.0)
     simplecov (0.16.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -472,6 +474,7 @@ DEPENDENCIES
   rubocop (~> 0.68)
   rubocop-rspec (~> 1.32)
   selenium-webdriver (~> 3.142, >= 3.142.3)
+  sentry-raven (~> 2.11)
   simplecov (~> 0.16)
   splitclient-rb (~> 6.4)
   spring
@@ -489,4 +492,4 @@ RUBY VERSION
    ruby 2.6.4p104
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

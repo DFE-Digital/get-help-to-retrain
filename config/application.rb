@@ -38,5 +38,6 @@ module GetHelpToRetrain
     config.smart_survey_user_feedback_link = ENV['USER_FEEDBACK_SMART_SURVEY_LINK']
     config.notify_api_key = ENV['NOTIFY_API_KEY']
     config.git_commit = ENV['GIT_SHA']
+    config.sentry_dsn = ENV['SENTRY_DSN']
   end
 end

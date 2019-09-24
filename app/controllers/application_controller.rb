@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Passwordless::ControllerHelpers
 
+  before_action :set_raven_context
+
   def user_session
     @user_session ||= UserSession.new(session)
   end
@@ -22,5 +24,11 @@ class ApplicationController < ActionController::Base
 
   def protect_feature(feature)
     redirect_to task_list_path unless Flipflop.enabled?(feature)
+  end
+
+  def set_raven_context
+    return unless Rails.configuration.sentry_dsn.present?
+
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

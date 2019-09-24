@@ -118,6 +118,13 @@
         "description:": "User feedback in page Smart Survey URL"
       }
     },
+    "sentryDsn": {
+      "type": "string",
+      "defaultValue": "", 
+      "metadata": {
+        "description:": "sentry.io - Data Source Name (DSN) URL"
+      }
+    },
     "notifyApiKey": {
       "type": "string",
       "defaultValue": "", 
@@ -440,6 +447,10 @@
               {
                 "name": "USER_FEEDBACK_SMART_SURVEY_LINK",
                 "value": "[parameters('userFeedbackSmartSurveyLink')]"
+              },
+              {
+                "name": "SENTRY_DSN",
+                "value": "[parameters('sentryDsn')]"
               },
               {
                 "name": "NOTIFY_API_KEY",
