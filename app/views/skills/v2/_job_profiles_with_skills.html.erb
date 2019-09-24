@@ -1,0 +1,31 @@
+<% job_profiles_with_skills.each do |job_profile_hash| %>
+  <table class="govuk-table">
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-1 govuk-!-margin-top-8"><%= job_profile_hash[:name] %></h2>
+    <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th class="govuk-table__header govuk-section-break__xl govuk-!-padding-0" scope="col">
+          <p class="govuk-body govuk-!-margin-bottom-2">You gained these skills from working as a <%= job_profile_hash[:name] %></p>
+          <span class='edit-skills govuk-!-margin-bottom-2'>
+            <%= link_to('edit these skills', job_profile_skills_path(job_profile_id: job_profile_hash[:profile_slug], search: params[:search]), class:'govuk-link govuk-body') %>
+          </span>
+          <span class='remove-role govuk-!-margin-bottom-2'>
+            <%= link_to('remove this role', job_profile_path(job_profile_hash[:profile_slug], job_profile_id: job_profiles_with_skills.last[:profile_slug], search: params[:search]), method: :delete, class:'govuk-link govuk-body') %>
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+      <% job_profile_hash[:skills].values.each do |skill_name| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell govuk-!-padding-bottom-4 govuk-!-padding-top-4"><%= skill_name %></th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<% unless user_session.job_profiles_cap_reached? %>
+  <div class='govuk-!-margin-top-7 govuk-!-margin-bottom-3'>
+    <%= link_to('Add more skills from another role', check_your_skills_path, class: 'govuk-link') %>
+  </div>
+<% end %>
+<%= link_to('Find out what you can do with these skills', skills_matcher_index_path, class: 'govuk-button') %>

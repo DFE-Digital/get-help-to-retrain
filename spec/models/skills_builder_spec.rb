@@ -92,6 +92,19 @@ RSpec.describe SkillsBuilder do
         job_profile2.id.to_s => [1, 5, 6]
       )
     end
+
+    it 'does not set user_session if skills params available but empty' do
+      session = create_fake_session({})
+      job_profile = create(:job_profile, skills: [create(:skill)])
+      builder = described_class.new(
+        skills_params: [''],
+        job_profile: job_profile,
+        user_session: UserSession.new(session)
+      )
+
+      builder.build
+      expect(builder.user_session.job_profile_skills).to be_empty
+    end
   end
 
   describe '#skill_ids' do
@@ -167,6 +180,22 @@ RSpec.describe SkillsBuilder do
 
       builder.build
       expect(builder.skill_ids).to eq([skill3.id])
+    end
+
+    it 'returns no skills if job profile not valid' do
+      session = create_fake_session({})
+      skill1 = create(:skill)
+      skill2 = create(:skill)
+      job_profile = create(:job_profile, skills: [skill1, skill2])
+
+      builder = described_class.new(
+        skills_params: [''],
+        job_profile: job_profile,
+        user_session: UserSession.new(session)
+      )
+
+      builder.build
+      expect(builder.skill_ids).to be_empty
     end
   end
 

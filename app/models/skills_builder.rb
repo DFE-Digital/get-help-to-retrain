@@ -11,15 +11,18 @@ class SkillsBuilder
   end
 
   def build
-    return unless skills_params.present?
+    return unless skills_params.present? && valid?
 
     user_session.set_skills_ids_for_profile(job_profile.id, formatted_skill_params)
   end
 
   def skill_ids
-    @skill_ids ||=
-      user_session.job_profile_skills[job_profile.id.to_s] ||
-      job_profile.skills.pluck(:id)
+    @skill_ids ||= begin
+      return [] if skills_params.present? && !valid?
+
+      user_session.skill_ids_for_profile(job_profile.id).presence ||
+        job_profile.skills.pluck(:id)
+    end
   end
 
   private

@@ -71,6 +71,11 @@ class UserSession
     session[:job_profile_ids] << job_profile_id unless job_profile_ids.include?(job_profile_id)
   end
 
+  def remove_job_profile(job_profile_id)
+    job_profile_skills.delete(job_profile_id.to_s)
+    job_profile_ids.delete(job_profile_id)
+  end
+
   def track_page(page_key)
     session[:visited_pages] << page_key unless page_visited?(page_key)
   end
@@ -84,12 +89,11 @@ class UserSession
   end
 
   def job_profile_skills?
-    job_profiles_with_skills.present?
+    job_profile_ids.present?
   end
 
   def job_profiles_cap_reached?
-    job_profiles_with_skills
-      .size > 4
+    job_profile_ids.size > 4
   end
 
   def unblock_all_sections?
@@ -117,11 +121,5 @@ class UserSession
 
   def expected_version
     Flipflop.skills_builder_v2? ? 2 : 1
-  end
-
-  def job_profiles_with_skills
-    job_profile_skills
-      .reject { |_k, v| v.size.zero? }
-      .keys
   end
 end

@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     end
   end
 
+  delete '/job-profiles/:id', to: 'job_profiles#destroy', constraints: ->(_req) { Flipflop.skills_builder_v2? }
+
   resources :skills_matcher, path: 'job-matches', only: %i[index]
   resources :skills, only: %i[index]
 

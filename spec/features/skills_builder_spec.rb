@@ -13,6 +13,10 @@ RSpec.feature 'Build your skills', type: :feature do
     )
   end
 
+  background do
+    disable_feature! :skills_builder_v2
+  end
+
   scenario 'User sees a list of skills when checking their Job skills' do
     visit(check_your_skills_path)
     fill_in('search', with: 'Hitman')
