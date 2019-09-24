@@ -106,6 +106,16 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Enter a postcode/)
   end
 
+  scenario 'tracks search postcode' do
+    allow(TrackingService).to receive(:track_event)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+
+    expect(TrackingService).to have_received(:track_event).with('Courses near me - Postcode search', search: 'NW6 8ET')
+  end
+
   def capture_user_location(postcode)
     visit(location_eligibility_path)
     fill_in('postcode', with: postcode)

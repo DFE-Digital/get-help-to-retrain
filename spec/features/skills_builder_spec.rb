@@ -1,15 +1,19 @@
 require 'rails_helper'
 
 RSpec.feature 'Build your skills', type: :feature do
+  let(:skills) do
+    [
+      create(:skill, name: 'Chameleon-like blend in tactics'),
+      create(:skill, name: 'License to kill'),
+      create(:skill, name: 'Baldness')
+    ]
+  end
+
   let!(:job_profile) do
     create(
       :job_profile,
       name: 'Hitman',
-      skills: [
-        create(:skill, name: 'Chameleon-like blend in tactics'),
-        create(:skill, name: 'License to kill'),
-        create(:skill, name: 'Baldness')
-      ]
+      skills: skills
     )
   end
 
@@ -105,5 +109,16 @@ RSpec.feature 'Build your skills', type: :feature do
     visit(skills_path(job_profile_id: job_profile.slug))
 
     expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'tracks selected job profile and skills' do
+    disable_feature! :skills_builder_v2
+    allow(TrackingService).to receive(:track_event)
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+
+    selection = { job_profile.slug => skills.map(&:id) }
+    expect(TrackingService).to have_received(:track_event).with('Current job skills - Skills selected', selection)
   end
 end

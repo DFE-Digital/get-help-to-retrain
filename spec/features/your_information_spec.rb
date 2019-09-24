@@ -47,6 +47,14 @@ RSpec.feature 'Your information' do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'When user clicks Skip link action is tracked' do
+    allow(TrackingService).to receive(:track_event)
+
+    click_on('Skip this step')
+
+    expect(TrackingService).to have_received(:track_event).with('User personal information - Skip this step link clicked')
+  end
+
   scenario 'Error message present when first name is missing' do
     click_on('Continue')
 
