@@ -152,7 +152,7 @@ stages:
           command: build
           imageName: $(IMAGE_NAME):$(Build.BuildNumber)
           dockerFile: Dockerfile
-          arguments: '--cache-from=$(IMAGE_NAME):assets-latest,$(IMAGE_NAME):latest'
+          arguments: '--cache-from=$(IMAGE_NAME):assets-latest,$(IMAGE_NAME):latest --build-arg GIT_SHA=$(Build.BuildNumber)'
 
       - task: Docker@2
         displayName: Push new image with current tag

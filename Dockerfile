@@ -31,6 +31,9 @@ ENV RAILS_LOG_TO_STDOUT true
 ENV NODE_ENV production
 ENV BUILD_PACKAGES nodejs yarn tzdata libpq
 
+ARG GIT_SHA="unknown"
+ENV GIT_SHA=${GIT_SHA}
+
 RUN apk add --update $BUILD_PACKAGES && \
     rm -rf /var/cache/apk/*
 
