@@ -38,4 +38,11 @@ RSpec.feature 'Training Hub page', type: :feature do
 
     expect(page).to have_text('English courses near me')
   end
+
+  scenario 'User can find other ways to change jobs' do
+    visit(training_hub_path)
+    click_on('Other ways to change jobs')
+
+    expect(page).to have_current_path(next_steps_path)
+  end
 end
