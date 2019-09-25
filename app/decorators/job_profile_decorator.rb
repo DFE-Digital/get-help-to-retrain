@@ -78,6 +78,17 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
 
     'Growing strongly'
   end
+
+  def growth_explanation
+    return unless growth
+
+    case growth
+    when (-Float::INFINITY...-5) then I18n.t(:falling, scope: :job_growth_explanation)
+    when -5...5 then I18n.t(:stable, scope: :job_growth_explanation)
+    when 5...50 then I18n.t(:growing, scope: :job_growth_explanation)
+    else I18n.t(:growing_strongly, scope: :job_growth_explanation)
+    end
+  end
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def skills_match(score) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

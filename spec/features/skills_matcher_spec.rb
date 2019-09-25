@@ -49,6 +49,28 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'Each section from job matches has the What does this mean? link if there is a job growth information' do
+    visit_skills_for_current_job_profile
+
+    create(:job_profile, :with_html_content, :growing, name: 'Cabin Crew', skills: [skill1, skill2])
+
+    visit '/job-matches'
+
+    expect(page).to have_content('What does this mean?')
+  end
+
+  scenario 'When clicking on What does this mean? link user gets the explanation for that score', js: true do
+    visit_skills_for_current_job_profile
+
+    create(:job_profile, :with_html_content, :growing, name: 'Cabin Crew', skills: [skill1, skill2])
+
+    visit '/job-matches'
+
+    find('.underlined-text').click
+
+    expect(page).to have_content(I18n.t(:growing, scope: :job_growth_explanation))
+  end
+
   scenario 'returns other profiles than one selected for skills' do
     visit_skills_for_current_job_profile
 
