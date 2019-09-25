@@ -8,4 +8,5 @@ Flipflop.configure do
   feature :skills_builder_v2, description: 'Skills builder V2 feature'
   feature :user_personal_data, description: 'User personal data collection feature'
   feature :user_authentication, description: 'User authentication and save progress feature'
+  feature :next_steps_v2, description: 'Next steps with new regions and content feature'
 end
