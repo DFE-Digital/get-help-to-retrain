@@ -28,6 +28,16 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_text('No results found')
   end
 
+  scenario 'tracks search string' do
+    allow(TrackingService).to receive(:track_event)
+
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Bodyguard')
+    find('.search-button').click
+
+    expect(TrackingService).to have_received(:track_event).with('Check your skills - Job search', search: 'Bodyguard')
+  end
+
   scenario 'paginates results of search' do
     create_list(:job_profile, 12, name: 'Hacker')
     visit(check_your_skills_path)

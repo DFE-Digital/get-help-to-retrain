@@ -115,4 +115,14 @@ RSpec.feature 'Check your location is eligible', type: :feature do
 
     expect(page).to have_text(/Enter a postcode/)
   end
+
+  scenario 'tracks search postcode' do
+    allow(TrackingService).to receive(:track_event)
+
+    visit(location_eligibility_path)
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Continue')
+
+    expect(TrackingService).to have_received(:track_event).with('Your location - Postcode search', search: 'NW6 8ET')
+  end
 end

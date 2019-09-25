@@ -16,9 +16,8 @@ class ApplicationController < ActionController::Base
   private
 
   def track_event(event_key, properties = {})
-    return unless defined?(TELEMETRY_CLIENT)
-
-    TELEMETRY_CLIENT.track_event(I18n.t(event_key, scope: :events), properties: properties)
+    event = I18n.t(event_key, scope: :events)
+    properties.present? ? TrackingService.track_event(event, properties) : TrackingService.track_event(event)
   end
 
   def protect_feature(feature)
