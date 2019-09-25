@@ -39,5 +39,7 @@ module GetHelpToRetrain
     config.notify_api_key = ENV['NOTIFY_API_KEY']
     config.git_commit = ENV['GIT_SHA']
     config.sentry_dsn = ENV['SENTRY_DSN']
+    config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
+    config.host_name = Socket.gethostname
   end
 end
