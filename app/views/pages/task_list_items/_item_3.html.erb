@@ -5,8 +5,8 @@
   <ul class="app-task-list__items">
     <li class="app-task-list__item">
       <div class="app-task-list__task-name">
-        <%= link_or_blocked(path: training_hub_path, enabled: user_session.unblock_all_sections?, span_id: 3) do %>
-          Find a training course <span class="app-step-nav__context">10 to 20 minutes</span>
+        <%= link_or_blocked(path: training_hub_path, enabled: user_session.job_profile_skills?, span_id: 3) do %>
+          Find a training course
         <% end %>
         <p class="govuk-body govuk-!-margin-bottom-0">Training can help you access a broader range of jobs and stay in secure work.</p>
       </div>
