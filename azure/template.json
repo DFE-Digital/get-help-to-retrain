@@ -509,7 +509,7 @@
               },
               {
                 "name": "RESTRICTED_DB_USERNAME",
-                "value": "[concat(parameters('restrictedDatabaseName'), '@', variables('restrictedDatabaseServerName'))]"
+                "value": "[concat(parameters('restrictedDatabaseUsername'), '@', variables('restrictedDatabaseServerName'))]"
               },
               {
                 "name": "RESTRICTED_DB_HOST",
