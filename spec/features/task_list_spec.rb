@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks List', type: :feature do
+  background do
+    disable_feature! :next_steps_v2
+  end
+
   scenario 'User checks their existing skills' do
     visit(task_list_path)
     click_on('Check your existing skills')
@@ -280,6 +284,19 @@ RSpec.feature 'Tasks List', type: :feature do
 
     (2..5).each do |section_no|
       expect(page).to have_css("span#section-#{section_no}-blocked")
+    end
+  end
+
+  context 'when next steps v2 is ON' do
+    background do
+      enable_feature! :next_steps_v2
+    end
+
+    # TODO: remove test when we remove the feature flag
+    scenario 'User sees new and improved next steps page' do
+      visit(next_steps_path)
+
+      expect(page).to have_text('Get help changing jobs')
     end
   end
 end
