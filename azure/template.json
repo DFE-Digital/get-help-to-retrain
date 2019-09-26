@@ -30,31 +30,43 @@
         "description": "The name of the certificate in key vault."
       }
     },
-    "databaseName": {
+    "domainDatabaseName": {
       "type": "string",
       "metadata": {
         "description": "The name of the database that the app will connect to."
       }
     },
-    "databaseUsername": {
+    "domainDatabaseUsername": {
       "type": "string",
       "metadata": {
         "description": "The username used to connect to the database."
       }
     },
-    "databasePassword": {
+    "domainDatabasePassword": {
       "type": "securestring",
       "metadata": {
         "description": "The password used to connect to the database."
       }
     },
-    "databasePort": {
+    "restrictedDatabaseName": {
       "type": "string",
       "metadata": {
-        "description": "The default port for the psql server."
+        "description": "The name of the database that the app will connect to."
       }
     },
-    "databaseIPWhiteList": {
+    "restrictedDatabaseUsername": {
+      "type": "string",
+      "metadata": {
+        "description": "The username used to connect to the database."
+      }
+    },
+    "restrictedDatabasePassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The password used to connect to the database."
+      }
+    },
+    "domainDatabaseIPWhiteList": {
       "type": "array",
       "defaultValue": [],
       "metadata": {
@@ -171,7 +183,8 @@
     "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
-    "databaseServerName": "[concat(variables('resourceNamePrefix'), '-psql')]",
+    "domainDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-domainPsql')]",
+    "restrictedDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-restricedPsql')]",
     "actionGroupName": "[concat(variables('resourceNamePrefix'), '-ag')]",
     "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]"
   },
@@ -222,7 +235,7 @@
     },
     {
       "apiVersion": "2017-05-10",
-      "name": "postgresql-server",
+      "name": "postgresql-domain-server",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -232,13 +245,13 @@
         },
         "parameters": {
           "postgresServerName": {
-            "value": "[variables('databaseServerName')]"
+            "value": "[variables('domainDatabaseServerName')]"
           },
           "postgresAdminLogin": {
-            "value": "[parameters('databaseUsername')]"
+            "value": "[parameters('domainDatabaseUsername')]"
           },
           "postgresAdminPassword": {
-            "value": "[parameters('databasePassword')]"
+            "value": "[parameters('domainDatabasePassword')]"
           },
           "securityAlertEmailAddress": {
             "value": "[coalesce(parameters('supportEmailAddresses'))[0].email]"
@@ -254,7 +267,39 @@
     },
     {
       "apiVersion": "2017-05-10",
-      "name": "postgresql-database",
+      "name": "postgresql-restricted-server",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'postgresql-server.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "postgresServerName": {
+            "value": "[variables('restrictedDatabaseServerName')]"
+          },
+          "postgresAdminLogin": {
+            "value": "[parameters('restrictedDatabaseUsername')]"
+          },
+          "postgresAdminPassword": {
+            "value": "[parameters('restrictedDatabasePassword')]"
+          },
+          "securityAlertEmailAddress": {
+            "value": "[coalesce(parameters('supportEmailAddresses'))[0].email]"
+          },
+          "storageAccountName": {
+            "value": "[variables('storageAccountName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "storage-account"
+      ]
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "postgresql-domain-database",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -264,20 +309,43 @@
         },
         "parameters": {
           "serverName": {
-            "value": "[variables('databaseServerName')]"
+            "value": "[variables('domainDatabaseServerName')]"
           },
           "databaseName": {
-            "value": "[parameters('databaseName')]"
+            "value": "[parameters('domainDatabaseName')]"
           }
         }
       },
       "dependsOn": [
-        "postgresql-server"
+        "postgresql-domain-server"
       ]
     },
     {
       "apiVersion": "2017-05-10",
-      "name": "postgresql-server-firewall-rules",
+      "name": "postgresql-restricted-database",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'postgresql-database.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "serverName": {
+            "value": "[variables('restrictedDatabaseServerName')]"
+          },
+          "databaseName": {
+            "value": "[parameters('restrictedDatabaseName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "postgresql-restricted-server"
+      ]
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "postgresql-domain-server-firewall-rules",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -290,15 +358,41 @@
             "value": "[concat(variables('appServicePlanName'),'-AZURE_IP-')]"
           },
           "ipAddresses": {
-            "value": "[concat(reference('app-service').outputs.possibleOutboundIpAddresses.value,parameters('databaseIPWhiteList'))]"
+            "value": "[concat(reference('app-service').outputs.possibleOutboundIpAddresses.value,parameters('domainDatabaseIPWhiteList'))]"
           },
           "serverName": {
-            "value": "[variables('databaseServerName')]"
+            "value": "[variables('domainDatabaseServerName')]"
           }
         }
       },
       "dependsOn": [
-        "postgresql-server"
+        "postgresql-domain-server"
+      ]
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "postgresql-restricted-server-firewall-rules",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'postgresql-server-firewall-rules.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "firewallRuleNamePrefix": {
+            "value": "[concat(variables('appServicePlanName'),'-AZURE_IP-')]"
+          },
+          "ipAddresses": {
+            "value": "[reference('app-service').outputs.possibleOutboundIpAddresses.value]"
+          },
+          "serverName": {
+            "value": "[variables('restrictedDatabaseServerName')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "postgresql-restricted-server"
       ]
     },
     {
@@ -391,35 +485,35 @@
               },
               {
                 "name": "DB_DATABASE",
-                "value": "[parameters('databaseName')]"
+                "value": "[parameters('domainDatabaseName')]"
               },
               {
                 "name": "DB_PASSWORD",
-                "value": "[parameters('databasePassword')]"
+                "value": "[parameters('domainDatabasePassword')]"
               },
               {
                 "name": "DB_USERNAME",
-                "value": "[concat(parameters('databaseUsername'), '@', variables('databaseServerName'))]"
+                "value": "[concat(parameters('domainDatabaseUsername'), '@', variables('domainDatabaseServerName'))]"
               },
               {
                 "name": "DB_HOST",
-                "value": "[reference('postgresql-server').outputs.fullyQualifiedDomainName.value]"
+                "value": "[reference('postgresql-domain-server').outputs.fullyQualifiedDomainName.value]"
               },
               {
                 "name": "RESTRICTED_DB_DATABASE",
-                "value": "[parameters('databaseName')]"
+                "value": "[parameters('restrictedDatabaseName')]"
               },
               {
                 "name": "RESTRICTED_DB_PASSWORD",
-                "value": "[parameters('databasePassword')]"
+                "value": "[parameters('restrictedDatabasePassword')]"
               },
               {
                 "name": "RESTRICTED_DB_USERNAME",
-                "value": "[concat(parameters('databaseUsername'), '@', variables('databaseServerName'))]"
+                "value": "[concat(parameters('restrictedDatabaseName'), '@', variables('restrictedDatabaseServerName'))]"
               },
               {
                 "name": "RESTRICTED_DB_HOST",
-                "value": "[reference('postgresql-server').outputs.fullyQualifiedDomainName.value]"
+                "value": "[reference('postgresql-restricted-server').outputs.fullyQualifiedDomainName.value]"
               },
               {
                 "name": "LOGGLY_TOKEN",
@@ -428,10 +522,6 @@
               {
                 "name": "SPLIT_API_KEY",
                 "value": "[parameters('splitApiKey')]"
-              },
-              {
-                "name": "POSTGRESQL_SERVICE_PORT",
-                "value": "[parameters('databasePort')]"
               },
               {
                 "name": "SECRET_KEY_BASE",
@@ -499,7 +589,7 @@
                 "value": "[variables('appServiceName')]"
               },
               "databaseName": {
-                  "value": "[variables('databaseServerName')]"
+                  "value": "[variables('domainDatabaseServerName')]"
               },
               "actionGroupName": {
                   "value": "[variables('actionGroupName')]"
@@ -527,7 +617,7 @@
               }
           }
       },
-      "dependsOn": ["app-service-plan","postgresql-database"]
+      "dependsOn": ["app-service-plan","postgresql-domain-database"]
   }
   ],
   "outputs": {
