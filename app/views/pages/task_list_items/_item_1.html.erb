@@ -5,8 +5,8 @@
   <ul class="app-task-list__items">
     <li class="app-task-list__item">
       <div class="app-task-list__task-name">
-        <%= link_to check_your_skills_path, class: 'govuk-link' do %>
-          Check your existing skills <span class="app-step-nav__context">5 minutes</span>
+        <%= link_to @skills_summary_path, class: 'govuk-link' do %>
+          Check your existing skills
         <% end %>
         <p class="govuk-body govuk-!-margin-bottom-0">You'll be surprised at what you already know.</p>
       </div>

@@ -5,8 +5,8 @@
   <ul class="app-task-list__items">
     <li class="app-task-list__item">
       <div class="app-task-list__task-name">
-        <%= link_or_blocked(path: skills_matcher_index_path, enabled: user_session.page_visited?('skills_matcher_index'), span_id: 2) do %>
-          See types of jobs that match your skills <span class="app-step-nav__context">5 to 20 minutes</span>
+        <%= link_or_blocked(path: skills_matcher_index_path, enabled: user_session.job_profile_skills?, span_id: 2) do %>
+          See types of jobs that match your skills
         <% end %>
         <p class="govuk-body govuk-!-margin-bottom-0">You already have many of the skills to do these types of jobs. Find out what additional training you might need.</p>
       </div>

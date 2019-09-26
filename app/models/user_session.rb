@@ -96,11 +96,6 @@ class UserSession
     job_profile_ids.size > 4
   end
 
-  def unblock_all_sections?
-    page_visited?('skills_matcher_index') &&
-      (page_visited?('training_hub') || page_visited?('next_steps'))
-  end
-
   def skill_ids
     return skill_ids_for_profile(current_job_id) if current_job?
 

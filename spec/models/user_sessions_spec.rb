@@ -308,39 +308,6 @@ RSpec.describe UserSession do
     end
   end
 
-  describe '#unblock_all_sections?' do
-    it 'returns false if there are no sessions for all pages' do
-      expect(user_session).not_to be_unblock_all_sections
-    end
-
-    it 'returns false if only skills matcher unblocked' do
-      user_session.track_page('skills_matcher_index')
-
-      expect(user_session).not_to be_unblock_all_sections
-    end
-
-    it 'returns true if skills matcher and training hub unblocked' do
-      user_session.track_page('skills_matcher_index')
-      user_session.track_page('training_hub')
-
-      expect(user_session).to be_unblock_all_sections
-    end
-
-    it 'returns true if skills matcher and next steps unblocked' do
-      user_session.track_page('skills_matcher_index')
-      user_session.track_page('next_steps')
-
-      expect(user_session).to be_unblock_all_sections
-    end
-
-    it 'returns false if training hub and next steps unblocked' do
-      user_session.track_page('training_hub')
-      user_session.track_page('next_steps')
-
-      expect(user_session).not_to be_unblock_all_sections
-    end
-  end
-
   describe '#skill_ids' do
     context 'when there is a current_job_id on the session and we are using Skills Builder v1' do
       let(:session) {
