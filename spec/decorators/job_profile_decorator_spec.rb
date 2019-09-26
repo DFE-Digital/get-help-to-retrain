@@ -107,6 +107,48 @@ RSpec.describe JobProfileDecorator do
     end
   end
 
+  describe '#growth_explanation' do
+    context 'when the job is falling' do
+      let(:model) { build(:job_profile, :falling) }
+
+      it 'returns the explanation for falling score' do
+        expect(job_profile.growth_explanation).to eq I18n.t(:falling, scope: :job_growth_explanation)
+      end
+    end
+
+    context 'when the job is stable' do
+      let(:model) { build(:job_profile, :stable) }
+
+      it 'returns the explanation for stable score' do
+        expect(job_profile.growth_explanation).to eq I18n.t(:stable, scope: :job_growth_explanation)
+      end
+    end
+
+    context 'when the job is growing' do
+      let(:model) { build(:job_profile, :growing) }
+
+      it 'returns the explanation for growing score' do
+        expect(job_profile.growth_explanation).to eq I18n.t(:growing, scope: :job_growth_explanation)
+      end
+    end
+
+    context 'when the job is growing strongly' do
+      let(:model) { build(:job_profile, :growing_strongly) }
+
+      it 'returns the explanation for growing strongly score' do
+        expect(job_profile.growth_explanation).to eq I18n.t(:growing_strongly, scope: :job_growth_explanation)
+      end
+    end
+
+    context 'when the job is missing the growth score' do
+      let(:model) { build(:job_profile, growth: nil) }
+
+      it 'returns nil' do
+        expect(job_profile.growth_explanation).to be nil
+      end
+    end
+  end
+
   describe '#working_hours' do
     let(:html_body) do
       '<div id="WorkingHours" class="column-30 job-profile-heroblock">
