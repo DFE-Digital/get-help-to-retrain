@@ -31,7 +31,7 @@ class SkillsMatcher
   def job_profiles_subquery
     JobProfile
       .recommended
-      .select(:skills_matched, 'array_agg(id order by name ASC) as alphabetically_ordered_ids')
+      .select(:skills_matched, 'array_agg(id order by growth DESC, name ASC) as ordered_ids')
       .from(Arel.sql("(#{job_profile_skills_subquery}) as ranked_job_profiles"))
       .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
       .where.not(id: user_session.job_profile_ids)
@@ -52,6 +52,6 @@ class SkillsMatcher
   end
 
   def job_profile_ids_unnest_query
-    "(#{job_profiles_subquery}) as ordered_query, unnest(alphabetically_ordered_ids) WITH ORDINALITY ordered_id"
+    "(#{job_profiles_subquery}) as ordered_query, unnest(ordered_ids) WITH ORDINALITY ordered_id"
   end
 end
