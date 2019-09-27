@@ -126,13 +126,81 @@ RSpec.describe SkillsMatcher do
       )
 
       matcher = described_class.new(UserSession.new(session))
-      puts matcher.send(:build_query).to_sql
-      puts ActiveRecord::Base.connection.execute('select datname, datcollate from pg_database;').first
-
       expect(matcher.match).to eq(
         [
           job_profile4,
           job_profile3,
+          job_profile5,
+          job_profile2
+        ]
+      )
+    end
+
+    it 'arranges job profiles in job growth order as well as matching skills order' do
+      skill = create(:skill)
+      job_profile1 = create(:job_profile, skills: [skill])
+      job_profile2 = create(:job_profile, skills: [skill], growth: -5)
+      job_profile3 = create(:job_profile, skills: [skill], growth: 60)
+      session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill.id]
+        }
+      )
+
+      matcher = described_class.new(UserSession.new(session))
+      expect(matcher.match).to eq(
+        [
+          job_profile3,
+          job_profile2
+        ]
+      )
+    end
+
+    it 'arranges job profiles in job growth order unless job growth is nil' do
+      skill = create(:skill)
+      job_profile1 = create(:job_profile, skills: [skill])
+      job_profile2 = create(:job_profile, skills: [skill], growth: -5)
+      job_profile3 = create(:job_profile, skills: [skill], growth: nil)
+      job_profile4 = create(:job_profile, skills: [skill], growth: 50)
+      session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill.id]
+        }
+      )
+
+      matcher = described_class.new(UserSession.new(session))
+      expect(matcher.match).to eq(
+        [
+          job_profile3,
+          job_profile4,
+          job_profile2
+        ]
+      )
+    end
+
+    it 'arranges job profiles in job growth order, alphabetical order as well as matching skills order' do
+      skill1 = create(:skill)
+      skill2 = create(:skill)
+      skill3 = create(:skill)
+      job_profile1 = create(:job_profile, skills: [skill1, skill2, skill3])
+      job_profile2 = create(:job_profile, name: 'Researcher', skills: [skill2], growth: 52)
+      job_profile3 = create(:job_profile, name: 'Beekeeper', skills: [skill1, skill2, skill3], growth: 45)
+      job_profile4 = create(:job_profile, name: 'Admin', skills: [skill1, skill2, skill3], growth: -5)
+      job_profile5 = create(:job_profile, name: 'Boat builder', skills: [skill3], growth: 52)
+      session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id]
+        }
+      )
+
+      matcher = described_class.new(UserSession.new(session))
+      expect(matcher.match).to eq(
+        [
+          job_profile3,
+          job_profile4,
           job_profile5,
           job_profile2
         ]

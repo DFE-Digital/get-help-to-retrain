@@ -119,6 +119,27 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
+  scenario 'arranges profiles by growth if they share a score' do
+    create(:job_profile, name: 'Hacker', skills: [skill1, skill2], growth: 50)
+    create(:job_profile, name: 'Admin', skills: [skill1, skill2], growth: -5)
+    visit_skills_for_current_job_profile
+
+    expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
+      ['Assasin', 'Skills match: Good', 'Hacker', 'Skills match: Good', 'Admin', 'Skills match: Good']
+    )
+  end
+
+  scenario 'arranges profiles by growth, then alphabetically if they share a score' do
+    create(:job_profile, name: 'Hitman', skills: [skill1, skill2], growth: 50)
+    create(:job_profile, name: 'Hacker', skills: [skill1, skill2], growth: 50)
+    create(:job_profile, name: 'Admin', skills: [skill1, skill2], growth: -5)
+    visit_skills_for_current_job_profile
+
+    expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
+      ['Assasin', 'Skills match: Good', 'Hacker', 'Skills match: Good', 'Hitman', 'Skills match: Good', 'Admin', 'Skills match: Good']
+    )
+  end
+
   scenario 'paginates results of search' do
     create_list(:job_profile, 12, name: 'Hacker', skills: [skill1])
     visit_skills_for_current_job_profile
