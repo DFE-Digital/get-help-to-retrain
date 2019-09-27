@@ -130,6 +130,13 @@
         "description:": "User feedback in page Smart Survey URL"
       }
     },
+    "sentryDsn": {
+      "type": "string",
+      "defaultValue": "", 
+      "metadata": {
+        "description:": "sentry.io - Data Source Name (DSN) URL"
+      }
+    },
     "notifyApiKey": {
       "type": "string",
       "defaultValue": "", 
@@ -179,6 +186,7 @@
   "variables": {
     "deploymentUrlBase": "https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/",
     "resourceNamePrefix": "[toLower(resourceGroup().name)]",
+    "environmentName": "[split(variables('resourceNamePrefix'),'-')[1]]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
     "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
@@ -476,6 +484,10 @@
           "appServiceAppSettings": {
             "value": [
               {
+                "name": "ENVIRONMENT_NAME",
+                "value": "[variables('environmentName')]"
+              },
+              {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
                 "value": "[reference('app-insights').outputs.instrumentationKey.value]"
               },
@@ -530,6 +542,10 @@
               {
                 "name": "USER_FEEDBACK_SMART_SURVEY_LINK",
                 "value": "[parameters('userFeedbackSmartSurveyLink')]"
+              },
+              {
+                "name": "SENTRY_DSN",
+                "value": "[parameters('sentryDsn')]"
               },
               {
                 "name": "NOTIFY_API_KEY",

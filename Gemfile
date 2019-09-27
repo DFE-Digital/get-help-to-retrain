@@ -36,6 +36,9 @@ gem 'canonical-rails'
 # Logging
 gem 'logglier', '~> 0.5'
 
+# Exception handling
+gem 'sentry-raven', '~> 2.11'
+
 # Pagination
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 

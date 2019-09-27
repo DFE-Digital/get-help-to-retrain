@@ -56,6 +56,14 @@
         "secretName": "qa-splitApiKey"
       }
     },
+    "sentryDsn": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/8587596c-6d6d-4a81-a326-dbf70212fe97/resourceGroups/s108t01-shared/providers/Microsoft.KeyVault/vaults/s108t01-shared-kv-01"
+        },
+        "secretName": "qa-sentryDsn"
+      }
+    },
     "notifyApiKey": {
       "reference": {
         "keyVault": {

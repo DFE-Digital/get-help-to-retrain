@@ -6,6 +6,7 @@ end
 module HealthCheck
   class ReportService
     def report
+      # Build JSON structure according to https://tools.ietf.org/html/draft-inadarei-api-health-check-01
       {
         status: status,
         version: Rails.configuration.git_commit,
