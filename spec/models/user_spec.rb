@@ -117,7 +117,7 @@ RSpec.describe User do
 
     it 'overrides current session data set to user' do
       user = create(:user, session: create(:session, data: { postcode: 'bar' }))
-      session = create(:session, data: { postcode: 'baz' })
+      session = create(:session, data: { postcode: 'baz',  pid: true })
       new_session = create_fake_session(id: session.session_id)
 
       user.restore_session(new_session)

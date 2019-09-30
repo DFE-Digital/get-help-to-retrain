@@ -33,6 +33,41 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'User skips eligibilty page straight to task-list if the postcode is already stored on the session' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
+
+    visit(location_eligibility_path)
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Continue')
+
+    visit(location_eligibility_path)
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'User skips eligibilty page straight to pid if the postcode is already stored on the session and personal_data feature is ON' do
+    enable_feature! :user_personal_data
+
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
+
+    visit(location_eligibility_path)
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Continue')
+
+    visit(root_path)
+    click_on('Start now')
+
+    expect(page).to have_current_path(your_information_path)
+  end
+
   scenario 'User can will proceed to your information even if postcode is not eligible' do
     enable_feature! :user_personal_data
 
@@ -52,6 +87,22 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     visit(location_eligibility_path)
     fill_in('postcode', with: 'NW6 8ET')
     click_on('Continue')
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'User follows through to task list when POSTCODE info has been already provided' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
+
+    visit(location_eligibility_path)
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Continue')
+
+    visit(location_eligibility_path(postcode: 'NW6 8ET'))
 
     expect(page).to have_current_path(task_list_path)
   end
