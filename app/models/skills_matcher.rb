@@ -36,7 +36,6 @@ class SkillsMatcher
       .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
       .where.not(id: user_session.job_profile_ids)
       .group(:skills_matched)
-      .order(skills_matched: :desc)
       .to_sql
   end
 
@@ -48,10 +47,12 @@ class SkillsMatcher
         )
         .from(Arel.sql(job_profile_ids_unnest_query))
         .joins('LEFT JOIN job_profiles ON job_profiles.id = ordered_id')
+        .order(skills_matched: :desc)
+        .order(ordinality: :asc)
     end
   end
 
   def job_profile_ids_unnest_query
-    "(#{job_profiles_subquery}) as ordered_query, unnest(ordered_ids) WITH ORDINALITY ordered_id"
+    "(#{job_profiles_subquery}) as ordered_query, unnest(ordered_ids) WITH ORDINALITY as x(ordered_id, ordinality)"
   end
 end
