@@ -19,6 +19,10 @@ RSpec.describe TrackingService do
         service.key = 'VALID'
       end
 
+      after do
+        service.key = nil
+      end
+
       it 'tracks event without additional properties' do
         allow(service.channel).to receive(:write).and_return(true)
         expect(service.track_event('foo')).to eq true
