@@ -123,6 +123,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#pid' do
+    it 'returns true if the pid value is set to true' do
+      user_session.pid = true
+
+      expect(user_session).to be_pid_submitted
+    end
+
+    it 'returns false if the pid value is set to false' do
+      expect(user_session).not_to be_pid_submitted
+    end
+  end
+
   describe '#registration_triggered_path' do
     it 'returns registration_triggered_path value if set' do
       session[:registration_triggered_path] = 'some-path'

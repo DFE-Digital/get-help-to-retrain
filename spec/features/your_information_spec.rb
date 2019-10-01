@@ -27,6 +27,30 @@ RSpec.feature 'Your information' do
     visit(your_information_path)
   end
 
+  scenario 'Redirects to task-list page if the information has already been submitted' do
+    fill_in('user_personal_data[first_name]', with: 'John')
+    fill_in('user_personal_data[last_name]', with: 'Mayer')
+    fill_in('user_personal_data[postcode]', with: 'NW6 1JJ')
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
+    choose('user_personal_data[gender]', option: 'male')
+
+    click_on('Continue')
+
+    visit(your_information_path)
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'If PID is skipped and user comes back one should see the page again' do
+    click_on('Skip this step')
+
+    visit(your_information_path)
+
+    expect(page).to have_current_path(your_information_path)
+  end
+
   scenario 'When user fills the form correctly one gets taken to tasks-list page' do
     fill_in('user_personal_data[first_name]', with: 'John')
     fill_in('user_personal_data[last_name]', with: 'Mayer')

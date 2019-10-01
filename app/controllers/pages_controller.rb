@@ -18,6 +18,8 @@ class PagesController < ApplicationController
   end
 
   def location_eligibility
+    return redirect_to_pid_or_task_list if user_session.postcode.present?
+
     track_event(:pages_location_eligibility_search, search: postcode) if postcode.present?
     @search = CourseGeospatialSearch.new(postcode: postcode)
     if postcode && @search.valid?
@@ -41,9 +43,13 @@ class PagesController < ApplicationController
 
   def location_eligibility_through_courses
     if @search.find_courses.any?
-      Flipflop.user_personal_data? ? redirect_to(your_information_path) : redirect_to(task_list_path)
+      redirect_to_pid_or_task_list
     else
       redirect_to(location_ineligible_path)
     end
+  end
+
+  def redirect_to_pid_or_task_list
+    redirect_to helpers.pid_step || task_list_path
   end
 end
