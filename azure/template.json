@@ -194,7 +194,9 @@
     "domainDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-domainPsql')]",
     "restrictedDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-restricedPsql')]",
     "actionGroupName": "[concat(variables('resourceNamePrefix'), '-ag')]",
-    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]"
+    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]",
+    "warmupPingPath": "/status",
+    "containerStartTimeLimit": "300"
   },
   "resources": [
     {
@@ -483,6 +485,18 @@
           },
           "appServiceAppSettings": {
             "value": [
+              {
+                "name": "WEBSITE_SLOT_POLL_WORKER_FOR_CHANGE_NOTIFICATION",
+                "value": "0"
+              },
+              {
+                "name": "WEBSITE_SWAP_WARMUP_PING_PATH",
+                "value": "[variables('warmupPingPath')]"
+              },
+              {
+                "name": "WEBSITES_CONTAINER_START_TIME_LIMIT",
+                "value": "[variables('containerStartTimeLimit')]"
+              },
               {
                 "name": "ENVIRONMENT_NAME",
                 "value": "[variables('environmentName')]"
