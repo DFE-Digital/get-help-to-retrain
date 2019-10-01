@@ -20,7 +20,7 @@ class SkillsMatcher
 
   private
 
-  def job_profile_skills_subquery
+  def skills_matched_query
     JobProfileSkill
       .select(:job_profile_id, 'COUNT(job_profile_id) AS skills_matched')
       .where(skill_id: user_session.skill_ids)
@@ -28,30 +28,21 @@ class SkillsMatcher
       .to_sql
   end
 
-  def job_profiles_subquery
-    JobProfile
-      .recommended
-      .select(:skills_matched, 'array_agg(id order by growth DESC, name ASC) as ordered_ids')
-      .from(Arel.sql("(#{job_profile_skills_subquery}) as ranked_job_profiles"))
-      .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
-      .where.not(id: user_session.job_profile_ids)
-      .group(:skills_matched)
-      .order(skills_matched: :desc)
-      .to_sql
-  end
-
   def build_query
     @build_query ||= begin
-      JobProfile
+      job_profile_scope
         .select(
           :skills_matched, :id, :name, :description, :alternative_titles, :salary_min, :salary_max, :slug, :growth
         )
-        .from(Arel.sql(job_profile_ids_unnest_query))
-        .joins('LEFT JOIN job_profiles ON job_profiles.id = ordered_id')
+        .from(Arel.sql("(#{skills_matched_query}) as ranked_job_profiles"))
+        .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
+        .order(skills_matched: :desc, growth: :desc, name: :asc)
     end
   end
 
-  def job_profile_ids_unnest_query
-    "(#{job_profiles_subquery}) as ordered_query, unnest(ordered_ids) WITH ORDINALITY ordered_id"
+  def job_profile_scope
+    JobProfile
+      .recommended
+      .where.not(id: user_session.job_profile_ids)
   end
 end
