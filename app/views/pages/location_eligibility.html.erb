@@ -18,9 +18,6 @@
         <label class="govuk-label" for="postcode">
           Postcode
         </label>
-        <span id="postcode-hint" class="govuk-hint">
-          For example, SW1P 3BP
-        </span>
         <%= errors_tag @search, :postcode %>
         <%= text_field_tag(:postcode, params[:postcode], data: { cy: "postcode-field" }, class: css_classes_for_input(@search, :postcode, "search-input govuk-input govuk-input--width-10")) %>
       <% end %>
