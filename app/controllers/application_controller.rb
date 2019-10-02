@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
   private
 
   def track_event(event_key, properties = {})
+    application_insights_request_id = request.env['ApplicationInsights.request.id']
+    # request.headers['HTTP_REQUEST_ID']
+    request.headers['X-Request-Id'] = application_insights_request_id.to_s if application_insights_request_id
     event = I18n.t(event_key, scope: :events)
     properties.present? ? TrackingService.track_event(event, properties) : TrackingService.track_event(event)
   end

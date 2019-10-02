@@ -41,5 +41,6 @@ module GetHelpToRetrain
     config.sentry_dsn = ENV['SENTRY_DSN']
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
     config.host_name = Socket.gethostname
+    config.log_tags = [:request_id]
   end
 end
