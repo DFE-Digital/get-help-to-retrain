@@ -10,6 +10,21 @@ RSpec.describe SkillsMatcher do
       expect(matcher.match).to be_empty
     end
 
+    it 'limits maximum number of job matches to 50' do
+      skill = create(:skill)
+      job_profile1 = create(:job_profile, skills: [skill])
+      create_list(:job_profile, 51, skills: [skill])
+      session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill.id]
+        }
+      )
+      matcher = described_class.new(UserSession.new(session))
+
+      expect(matcher.match.size).to eq 50
+    end
+
     it 'returns multiple jobs matching skill selected ignoring job profiles in the session' do
       skill = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill])
