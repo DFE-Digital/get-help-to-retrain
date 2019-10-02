@@ -112,7 +112,7 @@ en-GB:
     location_eligibility:
       title: What is your postcode?
     location_ineligible:
-      title: No courses are available in your area yet
+      title: The full Get help to retrain service isn't available in your area yet
   what_you_can_do_next:
     title: Further help to find work
     sub_title: Support to move into a new role.
