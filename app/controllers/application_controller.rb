@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
 
   def track_event(event_key, properties = {})
     event = I18n.t(event_key, scope: :events)
-    properties.present? ? TrackingService.track_event(event, properties) : TrackingService.track_event(event)
+    application_insights_request_id = request.env['ApplicationInsights.request.id']
+    properties.present? ? TrackingService.track_event(event, properties, application_insights_request_id) : TrackingService.track_event(event, application_insights_request_id)
   end
 
   def protect_feature(feature)

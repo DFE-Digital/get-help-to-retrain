@@ -1,6 +1,8 @@
 class TrackingService
-  def self.track_event(event_text, properties = {})
+  def self.track_event(event_text, properties = {}, request_id)
     return false unless key.present?
+
+    client.context.operation.id = request_id
 
     client.track_event(event_text, properties: properties)
   end
