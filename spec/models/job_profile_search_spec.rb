@@ -8,6 +8,7 @@ RSpec.describe JobProfileSearch do
 
       expect(described_class.new(term: 'Music therapist', profile_ids_to_exclude: [dog_trainer_job.id]).search).to contain_exactly(music_therapist_job)
     end
+
     it 'returns a job profile if a name has accidental spaces' do
       job_profile = create(:job_profile, name: 'Music therapist')
 
@@ -69,6 +70,12 @@ RSpec.describe JobProfileSearch do
       expect(described_class.new(term: 'cook').search).to contain_exactly(job_profile)
     end
 
+    it 'returns a record if value is in hidden titles only' do
+      job_profile = create(:job_profile, name: 'Chef', hidden_titles: 'Cook, Kitchen manager')
+
+      expect(described_class.new(term: 'cook').search).to contain_exactly(job_profile)
+    end
+
     it 'returns a record if value is in the description only' do
       job_profile = create(:job_profile, name: 'Chef', alternative_titles: 'Cook', description: 'Kitchen manager')
 
@@ -79,6 +86,7 @@ RSpec.describe JobProfileSearch do
       job_profiles = [
         create(:job_profile, name: 'Head Chef'),
         create(:job_profile, alternative_titles: 'Cook'),
+        create(:job_profile, hidden_titles: 'Pastry Chef'),
         create(:job_profile, description: 'Street food traders ')
       ]
 
@@ -117,6 +125,7 @@ RSpec.describe JobProfileSearch do
 
     it 'orders records according to matched name' do
       cook = create(:job_profile, alternative_titles: 'Cook')
+      baker = create(:job_profile, hidden_titles: 'Pastry Chef')
       head_chef = create(:job_profile, name: 'Head Chef')
       food_trader = create(:job_profile, description: 'Street food traders ')
       kitchen_chef = create(:job_profile, name: 'Kitchen Chef')
@@ -125,6 +134,7 @@ RSpec.describe JobProfileSearch do
         head_chef,
         kitchen_chef,
         cook,
+        baker,
         food_trader
       ]
 
