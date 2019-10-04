@@ -11,7 +11,7 @@ module ApplicationHelper
             link_to(title, link, class: 'govuk-breadcrumbs__link')
           }
         },
-        content_tag(:li, current_page, class: 'govuk-breadcrumbs__list-item')
+        content_tag(:li, current_page, class: 'govuk-breadcrumbs__list-item', aria: { current: 'page' })
       ]
     )
   end
