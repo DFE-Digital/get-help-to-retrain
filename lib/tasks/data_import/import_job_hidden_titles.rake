@@ -7,7 +7,7 @@ namespace :data_import do
       exit(false)
     end
 
-    print "Importing job hidden titles data from #{filename}..."
+    print "Importing job profile hidden titles from #{filename}..."
     importer = JobProfileImportService.new
     importer.import_hidden_titles(filename)
 
