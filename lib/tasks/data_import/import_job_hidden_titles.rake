@@ -2,8 +2,10 @@ namespace :data_import do
   # bin/rails "data_import:import_job_hidden_titles[filename.xlsx]"
   desc 'Import job hidden titles from Excel spreadsheet'
   task :import_job_hidden_titles, [:filename] => [:environment] do |_task, args|
-    filename = args[:filename]
-    abort 'No spreadsheet filename provided' unless filename.present?
+    unless (filename = args[:filename]).present?
+      print 'No spreadsheet filename provided'
+      exit(false)
+    end
 
     print "Importing job hidden titles data from #{filename}..."
     importer = JobProfileImportService.new

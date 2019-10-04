@@ -2,8 +2,10 @@ namespace :data_import do
   # bin/rails "data_import:import_courses[filename.xlsx]"
   desc 'Import courses from Excel spreadsheet'
   task :import_courses, [:filename] => [:environment] do |_task, args|
-    filename = args[:filename]
-    abort 'No spreadsheet filename provided' unless filename.present?
+    unless (filename = args[:filename]).present?
+      print 'No spreadsheet filename provided'
+      exit(false)
+    end
 
     print "Importing courses from #{filename}..."
     Course.delete_all
