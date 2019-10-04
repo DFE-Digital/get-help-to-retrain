@@ -2,16 +2,12 @@
   <div class="govuk-grid-column-one-half">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <div class="profile-highlights salary-icon"></div>
+        <div class="profile-highlights salary-icon" role="img" aria-label="Pound sterling icon"></div>
       </div>
       <div class="govuk-grid-column-three-quarters">
         <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Average Salary</h4>
         <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
-        <ul class="govuk-list">
-          <li>
-            <%= @job_profile.salary_range %>
-          </li>
-        </ul>
+        <p class="govuk-body"><%= @job_profile.salary_range %></p>
       </div>
     </div>
   </div>
@@ -19,12 +15,12 @@
   <div class="govuk-grid-column-one-half">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <div class="profile-highlights time-icon"></div>
+        <div class="profile-highlights time-icon" role="img" aria-label="Clock icon"></div>
       </div>
       <div class="govuk-grid-column-three-quarters">
         <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Typical hours</h4>
         <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
-        <p class="govuk-body"><span id="hours"><%= @job_profile.working_hours %></span> a week</p>
+        <p class="govuk-body"><%= @job_profile.working_hours %> a week</p>
       </div>
     </div>
   </div>
@@ -34,7 +30,7 @@
   <div class="govuk-grid-column-one-half">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-        <div class="profile-highlights calendar-icon"></div>
+        <div class="profile-highlights calendar-icon" role="img" aria-label="Calendar icon"></div>
       </div>
       <div class="govuk-grid-column-three-quarters">
         <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">You could work</h4>
@@ -48,7 +44,7 @@
     <div class="govuk-grid-column-one-half">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-          <div class="profile-highlights <%= @job_profile.growth_icon %>"></div>
+          <div class="profile-highlights <%= @job_profile.growth_icon %>" role="img" aria-label="Arrow pointing upwards"></div>
         </div>
         <div class="govuk-grid-column-three-quarters">
           <h4 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Recent job growth</h4>
