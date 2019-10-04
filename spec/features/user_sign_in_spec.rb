@@ -47,10 +47,10 @@ RSpec.feature 'User sign in' do
   end
 
   def send_sign_in_email
-    visit(root_path)
+    visit(return_to_saved_results_path)
     fill_in('email', with: 'test@test.test')
     page.driver.header('User-Agent', 'some-agent')
-    click_on('Send a link')
+    click_on('Send link')
   end
 
   def sign_in_user(reset_sessions: true)

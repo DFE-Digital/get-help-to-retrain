@@ -10,17 +10,13 @@ RSpec.feature 'User authentication in sidebar' do
     )
   end
 
-  let!(:job_profile2) do
-    create(
-      :job_profile,
-      :with_skill,
-      :with_html_content,
-      name: 'Assasin'
-    )
-  end
-
-  let(:save_your_progress_paths) {
+  let(:paths) {
     [
+      root_path,
+      location_eligibility_path,
+      location_ineligible_path,
+      your_information_path,
+      task_list_path,
       skills_path,
       check_your_skills_path,
       results_check_your_skills_path,
@@ -32,18 +28,6 @@ RSpec.feature 'User authentication in sidebar' do
       maths_course_overview_path,
       courses_path('english'),
       next_steps_path
-    ]
-  }
-
-  let(:sign_in_paths) {
-    [
-      root_path,
-      location_eligibility_path,
-      your_information_path,
-      task_list_path,
-      check_your_skills_path,
-      results_check_your_skills_path,
-      job_profile_skills_path(job_profile1.slug)
     ]
   }
 
@@ -68,10 +52,10 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   context 'when user saves their progress' do
-    scenario 'user sees save your results in sidebar' do
+    scenario 'user sees save your results in sidebar with skills' do
       unlock_tasklist_steps
 
-      save_your_progress_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).to have_text('Save your results')
@@ -82,7 +66,7 @@ RSpec.feature 'User authentication in sidebar' do
       unlock_tasklist_steps
       register_user
 
-      save_your_progress_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).not_to have_text('Save your results')
@@ -95,7 +79,7 @@ RSpec.feature 'User authentication in sidebar' do
       Capybara.reset_sessions!
       register_user
 
-      save_your_progress_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).not_to have_text('Save your results')
@@ -103,9 +87,11 @@ RSpec.feature 'User authentication in sidebar' do
     end
 
     scenario 'user does not see save your results with no previously selected skills' do
-      visit(check_your_skills_path)
+      paths.each do |path|
+        visit(path)
 
-      expect(page).not_to have_text('Save your results')
+        expect(page).not_to have_text('Save your results')
+      end
     end
 
     context 'when user authentication feature is off' do
@@ -117,7 +103,7 @@ RSpec.feature 'User authentication in sidebar' do
       scenario 'user does not see save your results in sidebar' do
         unlock_tasklist_steps
 
-        save_your_progress_paths.each do |path|
+        paths.each do |path|
           visit(path)
           expect(page).not_to have_text('Save your results')
         end
@@ -126,8 +112,8 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   context 'when user signs in' do
-    scenario 'user sees return to saved results in sidebar' do
-      sign_in_paths.each do |path|
+    scenario 'user sees return to saved results in sidebar without skills' do
+      paths.each do |path|
         visit(path)
 
         expect(page).to have_text('Return to saved results')
@@ -137,7 +123,7 @@ RSpec.feature 'User authentication in sidebar' do
     scenario 'user sees return to saved results in sidebar if user registered' do
       register_user
 
-      sign_in_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).to have_text('Return to saved results')
@@ -154,14 +140,7 @@ RSpec.feature 'User authentication in sidebar' do
 
     scenario 'user does not see return to save results when having atleast one job profile skill' do
       unlock_tasklist_steps(job_profile: job_profile1)
-      unlock_tasklist_steps(job_profile: job_profile2)
-      sign_in_paths = [
-        check_your_skills_path,
-        results_check_your_skills_path,
-        job_profile_skills_path(job_profile1.slug)
-      ]
-
-      sign_in_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).not_to have_text('Return to saved results')
@@ -174,7 +153,7 @@ RSpec.feature 'User authentication in sidebar' do
       Capybara.reset_sessions!
       visit(token_sign_in_path(token: Passwordless::Session.last.token))
 
-      sign_in_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).not_to have_text('Return to saved results')
@@ -190,7 +169,7 @@ RSpec.feature 'User authentication in sidebar' do
       Capybara.reset_sessions!
       visit(token_sign_in_path(token: Passwordless::Session.last.token))
 
-      sign_in_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).not_to have_text('Return to saved results')
@@ -203,7 +182,7 @@ RSpec.feature 'User authentication in sidebar' do
       click_on('Send a link')
       unlock_tasklist_steps
 
-      save_your_progress_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).to have_text('Save your results')
@@ -219,7 +198,7 @@ RSpec.feature 'User authentication in sidebar' do
       Capybara.reset_sessions!
       visit(token_sign_in_path(token: Passwordless::Session.last.token))
 
-      save_your_progress_paths.each do |path|
+      paths.each do |path|
         visit(path)
 
         expect(page).not_to have_text('Save your results')
@@ -235,7 +214,7 @@ RSpec.feature 'User authentication in sidebar' do
       scenario 'user does not see return to saved results in sidebar' do
         unlock_tasklist_steps
 
-        sign_in_paths.each do |path|
+        paths.each do |path|
           visit(path)
 
           expect(page).not_to have_text('Return to saved results')

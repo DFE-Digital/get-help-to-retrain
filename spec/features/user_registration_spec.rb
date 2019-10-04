@@ -108,6 +108,9 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User can resume their journey from resend page to where they first clicked save my results' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Save my results')
     visit(next_steps_path)
     click_on('Save my results')
     fill_in('email', with: 'test@test.test')
@@ -119,6 +122,9 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User can resume their journey to where they first clicked save my results' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Save my results')
     visit(next_steps_path)
     click_on('Save my results')
     fill_in('email', with: 'test@test.test')
