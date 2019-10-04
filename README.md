@@ -134,13 +134,13 @@ Once job profiles have been scraped from NCS, run the relevant rake task (a one 
 Growth information and SOC codes for job profiles are imported via an Excel spreadsheet and used to update specific attributes of existing job profiles matched by name (i.e. these must have been previously imported by running the scraping tasks). Copy the relevant spreadsheet locally and then run rake task:
 
 ```bash
-  bundle exec rails data_import:import_job_growth['Job growth 05082019.xlsx']
+  bundle exec rails "data_import:import_job_growth['Job growth 05082019.xlsx']"
 ```
 
 Hidden alternative titles for job profiles are used to improve search results and are imported via an Excel spreadsheet. This updates existing job profiles matched by slug so job profiles must have been previously imported by running the scraping tasks. Copy the relevant spreadsheet locally and then run rake task:
 
 ```bash
-  bundle exec rails data_import:import_job_hidden_titles['JobProfileHiddenAlternativeTitles.xlsx']
+  bundle exec rails "data_import:import_job_hidden_titles['JobProfileHiddenAlternativeTitles.xlsx']"
 ```
 
 These tasks will produce console output detailing any job profiles that were not found and stats for job profiles that are missing information. The rake tasks can be run multiple times without issue but will throw an error if used in production mode.
@@ -151,7 +151,7 @@ These tasks will produce console output detailing any job profiles that were not
 Courses are currently persisted locally within the database. These may be either imported from a courses spreadsheet or setup with sample data (using faker attributes) by running the appropriate task:
 
 ```bash
-  bundle exec rails data_import:import_courses['P2 Training Providers.xlsx']
+  bundle exec rails "data_import:import_courses['P2 Training Providers.xlsx']"
 ```
 
 or
