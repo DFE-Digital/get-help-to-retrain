@@ -92,6 +92,9 @@
     },
     "applyAlerts": {
       "value": true
+    },
+    "appServicePlanInstances": {
+      "value": 2
     }
   }
 }
