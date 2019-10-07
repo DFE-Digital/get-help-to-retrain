@@ -6,60 +6,83 @@ namespace :data_import do
     print 'Updating recommended flag for all job profiles'
     if JobProfile.any?
       non_recommended_jobs = JobProfile.where(slug: %w[
-                                                astronaut
-                                                naturopath
-                                                psychiatrist
-                                                vet
-                                                art-therapist
-                                                sport-and-exercise-psychologist
-                                                geoscientist
-                                                naval-architect
-                                                botanist
-                                                dentist
-                                                data-analyst-statistician
-                                                audiologist
+                                                advertising-art-director
+                                                advertising-media-buyer
+                                                anaesthetist
                                                 archaeologist
-                                                dance-movement-psychotherapist
-                                                ornithologist
-                                                forensic-psychologist
-                                                psychologist
-                                                play-therapist
-                                                consumer-scientist
+                                                archivist
+                                                art-therapist
+                                                astronaut
                                                 astronomer
-                                                nutritionist
+                                                audiologist
+                                                barrister
+                                                biochemist
+                                                botanist
                                                 chiropractor
-                                                research-and-development-manager
+                                                climate-scientist
+                                                clinical-psychologist
                                                 cognitive-behavioural-therapist
-                                                environmental-consultant
-                                                medical-herbalist
-                                                music-therapist
-                                                paediatrician
-                                                nutritional-therapist
-                                                zoologist
-                                                palaeontologist
+                                                consumer-scientist
+                                                court-legal-adviser
+                                                criminologist
+                                                critical-care-technologist
+                                                crown-prosecutor
+                                                dance-movement-psychotherapist
+                                                data-analyst-statistician
                                                 dental-hygienist
-                                                ecologist
-                                                surgeon
-                                                pharmacologist
+                                                dentist
                                                 dispensing-optician
                                                 dramatherapist
-                                                materials-engineer
-                                                gp
-                                                anaesthetist
-                                                critical-care-technologist
-                                                orthoptist
-                                                pathologist
-                                                geneticist
-                                                oceanographer
-                                                sports-scientist
-                                                pharmacist
-                                                speech-and-language-therapist
-                                                climate-scientist
-                                                archivist
+                                                ecologist
+                                                environmental-consultant
                                                 ergonomist
-                                                clinical-psychologist
+                                                forensic-psychologist
+                                                geneticist
+                                                geoscientist
+                                                gp
+                                                headteacher
+                                                health-play-specialist
+                                                health-visitor
                                                 hospital-doctor
+                                                materials-engineer
+                                                medical-herbalist
+                                                medical-illustrator
+                                                music-therapist
+                                                nanotechnologist
+                                                naturopath
+                                                naval-architect
+                                                nutritional-therapist
+                                                nutritionist
+                                                oceanographer
                                                 oil-and-gas-operations-manager
+                                                operational-researcher
+                                                optometrist
+                                                ornithologist
+                                                orthoptist
+                                                osteopath
+                                                paediatrician
+                                                palaeontologist
+                                                patent-attorney
+                                                pathologist
+                                                pharmacist
+                                                pharmacologist
+                                                physicist
+                                                play-therapist
+                                                psychiatrist
+                                                psychologist
+                                                research-and-development-manager
+                                                research-scientist
+                                                royal-navy-officer
+                                                school-nurse
+                                                seismologist
+                                                speech-and-language-therapist
+                                                sport-and-exercise-psychologist
+                                                sports-scientist
+                                                surgeon
+                                                technical-textiles-designer
+                                                translator
+                                                vet
+                                                zoologist
                                               ])
 
       JobProfile.update_all(recommended: true)
