@@ -5,7 +5,7 @@ if defined?(ActiveAdmin)
 
     actions :all, except: %i[new destroy]
 
-    permit_params :recommended, :soc, :extended_soc, :growth
+    permit_params :recommended, :soc, :extended_soc, :growth, :hidden_titles
 
     filter :categories
     filter :skills
@@ -20,6 +20,7 @@ if defined?(ActiveAdmin)
     filter :salary_min
     filter :salary_max
     filter :alternative_titles
+    filter :hidden_titles
 
     index do
       column :id
@@ -31,6 +32,7 @@ if defined?(ActiveAdmin)
       column :salary_max
       column :growth
       column :alternative_titles
+      column :hidden_titles
       actions
     end
 
@@ -54,6 +56,7 @@ if defined?(ActiveAdmin)
         row :salary_max
         row :growth
         row :alternative_titles
+        row :hidden_titles
       end
     end
 
@@ -70,6 +73,7 @@ if defined?(ActiveAdmin)
         f.input :salary_max, input_html: { disabled: true, readonly: true }
         f.input :growth
         f.input :alternative_titles, input_html: { disabled: true, readonly: true }
+        f.input :hidden_titles
         f.input :recommended
       end
       f.actions
@@ -92,6 +96,7 @@ if defined?(ActiveAdmin)
       column :salary_max
       column :growth
       column :alternative_titles
+      column :hidden_titles
       column :skills do |job_profile|
         job_profile.skills.map(&:name)
       end
