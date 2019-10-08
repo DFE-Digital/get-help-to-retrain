@@ -46,9 +46,5 @@
   </div>
 
   <%= render 'shared/contact_us' %>
-  <% if Flipflop.skills_builder_v2? && user_session.job_profile_skills? %>
-    <%= render "shared/save_your_results"  %>
-  <% else %>
-    <%= render 'shared/return_to_saved_results' %>
-  <% end %>
+  <%= render 'shared/save_or_return_to_your_results' %>
 </div>

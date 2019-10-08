@@ -1,3 +1,11 @@
 .title {
   color: $govuk-link-colour;
 }
+
+.courses-margin {
+  margin-bottom: 20px;
+
+  @include govuk-media-query($from: tablet) {
+    margin-bottom: 315px;
+  }
+}

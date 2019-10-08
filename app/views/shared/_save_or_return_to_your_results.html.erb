@@ -1,0 +1,5 @@
+<% if user_session.job_profile_skills? %>
+  <%= render 'shared/save_your_results'  %>
+<% else %>
+  <%= render 'shared/return_to_saved_results' %>
+<% end %>
