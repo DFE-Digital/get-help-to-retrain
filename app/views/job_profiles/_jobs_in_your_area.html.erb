@@ -1,7 +1,8 @@
 <% return unless @job_vacancies.present? %>
 <h2 class="govuk-heading-m">Jobs in your area</h2>
 <% if @job_vacancies > 0 %>
-  <p class="govuk-body">At least <%= pluralize(@job_vacancies, 'job', locale: I18n.locale.to_s) %> like this one are being advertised near you. Get ready to start applying by preparing your CV and cover letter and exploring any training you'll need.</p>
+  <p class="govuk-body">At least <b><%= pluralize(@job_vacancies, 'job', locale: I18n.locale.to_s) %></b> like this one are being advertised near you. Get ready to start applying by preparing your CV and cover letter and exploring any training you'll need.</p>
 <% else %>
   <p class="govuk-body">At present, there are no jobs like this one being advertised near you on the Find a Job service. You may be able to find other jobs like this advertised on other job sites.</p>
 <% end %>
+<hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">

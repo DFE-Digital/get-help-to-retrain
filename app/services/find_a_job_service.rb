@@ -1,7 +1,7 @@
 class FindAJobService
-  attr_reader :api_id, :api_key, :query, :postcode, :distance
+  attr_reader :api_id, :api_key, :query, :postcode, :distance, :path
 
-  BASE_URL = 'https://findajob.dwp.gov.uk/api/search'.freeze
+  BASE_URL = 'https://findajob.dwp.gov.uk/api/'.freeze
   ResponseError = Class.new(StandardError)
 
   def initialize(
@@ -14,12 +14,17 @@ class FindAJobService
     @query = options[:query]
     @postcode = options[:postcode]
     @distance = options[:distance]
+    @path = options[:path] || 'search'
   end
 
   def job_vacancies
     JSON
       .parse(response_body)
       .dig('pager', 'total_entries')
+  end
+
+  def health_check
+    JSON.parse(perform_request)
   end
 
   private
@@ -35,19 +40,21 @@ class FindAJobService
   end
 
   def perform_request
-    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', read_timeout: 120) do |http|
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new(uri)
       response = http.request(request)
-      raise ResponseError, "#{uri.host} : #{response.inspect}" unless response.is_a?(Net::HTTPSuccess)
+      raise ResponseError, "#{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
 
       response.body
     end
   end
 
   def uri
-    uri = URI(BASE_URL)
-    uri.query = URI.encode_www_form(query_values)
-    uri
+    @uri ||= begin
+      build_uri = URI.join(BASE_URL, path)
+      build_uri.query = URI.encode_www_form(query_values)
+      build_uri
+    end
   end
 
   def query_values

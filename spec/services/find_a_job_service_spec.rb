@@ -73,7 +73,7 @@ RSpec.describe FindAJobService do
       expect(request).to have_been_requested
     end
 
-    it 'ignores nil postcodes when doing query' do
+    it 'ignores nil values when doing query' do
       service = described_class.new(
         api_id: 'test',
         api_key: 'test',
@@ -157,6 +157,52 @@ RSpec.describe FindAJobService do
 
       service.job_vacancies
       expect(service.job_vacancies).to be_nil
+    end
+  end
+
+  describe '#health_check' do
+    let(:ping_response) do
+      { 'ping' => 'ok' }
+    end
+
+    it 'returns ping response in JSON' do
+      service = described_class.new(
+        api_id: 'test',
+        api_key: 'test',
+        options: { path: 'ping' }
+      )
+
+      stub_request(:get, /findajob/)
+        .with(query: { 'api_id' => 'test', 'api_key' => 'test' })
+        .to_return(body: ping_response.to_json)
+
+      expect(service.health_check).to eq(ping_response)
+    end
+
+    it 'raises error if the api response is not successful' do
+      service = described_class.new(
+        api_id: 'test',
+        api_key: 'test',
+        options: { path: 'ping' }
+      )
+
+      stub_request(:get, /findajob/)
+        .to_return(status: 500)
+
+      expect { service.health_check }.to raise_exception(described_class::ResponseError)
+    end
+
+    it 'raises error if the query is not authorised' do
+      service = described_class.new(
+        api_id: 'wrong-id',
+        api_key: 'wrong-id',
+        options: { path: 'ping' }
+      )
+
+      stub_request(:get, /findajob/)
+        .to_return(status: 401)
+
+      expect { service.health_check }.to raise_exception(described_class::ResponseError)
     end
   end
 end
