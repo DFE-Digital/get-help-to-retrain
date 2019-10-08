@@ -30,6 +30,12 @@
     },
     "NOTIFY_API_KEY": {
       "required": true
+    },
+    "FIND_A_JOB_API_ID": {
+      "required": true
+    },
+    "FIND_A_JOB_API_KEY": {
+      "required": true
     }
   },
   "formation": {

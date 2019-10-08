@@ -132,21 +132,35 @@
     },
     "sentryDsn": {
       "type": "string",
-      "defaultValue": "", 
+      "defaultValue": "",
       "metadata": {
         "description:": "sentry.io - Data Source Name (DSN) URL"
       }
     },
     "notifyApiKey": {
       "type": "string",
-      "defaultValue": "", 
+      "defaultValue": "",
       "metadata": {
         "description:": "GOV.UK Notify Service - API KEY"
       }
     },
+    "findAJobApiId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "GOV.UK Find A Job - API ID"
+      }
+    },
+    "findAJobApiKey": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "GOV.UK Find A Job - API KEY"
+      }
+    },
     "googleAnalyticsTrackingId": {
       "type": "string",
-      "defaultValue": "", 
+      "defaultValue": "",
       "metadata": {
         "description:": "Google Analytics - Tracking ID"
       }
@@ -564,6 +578,14 @@
               {
                 "name": "NOTIFY_API_KEY",
                 "value": "[parameters('notifyApiKey')]"
+              },
+              {
+                "name": "FIND_A_JOB_API_ID",
+                "value": "[parameters('findAJobApiId')]"
+              },
+              {
+                "name": "FIND_A_JOB_API_KEY",
+                "value": "[parameters('findAJobApiKey')]"
               },
               {
                 "name": "GOOGLE_ANALYTICS_TRACKING_ID",
