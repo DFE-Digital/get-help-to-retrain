@@ -10,7 +10,10 @@ require 'support/session_helper'
 require 'simplecov'
 require 'vcr'
 require 'notifications/client'
+require 'webmock/rspec'
 SimpleCov.start
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
