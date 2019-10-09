@@ -43,5 +43,6 @@ module GetHelpToRetrain
     config.sentry_dsn = ENV['SENTRY_DSN']
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
     config.host_name = Socket.gethostname
+    config.bing_spell_check_api_key = ENV['BING_SPELL_CHECK_API_KEY']
   end
 end

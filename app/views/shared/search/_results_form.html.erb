@@ -4,6 +4,7 @@
       <%= errors_tag @job_profile_search, :term %>
       <%= text_field(nil, :search, value: params[:search], class: 'search-input govuk-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), aria: { label: 'Search' }) %>
       <%= button_tag('Search', class: 'govuk-button search-button', aria: { label: 'Search button' }) %>
+      <%= render 'shared/search/spell_check' %>
     <% end %>
   <% end %>
 </div>
