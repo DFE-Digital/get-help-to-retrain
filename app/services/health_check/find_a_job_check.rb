@@ -5,7 +5,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= FindAJobService.new(options: { path: 'ping' }).health_check
+      @value ||= FindAJobService.new.health_check
     rescue FindAJobService::ResponseError => e
       @output = "Find A Job API error: #{e.message}"
       ''

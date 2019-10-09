@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe FindAJobService do
-  describe '#job_vacancies_number' do
+  let(:service) {
+    described_class.new(
+      api_id: 'test',
+      api_key: 'test'
+    )
+  }
+
+  describe '#job_vacancy_count' do
     let(:find_a_job_developer_response) do
       {
         jobs: [],
@@ -25,138 +32,111 @@ RSpec.describe FindAJobService do
     end
 
     it 'returns number of jobs for query, distance and postcode' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { query: 'developer', distance: 20, postcode: 'NW11' }
-      )
-
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       stub_request(:get, /findajob/)
         .with(
           query: { 'api_id' => 'test', 'api_key' => 'test', 'q' => 'developer', 'd' => '20', 'w' => 'NW11' }
         )
         .to_return(body: find_a_job_developer_response)
 
-      expect(service.job_vacancies).to eq(7180)
+      expect(service.job_vacancy_count(options: options)).to eq(7180)
     end
 
     it 'returns 0 number of jobs for query, distance and postcode if none present' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { query: 'developer', distance: 20, postcode: 'NW11' }
-      )
-
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       stub_request(:get, /findajob/)
         .with(
           query: { 'api_id' => 'test', 'api_key' => 'test', 'q' => 'developer', 'd' => '20', 'w' => 'NW11' }
         )
         .to_return(body: find_a_job_zero_results_response)
 
-      expect(service.job_vacancies).to be_zero
+      expect(service.job_vacancy_count(options: options)).to be_zero
     end
 
     it 'only uses outcode if full postcode supplied to query' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
-      )
-
+      options = { name: 'developer', distance: 20, postcode: 'NW11 8QE' }
       request =
         stub_request(:get, /findajob/)
         .with(query: hash_including('w' => 'NW11'))
         .to_return(body: '{}')
 
-      service.job_vacancies
+      service.job_vacancy_count(options: options)
 
       expect(request).to have_been_requested
     end
 
     it 'ignores nil values when doing query' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { query: 'developer', distance: 20 }
-      )
-
+      options = { name: 'developer', distance: 20 }
       stub_request(:get, /findajob/)
         .with(
           query: { 'api_id' => 'test', 'api_key' => 'test', 'q' => 'developer', 'd' => '20' }
         )
         .to_return(body: find_a_job_developer_response)
 
-      expect(service.job_vacancies).to eq(7180)
+      expect(service.job_vacancy_count(options: options)).to eq(7180)
     end
 
     it 'returns nothing if the api response is not successful' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
-      )
-
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       stub_request(:get, /findajob/)
         .to_return(status: 500)
 
-      expect(service.job_vacancies).to be_nil
+      expect(service.job_vacancy_count(options: options)).to be_nil
     end
 
     it 'returns nothing if the query is not authorised' do
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       service = described_class.new(
         api_id: 'wrong-id',
-        api_key: 'wrong-id',
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
+        api_key: 'wrong-id'
       )
 
       stub_request(:get, /findajob/)
         .to_return(status: 401)
 
-      expect(service.job_vacancies).to be_nil
+      expect(service.job_vacancy_count(options: options)).to be_nil
     end
 
     it 'does not perform query if there is no api key' do
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       service = described_class.new(
         api_id: 'test',
-        api_key: nil,
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
+        api_key: nil
       )
 
-      service.job_vacancies
+      service.job_vacancy_count(options: options)
       expect(a_request(:get, /findajob/)).not_to have_been_made
     end
 
     it 'does not perform query if there is no api id' do
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       service = described_class.new(
         api_id: nil,
-        api_key: 'test',
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
+        api_key: 'test'
       )
 
-      service.job_vacancies
+      service.job_vacancy_count(options: options)
       expect(a_request(:get, /findajob/)).not_to have_been_made
     end
 
     it 'returns nothing if there is no api key' do
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       service = described_class.new(
         api_id: 'test',
-        api_key: nil,
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
+        api_key: nil
       )
 
-      service.job_vacancies
-      expect(service.job_vacancies).to be_nil
+      expect(service.job_vacancy_count(options: options)).to be_nil
     end
 
     it 'returns nothing if there is no api id' do
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
       service = described_class.new(
         api_id: nil,
-        api_key: 'test',
-        options: { query: 'developer', postcode: 'NW11 8QE', distance: 20 }
+        api_key: 'test'
       )
 
-      service.job_vacancies
-      expect(service.job_vacancies).to be_nil
+      expect(service.job_vacancy_count(options: options)).to be_nil
     end
   end
 
@@ -166,12 +146,6 @@ RSpec.describe FindAJobService do
     end
 
     it 'returns ping response in JSON' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { path: 'ping' }
-      )
-
       stub_request(:get, /findajob/)
         .with(query: { 'api_id' => 'test', 'api_key' => 'test' })
         .to_return(body: ping_response.to_json)
@@ -180,12 +154,6 @@ RSpec.describe FindAJobService do
     end
 
     it 'raises error if the api response is not successful' do
-      service = described_class.new(
-        api_id: 'test',
-        api_key: 'test',
-        options: { path: 'ping' }
-      )
-
       stub_request(:get, /findajob/)
         .to_return(status: 500)
 
@@ -193,12 +161,6 @@ RSpec.describe FindAJobService do
     end
 
     it 'raises error if the query is not authorised' do
-      service = described_class.new(
-        api_id: 'wrong-id',
-        api_key: 'wrong-id',
-        options: { path: 'ping' }
-      )
-
       stub_request(:get, /findajob/)
         .to_return(status: 401)
 

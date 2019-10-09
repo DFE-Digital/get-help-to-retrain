@@ -62,9 +62,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see number of job vacancies near them' do
-    stub_request(:get, /findajob/)
-      .to_return(body: { pager: { total_entries: 3 } }.to_json)
-
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 3)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -74,9 +73,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see singular job vacancy if only one near them' do
-    stub_request(:get, /findajob/)
-      .to_return(body: { pager: { total_entries: 1 } }.to_json)
-
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 1)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -86,9 +84,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see no job vacancies near them if none are available' do
-    stub_request(:get, /findajob/)
-      .to_return(body: { pager: { total_entries: 0 } }.to_json)
-
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -98,9 +95,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User does not see job vacancies is API is down' do
-    stub_request(:get, /findajob/)
-      .to_return(status: 500)
-
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: nil)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -110,7 +106,10 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User does not see job vacancies if no postcode supplied' do
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
+
     visit(job_profile_path(job_profile.slug))
 
     expect(page).not_to have_content('Jobs in your area')

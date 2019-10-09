@@ -20,7 +20,6 @@ RSpec.describe HealthCheck::FindAJobCheck do
     context 'with successful Find a Job API call' do
       before do
         stub_request(:get, /ping/)
-          .with(query: { 'api_id' => 'test', 'api_key' => 'test' })
           .to_return(body: ping_response.to_json)
       end
 
