@@ -42,7 +42,7 @@ class SpellCheckService
 
   def bing_correction
     @bing_correction ||= JSON.parse(response.body)['flaggedTokens'].each_with_object({}) do |token, hash|
-      hash[token['token']] = token['suggestions'].first['suggestion']
+      hash[token['token'].downcase] = token['suggestions'].first['suggestion'].downcase
     end
   end
 

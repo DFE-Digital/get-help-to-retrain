@@ -78,7 +78,7 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Gatas')
     find('.search-button').click
 
-    expect(page).to have_text('Did you mean Gates')
+    expect(page).to have_text('Did you mean gates')
   end
 
   scenario 'Spell check feature is ON - the correction leads to results page' do
@@ -107,9 +107,9 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Gatas')
     find('.search-button').click
 
-    click_on('Gates')
+    click_on('gates')
 
-    expect(page).to have_current_path(results_check_your_skills_path(search: 'Gates'))
+    expect(page).to have_current_path(results_check_your_skills_path(search: 'gates'))
   end
 
   scenario 'Spell check feature is ON - and no correction is returned' do
