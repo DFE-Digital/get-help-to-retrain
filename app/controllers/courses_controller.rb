@@ -6,7 +6,8 @@ class CoursesController < ApplicationController
       postcode: postcode,
       topic: courses_params[:topic_id]
     )
-    @courses = @search.find_courses.map { |c| CourseDecorator.new(c) }
+
+    @courses = Kaminari.paginate_array(course_search).page(params[:page])
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
   end
@@ -19,5 +20,9 @@ class CoursesController < ApplicationController
 
   def courses_params
     params.permit(:postcode, :topic_id)
+  end
+
+  def course_search
+    @search.find_courses.map { |c| CourseDecorator.new(c) }
   end
 end

@@ -64,6 +64,36 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_selector('ul.govuk-list li', count: 1)
   end
 
+  scenario 'Pagination not visible if results number < 10' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+
+    expect(page).not_to have_selector('nav.pagination')
+  end
+
+  scenario 'Pagination nav visible if results number > 10' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create_list(:course, 11, latitude: 0.1, longitude: 1.001, topic: 'maths')
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+
+    click_on('Next')
+
+    expect(page).to have_selector('ul.govuk-list li', count: 1)
+  end
+
   scenario 'User gets relevant messaging if their address is not valid' do
     create(:course, topic: 'maths')
 
