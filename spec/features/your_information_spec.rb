@@ -51,6 +51,12 @@ RSpec.feature 'Your information' do
     expect(page).to have_current_path(your_information_path)
   end
 
+  scenario 'User can access the privacy policy page' do
+    click_on('privacy policy')
+
+    expect(page).to have_text('Privacy policy')
+  end
+
   scenario 'When user fills the form correctly one gets taken to tasks-list page' do
     fill_in('user_personal_data[first_name]', with: 'John')
     fill_in('user_personal_data[last_name]', with: 'Mayer')
