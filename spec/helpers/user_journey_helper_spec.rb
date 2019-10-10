@@ -27,18 +27,8 @@ RSpec.describe UserJourneyHelper do
   end
 
   describe '#pid_step' do
-    context 'when PID feature is OFF' do
+    context 'when PID is on the session' do
       it 'returns nil' do
-        disable_feature! :user_personal_data
-
-        expect(helper.pid_step).to be_nil
-      end
-    end
-
-    context 'when PID feature is ON, PID is on the session' do
-      it 'returns nil' do
-        enable_feature! :user_personal_data
-
         user_session = UserSession.new(session)
         user_session.pid = true
 
@@ -46,10 +36,8 @@ RSpec.describe UserJourneyHelper do
       end
     end
 
-    context 'when PID feature is ON, PID is not the session' do
+    context 'when PID is not the session' do
       it 'returns' do
-        enable_feature! :user_personal_data
-
         expect(helper.pid_step).to eq your_information_path
       end
     end

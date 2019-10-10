@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Check your location is eligible', type: :feature do
-  background do
-    disable_feature! :user_personal_data
-  end
-
   scenario 'User is taken to location eligiblity page from start page' do
     visit(root_path)
     click_on('Start now')
@@ -26,58 +22,14 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     expect(page).to have_current_path(location_ineligible_path)
   end
 
-  scenario 'User can proceed to tasklist if postcode is not eligible' do
-    visit(location_ineligible_path)
-    click_on('Continue')
-
-    expect(page).to have_current_path(task_list_path)
-  end
-
-  scenario 'User skips eligibilty page straight to task-list if the postcode is already stored on the session' do
-    Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-    )
-
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
-
-    visit(location_eligibility_path)
-    fill_in('postcode', with: 'NW6 8ET')
-    click_on('Continue')
-
-    visit(location_eligibility_path)
-
-    expect(page).to have_current_path(task_list_path)
-  end
-
-  scenario 'User skips eligibilty page straight to pid if the postcode is already stored on the session and personal_data feature is ON' do
-    enable_feature! :user_personal_data
-
-    Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-    )
-
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
-
-    visit(location_eligibility_path)
-    fill_in('postcode', with: 'NW6 8ET')
-    click_on('Continue')
-
-    visit(root_path)
-    click_on('Start now')
-
-    expect(page).to have_current_path(your_information_path)
-  end
-
-  scenario 'User can will proceed to your information even if postcode is not eligible' do
-    enable_feature! :user_personal_data
-
+  scenario 'User can proceed to your information if postcode is not eligible' do
     visit(location_ineligible_path)
     click_on('Continue')
 
     expect(page).to have_current_path(your_information_path)
   end
 
-  scenario 'User follows through to task list page if postcode eligible' do
+  scenario 'User skips eligibilty page straight to your information page if the postcode is already stored on the session' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -88,28 +40,12 @@ RSpec.feature 'Check your location is eligible', type: :feature do
     fill_in('postcode', with: 'NW6 8ET')
     click_on('Continue')
 
-    expect(page).to have_current_path(task_list_path)
-  end
-
-  scenario 'User follows through to task list when POSTCODE info has been already provided' do
-    Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-    )
-
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
-
     visit(location_eligibility_path)
-    fill_in('postcode', with: 'NW6 8ET')
-    click_on('Continue')
 
-    visit(location_eligibility_path(postcode: 'NW6 8ET'))
-
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(your_information_path)
   end
 
-  scenario 'User follows through to your information page if postcode eligible and feature is on' do
-    enable_feature! :user_personal_data
-
+  scenario 'User follows through to user information page if postcode eligible' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )

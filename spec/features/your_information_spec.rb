@@ -22,8 +22,6 @@ RSpec.feature 'Your information' do
   }
 
   background do
-    enable_feature! :user_personal_data
-
     visit(your_information_path)
   end
 
