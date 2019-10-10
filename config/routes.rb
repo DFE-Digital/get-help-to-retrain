@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   get 'task-list', to: 'pages#task_list'
   get 'next-steps', to: 'pages#next_steps'
+  get 'privacy-policy', to: 'pages#privacy_policy'
 
   get 'maths-course-overview', to: 'pages#maths_overview'
   get 'english-course-overview', to: 'pages#english_overview'
