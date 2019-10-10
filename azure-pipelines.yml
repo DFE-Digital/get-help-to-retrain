@@ -191,7 +191,7 @@ stages:
           path: '$(build.artifactstagingdirectory)'
           ArtifactName: 'ARMTemplates'
 
-- stage: Deployment
+- stage: QADeployment
   displayName: Deployment to QA
   dependsOn: Build
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
@@ -203,3 +203,39 @@ stages:
       environment: 'qa'
       containerImageReference: $(IMAGE_NAME):$(Build.BuildNumber)
       subscriptionServiceConnection: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
+
+
+- stage: SmokeTests
+  displayName: 'Smoke tests'
+  dependsOn: QADeployment
+
+  jobs:
+  - job: SmokeTests
+    pool:
+      vmImage: 'ubuntu-16.04'
+
+    steps:
+      - script: |
+          git clone https://github.com/DFE-Digital/get-help-to-retrain-smoke-tests.git
+        displayName: Checkout and install test suite
+
+      - task: CmdLine@2
+        displayName: Run smoke tests
+        inputs:
+          script: 'docker run  -v $(Pipeline.Workspace)/s/get-help-to-retrain-smoke-tests:/e2e -w /e2e cypress/included:3.4.1  --spec "cypress/integration/smoke-test.js" --reporter junit'
+          workingDirectory: 'get-help-to-retrain-smoke-tests'
+
+      - task: PublishPipelineArtifact@1
+        condition: succeededOrFailed()
+        displayName: 'Publish Cypress video artifacts'
+        inputs:
+          path: '$(Pipeline.Workspace)/s/get-help-to-retrain-smoke-tests/cypress/videos'
+          ArtifactName: 'Cypress'
+
+      - task: PublishTestResults@2
+        condition: succeededOrFailed()
+        inputs:
+          testRunner: 'junit'
+          searchFolder: '$(Pipeline.Workspace)/s/get-help-to-retrain-smoke-tests/results/'
+          testResultsFiles: '*.xml'
+          failedTaskOnFailedTest: true
