@@ -6,10 +6,6 @@ class SessionKlass < SimpleDelegator
   def id
     self[:id]
   end
-
-  def destroy
-    clear
-  end
 end
 
 module SessionHelper
