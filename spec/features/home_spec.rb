@@ -102,4 +102,20 @@ RSpec.feature 'Navigation from home page' do
 
     expect(page).to have_current_path(task_list_path)
   end
+
+  scenario 'User can access the cookies policy page from the footer' do
+    visit(root_path)
+
+    click_on('Cookies')
+
+    expect(page).to have_text('Cookies are used')
+  end
+
+  scenario 'User can access the privacy policy page from the footer' do
+    visit(root_path)
+
+    click_on('Privacy')
+
+    expect(page).to have_text('Privacy policy')
+  end
 end
