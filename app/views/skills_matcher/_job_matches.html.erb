@@ -5,7 +5,7 @@
          <%= link_to job_profile.name, job_profile_path(job_profile.slug, search: params[:search]), class: 'govuk-link no-text-decoration' %>
       </h3>
       <% if job_profile.alternative_titles.present? %>
-        <span class="sr-only">Alternative titles for this job include:</span>
+        <span class="govuk-visually-hidden">Alternative titles for this job include:</span>
         <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
       <% end %>
       <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
