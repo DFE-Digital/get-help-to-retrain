@@ -12,7 +12,7 @@ class FindAJobService
     @api_key = api_key
   end
 
-  def job_vacancy_count(options:)
+  def job_vacancy_count(options)
     return unless api_id && api_key
 
     uri = build_uri(path: 'search', options: options)

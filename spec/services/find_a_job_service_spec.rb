@@ -39,7 +39,7 @@ RSpec.describe FindAJobService do
         )
         .to_return(body: find_a_job_developer_response)
 
-      expect(service.job_vacancy_count(options: options)).to eq(7180)
+      expect(service.job_vacancy_count(options)).to eq(7180)
     end
 
     it 'returns 0 number of jobs for query, distance and postcode if none present' do
@@ -50,7 +50,7 @@ RSpec.describe FindAJobService do
         )
         .to_return(body: find_a_job_zero_results_response)
 
-      expect(service.job_vacancy_count(options: options)).to be_zero
+      expect(service.job_vacancy_count(options)).to be_zero
     end
 
     it 'only uses outcode if full postcode supplied to query' do
@@ -60,7 +60,7 @@ RSpec.describe FindAJobService do
         .with(query: hash_including('w' => 'NW11'))
         .to_return(body: '{}')
 
-      service.job_vacancy_count(options: options)
+      service.job_vacancy_count(options)
 
       expect(request).to have_been_requested
     end
@@ -73,7 +73,7 @@ RSpec.describe FindAJobService do
         )
         .to_return(body: find_a_job_developer_response)
 
-      expect(service.job_vacancy_count(options: options)).to eq(7180)
+      expect(service.job_vacancy_count(options)).to eq(7180)
     end
 
     it 'returns nothing if the api response is not successful' do
@@ -81,7 +81,7 @@ RSpec.describe FindAJobService do
       stub_request(:get, /findajob/)
         .to_return(status: 500)
 
-      expect(service.job_vacancy_count(options: options)).to be_nil
+      expect(service.job_vacancy_count(options)).to be_nil
     end
 
     it 'returns nothing if the query is not authorised' do
@@ -94,7 +94,7 @@ RSpec.describe FindAJobService do
       stub_request(:get, /findajob/)
         .to_return(status: 401)
 
-      expect(service.job_vacancy_count(options: options)).to be_nil
+      expect(service.job_vacancy_count(options)).to be_nil
     end
 
     it 'does not perform query if there is no api key' do
@@ -104,7 +104,7 @@ RSpec.describe FindAJobService do
         api_key: nil
       )
 
-      service.job_vacancy_count(options: options)
+      service.job_vacancy_count(options)
       expect(a_request(:get, /findajob/)).not_to have_been_made
     end
 
@@ -115,7 +115,7 @@ RSpec.describe FindAJobService do
         api_key: 'test'
       )
 
-      service.job_vacancy_count(options: options)
+      service.job_vacancy_count(options)
       expect(a_request(:get, /findajob/)).not_to have_been_made
     end
 
@@ -126,7 +126,7 @@ RSpec.describe FindAJobService do
         api_key: nil
       )
 
-      expect(service.job_vacancy_count(options: options)).to be_nil
+      expect(service.job_vacancy_count(options)).to be_nil
     end
 
     it 'returns nothing if there is no api id' do
@@ -136,7 +136,7 @@ RSpec.describe FindAJobService do
         api_key: 'test'
       )
 
-      expect(service.job_vacancy_count(options: options)).to be_nil
+      expect(service.job_vacancy_count(options)).to be_nil
     end
   end
 

@@ -32,11 +32,9 @@ class JobProfilesController < ApplicationController
 
   def job_vacancy_count
     FindAJobService.new.job_vacancy_count(
-      options: {
-        name: resource.name,
-        postcode: user_session.postcode,
-        distance: 20
-      }
+      name: resource.name,
+      postcode: user_session.postcode,
+      distance: 20
     )
   end
 end

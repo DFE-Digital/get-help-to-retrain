@@ -94,7 +94,7 @@ RSpec.feature 'Job profile spec' do
     expect(page).to have_content('there are no jobs')
   end
 
-  scenario 'User does not see job vacancies is API is down' do
+  scenario 'User does not see job vacancies if API is down' do
     find_a_job_service = instance_double(FindAJobService, job_vacancy_count: nil)
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
