@@ -17,7 +17,9 @@ class UserSession
 
   def initialize(session)
     @session = session
-    @session.destroy unless version == expected_version
+
+    # TODO: This should be removed after we go live with skills builder v2
+    @session.clear unless version == expected_version
 
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
