@@ -25,6 +25,7 @@ en-GB:
     email_sent_again: Email sent again
     link_sent_again: Link sent again
     link_expired: Link expired
+    cookies_policy: Cookies
     privacy_policy: Privacy policy
 
   page_titles:
@@ -44,6 +45,7 @@ en-GB:
     pages_english_overview: Get help to retrain - Benefits of English
     pages_training_hub: Get help to retrain - Training Hub
     pages_location_eligibility: Get help to retrain - Your location
+    pages_cookies_policy: Get help to retrain - Cookies policy
     pages_privacy_policy: Get help to retrain - Privacy policy
     pages_location_ineligible: Get help to retrain - No courses in your area
     user_personal_data: Get help to retrain - Your information
@@ -115,6 +117,8 @@ en-GB:
       title: What is your postcode?
     location_ineligible:
       title: The full Get help to retrain service isn't available in your area yet
+    cookies_policy:
+      title: Cookies
     privacy_policy:
       title: Privacy policy
   what_you_can_do_next:

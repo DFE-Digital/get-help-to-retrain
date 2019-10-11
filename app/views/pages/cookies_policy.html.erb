@@ -1,0 +1,149 @@
+<% page_title :pages_cookies_policy %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.cookies_policy'),
+      [
+        [t('breadcrumb.home'), root_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body">‘Get help to retrain’ puts small files (known as ‘cookies’) onto your computer to collect information about how you use the site.</p>
+    <p class="govuk-body">Cookies are used to:</p>
+    <ul>
+      <li>measure how you use this service so it can be updated and improved based on your needs</li>
+      <li>remember who you are if you return to your saved results so we can show you your information and information relevant to you</li>
+    </ul>
+    <p class="govuk-body">‘Get help to retrain’ cookies aren’t used to identify you personally. We record tracking information anonymously, so cookies do not track your personal data, only your activity on the site.</p>
+    <p class="govuk-body">Find out more about cookies on <%= link_to('GOV.UK', 'https://www.gov.uk/help/cookie-details', target: '_blank') %>.</p>
+
+    <h2 class="govuk-heading-m">How we use cookies</h2>
+    <p class="govuk-body">We use Google Analytics and Azure Application Insights software as well as service-specific cookies to collect information about how you use ‘Get help to retrain’. We do this to help make sure the service is meeting the needs of its users and to help us make improvements.</p>
+
+    <h3 class="govuk-heading-s">Introductory cookie message</h3>
+    <p class="govuk-body">When you first use the service we show a ‘cookie message’. We then store a cookie on your computer so it knows not to show this message again.</p>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption small govuk-visually-hidden">Cookie explanation</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Name</th>
+          <th class="govuk-table__header" scope="col">Purpose</th>
+          <th class="govuk-table__header" scope="col">Expires</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">seen_cookie_message</td>
+          <td class="govuk-table__cell">Lets us know you’ve already seen our cookie message</td>
+          <td class="govuk-table__cell">1 month</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="govuk-heading-s">Essential session cookies</h3>
+    <p class="govuk-body">The session stores information about:</p>
+    <ul>
+      <li>the postcode you enter</li>
+      <li>the job profiles and skills you select</li>
+      <li>the steps you have completed on the task list</li>
+    </ul>
+
+    <p class="govuk-body">Our service sets the following essential session cookies:</p>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption small govuk-visually-hidden">Cookie explanation</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Name</th>
+          <th class="govuk-table__header" scope="col">Purpose</th>
+          <th class="govuk-table__header" scope="col">Expires</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">_get_help_to_retrain_session</td>
+          <td class="govuk-table__cell">Used to personalise your visit. For example, this cookie stores your postcode information so we can tell you about courses in your local area.</td>
+          <td class="govuk-table__cell">When you close the tab or browser window</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="govuk-body">In order for you to use this service, the essential session cookies always need to be on.</p>
+
+    <h3 class="govuk-heading-s">Measuring website usage using Azure Application Insights</h3>
+    <p class="govuk-body">This software stores information about:</p>
+    <ul>
+      <li>the pages you visit on ‘Get help to retrain’</li>
+      <li>how long you spend on each page</li>
+      <li>how you got to the service</li>
+      <li>what you click on while you’re visiting the service</li>
+    </ul>
+    <p class="govuk-body">We don’t allow Azure to use or share our analytics data.</p>
+    <p class="govuk-body">Our service sets the following cookies:</p>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption small govuk-visually-hidden">Cookie explanation</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Name</th>
+          <th class="govuk-table__header" scope="col">Purpose</th>
+          <th class="govuk-table__header" scope="col">Expires</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">ai_user</td>
+          <td class="govuk-table__cell">Used to recognise you if you return to the website within 2 years.</td>
+          <td class="govuk-table__cell">2 years</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">ai_session</td>
+          <td class="govuk-table__cell">Used to anonymously track what you do during your visit to the service.</td>
+          <td class="govuk-table__cell">30 minutes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="govuk-body">They always need to be on.</p>
+    <p class="govuk-body">You can find more information about <%= link_to('Azure Application Insights', 'https://azure.microsoft.com/en-gb/services/monitor/',  target: '_blank') %>‎.</p>
+
+    <h3 class="govuk-heading-s">Measuring website usage using Google Analytics</h3>
+    <p class="govuk-body">This software stores information about:</p>
+    <ul>
+      <li>whether you’ve visited before</li>
+      <li>your unique user identity</li>
+    </ul>
+    <p class="govuk-body">We don’t allow Google to use or share our analytics data.</p>
+    <p class="govuk-body">Our service sets the following cookies:</p>
+
+    <table class="govuk-table">
+      <caption class="govuk-table__caption small govuk-visually-hidden">Cookie explanation</caption>
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th class="govuk-table__header" scope="col">Name</th>
+          <th class="govuk-table__header" scope="col">Purpose</th>
+          <th class="govuk-table__header" scope="col">Expires</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">_ga</td>
+          <td class="govuk-table__cell">This helps us count how many people visit GOV.UK by tracking if you’ve visited before.</td>
+          <td class="govuk-table__cell">2 years</td>
+        </tr>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">_gid</td>
+          <td class="govuk-table__cell">This helps us count how many people visit GOV.UK by tracking if you’ve visited before.</td>
+          <td class="govuk-table__cell">24 hours</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="govuk-body">You can opt out of <%= link_to('Google Analytics', 'https://tools.google.com/dlpage/gaoptout', target: '_blank') %>.</p>
+  </div>
+</div>
