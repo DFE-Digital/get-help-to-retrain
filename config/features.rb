@@ -9,4 +9,5 @@ Flipflop.configure do
   feature :user_personal_data, description: 'User personal data collection feature'
   feature :user_authentication, description: 'User authentication and save progress feature'
   feature :next_steps_v2, description: 'Next steps with new regions and content feature'
+  feature :spell_check, description: 'Spell checking capability using Bing Spell Check API'
 end

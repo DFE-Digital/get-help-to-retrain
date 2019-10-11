@@ -36,6 +36,9 @@
     },
     "FIND_A_JOB_API_KEY": {
       "required": true
+    },
+    "BING_SPELL_CHECK_API_KEY": {
+      "required": false
     }
   },
   "formation": {

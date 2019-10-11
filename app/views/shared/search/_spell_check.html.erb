@@ -1,0 +1,5 @@
+<% if @spell_checked_search.present? %>
+  <p class="govuk-body govuk-!-margin-top-3 govuk-!-margin-bottom-0">
+    Did you mean <%= link_to @spell_checked_search, results_check_your_skills_path(search: @spell_checked_search), class: 'govuk-link' %>
+  </p>
+<% end %>
