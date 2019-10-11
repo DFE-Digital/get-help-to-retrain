@@ -17,12 +17,6 @@ class UserPersonalDataController < ApplicationController
     end
   end
 
-  def skip
-    track_event(:user_personal_information_skipped)
-
-    redirect_to task_list_path
-  end
-
   private
 
   def personal_data_params

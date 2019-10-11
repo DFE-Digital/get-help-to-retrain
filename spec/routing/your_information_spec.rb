@@ -16,8 +16,4 @@ RSpec.describe 'routes for Your information page', type: :routing do
   it 'successfully routes to user_personal_data#create' do
     expect(post(user_personal_data_path)).to route_to(controller: 'user_personal_data', action: 'create')
   end
-
-  it 'successfully routes to user_personal_data#skip' do
-    expect(get(skip_step_path)).to route_to(controller: 'user_personal_data', action: 'skip')
-  end
 end

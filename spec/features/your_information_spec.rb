@@ -76,12 +76,6 @@ RSpec.feature 'Your information' do
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'When user clicks Skip link one gets taken to tasks-list page' do
-    click_on('Skip this step')
-
-    expect(page).to have_current_path(task_list_path)
-  end
-
   scenario 'User can access the privacy policy page' do
     click_on('privacy policy')
 
@@ -95,14 +89,6 @@ RSpec.feature 'Your information' do
     click_on('Continue')
 
     expect(TrackingService).to have_received(:track_event).with('Your location - Postcode search', search: 'NW6 1JJ')
-  end
-
-  scenario 'When user clicks Skip link action is tracked' do
-    allow(TrackingService).to receive(:track_event)
-
-    click_on('Skip this step')
-
-    expect(TrackingService).to have_received(:track_event).with('User personal information - Skip this step link clicked')
   end
 
   scenario 'Error message present when first name is missing' do
@@ -236,14 +222,6 @@ RSpec.feature 'Your information' do
     visit(your_information_path)
 
     expect(page).to have_current_path(task_list_path)
-  end
-
-  scenario 'If PID is skipped and user comes back one should see the page again' do
-    click_on('Skip this step')
-
-    visit(your_information_path)
-
-    expect(page).to have_current_path(your_information_path)
   end
 
   def fill_in_user_information_form

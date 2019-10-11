@@ -43,7 +43,6 @@ Rails.application.routes.draw do
 
   get 'your-information', to: 'user_personal_data#index'
   post 'your-information', to: 'user_personal_data#create'
-  get 'skip-step', to: 'user_personal_data#skip'
 
   resources :user_personal_data, only: %i[index create]
 
