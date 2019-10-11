@@ -18,8 +18,9 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
-  def visit_skills_for_current_job_profile
+  def visit_skills_for_current_job_profile(js_enabled = false)
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
+    click_on('Accept cookies') if js_enabled
     click_on('Select these skills')
     click_on('Find out what you can do with these skills')
   end
@@ -59,8 +60,8 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_content('What does this mean?')
   end
 
-  scenario 'When clicking on What does this mean? link user gets the explanation for that score', js: true do
-    visit_skills_for_current_job_profile
+  scenario 'When clicking on What does this mean? link user gets the explanation for that score', :js do
+    visit_skills_for_current_job_profile(true)
 
     create(:job_profile, :with_html_content, :growing, name: 'Cabin Crew', skills: [skill1, skill2])
 
