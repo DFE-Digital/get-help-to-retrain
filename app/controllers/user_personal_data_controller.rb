@@ -1,26 +1,18 @@
 class UserPersonalDataController < ApplicationController
   def index
-    redirect_to task_list_path if user_session.pid_submitted?
+    redirect_to task_list_path if user_session.postcode.present?
 
-    @user_personal_data = UserPersonalData.new(postcode: user_session.postcode)
+    @user_personal_data = UserPersonalData.new
   end
 
   def create
     @user_personal_data = UserPersonalData.new(personal_data_params)
 
     if @user_personal_data.save
-      user_session.pid = true
-
-      redirect_to task_list_path
+      check_location_eligibility
     else
       render 'index'
     end
-  end
-
-  def skip
-    track_event(:user_personal_information_skipped)
-
-    redirect_to task_list_path
   end
 
   private
@@ -35,5 +27,31 @@ class UserPersonalDataController < ApplicationController
       :birth_year,
       :gender
     )
+  end
+
+  def check_location_eligibility
+    track_location_eligibility_search
+    user_session.postcode = postcode
+
+    return redirect_to(location_ineligible_path) unless search.find_courses.any?
+
+    redirect_to task_list_path
+  rescue CourseGeospatialSearch::GeocoderAPIError
+    redirect_to postcode_search_error_path
+  end
+
+  def track_location_eligibility_search
+    track_event(
+      :pages_location_eligibility_search,
+      search: postcode
+    )
+  end
+
+  def postcode
+    @postcode ||= @user_personal_data.postcode
+  end
+
+  def search
+    CourseGeospatialSearch.new(postcode: postcode)
   end
 end

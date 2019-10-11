@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get 'training-hub', to: 'pages#training_hub'
   get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
 
-  get 'location-eligibility', to: 'pages#location_eligibility'
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
 
@@ -42,15 +41,12 @@ Rails.application.routes.draw do
   resources :skills_matcher, path: 'job-matches', only: %i[index]
   resources :skills, only: %i[index]
 
+  get 'your-information', to: 'user_personal_data#index'
+  post 'your-information', to: 'user_personal_data#create'
+
+  resources :user_personal_data, only: %i[index create]
+
   # Feature flags
-  constraints ->(_req) { Flipflop.user_personal_data? } do
-    get 'your-information', to: 'user_personal_data#index'
-    post 'your-information', to: 'user_personal_data#create'
-    get 'skip-step', to: 'user_personal_data#skip'
-
-    resources :user_personal_data, only: %i[index create]
-  end
-
   constraints ->(_req) { Flipflop.user_authentication? } do
     get 'save-your-results', to: 'users#new'
     get 'return-to-saved-results', to: 'users#return_to_saved_results'

@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'User personal data', type: :request do
   describe 'POST user_personal_data#create' do
-    before do
-      enable_feature! :user_personal_data
-    end
-
     let(:params) {
       {
         user_personal_data: {

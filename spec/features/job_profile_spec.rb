@@ -116,8 +116,15 @@ RSpec.feature 'Job profile spec' do
   end
 
   def user_enters_location
-    visit(location_eligibility_path)
-    fill_in('postcode', with: 'NW118QE')
+    visit(your_information_path)
+    fill_in('user_personal_data[first_name]', with: 'John')
+    fill_in('user_personal_data[last_name]', with: 'Mayer')
+    fill_in('user_personal_data[postcode]', with: 'NW118QE')
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
+    choose('user_personal_data[gender]', option: 'male')
+
     click_on('Continue')
   end
 end

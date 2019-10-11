@@ -14,7 +14,6 @@ en-GB:
     maths_overview: Benefits of maths
     english_overview: Benefits of English
     training_hub: Find training
-    location_eligibility: Your location
     location_ineligible: No courses in your area
     current_job_skills: Job skills
     user_personal_data: Your information
@@ -44,7 +43,6 @@ en-GB:
     pages_maths_overview: Get help to retrain - Benefits of maths
     pages_english_overview: Get help to retrain - Benefits of English
     pages_training_hub: Get help to retrain - Training Hub
-    pages_location_eligibility: Get help to retrain - Your location
     pages_cookies_policy: Get help to retrain - Cookies policy
     pages_privacy_policy: Get help to retrain - Privacy policy
     pages_location_ineligible: Get help to retrain - No courses in your area
@@ -113,8 +111,6 @@ en-GB:
       title: Benefits of doing a maths course
     english_overview:
       title: Benefits of doing an English course
-    location_eligibility:
-      title: What is your postcode?
     location_ineligible:
       title: The full Get help to retrain service isn't available in your area yet
     cookies_policy:

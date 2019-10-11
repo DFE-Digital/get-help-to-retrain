@@ -6,7 +6,6 @@ class UserSession
     job_profile_skills
     job_profile_ids
     postcode
-    pid
     current_job_id
     version
   ].freeze
@@ -24,7 +23,6 @@ class UserSession
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
     @session[:job_profile_ids] ||= []
-    @session[:pid] ||= false
     @session[:version] ||= expected_version
   end
 
@@ -42,14 +40,6 @@ class UserSession
 
   def registered?
     session[:registered]
-  end
-
-  def pid_submitted?
-    session[:pid]
-  end
-
-  def pid=(value)
-    session[:pid] = value
   end
 
   def registered=(value)
