@@ -185,72 +185,21 @@ stages:
           TargetFolder: '$(build.artifactstagingdirectory)'
           OverWrite: true
 
-      - task: PublishBuildArtifacts@1
+      - task: PublishPipelineArtifact@1
         displayName: 'Publish Artifact'
         inputs:
-          PathtoPublish: '$(build.artifactstagingdirectory)'
+          path: '$(build.artifactstagingdirectory)'
           ArtifactName: 'ARMTemplates'
 
 - stage: Deployment
-  displayName: Deployment
+  displayName: Deployment to QA
+  dependsOn: Build
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
 
   jobs:
-    - job: QA
-      displayName: Deploy to QA
-      pool:
-        vmImage: 'vs2017-win2016'
-
-      variables:
-        - group: 'Release Common'
-
-      steps:
-        - task: AzureResourceGroupDeployment@2
-          displayName: 'Azure Deployment:Create Or Update Resource Group action on $(resourceEnvironmentName)-$(serviceName)'
-          inputs:
-            action: 'Create Or Update Resource Group'
-            location: 'West Europe'
-            azureSubscription: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
-            resourceGroupName: s108t01-qa
-            csmFile: './azure/template.json'
-            csmParametersFile: './azure/config/qa.parameters.json'
-            overrideParameters: '-containerImageReference $(IMAGE_NAME):$(Build.BuildNumber) -supportEmailAddresses $(supportEmailAddresses)'
-            deploymentOutputs: DeploymentOutput
-
-        - task: RasmusWatjen.ARMOutputParserExtension.ARMOutputConverter.ARMOutputParserExtension@1
-          displayName: 'Parse ARM Deployment Outputs into variables'
-          inputs:
-            armOutput: $(DeploymentOutput)
-            variablePrefix: arm_
-
-        - script: |
-            env
-          displayName: 'debug'
-
-        - task: AzureAppServiceManage@0
-          displayName: 'Start Azure App Service: QA'
-          inputs:
-            azureSubscription: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
-            Action: 'Start Azure App Service'
-            WebAppName: $(arm_appServiceName)
-            SpecifySlotOrASE: true
-            resourceGroupName: s108t01-qa
-            Slot: staging
-
-        - task: AzureAppServiceManage@0
-          displayName: 'Swap Slots: QA'
-          inputs:
-            azureSubscription: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
-            WebAppName: $(arm_appServiceName)
-            resourceGroupName: 's108t01-qa'
-            SourceSlot: staging
-
-        - task: AzureAppServiceManage@0
-          displayName: 'Stop Azure App Service: QA'
-          inputs:
-            azureSubscription: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
-            Action: 'Stop Azure App Service'
-            WebAppName: $(arm_appServiceName)
-            SpecifySlotOrASE: true
-            resourceGroupName: s108t01-qa
-            Slot: staging
+  - template: azure-pipelines-deploy-template.yml
+    parameters:
+      resourceGroupName: 's108t01-qa'
+      environment: 'qa'
+      containerImageReference: $(IMAGE_NAME):$(Build.BuildNumber)
+      subscriptionServiceConnection: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a

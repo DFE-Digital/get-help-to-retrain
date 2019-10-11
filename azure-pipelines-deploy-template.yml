@@ -1,0 +1,65 @@
+parameters:
+  debug: false
+  subscriptionServiceConnection:
+  resourceGroupName:
+  environment:
+  containerImageReference:
+  supportEmailAddresses: '[{"name":"GHtR Alerts","email":"ghtr-alerts@digital.education.gov.uk"}]'
+
+jobs:
+  - deployment: deploy_${{parameters.environment}}
+    displayName: 'Deploy App to ${{parameters.environment}}'
+    environment: '${{parameters.environment}}'
+
+    pool:
+      vmImage: 'vs2017-win2016'
+
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureResourceGroupDeployment@2
+              displayName: 'Azure Deployment:Create Or Update Resource Group action on $(resourceEnvironmentName)-$(serviceName)'
+              inputs:
+                action: 'Create Or Update Resource Group'
+                location: 'West Europe'
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                csmFile: '$(Pipeline.Workspace)\ARMTemplates\azure\template.json'
+                csmParametersFile: '$(Pipeline.Workspace)\ARMTemplates\azure\config\${{parameters.environment}}.parameters.json'
+                overrideParameters: '-containerImageReference "${{parameters.containerImageReference}}" -supportEmailAddresses ${{parameters.supportEmailAddresses}}'
+                deploymentOutputs: DeploymentOutput
+
+            - task: RasmusWatjen.ARMOutputParserExtension.ARMOutputConverter.ARMOutputParserExtension@1
+              displayName: 'Parse ARM Deployment Outputs into variables'
+              inputs:
+                armOutput: $(DeploymentOutput)
+                variablePrefix: arm_
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Start Azure App Service: ${{parameters.environment}}'
+              inputs:
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                Action: 'Start Azure App Service'
+                WebAppName: $(arm_appServiceName)
+                SpecifySlotOrASE: true
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                Slot: staging
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Swap Slots: ${{parameters.environment}}'
+              inputs:
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                WebAppName: $(arm_appServiceName)
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                SourceSlot: staging
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Stop Azure App Service: ${{parameters.environment}}'
+              inputs:
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                Action: 'Stop Azure App Service'
+                WebAppName: $(arm_appServiceName)
+                SpecifySlotOrASE: true
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                Slot: staging
