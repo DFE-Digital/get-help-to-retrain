@@ -14,7 +14,7 @@
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-body-m">The service will be rolled out across England during 2020. In the meantime you can use it to check your existing skills and explore the types of jobs you could apply for.</p>
     <p class="govuk-body-m">Find more training and careers advice for your area through the <%= link_to 'National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link', target: '_blank' %>.</p>
-    <%= link_to 'Continue', your_information_path, class: 'govuk-button' %>
+    <%= link_to 'Continue', task_list_path, class: 'govuk-button' %>
   </div>
   <%= render "shared/contact_us" %>
   <%= render 'shared/save_or_return_to_your_results' %>

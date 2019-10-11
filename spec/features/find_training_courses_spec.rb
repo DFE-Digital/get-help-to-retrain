@@ -8,44 +8,39 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text('0 courses found')
   end
 
-  xscenario 'The postcode is persisted on Maths courses page when user comes from training hub page' do
+  scenario 'The postcode is persisted on courses search page when user fills in their PID' do
     capture_user_location('NW6 1JF')
+    visit(courses_path('maths'))
 
+    expect(find_field('postcode').value).to eq 'NW6 1JF'
+  end
+
+  scenario 'The user can navigate to maths course page from training hub' do
     visit(training_hub_path)
-
     click_on('Find a maths course')
 
-    expect(find_field('postcode').value).to eq 'NW6 1JF'
+    expect(page).to have_current_path(courses_path('maths'))
   end
 
-  xscenario 'The postcode is persisted on English courses page when user comes from training hub page' do
-    capture_user_location('NW6 1JF')
-
+  scenario 'The user can navigate to english course page from training hub' do
     visit(training_hub_path)
-
     click_on('Find an English course')
 
-    expect(find_field('postcode').value).to eq 'NW6 1JF'
+    expect(page).to have_current_path(courses_path('english'))
   end
 
-  xscenario 'The postcode is persisted on maths courses page when user comes from math course overview page' do
-    capture_user_location('NW6 1JF')
-
+  scenario 'The user can navigate to english course page from math course overview page' do
     visit(maths_course_overview_path)
-
     click_on('Find a maths course')
 
-    expect(find_field('postcode').value).to eq 'NW6 1JF'
+    expect(page).to have_current_path(courses_path('maths'))
   end
 
-  xscenario 'The postcode is persisted on english courses page when user comes from an english course overview page' do
-    capture_user_location('NW6 1JF')
-
+  scenario 'The user can navigate to english course page from an english course overview page' do
     visit(english_course_overview_path)
-
     click_on('Find an English course')
 
-    expect(find_field('postcode').value).to eq 'NW6 1JF'
+    expect(page).to have_current_path(courses_path('english'))
   end
 
   scenario 'Users can find training courses near them' do
@@ -148,7 +143,14 @@ RSpec.feature 'Find training courses', type: :feature do
 
   def capture_user_location(postcode)
     visit(your_information_path)
-    fill_in('postcode', with: postcode)
+    fill_in('user_personal_data[first_name]', with: 'John')
+    fill_in('user_personal_data[last_name]', with: 'Mayer')
+    fill_in('user_personal_data[postcode]', with: postcode)
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
+    choose('user_personal_data[gender]', option: 'male')
+
     click_on('Continue')
   end
 end
