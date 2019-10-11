@@ -37,6 +37,8 @@ module GetHelpToRetrain
     config.google_analytics_tracking_id = ENV['GOOGLE_ANALYTICS_TRACKING_ID']
     config.smart_survey_user_feedback_link = ENV['USER_FEEDBACK_SMART_SURVEY_LINK']
     config.notify_api_key = ENV['NOTIFY_API_KEY']
+    config.find_a_job_api_id = ENV['FIND_A_JOB_API_ID']
+    config.find_a_job_api_key = ENV['FIND_A_JOB_API_KEY']
     config.git_commit = ENV['GIT_SHA']
     config.sentry_dsn = ENV['SENTRY_DSN']
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'

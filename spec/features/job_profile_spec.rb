@@ -60,4 +60,64 @@ RSpec.feature 'Job profile spec' do
 
     expect(page).not_to have_content('Apprenticeship')
   end
+
+  scenario 'User can see number of job vacancies near them' do
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 3)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_profile = create(:job_profile, :with_html_content)
+
+    user_enters_location
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).to have_content('At least 3 jobs')
+  end
+
+  scenario 'User can see singular job vacancy if only one near them' do
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 1)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_profile = create(:job_profile, :with_html_content)
+
+    user_enters_location
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).to have_content('At least 1 job')
+  end
+
+  scenario 'User can see no job vacancies near them if none are available' do
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_profile = create(:job_profile, :with_html_content)
+
+    user_enters_location
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).to have_content('there are no jobs')
+  end
+
+  scenario 'User does not see job vacancies if API is down' do
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: nil)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_profile = create(:job_profile, :with_html_content)
+
+    user_enters_location
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_content('Jobs in your area')
+  end
+
+  scenario 'User does not see job vacancies if no postcode supplied' do
+    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_profile = create(:job_profile, :with_html_content)
+
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_content('Jobs in your area')
+  end
+
+  def user_enters_location
+    visit(location_eligibility_path)
+    fill_in('postcode', with: 'NW118QE')
+    click_on('Continue')
+  end
 end

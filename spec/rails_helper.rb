@@ -10,6 +10,7 @@ require 'support/session_helper'
 require 'simplecov'
 require 'vcr'
 require 'notifications/client'
+require 'webmock/rspec'
 SimpleCov.start
 
 begin
