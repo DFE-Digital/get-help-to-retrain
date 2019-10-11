@@ -126,20 +126,6 @@ RSpec.feature 'Your information' do
     expect(page).to have_css('input#user_personal_data_postcode', class: 'govuk-input--error')
   end
 
-  scenario 'Coming from the previous page postcode is persisted' do
-    Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-    )
-
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
-
-    visit(location_eligibility_path)
-    fill_in('postcode', with: 'NW6 8ET')
-    click_on('Continue')
-
-    expect(find_field('user_personal_data[postcode]').value).to eq 'NW6 8ET'
-  end
-
   scenario 'When the date of birth is empty user gets: Enter a valid date of birth' do
     click_on('Continue')
 

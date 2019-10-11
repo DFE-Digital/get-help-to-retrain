@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   get 'training-hub', to: 'pages#training_hub'
   get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
 
-  get 'location-eligibility', to: 'pages#location_eligibility'
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
 

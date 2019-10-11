@@ -13,7 +13,6 @@ RSpec.feature 'User authentication in sidebar' do
   let(:paths) {
     [
       root_path,
-      location_eligibility_path,
       location_ineligible_path,
       your_information_path,
       task_list_path,

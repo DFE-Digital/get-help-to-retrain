@@ -329,14 +329,6 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(link_sent_path(email: 'hello@test.com'))
   end
 
-  scenario 'if user submits location eligibility form then sign in form user should not see one validation message' do
-    visit(location_eligibility_path)
-    click_on('Continue')
-    click_on('Send a link')
-
-    expect(page).not_to have_text(/Enter a postcode/)
-  end
-
   scenario 'if user submits check your skills form then sign in form user should not see one validation message' do
     visit(check_your_skills_path)
     click_on('Search')

@@ -2,7 +2,7 @@ class UserPersonalDataController < ApplicationController
   def index
     redirect_to task_list_path if user_session.pid_submitted?
 
-    @user_personal_data = UserPersonalData.new(postcode: user_session.postcode)
+    @user_personal_data = UserPersonalData.new
   end
 
   def create
