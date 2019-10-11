@@ -41,7 +41,7 @@ RSpec.feature 'Your information' do
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'When form valid and no courses are available one gets taken to location eligible page' do
+  scenario 'When form valid and no courses are available one gets taken to location ineligible page' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 1JJ', [{ 'coordinates' => [0.1, 1] }]
     )

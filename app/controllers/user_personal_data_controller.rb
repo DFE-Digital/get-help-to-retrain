@@ -1,6 +1,6 @@
 class UserPersonalDataController < ApplicationController
   def index
-    redirect_to task_list_path if user_session.pid_submitted?
+    redirect_to task_list_path if user_session.postcode.present?
 
     @user_personal_data = UserPersonalData.new
   end
@@ -9,8 +9,6 @@ class UserPersonalDataController < ApplicationController
     @user_personal_data = UserPersonalData.new(personal_data_params)
 
     if @user_personal_data.save
-      user_session.pid = true
-
       check_location_eligibility
     else
       render 'index'
@@ -35,8 +33,6 @@ class UserPersonalDataController < ApplicationController
     track_location_eligibility_search
     user_session.postcode = postcode
 
-    search = CourseGeospatialSearch.new(postcode: postcode)
-
     return redirect_to(location_ineligible_path) unless search.find_courses.any?
 
     redirect_to task_list_path
@@ -53,5 +49,9 @@ class UserPersonalDataController < ApplicationController
 
   def postcode
     @postcode ||= @user_personal_data.postcode
+  end
+
+  def search
+    CourseGeospatialSearch.new(postcode: postcode)
   end
 end
