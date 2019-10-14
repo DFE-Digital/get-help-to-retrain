@@ -23,8 +23,10 @@
     <%= link_to 'Find an English course', courses_path('english'), class: 'govuk-button govuk-!-margin-top-5' %>
   </div>
 
-  <%= render "shared/contact_us" %>
-  <%= render 'shared/save_or_return_to_your_results' %>
-  <%= render 'shared/what_you_can_do_next' %>
-  <%= render 'shared/help_improve_this_service' %>
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render 'shared/what_you_can_do_next' %>
+    <%= render 'shared/help_improve_this_service' %>
+  </div>
 </div>

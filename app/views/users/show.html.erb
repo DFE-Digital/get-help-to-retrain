@@ -18,5 +18,7 @@
     <p class="govuk-body">If you haven't received this email you can <%= link_to 'send it again', link_sent_again_path(email: params[:email]), method: :post, class: 'govuk-link' %>.</p>
     <p class="govuk-body">You'll only be able to return to your results if you have previously saved results in this service. If you haven't previously done this, you won't receive an email.</p>
   </div>
-  <%= render "shared/contact_us" %>
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+  </div>
 </div>

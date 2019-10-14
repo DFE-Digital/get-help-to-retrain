@@ -19,14 +19,13 @@
       <% if @job_profiles_with_skills.any? %>
         <%= render 'skills/v2/job_profiles_with_skills', job_profiles_with_skills: @job_profiles_with_skills %>
       <% else %>
-        <div class='skills-builder-margin'>
-          <p class='govuk-body'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</p>
-          <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
-        </div>
+        <p class='govuk-body'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</p>
+        <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
       <% end %>
     </div>
   </div>
-
-  <%= render 'shared/contact_us' %>
-  <%= render 'shared/save_or_return_to_your_results' %>
+  <div class="govuk-grid-column-one-third">
+    <%= render 'shared/contact_us' %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
 </div>

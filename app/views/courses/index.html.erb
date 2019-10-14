@@ -34,7 +34,7 @@
         <p class="govuk-body-m">Find training in your local area using the <%= link_to('Find a course service', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link', target: '_blank', data: { tracked_event: "Courses - Clicked 'Find a course service': https://nationalcareers.service.gov.uk/find-a-course" }) %> from the National Careers Service.</p>
         <h2 class="govuk-heading-s">Try again using a different postcode.</h2>
         <p class="govuk-body">You could try:</p>
-        <ul class="govuk-list govuk-list--bullet courses-margin">
+        <ul class="govuk-list govuk-list--bullet">
           <li>double checking your postcode</li>
           <li>using a different postcode</li>
         </ul>
@@ -49,8 +49,10 @@
     </div>
   </div>
 
-  <%= render 'shared/contact_us' %>
-  <%= render 'shared/save_or_return_to_your_results' %>
-  <%= render 'shared/what_you_can_do_next' %>
-  <%= render 'shared/help_improve_this_service' %>
+  <div class="govuk-grid-column-one-third">
+    <%= render 'shared/contact_us' %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render 'shared/what_you_can_do_next' %>
+    <%= render 'shared/help_improve_this_service' %>
+  </div>
 </div>

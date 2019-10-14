@@ -45,7 +45,9 @@
     <p class="govuk-body">Use the <%= link_to 'Be More', 'https://be-more.info', class:'govuk-link', data: { tracked_event: 'Next steps - Be More', tracked_event_props: { url: 'https://be-more.info' } }, target: '_blank' %> service to find apprenticeships in the Liverpool area.</p>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   </div>
-  <%= render "shared/contact_us" %>
-  <%= render 'shared/save_or_return_to_your_results' %>
-  <%= render "shared/help_improve_this_service" %>
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render "shared/help_improve_this_service" %>
+  </div>
 </div>

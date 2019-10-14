@@ -22,8 +22,10 @@
     <p class="govuk-body">Many courses are available for free in your area.</p>
     <%= link_to 'Find a maths course', courses_path('maths'), class: 'govuk-button govuk-!-margin-top-5' %>
   </div>
-  <%= render "shared/contact_us" %>
-  <%= render 'shared/save_or_return_to_your_results' %>
-  <%= render 'shared/what_you_can_do_next' %>
-  <%= render 'shared/help_improve_this_service' %>
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render 'shared/what_you_can_do_next' %>
+    <%= render 'shared/help_improve_this_service' %>
+  </div>
 </div>
