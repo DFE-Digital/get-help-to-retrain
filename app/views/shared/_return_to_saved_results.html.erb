@@ -1,15 +1,13 @@
 <% return unless user_not_authenticated? %>
-<div class="govuk-grid-column-one-third">
-  <div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container" id="sign-in">
-    <h2 class="govuk-heading-m"><%= t('return_to_saved_results.title') %></h2>
-    <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
-    <%= form_with local: true, url: sign_in_path do |form| %>
-      <%= form_group_tag user_with_validation, :email do %>
-        <%= form.label(:email, class: 'govuk-label') %>
-        <%= errors_tag user_with_validation, :email %>
-        <%= form.text_field(:email, value: params[:email], class: css_classes_for_input(user_with_validation, :email, " govuk-!-width-full")) %>
-      <% end %>
-      <%= button_tag('Send a link', class: 'govuk-button govuk-button--secondary govuk-!-width-full govuk-!-margin-top-1 govuk-!-margin-bottom-2') %>
+<div class="govuk-related-items govuk-!-padding-bottom-4 top-border__container" id="sign-in">
+  <h2 class="govuk-heading-m"><%= t('return_to_saved_results.title') %></h2>
+  <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
+  <%= form_with local: true, url: sign_in_path do |form| %>
+    <%= form_group_tag user_with_validation, :email do %>
+      <%= form.label(:email, class: 'govuk-label') %>
+      <%= errors_tag user_with_validation, :email %>
+      <%= form.text_field(:email, value: params[:email], class: css_classes_for_input(user_with_validation, :email, " govuk-!-width-full")) %>
     <% end %>
-  </div>
+    <%= button_tag('Send a link', class: 'govuk-button govuk-button--secondary govuk-!-width-full govuk-!-margin-top-1 govuk-!-margin-bottom-2') %>
+  <% end %>
 </div>
