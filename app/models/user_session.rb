@@ -17,16 +17,16 @@ class UserSession
   def initialize(session, request = nil)
     @session = session
 
-    if request.present?
-      Rails.logger.info "Request made: #{request.url}, with initial session: #{session.to_h}, session_id: #{session.id}"
-    end
-
     # TODO: This should be removed after we go live with skills builder v2
     @session.clear unless version == expected_version
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
     @session[:job_profile_ids] ||= []
     @session[:version] ||= expected_version
+
+    if request.present?
+      Rails.logger.info "Request made: #{request.url}, with initial session: #{@session.to_h}, session_id: #{@session.id}"
+    end
   end
 
   def version
