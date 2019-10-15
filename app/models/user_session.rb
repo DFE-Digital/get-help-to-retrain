@@ -14,11 +14,16 @@ class UserSession
     new_session.merge!(previous_session_data.slice(*KEYS_TO_RESTORE))
   end
 
-  def initialize(session)
+  def initialize(session, request)
     @session = session
 
+    Rails.logger.debug "Request made: #{request.url}, with initial session: #{@session.to_h}, session_id: #{@session.id}"
+
     # TODO: This should be removed after we go live with skills builder v2
-    @session.clear unless version == expected_version
+    if version != expected_version
+      @session.clear 
+      Rails.logger.debug "Request made: #{request.url}, with initial session: #{@session.to_h}, session_id: #{@session.id}"
+    end
 
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
 
   def user_session
-    @user_session ||= UserSession.new(session)
+    @user_session ||= UserSession.new(session, request)
   end
 
   # The authenticate method comes from the passwordless gem.
