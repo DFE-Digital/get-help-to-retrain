@@ -25,7 +25,7 @@ class UserSession
     @session[:version] ||= expected_version
 
     if request.present?
-      Rails.logger.info "Request made: #{request.url}, with initial session: #{@session.to_h}, session_id: #{@session.id}"
+      Rails.logger.info "Request made: #{request.url}, with initial session: #{@session.to_h}, session_id: #{@session.id}, session_counts: #{Session.count}"
     end
   end
 
