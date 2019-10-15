@@ -22,10 +22,7 @@ class UserSession
     end
 
     # TODO: This should be removed after we go live with skills builder v2
-    if version != expected_version
-      @session.clear 
-    end
-
+    @session.clear unless version == expected_version
     @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
     @session[:job_profile_ids] ||= []
