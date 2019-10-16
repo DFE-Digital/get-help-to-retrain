@@ -5,8 +5,7 @@ en-GB:
     task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
     job_matches: Your job matches
-    next_steps: Next steps
-    next_steps_v2: Further help
+    next_steps: Further help
     search_results: Search results
     job_profile: Job profile details
     your_skills: Your skills
@@ -38,8 +37,7 @@ en-GB:
     skills_matcher_index: Get help to retrain - Your job matches
     job_profiles_show: Get help to retrain - Job profile
     courses_index: Get help to retrain - Courses near me
-    pages_next_steps: Get help to retrain - Next steps
-    pages_next_steps_v2: Get help to retrain - Further help
+    pages_next_steps: Get help to retrain - Further help
     pages_maths_overview: Get help to retrain - Benefits of maths
     pages_english_overview: Get help to retrain - Benefits of English
     pages_training_hub: Get help to retrain - Training Hub
@@ -104,8 +102,6 @@ en-GB:
     task_list:
       title: Get help to retrain
     next_steps:
-      title: Further help to find work
-    next_steps_v2:
       title: Get help changing jobs
     maths_overview:
       title: Benefits of doing a maths course

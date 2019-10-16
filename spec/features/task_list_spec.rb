@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks List', type: :feature do
-  background do
-    disable_feature! :next_steps_v2
-  end
-
   scenario 'User checks their existing skills' do
     visit(task_list_path)
     click_on('Check your existing skills')
@@ -144,7 +140,7 @@ RSpec.feature 'Tasks List', type: :feature do
     visit(task_list_path)
     click_on('Further help to find work')
 
-    expect(page).to have_text('Further help to find work')
+    expect(page).to have_text('Get help changing jobs')
   end
 
   scenario 'User unlocks survey section when one has skills on the session' do
