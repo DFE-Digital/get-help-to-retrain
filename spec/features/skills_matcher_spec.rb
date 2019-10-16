@@ -36,14 +36,6 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_text('Chameleon-like blend in tactics')
   end
 
-  scenario 'Page gets tracked on the session' do
-    visit_skills_for_current_job_profile
-
-    current_session = Capybara.current_session.driver.request.session
-
-    expect(current_session[:visited_pages]).to eq(['skills_matcher_index'])
-  end
-
   scenario 'Redirect to tasks-list page when session is missing the job_profile_skills key' do
     visit '/job-matches'
 
