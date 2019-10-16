@@ -37,7 +37,7 @@ class CheckYourSkillsController < ApplicationController
   end
 
   def spell_check_searched_term
-    return unless Flipflop.spell_check? && search.present?
+    return unless search.present?
 
     @spell_checked_search = spell_check_service.scan(search_term: search)
   rescue SpellCheckService::SpellCheckServiceError
