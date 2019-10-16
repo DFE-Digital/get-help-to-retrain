@@ -35,7 +35,6 @@ RSpec.feature 'User sign in through registration' do
   end
 
   before do
-    enable_feature!(:user_authentication)
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
