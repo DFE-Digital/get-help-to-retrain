@@ -60,7 +60,7 @@ RSpec.feature 'User sign in' do
   end
 
   before do
-    enable_feature!(:user_authentication, :skills_builder_v2)
+    enable_feature!(:user_authentication)
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
@@ -335,40 +335,5 @@ RSpec.feature 'User sign in' do
     click_on('Send a link')
 
     expect(page).not_to have_text(/Enter a job title/)
-  end
-
-  scenario 'user does not lose session if the session version changes' do
-    disable_feature!(:skills_builder_v2)
-    enable_feature!(:user_authentication)
-
-    register_user
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    uncheck('Baldness', allow_label_click: true)
-    click_on('Select these skills')
-    sign_in_user
-
-    enable_feature!(:skills_builder_v2, :user_authentication)
-    visit(check_your_skills_path)
-    Capybara.reset_sessions!
-
-    sign_in_user
-    visit(skills_path)
-
-    expect(page).not_to have_selector('tbody tr', count: 2)
-  end
-
-  xscenario 'user remains signed in if version changes' do
-    pending('Added to show what would happen if we keep the session clear option, which we /
-    should get rid of after releasing skills builder v2')
-    disable_feature!(:skills_builder_v2)
-    enable_feature!(:user_authentication)
-
-    register_user
-    sign_in_user
-
-    enable_feature!(:skills_builder_v2, :user_authentication)
-    visit(check_your_skills_path)
-
-    expect(page).not_to have_text('Return to saved results')
   end
 end

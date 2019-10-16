@@ -1,6 +1,6 @@
 class JobProfilesSkillsController < ApplicationController
   def index
-    if Flipflop.skills_builder_v2? && profile_skills_not_editable? && user_session.job_profiles_cap_reached?
+    if profile_skills_not_editable? && user_session.job_profiles_cap_reached?
       redirect_to_profile_skills_page
     else
       skills_builder.build

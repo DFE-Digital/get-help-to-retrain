@@ -1,24 +1,39 @@
 require 'rails_helper'
 
 RSpec.feature 'Build your skills', type: :feature do
-  let(:skills) do
-    [
-      create(:skill, name: 'Chameleon-like blend in tactics'),
-      create(:skill, name: 'License to kill'),
-      create(:skill, name: 'Baldness')
-    ]
-  end
-
   let!(:job_profile) do
     create(
       :job_profile,
+      :with_html_content,
       name: 'Hitman',
-      skills: skills
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
     )
   end
 
-  background do
-    disable_feature! :skills_builder_v2
+  def build_max_job_profiles
+    5.times do |i|
+      job_profile = create(
+        :job_profile,
+        :with_html_content,
+        :with_skill,
+        name: "Hitman#{i}"
+      )
+
+      visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+      click_on('Select these skills')
+    end
+  end
+
+  def unselect_all_skills_for(job_profile)
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    uncheck('License to kill', allow_label_click: true)
+    uncheck('Baldness', allow_label_click: true)
+    click_on('Select these skills')
   end
 
   scenario 'User sees a list of skills when checking their Job skills' do
@@ -36,11 +51,56 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_selector('input[checked="checked"]', count: 3)
   end
 
-  scenario 'User continues to see all skills selected' do
+  scenario 'User selects the skills for the first job profile and can see the skills' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
 
     expect(page).to have_selector('tbody tr', count: 3)
+  end
+
+  scenario 'User selects the skills for the first job profile and can see the current job title' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+
+    expect(page).to have_text(/Hitman/)
+  end
+
+  scenario 'User selects the skills for the first job profile and can edit the skills' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('edit these skills')
+    uncheck('Baldness', allow_label_click: true)
+    click_on('Select these skills')
+
+    expect(page).not_to have_text('Baldness')
+  end
+
+  scenario 'User unticks all skills for a second profile then that profile should not be on Your Skills page' do
+    hitman = create(
+      :job_profile,
+      :with_html_content,
+      :with_skill,
+      name: 'Hitman'
+    )
+
+    assassin = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Assasin',
+      skills: [
+        create(:skill, name: 'Classic')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: hitman.slug))
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    uncheck('Classic', allow_label_click: true)
+    click_on('Select these skills')
+    visit(skills_path)
+
+    expect(page).not_to have_text('Assassin')
   end
 
   scenario 'User chooses which skills to select and continues to see those selected skills' do
@@ -49,6 +109,151 @@ RSpec.feature 'Build your skills', type: :feature do
     click_on('Select these skills')
 
     expect(page).to have_selector('tbody tr', count: 2)
+  end
+
+  scenario 'User can search for other job profiles' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Add more skills from another role')
+
+    expect(page).to have_text('Add more skills')
+  end
+
+  scenario 'User can not add a job that is part of Your skills page already' do
+    create(
+      :job_profile,
+      :with_html_content,
+      name: 'Classic-hitman',
+      skills: [
+        create(:skill, name: 'Classic'),
+        create(:skill, name: 'James Bond like'),
+        create(:skill, name: 'Martini lover')
+      ]
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Add more skills from another role')
+    fill_in('search', with: 'Hitman')
+    find('.search-button').click
+
+    expect(page).not_to have_text('/Hitman/')
+  end
+
+  scenario 'User can add more job profiles as part of their skill set' do
+    create(
+      :job_profile,
+      :with_html_content,
+      name: 'Classic-hitman',
+      skills: [
+        create(:skill, name: 'Classic'),
+        create(:skill, name: 'James Bond like'),
+        create(:skill, name: 'Martini lover')
+      ]
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Add more skills from another role')
+    fill_in('search', with: 'Hitman')
+    find('.search-button').click
+    click_on('Classic-hitman')
+    click_on('Select these skills')
+
+    ['Classic-hitman', 'Classic', 'James Bond like', 'Martini lover', 'Hitman', 'Chameleon-like blend in tactics', 'License to kill', 'Baldness'].each do |title|
+      expect(page).to have_text(title)
+    end
+  end
+
+  scenario 'User jobs ordered correctly on skills page' do
+    job_profile1 = create(
+      :job_profile,
+      :with_html_content,
+      :with_skill,
+      name: 'Hitman1'
+    )
+    job_profile2 = create(
+      :job_profile,
+      :with_html_content,
+      :with_skill,
+      name: 'Hitman2'
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile2.slug))
+    click_on('Select these skills')
+
+    visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
+    click_on('Select these skills')
+
+    expect(page.all('div.govuk-grid-column-two-thirds h2.govuk-heading-m').collect(&:text)).to eq(
+      [
+        job_profile2.name,
+        job_profile1.name
+      ]
+    )
+  end
+
+  scenario 'User can not add more than 5 profiles' do
+    build_max_job_profiles
+
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Hitman6',
+      skills: [
+        create(:skill)
+      ]
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    expect(page).not_to have_link('Add more skills from another role')
+  end
+
+  scenario 'User can not search for job profiles anymore when one has 5 profiles persisted on the session' do
+    build_max_job_profiles
+
+    click_on('Check your existing skills')
+
+    expect(page).to have_current_path(skills_path)
+  end
+
+  scenario 'Breadcrumbs: Search results redirects to Your Skills when one has 5 profiles persisted on the session' do
+    build_max_job_profiles
+
+    visit(skills_path)
+
+    click_on('Search results')
+
+    expect(page).to have_current_path(skills_path)
+  end
+
+  scenario 'User can not select skills for a 6th job and gets redirected to Your Skills page with 5 profiles' do
+    build_max_job_profiles
+
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Hitman5',
+      skills: [
+        create(:skill)
+      ]
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    %w[Hitman0 Hitman1 Hitman2 Hitman3 Hitman4].each do |title|
+      expect(page).to have_text(title)
+    end
+  end
+
+  scenario 'User can still get to edit the skills page when one has already 5 job profiles' do
+    build_max_job_profiles
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    first(:link, 'edit these skills').click
+
+    expect(page).to have_selector('input[checked="checked"]', count: 1)
   end
 
   scenario 'User selects skills but goes back to different job profile sees all skills selected' do
@@ -76,27 +281,26 @@ RSpec.feature 'Build your skills', type: :feature do
   end
 
   scenario 'skill builder requires at least one skill selected' do
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
-    uncheck('License to kill', allow_label_click: true)
-    uncheck('Baldness', allow_label_click: true)
-
-    click_on('Select these skills')
+    unselect_all_skills_for(job_profile)
 
     expect(page).to have_text(/Select at least one skill/)
   end
 
-  scenario 'breadcrumbs navigate back to search results from your skills' do
-    disable_feature! :skills_builder_v2
+  scenario 'redirects from skills page if no skills present on session for a job profile' do
+    unselect_all_skills_for(job_profile)
+    visit(skills_path)
 
-    visit(check_your_skills_path)
-    fill_in('search', with: 'Hitman')
-    find('.search-button').click
-    click_on('Hitman')
-    click_on('Select these skills')
-    click_on('Search results')
+    expect(page).to have_current_path(task_list_path)
+  end
 
-    expect(page).to have_text(/Hitman/)
+  scenario 'User navigates to the last added job profile skills page from breadcrumbs' do
+    build_max_job_profiles
+
+    visit(skills_path)
+
+    click_on('Job skills')
+
+    expect(page).to have_text('Hitman4')
   end
 
   scenario 'redirected to task list path if no job profile selected' do
@@ -105,20 +309,155 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'redirected to task list path if job profile selected but no skills selected' do
+  scenario 'shows no skills selected if job profile selected but no skills selected' do
     visit(skills_path(job_profile_id: job_profile.slug))
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_text(/You haven\'t selected any skills/)
   end
 
-  scenario 'tracks selected job profile and skills' do
-    disable_feature! :skills_builder_v2
-    allow(TrackingService).to receive(:track_event)
+  scenario 'if user deselects all skills on job profile they should appear deselected' do
+    unselect_all_skills_for(job_profile)
 
+    expect(page).not_to have_selector('input[checked="checked"]')
+  end
+
+  scenario 'user deselects all skills on job profile should not be remembered' do
+    unselect_all_skills_for(job_profile)
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_selector('input[checked="checked"]', count: 3)
+  end
+
+  scenario 'user still finds their job in search if they deselects all skills on job profile' do
+    unselect_all_skills_for(job_profile)
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Hitman')
+    find('.search-button').click
+
+    expect(page).to have_text('Hitman')
+  end
+
+  scenario 'user cannot remove job profile by unselecting all skills' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    unselect_all_skills_for(job_profile)
+    visit(skills_path)
+
+    expect(page).to have_text('Hitman')
+  end
+
+  scenario 'user cannot update job profile skills by unselecting all skills' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('License to kill', allow_label_click: true)
+    uncheck('Baldness', allow_label_click: true)
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_selector('input[checked="checked"]', count: 2)
+  end
+
+  scenario 'user does not reach cap and redirect if they unselect all skills' do
+    4.times do |i|
+      job_profile = create(
+        :job_profile,
+        :with_html_content,
+        :with_skill,
+        name: "Hitman#{i}"
+      )
+
+      visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+      click_on('Select these skills')
+    end
+
+    unselect_all_skills_for(job_profile)
+    visit(check_your_skills_path)
+
+    expect(page).to have_current_path(check_your_skills_path)
+  end
+
+  scenario 'user can remove a job profile selected' do
+    assassin = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Assasin',
+      skills: [
+        create(:skill, name: 'Classic')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    click_on('Select these skills')
+
+    all('a', text: 'remove this role')[0].click
+
+    expect(page).not_to have_text(job_profile.name)
+  end
+
+  scenario 'user sees an error page if they remove their only job selected' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
 
-    selection = { job_profile.slug => skills.map(&:id) }
-    expect(TrackingService).to have_received(:track_event).with('Current job skills - Skills selected', selection)
+    click_on('remove this role')
+
+    expect(page).to have_text(/You haven\'t selected any skills/)
+  end
+
+  scenario 'user can remove job and they can see it again in search results' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+
+    click_on('remove this role')
+    click_on('Check my skills')
+    fill_in('search', with: job_profile.name)
+    find('.search-button').click
+
+    expect(page).to have_text(job_profile.name)
+  end
+
+  scenario 'user can navigate back to search if they removed their last job' do
+    visit(check_your_skills_path)
+    fill_in('search', with: job_profile.name)
+    find('.search-button').click
+    click_on(job_profile.name)
+    click_on('Select these skills')
+
+    click_on('remove this role')
+    click_on('Search results')
+
+    expect(page).to have_text(job_profile.name)
+  end
+
+  scenario 'user can navigate back to their last job if they removed their last job' do
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+
+    click_on('remove this role')
+    click_on('Job skills')
+
+    expect(page).to have_text(job_profile.name)
+  end
+
+  scenario 'user can navigate back to their last job if they removed another job' do
+    assassin = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Assasin',
+      skills: [
+        create(:skill, name: 'Classic')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    click_on('Select these skills')
+
+    all('a', text: 'remove this role')[1].click
+    click_on('Job skills')
+
+    expect(page).to have_text(job_profile.name)
   end
 end

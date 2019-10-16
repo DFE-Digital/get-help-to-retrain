@@ -6,7 +6,7 @@
         [t('breadcrumb.task_list_home'), task_list_path],
         [t('breadcrumb.check_your_skills'), check_your_skills_path],
         [t('breadcrumb.search_results'), results_check_your_skills_path(search: params[:search])],
-        [t('breadcrumb.current_job_skills'), job_profile_skills_path(job_profile_id: params[:job_profile_id], search: params[:search])]
+        [t('breadcrumb.current_job_skills'), job_profile_skills_path(job_profile_id: params[:job_profile_id] || @job_profiles_with_skills.last[:profile_slug], search: params[:search])]
       ]
     )
   end
@@ -16,25 +16,12 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <h1 class="govuk-heading-xl">Your skills</h1>
-      <h2 class="govuk-heading-m govuk-!-margin-bottom-1"><%= @job_profile.name %></h2>
-      <table class="govuk-table">
-        <caption class="govuk-table__caption small govuk-visually-hidden">Your skills</caption>
-        <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th class="govuk-table__header govuk-section-break__xl govuk-!-padding-0" scope="col">
-              <p class="govuk-body">You gained these skills from working as a <%= @job_profile.name %></p>
-            </th>
-          </tr>
-        </thead>
-        <tbody class="govuk-table__body govuk-table__body-skills">
-          <% @skills.each do |skill| %>
-            <tr class="govuk-table__row">
-              <td class="govuk-table__cell govuk-!-padding-bottom-4 govuk-!-padding-top-4"><%= skill.name %></th>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= link_to('Find out what you can do with these skills', skills_matcher_index_path, class: 'govuk-button') %>
+      <% if @job_profiles_with_skills.any? %>
+        <%= render 'skills/job_profiles_with_skills', job_profiles_with_skills: @job_profiles_with_skills %>
+      <% else %>
+        <p class='govuk-body'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</p>
+        <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
+      <% end %>
     </div>
   </div>
   <div class="govuk-grid-column-one-third">

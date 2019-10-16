@@ -78,19 +78,6 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page.all('ul.govuk-list li a').collect(&:text)).to eq(['Assasin'])
   end
 
-  scenario 'if user changes their current job profile skills, it should be reflected in profile results' do
-    disable_feature! :skills_builder_v2
-    alternative_job_profile = create(:job_profile, name: 'Hacker', skills: [skill2])
-
-    visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
-    click_on('Select these skills')
-    visit(job_profile_skills_path(job_profile_id: alternative_job_profile.slug))
-    click_on('Select these skills')
-    click_on('Find out what you can do with these skills')
-
-    expect(page.all('ul.govuk-list li a').collect(&:text)).to eq(['Assasin', current_job_profile.name])
-  end
-
   scenario 'does not return profiles if skills not present' do
     create(:job_profile, name: 'Hacker', skills: [skill2])
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))

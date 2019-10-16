@@ -31,7 +31,7 @@ RSpec.feature 'User authentication in sidebar' do
   }
 
   before do
-    enable_feature!(:user_authentication, :skills_builder_v2)
+    enable_feature!(:user_authentication)
     client = instance_spy(Notifications::Client)
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
@@ -96,7 +96,6 @@ RSpec.feature 'User authentication in sidebar' do
     context 'when user authentication feature is off' do
       before do
         disable_feature! :user_authentication
-        enable_feature!(:skills_builder_v2)
       end
 
       scenario 'user does not see save your results in sidebar' do
@@ -207,7 +206,6 @@ RSpec.feature 'User authentication in sidebar' do
     context 'when user authentication feature is off' do
       before do
         disable_feature! :user_authentication
-        enable_feature!(:skills_builder_v2)
       end
 
       scenario 'user does not see return to saved results in sidebar' do
