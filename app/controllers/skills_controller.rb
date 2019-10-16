@@ -17,10 +17,6 @@ class SkillsController < ApplicationController
 
   private
 
-  def job_profile
-    @job_profile ||= JobProfile.find_by(slug: skills_params[:job_profile_id])
-  end
-
   def job_profiles
     @job_profiles ||= JobProfile.includes(:skills).find(user_session.job_profile_ids)
   end
