@@ -7,10 +7,13 @@ class ApplicationController < ActionController::Base
     @user_session ||= UserSession.new(session)
   end
 
-  # The authenticate method comes from the passwordless gem.
-  #  This is authenticating the passwordless session.
+  # The authenticate method comes from the passwordless gem (note this refers to Passwordless::Session)
   def current_user
     @current_user ||= authenticate_by_session(User)
+  end
+
+  def target_job
+    @target_job ||= helpers.target_job
   end
 
   helper_method :user_session, :current_user
