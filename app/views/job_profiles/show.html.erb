@@ -20,11 +20,7 @@
     <div class="govuk-grid-column-full govuk-!-padding-0 extended-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-          <% if Flipflop.job_profile_v2? %>
-            <%= render 'job_profiles/v2/relevant_sections' %>
-          <% else %>
-            <%= render 'job_profiles/v1/relevant_sections' %>
-          <% end %>
+          <%= render 'relevant_sections' %>
         </div>
       </div>
     </div>
