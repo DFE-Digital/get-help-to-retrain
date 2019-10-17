@@ -5,6 +5,7 @@ class UserSession
     job_profile_skills
     job_profile_ids
     postcode
+    target_job_id
   ].freeze
 
   def self.merge_sessions(new_session:, previous_session_data:)
@@ -24,6 +25,14 @@ class UserSession
 
   def postcode=(value)
     session[:postcode] = value
+  end
+
+  def target_job_id
+    session[:target_job_id]
+  end
+
+  def target_job_id=(value)
+    session[:target_job_id] = value
   end
 
   def registered?

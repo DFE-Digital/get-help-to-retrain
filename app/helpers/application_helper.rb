@@ -23,4 +23,8 @@ module ApplicationHelper
   def user_not_authenticated?
     !current_user
   end
+
+  def target_job
+    @target_job ||= JobProfile.find_by(id: user_session.target_job_id)
+  end
 end
