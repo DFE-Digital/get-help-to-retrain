@@ -147,27 +147,11 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Further help to change jobs')
   end
 
-  scenario 'User can see number of job vacancies near them with CTA: Target this job on V2' do
+  scenario 'User can see the bottom CTA: Target this job on V2' do
     enable_feature! :job_profile_v2
 
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 3)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     job_profile = create(:job_profile, :with_html_content)
 
-    user_enters_location
-    visit(job_profile_path(job_profile.slug))
-
-    expect(page).to have_link('Target this job', href: '#')
-  end
-
-  scenario 'User still sees CTA:Target this job even when no jobs are available on V2' do
-    enable_feature! :job_profile_v2
-
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    job_profile = create(:job_profile, :with_html_content)
-
-    user_enters_location
     visit(job_profile_path(job_profile.slug))
 
     expect(page).to have_link('Target this job', href: '#')

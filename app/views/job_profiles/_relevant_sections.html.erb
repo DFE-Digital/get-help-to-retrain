@@ -10,4 +10,9 @@
 <%= @job_profile.section(xpath: JobProfileDecorator::WORK_SECTION_XPATH).html_safe %>
 <%= @job_profile.section(xpath: JobProfileDecorator::RESTRICTIONS_AND_REQUESTS_SECTION_XPATH).html_safe %>
 <%= render 'jobs_in_your_area' %>
-<%= render 'further_help' unless Flipflop.job_profile_v2? %>
+<% if Flipflop.job_profile_v2? %>
+  <p class="govuk-body">Select this as your target job and we’ll help you prepare to apply.</p>
+  <%= link_to('Target this job', '#', class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6') %>
+<% else %>
+  <%= render 'further_help' %>
+<% end %>
