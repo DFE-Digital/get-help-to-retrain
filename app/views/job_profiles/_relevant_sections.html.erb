@@ -1,7 +1,7 @@
 <%= @job_profile.section(xpath: JobProfileDecorator::SKILLS_SECTION_XPATH).html_safe %>
 <%= @job_profile.section(xpath: JobProfileDecorator::WWYD_TASKS_SECTION_XPATH).html_safe %>
 <%= @job_profile.section(xpath: JobProfileDecorator::WWYD_WORK_SECTION_XPATH).html_safe %>
-<%= render 'valuable_skills' unless Flipflop.job_profile_v2? %>
+<%= render 'valuable_skills' unless Flipflop.action_plan? %>
 <%= @job_profile.section(xpath: JobProfileDecorator::DIRECT_APPLICATION_SECTION_XPATH).html_safe %>
 <%= render 'apprenticeship' %>
 <%= @job_profile.section(xpath: JobProfileDecorator::CAREER_PATH_SECTION_XPATH).html_safe %>
@@ -10,7 +10,7 @@
 <%= @job_profile.section(xpath: JobProfileDecorator::WORK_SECTION_XPATH).html_safe %>
 <%= @job_profile.section(xpath: JobProfileDecorator::RESTRICTIONS_AND_REQUESTS_SECTION_XPATH).html_safe %>
 <%= render 'jobs_in_your_area' %>
-<% if Flipflop.job_profile_v2? %>
+<% if Flipflop.action_plan? %>
   <p class="govuk-body">Select this as your target job and we’ll help you prepare to apply.</p>
   <%= link_to('Target this job', '#', class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6') %>
 <% else %>
