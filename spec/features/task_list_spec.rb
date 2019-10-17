@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Tasks List', type: :feature do
-  background do
-    disable_feature! :next_steps_v2
-  end
-
   scenario 'User checks their existing skills' do
     visit(task_list_path)
     click_on('Check your existing skills')
@@ -49,9 +45,7 @@ RSpec.feature 'Tasks List', type: :feature do
     end
   end
 
-  scenario 'With a clean new session Check your skills takes user to your current job page when Skills builder v2 OFF' do
-    disable_feature! :skills_builder_v2
-
+  scenario 'With a clean new session Check your skills takes user to your current job page' do
     visit(task_list_path)
 
     click_on('Check your existing skills')
@@ -59,40 +53,7 @@ RSpec.feature 'Tasks List', type: :feature do
     expect(page).to have_current_path(check_your_skills_path)
   end
 
-  scenario 'With a clean new session Check your skills takes user to your current job page when Skills builder v2 ON' do
-    enable_feature! :skills_builder_v2
-
-    visit(task_list_path)
-
-    click_on('Check your existing skills')
-
-    expect(page).to have_current_path(check_your_skills_path)
-  end
-
-  scenario 'When the session already has profile skills Check your skills takes user to the skills summary page when Skills builder v2 is OFF' do
-    disable_feature! :skills_builder_v2
-
-    job_profile = create(
-      :job_profile,
-      :with_html_content,
-      name: 'Assassin',
-      skills: [
-        create(:skill, name: 'Chameleon-like blend in tactics')
-      ]
-    )
-
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
-
-    visit(task_list_path)
-    click_on('Check your existing skills')
-
-    expect(page).to have_current_path(skills_path(job_profile_id: job_profile.slug))
-  end
-
-  scenario 'When the session already has profile skills Check your skills takes user to the skills summary page when Skills builder v2 is ON' do
-    enable_feature! :skills_builder_v2
-
+  scenario 'When the session already has profile skills Check your skills takes user to the skills summary page' do
     job_profile = create(
       :job_profile,
       :with_html_content,
@@ -179,7 +140,7 @@ RSpec.feature 'Tasks List', type: :feature do
     visit(task_list_path)
     click_on('Further help to find work')
 
-    expect(page).to have_text('Further help to find work')
+    expect(page).to have_text('Get help changing jobs')
   end
 
   scenario 'User unlocks survey section when one has skills on the session' do

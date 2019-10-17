@@ -1,6 +1,6 @@
 class CheckYourSkillsController < ApplicationController
   def index
-    redirect_to(skills_path) if Flipflop.skills_builder_v2? && user_session.job_profiles_cap_reached?
+    redirect_to(skills_path) if user_session.job_profiles_cap_reached?
 
     @job_profile_search = JobProfileSearch.new(term: search, profile_ids_to_exclude: profile_ids_to_exclude)
 
@@ -8,7 +8,7 @@ class CheckYourSkillsController < ApplicationController
   end
 
   def results
-    redirect_to(skills_path) if Flipflop.skills_builder_v2? && user_session.job_profiles_cap_reached?
+    redirect_to(skills_path) if user_session.job_profiles_cap_reached?
 
     track_event(:check_your_skills_index_search, search: search) if search.present?
 
@@ -21,8 +21,6 @@ class CheckYourSkillsController < ApplicationController
   private
 
   def profile_ids_to_exclude
-    return [] unless Flipflop.skills_builder_v2?
-
     user_session.job_profile_ids
   end
 
@@ -39,7 +37,7 @@ class CheckYourSkillsController < ApplicationController
   end
 
   def spell_check_searched_term
-    return unless Flipflop.spell_check? && search.present?
+    return unless search.present?
 
     @spell_checked_search = spell_check_service.scan(search_term: search)
   rescue SpellCheckService::SpellCheckServiceError

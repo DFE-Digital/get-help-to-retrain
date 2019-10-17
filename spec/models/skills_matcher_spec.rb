@@ -102,28 +102,6 @@ RSpec.describe SkillsMatcher do
       expect(matcher.match).to eq([job_profile4, job_profile5, job_profile2])
     end
 
-    it 'scopes job profiles to user session job profile if job profile current id exists for Skills Builder v1' do
-      skill1 = create(:skill)
-      skill2 = create(:skill)
-      skill3 = create(:skill)
-      skill4 = create(:skill)
-      job_profile1 = create(:job_profile, skills: [skill1, skill3])
-      create(:job_profile, skills: [skill2])
-      job_profile2 = create(:job_profile, skills: [skill1, skill2, skill3, skill4])
-      job_profile3 = create(:job_profile, skills: [skill1, skill3])
-      session = create_fake_session(
-        current_job_id: job_profile1.id,
-        job_profile_ids: [job_profile2.id, job_profile1.id],
-        job_profile_skills: {
-          job_profile2.id.to_s => [skill1.id, skill2.id],
-          job_profile1.id.to_s => [skill1.id, skill3.id, skill4.id]
-        }
-      )
-      matcher = described_class.new(UserSession.new(session))
-
-      expect(matcher.match).to eq([job_profile2, job_profile3])
-    end
-
     it 'arranges job profiles in alphabetical order as well as matching skills order' do
       skill1 = create(:skill)
       skill2 = create(:skill)
@@ -299,30 +277,6 @@ RSpec.describe SkillsMatcher do
       expect(matcher.job_profile_scores).to eq(
         job_profile4.id => 50.0,
         job_profile3.id => 100.0
-      )
-    end
-
-    it 'returns job profiles matched to multiple skills across multiple jobs profiles scoped to profile for Skills Builder v1' do
-      skill1 = create(:skill)
-      skill2 = create(:skill)
-      skill3 = create(:skill)
-      job_profile1 = create(:job_profile, skills: [skill1, skill2])
-      job_profile2 = create(:job_profile, skills: [skill1])
-      job_profile3 = create(:job_profile, skills: [skill1, skill2])
-      create(:job_profile, skills: [skill2])
-      session = create_fake_session(
-        current_job_id: job_profile2.id,
-        job_profile_ids: [job_profile1.id, job_profile2.id],
-        job_profile_skills: {
-          job_profile1.id.to_s => [skill2.id],
-          job_profile2.id.to_s => [skill1.id, skill3.id]
-        }
-      )
-      matcher = described_class.new(UserSession.new(session))
-
-      expect(matcher.job_profile_scores).to eq(
-        job_profile1.id => 50.0,
-        job_profile3.id => 50.0
       )
     end
   end

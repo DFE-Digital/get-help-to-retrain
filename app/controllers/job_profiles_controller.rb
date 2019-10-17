@@ -23,7 +23,7 @@ class JobProfilesController < ApplicationController
   end
 
   def query_params
-    # TODO: this is to support skills removal. Revisit after removing skills builder v2 flag and fixing navigation
+    # TODO: this is to support skills removal. Revisit after fixing navigation
     query = { search: job_profile_params[:search] }
     query[:job_profile_id] = job_profile_params[:job_profile_id] unless user_session.job_profile_skills?
 

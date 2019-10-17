@@ -84,10 +84,10 @@ RSpec.describe JobProfileSearch do
 
     it 'matches different records in query' do
       job_profiles = [
-        create(:job_profile, name: 'Head Chef'),
-        create(:job_profile, alternative_titles: 'Cook'),
-        create(:job_profile, hidden_titles: 'Pastry Chef'),
-        create(:job_profile, description: 'Street food traders ')
+        create(:job_profile, name: 'Head Chef', description: nil),
+        create(:job_profile, name: 'name', alternative_titles: 'Cook', description: nil),
+        create(:job_profile, name: 'name', hidden_titles: 'Pastry Chef', description: nil),
+        create(:job_profile, name: 'name', description: 'Street food traders ')
       ]
 
       expect(described_class.new(term: 'food cook chef').search).to eq(job_profiles)
@@ -124,11 +124,11 @@ RSpec.describe JobProfileSearch do
     end
 
     it 'orders records according to matched name' do
-      cook = create(:job_profile, alternative_titles: 'Cook')
-      baker = create(:job_profile, hidden_titles: 'Pastry Chef')
-      head_chef = create(:job_profile, name: 'Head Chef')
-      food_trader = create(:job_profile, description: 'Street food traders ')
-      kitchen_chef = create(:job_profile, name: 'Kitchen Chef')
+      cook = create(:job_profile, alternative_titles: 'Cook', name: 'name', description: nil)
+      baker = create(:job_profile, hidden_titles: 'Pastry Chef', name: 'name', description: nil)
+      head_chef = create(:job_profile, name: 'Head Chef', description: nil)
+      food_trader = create(:job_profile, description: 'Street food traders ', name: 'name')
+      kitchen_chef = create(:job_profile, name: 'Kitchen Chef', description: nil)
 
       job_profiles_in_order = [
         head_chef,

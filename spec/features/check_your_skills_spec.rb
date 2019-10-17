@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.feature 'Check your skills', type: :feature do
   background do
-    disable_feature! :spell_check
-
     create(
       :job_profile,
       name: 'Bodyguard',
@@ -34,27 +32,15 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_text('Patience and the ability to remain calm in stressful situations')
   end
 
-  scenario 'Spell check feature is OFF - no correction visible' do
+  scenario 'User enters an incorrect word but no api key is available' do
     visit(check_your_skills_path)
-    fill_in('search', with: 'Bodyguard')
+    fill_in('search', with: 'Gatas')
     find('.search-button').click
 
     expect(page).not_to have_text('Did you mean')
   end
 
-  scenario 'Spell check feature is ON - but no key is given' do
-    enable_feature! :spell_check
-
-    visit(check_your_skills_path)
-    fill_in('search', with: 'Bodyguard')
-    find('.search-button').click
-
-    expect(page).not_to have_text('Did you mean')
-  end
-
-  scenario 'Spell check feature is ON - and a correction is returned' do
-    enable_feature! :spell_check
-
+  scenario 'User enters an incorrect word and a correction is returned' do
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -81,9 +67,7 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_text('Did you mean gates')
   end
 
-  scenario 'Spell check feature is ON - the correction leads to results page' do
-    enable_feature! :spell_check
-
+  scenario 'User enters an incorrect word and the correction leads to results page' do
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -112,9 +96,7 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_current_path(results_check_your_skills_path(search: 'gates'))
   end
 
-  scenario 'Spell check feature is ON - and no correction is returned' do
-    enable_feature! :spell_check
-
+  scenario 'User enters an incorrect word but sees no correction' do
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': []

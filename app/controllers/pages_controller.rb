@@ -1,12 +1,4 @@
 class PagesController < ApplicationController
-  def training_hub
-    user_session.track_page('training_hub')
-  end
-
-  def next_steps
-    user_session.track_page('next_steps')
-  end
-
   def task_list
     if user_session.job_profile_skills?
       current_job = JobProfile.find(user_session.job_profile_ids.first)

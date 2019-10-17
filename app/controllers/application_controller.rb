@@ -22,10 +22,6 @@ class ApplicationController < ActionController::Base
     properties.present? ? TrackingService.track_event(event, properties) : TrackingService.track_event(event)
   end
 
-  def protect_feature(feature)
-    redirect_to task_list_path unless Flipflop.enabled?(feature)
-  end
-
   def set_raven_context
     return unless Rails.configuration.sentry_dsn.present?
 

@@ -30,13 +30,11 @@ Rails.application.routes.draw do
     get :results, on: :collection
   end
 
-  resources :job_profiles, path: 'job-profiles', only: %i[show] do
+  resources :job_profiles, path: 'job-profiles', only: %i[show destroy] do
     resources :skills do
       get :index, controller: 'job_profiles_skills', on: :collection
     end
   end
-
-  delete '/job-profiles/:id', to: 'job_profiles#destroy', constraints: ->(_req) { Flipflop.skills_builder_v2? }
 
   resources :skills_matcher, path: 'job-matches', only: %i[index]
   resources :skills, only: %i[index]
@@ -46,19 +44,16 @@ Rails.application.routes.draw do
 
   resources :user_personal_data, only: %i[index create]
 
-  # Feature flags
-  constraints ->(_req) { Flipflop.user_authentication? } do
-    get 'save-your-results', to: 'users#new'
-    get 'return-to-saved-results', to: 'users#return_to_saved_results'
-    get 'link-expired', to: 'users#link_expired'
-    post 'save-your-results', to: 'users#create'
-    post 'sign-in', to: 'users#sign_in'
-    post 'email-sent-again', to: 'users#registration_send_email_again'
-    get 'link-sent', to: 'users#show'
-    post 'link-sent-again', to: 'users#sign_in_send_email_again'
+  get 'save-your-results', to: 'users#new'
+  get 'return-to-saved-results', to: 'users#return_to_saved_results'
+  get 'link-expired', to: 'users#link_expired'
+  post 'save-your-results', to: 'users#create'
+  post 'sign-in', to: 'users#sign_in'
+  post 'email-sent-again', to: 'users#registration_send_email_again'
+  get 'link-sent', to: 'users#show'
+  post 'link-sent-again', to: 'users#sign_in_send_email_again'
 
-    get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
-  end
+  get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
 
   root to: 'home#index'
 end

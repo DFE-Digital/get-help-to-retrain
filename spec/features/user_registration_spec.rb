@@ -39,7 +39,6 @@ RSpec.feature 'User registration' do
   end
 
   before do
-    enable_feature!(:user_authentication, :skills_builder_v2)
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 

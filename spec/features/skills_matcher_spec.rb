@@ -36,14 +36,6 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_text('Chameleon-like blend in tactics')
   end
 
-  scenario 'Page gets tracked on the session' do
-    visit_skills_for_current_job_profile
-
-    current_session = Capybara.current_session.driver.request.session
-
-    expect(current_session[:visited_pages]).to eq(['skills_matcher_index'])
-  end
-
   scenario 'Redirect to tasks-list page when session is missing the job_profile_skills key' do
     visit '/job-matches'
 
@@ -76,19 +68,6 @@ RSpec.feature 'Skills matcher', type: :feature do
     visit_skills_for_current_job_profile
 
     expect(page.all('ul.govuk-list li a').collect(&:text)).to eq(['Assasin'])
-  end
-
-  scenario 'if user changes their current job profile skills, it should be reflected in profile results' do
-    disable_feature! :skills_builder_v2
-    alternative_job_profile = create(:job_profile, name: 'Hacker', skills: [skill2])
-
-    visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
-    click_on('Select these skills')
-    visit(job_profile_skills_path(job_profile_id: alternative_job_profile.slug))
-    click_on('Select these skills')
-    click_on('Find out what you can do with these skills')
-
-    expect(page.all('ul.govuk-list li a').collect(&:text)).to eq(['Assasin', current_job_profile.name])
   end
 
   scenario 'does not return profiles if skills not present' do

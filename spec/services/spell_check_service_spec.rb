@@ -20,10 +20,6 @@ RSpec.describe SpellCheckService do
   let(:search_term) { 'hallo wrld' }
   let(:status) { 200 }
 
-  before do
-    enable_feature! :spell_check
-  end
-
   describe '.call' do
     before do
       stub_request(:get, SpellCheckService::API_ENDPOINT)
