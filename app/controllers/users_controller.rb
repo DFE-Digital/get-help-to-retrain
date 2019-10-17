@@ -4,6 +4,14 @@ class UsersController < ApplicationController
     set_redirect_path_for_registration
   end
 
+  def return_to_saved_results
+    if params.key?(:email)
+      user.valid?
+    else
+      @user = User.new
+    end
+  end
+
   def create
     register_with(partial: :registration_results_saved)
   end
