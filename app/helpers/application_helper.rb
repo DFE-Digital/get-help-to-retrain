@@ -16,8 +16,8 @@ module ApplicationHelper
     )
   end
 
-  def user_not_authenticated_or_registered?
-    !(current_user || user_session.registered?)
+  def user_not_authenticated_and_not_registered?
+    user_not_authenticated? && !user_session.registered?
   end
 
   def user_not_authenticated?

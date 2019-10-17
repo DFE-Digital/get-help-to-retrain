@@ -23,7 +23,7 @@ RSpec.describe ApplicationHelper do
     end
   end
 
-  describe '.user_not_authenticated_or_registered?' do
+  describe '.user_not_authenticated_and_not_registered?' do
     before do
       helper.singleton_class.class_eval do
         def current_user; end
@@ -35,20 +35,28 @@ RSpec.describe ApplicationHelper do
     end
 
     it 'returns true if user is not authenticated or registered' do
-      expect(helper).to be_user_not_authenticated_or_registered
+      expect(helper).to be_user_not_authenticated_and_not_registered
     end
 
     it 'returns false if user is authenticated' do
       allow(helper).to receive(:current_user).and_return(create(:user))
 
-      expect(helper).not_to be_user_not_authenticated_or_registered
+      expect(helper).not_to be_user_not_authenticated_and_not_registered
     end
 
     it 'returns false if user is registered' do
       user_session = UserSession.new(session)
       user_session.registered = true
 
-      expect(helper).not_to be_user_not_authenticated_or_registered
+      expect(helper).not_to be_user_not_authenticated_and_not_registered
+    end
+
+    it 'returns false if user is registered and authenticated' do
+      user_session = UserSession.new(session)
+      user_session.registered = true
+      allow(helper).to receive(:current_user).and_return(create(:user))
+
+      expect(helper).not_to be_user_not_authenticated_and_not_registered
     end
   end
 
