@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Job profile spec' do
   background do
-    disable_feature! :job_profile_v2
+    disable_feature! :action_plan
   end
 
   scenario 'Page title has the structure: What does a typical <job_profile.name> do?' do
@@ -128,7 +128,7 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User no longer sees the Valuable skills section on V2' do
-    enable_feature! :job_profile_v2
+    enable_feature! :action_plan
 
     job_profile = create(:job_profile, :with_html_content)
 
@@ -138,7 +138,7 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User no longer sees the Further help to change jobs section on V2' do
-    enable_feature! :job_profile_v2
+    enable_feature! :action_plan
 
     job_profile = create(:job_profile, :with_html_content)
 
@@ -148,7 +148,7 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see the bottom CTA: Target this job on V2' do
-    enable_feature! :job_profile_v2
+    enable_feature! :action_plan
 
     job_profile = create(:job_profile, :with_html_content)
 
