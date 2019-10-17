@@ -142,7 +142,7 @@ en-GB:
       title: Link sent again
   return_to_saved_results:
     title: Return to saved results
-    sub_title: If you've already used this service before and saved your results, enter your email address. We'll send you a link you can use to return to your saved results.
+    sub_title: Return to any results you’ve previously saved in the service.
 
   pagination:
     previous: Previous
