@@ -5,5 +5,9 @@
 <% else %>
   <p class="govuk-body">At present, there are no jobs like this one being advertised near you on the Find a Job service. You may be able to find other jobs like this advertised on other job sites.</p>
 <% end %>
-<p class="govuk-body">Select this as your target job and we’ll help you prepare to apply.</p>
-<%= link_to('Target this job', '#', class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6') %>
+<% if Flipflop.job_profile_v2? %>
+  <p class="govuk-body">Select this as your target job and we’ll help you prepare to apply.</p>
+  <%= link_to('Target this job', '#', class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6') %>
+<% else %>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+<% end %>
