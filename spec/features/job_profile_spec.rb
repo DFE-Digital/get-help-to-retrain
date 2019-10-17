@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Job profile spec' do
+  background do
+    disable_feature! :job_profile_v2
+  end
+
   scenario 'Page title has the structure: What does a typical <job_profile.name> do?' do
     create(:job_profile, :with_html_content, name: 'Cleric', slug: 'cleric')
 
@@ -61,6 +65,14 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Apprenticeship')
   end
 
+  scenario 'Page does not have CTA: Target this job' do
+    job_profile = create(:job_profile, :with_html_content)
+
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_link('Target this job', href: '#')
+  end
+
   scenario 'User can see number of job vacancies near them' do
     find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 3)
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
@@ -113,6 +125,36 @@ RSpec.feature 'Job profile spec' do
     visit(job_profile_path(job_profile.slug))
 
     expect(page).not_to have_content('Jobs in your area')
+  end
+
+  scenario 'User no longer sees the Valuable skills section on V2' do
+    enable_feature! :job_profile_v2
+
+    job_profile = create(:job_profile, :with_html_content)
+
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_content('Valuable skills')
+  end
+
+  scenario 'User no longer sees the Further help to change jobs section on V2' do
+    enable_feature! :job_profile_v2
+
+    job_profile = create(:job_profile, :with_html_content)
+
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_content('Further help to change jobs')
+  end
+
+  scenario 'User can see the bottom CTA: Target this job on V2' do
+    enable_feature! :job_profile_v2
+
+    job_profile = create(:job_profile, :with_html_content)
+
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).to have_link('Target this job', href: '#')
   end
 
   def user_enters_location
