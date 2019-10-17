@@ -6,7 +6,7 @@ module HealthCheck
 
     def value
       @value ||= FindAJobService.new.health_check
-    rescue FindAJobService::ResponseError => e
+    rescue StandardError => e
       @output = "Find A Job API error: #{e.message}"
       ''
     end

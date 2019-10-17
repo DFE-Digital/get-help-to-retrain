@@ -7,12 +7,24 @@ RSpec.describe HealthCheck::FindAJobCheck do
 
   describe '#status' do
     context 'with failed Find a Job API call' do
-      before do
+      it 'returns warn on api error' do
         stub_request(:get, /ping/)
           .to_return(status: 500)
+
+        expect(check.status).to eq :warn
       end
 
-      it 'returns warn' do
+      it 'returns warn on socket error' do
+        stub_request(:get, /ping/)
+          .to_raise(SocketError)
+
+        expect(check.status).to eq :warn
+      end
+
+      it 'returns warn on read timeout' do
+        stub_request(:get, /ping/)
+          .to_raise(Net::ReadTimeout)
+
         expect(check.status).to eq :warn
       end
     end
