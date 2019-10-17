@@ -77,4 +77,35 @@ RSpec.describe ApplicationHelper do
       expect(helper).not_to be_user_not_authenticated
     end
   end
+
+  describe '.target_job' do
+    before do
+      helper.singleton_class.class_eval do
+        def user_session
+          UserSession.new(session)
+        end
+      end
+    end
+
+    it 'returns JobProfile instance if target job id is set in session' do
+      job_profile = create(:job_profile)
+      user_session = UserSession.new(session)
+      user_session.target_job_id = job_profile.id
+
+      expect(helper.target_job).to eq(job_profile)
+    end
+
+    it 'returns nil if target job id no longer exists' do
+      job_profile = create(:job_profile)
+      user_session = UserSession.new(session)
+      user_session.target_job_id = job_profile.id
+      job_profile.destroy
+
+      expect(helper.target_job).to be_nil
+    end
+
+    it 'returns nil if target job id not set in session' do
+      expect(helper.target_job).to be_nil
+    end
+  end
 end

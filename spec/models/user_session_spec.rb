@@ -9,12 +9,13 @@ RSpec.describe UserSession do
     it 'merges old data into new session for selected keys' do
       old_session = {
         'postcode' => 'NW118QE',
+        'target_job_id' => 100,
         'session_id' => 2
       }
       new_session = { 'session_id' => 1 }
       described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
 
-      expect(new_session).to eq('postcode' => 'NW118QE', 'session_id' => 1)
+      expect(new_session).to eq('postcode' => 'NW118QE', 'target_job_id' => 100, 'session_id' => 1)
     end
 
     it 'overrides set values in current session with old ones' do
@@ -39,6 +40,18 @@ RSpec.describe UserSession do
 
     it 'returns nil if no postcode set' do
       expect(user_session.postcode).to be_nil
+    end
+  end
+
+  describe '#target_job_id' do
+    it 'returns targetted job id if set' do
+      user_session.target_job_id = 100
+
+      expect(user_session.target_job_id).to eq(100)
+    end
+
+    it 'returns nil if no targetted job id set' do
+      expect(user_session.target_job_id).to be_nil
     end
   end
 
