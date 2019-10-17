@@ -2,7 +2,6 @@ class UserSession
   attr_reader :session
 
   KEYS_TO_RESTORE = %w[
-    visited_pages
     job_profile_skills
     job_profile_ids
     postcode
@@ -15,7 +14,6 @@ class UserSession
   def initialize(session)
     @session = session
 
-    @session[:visited_pages] ||= []
     @session[:job_profile_skills] ||= {}
     @session[:job_profile_ids] ||= []
   end
@@ -58,14 +56,6 @@ class UserSession
   def remove_job_profile(job_profile_id)
     job_profile_skills.delete(job_profile_id.to_s)
     job_profile_ids.delete(job_profile_id)
-  end
-
-  def track_page(page_key)
-    session[:visited_pages] << page_key unless page_visited?(page_key)
-  end
-
-  def page_visited?(page_key)
-    session[:visited_pages].include?(page_key)
   end
 
   def job_profile_skills?
