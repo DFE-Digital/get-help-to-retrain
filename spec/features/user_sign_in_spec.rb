@@ -295,4 +295,12 @@ RSpec.feature 'User sign in' do
       .with(confirmation_email)
       .with(sign_in_email)
   end
+
+  scenario 'user gets to Return to saved results page when clicking Return to saved results button' do
+    visit(root_path)
+
+    click_on('Return to saved results')
+
+    expect(page).to have_current_path(return_to_saved_results_path)
+  end
 end

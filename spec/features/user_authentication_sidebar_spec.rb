@@ -110,14 +110,6 @@ RSpec.feature 'User authentication in sidebar' do
       end
     end
 
-    scenario 'user gets to Return to saved results page when clicking Return to saved results button' do
-      visit(root_path)
-
-      click_on('Return to saved results')
-
-      expect(page).to have_current_path(return_to_saved_results_path)
-    end
-
     scenario 'user sees return to saved results in sidebar if user selects empty job skills' do
       visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
       uncheck('Baldness', allow_label_click: true)
