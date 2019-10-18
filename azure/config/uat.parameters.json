@@ -97,7 +97,7 @@
       }
     },
     "customHostName": {
-      "value": "beta.nrs-ghtr.org.uk"
+      "value": "uat.nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"
