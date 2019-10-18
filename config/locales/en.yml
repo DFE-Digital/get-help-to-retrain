@@ -1,6 +1,7 @@
 en-GB:
   breadcrumb:
     home: Home
+    action_plan: Action plan
     task_list: Get help to retrain
     task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
@@ -29,6 +30,7 @@ en-GB:
   page_titles:
     default: Get help to retrain
     home_index: Get help to retrain - Home
+    pages_action_plan: Get help to retrain - Action plan
     pages_task_list: Get help to retrain - Tasks
     check_your_skills_index: Get help to retrain - Check your skills
     check_your_skills_results: Get help to retrain - Check your skills results
@@ -99,6 +101,8 @@ en-GB:
   skills:
     invalid_skills_selected_error: Select at least one skill
   pages:
+    action_plan:
+      title: Your personal action plan
     task_list:
       title: Get help to retrain
     next_steps:

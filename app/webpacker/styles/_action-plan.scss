@@ -1,0 +1,12 @@
+.action-plan-section {
+  border-top: 7px solid govuk-colour("blue");
+}
+
+.action-plan-action {
+  float: right;
+
+  &.govuk-button {
+    display: block;
+    width: 100%;
+  }
+}

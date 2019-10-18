@@ -1,0 +1,131 @@
+<% page_title :pages_action_plan %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.action_plan'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body-l">Your plan of action for finding a new, more secure job.</p>
+
+    <div class="govuk-related-items action-plan-section">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you’ve done so far:</h2>
+      <%= link_to 'Change target job', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your target job</h3>
+      <p class="govuk-body govuk-!-margin-bottom-2">You’ve chosen to target this job.</p>
+      <h3 class="govuk-heading-s">
+        <%= link_to target_job.name, job_profile_path(target_job.slug), class: 'govuk-link' %>
+      </h3>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+      <%= link_to 'View / edit your skills', skills_path, class: 'govuk-link action-plan-action' %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your skills</h3>
+      <p class="govuk-body">You added skills based on jobs you’ve already done.</p>
+      <p class="govuk-body">You can see different job ideas if you edit your skills.</p>
+    </div>
+
+
+    <div class="govuk-related-items action-plan-section">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you need to do next:</h2>
+      
+      <%= link_to 'Edit your training plan', '#TODO', class: 'govuk-link action-plan-action' %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Find training</h3>
+      <p class="govuk-body">Improve your chances of getting a job by completing training that employers value.</p>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-s">Maths course</h3>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          <%= link_to 'Find a maths course', courses_path(:maths), class: 'govuk-button govuk-button--secondary action-plan-action' %>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-s">English course</h3>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          <%= link_to 'Find an English course', courses_path(:english), class: 'govuk-button govuk-button--secondary govuk-!-margin-bottom-2 action-plan-action' %>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+      <%= link_to 'Edit what help you need', '#TODO', class: 'govuk-link action-plan-action' %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Get ready to change jobs</h3>
+      <p class="govuk-body">Prepare your CV and cover letter and brush up your interview skills so you’re all set to apply for jobs.</p>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-s">Your CV</h3>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          <%= link_to 'Update CV', 'https://nationalcareers.service.gov.uk/get-a-job/cv-sections', class: 'govuk-button govuk-button--secondary action-plan-action' %>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-s">Your cover letter</h3>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          <%= link_to 'Write cover letter', 'https://nationalcareers.service.gov.uk/get-a-job/covering-letter', class: 'govuk-button govuk-button--secondary action-plan-action' %>
+        </div>
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-s">Your interview skills</h3>
+        </div>
+        <div class="govuk-grid-column-one-half">
+          <%= link_to 'Prepare for interview', 'https://nationalcareers.service.gov.uk/get-a-job/interview-advice', class: 'govuk-button govuk-button--secondary govuk-!-margin-bottom-2 action-plan-action' %>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Explore on the job training</h3>
+      <p class="govuk-body">Find an adult apprenticeship that lets you earn and learn at your chosen level.</p>
+      <p class="govuk-body">
+        <%= link_to 'Find an apprenticeship', 'https://www.gov.uk/apprenticeships-guide', class: 'govuk-link' %>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Find local schemes and offers</h3>
+      <p class="govuk-body">Check if there are any local training and employment schemes in your area.</p>
+      <p class="govuk-body">
+        <%= link_to 'Show me local offers', '#TODO', class: 'govuk-link' %>
+      </p>
+
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+      <%= link_to 'Change target job', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Apply for a job</h3>
+      <p class="govuk-body">Once you’re ready to apply, find jobs in your local area.</p>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-s"><%= target_job.name %></h3>
+        </div>
+        <div class="govuk-grid-column-one-half">
+        <%= link_to 'Show jobs near me', 'https://findajob.dwp.gov.uk/', class: 'govuk-button govuk-button--secondary action-plan-action' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render 'shared/help_improve_this_service' %>
+  </div>
+</div>

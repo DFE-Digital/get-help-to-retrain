@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'cookies-policy', to: 'pages#cookies_policy'
   get 'privacy-policy', to: 'pages#privacy_policy'
 
+  get 'action-plan', to: 'pages#action_plan', constraints: ->(_req) { Flipflop.action_plan? }
   get 'maths-course-overview', to: 'pages#maths_overview'
   get 'english-course-overview', to: 'pages#english_overview'
   get 'training-hub', to: 'pages#training_hub'
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, path: 'job-profiles', only: %i[show destroy] do
+    post :target, on: :member, constraints: ->(_req) { Flipflop.action_plan? }
     resources :skills do
       get :index, controller: 'job_profiles_skills', on: :collection
     end
