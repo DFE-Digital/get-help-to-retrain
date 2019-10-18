@@ -43,7 +43,7 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_css('nav.govuk-breadcrumbs a', count: 1)
   end
 
-  scenario 'Breadcrumbs - user can click on \'Home: Get help to retrain\' link' do
+  scenario 'Breadcrumbs - user can click on \'Home: Get help to retrain\' nav item' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
     click_on('Home: Get help to retrain')
@@ -51,11 +51,11 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'Breadcrumbs - \'Your skills\' item is present' do
+  scenario 'Breadcrumbs - \'Your skills\' nav item is present' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
 
-    expect(page).to have_text('Your skills')
+    expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Your skills')
   end
 
   scenario 'User sees a list of skills when checking their Job skills' do
