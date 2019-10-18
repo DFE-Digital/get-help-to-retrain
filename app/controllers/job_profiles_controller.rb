@@ -4,7 +4,7 @@ class JobProfilesController < ApplicationController
     @job_vacancy_count = job_vacancy_count if user_session.postcode.present?
   end
 
-  def update
+  def target
     user_session.target_job_id = resource.id
 
     redirect_to action_plan_path

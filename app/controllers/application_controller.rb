@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def target_job
-    @target_job ||= helpers.target_job
+    helpers.target_job
   end
 
   helper_method :user_session, :current_user

@@ -27,7 +27,7 @@
       </div>
       <p class="govuk-body">You’ve chosen to target this job.</p>
       <h3 class="govuk-heading-s">
-        <%= link_to @target_job.name, job_profile_path(@target_job.slug), class: 'govuk-link' %>
+        <%= link_to target_job.name, job_profile_path(target_job.slug), class: 'govuk-link' %>
       </h3>
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
@@ -63,7 +63,7 @@
           <h3 class="govuk-heading-s">Maths course</h3>
         </div>
         <div class="govuk-grid-column-one-half">
-          <%= link_to 'Find a maths course', courses_path('maths'), class: 'govuk-button govuk-button--secondary action-plan-action' %>
+          <%= link_to 'Find a maths course', courses_path(:maths), class: 'govuk-button govuk-button--secondary action-plan-action' %>
         </div>
       </div>
 
@@ -72,7 +72,7 @@
           <h3 class="govuk-heading-s">English course</h3>
         </div>
         <div class="govuk-grid-column-one-half">
-          <%= link_to 'Find an English course', courses_path('english'), class: 'govuk-button govuk-button--secondary action-plan-action' %>
+          <%= link_to 'Find an English course', courses_path(:english), class: 'govuk-button govuk-button--secondary action-plan-action' %>
         </div>
       </div>
 
@@ -145,7 +145,7 @@
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
-          <h3 class="govuk-heading-s"><%= @target_job.name %></h3>
+          <h3 class="govuk-heading-s"><%= target_job.name %></h3>
         </div>
         <div class="govuk-grid-column-one-half">
         <%= link_to 'Show jobs near me', 'https://findajob.dwp.gov.uk/', class: 'govuk-button govuk-button--secondary action-plan-action' %>

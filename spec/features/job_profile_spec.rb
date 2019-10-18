@@ -70,7 +70,7 @@ RSpec.feature 'Job profile spec' do
 
     visit(job_profile_path(job_profile.slug))
 
-    expect(page).not_to have_link('Target this job', href: '#')
+    expect(page).not_to have_button('Target this job')
   end
 
   scenario 'User can see number of job vacancies near them' do
@@ -147,14 +147,15 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Further help to change jobs')
   end
 
-  scenario 'User can see the bottom CTA: Target this job on V2' do
+  scenario 'User can follow the bottom CTA: Target this job on V2' do
     enable_feature! :action_plan
 
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
+    click_on('Target this job')
 
-    expect(page).to have_link('Target this job', href: '#')
+    expect(page).to have_current_path(action_plan_path)
   end
 
   def user_enters_location
