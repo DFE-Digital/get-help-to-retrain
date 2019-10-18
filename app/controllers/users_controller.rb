@@ -5,11 +5,7 @@ class UsersController < ApplicationController
   end
 
   def return_to_saved_results
-    if params.key?(:email)
-      user.valid?
-    else
-      @user = User.new
-    end
+    @user = User.new
   end
 
   def create
@@ -53,23 +49,16 @@ class UsersController < ApplicationController
     user_session.registration_triggered_path = redirect_url
   end
 
-  def build_redirect_url
-    url_parser.build_redirect_url_with(
-      params: { 'email' => user.email },
-      anchor: 'sign-in'
-    )
-  end
-
   def url_parser
     @url_parser ||= UrlParser.new(request.referer, request.host)
   end
 
-  def sign_in_with(path: nil, partial: nil) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def sign_in_with(path: nil, partial: nil)
     if user.valid?
       sign_in_user unless user.new_record?
       path ? redirect_to(path) : render(partial)
     else
-      redirect_to(build_redirect_url || root_path, flash: { error: user.errors[:email] })
+      render(:return_to_saved_results)
     end
   rescue NotifyService::NotifyAPIError
     # TODO: show user an error page, for now render link sent page
