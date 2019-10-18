@@ -32,9 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, path: 'job-profiles', only: %i[show destroy] do
-    member do
-      post :target, constraints: ->(_req) { Flipflop.action_plan? }
-    end
+    post :target, on: :member, constraints: ->(_req) { Flipflop.action_plan? }
     resources :skills do
       get :index, controller: 'job_profiles_skills', on: :collection
     end
