@@ -15,9 +15,7 @@
     <p class="govuk-body">To save your results, just enter your email address below.</p>
     <%= form_with model: @user, local: true, url: save_your_results_path do |form| %>
       <%= form_group_tag @user, :email do %>
-        <label class="govuk-label" for="email">
-          Email
-        </label>
+        <%= form.label :email, class: 'govuk-label' %>
         <%= errors_tag @user, :email %>
         <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds")) %>
       <% end %>

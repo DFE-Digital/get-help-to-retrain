@@ -63,38 +63,6 @@ RSpec.feature 'User sign in' do
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
-  scenario 'User gets relevant messaging if no email is entered' do
-    visit(root_path)
-    click_on('Send a link')
-
-    expect(page).to have_text(/Enter an email address/)
-  end
-
-  scenario 'User gets relevant messaging if invalid email is entered' do
-    visit(root_path)
-    fill_in('email', with: 'wrong email')
-    click_on('Send a link')
-
-    expect(page).to have_text(/Enter a valid email address/)
-  end
-
-  scenario 'User is redirected back to page if email invalid with email' do
-    visit(root_path)
-    fill_in('email', with: 'wrong-email')
-    click_on('Send a link')
-
-    expect(page).to have_current_path(root_path(email: 'wrong-email'))
-  end
-
-  scenario 'User does not see validation error if they continue on from page' do
-    visit(root_path)
-    fill_in('email', with: 'wrong email')
-    click_on('Send a link')
-    click_on('Start')
-
-    expect(page).not_to have_text(/Enter a valid email address/)
-  end
-
   scenario 'User redirected to link sent page if email is valid and user exists' do
     register_user
     send_sign_in_email
@@ -119,16 +87,6 @@ RSpec.feature 'User sign in' do
     send_sign_in_email
 
     expect(page).to have_text(/test@test.test/)
-  end
-
-  scenario 'User does not get error message if they enter their same email but different case' do
-    register_user
-    visit(root_path)
-    fill_in('email', with: 'Test@Test.Test')
-    page.driver.header('User-Agent', 'some-agent')
-    click_on('Send a link')
-
-    expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
   end
 
   scenario 'User can resend email and is redirected to link sent again page' do
@@ -156,22 +114,10 @@ RSpec.feature 'User sign in' do
       .with(sign_in_email)
   end
 
-  scenario 'User does not receives sign in email if email valid and user does not exists' do
+  scenario 'User does not receive sign in email if email valid and user does not exists' do
     send_sign_in_email
 
     expect(client).not_to have_received(:send_email)
-      .with(sign_in_email)
-  end
-
-  scenario 'User receives sign in email if they enter their same email but different case' do
-    register_user
-    visit(root_path)
-    fill_in('email', with: 'Test@Test.Test')
-    page.driver.header('User-Agent', 'some-agent')
-    click_on('Send a link')
-
-    expect(client).to have_received(:send_email)
-      .with(confirmation_email)
       .with(sign_in_email)
   end
 
@@ -328,11 +274,33 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(link_sent_path(email: 'hello@test.com'))
   end
 
-  scenario 'if user submits check your skills form then sign in form user should not see one validation message' do
-    visit(check_your_skills_path)
-    click_on('Search')
-    click_on('Send a link')
+  scenario 'User does not get error message if they enter their same email but different case' do
+    register_user
+    visit(return_to_saved_results_path)
+    fill_in('email', with: 'Test@Test.Test')
+    page.driver.header('User-Agent', 'some-agent')
+    click_on('Send link')
 
-    expect(page).not_to have_text(/Enter a job title/)
+    expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
+  end
+
+  scenario 'User receives sign in email if they enter their same email but different case' do
+    register_user
+    visit(return_to_saved_results_path)
+    fill_in('email', with: 'Test@Test.Test')
+    page.driver.header('User-Agent', 'some-agent')
+    click_on('Send link')
+
+    expect(client).to have_received(:send_email)
+      .with(confirmation_email)
+      .with(sign_in_email)
+  end
+
+  scenario 'user gets to Return to saved results page when clicking Return to saved results button' do
+    visit(root_path)
+
+    click_on('Return to saved results')
+
+    expect(page).to have_current_path(return_to_saved_results_path)
   end
 end

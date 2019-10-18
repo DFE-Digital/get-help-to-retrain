@@ -14,11 +14,11 @@
     <h1 class="govuk-heading-xl"><%= t('return_to_saved_results.title') %></h1>
     <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
     <p class="govuk-body">The link expires after one hour.</p>
-    <%= form_with local: true, url: sign_in_path do |form| %>
-      <%= form_group_tag user_with_validation, :email do %>
+    <%= form_with model: @user, local: true, url: sign_in_path do |form| %>
+      <%= form_group_tag @user, :email do %>
         <%= form.label :email, class: 'govuk-label' %>
-        <%= errors_tag user_with_validation, :email %>
-        <%= text_field_tag(:email, params[:email], class: css_classes_for_input(user_with_validation, :email, "govuk-input govuk-!-width-two-thirds")) %>
+        <%= errors_tag @user, :email %>
+        <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds")) %>
       <% end %>
       <%= button_tag('Send link', class: 'govuk-button') %>
     <% end %>

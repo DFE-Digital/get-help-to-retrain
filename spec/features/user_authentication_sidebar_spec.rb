@@ -38,8 +38,6 @@ RSpec.feature 'User authentication in sidebar' do
   def unlock_tasklist_steps(job_profile: job_profile1)
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-
-    click_on('Find out what you can do with these skills')
   end
 
   def register_user
@@ -145,9 +143,9 @@ RSpec.feature 'User authentication in sidebar' do
     scenario 'user does not see return to saved results in sidebar if user signs in through sign in' do
       register_user
 
-      visit(root_path)
+      visit(return_to_saved_results_path)
       fill_in('email', with: 'test@test.test')
-      click_on('Send a link')
+      click_on('Send link')
       Capybara.reset_sessions!
       visit(token_sign_in_path(token: Passwordless::Session.last.token))
 
@@ -159,9 +157,9 @@ RSpec.feature 'User authentication in sidebar' do
     end
 
     scenario 'user sees save your results in sidebar if user sends sign in email through sign in' do
-      visit(root_path)
+      visit(return_to_saved_results_path)
       fill_in('email', with: 'test@test.test')
-      click_on('Send a link')
+      click_on('Send link')
       unlock_tasklist_steps
 
       paths.each do |path|
@@ -174,9 +172,9 @@ RSpec.feature 'User authentication in sidebar' do
     scenario 'user does not see save your results in sidebar if user signs in' do
       register_user
 
-      visit(root_path)
+      visit(return_to_saved_results_path)
       fill_in('email', with: 'test@test.test')
-      click_on('Send a link')
+      click_on('Send link')
       Capybara.reset_sessions!
       visit(token_sign_in_path(token: Passwordless::Session.last.token))
 

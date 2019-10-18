@@ -6,14 +6,6 @@ class UrlParser
     @host = host
   end
 
-  def build_redirect_url_with(params:, anchor:)
-    return unless recognized_host?
-
-    uri.query = Rack::Utils.build_query(params)
-    uri.fragment = anchor
-    uri.to_s
-  end
-
   def get_redirect_path(paths_to_ignore: [])
     return unless recognized_host?
     return if paths_to_ignore.include?(uri.path)
