@@ -44,8 +44,7 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links to nearby jobs' do
     user_targets_a_job
 
-    # TODO: link this to the DWP job vacancies feature when implemented
-    expect(page).to have_link('Show jobs near me', href: 'https://findajob.dwp.gov.uk/')
+    expect(page).to have_link('Show jobs near me', href: jobs_near_me_path)
   end
 
   private
