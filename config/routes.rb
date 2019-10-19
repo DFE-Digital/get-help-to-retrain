@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'privacy-policy', to: 'pages#privacy_policy'
 
   get 'action-plan', to: 'pages#action_plan', constraints: ->(_req) { Flipflop.action_plan? }
+  get 'jobs-near-me', to: 'job_vacancies#index', constraints: ->(_req) { Flipflop.action_plan? }
   get 'maths-course-overview', to: 'pages#maths_overview'
   get 'english-course-overview', to: 'pages#english_overview'
   get 'training-hub', to: 'pages#training_hub'
