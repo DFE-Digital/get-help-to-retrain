@@ -17,7 +17,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(page).to have_current_path(task_list_path)
   end
 
-  xscenario 'User can see jobs near their postcode from PID form' do
+  scenario 'User can see jobs near their postcode from PID form' do
     find_a_job_service = instance_double(
       FindAJobService,
       job_vacancies: {
@@ -29,7 +29,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     fill_in_postcode
     user_targets_a_job
 
-    expect(page).to have_text('NW118QE')
+    expect(find_field('postcode').value).to eq 'NW6 8ET'
   end
 
   scenario 'User can see jobs for their targeted job' do
@@ -52,7 +52,7 @@ RSpec.feature 'Jobs near me', type: :feature do
       FindAJobService,
       job_vacancies: {
         'pager' => { 'total_entries' => 1 },
-        'jobs' => [{ }]
+        'jobs' => [{}]
       }
     )
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)

@@ -1,14 +1,14 @@
 class JobVacancySearch
   include ActiveModel::Validations
 
-  attr_reader :postcode, :name, :page_relative_to_api, :distance
+  attr_reader :postcode, :name, :page, :distance
   validates :postcode, presence: { message: I18n.t('courses.no_postcode_error') }
   validates :postcode, postcode: true, allow_blank: true
 
   def initialize(postcode:, name:, page: 1, distance: 20)
     @postcode = postcode
     @name = name
-    @page_relative_to_api = page_relative_to_api_from(page)
+    @page = page
     @distance = distance
   end
 
@@ -28,17 +28,11 @@ class JobVacancySearch
 
   private
 
-  def page_relative_to_api_from(page)
-    return 1 unless page.present?
-
-    ((page.to_i * 10.0) / 50).ceil
-  end
-
   def job_vacancies_response
     @job_vacancies_response ||= FindAJobService.new.job_vacancies(
       postcode: postcode,
       name: name,
-      page: page_relative_to_api,
+      page: page,
       distance: distance
     )
   end

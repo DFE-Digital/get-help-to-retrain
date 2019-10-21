@@ -88,38 +88,6 @@ RSpec.describe JobVacancySearch do
     end
   end
 
-  describe '#page_relative_to_api' do
-    it 'defaults to page 1 if no page given' do
-      search = described_class.new(postcode: 'NW9 8TE', name: nil)
-
-      expect(search.page_relative_to_api).to eq(1)
-    end
-
-    it 'returns page 1 if nil page given' do
-      search = described_class.new(postcode: 'NW9 8TE', name: nil, page: nil)
-
-      expect(search.page_relative_to_api).to eq(1)
-    end
-
-    it 'returns page relative to 50 pages from api if less than 50' do
-      search = described_class.new(postcode: 'NW9 8TE', name: nil, page: '4')
-
-      expect(search.page_relative_to_api).to eq(1)
-    end
-
-    it 'returns page relative to 50 pages from api if equal than 50' do
-      search = described_class.new(postcode: 'NW9 8TE', name: nil, page: '5')
-
-      expect(search.page_relative_to_api).to eq(1)
-    end
-
-    it 'returns page relative to 50 pages from api if over than 50' do
-      search = described_class.new(postcode: 'NW9 8TE', name: nil, page: '9')
-
-      expect(search.page_relative_to_api).to eq(2)
-    end
-  end
-
   describe 'validation' do
     it 'is invalid if postcode entered is invalid' do
       search = described_class.new(postcode: 'NW6 8E', name: nil)

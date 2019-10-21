@@ -8,11 +8,7 @@ class JobVacanciesController < ApplicationController
       page: job_vacancies_params[:page]
     )
 
-    @job_vacancies = Kaminari.paginate_array(jobs).page(current_page)
-    @job_vacancy_pagination =
-      Kaminari
-      .paginate_array([], total_count: @job_vacancy_search.count)
-      .page(job_vacancies_params[:page])
+    @job_vacancies = job_vacancies
   end
 
   private
@@ -21,12 +17,15 @@ class JobVacanciesController < ApplicationController
     @postcode ||= job_vacancies_params[:postcode] || user_session.postcode
   end
 
-  def job_vacancies_params
-    params.permit(:postcode, :page)
+  def job_vacancies
+    Kaminari
+      .paginate_array(jobs, total_count: @job_vacancy_search.count)
+      .page(job_vacancies_params[:page])
+      .per(50)
   end
 
-  def current_page
-    helpers.map_current_page_from(job_vacancies_params[:page])
+  def job_vacancies_params
+    params.permit(:postcode, :page)
   end
 
   def jobs
