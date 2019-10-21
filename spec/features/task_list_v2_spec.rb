@@ -1,3 +1,5 @@
+# TODO: This file will be promoted as the official one, once the action_plan feature is promoted. The old one task_list_spec.rb will be removed, and this one renamed to task_list_spec.rb
+
 require 'rails_helper'
 
 RSpec.feature 'Tasks List V2', type: :feature do
