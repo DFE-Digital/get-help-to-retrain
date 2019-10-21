@@ -35,6 +35,10 @@ class UserSession
     session[:target_job_id] = value
   end
 
+  def target_job?
+    session[:target_job_id].present?
+  end
+
   def registered?
     session[:registered]
   end

@@ -161,6 +161,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#target_job?' do
+    it 'returns true if the session already contains target_job_id' do
+      user_session.target_job_id = 1
+
+      expect(user_session.target_job?).to be true
+    end
+
+    it 'returns false if the session already contains target_job_id' do
+      expect(user_session.target_job?).to be false
+    end
+  end
+
   describe '#job_profiles_cap_reached?' do
     let(:session) {
       create_fake_session(
