@@ -1,3 +1,5 @@
+# TODO: This file will be removed, once the action_plan feature is promoted.
+
 require 'rails_helper'
 
 RSpec.feature 'Tasks List', type: :feature do
