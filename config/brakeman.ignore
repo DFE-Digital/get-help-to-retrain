@@ -75,7 +75,7 @@
         {
           "type": "template",
           "name": "courses/index",
-          "line": 41,
+          "line": 43,
           "file": "app/views/courses/index.html.erb",
           "rendered": {
             "name": "courses/_course",
@@ -120,8 +120,38 @@
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
       "note": "This is a known false positive from brakeman. We trust our data."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "fac0e5ac35ed48cc22ccb7d506848bd6589458e07ed263582f7a9c4b79467794",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/job_vacancies/_job_vacancy.html.erb",
+      "line": 2,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, :class => \"govuk-link\", :target => \"_blank\", :data => ({ :tracked_event => (\"Jobs near me - Clicked '#{(Unresolved Model).new.title}'\"), :tracked_event_props => ({ :url => (Unresolved Model).new.url }) }))",
+      "render_path": [
+        {
+          "type": "template",
+          "name": "job_vacancies/index",
+          "line": 41,
+          "file": "app/views/job_vacancies/index.html.erb",
+          "rendered": {
+            "name": "job_vacancies/_job_vacancy",
+            "file": "app/views/job_vacancies/_job_vacancy.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "job_vacancies/_job_vacancy"
+      },
+      "user_input": "(Unresolved Model).new.url",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2019-09-25 17:21:13 +0100",
+  "updated": "2019-10-21 12:13:20 +0100",
   "brakeman_version": "4.5.1"
 }
