@@ -2,6 +2,7 @@ en-GB:
   breadcrumb:
     home: Home
     action_plan: Action plan
+    jobs_near_me: Jobs near me
     task_list: Get help to retrain
     task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
@@ -30,8 +31,6 @@ en-GB:
   page_titles:
     default: Get help to retrain
     home_index: Get help to retrain - Home
-    pages_action_plan: Get help to retrain - Action plan
-    pages_task_list: Get help to retrain - Tasks
     check_your_skills_index: Get help to retrain - Check your skills
     check_your_skills_results: Get help to retrain - Check your skills results
     skills_index: Get help to retrain - Your skills
@@ -39,6 +38,7 @@ en-GB:
     skills_matcher_index: Get help to retrain - Your job matches
     job_profiles_show: Get help to retrain - Job profile
     courses_index: Get help to retrain - Courses near me
+    pages_task_list: Get help to retrain - Tasks
     pages_next_steps: Get help to retrain - Further help
     pages_maths_overview: Get help to retrain - Benefits of maths
     pages_english_overview: Get help to retrain - Benefits of English
@@ -46,7 +46,9 @@ en-GB:
     pages_cookies_policy: Get help to retrain - Cookies policy
     pages_privacy_policy: Get help to retrain - Privacy policy
     pages_location_ineligible: Get help to retrain - No courses in your area
+    pages_action_plan: Get help to retrain - Action plan
     user_personal_data: Get help to retrain - Your information
+    jobs_near_me: Get help to retrain - Jobs near me
     errors_not_found: Get help to retrain - Not found
     errors_unprocessable_entity: Get help to retrain - Unprocessable entity
     errors_internal_server_error: Get help to retrain - Internal server error
