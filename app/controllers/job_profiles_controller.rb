@@ -1,7 +1,7 @@
 class JobProfilesController < ApplicationController
   def show
     @job_profile = JobProfileDecorator.new(resource)
-    @job_vacancy_count = job_vacancy_count if user_session.postcode.present?
+    @job_vacancy_count = job_vacancy_count
   end
 
   def target
@@ -37,10 +37,9 @@ class JobProfilesController < ApplicationController
   end
 
   def job_vacancy_count
-    FindAJobService.new.job_vacancy_count(
+    JobVacancySearch.new(
       name: resource.name,
-      postcode: user_session.postcode,
-      distance: 20
-    )
+      postcode: user_session.postcode
+    ).count
   end
 end

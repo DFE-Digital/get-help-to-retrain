@@ -12,18 +12,16 @@ class FindAJobService
     @api_key = api_key
   end
 
-  def job_vacancy_count(options)
-    return unless api_id && api_key
+  def job_vacancies(options)
+    return {} unless api_id && api_key
 
     uri = build_uri(path: 'search', options: options)
 
-    JSON
-      .parse(response_body(uri))
-      .dig('pager', 'total_entries')
+    JSON.parse(response_body(uri))
   rescue ResponseError => e
     Rails.logger.error("Find a Job Service API error: #{e.inspect}")
 
-    nil
+    {}
   end
 
   def health_check
@@ -55,7 +53,8 @@ class FindAJobService
       api_key: api_key,
       q: options[:name],
       w: outcode(options[:postcode]),
-      d: options[:distance]
+      d: options[:distance],
+      p: options[:page]
     }.reject { |_k, v| v.blank? }
   end
 
