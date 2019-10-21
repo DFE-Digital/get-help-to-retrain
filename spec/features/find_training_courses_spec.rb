@@ -141,6 +141,44 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(TrackingService).to have_received(:track_event).with('Courses near me - Postcode search', search: 'NW6 8ET')
   end
 
+  context 'with action plan feature enabled' do
+    background do
+      enable_feature! :action_plan
+    end
+
+    scenario 'Breadcrumb links back to action plan' do
+      visit(courses_path(topic_id: 'maths'))
+
+      expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Action plan')
+    end
+
+    scenario 'Further help to find work section is hidden' do
+      visit(courses_path(topic_id: 'maths'))
+
+      expect(page).not_to have_link('Get help changing jobs')
+    end
+  end
+
+  context 'with action plan feature disabled' do
+    background do
+      disable_feature! :action_plan
+    end
+
+    scenario 'Breadcrumb links back to training hub' do
+      visit(courses_path(topic_id: 'maths'))
+
+      expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Find training')
+    end
+
+    scenario 'Further help to find work section is shown' do
+      visit(courses_path(topic_id: 'maths'))
+
+      expect(page).to have_link('Get help changing jobs', href: next_steps_path)
+    end
+  end
+
+  private
+
   def capture_user_location(postcode)
     visit(your_information_path)
     fill_in('user_personal_data[first_name]', with: 'John')
