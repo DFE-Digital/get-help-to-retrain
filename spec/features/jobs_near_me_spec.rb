@@ -121,7 +121,9 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(page).to have_text(/Enter a postcode/)
   end
 
-  xscenario 'User gets relevant messaging if there is an API error' do
+  scenario 'User gets relevant messaging if there is an API error' do
+    # TODO: Render error page for Find a Job API error
+    pending
     user_targets_a_job
     fill_in('postcode', with: 'NW6 9ET')
     find('.search-button-results').click

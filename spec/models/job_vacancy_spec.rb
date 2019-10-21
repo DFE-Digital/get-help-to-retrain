@@ -26,9 +26,9 @@ RSpec.describe JobVacancy do
   end
 
   describe '#date_posted' do
-    it 'returns the posted date formatted from a parsed body' do
+    it 'returns the posted date from a parsed body' do
       body = { 'posted' => '2019-10-11T18:56:40' }
-      expect(described_class.new(body).date_posted).to eq('11 October 2019')
+      expect(described_class.new(body).date_posted).to eq('2019-10-11T18:56:40')
     end
 
     it 'returns nil if posted date is empty' do

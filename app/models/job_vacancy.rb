@@ -14,9 +14,7 @@ class JobVacancy
   end
 
   def date_posted
-    body['posted']
-      &.to_time
-      &.strftime('%d %B %Y')
+    body['posted'].presence
   end
 
   def company

@@ -8,6 +8,12 @@ class JobVacancyDecorator < SimpleDelegator
       .html_safe
   end
 
+  def formatted_date_posted
+    date_posted
+      &.to_time
+      &.strftime('%d %B %Y')
+  end
+
   private
 
   def formatted_company
