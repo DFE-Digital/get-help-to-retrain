@@ -132,7 +132,7 @@ RSpec.feature 'Tasks List V2', type: :feature do
     expect(page).to have_current_path(action_plan_path)
   end
 
-  scenario 'User sets a target job on the session, but then removes all skills -> Section 2 becomes locked again' do
+  scenario 'User sets a target job on the session, but then removes all skills -> Sections 2,3,4 become locked again' do
     ensure_target_job_on_session
 
     visit(task_list_path)
@@ -142,7 +142,9 @@ RSpec.feature 'Tasks List V2', type: :feature do
 
     visit(task_list_path)
 
-    expect(page).to have_css('span#section-2-blocked')
+    (2..4).each do |section_no|
+      expect(page).to have_css("span#section-#{section_no}-blocked")
+    end
   end
 
   scenario 'User unlocks survey section when one has a target job on the session' do
