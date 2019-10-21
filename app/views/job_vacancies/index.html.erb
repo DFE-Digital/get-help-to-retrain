@@ -1,0 +1,55 @@
+<% page_title :jobs_near_me %>
+
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.jobs_near_me'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.action_plan'), action_plan_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= target_job.name %> jobs near me</h1>
+    <p class="govuk-body">These <%= target_job.name.downcase %> jobs are being advertised within 20 miles of your postcode.</p>
+    <p class="govuk-body">These jobs are currently being advertised in the <%= link_to('Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link', target: '_blank', data: { tracked_event: "Jobs near me - Clicked 'Find a job'", tracked_event_props: { url: 'https://findajob.dwp.gov.uk/' } }) %> service from the Department for Work and Pensions. You may be able to find more jobs advertised elsewhere by checking other sources of information.</p>
+    <div class="govuk-grid-column-full govuk-!-padding-0">
+      <%= form_with model: @job_vacancy_search, local: true, url: jobs_near_me_path, method: 'get' do |form| %>
+        <%= form_group_tag @job_vacancy_search, :postcode do %>
+          <%= form.label :postcode, class: 'govuk-label' %>
+          <%= errors_tag @job_vacancy_search, :postcode %>
+          <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@job_vacancy_search, :postcode, "course-search-input govuk-input govuk-!-width-one-half")) %>
+          <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }) %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="govuk-grid-column-full govuk-!-padding-0">
+      <% if @job_vacancies.empty? %>
+        <p class="govuk-body-m">0 job vacancies found</p>
+        <p class="govuk-body-m">There aren't any job vacancies in your local area yet.</p>
+        <h2 class="govuk-heading-s">Try again using a different postcode.</h2>
+        <p class="govuk-body">You could try:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>double checking your postcode</li>
+          <li>using a different postcode</li>
+        </ul>
+      <% else %>
+        <ul class="govuk-list">
+          <%= render partial: 'job_vacancy', collection: @job_vacancies %>
+        </ul>
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
+          <%= paginate @job_vacancies %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render 'shared/contact_us' %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render 'shared/help_improve_this_service' %>
+  </div>
+</div>

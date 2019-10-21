@@ -1,0 +1,9 @@
+<li>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-2"><%= link_to job_vacancy.title, job_vacancy.url, class: 'govuk-link', target: '_blank', data: { tracked_event: "Jobs near me - Clicked '#{job_vacancy.title}'", tracked_event_props: { url: job_vacancy.url } } %></h2>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-0"><span class="govuk-visually-hidden">Date posted:</span><%= job_vacancy.formatted_date_posted %></h3>
+  <p class="govuk-body govuk-!-margin-bottom-0"><span class="govuk-visually-hidden">Company and location:</span><%= job_vacancy.company_and_location %></p>
+  <p class="govuk-body govuk-!-margin-bottom-1"><span class="govuk-visually-hidden">Salary:</span><b><%= job_vacancy.salary %></b></p>
+  <p class="govuk-body"><%= job_vacancy.description %></p>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
+</li>
+

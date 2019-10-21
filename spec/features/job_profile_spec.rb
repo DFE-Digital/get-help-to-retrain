@@ -74,8 +74,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see number of job vacancies near them' do
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 3)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_vacancy_search = instance_double(JobVacancySearch, count: 3)
+    allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -85,8 +85,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see singular job vacancy if only one near them' do
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 1)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_vacancy_search = instance_double(JobVacancySearch, count: 1)
+    allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -96,8 +96,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User can see no job vacancies near them if none are available' do
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_vacancy_search = instance_double(JobVacancySearch, count: 0)
+    allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -107,8 +107,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User does not see job vacancies if API is down' do
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: nil)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_vacancy_search = instance_double(JobVacancySearch, count: nil)
+    allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -118,8 +118,8 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User does not see job vacancies if no postcode supplied' do
-    find_a_job_service = instance_double(FindAJobService, job_vacancy_count: 0)
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    job_vacancy_search = instance_double(JobVacancySearch, count: nil)
+    allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))

@@ -34,7 +34,7 @@
 
     <div class="govuk-related-items action-plan-section">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you need to do next:</h2>
-      
+
       <%= link_to 'Edit your training plan', '#TODO', class: 'govuk-link action-plan-action' %>
       <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Find training</h3>
       <p class="govuk-body">Improve your chances of getting a job by completing training that employers value.</p>
@@ -117,7 +117,7 @@
           <h3 class="govuk-heading-s"><%= target_job.name %></h3>
         </div>
         <div class="govuk-grid-column-one-half">
-        <%= link_to 'Show jobs near me', 'https://findajob.dwp.gov.uk/', class: 'govuk-button govuk-button--secondary action-plan-action' %>
+        <%= link_to 'Show jobs near me', jobs_near_me_path, class: 'govuk-button govuk-button--secondary action-plan-action' %>
         </div>
       </div>
     </div>
