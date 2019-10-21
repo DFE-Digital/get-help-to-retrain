@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Jobs near me', type: :feature do
-  before do
+  background do
     enable_feature! :action_plan
   end
 

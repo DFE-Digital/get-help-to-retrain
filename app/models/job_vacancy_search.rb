@@ -2,6 +2,7 @@ class JobVacancySearch
   include ActiveModel::Validations
 
   attr_reader :postcode, :name, :page, :distance
+  # TODO: Amend with correct error message
   validates :postcode, presence: { message: I18n.t('courses.no_postcode_error') }
   validates :postcode, postcode: true, allow_blank: true
 
@@ -13,10 +14,10 @@ class JobVacancySearch
   end
 
   def jobs
-    return [] unless valid? && job_vacancies_response['jobs'].present?
+    return [] unless valid?
 
     job_vacancies_response
-      .dig('jobs')
+      .fetch('jobs', [])
       .map { |job| JobVacancy.new(job) }
   end
 
