@@ -5,6 +5,10 @@ end
 
 ruby File.read('.ruby-version').chomp
 
+# Auth0
+gem 'omniauth-auth0', '~> 2.2'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
+
 # Azure application insights (custom release)
 gem 'application_insights', github: 'microsoft/ApplicationInsights-Ruby', ref: 'a7429200'
 
