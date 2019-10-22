@@ -1,5 +1,7 @@
 module HealthCheck
   class FeaturesCheck < CheckBase
+    CACHE_EXPIRY = 55.seconds
+
     def name
       'api:split.io'
     end

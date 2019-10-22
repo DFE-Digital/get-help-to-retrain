@@ -1,5 +1,7 @@
 module HealthCheck
   class FindAJobCheck < CheckBase
+    CACHE_EXPIRY = 50.seconds
+
     def name
       'api:findajob.dwp.gov.uk'
     end

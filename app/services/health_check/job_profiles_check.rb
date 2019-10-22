@@ -1,5 +1,7 @@
 module HealthCheck
   class JobProfilesCheck < CheckBase
+    CACHE_EXPIRY = 45.seconds
+
     def name
       'database:jobProfiles'
     end

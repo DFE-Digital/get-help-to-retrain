@@ -1,5 +1,7 @@
 module HealthCheck
   class PostcodesCheck < CheckBase
+    CACHE_EXPIRY = 44.seconds
+
     def name
       'api:postcodes.io'
     end

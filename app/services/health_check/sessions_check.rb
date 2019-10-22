@@ -1,5 +1,7 @@
 module HealthCheck
   class SessionsCheck < CheckBase
+    CACHE_EXPIRY = 48.seconds
+
     def name
       'database:sessions'
     end
