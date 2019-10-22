@@ -1,5 +1,7 @@
 module HealthCheck
   class HostNameCheck < CheckBase
+    CACHE_EXPIRY = 57.seconds
+
     def name
       'hostname'
     end

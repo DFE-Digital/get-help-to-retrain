@@ -1,5 +1,7 @@
 module HealthCheck
   class NotifyCheck < CheckBase
+    CACHE_EXPIRY = 42.seconds
+
     def name
       'api:notifications.service.gov.uk'
     end
