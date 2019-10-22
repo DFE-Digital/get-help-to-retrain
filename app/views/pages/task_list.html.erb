@@ -13,8 +13,11 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-!-margin-bottom-9 govuk-body-l"><img src=<%= @auth0_user_info['info']['image']%> width='30px;'><%= @auth0_user_info['info']['name'] %> is now logged!</p>
-    <p class="govuk-!-margin-bottom-9 govuk-body-l"><%= @roles %></p>
-    <ol class="app-task-list">
+    <p class="govuk-body-l">ROLES:</p>
+    <% JSON.parse(@roles).each do |role| %>
+      <p class="govuk-body-s"><%= role['name'] %></p>
+    <% end %>
+    <ol class="app-task-list govuk-!-margin-top-5">
       <%= render 'pages/task_list_items/item_1' %>
       <%= render 'pages/task_list_items/item_2' %>
       <% if Flipflop.action_plan? %>

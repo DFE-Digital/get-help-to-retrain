@@ -28,9 +28,23 @@ class PagesController < ApplicationController
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     request = Net::HTTP::Get.new(url)
-    token = ENV['AUTH0_TEMP_TOKEN']
+    token = request_access_token['access_token']
     request["authorization"] = "Bearer #{token}"
     response = http.request(request)
     response.read_body
+  end
+
+  def request_access_token
+    url = URI("https://hidden-hill-8351.eu.auth0.com/oauth/token")
+
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(url)
+    request["content-type"] = 'application/x-www-form-urlencoded'
+    request.body = "grant_type=client_credentials&client_id=#{ENV['AUTH0_CLIENT_ID']}&client_secret=#{ENV['AUTH0_CLIENT_SECRET']}&audience=#{URI.encode('https://hidden-hill-8351.eu.auth0.com/api/v2/')}"
+    response = http.request(request)
+    JSON.parse(response.read_body)
   end
 end
