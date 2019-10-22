@@ -4,7 +4,7 @@
     <thead class="govuk-table__head">
       <tr class="govuk-table__row">
         <th class="govuk-table__header govuk-section-break__xl govuk-!-padding-0" scope="col">
-          <p class="govuk-body govuk-!-margin-bottom-2">You gained these skills from working as a <%= job_profile_hash[:name] %></p>
+          <p class="govuk-body-l govuk-!-margin-bottom-2">You gained these skills from working as a <%= job_profile_hash[:name] %></p>
           <span class='edit-skills govuk-!-margin-bottom-2'>
             <%= link_to('edit these skills', job_profile_skills_path(job_profile_id: job_profile_hash[:profile_slug], search: params[:search]), class:'govuk-link govuk-body') %>
           </span>
