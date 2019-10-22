@@ -30,18 +30,12 @@ jobs:
                 overrideParameters: '-containerImageReference "${{parameters.containerImageReference}}" -supportEmailAddresses ${{parameters.supportEmailAddresses}}'
                 deploymentOutputs: DeploymentOutput
 
-            - task: RasmusWatjen.ARMOutputParserExtension.ARMOutputConverter.ARMOutputParserExtension@1
-              displayName: 'Parse ARM Deployment Outputs into variables'
-              inputs:
-                armOutput: $(DeploymentOutput)
-                variablePrefix: arm_
-
             - task: AzureAppServiceManage@0
               displayName: 'Start Azure App Service: ${{parameters.environment}}'
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Start Azure App Service'
-                WebAppName: $(arm_appServiceName)
+                WebAppName: '${{parameters.resourceGroupName}}-as'
                 SpecifySlotOrASE: true
                 resourceGroupName: '${{parameters.resourceGroupName}}'
                 Slot: staging
@@ -50,7 +44,7 @@ jobs:
               displayName: 'Swap Slots: ${{parameters.environment}}'
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
-                WebAppName: $(arm_appServiceName)
+                WebAppName: '${{parameters.resourceGroupName}}-as'
                 resourceGroupName: '${{parameters.resourceGroupName}}'
                 SourceSlot: staging
 
@@ -59,7 +53,7 @@ jobs:
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Stop Azure App Service'
-                WebAppName: $(arm_appServiceName)
+                WebAppName: '${{parameters.resourceGroupName}}-as'
                 SpecifySlotOrASE: true
                 resourceGroupName: '${{parameters.resourceGroupName}}'
                 Slot: staging
