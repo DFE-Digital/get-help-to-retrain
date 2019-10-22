@@ -58,6 +58,9 @@ Rails.application.routes.draw do
 
   get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
 
+  get 'auth/auth0/callback', to: 'auth0#callback'
+  get 'auth/failure', to: 'auth0#failure'
+
   root to: 'home#index'
 end
 # rubocop:enable Metrics/BlockLength
