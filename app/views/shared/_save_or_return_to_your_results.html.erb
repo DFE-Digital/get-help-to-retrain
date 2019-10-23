@@ -1,5 +1,6 @@
 <% if user_session.job_profile_skills? %>
   <%= render 'shared/save_your_results'  %>
 <% else %>
+  <% return unless user_not_authenticated? %>
   <%= render 'shared/return_to_saved_results' %>
 <% end %>

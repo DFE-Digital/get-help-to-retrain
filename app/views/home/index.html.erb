@@ -21,6 +21,10 @@
     <p class="govuk-body-s muted-text"><%= t('contact_us.telephone_times') %></p>
   </div>
   <div class="govuk-grid-column-one-third">
-    <%= render 'shared/save_or_return_to_your_results' %>
+    <% if cookies['_get_help_to_retrain_session'].blank? %>
+      <%= render 'shared/return_to_saved_results' %>
+    <% else %>
+      <%= render 'shared/save_or_return_to_your_results' %>
+    <% end %>
   </div>
 </div>
