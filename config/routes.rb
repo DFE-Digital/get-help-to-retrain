@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
 
-  resources :courses, path: 'courses/:topic_id', only: %i[index], constraints: { topic_id: /maths|english/ }
+  match 'courses/:topic_id', to: 'courses#index', as: :courses, via: [:get, :post], constraints: { topic_id: /maths|english/ }
 
   resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
     get :results, on: :collection
