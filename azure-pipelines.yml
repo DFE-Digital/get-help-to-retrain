@@ -220,6 +220,7 @@ stages:
         displayName: Checkout and install test suite
 
       - task: CmdLine@2
+        continueOnError: 'true'
         displayName: Run smoke tests
         inputs:
           script: 'docker run  -v $(Pipeline.Workspace)/s/get-help-to-retrain-smoke-tests:/e2e -w /e2e cypress/included:3.4.1  --spec "cypress/integration/smoke-test.js" --reporter junit'
