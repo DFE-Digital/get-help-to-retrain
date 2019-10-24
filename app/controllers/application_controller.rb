@@ -7,6 +7,18 @@ class ApplicationController < ActionController::Base
     @user_session ||= UserSession.new(session)
   end
 
+  def save_in_session(auth_hash)
+    # Save the token info
+    session[:graph_token_hash] = auth_hash.dig(:credentials)
+    # Save the user's display name
+    session[:user_name] = auth_hash.dig(:extra, :raw_info, :displayName)
+    # Save the user's email address
+    # Use the mail field first. If that's empty, fall back on
+    # userPrincipalName
+    session[:user_email] = auth_hash.dig(:extra, :raw_info, :mail) ||
+                           auth_hash.dig(:extra, :raw_info, :userPrincipalName)
+  end
+
   # The authenticate method comes from the passwordless gem (note this refers to Passwordless::Session)
   def current_user
     @current_user ||= authenticate_by_session(User)

@@ -13,7 +13,10 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-!-margin-bottom-9 govuk-body-l">
-      Here's what you need to do to retrain for another job.
+      Welcome <%= session[:user_email] %> from Azure!
+    </p>
+    <p class="govuk-!-margin-bottom-9 govuk-body-l">
+      ROLES: <%= @roles %>
     </p>
     <ol class="app-task-list">
       <%= render 'pages/task_list_items/item_1' %>
