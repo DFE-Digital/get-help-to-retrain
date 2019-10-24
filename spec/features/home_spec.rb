@@ -58,4 +58,10 @@ RSpec.feature 'Navigation from home page' do
 
     expect(page).to have_text('Privacy policy')
   end
+
+  scenario 'Sessions not created when user has no previous session' do
+    visit(root_path)
+
+    expect(Session.count).to be_zero
+  end
 end
