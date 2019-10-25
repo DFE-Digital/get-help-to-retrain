@@ -96,7 +96,7 @@ RSpec.feature 'User registration' do
     register_user
     click_on('send it again')
 
-    expect(page).to have_current_path(email_sent_again_path(email: 'test@test.test'))
+    expect(page).to have_current_path(email_sent_again_path)
   end
 
   scenario 'User resends email and can see their email on email sent again page' do

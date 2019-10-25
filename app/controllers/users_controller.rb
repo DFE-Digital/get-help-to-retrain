@@ -4,10 +4,6 @@ class UsersController < ApplicationController
     set_redirect_path_for_registration
   end
 
-  def return_to_saved_results
-    @user = User.new
-  end
-
   def create
     register_with(partial: :registration_results_saved)
   end
@@ -16,12 +12,16 @@ class UsersController < ApplicationController
     register_with(partial: :registration_email_sent_again)
   end
 
+  def return_to_saved_results
+    @user = User.new
+  end
+
   def sign_in
-    sign_in_with(path: link_sent_path(email: user.email))
+    sign_in_with(partial: :sign_in_link_sent)
   end
 
   def sign_in_send_email_again
-    sign_in_with(partial: :sign_in_email_sent_again)
+    sign_in_with(partial: :sign_in_link_sent_again)
   end
 
   private
@@ -53,16 +53,16 @@ class UsersController < ApplicationController
     @url_parser ||= UrlParser.new(request.referer, request.host)
   end
 
-  def sign_in_with(path: nil, partial: nil)
+  def sign_in_with(partial:)
     if user.valid?
       sign_in_user unless user.new_record?
-      path ? redirect_to(path) : render(partial)
+      render(partial)
     else
       render(:return_to_saved_results)
     end
   rescue NotifyService::NotifyAPIError
     # TODO: show user an error page, for now render link sent page
-    path ? redirect_to(path) : render(partial)
+    render(partial)
   end
 
   def register_with(partial:)
