@@ -10,7 +10,7 @@ RSpec.describe 'routes for Users', type: :routing do
   end
 
   it 'successfully routes to users#sign_in' do
-    expect(post(sign_in_path)).to route_to('users#sign_in')
+    expect(post(return_to_saved_results_path)).to route_to('users#sign_in')
   end
 
   it 'successfully routes to passwordless/sessions#show' do

@@ -48,14 +48,15 @@ Rails.application.routes.draw do
   resources :user_personal_data, only: %i[index create]
 
   get 'save-your-results', to: 'users#new'
-  get 'return-to-saved-results', to: 'users#return_to_saved_results'
-  get 'link-expired', to: 'users#link_expired'
   post 'save-your-results', to: 'users#create'
-  post 'sign-in', to: 'users#sign_in'
   post 'email-sent-again', to: 'users#registration_send_email_again'
+
+  get 'return-to-saved-results', to: 'users#return_to_saved_results'
+  post 'return-to-saved-results', to: 'users#sign_in'
   get 'link-sent', to: 'users#show'
   post 'link-sent-again', to: 'users#sign_in_send_email_again'
 
+  get 'link-expired', to: 'users#link_expired'
   get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
 
   root to: 'home#index'
