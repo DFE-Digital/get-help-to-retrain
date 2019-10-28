@@ -11,7 +11,7 @@ module HealthCheck
         status: status,
         version: Rails.configuration.git_commit,
         details: details,
-        description: 'Get help to retrain service health check'
+        description: 'No train, no gain service health check'
       }
     end
 

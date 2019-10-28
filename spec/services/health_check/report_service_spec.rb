@@ -24,7 +24,7 @@ RSpec.describe HealthCheck::ReportService do
     end
 
     it 'includes description' do
-      expect(report[:description]).to eq 'Get help to retrain service health check'
+      expect(report[:description]).to eq 'No train, no gain service health check'
     end
   end
 

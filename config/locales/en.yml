@@ -3,8 +3,8 @@ en-GB:
     home: Home
     action_plan: Action plan
     jobs_near_me: Jobs near me
-    task_list: Get help to retrain
-    task_list_home: 'Home: Get help to retrain'
+    task_list: No train, no gain
+    task_list_home: 'Home: No train, no gain'
     check_your_skills: Check your existing skills
     job_matches: Your job matches
     next_steps: Further help
@@ -29,37 +29,37 @@ en-GB:
     privacy_policy: Privacy policy
 
   page_titles:
-    default: Get help to retrain
-    home_index: Get help to retrain - Home
-    check_your_skills_index: Get help to retrain - Check your skills
-    check_your_skills_results: Get help to retrain - Check your skills results
-    skills_index: Get help to retrain - Your skills
-    skills_current_job_skills: Get help to retrain - Current job skills
-    skills_matcher_index: Get help to retrain - Your job matches
-    job_profiles_show: Get help to retrain - Job profile
-    courses_index: Get help to retrain - Courses near me
-    pages_task_list: Get help to retrain - Tasks
-    pages_next_steps: Get help to retrain - Further help
-    pages_maths_overview: Get help to retrain - Benefits of maths
-    pages_english_overview: Get help to retrain - Benefits of English
-    pages_training_hub: Get help to retrain - Training Hub
-    pages_cookies_policy: Get help to retrain - Cookies policy
-    pages_privacy_policy: Get help to retrain - Privacy policy
-    pages_location_ineligible: Get help to retrain - No courses in your area
-    pages_action_plan: Get help to retrain - Action plan
-    user_personal_data: Get help to retrain - Your information
-    jobs_near_me: Get help to retrain - Jobs near me
-    errors_not_found: Get help to retrain - Not found
-    errors_unprocessable_entity: Get help to retrain - Unprocessable entity
-    errors_internal_server_error: Get help to retrain - Internal server error
-    errors_postcode_search_error: Get help to retrain - Postcode search error
-    save_your_results: Get help to retrain - Save your results
-    return_to_saved_results: Get help to retrain - Return to saved results
-    link_sent: Get help to retrain - Link sent
-    results_saved: Get help to retrain - Results saved
-    email_sent_again: Get help to retrain - Email sent again
-    link_sent_again: Get help to retrain - Link sent again
-    link_expired: Get help to retrain - Link expired
+    default: No train, no gain
+    home_index: No train, no gain - Home
+    check_your_skills_index: No train, no gain - Check your skills
+    check_your_skills_results: No train, no gain - Check your skills results
+    skills_index: No train, no gain - Your skills
+    skills_current_job_skills: No train, no gain - Current job skills
+    skills_matcher_index: No train, no gain - Your job matches
+    job_profiles_show: No train, no gain - Job profile
+    courses_index: No train, no gain - Courses near me
+    pages_task_list: No train, no gain - Tasks
+    pages_next_steps: No train, no gain - Further help
+    pages_maths_overview: No train, no gain - Benefits of maths
+    pages_english_overview: No train, no gain - Benefits of English
+    pages_training_hub: No train, no gain - Training Hub
+    pages_cookies_policy: No train, no gain - Cookies policy
+    pages_privacy_policy: No train, no gain - Privacy policy
+    pages_location_ineligible: No train, no gain - No courses in your area
+    pages_action_plan: No train, no gain - Action plan
+    user_personal_data: No train, no gain - Your information
+    jobs_near_me: No train, no gain - Jobs near me
+    errors_not_found: No train, no gain - Not found
+    errors_unprocessable_entity: No train, no gain - Unprocessable entity
+    errors_internal_server_error: No train, no gain - Internal server error
+    errors_postcode_search_error: No train, no gain - Postcode search error
+    save_your_results: No train, no gain - Save your results
+    return_to_saved_results: No train, no gain - Return to saved results
+    link_sent: No train, no gain - Link sent
+    results_saved: No train, no gain - Results saved
+    email_sent_again: No train, no gain - Email sent again
+    link_sent_again: No train, no gain - Link sent again
+    link_expired: No train, no gain - Link expired
 
   events:
     pages_location_eligibility_search: Your location - Postcode search
@@ -99,14 +99,14 @@ en-GB:
       title: Types of jobs that match your skills
   home:
     index:
-      title: Get help to retrain
+      title: No train, no gain
   skills:
     invalid_skills_selected_error: Select at least one skill
   pages:
     action_plan:
       title: Your personal action plan
     task_list:
-      title: Get help to retrain
+      title: No train, no gain
     next_steps:
       title: Get help changing jobs
     maths_overview:
@@ -114,7 +114,7 @@ en-GB:
     english_overview:
       title: Benefits of doing an English course
     location_ineligible:
-      title: The full Get help to retrain service isn't available in your area yet
+      title: The full No train, no gain service isn't available in your area yet
     cookies_policy:
       title: Cookies
     privacy_policy:
@@ -156,7 +156,7 @@ en-GB:
     truncate: ...
 
   flipflop:
-    title: Get help to retrain features
+    title: No train, no gain features
     feature: Feature
     clear: clear
     description: Description

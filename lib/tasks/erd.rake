@@ -5,13 +5,13 @@ task erd: :environment do
   restricted_models = RestrictedActiveRecordBase.descendants + [Passwordless::Session]
 
   primary_options = {
-    title: 'Get help to retrain primary data model',
+    title: 'No train, no gain primary data model',
     filename: 'primary_erd',
     only: primary_models.map(&:name)
   }
 
   restricted_options = {
-    title: 'Get help to retrain restricted data model',
+    title: 'No train, no gain restricted data model',
     filename: 'restricted_erd',
     only: restricted_models.map(&:name)
   }

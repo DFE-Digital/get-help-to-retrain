@@ -1,7 +1,7 @@
 if defined?(ActiveAdmin)
   ActiveAdmin.setup do |config|
     # Title displayed in admin section
-    config.site_title = 'Get Help To Retrain Admin'
+    config.site_title = 'No train, no gain Admin'
 
     # Completely disable comments functionality
     config.comments = false
