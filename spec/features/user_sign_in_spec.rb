@@ -67,13 +67,13 @@ RSpec.feature 'User sign in' do
     register_user
     send_sign_in_email
 
-    expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
+    expect(page).to have_text('Link sent')
   end
 
   scenario 'User redirected to link sent page if email is valid and user does not exists' do
     send_sign_in_email
 
-    expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
+    expect(page).to have_text('Link sent')
   end
 
   scenario 'User can see their email on link page is user exists' do
@@ -94,7 +94,7 @@ RSpec.feature 'User sign in' do
     send_sign_in_email
     click_on('send it again')
 
-    expect(page).to have_current_path(link_sent_again_path(email: 'test@test.test'))
+    expect(page).to have_current_path(link_sent_again_path)
   end
 
   scenario 'User resends email and can see their email on email sent again page' do
@@ -271,7 +271,7 @@ RSpec.feature 'User sign in' do
 
     click_on('Send link')
 
-    expect(page).to have_current_path(link_sent_path(email: 'hello@test.com'))
+    expect(page).to have_text('Link sent')
   end
 
   scenario 'User does not get error message if they enter their same email but different case' do
@@ -281,7 +281,7 @@ RSpec.feature 'User sign in' do
     page.driver.header('User-Agent', 'some-agent')
     click_on('Send link')
 
-    expect(page).to have_current_path(link_sent_path(email: 'test@test.test'))
+    expect(page).to have_text('Link sent')
   end
 
   scenario 'User receives sign in email if they enter their same email but different case' do

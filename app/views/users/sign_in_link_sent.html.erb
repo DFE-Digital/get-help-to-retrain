@@ -15,7 +15,10 @@
     <h3 class="govuk-heading-m"><%= params[:email] %></h3>
     <p class="govuk-body">This email contains a link that will take you back to your saved information.</p>
     <p class="govuk-body">The link expires after one hour.</p>
-    <p class="govuk-body">If you haven't received this email you can <%= link_to 'send it again', link_sent_again_path(email: params[:email]), method: :post, class: 'govuk-link' %>.</p>
+    <%= form_with local: true, url: link_sent_again_path do |form| %>
+      <%= hidden_field_tag('email', @user.email) %>
+      <p class="govuk-body">If you haven't received this email you can <%= submit_tag('send it again', class: 'unbutton govuk-body govuk-link') %>.</p>
+    <% end %>
     <p class="govuk-body">You'll only be able to return to your results if you have previously saved results in this service. If you haven't previously done this, you won't receive an email.</p>
   </div>
   <div class="govuk-grid-column-one-third">

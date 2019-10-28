@@ -6,8 +6,12 @@ RSpec.describe 'routes for job vacancies', type: :routing do
       enable_feature! :action_plan
     end
 
-    it 'successfully routes to job_vacancies#index' do
+    it 'successfully routes to get job_vacancies#index' do
       expect(get('/jobs-near-me')).to route_to(controller: 'job_vacancies', action: 'index')
+    end
+
+    it 'successfully routes to post job_vacancies#index' do
+      expect(post('/jobs-near-me')).to route_to(controller: 'job_vacancies', action: 'index')
     end
   end
 
@@ -16,8 +20,12 @@ RSpec.describe 'routes for job vacancies', type: :routing do
       disable_feature! :action_plan
     end
 
-    it 'does not root to job_vacancies#index' do
+    it 'does not root to get job_vacancies#index' do
       expect(get('/jobs-near-me')).not_to be_routable
+    end
+
+    it 'does not root to post job_vacancies#index' do
+      expect(post('/jobs-near-me')).not_to be_routable
     end
   end
 end

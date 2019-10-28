@@ -140,11 +140,11 @@ en-GB:
       title: Save your results
     registration_results_saved:
       title: Your results have been saved
-    show:
+    sign_in_link_sent:
       title: Link sent
     registration_email_sent_again:
       title: Email sent again
-    sign_in_email_sent_again:
+    sign_in_link_sent_again:
       title: Link sent again
   return_to_saved_results:
     title: Return to saved results

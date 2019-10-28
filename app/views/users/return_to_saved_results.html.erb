@@ -14,7 +14,7 @@
     <h1 class="govuk-heading-xl"><%= t('return_to_saved_results.title') %></h1>
     <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
     <p class="govuk-body">The link expires after one hour.</p>
-    <%= form_with model: @user, local: true, url: sign_in_path do |form| %>
+    <%= form_with model: @user, local: true, url: return_to_saved_results_path do |form| %>
       <%= form_group_tag @user, :email do %>
         <%= form.label :email, class: 'govuk-label' %>
         <%= errors_tag @user, :email %>
