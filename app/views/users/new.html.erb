@@ -20,7 +20,7 @@
         <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds")) %>
       <% end %>
       <p class="govuk-body">We'll send you a confirmation email to this email address.</p>
-      <%= button_tag('Save your results', class: 'govuk-button') %>
+      <%= button_tag('Save your results', class: 'govuk-button', data: { module: 'govuk-button' }) %>
     <% end %>
   </div>
   <div class="govuk-grid-column-one-third">
