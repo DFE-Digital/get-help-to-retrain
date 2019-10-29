@@ -20,11 +20,11 @@
     <%= render 'shared/training_hub/english' %>
     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">On-the-job training</h2>
     <p class="govuk-body-m govuk-!-margin-bottom-1">Gain skills and experience while continuing to earn. There's no age limit and different levels of study are available. This means on-the-job-training is suitable for experienced older workers wanting to stay in work as they learn.</p>
-    <%= link_to('Find an opportunity', 'https://www.gov.uk/apprenticeships-guide', class: 'govuk-button govuk-!-margin-top-5 govuk-button govuk-!-margin-bottom-2', target: '_blank', data: { tracked_event: "Training hub - Clicked 'Find an opportunity': https://www.gov.uk/apprenticeships-guide" }) %>
+    <%= link_to('Find an opportunity', 'https://www.gov.uk/apprenticeships-guide', class: 'govuk-button govuk-!-margin-top-5 govuk-button govuk-!-margin-bottom-2', target: '_blank', data: { tracked_event: "Training hub - Clicked 'Find an opportunity': https://www.gov.uk/apprenticeships-guide", module: 'govuk-button' }) %>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <h2 class="govuk-heading-m govuk-!-margin-bottom-1">More help to change jobs</h2>
     <p class="govuk-body-m govuk-!-margin-bottom-1">Get support to find and apply for jobs, or find other ways to move into a new role.</p>
-    <%= link_to('Other ways to change jobs', next_steps_path, class: 'govuk-button govuk-!-margin-top-5 govuk-button govuk-!-margin-bottom-2') %>
+    <%= link_to('Other ways to change jobs', next_steps_path, class: 'govuk-button govuk-!-margin-top-5 govuk-button govuk-!-margin-bottom-2', data: { module: 'govuk-button' }) %>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   </div>
   <div class="govuk-grid-column-one-third">
