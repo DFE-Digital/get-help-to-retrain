@@ -5,6 +5,9 @@ end
 
 ruby File.read('.ruby-version').chomp
 
+# gem 'ddtrace', path: './dd-trace-rb'
+gem 'ddtrace'
+
 # Azure application insights (custom release)
 gem 'application_insights', github: 'microsoft/ApplicationInsights-Ruby', ref: 'a7429200'
 
