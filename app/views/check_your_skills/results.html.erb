@@ -15,7 +15,7 @@
     <% if @job_profiles.blank? %>
       <%= render '/shared/search/no_results' %>
     <% else %>
-      <h3 class="govuk-heading-xl govuk-!-margin-bottom-7"><%= t('.title') %></h3>
+      <h1 class="govuk-heading-xl govuk-!-margin-bottom-7"><%= t('.title') %></h1>
       <%= render "shared/search/results_form", search_path: results_check_your_skills_path, scope: 'check_your_skills.results' %>
       <p class="govuk-body-l govuk-!-margin-bottom-2"><%= t('.body') %></p>
       <%= render "results_list", job_profiles: @job_profiles %>
