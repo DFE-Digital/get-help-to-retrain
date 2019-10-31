@@ -14,7 +14,7 @@ class JobProfilesController < ApplicationController
     user_session.remove_job_profile(resource.id)
 
     redirect_to(
-      skills_path(query_params), notice: t('.notice', name: job_profile.name.downcase)
+      skills_path(query_params), notice: t('.notice', name: resource.name.downcase)
     )
   end
 
@@ -41,9 +41,5 @@ class JobProfilesController < ApplicationController
       name: resource.name,
       postcode: user_session.postcode
     ).count
-  end
-
-  def job_profile
-    JobProfile.find_by(slug: params[:id])
   end
 end
