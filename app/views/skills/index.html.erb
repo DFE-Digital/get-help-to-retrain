@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <h1 class="govuk-heading-xl">Your skills</h1>
       <% if flash[:notice].present? %>
-        <div role="alert" class="alert-info" aria-live="polite"><%= flash[:notice] %></div>
+        <div role="region" class="alert-info" aria-live="polite"><%= flash[:notice] %></div>
       <% end %>
       <% if @job_profiles_with_skills.any? %>
         <%= render 'skills/job_profiles_with_skills', job_profiles_with_skills: @job_profiles_with_skills %>
