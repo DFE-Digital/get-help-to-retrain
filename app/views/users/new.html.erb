@@ -17,7 +17,7 @@
       <%= form_group_tag @user, :email do %>
         <%= form.label :email, class: 'govuk-label' %>
         <%= errors_tag @user, :email %>
-        <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds")) %>
+        <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds"), autocomplete: 'email') %>
       <% end %>
       <p class="govuk-body">We'll send you a confirmation email to this email address.</p>
       <%= button_tag('Save your results', class: 'govuk-button', data: { module: 'govuk-button' }) %>
