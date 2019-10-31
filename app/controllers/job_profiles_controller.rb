@@ -14,7 +14,7 @@ class JobProfilesController < ApplicationController
     user_session.remove_job_profile(resource.id)
 
     redirect_to(
-      skills_path(query_params), flash: { notice: "The #{job_profile.name.downcase} role has been removed." }
+      skills_path(query_params), notice: t('.notice', name: job_profile.name.downcase)
     )
   end
 

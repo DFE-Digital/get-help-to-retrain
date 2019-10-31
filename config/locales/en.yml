@@ -190,3 +190,7 @@ en-GB:
               blank: Enter a postcode
             dob:
               invalid: Enter a valid date of birth
+
+  job_profiles:
+    destroy:
+      notice: The %{name} role has been removed.
