@@ -95,6 +95,7 @@
    }
 
   &:focus {
+    @include govuk-focused-text;
     color: govuk-colour("black");
   }
 }

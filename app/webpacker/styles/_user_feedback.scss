@@ -31,7 +31,7 @@
   color: govuk-colour("white");
 
   &:focus {
-    color: $govuk-focus-text-colour;
+    @include govuk-focused-text;
   }
 }
 

@@ -22,7 +22,7 @@
           <%= form.label :postcode, class: 'govuk-label' %>
           <%= errors_tag @job_vacancy_search, :postcode %>
           <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@job_vacancy_search, :postcode, "course-search-input govuk-input govuk-!-width-one-half")) %>
-          <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }) %>
+          <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }, data: { module: 'govuk-button' }) %>
         <% end %>
       <% end %>
     </div>
