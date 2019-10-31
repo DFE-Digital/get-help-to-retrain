@@ -16,53 +16,63 @@
   <% end %>
   <div class="govuk-form-group">
     <%= form_group_tag @user_personal_data, :dob do %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
-        Date of birth
-      </h3>
-      <span id="passport-issued-hint" class="govuk-hint">
-        For example, 12 11 1980
-      </span>
-      <%= errors_tag @user_personal_data, :dob %>
-      <div class="govuk-date-input">
-        <div class="govuk-date-input__item">
-          <div class="govuk-form-group">
-            <%= f.label :birth_day, 'Day', class: 'govuk-label' %>
-            <%= f.number_field :birth_day, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+      <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group', aria: { describedby: 'date-of-birth-hint' } do %>
+        <legend class='govuk-fieldset__legend govuk-fieldset__legend--xl'>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Date of birth
+          </h3>
+        </legend>
+        <span id="date-of-birth-hint" class="govuk-hint">
+          For example, 12 11 1980
+        </span>
+        <%= errors_tag @user_personal_data, :dob %>
+        <div class="govuk-date-input">
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <%= f.label :birth_day, 'Day', class: 'govuk-label' %>
+              <%= f.number_field :birth_day, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+            </div>
+          </div>
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <%= f.label :birth_month, 'Month', class: 'govuk-label' %>
+              <%= f.number_field :birth_month, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
+            </div>
+          </div>
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <%= f.label :birth_year, 'Year', class: 'govuk-label' %>
+              <%= f.number_field :birth_year, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
+            </div>
           </div>
         </div>
-        <div class="govuk-date-input__item">
-          <div class="govuk-form-group">
-            <%= f.label :birth_month, 'Month', class: 'govuk-label' %>
-            <%= f.number_field :birth_month, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
-          </div>
-        </div>
-        <div class="govuk-date-input__item">
-          <div class="govuk-form-group">
-            <%= f.label :birth_year, 'Year', class: 'govuk-label' %>
-            <%= f.number_field :birth_year, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
-          </div>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
   <div class="govuk-radios">
     <%= form_group_tag @user_personal_data, :gender do %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">
-        Gender
-      </h3>
-      <%= errors_tag @user_personal_data, :gender %>
-      <div class="govuk-radios__item">
-        <%= f.radio_button :gender, :female, class: 'govuk-radios__input', data: { cy: 'pid-gender-female-radio-btn' } %>
-        <%= f.label :gender_female, 'Female', class: 'govuk-label govuk-radios__label' %>
-      </div>
-      <div class="govuk-radios__item">
-        <%= f.radio_button :gender, :male, class: 'govuk-radios__input', data: { cy: 'pid-gender-male-radio-btn' } %>
-        <%= f.label :gender_male, 'Male', class: 'govuk-label govuk-radios__label' %>
-      </div>
-      <div class="govuk-radios__item">
-        <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input', data: { cy: 'pid-gender-refuse-radio-btn' } %>
-        <%= f.label :gender_not_mentioned, 'Prefer not to say', class: 'govuk-label govuk-radios__label' %>
-      </div>
+      <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group' do %>
+        <legend class='govuk-fieldset__legend govuk-fieldset__legend--xl'>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+            Gender
+          </h3>
+        </legend>
+        <div class="govuk-radios">
+          <%= errors_tag @user_personal_data, :gender %>
+          <div class="govuk-radios__item">
+            <%= f.radio_button :gender, :female, class: 'govuk-radios__input', data: { cy: 'pid-gender-female-radio-btn' } %>
+            <%= f.label :gender_female, 'Female', class: 'govuk-label govuk-radios__label' %>
+          </div>
+          <div class="govuk-radios__item">
+            <%= f.radio_button :gender, :male, class: 'govuk-radios__input', data: { cy: 'pid-gender-male-radio-btn' } %>
+            <%= f.label :gender_male, 'Male', class: 'govuk-label govuk-radios__label' %>
+          </div>
+          <div class="govuk-radios__item">
+            <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input', data: { cy: 'pid-gender-refuse-radio-btn' } %>
+            <%= f.label :gender_not_mentioned, 'Prefer not to say', class: 'govuk-label govuk-radios__label' %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <p class="govuk-body govuk-!-margin-top-8">By continuing you agree to allow us to use your information as explained in our <%= link_to 'privacy policy', privacy_policy_path, class: 'govuk-link'  %>.</p>
