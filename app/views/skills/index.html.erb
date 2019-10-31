@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <h1 class="govuk-heading-xl">Your skills</h1>
       <% if flash[:notice].present? %>
-        <div role="region" class="banner-info" aria-live="polite">
+        <div role="alert" class="banner-info">
           <p class="banner-info-message"><%= flash[:notice] %></p>
         </div>
       <% end %>
