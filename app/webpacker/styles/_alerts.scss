@@ -6,8 +6,6 @@
 .banner-info-message {
   @include govuk-font($size: 19, $weight: bold);
 
-  padding-right: 15px;
-  padding-left: 15px;
-
+  margin: govuk-spacing(2);
   color: $govuk-link-colour;
 }
