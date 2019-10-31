@@ -6,9 +6,10 @@ class JobProfileImportService
     growth: 'Recent growth (% change to March 2018)'
   }.freeze
 
-  HIDDEN_TITLES_COLUMN_HEADINGS = {
+  ADDITIONAL_DATA_COLUMN_HEADINGS = {
     slug: 'UrlName',
-    hidden_titles: 'HiddenAlternativeTitle'
+    hidden_titles: 'HiddenAlternativeTitle',
+    specialism: 'JobProfileSpecialism'
   }.freeze
 
   def initialize
@@ -36,22 +37,24 @@ class JobProfileImportService
     }
   end
 
-  def import_hidden_titles(filename)
+  def import_additional_data(filename)
     file = Roo::Spreadsheet.open(filename)
     sheet = file.sheet('JobProfile')
 
-    sheet.each(HIDDEN_TITLES_COLUMN_HEADINGS) do |data|
-      next if data == HIDDEN_TITLES_COLUMN_HEADINGS
+    sheet.each(ADDITIONAL_DATA_COLUMN_HEADINGS) do |data|
+      next if data == ADDITIONAL_DATA_COLUMN_HEADINGS
 
       update_job_profile(data, :slug)
     end
   end
 
-  def import_hidden_titles_stats
+  def import_additional_data_stats
     {
       job_profiles_total: JobProfile.count,
       job_profiles_with_hidden_titles: JobProfile.where.not(hidden_titles: nil).count,
       job_profiles_missing_hidden_titles: JobProfile.where(hidden_titles: nil).count,
+      job_profiles_with_specialism: JobProfile.where.not(specialism: nil).count,
+      job_profiles_missing_specialism: JobProfile.where(specialism: nil).count,
       errors: @errors.count
     }
   end

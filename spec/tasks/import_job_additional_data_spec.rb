@@ -1,8 +1,8 @@
 require 'rails_helper'
 require 'support/tasks'
 
-RSpec.describe 'rake data_import:import_job_hidden_titles' do
-  let(:path) { Rails.root.join('spec', 'fixtures', 'files', 'job_profile_hidden_titles.xlsx').to_s }
+RSpec.describe 'rake data_import:import_job_additional_data' do
+  let(:path) { Rails.root.join('spec', 'fixtures', 'files', 'job_profile_additional_data.xlsx').to_s }
   let(:ceo) { JobProfile.find_by_slug('chief-executive') }
 
   before do
@@ -23,6 +23,6 @@ RSpec.describe 'rake data_import:import_job_hidden_titles' do
 
   it 'updates matching job profiles' do
     task.execute(filename: path)
-    expect(ceo).to have_attributes(hidden_titles: 'Boss man,Big cheese')
+    expect(ceo).to have_attributes(hidden_titles: 'Boss man,Big cheese', specialism: 'ufc,wrestler,wwe')
   end
 end
