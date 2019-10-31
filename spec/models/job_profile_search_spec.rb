@@ -70,6 +70,12 @@ RSpec.describe JobProfileSearch do
       expect(described_class.new(term: 'cook').search).to contain_exactly(job_profile)
     end
 
+    it 'returns a record if value is in specialism only' do
+      job_profile = create(:job_profile, name: 'Chef', specialism: 'Cook,kitchen manager')
+
+      expect(described_class.new(term: 'cook').search).to contain_exactly(job_profile)
+    end
+
     it 'returns a record if value is in hidden titles only' do
       job_profile = create(:job_profile, name: 'Chef', hidden_titles: 'Cook, Kitchen manager')
 
@@ -86,6 +92,7 @@ RSpec.describe JobProfileSearch do
       job_profiles = [
         create(:job_profile, name: 'Head Chef', description: nil),
         create(:job_profile, name: 'name', alternative_titles: 'Cook', description: nil),
+        create(:job_profile, name: 'name', specialism: 'foody', description: nil),
         create(:job_profile, name: 'name', hidden_titles: 'Pastry Chef', description: nil),
         create(:job_profile, name: 'name', description: 'Street food traders ')
       ]
@@ -127,7 +134,8 @@ RSpec.describe JobProfileSearch do
       cook = create(:job_profile, alternative_titles: 'Cook', name: 'name', description: nil)
       baker = create(:job_profile, hidden_titles: 'Pastry Chef', name: 'name', description: nil)
       head_chef = create(:job_profile, name: 'Head Chef', description: nil)
-      food_trader = create(:job_profile, description: 'Street food traders ', name: 'name')
+      foody = create(:job_profile, specialism: 'foody', name: 'name', description: nil)
+      food_trader = create(:job_profile, description: 'Street food traders ', name: 'Trader')
       kitchen_chef = create(:job_profile, name: 'Kitchen Chef', description: nil)
 
       job_profiles_in_order = [
@@ -135,6 +143,7 @@ RSpec.describe JobProfileSearch do
         kitchen_chef,
         cook,
         baker,
+        foody,
         food_trader
       ]
 
