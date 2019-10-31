@@ -14,7 +14,7 @@ class JobProfilesController < ApplicationController
     user_session.remove_job_profile(resource.id)
 
     redirect_to(
-      skills_path(query_params)
+      skills_path(query_params), flash: { notice: "The #{job_profile.name.downcase} role has been removed." }
     )
   end
 
@@ -41,5 +41,9 @@ class JobProfilesController < ApplicationController
       name: resource.name,
       postcode: user_session.postcode
     ).count
+  end
+
+  def job_profile
+    JobProfile.find_by(slug: params[:id])
   end
 end
