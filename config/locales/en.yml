@@ -130,8 +130,12 @@ en-GB:
     invalid_postcode_error: Enter a valid postcode
     nonexisting_postcode_error: Enter a real postcode
     no_postcode_error: Enter a postcode
+  job_vacancies:
+    index:
+      title: Jobs near me
   user_personal_data:
-    title: Your information
+    index:
+      title: Your information
   save_your_results:
     title: Save your results
     sub_title: If you like, you can save these results so you can come back to them later.
