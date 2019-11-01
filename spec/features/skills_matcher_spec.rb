@@ -59,7 +59,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     visit '/job-matches'
 
-    find('.underlined-text').click
+    find('.govuk-details__summary-text').click
 
     expect(page).to have_content(I18n.t(:growing, scope: :job_growth_explanation))
   end
