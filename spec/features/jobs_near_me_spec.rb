@@ -44,7 +44,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     fill_in_postcode
     user_targets_a_job
 
-    expect(page).to have_text('Admin assistant jobs near me')
+    expect(page).to have_text('Jobs near me')
   end
 
   scenario 'Users can find jobs near them with postcode' do
@@ -96,8 +96,21 @@ RSpec.feature 'Jobs near me', type: :feature do
   scenario 'User cannot see a list of jobs near them without postcode' do
     user_targets_a_job
 
-    # TODO: real content pending
-    expect(page).to have_text('0 job vacancies found')
+    expect(page).to have_text('0 jobs found')
+  end
+
+  scenario 'User can still explore DWP jobs portal without a postcode on the session' do
+    user_targets_a_job
+
+    expect(page).to have_link('Find a job', href: 'https://findajob.dwp.gov.uk/')
+  end
+
+  scenario 'User can still explore DWP jobs portal if no jobs are available nearby ones location' do
+    user_targets_a_job
+    fill_in('postcode', with: 'NW6 2JF')
+    find('.search-button-results').click
+
+    expect(page).to have_link('Find a job', href: 'https://findajob.dwp.gov.uk/')
   end
 
   scenario 'User gets relevant messaging on jobs near them without postcode' do
