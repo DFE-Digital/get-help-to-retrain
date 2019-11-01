@@ -13,7 +13,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <h1 class="govuk-heading-xl"><%= t('.title', name: target_job.name) %></h1>
     <p class="govuk-body">These <%= target_job.name.downcase %> jobs are being advertised within 20 miles of your postcode.</p>
     <p class="govuk-body">These jobs are currently being advertised in the <%= link_to('Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link', target: '_blank', data: { tracked_event: "Jobs near me - Clicked 'Find a job'", tracked_event_props: { url: 'https://findajob.dwp.gov.uk/' } }) %> service from the Department for Work and Pensions. You may be able to find more jobs advertised elsewhere by checking other sources of information.</p>
     <div class="govuk-grid-column-full govuk-!-padding-0">

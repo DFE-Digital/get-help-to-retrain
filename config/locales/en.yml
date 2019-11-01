@@ -132,7 +132,7 @@ en-GB:
     no_postcode_error: Enter a postcode
   job_vacancies:
     index:
-      title: Jobs near me
+      title: '%{name} jobs near me'
   user_personal_data:
     index:
       title: Your information
