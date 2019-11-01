@@ -79,6 +79,12 @@
         "description": "The container image to pull from the server. Should be in image:tag format."
       }
     },
+    "dockerComposeFile": {
+      "type": "string",
+      "metadata": {
+        "description": "The docker compose-file to use with multi-containers"
+      }
+    },
     "appInsightsJavaScriptEnabled": {
       "type": "bool",
       "defaultValue": true,
@@ -108,6 +114,18 @@
       "type": "string",
       "metadata": {
         "description:": "The secret_key_base for Rails"
+      }
+    },
+    "appServicePlanTier": {
+      "type": "string",
+      "allowedValues": [
+        "Basic",
+        "Standard",
+        "Premium"
+      ],
+      "defaultValue": "Standard",
+      "metadata": {
+        "description": "The tier to use when building the App Service Plan"
       }
     },
     "appServicePlanSize": {
@@ -215,7 +233,7 @@
     "domainDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-', parameters('domainDatabaseName'),'Psql')]",
     "restrictedDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-', parameters('restrictedDatabaseName'),'Psql')]",
     "actionGroupName": "[concat(variables('resourceNamePrefix'), '-ag')]",
-    "appServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]",
+    "appServiceRuntimeStack": "[concat('COMPOSE|', base64(replace(base64ToString(parameters('dockerComposeFile')),'__CONTAINER_REFERENCE__',parameters('containerImageReference'))))]",
     "warmupPingPath": "/status",
     "containerStartTimeLimit": "300"
   },
@@ -468,9 +486,12 @@
           "uri": "[concat(variables('deploymentUrlBase'), 'app-service-plan.json')]",
           "contentVersion": "1.0.0.0"
         },
-        "parameters": {
+          "parameters": {
           "appServicePlanName": {
             "value": "[variables('appServicePlanName')]"
+          },
+          "appServicePlanTier": {
+            "value": "[parameters('appServicePlanTier')]"
           },
           "appServicePlanSize": {
             "value": "[parameters('appServicePlanSize')]"
@@ -517,6 +538,10 @@
               {
                 "name": "WEBSITES_CONTAINER_START_TIME_LIMIT",
                 "value": "[variables('containerStartTimeLimit')]"
+              },
+              {
+                "name": "WEBSITES_WEB_CONTAINER_NAME",
+                "value": "web"
               },
               {
                 "name": "ENVIRONMENT_NAME",

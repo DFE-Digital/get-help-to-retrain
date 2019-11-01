@@ -18,6 +18,13 @@ jobs:
       runOnce:
         deploy:
           steps:
+            - pwsh: |
+                $DockerCompose = Get-Content -Path $(Pipeline.Workspace)\ARMTemplates\azure\docker-compose-azure.yml -Raw
+                $Bytes = [System.Text.Encoding]::ASCII.GetBytes($DockerCompose)
+                $EncodedText =[Convert]::ToBase64String($Bytes)
+                echo "##vso[task.setvariable variable=dockerCompose]$EncodedText"
+                $EncodedText
+
             - task: AzureResourceGroupDeployment@2
               displayName: 'Azure Deployment:Create Or Update Resource Group action on $(resourceEnvironmentName)-$(serviceName)'
               inputs:
@@ -27,7 +34,7 @@ jobs:
                 resourceGroupName: '${{parameters.resourceGroupName}}'
                 csmFile: '$(Pipeline.Workspace)\ARMTemplates\azure\template.json'
                 csmParametersFile: '$(Pipeline.Workspace)\ARMTemplates\azure\config\${{parameters.environment}}.parameters.json'
-                overrideParameters: '-containerImageReference "${{parameters.containerImageReference}}" -supportEmailAddresses ${{parameters.supportEmailAddresses}}'
+                overrideParameters: '-containerImageReference "${{parameters.containerImageReference}}" -dockerComposeFile "$(dockerCompose)"  -supportEmailAddresses ${{parameters.supportEmailAddresses}}'
                 deploymentOutputs: DeploymentOutput
 
             - task: AzureAppServiceManage@0
