@@ -14,7 +14,7 @@ class JobProfilesController < ApplicationController
     user_session.remove_job_profile(resource.id)
 
     redirect_to(
-      skills_path(query_params)
+      skills_path(query_params), notice: t('.notice', name: resource.name.downcase)
     )
   end
 

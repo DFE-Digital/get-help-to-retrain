@@ -13,11 +13,18 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <h1 class="govuk-heading-xl">Your skills</h1>
+      <% if flash[:notice].present? %>
+        <div role="alert" class="banner-info">
+          <p class="banner-info-message"><%= flash[:notice] %></p>
+        </div>
+      <% end %>
       <% if @job_profiles_with_skills.any? %>
         <%= render 'skills/job_profiles_with_skills', job_profiles_with_skills: @job_profiles_with_skills %>
       <% else %>
         <p class='govuk-body'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</p>
-        <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
+        <div class="govuk-!-margin-bottom-2">
+          <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
+        </div>
       <% end %>
     </div>
   </div>

@@ -375,6 +375,25 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).not_to have_text(job_profile.name)
   end
 
+  scenario 'user gets a flash alert with information about the removed role' do
+    assassin = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Assasin',
+      skills: [
+        create(:skill, name: 'Classic')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(job_profile_skills_path(job_profile_id: assassin.slug))
+    click_on('Select these skills')
+
+    all('a', text: 'remove this role')[0].click
+
+    expect(page).to have_text('The hitman role has been removed.')
+  end
+
   scenario 'user sees an error page if they remove their only job selected' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
