@@ -96,7 +96,9 @@ RSpec.feature 'Jobs near me', type: :feature do
   scenario 'User cannot see a list of jobs near them without postcode' do
     user_targets_a_job
 
-    expect(page).to have_text('0 jobs found')
+    ['0 jobs found', 'There are no job vacancies with this job title in your area on the Find a job service from the Department for Work and Pensions.'].each do |text|
+      expect(page).to have_text(text)
+    end
   end
 
   scenario 'User can still explore DWP jobs portal without a postcode on the session' do
