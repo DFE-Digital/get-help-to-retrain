@@ -3,10 +3,10 @@
 
 ## Prerequisites
 
-- Ruby 2.6.1
+- Ruby 2.6.5
 - PostgreSQL
-- NodeJS 8.11.x
-- Yarn 1.12.x
+- NodeJS 10.14.2
+- Yarn 1.16.x
 
 ## Setting up the app in development
 
@@ -15,14 +15,6 @@
 3. Run `bin/rails db:setup` to set up the database development and test schemas, and seed with test data
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
-
-## Whats included in this boilerplate?
-
-- Rails 5.2 with Webpacker
-- [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
-- [GOV.UK Lint](https://github.com/alphagov/govuk-lint)
-- RSpec
-- Dotenv (managing environment variables)
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
