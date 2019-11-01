@@ -54,8 +54,13 @@ RSpec.describe JobProfileImportService do
       expect(ceo).to have_attributes(hidden_titles: 'Boss man,Big cheese', specialism: 'ufc,wrestler,wwe')
     end
 
-    it 'ignores empty values when updating job profiles' do
-      acupuncturist = create(:job_profile, name: 'Acupuncturist', slug: 'acupuncturist')
+    it 'updates values when they have been removed from the spreadsheet' do
+      acupuncturist = create(
+        :job_profile,
+        name: 'Acupuncturist',
+        slug: 'acupuncturist',
+        specialism: ''
+      )
       importer.import_additional_data(additional_data_path)
 
       expect(acupuncturist.reload.specialism).to be_nil

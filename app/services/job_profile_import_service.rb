@@ -65,7 +65,7 @@ class JobProfileImportService
     value = data.delete(key).strip
     job_profile = JobProfile.find_by(key => value)
     if job_profile.present?
-      data = data.reject { |_k, v| v.blank? }
+      data.each { |k, v| data[k] = v.presence }
       job_profile.update(data)
     else
       print "Failed to find matching job profile for \"#{value}\""
