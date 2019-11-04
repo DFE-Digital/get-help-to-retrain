@@ -77,7 +77,7 @@ RSpec.feature 'Build your skills', type: :feature do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
 
-    expect(page).to have_selector('tbody tr', count: 3)
+    expect(page).to have_text('3 skills selected')
   end
 
   scenario 'User selects the skills for the first job profile and can see the current job title' do
@@ -130,7 +130,7 @@ RSpec.feature 'Build your skills', type: :feature do
     uncheck('Baldness', allow_label_click: true)
     click_on('Select these skills')
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'User can search for other job profiles' do
@@ -168,8 +168,6 @@ RSpec.feature 'Build your skills', type: :feature do
       :with_html_content,
       name: 'Classic-hitman',
       skills: [
-        create(:skill, name: 'Classic'),
-        create(:skill, name: 'James Bond like'),
         create(:skill, name: 'Martini lover')
       ]
     )
@@ -182,9 +180,7 @@ RSpec.feature 'Build your skills', type: :feature do
     click_on('Classic-hitman')
     click_on('Select these skills')
 
-    ['Classic-hitman', 'Classic', 'James Bond like', 'Martini lover', 'Hitman', 'Chameleon-like blend in tactics', 'License to kill', 'Baldness'].each do |title|
-      expect(page).to have_text(title)
-    end
+    expect(page).to have_text('1 skill selected')
   end
 
   scenario 'User jobs ordered correctly on skills page' do

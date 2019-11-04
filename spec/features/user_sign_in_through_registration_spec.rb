@@ -45,7 +45,7 @@ RSpec.feature 'User sign in through registration' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user registers, continues journey then signs in, their session is restored' do
@@ -56,7 +56,7 @@ RSpec.feature 'User sign in through registration' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user signs in, continues journey then signs in again, their session is restored' do
@@ -67,6 +67,6 @@ RSpec.feature 'User sign in through registration' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 end
