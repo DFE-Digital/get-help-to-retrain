@@ -120,10 +120,10 @@ Growth information and SOC codes for job profiles are imported via an Excel spre
   bundle exec rails "data_import:import_job_growth['Job growth 05082019.xlsx']"
 ```
 
-Hidden alternative titles for job profiles are used to improve search results and are imported via an Excel spreadsheet. This updates existing job profiles matched by slug so job profiles must have been previously imported by running the scraping tasks. Copy the relevant spreadsheet locally and then run rake task:
+Hidden alternative titles and Job Profile Specialism for job profiles are used to improve search results and are imported via an Excel spreadsheet. This updates existing job profiles matched by slug so job profiles must have been previously imported by running the scraping tasks. Copy the relevant spreadsheet locally and then run the rake task:
 
 ```bash
-  bundle exec rails "data_import:import_job_hidden_titles['JobProfileHiddenAlternativeTitles.xlsx']"
+  bundle exec rails "data_import:import_job_additional_data['JobProfileAdditionalData.xlsx']"
 ```
 
 These tasks will produce console output detailing any job profiles that were not found and stats for job profiles that are missing information. The rake tasks can be run multiple times without issue but will throw an error if used in production mode.
