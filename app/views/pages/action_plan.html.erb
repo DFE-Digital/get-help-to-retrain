@@ -12,13 +12,13 @@
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-    <p class="govuk-body-l">Your plan of action for finding a new, more secure job.</p>
+    <p class="govuk-body-l">Your plan of action for finding a new, more secure type of work.</p>
 
     <div class="govuk-related-items action-plan-section">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you’ve done so far:</h2>
-      <%= link_to 'Change target job', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your target job</h3>
-      <p class="govuk-body govuk-!-margin-bottom-2">You’ve chosen to target this job.</p>
+      <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your target type of work</h3>
+      <p class="govuk-body govuk-!-margin-bottom-2">You've chosen to target this type of work.</p>
       <h3 class="govuk-heading-s">
         <%= link_to target_job.name, job_profile_path(target_job.slug), class: 'govuk-link' %>
       </h3>
@@ -27,17 +27,17 @@
 
       <%= link_to 'View / edit your skills', skills_path, class: 'govuk-link action-plan-action' %>
       <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your skills</h3>
-      <p class="govuk-body">You added skills based on jobs you’ve already done.</p>
-      <p class="govuk-body">You can see different job ideas if you edit your skills.</p>
+      <p class="govuk-body">You added skills based on jobs you've already done.</p>
+      <p class="govuk-body">You can see different types of work ideas if you edit your skills.</p>
     </div>
 
 
     <div class="govuk-related-items action-plan-section">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you need to do next:</h2>
 
-      <%= link_to 'Edit your training plan', '#TODO', class: 'govuk-link action-plan-action' %>
+      <%= link_to 'Edit your Training choices', '#TODO', class: 'govuk-link action-plan-action' %>
       <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Find training</h3>
-      <p class="govuk-body">Improve your chances of getting a job by completing training that employers value.</p>
+      <p class="govuk-body">You chose to look for some training. Employers value these skills so this can improve your chances of getting a job. You can search for other job-related courses on the National Service's <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %> service.</p>
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
@@ -60,8 +60,8 @@
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
 
       <%= link_to 'Edit what help you need', '#TODO', class: 'govuk-link action-plan-action' %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Get ready to change jobs</h3>
-      <p class="govuk-body">Prepare your CV and cover letter and brush up your interview skills so you’re all set to apply for jobs.</p>
+      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Get ready to change types of work</h3>
+      <p class="govuk-body">You chose to get help with your job hunting skills. Getting this kind of advice can improve your chances of finding work.</p>
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
@@ -108,9 +108,9 @@
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
 
-      <%= link_to 'Change target job', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+      <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
       <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Apply for a job</h3>
-      <p class="govuk-body">Once you’re ready to apply, find jobs in your local area.</p>
+      <p class="govuk-body">Once you're ready to apply, find types of work in your local area.</p>
 
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
