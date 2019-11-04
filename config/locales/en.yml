@@ -165,10 +165,10 @@ en-GB:
       disabled: 'off'
 
   job_growth_explanation:
-    falling: In the last few years, there hasn't been as much work available for people doing this job. You might find it hard to get work.
-    stable: In the last few years, employers haven't really changed how many people they hire to do jobs like this. This could mean you’ve got an average chance of finding work.
-    growing: In the last few years, employers have been hiring more people to do jobs like this. If this continues it could mean you’re likely to find work.
-    growing_strongly: In the last few years, employers have been hiring a lot more people to do jobs like this. If this continues it could mean you’re likely to find work.
+    falling: In the last few years, there has not been as much of this type of work available. You might find it hard to get into this type of work.
+    stable: In the last few years, employers have not really changed how many people they hire to do this type of work. This could mean you have got an average chance of finding work.
+    growing: In the last few years, employers have been hiring more people to do this type of work. If this continues it could mean you are likely to find work.
+    growing_strongly: In the last few years, employers have been hiring a lot more people to do this type of work. If this continues it could mean you are likely to find work.
 
   activerecord:
     errors:
