@@ -49,7 +49,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     visit '/job-matches'
 
-    expect(page).to have_content('What does this mean?')
+    expect(page).to have_content('What does growing mean?')
   end
 
   scenario 'When clicking on What does this mean? link user gets the explanation for that score', :js do
