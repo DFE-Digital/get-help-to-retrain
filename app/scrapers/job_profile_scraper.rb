@@ -17,5 +17,8 @@ class JobProfileScraper
   related_profiles 'css=.job-profile-related ul li a/@href', :list
 
   content 'css=body', :html
-  skills 'css=#Skills ul li', :list
+
+  # rubocop:disable Metrics/LineLength
+  skills "xpath=//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]//li", :list
+  # rubocop:enable Metrics/LineLength
 end

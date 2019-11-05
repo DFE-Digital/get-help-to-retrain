@@ -11,6 +11,8 @@ namespace :data_import do
         print "Refreshing job profile #{job_profile.slug}"
         job_profile.scrape(scraper)
       end
+
+      Skill.without_job_profiles.delete_all
     else
       print 'No job profiles setup - please import sitemap first'
     end

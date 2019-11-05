@@ -4,17 +4,17 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
   subject(:scraped) { scraper.scrape(job_profile_url) }
 
   let(:scraper) { described_class.new }
-  let(:job_profile_url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
+  let(:job_profile_url) { 'https://nationalcareers.service.gov.uk/job-profiles/lifeguard' }
 
   describe 'title' do
     it 'parses job profile name' do
-      expect(scraped['title']).to eq 'Admin assistant'
+      expect(scraped['title']).to eq 'Lifeguard'
     end
   end
 
   describe 'description' do
     it 'parses job profile description' do
-      expect(scraped['description']).to match 'organising meetings'
+      expect(scraped['description']).to match 'look after swimming areas'
     end
   end
 
@@ -25,26 +25,30 @@ RSpec.describe JobProfileScraper, vcr: { cassette_name: 'explore_my_careers_job_
   end
 
   describe 'skills' do
-    it 'parses skills' do
-      expect(scraped['skills']).to include('administration skills', 'customer service skills')
+    it 'parses skills from "Skills and knowledge" section' do
+      expect(scraped['skills']).to include('customer service skills', 'sensitivity and understanding')
+    end
+
+    it 'excludes skills from "Restrictions and requirements" section' do
+      expect(scraped['skills']).not_to include('be able to swim 50 metres in less than one minute')
     end
   end
 
   describe 'related profiles' do
     it 'parses the right slugs' do
       expect(scraped['related_profiles']).to contain_exactly(
-        'local-government-administrative-assistant',
-        'data-entry-clerk',
-        'hotel-receptionist',
-        'personal-assistant',
-        'health-records-clerk'
+        'leisure-centre-assistant',
+        'leisure-centre-manager',
+        'sport-and-exercise-psychologist',
+        'sports-coach',
+        'swimming-teacher'
       )
     end
   end
 
   describe 'salary_max' do
     it 'parses job profile maximum salary' do
-      expect(scraped['salary_max']).to eq 30_000
+      expect(scraped['salary_max']).to eq 29_000
     end
   end
 
