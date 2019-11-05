@@ -33,6 +33,9 @@ class NotifyService
 
   def client
     @client ||= Notifications::Client.new(api_key)
+  rescue ArgumentError => e
+    Rails.logger.error("Notify API error: #{e.message}")
+    raise NotifyAPIError
   end
 
   def api_key

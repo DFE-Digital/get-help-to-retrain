@@ -86,6 +86,20 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(return_to_saved_results_error_path)
   end
 
+  scenario 'User redirected to error page if there is the Notify Service is using an invalid API KEY' do
+    allow(Notifications::Client).to receive(:new).with('test').and_raise(ArgumentError)
+
+    register_user
+
+    visit(return_to_saved_results_path)
+
+    fill_in('email', with: 'test@test.test')
+
+    click_on('Send link')
+
+    expect(page).to have_current_path(return_to_saved_results_error_path)
+  end
+
   scenario 'User redirected to link sent page if email is valid and user does not exists' do
     send_sign_in_email
 
