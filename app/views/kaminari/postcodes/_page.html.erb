@@ -1,0 +1,7 @@
+<li class="pagination__item <%= 'pagination__item--active' if page.current? %>">
+  <%= form_with local: true, url: @pagination_path do %>
+    <%= hidden_field_tag('postcode', @postcode) %>
+    <%= hidden_field_tag('page', page) %>
+    <a class='pagination__link'><%= submit_tag(page) %></a>
+  <% end %>
+</li>

@@ -53,7 +53,7 @@
           <%= render partial: 'course', collection: @courses %>
         </ul>
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
-          <%= paginate @courses %>
+          <%= paginate @courses, theme: 'postcodes' %>
         </div>
       <% end %>
     </div>

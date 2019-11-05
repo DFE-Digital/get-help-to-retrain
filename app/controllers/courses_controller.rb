@@ -19,7 +19,7 @@ class CoursesController < ApplicationController
   end
 
   def courses_params
-    params.permit(:postcode, :topic_id)
+    params.permit(:postcode, :topic_id, :page)
   end
 
   def course_search
