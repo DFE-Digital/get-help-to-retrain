@@ -2,6 +2,7 @@ en-GB:
   breadcrumb:
     home: Home
     action_plan: Action plan
+    offers_near_me: Offers near me
     jobs_near_me: Jobs near me
     task_list: Get help to retrain
     task_list_home: 'Home: Get help to retrain'
@@ -47,6 +48,7 @@ en-GB:
     pages_privacy_policy: Get help to retrain - Privacy policy
     pages_location_ineligible: Get help to retrain - No courses in your area
     pages_action_plan: Get help to retrain - Action plan
+    pages_offers_near_me: Get help to retrain - Offers near me
     user_personal_data: Get help to retrain - Your information
     jobs_near_me: Get help to retrain - Jobs near me
     errors_not_found: Get help to retrain - Not found
@@ -105,6 +107,8 @@ en-GB:
   pages:
     action_plan:
       title: Your personal action plan
+    offers_near_me:
+      title: Find local schemes and offers
     task_list:
       title: Get help to retrain
     next_steps:
