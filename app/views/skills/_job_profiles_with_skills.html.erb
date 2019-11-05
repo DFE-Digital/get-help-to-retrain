@@ -1,31 +1,29 @@
-  <table class="govuk-table">
-    <thead class="govuk-table__head">
-      <hr class="govuk-section-break govuk-section-break--visible">
-      <% job_profiles_with_skills.each do |job_profile_hash| %>
-      <tr class="govuk-table__row">
-        <th class="govuk-table__header govuk-section-break__l govuk-!-padding-0" scope="col">
-          <div class="govuk-grid-row govuk-!-margin-top-3">
-            <div class="govuk-grid-column-one-third govuk-!-padding-right-0">
-              <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><%= job_profile_hash[:name] %></h2>
-            </div>
-            <div class="govuk-grid-column-one-third govuk-!-padding-right-0">
-              <%= link_to('edit these skills', job_profile_skills_path(job_profile_id: job_profile_hash[:profile_slug], search: params[:search]), class:'govuk-link govuk-body', aria: { label: "Edit #{job_profile_hash[:name]} skills" }) %>
-            </div>
-            <div class="govuk-grid-column-one-third govuk-!-padding-right-0">
-              <%= link_to('remove this role', job_profile_path(job_profile_hash[:profile_slug], job_profile_id: job_profiles_with_skills.last[:profile_slug], search: params[:search]), method: :delete, class:'govuk-link govuk-body', aria: { label: "Remove #{job_profile_hash[:name]} role" }) %>
-            </div>
-          </div>
-          <p class="govuk-body">
-            <%= "#{pluralize(job_profile_hash[:skills].values.count, 'skill', 'skills')} selected" %>
-          </p>
-        </th>
-      </tr>
-      <% end %>
-    </thead>
-  </table>
+<hr class="govuk-section-break govuk-section-break--visible">
+
+<% job_profiles_with_skills.each do |job_profile_hash| %>
+  <div class="govuk-grid-row govuk-!-margin-top-3">
+    <div class="govuk-grid-column-one-third govuk-!-padding-right-0">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><%= job_profile_hash[:name] %></h2>
+    </div>
+    <div class="govuk-grid-column-one-third govuk-!-padding-right-0">
+      <%= link_to('edit these skills', job_profile_skills_path(job_profile_id: job_profile_hash[:profile_slug], search: params[:search]), class:'govuk-link govuk-body', aria: { label: "Edit #{job_profile_hash[:name]} skills" }) %>
+    </div>
+    <div class="govuk-grid-column-one-third govuk-!-padding-right-0">
+      <%= link_to('remove this role', job_profile_path(job_profile_hash[:profile_slug], job_profile_id: job_profiles_with_skills.last[:profile_slug], search: params[:search]), method: :delete, class:'govuk-link govuk-body', aria: { label: "Remove #{job_profile_hash[:name]} role" }) %>
+    </div>
+    <div class="govuk-grid-column-full">
+      <p class="govuk-body">
+        <%= "#{pluralize(job_profile_hash[:skills].values.count, 'skill', 'skills')} selected" %>
+      </p>
+    </div>
+  </div>
+  <hr class="govuk-section-break govuk-section-break--visible">
+<% end %>
+
 <% unless user_session.job_profiles_cap_reached? %>
   <div class='govuk-!-margin-top-7 govuk-!-margin-bottom-3'>
     <%= link_to('Add more skills from another role', check_your_skills_path, class: 'govuk-link') %>
   </div>
 <% end %>
+
 <%= link_to('Find out what you can do with these skills', skills_matcher_index_path, class: 'govuk-button', data: { cy: 'find-out-what-you-can-do-btn', module: 'govuk-button' }) %>
