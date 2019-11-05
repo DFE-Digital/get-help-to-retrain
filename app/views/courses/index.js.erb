@@ -1,0 +1,2 @@
+document.querySelector('.courses-list').innerHTML = "<%= escape_javascript(render partial: 'course', collection: @courses)%>";
+document.querySelector('.paginator').innerHTML = "<%= escape_javascript(paginate(@courses, remote: true)) %>";

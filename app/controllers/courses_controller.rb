@@ -8,6 +8,10 @@ class CoursesController < ApplicationController
     )
 
     @courses = Kaminari.paginate_array(course_search).page(params[:page])
+     respond_to do |format|
+      format.js
+      format.html
+    end
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
   end

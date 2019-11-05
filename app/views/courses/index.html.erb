@@ -49,11 +49,11 @@
           <li>using a different postcode</li>
         </ul>
       <% else %>
-        <ul class="govuk-list">
+        <ul class="govuk-list courses-list">
           <%= render partial: 'course', collection: @courses %>
         </ul>
-        <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
-          <%= paginate @courses %>
+        <div class="govuk-grid-column-full govuk-!-margin-bottom-4 paginator">
+          <%= paginate @courses, remote: true %>
         </div>
       <% end %>
     </div>
