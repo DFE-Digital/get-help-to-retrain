@@ -70,6 +70,22 @@ RSpec.feature 'User sign in' do
     expect(page).to have_text('Link sent')
   end
 
+  scenario 'User redirected to error page if there is an issue with the Notify Service' do
+    api_response = instance_double(Net::HTTPResponse, code: 500, body: 'FUBAR')
+
+    allow(client).to receive(:send_email).and_raise(Notifications::Client::RequestError, api_response)
+
+    register_user
+
+    visit(return_to_saved_results_path)
+
+    fill_in('email', with: 'test@test.test')
+
+    click_on('Send link')
+
+    expect(page).to have_current_path(return_to_saved_results_error_path)
+  end
+
   scenario 'User redirected to link sent page if email is valid and user does not exists' do
     send_sign_in_email
 

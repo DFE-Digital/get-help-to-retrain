@@ -22,6 +22,7 @@ en-GB:
     save_your_results: Save your results
     return_to_saved_results: Return to saved results
     link_sent: Link sent
+    link_not_sent: Link not sent
     results_saved: Results saved
     email_sent_again: Email sent again
     link_sent_again: Link sent again
@@ -56,6 +57,7 @@ en-GB:
     errors_internal_server_error: Get help to retrain - Internal server error
     errors_postcode_search_error: Get help to retrain - Postcode search error
     errors_jobs_near_me_error: Get help to retrain - Jobs near me error
+    errors_return_to_saved_results_error: Get help to retrain - Return to saved results error
     save_your_results: Get help to retrain - Save your results
     return_to_saved_results: Get help to retrain - Return to saved results
     link_sent: Get help to retrain - Link sent

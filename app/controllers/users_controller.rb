@@ -61,8 +61,7 @@ class UsersController < ApplicationController
       render(:return_to_saved_results)
     end
   rescue NotifyService::NotifyAPIError
-    # TODO: show user an error page, for now render link sent page
-    render(partial)
+    redirect_to return_to_saved_results_error_path
   end
 
   def register_with(partial:)
