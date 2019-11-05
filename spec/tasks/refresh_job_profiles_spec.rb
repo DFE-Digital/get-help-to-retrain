@@ -8,7 +8,7 @@ RSpec.describe 'data_import:refresh_job_profiles' do
   let!(:captain) { create :job_profile, :with_html_content, slug: 'captain' }
 
   it 'removes redundant existing skills that are not present in scraped content' do
-    captain.skills = [useless_skill]
+    captain.skills << useless_skill
 
     expect {
       task.execute
@@ -24,6 +24,6 @@ RSpec.describe 'data_import:refresh_job_profiles' do
   it 'populates job profile skills from parsing scraped content' do
     task.execute
 
-    expect(astronaut.reload.skills).to eq [useful_skill]
+    expect(astronaut.reload.skills).to contain_exactly(useful_skill)
   end
 end
