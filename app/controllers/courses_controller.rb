@@ -7,6 +7,8 @@ class CoursesController < ApplicationController
       topic: courses_params[:topic_id]
     )
 
+    user_session.postcode = postcode if postcode && @search.valid?
+
     @courses = Kaminari.paginate_array(course_search).page(params[:page])
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
