@@ -41,7 +41,7 @@
           <%= render partial: 'job_vacancy', collection: @job_vacancies %>
         </ul>
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
-          <%= paginate @job_vacancies %>
+          <%= paginate @job_vacancies, params: { postcode: nil } %>
         </div>
       <% end %>
     </div>

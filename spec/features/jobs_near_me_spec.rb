@@ -32,6 +32,41 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(find_field('postcode').value).to eq 'NW6 8ET'
   end
 
+  scenario 'Users can update their session postcode if there was none there' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 1 },
+        'jobs' => [{}]
+      }
+    )
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+    fill_in('postcode', with: 'NW6 1JF')
+    find('.search-button-results').click
+    visit(jobs_near_me_path)
+
+    expect(find_field('postcode').value).to eq('NW6 1JF')
+  end
+
+  scenario 'Users can update their session postcode if it already existed' do
+    fill_in_postcode
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 1 },
+        'jobs' => [{}]
+      }
+    )
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+    fill_in('postcode', with: 'NW6 1JF')
+    find('.search-button-results').click
+    visit(jobs_near_me_path)
+
+    expect(find_field('postcode').value).to eq('NW6 1JF')
+  end
+
   scenario 'User can see jobs for their targeted job' do
     find_a_job_service = instance_double(
       FindAJobService,

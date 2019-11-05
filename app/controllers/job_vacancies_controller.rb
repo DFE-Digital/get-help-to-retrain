@@ -8,6 +8,8 @@ class JobVacanciesController < ApplicationController
       page: job_vacancies_params[:page]
     )
 
+    user_session.postcode = postcode if postcode && @job_vacancy_search.valid?
+
     @job_vacancies = job_vacancies
   end
 

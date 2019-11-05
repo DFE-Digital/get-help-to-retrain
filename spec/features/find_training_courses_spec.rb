@@ -59,6 +59,25 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_selector('ul.govuk-list li', count: 1)
   end
 
+  scenario 'Users can update their session postcode if there was none there' do
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(find_field('postcode').value).to eq 'NW6 8ET'
+  end
+
+  scenario 'Users can update their session postcode if it already existed' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(find_field('postcode').value).to eq 'NW6 8ET'
+  end
+
   scenario 'Pagination not visible if results number < 10' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
