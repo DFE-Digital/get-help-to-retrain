@@ -486,7 +486,7 @@
           "uri": "[concat(variables('deploymentUrlBase'), 'app-service-plan.json')]",
           "contentVersion": "1.0.0.0"
         },
-          "parameters": {
+        "parameters": {
           "appServicePlanName": {
             "value": "[variables('appServicePlanName')]"
           },
