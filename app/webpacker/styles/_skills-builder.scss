@@ -11,3 +11,14 @@
     }
   }
 }
+
+.job-profile-action {
+  display: block;
+  margin-top: govuk-spacing(2);
+  margin-bottom: govuk-spacing(2);
+
+  @include govuk-media-query($from: tablet) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
