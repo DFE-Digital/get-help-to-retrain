@@ -38,7 +38,7 @@ class FindAJobService
     end
   rescue StandardError => e
     Rails.logger.error("Find a Job Service API error: #{e.inspect}")
-    raise APIError
+    raise APIError, e
   end
 
   def build_uri(path:, options: {})
