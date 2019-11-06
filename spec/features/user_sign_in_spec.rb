@@ -140,7 +140,7 @@ RSpec.feature 'User sign in' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user registers, continues journey then signs in, their session is restored' do
@@ -151,7 +151,7 @@ RSpec.feature 'User sign in' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user signs in, continues journey then signs in again, their session is restored' do
@@ -164,7 +164,7 @@ RSpec.feature 'User sign in' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'user restores their session after signing in with same session' do
@@ -175,7 +175,7 @@ RSpec.feature 'User sign in' do
     sign_in_user(reset_sessions: false)
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user registers, continues journey then signs in, their session is restored with same session' do
@@ -186,7 +186,7 @@ RSpec.feature 'User sign in' do
     sign_in_user(reset_sessions: false)
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user signs in, continues journey then signs in again, their session is restored with same session' do
@@ -199,7 +199,7 @@ RSpec.feature 'User sign in' do
     sign_in_user
     visit(skills_path)
 
-    expect(page).to have_selector('tbody tr', count: 2)
+    expect(page).to have_text('2 skills selected')
   end
 
   scenario 'if user signs in, they should be redirected to task list page' do
