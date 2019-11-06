@@ -32,7 +32,7 @@
             Postcode
           </label>
           <%= errors_tag @search, :postcode %>
-          <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@search, :postcode, "course-search-input govuk-input govuk-!-width-one-half")) %>
+          <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@search, :postcode, "course-search-input govuk-input govuk-!-width-one-half"), autocomplete: 'postal-code') %>
           <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }, data: { module: 'govuk-button' }) %>
         <% end %>
       <% end %>
@@ -53,7 +53,7 @@
           <%= render partial: 'course', collection: @courses %>
         </ul>
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
-          <%= paginate @courses %>
+          <%= paginate @courses, params: { postcode: nil } %>
         </div>
       <% end %>
     </div>

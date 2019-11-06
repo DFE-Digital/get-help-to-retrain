@@ -26,6 +26,7 @@ class JobProfileSearch
     <<-SQL
       to_tsvector('english', name) @@ to_tsquery('english', :query_string)
       OR to_tsvector('english', alternative_titles) @@ to_tsquery('english', :query_string)
+      OR to_tsvector('english', specialism) @@ to_tsquery('english', :query_string)
       OR to_tsvector('english', hidden_titles) @@ to_tsquery('english', :query_string)
       OR to_tsvector('english', description) @@ to_tsquery('english', :query_string)
     SQL

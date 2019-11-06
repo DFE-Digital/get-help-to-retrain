@@ -3,10 +3,10 @@
 
 ## Prerequisites
 
-- Ruby 2.6.1
+- Ruby 2.6.5
 - PostgreSQL
-- NodeJS 8.11.x
-- Yarn 1.12.x
+- NodeJS 10.14.2
+- Yarn 1.16.x
 
 ## Setting up the app in development
 
@@ -15,14 +15,6 @@
 3. Run `bin/rails db:setup` to set up the database development and test schemas, and seed with test data
 4. Run `bundle exec rails server` to launch the app on http://localhost:3000
 5. Run `./bin/webpack-dev-server` in a separate shell for faster compilation of assets
-
-## Whats included in this boilerplate?
-
-- Rails 5.2 with Webpacker
-- [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend)
-- [GOV.UK Lint](https://github.com/alphagov/govuk-lint)
-- RSpec
-- Dotenv (managing environment variables)
 
 ## Running specs, linter(without auto correct) and annotate models and serializers
 ```
@@ -128,10 +120,10 @@ Growth information and SOC codes for job profiles are imported via an Excel spre
   bundle exec rails "data_import:import_job_growth['Job growth 05082019.xlsx']"
 ```
 
-Hidden alternative titles for job profiles are used to improve search results and are imported via an Excel spreadsheet. This updates existing job profiles matched by slug so job profiles must have been previously imported by running the scraping tasks. Copy the relevant spreadsheet locally and then run rake task:
+Hidden alternative titles and Job Profile Specialism for job profiles are used to improve search results and are imported via an Excel spreadsheet. This updates existing job profiles matched by slug so job profiles must have been previously imported by running the scraping tasks. Copy the relevant spreadsheet locally and then run the rake task:
 
 ```bash
-  bundle exec rails "data_import:import_job_hidden_titles['JobProfileHiddenAlternativeTitles.xlsx']"
+  bundle exec rails "data_import:import_job_additional_data['JobProfileAdditionalData.xlsx']"
 ```
 
 These tasks will produce console output detailing any job profiles that were not found and stats for job profiles that are missing information. The rake tasks can be run multiple times without issue but will throw an error if used in production mode.

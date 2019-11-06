@@ -20,7 +20,7 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links back to skills matcher' do
     user_targets_a_job
 
-    expect(page).to have_link('Change target job', href: skills_matcher_index_path)
+    expect(page).to have_link('Change target type of work', href: skills_matcher_index_path)
   end
 
   scenario 'Page links back to skills summary' do

@@ -2,17 +2,17 @@
   <%= form_group_tag @user_personal_data, :first_name do %>
     <%= f.label :first_name, class: 'govuk-label' %>
     <%= errors_tag @user_personal_data, :first_name %>
-    <%= f.text_field :first_name, maxlength: 250, class: css_classes_for_input(@user_personal_data, :first_name, 'govuk-input govuk-!-width-two-thirds'), data: { cy: 'pid-first-name-field' } %>
+    <%= f.text_field :first_name, maxlength: 250, class: css_classes_for_input(@user_personal_data, :first_name, 'govuk-input govuk-!-width-two-thirds'), autocomplete: 'given-name', data: { cy: 'pid-first-name-field' } %>
   <% end %>
   <%= form_group_tag @user_personal_data, :last_name do %>
     <%= f.label :last_name, class: 'govuk-label' %>
     <%= errors_tag @user_personal_data, :last_name %>
-    <%= f.text_field :last_name, maxlength: 250, class: css_classes_for_input(@user_personal_data, :last_name, 'govuk-input govuk-!-width-two-thirds'), data: { cy: 'pid-surname-field' } %>
+    <%= f.text_field :last_name, maxlength: 250, class: css_classes_for_input(@user_personal_data, :last_name, 'govuk-input govuk-!-width-two-thirds'), autocomplete: 'family-name', data: { cy: 'pid-surname-field' } %>
   <% end %>
   <%= form_group_tag @user_personal_data, :postcode do %>
     <%= f.label :postcode, class: 'govuk-label' %>
     <%= errors_tag @user_personal_data, :postcode %>
-    <%= f.text_field :postcode, class: css_classes_for_input(@user_personal_data, :postcode, 'govuk-input govuk-input--width-10'), data: { cy: 'pid-postcode-field' } %>
+    <%= f.text_field :postcode, class: css_classes_for_input(@user_personal_data, :postcode, 'govuk-input govuk-input--width-10'), autocomplete: 'postal-code', data: { cy: 'pid-postcode-field' } %>
   <% end %>
   <div class="govuk-form-group">
     <%= form_group_tag @user_personal_data, :dob do %>
@@ -30,19 +30,19 @@
           <div class="govuk-date-input__item">
             <div class="govuk-form-group">
               <%= f.label :birth_day, 'Day', class: 'govuk-label' %>
-              <%= f.number_field :birth_day, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), data: { cy: 'pid-dob-day-field' } %>
+              <%= f.number_field :birth_day, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), autocomplete: 'bday-day', data: { cy: 'pid-dob-day-field' } %>
             </div>
           </div>
           <div class="govuk-date-input__item">
             <div class="govuk-form-group">
               <%= f.label :birth_month, 'Month', class: 'govuk-label' %>
-              <%= f.number_field :birth_month, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), data: { cy: 'pid-dob-month-field' } %>
+              <%= f.number_field :birth_month, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-2'), autocomplete: 'bday-month', data: { cy: 'pid-dob-month-field' } %>
             </div>
           </div>
           <div class="govuk-date-input__item">
             <div class="govuk-form-group">
               <%= f.label :birth_year, 'Year', class: 'govuk-label' %>
-              <%= f.number_field :birth_year, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-4'), data: { cy: 'pid-dob-year-field' } %>
+              <%= f.number_field :birth_year, class: css_classes_for_input(@user_personal_data, :dob, 'govuk-input--width-4'), autocomplete: 'bday-year', data: { cy: 'pid-dob-year-field' } %>
             </div>
           </div>
         </div>
@@ -60,15 +60,15 @@
         <div class="govuk-radios">
           <%= errors_tag @user_personal_data, :gender %>
           <div class="govuk-radios__item">
-            <%= f.radio_button :gender, :female, class: 'govuk-radios__input', data: { cy: 'pid-gender-female-radio-btn' } %>
+            <%= f.radio_button :gender, :female, class: 'govuk-radios__input', autocomplete: 'sex', data: { cy: 'pid-gender-female-radio-btn' } %>
             <%= f.label :gender_female, 'Female', class: 'govuk-label govuk-radios__label' %>
           </div>
           <div class="govuk-radios__item">
-            <%= f.radio_button :gender, :male, class: 'govuk-radios__input', data: { cy: 'pid-gender-male-radio-btn' } %>
+            <%= f.radio_button :gender, :male, class: 'govuk-radios__input', autocomplete: 'sex', data: { cy: 'pid-gender-male-radio-btn' } %>
             <%= f.label :gender_male, 'Male', class: 'govuk-label govuk-radios__label' %>
           </div>
           <div class="govuk-radios__item">
-            <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input', data: { cy: 'pid-gender-refuse-radio-btn' } %>
+            <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input', autocomplete: 'sex', data: { cy: 'pid-gender-refuse-radio-btn' } %>
             <%= f.label :gender_not_mentioned, 'Prefer not to say', class: 'govuk-label govuk-radios__label' %>
           </div>
         </div>

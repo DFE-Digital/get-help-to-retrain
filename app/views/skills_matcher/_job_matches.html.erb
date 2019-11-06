@@ -9,17 +9,14 @@
         <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
       <% end %>
       <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
-      <p class="govuk-body-s govuk-!-margin-bottom-1">Salary: <span class="strong"><%= job_profile.salary_range %></span></p>
-      <p class="govuk-body-s govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) %></span></p>
+      <p class="govuk-body govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) %></span></p>
       <% if job_profile.growth.present? %>
-        <p class="govuk-body-s govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.growth_type %></span></p>
-        <details class="govuk-details govuk-details-custom" data-module="govuk-details">
-          <summary class="govuk-details__summary govuk-details__summary-custom">
-            <span class="underlined-text">
-              What does this mean?
-            </span>
+        <p class="govuk-body govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.growth_type %></span></p>
+        <details class="govuk-details" data-module="govuk-details">
+          <summary class="govuk-details__summary" aria-controls="recent-growth-details" aria-expanded="true" role="button">
+            <span class="govuk-details__summary-text">What does <%= job_profile.growth_type.downcase %> mean?</span>
           </summary>
-          <div class="govuk-details__text govuk-body-m">
+          <div class="govuk-details__text govuk-body-m" aria-hidden="false" id="recent-growth-details">
             <%= job_profile.growth_explanation %>
           </div>
         </details>
