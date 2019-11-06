@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
+  get 'jobs-near-me-error', to: 'errors#jobs_near_me_error', constraints: ->(_req) { Flipflop.action_plan? }
 
   match(
     'courses/:topic_id',
