@@ -68,7 +68,7 @@ RSpec.describe JobProfile do
   end
 
   describe '#scrape', vcr: { cassette_name: 'explore_my_careers_job_profile' } do
-    let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/admin-assistant' }
+    let(:url) { 'https://nationalcareers.service.gov.uk/job-profiles/lifeguard' }
     let(:job_profile) { build :job_profile, source_url: url }
     let!(:customer_service) { create :skill, name: 'customer service skills' }
 
@@ -76,19 +76,19 @@ RSpec.describe JobProfile do
       before { job_profile.scrape }
 
       it 'updates name with scraped title' do
-        expect(job_profile.name).to eq 'Admin assistant'
+        expect(job_profile.name).to eq 'Lifeguard'
       end
 
       it 'updates description with scraped description' do
-        expect(job_profile.description).to match 'organising meetings'
+        expect(job_profile.description).to match 'look after swimming areas'
       end
 
       it 'updates salary minimum with scraped salary' do
-        expect(job_profile.salary_min).to eq 14_000
+        expect(job_profile.salary_min).to eq 13_000
       end
 
       it 'updates salary maximum with scraped salary' do
-        expect(job_profile.salary_max).to eq 30_000
+        expect(job_profile.salary_max).to eq 29_000
       end
 
       it 'updates content with scraped body' do
@@ -104,7 +104,7 @@ RSpec.describe JobProfile do
       let(:job_profile) { create :job_profile, slug: 'data-entry-clerk', source_url: url }
 
       before do
-        create :job_profile, slug: 'hotel-receptionist'
+        create :job_profile, slug: 'swimming-teacher'
         create :job_profile, slug: 'non-existing-profile'
 
         job_profile.scrape
@@ -112,7 +112,7 @@ RSpec.describe JobProfile do
 
       it 'updates the related_profiles with scraped related job profiles data' do
         expect(job_profile.related_job_profiles.pluck(:slug)).to contain_exactly(
-          'hotel-receptionist'
+          'swimming-teacher'
         )
       end
     end
