@@ -11,6 +11,8 @@ class JobVacanciesController < ApplicationController
     user_session.postcode = postcode if postcode && @job_vacancy_search.valid?
 
     @job_vacancies = job_vacancies
+  rescue FindAJobService::ResponseError
+    redirect_to jobs_near_me_error_path
   end
 
   private
