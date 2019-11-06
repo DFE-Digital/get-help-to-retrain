@@ -47,6 +47,13 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_link('Show jobs near me', href: jobs_near_me_path)
   end
 
+  scenario 'Page links to offers near me' do
+    user_targets_a_job
+    click_on('Show me local offers')
+
+    expect(page).to have_current_path(offers_near_me_path)
+  end
+
   private
 
   def user_targets_a_job

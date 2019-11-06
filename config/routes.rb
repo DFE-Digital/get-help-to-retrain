@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'maths-course-overview', to: 'pages#maths_overview'
   get 'english-course-overview', to: 'pages#english_overview'
   get 'training-hub', to: 'pages#training_hub'
+  get 'offers-near-me', to: 'pages#offers_near_me', constraints: ->(_req) { Flipflop.action_plan? }
   get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
 
   get 'location-ineligible', to: 'pages#location_ineligible'
