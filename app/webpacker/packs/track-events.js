@@ -1,7 +1,7 @@
 function TrackEvents () {
   this.start = function () {
     if (typeof(appInsights) !== 'undefined') {
-      var elements = document.querySelectorAll('[data-tracked-event]')
+      var elements = document.querySelectorAll('[data-tracked-event]');
 
       for (let i = 0; i < elements.length; ++i) {
         trackComponentOnClick(elements[i]);
