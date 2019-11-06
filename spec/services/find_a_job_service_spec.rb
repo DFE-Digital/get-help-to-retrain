@@ -85,15 +85,15 @@ RSpec.describe FindAJobService do
       expect(service.job_vacancies(options)).to eq(find_a_job_developer_response)
     end
 
-    it 'returns nothing if the api response is not successful' do
+    it 'raises error if the api response is not successful' do
       options = { name: 'developer', distance: 20, postcode: 'NW11' }
       stub_request(:get, /findajob/)
         .to_return(status: 500)
 
-      expect(service.job_vacancies(options)).to be_empty
+      expect { service.job_vacancies(options) }.to raise_exception(described_class::APIError)
     end
 
-    it 'returns nothing if the query is not authorised' do
+    it 'raises error if the query is not authorised' do
       options = { name: 'developer', distance: 20, postcode: 'NW11' }
       service = described_class.new(
         api_id: 'wrong-id',
@@ -103,7 +103,15 @@ RSpec.describe FindAJobService do
       stub_request(:get, /findajob/)
         .to_return(status: 401)
 
-      expect(service.job_vacancies(options)).to be_empty
+      expect { service.job_vacancies(options) }.to raise_exception(described_class::APIError)
+    end
+
+    it 'raises error if there is a NET::HTTP error' do
+      options = { name: 'developer', distance: 20, postcode: 'NW11' }
+      stub_request(:get, /findajob/)
+        .to_raise(Net::ReadTimeout)
+
+      expect { service.job_vacancies(options) }.to raise_exception(described_class::APIError)
     end
 
     it 'does not perform query if there is no api key' do
@@ -166,14 +174,21 @@ RSpec.describe FindAJobService do
       stub_request(:get, /findajob/)
         .to_return(status: 500)
 
-      expect { service.health_check }.to raise_exception(described_class::ResponseError)
+      expect { service.health_check }.to raise_exception(described_class::APIError)
     end
 
     it 'raises error if the query is not authorised' do
       stub_request(:get, /findajob/)
         .to_return(status: 401)
 
-      expect { service.health_check }.to raise_exception(described_class::ResponseError)
+      expect { service.health_check }.to raise_exception(described_class::APIError)
+    end
+
+    it 'raises error if there is a NET::HTTP error' do
+      stub_request(:get, /ping/)
+        .to_raise(Net::ReadTimeout)
+
+      expect { service.health_check }.to raise_exception(described_class::APIError)
     end
   end
 end

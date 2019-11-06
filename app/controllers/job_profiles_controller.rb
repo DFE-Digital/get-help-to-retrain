@@ -41,5 +41,7 @@ class JobProfilesController < ApplicationController
       name: resource.name,
       postcode: user_session.postcode
     ).count
+  rescue FindAJobService::APIError
+    nil
   end
 end

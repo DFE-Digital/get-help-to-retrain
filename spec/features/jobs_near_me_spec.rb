@@ -159,7 +159,7 @@ RSpec.feature 'Jobs near me', type: :feature do
   scenario 'User gets relevant messaging if there is an API error' do
     find_a_job_service = instance_double(FindAJobService)
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    allow(find_a_job_service).to receive(:job_vacancies).and_raise(FindAJobService::ResponseError)
+    allow(find_a_job_service).to receive(:job_vacancies).and_raise(FindAJobService::APIError)
 
     user_targets_a_job
     fill_in('postcode', with: 'NW6 9ET')
