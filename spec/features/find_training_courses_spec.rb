@@ -60,6 +60,9 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Users can update their session postcode if there was none there' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
     find('.search-button-results').click
@@ -69,6 +72,9 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Users can update their session postcode if it already existed' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
     capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
