@@ -33,6 +33,15 @@ stages:
   displayName: Run Tests
 
   jobs:
+  - job: Variables
+    displayName: Set task variables
+
+    steps:
+      - script: |
+          git_sha=$(git rev-parse --short HEAD)
+          echo "##vso[build.updatebuildnumber]$git_sha"
+        displayName: 'Set Build Number'
+
   - job: Tests
     pool:
       vmImage: 'ubuntu-16.04'
@@ -48,9 +57,7 @@ stages:
       - script: |
           gateway_ip=$(docker network inspect bridge --format='{{range .IPAM.Config}}{{.Gateway}}{{end}}')
           echo "##vso[task.setvariable variable=GatewayIP;]$gateway_ip"
-          git_sha=$(git rev-parse --short HEAD)
-          echo "##vso[build.updatebuildnumber]$git_sha"
-        displayName: 'Set Task Variables'
+        displayName: 'Set Gateway IP'
 
       - script: |
           sudo apt-get update
