@@ -41,6 +41,10 @@ stages:
       selenium: selenium
 
     steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '10.14.2'
+
       - script: |
           gateway_ip=$(docker network inspect bridge --format='{{range .IPAM.Config}}{{.Gateway}}{{end}}')
           echo "##vso[task.setvariable variable=GatewayIP;]$gateway_ip"
