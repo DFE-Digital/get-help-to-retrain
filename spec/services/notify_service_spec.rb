@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe NotifyService do
-  subject(:service) { described_class.new(api_key: 'SOME VALID KEY') }
+  subject(:service) { described_class.new(api_key: 'SOME KEY') }
 
   let(:template_id) { '5f06ec42-a1e2-44b7-a8d0-239f2b893fe9' }
   let(:email) { 'test@test.com' }
@@ -17,7 +17,17 @@ RSpec.describe NotifyService do
     context 'when the NOTIFY_API_KEY is missing' do
       subject(:service) { described_class.new(api_key: nil) }
 
-      it 'returns the error message accordingly' do
+      it 'raises NotifyAPIError' do
+        expect {
+          service.send_email(email_address: email, template_id: template_id)
+        }.to raise_error(described_class::NotifyAPIError)
+      end
+    end
+
+    context 'when the NOTIFY_API_KEY is wrong' do
+      it 'raises NotifyAPIError' do
+        allow(Notifications::Client).to receive(:new).and_raise(ArgumentError)
+
         expect {
           service.send_email(email_address: email, template_id: template_id)
         }.to raise_error(described_class::NotifyAPIError)
