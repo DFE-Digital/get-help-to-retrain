@@ -1,9 +1,11 @@
 function TrackEvents () {
   this.start = function () {
     if (typeof(appInsights) !== 'undefined') {
-      document.querySelectorAll('[data-tracked-event]').forEach(function (element) {
-        trackComponentOnClick(element);
-      });
+      var elements = document.querySelectorAll('[data-tracked-event]');
+
+      for (let i = 0; i < elements.length; ++i) {
+        trackComponentOnClick(elements[i]);
+      }
     }
   };
 
