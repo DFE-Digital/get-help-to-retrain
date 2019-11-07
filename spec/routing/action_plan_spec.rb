@@ -13,6 +13,10 @@ RSpec.describe 'routes for action plan', type: :routing do
     it 'successfully routes to pages#offers_near_me' do
       expect(get('/offers-near-me')).to route_to(controller: 'pages', action: 'offers_near_me')
     end
+
+    it 'successfully routes to errors#jobs_near_me_error' do
+      expect(get('/jobs-near-me-error')).to route_to(controller: 'errors', action: 'jobs_near_me_error')
+    end
   end
 
   context 'with action_plan feature disabled' do
@@ -26,6 +30,10 @@ RSpec.describe 'routes for action plan', type: :routing do
 
     it 'does not root to pages#offers_near_me' do
       expect(get('/offers-near-me')).not_to be_routable
+    end
+
+    it 'does not root to errors#jobs_near_me_error' do
+      expect(get('/jobs-near-me-error')).not_to be_routable
     end
   end
 end

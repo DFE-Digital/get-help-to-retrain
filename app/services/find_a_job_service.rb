@@ -3,6 +3,7 @@ class FindAJobService
 
   BASE_URL = 'https://findajob.dwp.gov.uk/api/'.freeze
   ResponseError = Class.new(StandardError)
+  APIError = Class.new(StandardError)
 
   def initialize(
     api_id: Rails.configuration.find_a_job_api_id,
@@ -18,10 +19,6 @@ class FindAJobService
     uri = build_uri(path: 'search', options: options)
 
     JSON.parse(response_body(uri))
-  rescue ResponseError => e
-    Rails.logger.error("Find a Job Service API error: #{e.inspect}")
-
-    {}
   end
 
   def health_check
@@ -39,6 +36,9 @@ class FindAJobService
 
       response.body
     end
+  rescue StandardError => e
+    Rails.logger.error("Find a Job Service API error: #{e.inspect}")
+    raise APIError, e
   end
 
   def build_uri(path:, options: {})

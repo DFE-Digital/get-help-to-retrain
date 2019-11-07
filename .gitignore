@@ -35,3 +35,4 @@ restricted_erd.pdf
 *.log
 coverage
 **/local-parameters.json
+.DS_Store

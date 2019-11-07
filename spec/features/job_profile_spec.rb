@@ -107,8 +107,10 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User does not see job vacancies if API is down' do
-    job_vacancy_search = instance_double(JobVacancySearch, count: nil)
+    job_vacancy_search = instance_double(JobVacancySearch)
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
+    allow(job_vacancy_search).to receive(:count).and_raise(FindAJobService::APIError)
+
     job_profile = create(:job_profile, :with_html_content)
 
     user_enters_location
@@ -118,8 +120,10 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'User does not see job vacancies if no postcode supplied' do
-    job_vacancy_search = instance_double(JobVacancySearch, count: nil)
+    job_vacancy_search = instance_double(JobVacancySearch)
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
+    allow(job_vacancy_search).to receive(:count).and_raise(FindAJobService::APIError)
+
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
