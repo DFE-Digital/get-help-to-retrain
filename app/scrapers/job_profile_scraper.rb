@@ -18,7 +18,14 @@ class JobProfileScraper
 
   content 'css=body', :html
 
-  # rubocop:disable Metrics/LineLength
-  skills "xpath=//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]//li", :list
-  # rubocop:enable Metrics/LineLength
+  skills "xpath=//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]//li", :list # rubocop:disable Metrics/LineLength
+
+  def reparse(content, &block)
+    metadata[:page] = Mechanize::Page.new(nil, nil, content, 200, mechanize)
+    begin
+      block.call
+    ensure
+      metadata[:page] = nil
+    end
+  end
 end

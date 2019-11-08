@@ -6,10 +6,10 @@ namespace :data_import do
     if JobProfile.any?
       JobProfile.all.each do |job_profile|
         scraper = JobProfileScraper.new
-        cached_page = Mechanize::Page.new(nil, nil, job_profile.content, 200, scraper.mechanize)
-        scraper.metadata.page cached_page
-        print "Refreshing job profile #{job_profile.slug}"
-        job_profile.scrape(scraper)
+        scraper.reparse(job_profile.content) do
+          print "Refreshing job profile #{job_profile.slug}"
+          job_profile.scrape(scraper)
+        end
       end
 
       Skill.without_job_profiles.delete_all
