@@ -17,7 +17,7 @@ class NotifyService
       template_id: template_id,
       personalisation: options
     )
-  rescue Notifications::Client::RequestError, RuntimeError => e
+  rescue Notifications::Client::RequestError, RuntimeError, ArgumentError => e
     Rails.logger.error("Notify API error: #{e.message}")
     raise NotifyAPIError
   end

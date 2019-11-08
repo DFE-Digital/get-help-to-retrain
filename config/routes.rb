@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'training-hub', to: 'pages#training_hub'
   get 'offers-near-me', to: 'pages#offers_near_me', constraints: ->(_req) { Flipflop.action_plan? }
   get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
+  get 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
 
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
