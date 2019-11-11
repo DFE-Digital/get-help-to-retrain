@@ -120,6 +120,33 @@ RSpec.feature 'User registration' do
     expect(page).to have_current_path(next_steps_path)
   end
 
+  scenario 'When NotifyService is down, the user sees the correct error page when one tries to save results' do
+    allow(Notifications::Client).to receive(:new).and_raise(ArgumentError)
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Save my results')
+    fill_in('email', with: 'test@test.test')
+    click_on('Save your results')
+
+    expect(page).to have_current_path(save_results_error_path)
+  end
+
+  scenario 'When NotifyService is down, user can resume the journey from the point one tries saving the results' do
+    allow(Notifications::Client).to receive(:new).and_raise(ArgumentError)
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(training_hub_path)
+    click_on('Save my results')
+    fill_in('email', with: 'test@test.test')
+    click_on('Save your results')
+
+    click_on('Continue')
+
+    expect(page).to have_current_path(training_hub_path)
+  end
+
   scenario 'User can resume their journey to where they first clicked save my results' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
