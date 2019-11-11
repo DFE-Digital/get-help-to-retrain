@@ -55,7 +55,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
 
     return '' unless @doc.any?
 
-    mutate_content if key == :apprenticeship
+    mutate_apprenticeship_content if key == :apprenticeship
     mutate_html_body
 
     @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').concat(separator_line)
@@ -114,16 +114,10 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     @html_body ||= Nokogiri::HTML(content)
   end
 
-  def mutate_content
-    remove_siblings @doc.xpath("h4[.='Entry requirements']").first
-  end
-
-  def remove_siblings(node)
-    while node
-      node_to_remove = node
-      node = node.next
-      node_to_remove.remove
-    end
+  def mutate_apprenticeship_content
+    entry_requirements = @doc.xpath("h4[.='Entry requirements']")
+    entry_requirements.xpath('following-sibling::*').remove
+    entry_requirements.remove
   end
 
   def mutate_html_body
