@@ -12,6 +12,9 @@ AllCops:
     - 'config/initializers/canonical_rails.rb'
     - 'config/puma.rb'
     - 'spec/spec_helper.rb'
+    - 'config/logging.rb'
+    - 'config/environments/production.rb'
+    - 'Gemfile'
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Documentation:
