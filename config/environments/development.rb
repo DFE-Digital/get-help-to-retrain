@@ -12,20 +12,6 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # Lograge config
-  config.lograge.enabled = true
-
-  # We are asking here to log in RAW (which are actually ruby hashes). The Ruby logging is going to take care of the JSON formatting.
-  config.lograge.formatter = Lograge::Formatters::Raw.new
-
-  # This is useful if you want to log query parameters
-  config.lograge.custom_options = lambda do |event|
-    { 
-      ddsource: ['ruby'],
-      params: event.payload[:params].reject { |k| %w(controller action).include? k }
-    }
-  end
-
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -73,4 +59,10 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Set the logging destination(s)
+  config.log_to = %w[stdout file]
+
+  # Show the logging configuration on STDOUT
+  config.show_log_configuration = true
 end
