@@ -149,6 +149,18 @@ RSpec.describe JobProfileDecorator do
     end
   end
 
+  describe '#how_to_become' do
+    let(:html_body) do
+      '<section id="HowToBecome">
+        <h2 class="heading-large job-profile-heading">How to become an RAF officer</h2>
+       </section>'
+    end
+
+    it 'extracts the correct heading' do
+      expect(job_profile.how_to_become).to eq 'How to become an RAF officer'
+    end
+  end
+
   describe '#working_hours' do
     let(:html_body) do
       '<div id="WorkingHours" class="column-30 job-profile-heroblock">

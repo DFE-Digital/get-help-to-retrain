@@ -6,11 +6,11 @@ RSpec.feature 'Job profile spec' do
   end
 
   scenario 'Page has correct title including job profile name' do
-    create(:job_profile, :with_html_content, name: 'Cleric', slug: 'cleric')
+    create(:job_profile, :with_html_content, name: 'Acrobat', slug: 'acrobat')
 
-    visit(job_profile_path('cleric'))
+    visit(job_profile_path('acrobat'))
 
-    expect(page).to have_content('How to become: cleric')
+    expect(page).to have_content('How to become an acrobat')
   end
 
   scenario 'Alternative titles has the structure Other similar jobs include: xxxxx' do

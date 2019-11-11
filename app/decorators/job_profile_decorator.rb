@@ -5,6 +5,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   include ActionView::Helpers::NumberHelper
 
   # rubocop:disable Metrics/LineLength
+  HOW_TO_BECOME_XPATH = "//h2[contains(@class, 'job-profile-heading')]".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
   WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
   ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
@@ -21,6 +22,10 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     other_routes: "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]"
   }.freeze
   # rubocop:enable Metrics/LineLength
+
+  def how_to_become
+    html_body.xpath(HOW_TO_BECOME_XPATH).text
+  end
 
   def salary_range
     return 'Variable' unless salary_min && salary_max

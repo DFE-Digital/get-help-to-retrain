@@ -1,4 +1,4 @@
-<h1 class="govuk-heading-xl govuk-!-margin-bottom-2">How to become: <%= @job_profile.name.downcase %></h1>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-2"><%= @job_profile.how_to_become %></h1>
 <% @job_profile.additional_hero_copy.each do |paragraph| %>
   <p class="govuk-body-l"><%= paragraph %></p>
 <% end %>
