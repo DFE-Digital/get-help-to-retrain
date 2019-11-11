@@ -226,13 +226,12 @@ RSpec.describe JobProfileDecorator do
   end
 
   describe '#section' do
-    let(:xpath) do
-      "//section[@id='Apprenticeship']".freeze
-    end
+    let(:section_key) { :apprenticeship }
 
     let(:html_body) do
       '<section class="job-profile-subsection" id="Apprenticeship">
-        <h3>Apprenticeship</h3><div class="job-profile-subsection-content">
+        <h3>Apprenticeship</h3>
+        <div class="job-profile-subsection-content">
           <p>You could take a software developer higher apprenticeship</p>
           <p>You could also do a digital and technology solutions degree apprenticeship.</p>
           <h4>Entry requirements</h4>
@@ -246,43 +245,73 @@ RSpec.describe JobProfileDecorator do
 
     let(:mutated_tags) do
       [
-        '<h2 class="govuk-heading-m">Apprenticeship</h2>',
         '<p class="govuk-body-m">You could take a software developer higher apprenticeship</p>',
-        '<p class="govuk-body-m">You could also do a digital and technology solutions degree apprenticeship.</p>',
-        '<h3 class="govuk-heading-s">Entry requirements</h3>',
-        '<p class="govuk-body-m">You\'ll usually need:</p>',
-        '<ul class="govuk-list govuk-list--bullet">',
+        '<p class="govuk-body-m">You could also do a digital and technology solutions degree apprenticeship.</p>'
+      ]
+    end
+
+    let(:deleted_tags) do
+      [
+        '<h3>Apprenticeship</h3>',
+        '<h4>Entry requirements</h4>',
+        '<p>You\'ll usually need:</p>',
+        '<ul class="list-reqs">',
         '<li>4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels</li>'
       ]
     end
 
     let(:mutated_html_body) do
-      job_profile.section(xpath: xpath)
+      job_profile.section(section_key)
+    end
+
+    context 'with unknown section' do
+      let(:section_key) { :foo }
+
+      it 'returns nil' do
+        expect(mutated_html_body).to be_nil
+      end
     end
 
     context 'when links present' do
       let(:html_body) do
         '<section class="job-profile-subsection" id="Apprenticeship">
           <h3>Apprenticeship</h3><div class="job-profile-subsection-content">
-            <p>You could take a software developer higher apprenticeship</p>
-            <p>You could also do a digital and technology solutions degree apprenticeship.</p>
-            <h4><a href="google.com">Entry requirements</a></h4>
-            <p>You\'ll usually need:</p>
+            <h4>Some things you might need</h4>
             <ul class="list-reqs">
-              <li><a href="google.com">4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels<a></li>
+              <li><a href="google.com">4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels</a></li>
             </ul>
           </div>
         </section>'
       end
 
+      let(:mutated_tags) do
+        [
+          '<h2 class="govuk-heading-m">Some things you might need</h2>',
+          '<ul class="govuk-list govuk-list--bullet">',
+          '<li>4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels</li>'
+        ]
+      end
+
       it 'removes all links' do
         expect(Nokogiri::HTML(mutated_html_body).xpath('//a[@href]')).to be_empty
+      end
+
+      it 'mutates the html snippet to use our styles' do
+        mutated_tags.each do |tag|
+          expect(mutated_html_body).to include(tag)
+        end
       end
     end
 
     it 'mutates the html snippet to use our styles' do
       mutated_tags.each do |tag|
         expect(mutated_html_body).to include(tag)
+      end
+    end
+
+    it 'removes unwanted copy' do
+      deleted_tags.each do |tag|
+        expect(mutated_html_body).not_to include(tag)
       end
     end
   end

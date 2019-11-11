@@ -1,18 +1,19 @@
-<%= @job_profile.section(xpath: JobProfileDecorator::SKILLS_SECTION_XPATH).html_safe %>
-<%= @job_profile.section(xpath: JobProfileDecorator::WWYD_TASKS_SECTION_XPATH).html_safe %>
-<%= @job_profile.section(xpath: JobProfileDecorator::WWYD_WORK_SECTION_XPATH).html_safe %>
+<%= render 'skills_section' %>
+<%= @job_profile.section(:day_to_day_tasks).html_safe %>
+<%= @job_profile.section(:working_environment).html_safe %>
 <%= render 'valuable_skills' unless Flipflop.action_plan? %>
-<%= @job_profile.section(xpath: JobProfileDecorator::DIRECT_APPLICATION_SECTION_XPATH).html_safe %>
+<%= @job_profile.section(:direct_application).html_safe %>
 <%= render 'apprenticeship' %>
-<%= @job_profile.section(xpath: JobProfileDecorator::CAREER_PATH_SECTION_XPATH).html_safe %>
-<%= @job_profile.section(xpath: JobProfileDecorator::OTHER_ROUTES_SECTION_XPATH).html_safe %>
-<%= @job_profile.section(xpath: JobProfileDecorator::CAREER_TIPS_SECTION_XPATH).html_safe %>
-<%= @job_profile.section(xpath: JobProfileDecorator::WORK_SECTION_XPATH).html_safe %>
-<%= @job_profile.section(xpath: JobProfileDecorator::RESTRICTIONS_AND_REQUESTS_SECTION_XPATH).html_safe %>
+<%= @job_profile.section(:career_path).html_safe %>
+<%= @job_profile.section(:other_routes).html_safe %>
+<%= @job_profile.section(:career_tips).html_safe %>
+<%= @job_profile.section(:work).html_safe %>
+<%= @job_profile.section(:restrictions_and_requirements).html_safe %>
 <%= render 'jobs_in_your_area' %>
+
 <% if Flipflop.action_plan? %>
-  <p class="govuk-body">Select this as your target job and we’ll help you prepare to apply.</p>
-  <%= button_to('Target this job', target_job_profile_path(@job_profile.slug), class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6', data: { module: 'govuk-button' }) %>
+  <p class="govuk-body">Select this as your target type of work and we’ll help you prepare to apply.</p>
+  <%= button_to('Target this type of work', target_job_profile_path(@job_profile.slug), class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6', data: { module: 'govuk-button' }) %>
 <% else %>
   <%= render 'further_help' %>
 <% end %>

@@ -13,7 +13,7 @@
     </div>
     <div class="govuk-grid-column-full">
       <p class="govuk-body">
-        <%= "#{pluralize(job_profile_hash[:skills].values.count, 'skill', 'skills')} selected" %>
+        <%= "#{pluralize(job_profile_hash[:skills].values.count, 'skill', locale: I18n.locale.to_s)} selected" %>
       </p>
     </div>
   </div>
