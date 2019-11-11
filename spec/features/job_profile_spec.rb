@@ -5,12 +5,12 @@ RSpec.feature 'Job profile spec' do
     disable_feature! :action_plan
   end
 
-  scenario 'Page title has the structure: What does a typical <job_profile.name> do?' do
-    create(:job_profile, :with_html_content, name: 'Cleric', slug: 'cleric')
+  scenario 'Page has correct title including job profile name' do
+    create(:job_profile, :with_html_content, name: 'Acrobat', slug: 'acrobat')
 
-    visit(job_profile_path('cleric'))
+    visit(job_profile_path('acrobat'))
 
-    expect(page).to have_content('What does a typical Cleric do?')
+    expect(page).to have_content('How to become an acrobat')
   end
 
   scenario 'Alternative titles has the structure Other similar jobs include: xxxxx' do
@@ -65,12 +65,12 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Apprenticeship')
   end
 
-  scenario 'Page does not have CTA: Target this job' do
+  scenario 'Page does not have CTA: Target this type of work' do
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
 
-    expect(page).not_to have_button('Target this job')
+    expect(page).not_to have_button('Target this type of work')
   end
 
   scenario 'User can see number of job vacancies near them' do
@@ -81,7 +81,7 @@ RSpec.feature 'Job profile spec' do
     user_enters_location
     visit(job_profile_path(job_profile.slug))
 
-    expect(page).to have_content('At least 3 jobs')
+    expect(page).to have_content('At least 3 vacancies')
   end
 
   scenario 'User can see singular job vacancy if only one near them' do
@@ -92,7 +92,7 @@ RSpec.feature 'Job profile spec' do
     user_enters_location
     visit(job_profile_path(job_profile.slug))
 
-    expect(page).to have_content('At least 1 job')
+    expect(page).to have_content('At least 1 vacancy')
   end
 
   scenario 'User can see no job vacancies near them if none are available' do
@@ -151,13 +151,13 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Further help to change jobs')
   end
 
-  scenario 'User can follow the bottom CTA: Target this job on V2' do
+  scenario 'User can target a job profile on V2' do
     enable_feature! :action_plan
 
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this job')
+    click_on('Target this type of work')
 
     expect(page).to have_current_path(action_plan_path)
   end

@@ -1,4 +1,4 @@
-<% apprenticeship_section = @job_profile.section(xpath: JobProfileDecorator::APPRENTICESHIP_SECTION_XPATH) %>
+<% apprenticeship_section = @job_profile.section(:apprenticeship) %>
 
 <% if apprenticeship_section.present? %>
   <h2 class='govuk-heading-m'>Apprenticeship</h2>

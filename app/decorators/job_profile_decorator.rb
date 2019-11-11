@@ -5,20 +5,27 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   include ActionView::Helpers::NumberHelper
 
   # rubocop:disable Metrics/LineLength
+  HOW_TO_BECOME_XPATH = "//h2[contains(@class, 'job-profile-heading')]".freeze
   WORKING_HOURS_XPATH = "//div[@id='WorkingHours']//p[@class='dfc-code-jphours']".freeze
   WORKING_HOURS_PATTERNS_XPATH = "//div[@id='WorkingHoursPatterns']//p[@class='dfc-code-jpwpattern']".freeze
   ADDITIONAL_COPY_XPATH = "//header[@class='job-profile-hero']//div[@class='column-desktop-two-thirds']/p".freeze
-  APPRENTICESHIP_SECTION_XPATH = "//section[@id='Apprenticeship']/div[@class='job-profile-subsection-content']".freeze
-  DIRECT_APPLICATION_SECTION_XPATH = "//section[@id='directapplication']".freeze
-  WORK_SECTION_XPATH = "//section[@id='work']".freeze
-  SKILLS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'restrictions'))]".freeze
-  WWYD_TASKS_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]".freeze
-  WWYD_WORK_SECTION_XPATH = "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]".freeze
-  CAREER_PATH_SECTION_XPATH = "//section[@id='CareerPathAndProgression']".freeze
-  RESTRICTIONS_AND_REQUESTS_SECTION_XPATH = "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]".freeze
-  CAREER_TIPS_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']".freeze
-  OTHER_ROUTES_SECTION_XPATH = "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]".freeze
+
+  SECTIONS_XPATH = {
+    apprenticeship: "//section[@id='Apprenticeship']/div[@class='job-profile-subsection-content']",
+    direct_application: "//section[@id='directapplication']",
+    work: "//section[@id='work']",
+    day_to_day_tasks: "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and not(contains(@id, 'workingenvironment'))]",
+    working_environment: "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]",
+    career_path: "//section[@id='CareerPathAndProgression']",
+    restrictions_and_requirements: "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]",
+    career_tips: "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']",
+    other_routes: "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]"
+  }.freeze
   # rubocop:enable Metrics/LineLength
+
+  def how_to_become
+    html_body.xpath(HOW_TO_BECOME_XPATH).text
+  end
 
   def salary_range
     return 'Variable' unless salary_min && salary_max
@@ -46,13 +53,14 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     html_body.xpath(ADDITIONAL_COPY_XPATH).children.map(&:text)
   end
 
-  def section(xpath: nil)
-    return unless xpath
+  def section(key)
+    return unless (xpath = SECTIONS_XPATH[key])
 
-    @doc = html_body.xpath(xpath).children
+    @doc = html_body.xpath(xpath)
 
     return '' unless @doc.any?
 
+    mutate_apprenticeship_content if key == :apprenticeship
     mutate_html_body
 
     @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').concat(separator_line)
@@ -111,6 +119,12 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     @html_body ||= Nokogiri::HTML(content)
   end
 
+  def mutate_apprenticeship_content
+    entry_requirements = @doc.xpath("h4[.='Entry requirements']")
+    entry_requirements.xpath('following-sibling::*').remove
+    entry_requirements.remove
+  end
+
   def mutate_html_body
     mutate_h2_tags
     mutate_h3_tags
@@ -120,31 +134,31 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def mutate_h2_tags
-    @doc.xpath('//h2').each do |h2|
+    @doc.xpath('h2').each do |h2|
       h2['class'] = 'govuk-heading-m'
     end
   end
 
   def mutate_h3_tags
-    @doc.xpath('//h3').each do |h3|
+    @doc.xpath('h3').each do |h3|
       h3.name = 'h2'
       h3['class'] = 'govuk-heading-m'
     end
   end
 
   def mutate_h4_tags
-    @doc.xpath('//h4').each do |h4|
+    @doc.xpath('h4').each do |h4|
       if h4.content == 'More information'
         h4.remove
       else
-        h4.name = 'h3'
-        h4['class'] = 'govuk-heading-s'
+        h4.name = 'h2'
+        h4['class'] = 'govuk-heading-m'
       end
     end
   end
 
   def mutate_p_tags
-    @doc.xpath('//p').each do |p|
+    @doc.xpath('.//p').each do |p|
       p['class'] = 'govuk-body-m'
     end
   end
