@@ -67,6 +67,9 @@ gem 'notifications-ruby-client', '~> 4.0'
 # Passwordless authentication
 gem 'passwordless', '~> 0.8'
 
+gem 'logging-rails', :require => 'logging/rails'
+gem 'lograge'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -96,7 +99,7 @@ group :development, :test do
   gem 'faker', '~> 1.9'
 
   # Spreadsheet access
-  gem 'roo', '~> 2.8'
+  gem 'roo', '~> 1.13'
 end
 
 group :development do
