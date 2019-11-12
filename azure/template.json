@@ -116,26 +116,12 @@
         "description:": "The secret_key_base for Rails"
       }
     },
-    "appServicePlanTier": {
+    "sku": {
       "type": "string",
-      "allowedValues": [
-        "Basic",
-        "Standard",
-        "Premium"
-      ],
-      "defaultValue": "Standard",
+      "defaultValue": "S1",
       "metadata": {
-        "description": "The tier to use when building the App Service Plan"
+        "description": "The SKU of App Service Plan"
       }
-    },
-    "appServicePlanSize": {
-      "type": "string",
-      "allowedValues": [
-        "1",
-        "2",
-        "3"
-      ],
-      "defaultValue": "1"
     },
     "appServicePlanInstances": {
       "type": "int",
@@ -490,11 +476,8 @@
           "appServicePlanName": {
             "value": "[variables('appServicePlanName')]"
           },
-          "appServicePlanTier": {
-            "value": "[parameters('appServicePlanTier')]"
-          },
-          "appServicePlanSize": {
-            "value": "[parameters('appServicePlanSize')]"
+          "sku": {
+            "value": "[parameters('sku')]"
           },
           "appServicePlanInstances": {
             "value": "[parameters('appServicePlanInstances')]"
