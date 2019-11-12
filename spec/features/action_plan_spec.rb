@@ -40,7 +40,6 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your Training choices')
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
-    click_on('Continue')
 
     expect(page).to have_link('Find an English course', href: courses_path(:english))
   end
@@ -49,7 +48,6 @@ RSpec.feature 'Action plan spec' do
     user_targets_a_job
     click_on('Edit your Training choices')
     check('I need to improve my maths skills', allow_label_click: true)
-    click_on('Continue')
     click_on('Continue')
 
     expect(page).to have_link('Find a maths course', href: courses_path(:maths))

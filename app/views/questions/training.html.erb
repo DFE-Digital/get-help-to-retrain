@@ -26,6 +26,7 @@
           </span>
           <div class="govuk-checkboxes govuk-!-margin-top-6">
             <div class="govuk-checkboxes__item govuk-!-margin-top-6">
+              <%= hidden_field_tag('action_plan_referer', @referer) %>
               <%= check_box_tag 'training[]', :english_skills, user_session.training.include?('english_skills'), id: :training_english_skills, class: 'govuk-checkboxes__input' %>
               <%= label_tag :training_english_skills, 'I need to improve my English skills', class: 'govuk-label govuk-checkboxes__label' %>
             </div>
