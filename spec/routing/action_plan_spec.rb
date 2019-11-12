@@ -17,6 +17,14 @@ RSpec.describe 'routes for action plan', type: :routing do
     it 'successfully routes to errors#jobs_near_me_error' do
       expect(get('/jobs-near-me-error')).to route_to(controller: 'errors', action: 'jobs_near_me_error')
     end
+
+    it 'successfully routes to questions#training' do
+      expect(get('/training-questions')).to route_to(controller: 'questions', action: 'training')
+    end
+
+    it 'successfully routes to questions#jobs_hunting' do
+      expect(get('/job-hunting-questions')).to route_to(controller: 'questions', action: 'job_hunting')
+    end
   end
 
   context 'with action_plan feature disabled' do
@@ -34,6 +42,14 @@ RSpec.describe 'routes for action plan', type: :routing do
 
     it 'does not root to errors#jobs_near_me_error' do
       expect(get('/jobs-near-me-error')).not_to be_routable
+    end
+
+    it 'does not root to questions#training' do
+      expect(get('/training-questions')).not_to be_routable
+    end
+
+    it 'does not root to questions#job_hunting_questions' do
+      expect(get('/job-hunting-questions')).not_to be_routable
     end
   end
 end
