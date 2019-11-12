@@ -1,0 +1,30 @@
+<%= link_to 'Edit your Training choices', training_questions_path, class: 'govuk-link action-plan-action' %>
+<h3 class="govuk-heading-m govuk-!-margin-bottom-2">Find training</h3>
+<% if user_session.training.present? %>
+  <p class="govuk-body">You chose to look for some training. Employers value these skills so this can improve your chances of getting a job. You can search for other job-related courses on the National Careers Service's <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %> service.</p>
+
+  <% if user_session.training.include?('math_skills') %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h3 class="govuk-heading-s">Maths course</h3>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <%= link_to 'Find a maths course', courses_path(:maths), class: 'govuk-button govuk-button--secondary action-plan-action', data: { module: 'govuk-button' } %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if user_session.training.include?('english_skills') %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h3 class="govuk-heading-s">English course</h3>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <%= link_to 'Find an English course', courses_path(:english), class: 'govuk-button govuk-button--secondary govuk-!-margin-bottom-2 action-plan-action', data: { module: 'govuk-button' } %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p class="govuk-body">Improve your chances of getting a job by completing training that employers value. You did not choose to get help with your maths or English. If you change your mind, you can edit your training choices.</p>
+  <p class="govuk-body">You can search for other job-related courses on <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %>, run by the National Careers Service.</p>
+<% end %>
