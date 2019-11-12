@@ -71,7 +71,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns an empty array if no training set' do
-      expect(user_session.training).to be_empty
+      expect(user_session.training).to be_nil
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe UserSession do
     end
 
     it 'returns an empty array if no job_hunting set' do
-      expect(user_session.job_hunting).to be_empty
+      expect(user_session.job_hunting).to be_nil
     end
   end
 

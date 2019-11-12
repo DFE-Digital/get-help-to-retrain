@@ -129,6 +129,16 @@ RSpec.feature 'Tasks List V2', type: :feature do
     visit(task_list_path)
     click_on('Personalised action plan')
 
+    expect(page).to have_current_path(training_questions_path)
+  end
+
+  scenario 'User goes straight to action plan page if they already answered questions' do
+    ensure_target_job_on_session
+    click_on('Continue')
+    click_on('Continue')
+    visit(task_list_path)
+    click_on('Personalised action plan')
+
     expect(page).to have_current_path(action_plan_path)
   end
 

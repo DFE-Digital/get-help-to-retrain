@@ -32,12 +32,12 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links to training questions' do
     user_targets_a_job
 
-    expect(page).to have_link('Edit your Training choices', href: training_questions_path)
+    expect(page).to have_link('Edit your training choices', href: training_questions_path)
   end
 
   scenario 'Page links to English courses if training question answered for english' do
     user_targets_a_job
-    click_on('Edit your Training choices')
+    click_on('Edit your training choices')
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
 
@@ -46,7 +46,7 @@ RSpec.feature 'Action plan spec' do
 
   scenario 'Page links to maths courses if training question answered for maths' do
     user_targets_a_job
-    click_on('Edit your Training choices')
+    click_on('Edit your training choices')
     check('I need to improve my maths skills', allow_label_click: true)
     click_on('Continue')
 
@@ -62,34 +62,34 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links to job hunting questions' do
     user_targets_a_job
 
-    expect(page).to have_link('Edit what help you need', href: job_hunting_questions_path)
+    expect(page).to have_link('Edit your advice choices', href: job_hunting_questions_path)
   end
 
   scenario 'Page links to cv help if job hunting question answered for cv' do
     user_targets_a_job
-    click_on('Edit what help you need')
+    click_on('Edit your advice choices')
     check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
 
-    expect(page).to have_link('Update CV')
+    expect(page).to have_link('Get CV advice')
   end
 
   scenario 'Page links to cover letter help if job hunting question answered for cover letter' do
     user_targets_a_job
-    click_on('Edit what help you need')
+    click_on('Edit your advice choices')
     check('I want advice on writing a cover letter', allow_label_click: true)
     click_on('Continue')
 
-    expect(page).to have_link('Write cover letter')
+    expect(page).to have_link('Get cover letter advice')
   end
 
   scenario 'Page links to interview prep help if job hunting question answered for interview prep' do
     user_targets_a_job
-    click_on('Edit what help you need')
+    click_on('Edit your advice choices')
     check('I want advice on preparing for interviews', allow_label_click: true)
     click_on('Continue')
 
-    expect(page).to have_link('Prepare for interview')
+    expect(page).to have_link('Get interview advice')
   end
 
   scenario 'Page shows different content if no job hunting questions answered' do

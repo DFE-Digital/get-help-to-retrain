@@ -5,7 +5,7 @@
   <ul class="app-task-list__items">
     <li class="app-task-list__item">
       <div class="app-task-list__task-name">
-        <%= link_or_blocked(path: action_plan_path, enabled: user_session.job_profile_skills? && user_session.target_job?, span_id: 3) do %>
+        <%= link_or_blocked(path: action_plan_or_questions_path, enabled: user_session.job_profile_skills? && user_session.target_job?, span_id: 3) do %>
           Personalised action plan
         <% end %>
         <p class="govuk-body govuk-!-margin-bottom-0">We'll give you a personalised action plan so you can take steps to change jobs.</p>

@@ -19,8 +19,6 @@ class UserSession
 
     @session[:job_profile_skills] ||= {}
     @session[:job_profile_ids] ||= []
-    @session[:training] ||= []
-    @session[:job_hunting] ||= []
   end
 
   def postcode

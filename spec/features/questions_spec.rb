@@ -35,21 +35,7 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(action_plan_path)
   end
 
-  scenario 'User does not see training questions if already answered' do
-    job_profile = create(:job_profile, :with_html_content)
-
-    visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
-    check('I need to improve my English skills', allow_label_click: true)
-    click_on('Continue')
-    click_on('Continue')
-    visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
-
-    expect(page).to have_current_path(job_hunting_questions_path)
-  end
-
-  scenario 'User does not see training and job hunting questions if both already answered' do
+  scenario 'User does not see questions if already answered' do
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
@@ -64,14 +50,36 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(action_plan_path)
   end
 
-  scenario 'User sees training questions if only job hunting questions already answered' do
+  scenario 'User does not see questions if both already seen' do
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
     click_on('Target this type of work')
     click_on('Continue')
-    check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
+    visit(job_profile_path(job_profile.slug))
+    click_on('Target this type of work')
+
+    expect(page).to have_current_path(action_plan_path)
+  end
+
+  scenario 'User sees job hunting questions if only training questions already answered' do
+    job_profile = create(:job_profile, :with_html_content)
+
+    visit(job_profile_path(job_profile.slug))
+    click_on('Target this type of work')
+    check('I need to improve my English skills', allow_label_click: true)
+    click_on('Continue')
+    visit(job_profile_path(job_profile.slug))
+    click_on('Target this type of work')
+
+    expect(page).to have_current_path(job_hunting_questions_path)
+  end
+
+  scenario 'User sees training questions if only job hunting questions already answered' do
+    job_profile = create(:job_profile, :with_html_content)
+    visit(job_hunting_questions_path)
+    check('I want advice on creating or updating a CV', allow_label_click: true)
     visit(job_profile_path(job_profile.slug))
     click_on('Target this type of work')
 
