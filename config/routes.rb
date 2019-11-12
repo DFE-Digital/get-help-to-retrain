@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   get 'english-course-overview', to: 'pages#english_overview'
   get 'training-hub', to: 'pages#training_hub'
   get 'offers-near-me', to: 'pages#offers_near_me', constraints: ->(_req) { Flipflop.action_plan? }
+  get 'training-questions', to: 'questions#training', constraints: ->(_req) { Flipflop.action_plan? }
+  post 'training-questions', to: 'questions#training_answers', constraints: ->(_req) { Flipflop.action_plan? }
   get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
   get 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
   get 'save-results-error', to: 'errors#save_results_error'

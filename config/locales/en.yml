@@ -3,6 +3,7 @@ en-GB:
     home: Home
     action_plan: Action plan
     offers_near_me: Offers near me
+    training_questions: Training choices
     jobs_near_me: Jobs near me
     task_list: Get help to retrain
     task_list_home: 'Home: Get help to retrain'
@@ -49,6 +50,7 @@ en-GB:
     pages_location_ineligible: Get help to retrain - No courses in your area
     pages_action_plan: Get help to retrain - Action plan
     pages_offers_near_me: Get help to retrain - Offers near me
+    training_questions: Get help to retrain - Training choices
     user_personal_data: Get help to retrain - Your information
     jobs_near_me: Get help to retrain - Jobs near me
     errors_not_found: Get help to retrain - Not found
@@ -107,6 +109,9 @@ en-GB:
       title: Get help to retrain
   skills:
     invalid_skills_selected_error: Select at least one skill
+  questions:
+    training:
+      title: Check your maths and English skills
   pages:
     action_plan:
       title: Your personal action plan
