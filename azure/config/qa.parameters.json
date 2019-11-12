@@ -6,7 +6,7 @@
       "value": "P1V2"
     },
     "domainDatabaseName": {
-      "value": "domaintemp"
+      "value": "domain"
     },
     "domainDatabaseUsername": {
       "reference": {
