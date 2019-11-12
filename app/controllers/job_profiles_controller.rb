@@ -7,7 +7,11 @@ class JobProfilesController < ApplicationController
   def target
     user_session.target_job_id = resource.id
 
-    redirect_to action_plan_path
+    redirect_to(
+      helpers.training_questions ||
+        helpers.job_hunting_questions ||
+        action_plan_path
+    )
   end
 
   def destroy

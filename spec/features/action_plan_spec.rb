@@ -60,6 +60,8 @@ RSpec.feature 'Action plan spec' do
     create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer').tap do |job_profile|
       visit(job_profile_path(job_profile.slug))
       click_on('Target this type of work')
+      click_on('Continue')
+      click_on('Continue')
     end
   end
 end

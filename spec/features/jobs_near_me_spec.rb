@@ -172,6 +172,8 @@ RSpec.feature 'Jobs near me', type: :feature do
     create(:job_profile, :with_html_content, name: 'Admin assistant').tap do |job_profile|
       visit(job_profile_path(job_profile.slug))
       click_on('Target this type of work')
+      click_on('Continue')
+      click_on('Continue')
       click_on('Show jobs near me')
     end
   end
