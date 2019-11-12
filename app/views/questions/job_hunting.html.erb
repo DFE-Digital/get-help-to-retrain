@@ -25,15 +25,15 @@
           </span>
           <div class="govuk-checkboxes govuk-!-margin-top-6">
             <div class="govuk-checkboxes__item govuk-!-margin-top-6">
-              <%= check_box_tag 'job_hunting[]', :cv, false, id: :job_hunting_cv, class: 'govuk-checkboxes__input' %>
+              <%= check_box_tag 'job_hunting[]', :cv, user_session.job_hunting.include?('cv'), id: :job_hunting_cv, class: 'govuk-checkboxes__input' %>
               <%= label_tag :job_hunting_cv, 'I want advice on creating or updating a CV', class: 'govuk-label govuk-checkboxes__label' %>
             </div>
             <div class="govuk-checkboxes__item govuk-!-margin-top-6">
-              <%= check_box_tag 'job_hunting[]', :cover_letter, false, id: :job_hunting_cover_letter, class: 'govuk-checkboxes__input' %>
+              <%= check_box_tag 'job_hunting[]', :cover_letter, user_session.job_hunting.include?('cover_letter'), id: :job_hunting_cover_letter, class: 'govuk-checkboxes__input' %>
               <%= label_tag :job_hunting_cover_letter, 'I want advice on writing a cover letter', class: 'govuk-label govuk-checkboxes__label' %>
             </div>
             <div class="govuk-checkboxes__item govuk-!-margin-top-6">
-              <%= check_box_tag 'job_hunting[]', :interviews, false, id: :job_hunting_interviews, class: 'govuk-checkboxes__input' %>
+              <%= check_box_tag 'job_hunting[]', :interviews, user_session.job_hunting.include?('interviews'), id: :job_hunting_interviews, class: 'govuk-checkboxes__input' %>
               <%= label_tag :job_hunting_interviews, 'I want advice on preparing for interviews', class: 'govuk-label govuk-checkboxes__label' %>
             </div>
           </div>
