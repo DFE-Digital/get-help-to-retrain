@@ -6,8 +6,7 @@ class JobProfilesController < ApplicationController
 
   def target
     user_session.target_job_id = resource.id
-
-    redirect_to action_plan_path
+    redirect_to helpers.action_plan_or_questions_path
   end
 
   def destroy

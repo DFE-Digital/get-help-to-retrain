@@ -10,12 +10,20 @@ RSpec.describe UserSession do
       old_session = {
         'postcode' => 'NW118QE',
         'target_job_id' => 100,
-        'session_id' => 2
+        'session_id' => 2,
+        'training' => ['english_skills'],
+        'job_hunting' => ['cv']
       }
       new_session = { 'session_id' => 1 }
       described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
 
-      expect(new_session).to eq('postcode' => 'NW118QE', 'target_job_id' => 100, 'session_id' => 1)
+      expect(new_session).to eq(
+        'postcode' => 'NW118QE',
+        'target_job_id' => 100,
+        'session_id' => 1,
+        'training' => ['english_skills'],
+        'job_hunting' => ['cv']
+      )
     end
 
     it 'overrides set values in current session with old ones' do
@@ -52,6 +60,30 @@ RSpec.describe UserSession do
 
     it 'returns nil if no targetted job id set' do
       expect(user_session.target_job_id).to be_nil
+    end
+  end
+
+  describe '#training' do
+    it 'returns training value if set' do
+      user_session.training = ['english_skills']
+
+      expect(user_session.training).to contain_exactly('english_skills')
+    end
+
+    it 'returns an empty array if no training set' do
+      expect(user_session.training).to be_nil
+    end
+  end
+
+  describe '#job_hunting' do
+    it 'returns job_hunting value if set' do
+      user_session.job_hunting = %w[cv cover_letter]
+
+      expect(user_session.job_hunting).to contain_exactly('cv', 'cover_letter')
+    end
+
+    it 'returns an empty array if no job_hunting set' do
+      expect(user_session.job_hunting).to be_nil
     end
   end
 

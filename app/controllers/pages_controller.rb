@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def action_plan
-    redirect_to task_list_path unless target_job.present?
+    redirect_unless_target_job
   end
 
   def task_list

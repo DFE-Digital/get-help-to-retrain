@@ -159,7 +159,7 @@ RSpec.feature 'Job profile spec' do
     visit(job_profile_path(job_profile.slug))
     click_on('Target this type of work')
 
-    expect(page).to have_current_path(action_plan_path)
+    expect(page).to have_current_path(training_questions_path)
   end
 
   def user_enters_location
