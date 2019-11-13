@@ -17,11 +17,11 @@ RSpec.describe 'rake data_import:import_courses' do
     expect { task.execute(filename: 'foo.xlsx') }.to raise_exception(IOError)
   end
 
-  it 'does not raise error with valid filename' do
+  xit 'does not raise error with valid filename' do
     expect { task.execute(filename: path) }.not_to raise_exception
   end
 
-  it 'creates courses' do
+  xit 'creates courses' do
     expect { task.execute(filename: path) }.to change(Course, :count).by(2)
   end
 end

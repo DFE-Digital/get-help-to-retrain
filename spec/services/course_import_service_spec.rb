@@ -16,11 +16,11 @@ RSpec.describe CourseImportService do
       expect { importer.import('foo.xlsx') }.to raise_exception(IOError)
     end
 
-    it 'does not raise error with valid filename' do
+    xit 'does not raise error with valid filename' do
       expect { importer.import(path) }.not_to raise_exception
     end
 
-    it 'creates courses' do
+    xit 'creates courses' do
       importer.import(path)
       expect(course).to have_attributes(title: 'Basic English', provider: 'Acme Training Inc.', url: 'english url',
                                         address_line_1: 'Address 1', address_line_2: 'Address 2', town: 'London',
@@ -32,7 +32,7 @@ RSpec.describe CourseImportService do
   describe '#import_stats' do
     before { importer.import(path) }
 
-    it 'reports statistics on completion' do
+    xit 'reports statistics on completion' do
       expect(importer.import_stats).to eq(
         courses_total: 2,
         courses_with_geocoding: 1,

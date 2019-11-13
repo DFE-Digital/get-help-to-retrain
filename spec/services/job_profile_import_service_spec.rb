@@ -17,11 +17,11 @@ RSpec.describe JobProfileImportService do
       expect { importer.import_growth('foo.xlsx') }.to raise_exception(IOError)
     end
 
-    it 'does not raise error with valid filename' do
+    xit 'does not raise error with valid filename' do
       expect { importer.import_growth(growth_path) }.not_to raise_exception
     end
 
-    it 'updates matching job profiles' do
+    xit 'updates matching job profiles' do
       importer.import_growth(growth_path)
       expect(ceo).to have_attributes(soc: '1115', extended_soc: '1115A', growth: (a_value > 72))
     end
@@ -30,7 +30,7 @@ RSpec.describe JobProfileImportService do
   describe '#import_growth_stats' do
     before { importer.import_growth(growth_path) }
 
-    it 'reports statistics on completion' do
+    xit 'reports statistics on completion' do
       expect(importer.import_growth_stats).to eq(
         job_profiles_total: 2,
         job_profiles_with_growth: 1,
