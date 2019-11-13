@@ -99,7 +99,7 @@ group :development, :test do
   gem 'faker', '~> 1.9'
 
   # Spreadsheet access
-  gem 'roo'
+  gem 'roo', '~> 2.8'
 end
 
 group :development do
