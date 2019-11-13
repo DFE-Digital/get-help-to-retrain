@@ -12,6 +12,7 @@
 <%= render 'jobs_in_your_area' %>
 
 <% if Flipflop.action_plan? %>
+  <h2 class="govuk-heading-m">Select type of work</h2>
   <p class="govuk-body">Select this as your target type of work and we’ll help you prepare to apply.</p>
   <%= button_to('Target this type of work', target_job_profile_path(@job_profile.slug), class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6', data: { module: 'govuk-button' }) %>
 <% else %>
