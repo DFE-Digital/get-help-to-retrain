@@ -82,6 +82,13 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     # stdout_logger.formatter = config.log_formatter
     # config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
 
+    config.rails_semantic_logger.started    = true
+    config.rails_semantic_logger.processing = true
+    config.rails_semantic_logger.rendered   = true
+    config.rails_semantic_logger.quiet_assets = true
+    config.rails_semantic_logger.rendered = false
+    config.rails_semantic_logger.format = :json
+
     STDOUT.sync = true
     config.rails_semantic_logger.add_file_appender = false
     config.semantic_logger.add_appender(
@@ -89,13 +96,6 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
       level: config.log_level,
       formatter: config.rails_semantic_logger.format
     )
-
-    config.rails_semantic_logger.started    = true
-    config.rails_semantic_logger.processing = true
-    config.rails_semantic_logger.rendered   = true
-    config.rails_semantic_logger.quiet_assets = true
-    config.rails_semantic_logger.rendered = false
-    config.rails_semantic_logger.format = :json
 
     if ENV['LOGGLY_TOKEN'].present?
       loggly_url              = "https://logs-01.loggly.com/inputs/#{ENV['LOGGLY_TOKEN']}/tag/ruby/"
