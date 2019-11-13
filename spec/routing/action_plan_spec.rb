@@ -32,23 +32,23 @@ RSpec.describe 'routes for action plan', type: :routing do
       disable_feature! :action_plan
     end
 
-    it 'does not root to pages#action_plan' do
+    it 'does not route to pages#action_plan' do
       expect(get('/action-plan')).not_to be_routable
     end
 
-    it 'does not root to pages#offers_near_me' do
+    it 'does not route to pages#offers_near_me' do
       expect(get('/offers-near-me')).not_to be_routable
     end
 
-    it 'does not root to errors#jobs_near_me_error' do
+    it 'does not route to errors#jobs_near_me_error' do
       expect(get('/jobs-near-me-error')).not_to be_routable
     end
 
-    it 'does not root to questions#training' do
+    it 'does not route to questions#training' do
       expect(get('/training-questions')).not_to be_routable
     end
 
-    it 'does not root to questions#job_hunting_questions' do
+    it 'does not route to questions#job_hunting_questions' do
       expect(get('/job-hunting-questions')).not_to be_routable
     end
   end

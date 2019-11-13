@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     helpers.target_job
   end
 
+  def redirect_unless_target_job
+    redirect_to task_list_path unless target_job.present?
+  end
+
   helper_method :user_session, :current_user
 
   private

@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :redirect_unless_target_job
+
   def training_answers
     user_session.training = questions_params[:training] || []
     redirect_to helpers.job_hunting_questions || action_plan_path
