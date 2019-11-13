@@ -78,9 +78,16 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
 
   # Use a different logger for distributed setups.
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    stdout_logger           = ActiveSupport::Logger.new(STDOUT)
-    stdout_logger.formatter = config.log_formatter
-    config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
+    # stdout_logger           = ActiveSupport::Logger.new(STDOUT)
+    # stdout_logger.formatter = config.log_formatter
+    # config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
+
+    config.rails_semantic_logger.started    = true
+    config.rails_semantic_logger.processing = true
+    config.rails_semantic_logger.rendered   = true
+    config.rails_semantic_logger.quiet_assets = true
+    config.rails_semantic_logger.rendered = false
+    config.rails_semantic_logger.format = :json
 
     if ENV['LOGGLY_TOKEN'].present?
       loggly_url              = "https://logs-01.loggly.com/inputs/#{ENV['LOGGLY_TOKEN']}/tag/ruby/"
