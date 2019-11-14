@@ -44,5 +44,6 @@ module GetHelpToRetrain
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
     config.host_name = Socket.gethostname
     config.bing_spell_check_api_key = ENV['BING_SPELL_CHECK_API_KEY']
+    config.ga_tracking_id = ENV['GA_TRACKING_ID']
   end
 end
