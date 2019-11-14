@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_raven_context
-    return unless Rails.configuration.sentry_dsn.present?
+    return unless Rails.configuration.sentry_dsn.present? 
 
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
