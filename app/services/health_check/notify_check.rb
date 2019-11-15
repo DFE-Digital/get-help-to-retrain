@@ -7,10 +7,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= NotifyService.new.health_check
-    rescue Notifications::Client::RequestError, RuntimeError, ArgumentError => e
-      @output = "Notify API error: #{e.message}"
-      nil
+      @value ||= fetch_value
     end
 
     def unit
@@ -19,6 +16,15 @@ module HealthCheck
 
     def status
       value.present? ? :pass : :warn
+    end
+
+    private
+
+    def fetch_value
+      NotifyService.new.health_check
+    rescue Notifications::Client::RequestError, RuntimeError, ArgumentError => e
+      @output = "Notify API error: #{e.message}"
+      nil
     end
   end
 end

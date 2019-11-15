@@ -7,10 +7,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= FindAJobService.new.health_check
-    rescue FindAJobService::APIError => e
-      @output = "Find A Job API error: #{e.message}"
-      ''
+      @value ||= fetch_value
     end
 
     def unit
@@ -19,6 +16,15 @@ module HealthCheck
 
     def status
       value.present? ? :pass : :warn
+    end
+
+    private
+
+    def fetch_value
+      FindAJobService.new.health_check
+    rescue FindAJobService::APIError => e
+      @output = "Find A Job API error: #{e.message}"
+      ''
     end
   end
 end

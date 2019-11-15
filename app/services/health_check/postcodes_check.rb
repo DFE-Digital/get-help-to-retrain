@@ -7,10 +7,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= Geocoder.coordinates('B1 2JP')
-    rescue SocketError, Timeout::Error, Geocoder::Error => e
-      @output = "Geocoder API error: #{e.message}"
-      []
+      @value ||= fetch_value
     end
 
     def unit
@@ -19,6 +16,15 @@ module HealthCheck
 
     def status
       value.present? ? :pass : :warn
+    end
+
+    private
+
+    def fetch_value
+      Geocoder.coordinates('B1 2JP')
+    rescue SocketError, Timeout::Error, Geocoder::Error => e
+      @output = "Geocoder API error: #{e.message}"
+      []
     end
   end
 end
