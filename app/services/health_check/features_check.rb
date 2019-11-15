@@ -7,10 +7,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= Flipflop.health_check?
-    rescue StandardError => e
-      @output = "SplitIO error: #{e.inspect}"
-      false
+      @value ||= fetch_value
     end
 
     def unit
@@ -19,6 +16,15 @@ module HealthCheck
 
     def status
       value ? :pass : :fail
+    end
+
+    private
+
+    def fetch_value
+      Flipflop.health_check?
+    rescue StandardError => e
+      @output = "SplitIO error: #{e.inspect}"
+      false
     end
   end
 end
