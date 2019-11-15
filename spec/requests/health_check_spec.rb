@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'User personal data', type: :request do
+RSpec.describe 'Health check', type: :request do
   describe 'GET status#index' do
     let(:report) { { foo: 'bar' } }
     let(:health_check) { instance_double(HealthCheck::ReportService, report: report, status: status) }
