@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Action plan spec' do
-  background do
-    enable_feature! :action_plan
-  end
-
   scenario 'Redirects back to task list page without a targetted job profile' do
     visit(action_plan_path)
 

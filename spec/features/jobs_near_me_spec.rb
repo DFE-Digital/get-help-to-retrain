@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.feature 'Jobs near me', type: :feature do
-  background do
-    enable_feature! :action_plan
-  end
-
   scenario 'User can navigate to jobs near me page from action plan' do
     user_targets_a_job
 

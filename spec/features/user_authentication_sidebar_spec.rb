@@ -22,11 +22,7 @@ RSpec.feature 'User authentication in sidebar' do
       job_profile_skills_path(job_profile1.slug),
       skills_matcher_index_path,
       job_profile_path(job_profile1.slug),
-      training_hub_path,
-      english_course_overview_path,
-      maths_course_overview_path,
-      courses_path('english'),
-      next_steps_path
+      courses_path('english')
     ]
   }
 

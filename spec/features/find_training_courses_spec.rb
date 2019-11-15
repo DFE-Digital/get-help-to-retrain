@@ -15,34 +15,6 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(find_field('postcode').value).to eq 'NW6 1JF'
   end
 
-  scenario 'The user can navigate to maths course page from training hub' do
-    visit(training_hub_path)
-    click_on('Find a maths course')
-
-    expect(page).to have_current_path(courses_path('maths'))
-  end
-
-  scenario 'The user can navigate to english course page from training hub' do
-    visit(training_hub_path)
-    click_on('Find an English course')
-
-    expect(page).to have_current_path(courses_path('english'))
-  end
-
-  scenario 'The user can navigate to english course page from math course overview page' do
-    visit(maths_course_overview_path)
-    click_on('Find a maths course')
-
-    expect(page).to have_current_path(courses_path('maths'))
-  end
-
-  scenario 'The user can navigate to english course page from an english course overview page' do
-    visit(english_course_overview_path)
-    click_on('Find an English course')
-
-    expect(page).to have_current_path(courses_path('english'))
-  end
-
   scenario 'Users can find training courses near them' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
@@ -166,40 +138,10 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(TrackingService).to have_received(:track_event).with('Courses near me - Postcode search', search: 'NW6 8ET')
   end
 
-  context 'with action plan feature enabled' do
-    background do
-      enable_feature! :action_plan
-    end
+  scenario 'Breadcrumb links back to action plan' do
+    visit(courses_path(topic_id: 'maths'))
 
-    scenario 'Breadcrumb links back to action plan' do
-      visit(courses_path(topic_id: 'maths'))
-
-      expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Action plan')
-    end
-
-    scenario 'Further help to find work section is hidden' do
-      visit(courses_path(topic_id: 'maths'))
-
-      expect(page).not_to have_link('Get help changing jobs')
-    end
-  end
-
-  context 'with action plan feature disabled' do
-    background do
-      disable_feature! :action_plan
-    end
-
-    scenario 'Breadcrumb links back to training hub' do
-      visit(courses_path(topic_id: 'maths'))
-
-      expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Find training')
-    end
-
-    scenario 'Further help to find work section is shown' do
-      visit(courses_path(topic_id: 'maths'))
-
-      expect(page).to have_link('Get help changing jobs', href: next_steps_path)
-    end
+    expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Action plan')
   end
 
   private

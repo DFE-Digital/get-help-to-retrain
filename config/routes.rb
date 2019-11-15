@@ -12,30 +12,26 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_server_error', via: :all
 
   get 'task-list', to: 'pages#task_list'
-  get 'next-steps', to: 'pages#next_steps'
   get 'cookies-policy', to: 'pages#cookies_policy'
   get 'privacy-policy', to: 'pages#privacy_policy'
 
-  get 'action-plan', to: 'pages#action_plan', constraints: ->(_req) { Flipflop.action_plan? }
+  get 'action-plan', to: 'pages#action_plan'
   match(
     'jobs-near-me',
-    to: 'job_vacancies#index', as: :jobs_near_me, via: %i[get post], constraints: ->(_req) { Flipflop.action_plan? }
+    to: 'job_vacancies#index', as: :jobs_near_me, via: %i[get post]
   )
-  get 'maths-course-overview', to: 'pages#maths_overview'
-  get 'english-course-overview', to: 'pages#english_overview'
-  get 'training-hub', to: 'pages#training_hub'
-  get 'offers-near-me', to: 'pages#offers_near_me', constraints: ->(_req) { Flipflop.action_plan? }
-  get 'training-questions', to: 'questions#training', constraints: ->(_req) { Flipflop.action_plan? }
-  post 'training-questions', to: 'questions#training_answers', constraints: ->(_req) { Flipflop.action_plan? }
-  get 'job-hunting-questions', to: 'questions#job_hunting', constraints: ->(_req) { Flipflop.action_plan? }
-  post 'job-hunting-questions', to: 'questions#job_hunting_answers', constraints: ->(_req) { Flipflop.action_plan? }
+  get 'offers-near-me', to: 'pages#offers_near_me'
+  get 'training-questions', to: 'questions#training'
+  post 'training-questions', to: 'questions#training_answers'
+  get 'job-hunting-questions', to: 'questions#job_hunting'
+  post 'job-hunting-questions', to: 'questions#job_hunting_answers'
   get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
   get 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
   get 'save-results-error', to: 'errors#save_results_error'
 
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
-  get 'jobs-near-me-error', to: 'errors#jobs_near_me_error', constraints: ->(_req) { Flipflop.action_plan? }
+  get 'jobs-near-me-error', to: 'errors#jobs_near_me_error'
 
   match(
     'courses/:topic_id',
@@ -47,7 +43,7 @@ Rails.application.routes.draw do
   end
 
   resources :job_profiles, path: 'job-profiles', only: %i[show destroy] do
-    post :target, on: :member, constraints: ->(_req) { Flipflop.action_plan? }
+    post :target, on: :member
     resources :skills do
       get :index, controller: 'job_profiles_skills', on: :collection
     end

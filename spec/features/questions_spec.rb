@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.feature 'Questions' do
   let(:job_profile) { create(:job_profile, :with_html_content) }
 
-  background do
-    enable_feature! :action_plan
-  end
-
   scenario 'User sees training questions when targetting a job' do
     user_targets_job
 
