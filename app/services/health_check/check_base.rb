@@ -10,6 +10,10 @@ module HealthCheck
       raise NotImplementedError
     end
 
+    def cached_status
+      detail[:status]
+    end
+
     def time
       Time.now.iso8601
     end

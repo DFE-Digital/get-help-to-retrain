@@ -29,7 +29,7 @@ module HealthCheck
     private
 
     def statuses
-      @statuses ||= checks.map(&:status)
+      @statuses ||= checks.map(&:cached_status)
     end
 
     def checks
