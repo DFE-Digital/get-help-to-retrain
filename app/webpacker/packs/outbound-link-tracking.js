@@ -13,7 +13,7 @@ function OutboundLinkTracking () {
         var myDomain = href.match(getDomain);
 
         // If link is outbound and is not to this domain
-        if ((href.match(/^(https?:|\/\/)/i)  && !myDomain) || href.match(/^mailto\:/i)) {
+        if (typeof gtag === 'function' && (href.match(/^(https?:|\/\/)/i)  && !myDomain) || href.match(/^mailto\:/i)) {
 
           // Add an event to click
           addEvent(el[i],'click', function(e) {
