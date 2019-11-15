@@ -1,22 +1,29 @@
 function OutboundLinkTracking () {
   this.start = function () {
+    if (typeof(gtag) !== 'undefined') {
+      trackOutboundLinks();
+    }
+  }
+
+
+  function trackOutboundLinks () {
     if (document.getElementsByTagName) {
       var el = document.getElementsByTagName('a');
       var getDomain = document.domain.split('.').reverse()[1] + '.' + document.domain.split('.').reverse()[0];
 
-      // Look thru each a element
+      // Look through each a element
       for (var i = 0; i < el.length; i++) {
-        // Extract it's href attribute
+        // Extract its href attribute
         var href = (typeof(el[i].getAttribute('href')) == 'string' ) ? el[i].getAttribute('href') : '';
 
         // Query the href for the top level domain (xxxxx.com)
         var myDomain = href.match(getDomain);
 
         // If link is outbound and is not to this domain
-        if (typeof gtag === 'function' && (href.match(/^(https?:|\/\/)/i)  && !myDomain) || href.match(/^mailto\:/i)) {
+        if ((href.match(/^(https?:|\/\/)/i)  && !myDomain) || href.match(/^mailto\:/i)) {
 
           // Add an event to click
-          addEvent(el[i],'click', function(e) {
+          addEvent(el[i], 'click', function(e) {
             var url = this.getAttribute('href');
             var win = (typeof(this.getAttribute('target')) == 'string') ? this.getAttribute('target') : '';
 
