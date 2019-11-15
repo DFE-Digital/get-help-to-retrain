@@ -98,9 +98,11 @@ en-GB:
 
     results:
       title: Your current job
+      additional_skills:
+        title: Your previous job
       placeholder: Enter your current job title
       no_results: 0 results found - try again using a different job title
-      body: Click the job title that best matches what you do now.
+      body: Select the job title that best matches what you do now. If you can’t see your job title, try searching with different words - for example, checkout operator instead of cashier.
   job_profiles_search:
     no_term_error: Enter a job title
   skills_matcher:
