@@ -4,6 +4,6 @@
   <p class="govuk-body govuk-!-margin-bottom-0">Distance: <b><%= course.distance.round(1) %> miles</b></p>
   <p class="govuk-body-s"><%= course.full_address %></p>
   <p class="govuk-body-s">Tel:<%= link_to(course.phone_number, "tel:#{course.phone_number}", class: 'govuk-!-padding-left-1 govuk-link' ) %></p>
-  <%= link_to 'Visit website', course.url, class: 'govuk-!-margin-bottom-6 govuk-button', target: '_blank', aria: { label: "Visit website of #{course.provider}" }, data: { module: 'govuk-button', tracked_event: 'Courses - Clicked course link', tracked_event_props: { url: course.url } } %>
+  <%= link_to 'Visit website', course.url, class: 'govuk-!-margin-bottom-6 govuk-button', aria: { label: "Visit website of #{course.provider}" }, data: { module: 'govuk-button' } %>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
 </li>

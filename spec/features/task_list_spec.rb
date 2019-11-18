@@ -41,12 +41,7 @@ RSpec.feature 'Task list', type: :feature do
 
     link = find_link('feedback')
 
-    expect([link[:href], link[:target]]).to eq(
-      [
-        'https://www.smartsurvey.co.uk/s/get-help-to-retrain/',
-        '_blank'
-      ]
-    )
+    expect(link[:href]).to eq('https://www.smartsurvey.co.uk/s/get-help-to-retrain/')
   end
 
   scenario 'With a clean new session the user will see sections 2,3,4 locked' do
@@ -158,11 +153,6 @@ RSpec.feature 'Task list', type: :feature do
 
     link = find_link('Take a quick survey')
 
-    expect([link[:href], link[:target]]).to eq(
-      [
-        'https://www.smartsurvey.co.uk/s/get-help-to-retrain/',
-        '_blank'
-      ]
-    )
+    expect(link[:href]).to eq('https://www.smartsurvey.co.uk/s/get-help-to-retrain/')
   end
 end
