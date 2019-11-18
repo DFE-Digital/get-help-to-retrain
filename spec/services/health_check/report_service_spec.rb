@@ -54,8 +54,8 @@ RSpec.describe HealthCheck::ReportService do
         create :job_profile
       end
 
-      it 'returns warn status' do
-        expect(service.status).to eq(:warn)
+      it 'returns fail status' do
+        expect(service.status).to eq(:fail)
       end
     end
 
