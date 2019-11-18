@@ -173,11 +173,3 @@
     padding-right: 0;
   }
 }
-
-.job-search-form-group-tag {
-  margin-bottom: 40px;
-
-  @include govuk-media-query($from: tablet) {
-    margin-bottom: 62px;
-  }
-}

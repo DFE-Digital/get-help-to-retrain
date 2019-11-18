@@ -32,6 +32,32 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_text('Patience and the ability to remain calm in stressful situations')
   end
 
+  scenario 'When user adds the first job the results page should reflect that' do
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Bodyguard')
+    find('.search-button').click
+
+    expect(page).to have_text('Your current job')
+  end
+
+  scenario 'When user adds previous job titles the results page should reflect that' do
+    hitman = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Hitman5',
+      skills: [
+        create(:skill)
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: hitman.slug))
+    click_on('Select these skills')
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Bodyguard')
+    find('.search-button').click
+
+    expect(page).to have_text('Your previous job')
+  end
+
   scenario 'User enters an incorrect word but no api key is available' do
     visit(check_your_skills_path)
     fill_in('search', with: 'Gatas')
