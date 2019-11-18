@@ -7,7 +7,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= JobProfile.count
+      @value ||= fetch_value
     end
 
     def unit
@@ -16,6 +16,16 @@ module HealthCheck
 
     def status
       value.zero? ? :fail : :pass
+    end
+
+    private
+
+    def fetch_value
+      JobProfile.count
+    rescue StandardError => e
+      @output = "Database error: #{e.inspect}"
+
+      0
     end
   end
 end

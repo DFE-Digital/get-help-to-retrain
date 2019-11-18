@@ -8,6 +8,12 @@ RSpec.describe HealthCheck::JobProfilesCheck do
       it 'returns fail' do
         expect(check.status).to eq :fail
       end
+
+      it 'returns fail if database not available' do
+        allow(JobProfile).to receive(:count).and_raise(PG::ConnectionBad)
+
+        expect(check.status).to eq :fail
+      end
     end
 
     context 'with at least one job profile populated' do

@@ -8,6 +8,12 @@ RSpec.describe HealthCheck::SessionsCheck do
       it 'returns warn' do
         expect(check.status).to eq :warn
       end
+
+      it 'returns warn if database not available' do
+        allow(Session).to receive(:count).and_raise(PG::ConnectionBad)
+
+        expect(check.status).to eq :warn
+      end
     end
 
     context 'with at least one session populated' do
