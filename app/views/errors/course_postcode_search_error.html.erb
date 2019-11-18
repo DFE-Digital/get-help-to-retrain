@@ -4,10 +4,9 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-xl">Sorry, there is a problem with this service</h1>
-      <p class="govuk-body">Postcode search isn't working right now.</p>
-      <!-- TODO: update copy to avoid linking to deprecated route -->
-      <p class="govuk-body-m">You can still use this service to <%= link_to 'check your existing skills', check_your_skills_path, class: 'govuk-link' %> and get further <%#= link_to 'help to find work', next_steps_path, class: 'govuk-link' %>.</p>
-      <%= link_to 'Continue', task_list_path, class: 'govuk-button', data: { module: 'govuk-button' } %>
+      <p class="govuk-body">Postcode search is not working right now.</p>
+      <p class="govuk-body-m">You can continue using this service to check your existing skills and explore the types of jobs you could apply to do.</p>
+      <%= link_to 'Continue', action_plan_path, class: 'govuk-button', data: { module: 'govuk-button' } %>
     </div>
   </div>
 </main>
