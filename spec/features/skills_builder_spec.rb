@@ -286,7 +286,7 @@ RSpec.feature 'Build your skills', type: :feature do
   scenario 'shows no skills selected if job profile selected but no skills selected' do
     visit(skills_path(job_profile_id: job_profile.slug))
 
-    expect(page).to have_text(/You haven\'t selected any skills/)
+    expect(page).to have_text(/You have not selected any skills/)
   end
 
   scenario 'if user deselects all skills on job profile they should appear deselected' do
@@ -396,7 +396,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
     click_on('remove this role')
 
-    expect(page).to have_text(/You haven\'t selected any skills/)
+    expect(page).to have_text(/You have not selected any skills/)
   end
 
   scenario 'user can remove job and they can see it again in search results' do

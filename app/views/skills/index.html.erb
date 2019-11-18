@@ -21,7 +21,8 @@
       <% if @job_profiles_with_skills.any? %>
         <%= render 'skills/job_profiles_with_skills', job_profiles_with_skills: @job_profiles_with_skills %>
       <% else %>
-        <p class='govuk-body'>You haven't selected any skills. Tell us a job you've done so we can check what skills you have.</p>
+        <p class='govuk-body'>You have not selected any skills. You need to select at least one skill to get your job matches and action plan.</p>
+        <p class='govuk-body'>Tell us a job you have done so we can check which skills you have.</p>
         <div class="govuk-!-margin-bottom-2">
           <%= link_to('Check my skills', check_your_skills_path, class: 'govuk-link') %>
         </div>
