@@ -32,6 +32,10 @@ module GetHelpToRetrain
 
     config.i18n.default_locale = :'en-GB'
 
+    # Explicitly load middleware classes
+    Dir.glob(Rails.root.join('app', 'middleware', '*.rb')) { |f| require f }
+    config.middleware.insert_before Rails::Rack::Logger, StatusReport
+
     config.app_insights_instrumentation_key = ENV['APPINSIGHTS_INSTRUMENTATIONKEY']
     config.app_insights_javascript = ENV['APPINSIGHTS_JAVASCRIPT_ENABLED'] == 'true'
     config.google_analytics_tracking_id = ENV['GOOGLE_ANALYTICS_TRACKING_ID']
