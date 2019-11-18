@@ -15,7 +15,7 @@ module HealthCheck
     end
 
     def status
-      value.zero? ? :warn : :pass
+      value.zero? ? :fail : :pass
     end
 
     private
