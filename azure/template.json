@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "keyVaultName": {
@@ -225,36 +225,9 @@
   },
   "resources": [
     {
-      "condition": "[greater(length(parameters('customHostName')), 0)]",
-      "name": "app-service-certificate",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[concat(variables('deploymentUrlBase'), 'app-service-certificate.json')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "keyVaultCertificateName": {
-            "value": "[variables('keyVaultCertificateName')]"
-          },
-          "keyVaultName": {
-            "value": "[parameters('keyVaultName')]"
-          },
-          "keyVaultResourceGroup": {
-            "value": "[parameters('keyVaultResourceGroup')]"
-          }
-        }
-      },
-      "dependsOn": [
-        "app-service-plan"
-      ]
-    },
-    {
       "name": "storage-account",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -264,12 +237,15 @@
         "parameters": {
           "storageAccountName": {
             "value": "[variables('storageAccountName')]"
+          },
+          "storageKind": {
+            "value": "StorageV2"
           }
         }
       }
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "postgresql-domain-server",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -301,7 +277,7 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "postgresql-restricted-server",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -333,7 +309,7 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "postgresql-domain-database",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -356,7 +332,7 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "postgresql-restricted-database",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -379,7 +355,7 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "postgresql-domain-server-firewall-rules",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -405,7 +381,7 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "postgresql-restricted-server-firewall-rules",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -431,9 +407,36 @@
       ]
     },
     {
+      "condition": "[greater(length(parameters('customHostName')), 0)]",
+      "name": "app-service-certificate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-08-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'), 'app-service-certificate.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultCertificateName": {
+            "value": "[variables('keyVaultCertificateName')]"
+          },
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          },
+          "keyVaultResourceGroup": {
+            "value": "[parameters('keyVaultResourceGroup')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "app-service-plan"
+      ]
+    },
+    {
       "name": "app-service-logs",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -465,7 +468,7 @@
     {
       "name": "app-service-plan",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -488,7 +491,7 @@
     {
       "name": "app-service",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -625,7 +628,7 @@
       ]
     },
     {
-      "apiVersion": "2017-05-10",
+      "apiVersion": "2019-08-01",
       "name": "app-insights",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -645,7 +648,7 @@
       }
     },
     {
-      "apiVersion": "2018-05-01",
+      "apiVersion": "2019-08-01",
       "name": "alerts",
       "type": "Microsoft.Resources/deployments",
       "condition": "[parameters('applyAlerts')]",
