@@ -15,13 +15,7 @@
     <% if @job_profiles.blank? %>
       <%= render '/shared/search/no_results' %>
     <% else %>
-      <% if user_session.job_profile_skills? %>
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-7"><%= t(:title, scope: 'check_your_skills.results.additional_skills') %></h1>
-      <% else %>
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-7"><%= t('.title') %></h1>
-      <% end %>
-      <%= render "shared/search/results_form", search_path: results_check_your_skills_path, scope: 'check_your_skills.results' %>
-      <p class="govuk-body-l govuk-!-margin-bottom-2"><%= t('.body') %></p>
+      <%= render "search_form", scope: user_session.job_profile_skills? ? 'check_your_skills.results.additional_skills' : 'check_your_skills.results' %> 
       <%= render "results_list", job_profiles: @job_profiles %>
       <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
         <%= paginate @job_profiles %>
