@@ -7,7 +7,7 @@ module HealthCheck
     end
 
     def value
-      @value ||= Session.count
+      @value ||= fetch_value
     end
 
     def unit
@@ -16,6 +16,16 @@ module HealthCheck
 
     def status
       value.zero? ? :warn : :pass
+    end
+
+    private
+
+    def fetch_value
+      Session.count
+    rescue StandardError => e
+      @output = "Database error: #{e.inspect}"
+
+      0
     end
   end
 end
