@@ -37,7 +37,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'Redirect to tasks-list page when session is missing the job_profile_skills key' do
-    visit '/job-matches'
+    visit skills_matcher_index_path
 
     expect(page).to have_current_path(task_list_path)
   end
@@ -47,7 +47,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     create(:job_profile, :with_html_content, :growing, name: 'Cabin Crew', skills: [skill1, skill2])
 
-    visit '/job-matches'
+    visit skills_matcher_index_path
 
     expect(page).to have_content('What does growing mean?')
   end
@@ -57,7 +57,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     create(:job_profile, :with_html_content, :growing, name: 'Cabin Crew', skills: [skill1, skill2])
 
-    visit '/job-matches'
+    visit skills_matcher_index_path
 
     find('.govuk-details__summary-text').click
 

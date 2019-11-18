@@ -1,10 +1,16 @@
-# TODO: This file will be removed, once the action_plan feature is promoted.
-
 require 'rails_helper'
 
-RSpec.feature 'Tasks List', type: :feature do
-  background do
-    disable_feature! :action_plan
+RSpec.feature 'Task list', type: :feature do
+  def ensure_target_job_on_session
+    skill = create(:skill)
+    job_profile = create(:job_profile, :with_html_content, name: 'CTO', skills: [skill])
+    create(:job_profile, :with_html_content, name: 'CEO', skills: [skill])
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    click_on('Find out what you can do with these skills')
+    click_on('CEO')
+    click_on('Target this type of work')
   end
 
   scenario 'User checks their existing skills' do
@@ -43,10 +49,10 @@ RSpec.feature 'Tasks List', type: :feature do
     )
   end
 
-  scenario 'With a clean new session the user will see sections 2,3,4,5 locked' do
+  scenario 'With a clean new session the user will see sections 2,3,4 locked' do
     visit(task_list_path)
 
-    (2..5).each do |section_no|
+    (2..4).each do |section_no|
       expect(page).to have_css("span#section-#{section_no}-blocked")
     end
   end
@@ -78,10 +84,10 @@ RSpec.feature 'Tasks List', type: :feature do
     expect(page).to have_current_path(skills_path(job_profile_id: job_profile.slug))
   end
 
-  scenario 'With a clean new session the user will not be able to click sections 2,3,4,5' do
+  scenario 'With a clean new session the user will not be able to click sections 2,3,4' do
     visit(task_list_path)
 
-    ['See types of jobs that match your skills', 'Find a training course', 'Find other ways to change jobs', 'Take a quick survey'].each do |link|
+    ['See types of jobs that match your skills', 'Personalised action plan', 'Take a quick survey'].each do |link|
       expect(page).to have_no_link(link)
     end
   end
@@ -111,56 +117,42 @@ RSpec.feature 'Tasks List', type: :feature do
     expect(page).to have_text('Types of jobs that match your skills')
   end
 
-  scenario 'User unlocks the training course section when one has skills on the session' do
-    job_profile = create(
-      :job_profile,
-      :with_html_content,
-      name: 'Assassin',
-      skills: [
-        create(:skill, name: 'Chameleon-like blend in tactics')
-      ]
-    )
-
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
+  scenario 'User unlocks the Plan your next steps section when one has a target job on the session' do
+    ensure_target_job_on_session
 
     visit(task_list_path)
-    click_on('Find a training course')
+    click_on('Personalised action plan')
 
-    expect(page).to have_text('Find training that boosts your job options')
+    expect(page).to have_current_path(training_questions_path)
   end
 
-  scenario 'User unlocks next steps section when one has skills on the session' do
-    job_profile = create(
-      :job_profile,
-      :with_html_content,
-      name: 'Assassin',
-      skills: [
-        create(:skill, name: 'Chameleon-like blend in tactics')
-      ]
-    )
+  scenario 'User goes straight to action plan page if they already answered questions' do
+    ensure_target_job_on_session
+    click_on('Continue')
+    click_on('Continue')
+    visit(task_list_path)
+    click_on('Personalised action plan')
 
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
+    expect(page).to have_current_path(action_plan_path)
+  end
+
+  scenario 'User sets a target job on the session, but then removes all skills -> Sections 2,3,4 become locked again' do
+    ensure_target_job_on_session
 
     visit(task_list_path)
-    click_on('Further help to find work')
 
-    expect(page).to have_text('Get help changing jobs')
+    click_on('Check your existing skills')
+    click_on('remove this role')
+
+    visit(task_list_path)
+
+    (2..4).each do |section_no|
+      expect(page).to have_css("span#section-#{section_no}-blocked")
+    end
   end
 
-  scenario 'User unlocks survey section when one has skills on the session' do
-    job_profile = create(
-      :job_profile,
-      :with_html_content,
-      name: 'Assassin',
-      skills: [
-        create(:skill, name: 'Chameleon-like blend in tactics')
-      ]
-    )
-
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
+  scenario 'User unlocks survey section when one has a target job on the session' do
+    ensure_target_job_on_session
 
     visit(task_list_path)
 

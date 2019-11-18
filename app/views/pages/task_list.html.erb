@@ -18,14 +18,8 @@
     <ol class="app-task-list">
       <%= render 'pages/task_list_items/item_1' %>
       <%= render 'pages/task_list_items/item_2' %>
-      <% if Flipflop.action_plan? %>
-        <%= render 'pages/task_list_items/v2/item_3' %>
-        <%= render 'pages/task_list_items/v2/item_4' %>
-      <% else %>
-        <%= render 'pages/task_list_items/v1/item_3' %>
-        <%= render 'pages/task_list_items/v1/item_4' %>
-        <%= render 'pages/task_list_items/v1/item_5' %>
-      <% end %>
+      <%= render 'pages/task_list_items/item_3' %>
+      <%= render 'pages/task_list_items/item_4' %>
     </ol>
   </div>
   <div class="govuk-grid-column-one-third">
