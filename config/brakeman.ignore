@@ -3,18 +3,18 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "c7d3557a0330aa983694942103ea896d4f99430adb262089403d57987432d856",
+      "fingerprint": "94ee8acee565270826d7c0d23287a262ebb719194e83207a83de31cd19cdf3a2",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/courses/_course.html.erb",
       "line": 7,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :target => \"_blank\", :aria => ({ :label => (\"Visit website of #{(Unresolved Model).new.provider}\") }), :data => ({ :module => \"govuk-button\", :tracked_event => \"Courses - Clicked course link\", :tracked_event_props => ({ :url => (Unresolved Model).new.url }) }))",
+      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :aria => ({ :label => (\"Visit website of #{(Unresolved Model).new.provider}\") }), :data => ({ :module => \"govuk-button\" }))",
       "render_path": [
         {
           "type": "template",
           "name": "courses/index",
-          "line": 53,
+          "line": 43,
           "file": "app/views/courses/index.html.erb",
           "rendered": {
             "name": "courses/_course",
@@ -28,23 +28,23 @@
       },
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
-      "note": ""
+      "note": "The attribute value is escaped at storage level as part of ActiveRecord behaviour. There is no danger."
     },
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "fac0e5ac35ed48cc22ccb7d506848bd6589458e07ed263582f7a9c4b79467794",
+      "fingerprint": "f69515401ea52a993411003a30274e78738e810e45dd181d84d235e504cc51de",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/job_vacancies/_job_vacancy.html.erb",
       "line": 2,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, :class => \"govuk-link\", :target => \"_blank\", :data => ({ :tracked_event => (\"Jobs near me - Clicked '#{(Unresolved Model).new.title}'\"), :tracked_event_props => ({ :url => (Unresolved Model).new.url }) }))",
+      "code": "link_to((Unresolved Model).new.title, (Unresolved Model).new.url, :class => \"govuk-link\")",
       "render_path": [
         {
           "type": "template",
           "name": "job_vacancies/index",
-          "line": 41,
+          "line": 42,
           "file": "app/views/job_vacancies/index.html.erb",
           "rendered": {
             "name": "job_vacancies/_job_vacancy",
@@ -58,9 +58,9 @@
       },
       "user_input": "(Unresolved Model).new.url",
       "confidence": "Weak",
-      "note": ""
+      "note": "The attribute value is escaped at storage level as part of ActiveRecord behaviour. There is no danger."
     }
   ],
-  "updated": "2019-10-31 10:08:44 +0000",
-  "brakeman_version": "4.5.1"
+  "updated": "2019-11-18 16:45:08 +0000",
+  "brakeman_version": "4.7.1"
 }

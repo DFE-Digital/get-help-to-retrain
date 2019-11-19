@@ -20,13 +20,11 @@ RSpec.describe TaskListHelper do
         helper.link_or_blocked(
           path: 'some-path',
           enabled: true,
-          span_id: 1,
-          data: { tracked_event: 'task' },
-          target: '_blank'
+          span_id: 1
         ) { 'some text' }
       ).to eq(
         <<~HTML.strip
-          <a class="#{expected_classes}" data-tracked-event="task" target="_blank" href="some-path">some text</a>
+          <a class="#{expected_classes}" href="some-path">some text</a>
         HTML
       )
     end
