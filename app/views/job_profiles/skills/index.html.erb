@@ -19,10 +19,10 @@
           <fieldset class="govuk-fieldset" aria-describedby="current-job-skills-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
               <h1 class="govuk-fieldset__heading govuk-!-margin-bottom-3">
-                <%= @job_profile.name %>
+                <%= @job_profile.name %> skills
               </h1>
-              <p class="govuk-body-l">Most <%= @job_profile.name.pluralize %> will have these skills.</p>
-              <p class="govuk-body">We’ll use this list to suggest other types of job you can do.</p>
+              <p class="govuk-body-l">Most <%= @job_profile.name.downcase.pluralize %> will have these skills.</p>
+              <p class="govuk-body">We’ll use these skills to suggest other types of work you can do.</p>
               <span id="current-job-skills-hint" class="govuk-hint">
                 If you want to remove any of these skills, click the tick to remove it from the list.
               </span>
