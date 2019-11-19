@@ -4,6 +4,6 @@
   <%= form_group_tag @job_profile_search, :term do %>
     <%= errors_tag @job_profile_search, :term %>
     <%= text_field(nil, :search, class: 'govuk-input search-input govuk-!-width-one-half', placeholder: t('placeholder', scope: scope), aria: { label: 'Search' }, data: { cy: 'search-field'}) %>
-    <%= button_tag('Search', class: 'govuk-button search-button', aria: { label: 'Search button' }, data: { cy: 'search-field-submit-btn', module: 'govuk-button' }) %>
+    <%= button_tag('Search', class: 'govuk-button search-button', name: nil, aria: { label: 'Search button' }, data: { cy: 'search-field-submit-btn', module: 'govuk-button' }) %>
   <% end %>
 <% end %>
