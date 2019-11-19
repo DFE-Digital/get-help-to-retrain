@@ -13,7 +13,7 @@ class JobProfilesController < ApplicationController
     user_session.remove_job_profile(resource.id)
 
     redirect_to(
-      skills_path(query_params), notice: t('.notice', name: resource.name.downcase)
+      skills_path, notice: t('.notice', name: resource.name.downcase)
     )
   end
 
@@ -24,15 +24,7 @@ class JobProfilesController < ApplicationController
   end
 
   def job_profile_params
-    params.permit(:job_profile_id, :search, :id)
-  end
-
-  def query_params
-    # TODO: this is to support skills removal. Revisit after fixing navigation
-    query = { search: job_profile_params[:search] }
-    query[:job_profile_id] = job_profile_params[:job_profile_id] unless user_session.job_profile_skills?
-
-    query
+    params.permit(:search, :id)
   end
 
   def job_vacancy_count

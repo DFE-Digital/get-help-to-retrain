@@ -1,11 +1,11 @@
 class JobProfilesSkillsController < ApplicationController
   def index
     if profile_skills_not_editable? && user_session.job_profiles_cap_reached?
-      redirect_to_profile_skills_page
+      redirect_to skills_path
     else
       skills_builder.build
 
-      return redirect_to_profile_skills_page if skills_valid?
+      return redirect_to skills_path if skills_valid?
 
       render('job_profiles/skills/index')
     end
@@ -35,11 +35,5 @@ class JobProfilesSkillsController < ApplicationController
 
   def profile_skills_not_editable?
     user_session.job_profile_ids.exclude?(job_profile.id)
-  end
-
-  def redirect_to_profile_skills_page
-    redirect_to(
-      skills_path(job_profile_id: skills_params[:job_profile_id], search: skills_params[:search])
-    )
   end
 end
