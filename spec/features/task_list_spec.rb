@@ -81,7 +81,7 @@ RSpec.feature 'Task list', type: :feature do
     visit(task_list_path)
     click_on('Check your existing skills')
 
-    expect(page).to have_current_path(skills_path(job_profile_id: job_profile.slug))
+    expect(page).to have_current_path(skills_path)
   end
 
   scenario 'With a clean new session the user will not be able to click sections 2,3,4' do

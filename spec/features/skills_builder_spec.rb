@@ -270,17 +270,17 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_text(/Select at least one skill/)
   end
 
-  scenario 'redirects from skills page if no skills present on session for a job profile' do
+  scenario 'remains on skills page if no skills present on session for a job profile' do
     unselect_all_skills_for(job_profile)
     visit(skills_path)
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(skills_path)
   end
 
-  scenario 'redirected to task list path if no job profile selected' do
+  scenario 'remains on skills path if no job profile selected' do
     visit(skills_path)
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(skills_path)
   end
 
   scenario 'shows no skills selected if job profile selected but no skills selected' do

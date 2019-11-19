@@ -20,7 +20,7 @@
         <%= errors_tag @user, :email %>
         <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds"), autocomplete: 'email') %>
       <% end %>
-      <%= button_tag('Send link', class: 'govuk-button', data: { module: 'govuk-button' }, aria: { label: 'Send a link to my Email address to access my saved results' }) %>
+      <%= button_tag('Send link', class: 'govuk-button', name: nil, data: { module: 'govuk-button' }, aria: { label: 'Send a link to my Email address to access my saved results' }) %>
     <% end %>
   </div>
   <div class="govuk-grid-column-one-third">
