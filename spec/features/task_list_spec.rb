@@ -33,7 +33,7 @@ RSpec.feature 'Task list', type: :feature do
 
     click_on('See types of jobs that match your skills')
 
-    expect(page).to have_text('Types of jobs that match your skills')
+    expect(page).to have_text('Types of work that match your skills')
   end
 
   scenario 'Smart survey link is present on the top banner' do
@@ -109,7 +109,7 @@ RSpec.feature 'Task list', type: :feature do
 
     click_on('See types of jobs that match your skills')
 
-    expect(page).to have_text('Types of jobs that match your skills')
+    expect(page).to have_text('Types of work that match your skills')
   end
 
   scenario 'User unlocks the Plan your next steps section when one has a target job on the session' do
