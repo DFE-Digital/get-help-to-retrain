@@ -1,3 +1,3 @@
 <li class="pagination__item  pagination__item--prev">
-  <%= link_to_unless current_page.first?, t('pagination.previous').html_safe, url, rel: 'prev', remote: remote, class: 'pagination__link' %>
+  <%= link_to_unless current_page.first?, t('pagination.previous').html_safe, url, rel: 'prev', remote: remote, class: 'pagination__link', aria: { label: 'Previous page' } %>
 </li>
