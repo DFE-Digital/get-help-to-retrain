@@ -46,6 +46,20 @@ class CourseImportService
     Course.not_geocoded
   end
 
+  def check_links
+    require 'open-uri'
+
+    Course.all.each do |course|
+      begin
+        open course.url do
+          print "Success: #{course.url}"
+        end
+      rescue StandardError
+        print "Failed: #{course.url}"
+      end
+    end
+  end
+
   private
 
   def create_course(data)

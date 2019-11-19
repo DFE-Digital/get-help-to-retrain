@@ -22,4 +22,12 @@ namespace :data_import do
       importer.courses_without_geocoding.each { |course| print course.inspect }
     end
   end
+
+  # bin/rails data_import:check_courses
+  desc 'Check all courses for valid URL'
+  task check_courses: :environment do
+    print "Checking all course links..."
+    importer = CourseImportService.new
+    importer.check_links
+  end
 end
