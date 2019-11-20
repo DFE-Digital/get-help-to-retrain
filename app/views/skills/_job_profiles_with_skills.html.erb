@@ -21,9 +21,9 @@
 <% end %>
 
 <% unless user_session.job_profiles_cap_reached? %>
-  <div class='govuk-!-margin-top-7 govuk-!-margin-bottom-3'>
+  <div class='govuk-!-margin-top-7'>
     <%= link_to('Add more skills from another role', check_your_skills_path, class: 'govuk-link') %>
   </div>
 <% end %>
 
-<%= link_to('Find out what you can do with these skills', skills_matcher_index_path, class: 'govuk-button', data: { cy: 'find-out-what-you-can-do-btn', module: 'govuk-button' }) %>
+<%= link_to('Find out what you can do with these skills', skills_matcher_index_path, class: 'govuk-button govuk-!-margin-top-3', data: { cy: 'find-out-what-you-can-do-btn', module: 'govuk-button' }) %>
