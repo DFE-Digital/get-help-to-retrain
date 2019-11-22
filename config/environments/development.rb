@@ -53,13 +53,6 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
-  config.rails_semantic_logger.started    = true
-  config.rails_semantic_logger.processing = true
-  config.rails_semantic_logger.rendered   = true
-  config.rails_semantic_logger.quiet_assets = true
-  config.rails_semantic_logger.rendered = false
-  config.rails_semantic_logger.format = :json
-
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
