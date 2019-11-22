@@ -134,3 +134,8 @@ group :test do
   gem 'vcr', '~> 5.0', require: false
   gem 'webmock', '~> 3.6', require: false
 end
+
+group :production do
+  # Logs formatter
+  gem 'rails_semantic_logger', '~> 4.4'
+end
