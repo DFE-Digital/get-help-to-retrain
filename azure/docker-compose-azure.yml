@@ -5,4 +5,10 @@ services:
     image: __CONTAINER_REFERENCE__
     environment:
       - PORT=8080
+  worker:
+    image: __CONTAINER_REFERENCE__
+    command: bundle exec rails jobs:work
+  cron_job:
+    image: __CONTAINER_REFERENCE__
+    command: crond -f
 

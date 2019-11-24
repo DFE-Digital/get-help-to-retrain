@@ -29,7 +29,7 @@ ENV RACK_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 ENV NODE_ENV production
-ENV BUILD_PACKAGES nodejs yarn tzdata libpq
+ENV BUILD_PACKAGES nodejs yarn tzdata libpq bash
 
 ARG GIT_SHA="unknown"
 ENV GIT_SHA=${GIT_SHA}
@@ -42,6 +42,9 @@ COPY . ./
 COPY --from=assets /usr/local/bundle /usr/local/bundle
 COPY --from=assets /app/public/packs /app/public/packs
 COPY --from=assets /app/public/assets /app/public/assets
+
+RUN bundle exec whenever --update-crontab
+
 COPY startup.sh ./
 RUN ["chmod", "+x", "/app/startup.sh"]
 CMD /app/startup.sh
