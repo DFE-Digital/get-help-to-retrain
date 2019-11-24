@@ -48,5 +48,7 @@ module GetHelpToRetrain
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
     config.host_name = Socket.gethostname
     config.bing_spell_check_api_key = ENV['BING_SPELL_CHECK_API_KEY']
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end
