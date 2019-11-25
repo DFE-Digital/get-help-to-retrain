@@ -28,6 +28,11 @@ if defined?(ActiveAdmin)
               link_to Course.count, admin_courses_path
             end
           end
+          panel 'Delayed Jobs' do
+            h1 do
+              link_to Delayed::Job.count, admin_delayed_backend_active_record_jobs_path
+            end
+          end
         end
       end
     end
