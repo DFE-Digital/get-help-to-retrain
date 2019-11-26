@@ -69,8 +69,8 @@ gem 'passwordless', '~> 0.8'
 
 # Delayed Job - executes longer tasks in the background
 gem 'delayed_job_active_record', '~> 4.1', '>= 4.1.4'
-# gem 'daemons', '~> 1.3', '>= 1.3.1'
-gem 'whenever', '~> 1.0', require: false
+
+gem 'delayed_job_web'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'location-ineligible', to: 'pages#location_ineligible'
   get 'postcode-search-error', to: 'errors#postcode_search_error'
   get 'jobs-near-me-error', to: 'errors#jobs_near_me_error'
+  match '/delayed_job' => DelayedJobWeb, :anchor => false, :via => %i[get post]
 
   match(
     'courses/:topic_id',
