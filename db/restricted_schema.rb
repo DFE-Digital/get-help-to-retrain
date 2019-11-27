@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_09_134904) do
+ActiveRecord::Schema.define(version: 2019_11_27_150902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "feedback_surveys", force: :cascade do |t|
+    t.boolean "page_useful", null: false
+    t.text "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "passwordless_sessions", force: :cascade do |t|
     t.string "authenticatable_type"
@@ -39,15 +46,6 @@ ActiveRecord::Schema.define(version: 2019_09_09_134904) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.citext "email", null: false
-    t.bigint "session_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["session_id"], name: "index_users_on_session_id"
-  end
-
   create_table "user_personal_data", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -57,4 +55,14 @@ ActiveRecord::Schema.define(version: 2019_09_09_134904) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
+  create_table "users", force: :cascade do |t|
+    t.citext "email", null: false
+    t.bigint "session_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["session_id"], name: "index_users_on_session_id"
+  end
+
 end
