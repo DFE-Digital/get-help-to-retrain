@@ -1,6 +1,9 @@
 
 function UserFeedback () {
   this.start = function () {
+    // Show in page survey when JS enabled
+    document.querySelector('#feedback-prompt-container').classList.remove('hidden')
+
     var yesLink = document.querySelector('#answer-yes');
     var noLink = document.querySelector('#answer-no');
 
