@@ -1,36 +1,33 @@
-<% if Rails.configuration.smart_survey_user_feedback_link.present? %>
-  <div id="feedback-survey-container" class="feedback-survey-container hidden">
-    <iframe id="ss-embed-frame" src="<%= Rails.configuration.smart_survey_user_feedback_link %>" frameborder="0" title="Smart Survey Feedback Form" ></iframe>
+<div id="feedback-survey-container" class="feedback-survey-container hidden">
+</div>
+
+<div id="feedback-prompt-container" class="feedback-prompt-container hidden" >
+  <div id="feedback-prompt-question">
+    <h2 class="feedback-prompt-content">Is this page useful?</h2>
+    <%= link_to '#', {
+      class: 'feedback-prompt-link govuk-link',
+      id: 'answer-yes',
+      data: {
+        tracked_event: 'User Feedback On Page Survey',
+        tracked_event_props: { 'answer': 'yes' }
+      },
+    } do %>
+      Yes
+    <% end %>
+
+    <%= link_to '#', {
+      class: 'feedback-prompt-link govuk-link',
+      id: 'answer-no',
+      data: {
+        tracked_event: 'User Feedback On Page Survey',
+        tracked_event_props: { 'answer': 'no' }
+      },
+    } do %>
+      No
+    <% end %>
   </div>
 
-  <div id="feedback-prompt-container" class="feedback-prompt-container hidden" >
-    <div id="feedback-prompt-question">
-      <h2 class="feedback-prompt-content">Is this page useful?</h2>
-      <%= link_to '#', {
-        class: 'feedback-prompt-link govuk-link',
-        id: 'answer-yes',
-        data: {
-          tracked_event: 'User Feedback On Page Survey',
-          tracked_event_props: { 'answer': 'yes' }
-        },
-      } do %>
-        Yes
-      <% end %>
-
-      <%= link_to '#', {
-        class: 'feedback-prompt-link govuk-link',
-        id: 'answer-no',
-        data: {
-          tracked_event: 'User Feedback On Page Survey',
-          tracked_event_props: { 'answer': 'no' }
-        },
-      } do %>
-        No
-      <% end %>
-    </div>
-
-    <div id="feedback-prompt-success" class="feedback-prompt-content hidden">
-      Thank you for your feedback
-    </div>
+  <div id="feedback-prompt-success" class="feedback-prompt-content hidden">
+    Thank you for your feedback
   </div>
-<% end %>
+</div>
