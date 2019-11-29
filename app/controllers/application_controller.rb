@@ -24,9 +24,12 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def track_event(event_key, properties = {})
-    event = I18n.t(event_key, scope: :events)
-    properties.present? ? TrackingService.track_event(event, properties) : TrackingService.track_event(event)
+  def track_event(event_key, value = nil)
+    event_label = I18n.t(event_key, scope: :events)
+
+    TrackingService.new.track_event(key: event_key, label: event_label, value: value)
+  rescue TrackingService::TrackingServiceError
+    nil
   end
 
   def set_raven_context
