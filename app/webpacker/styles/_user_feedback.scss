@@ -18,11 +18,17 @@
 
 .feedback-prompt-link {
   margin-left: govuk-spacing(3);
+  color: govuk-colour('white');
+  @include govuk-font(16);
 
   @include govuk-media-query($from: tablet) {
     float: left;
     margin-left: govuk-spacing(2);
     margin-bottom: govuk-spacing(2);
+  }
+
+  @include govuk-media-query($until: tablet) {
+    @include govuk-font(19);
   }
 }
 
@@ -43,30 +49,21 @@
   border-top: 8px solid govuk-colour('blue');
 }
 
-.feedback-survey {
-  width: 100%;
-  border: 0;
+.close-feedback-survey {
+  float: right;
 }
 
-.feedback-survey-container {
-  overflow: hidden;
-  padding-top: 35%;
-  position: relative;
+.unbutton-survey {
+  background: none;
+  border: none;
+  padding: 0 !important;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline-block;
+}
 
-  @include govuk-media-query($from: tablet, $until: desktop) {
-    padding-top: 54%;
-  }
-
+.feedback-survey-form {
   @include govuk-media-query($until: tablet) {
-    padding-top: 67%;
+    display: inline-block;
   }
-}
-
-.feedback-survey-container iframe {
-  border: 0;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
 }

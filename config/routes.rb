@@ -57,6 +57,8 @@ Rails.application.routes.draw do
 
   resources :user_personal_data, only: %i[index create]
 
+  resources :feedback_surveys, only: %i[create]
+
   get 'save-your-results', to: 'users#new'
   post 'save-your-results', to: 'users#create'
   post 'email-sent-again', to: 'users#registration_send_email_again'

@@ -4,31 +4,31 @@ function UserFeedback () {
     // Show in page survey when JS enabled
     document.querySelector('#feedback-prompt-container').classList.remove('hidden')
 
-    var yesLink = document.querySelector('#answer-yes');
     var noLink = document.querySelector('#answer-no');
-
-    if (typeof(yesLink) !== 'undefined' && yesLink != null) {
-      handleSuccessAnswer(yesLink);
-    }
+    var closeSurveyButton = document.querySelector('.close-feedback-survey');
 
     if (typeof(noLink) !== 'undefined' && noLink != null) {
       handleRejectionAnswer(noLink);
     }
-  }
 
-  function handleSuccessAnswer(element) {
-    element.onclick = function(e) {
-      e.preventDefault();
-      document.querySelector('#feedback-prompt-question').classList.add('hidden');
-      document.querySelector('#feedback-prompt-success').classList.remove('hidden');
+    if (typeof(closeSurveyButton) !== 'undefined' && closeSurveyButton != null) {
+      collapseSurvey(closeSurveyButton);
     }
   }
 
   function handleRejectionAnswer(element) {
     element.onclick = function(e) {
       e.preventDefault();
-      document.querySelector('#feedback-survey-container').classList.remove('hidden');
-      document.querySelector('#feedback-prompt-container').remove();
+      document.querySelector('#feedback-not-useful-container').classList.remove('hidden');
+      document.querySelector('#feedback-prompt-container').classList.add('hidden');
+    }
+  }
+
+  function collapseSurvey(element) {
+    element.onclick = function(e) {
+      e.preventDefault();
+      document.querySelector('#feedback-prompt-container').classList.remove('hidden');
+      document.querySelector('#feedback-not-useful-container').classList.add('hidden');
     }
   }
 }
