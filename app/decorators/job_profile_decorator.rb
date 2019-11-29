@@ -23,6 +23,10 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   }.freeze
   # rubocop:enable Metrics/LineLength
 
+  def self.decorate(job_profiles)
+    job_profiles.map { |job_profile| new(job_profile) }
+  end
+
   def how_to_become
     html_body.xpath(HOW_TO_BECOME_XPATH).text
   end

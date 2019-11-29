@@ -13,9 +13,14 @@
   <div class="govuk-grid-column-two-thirds">
     <% if @results.present? %>
       <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-      <p class="govuk-body-l">You may already have many of the skills for these types of work. Select a job title to find out if you need to do more training.</p>
-      <p class="govuk-body">You'll see information on whether job numbers for this type of work have grown or fallen in recent years. If job numbers have grown it may mean you're more likely to find jobs in this type of work and it's more likely to be secure.</p>
-      <%= render "job_matches", job_profiles: @job_profiles %>
+      <p class="govuk-body">You may already have many of the skills for these types of work. Select a job title to find out if you need to do more training.</p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      <p class="govuk-body">If you have a particular job in mind, find out how well your skills match to it.<br/>
+                            <%= link_to 'Search for a job title', job_profiles_path, class: 'govuk-link' %></p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+      <ul class="govuk-list">
+        <%= render @job_profiles %>
+      </ul>
       <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
         <%= paginate @results %>
       </div>

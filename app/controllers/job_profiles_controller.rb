@@ -1,4 +1,21 @@
 class JobProfilesController < ApplicationController
+  include SearchableJobProfile
+
+  def index
+    build_job_profile_search
+
+    redirect_to_results_if_search_term_provided
+  end
+
+  def results
+    track_event(:job_profiles_index_search, search: search) if search.present?
+
+    build_job_profile_search
+    @results = job_profile_search_results
+    @scores = SkillsMatcher.new(user_session).job_profile_scores
+    @job_profiles = JobProfileDecorator.decorate(@results)
+  end
+
   def show
     @job_profile = JobProfileDecorator.new(resource)
     @job_vacancy_count = job_vacancy_count

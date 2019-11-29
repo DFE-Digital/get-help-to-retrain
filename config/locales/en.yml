@@ -11,6 +11,7 @@ en-GB:
     check_your_skills: Check your existing skills
     job_matches: Your job matches
     search_results: Search results
+    job_profiles_search: Search for a type of work
     job_profile: Job profile details
     your_skills: Your skills
     training_courses_near_you: Find and apply to training courses near you
@@ -35,6 +36,8 @@ en-GB:
     skills_index: Get help to retrain - Your skills
     skills_current_job_skills: Get help to retrain - Current job skills
     skills_matcher_index: Get help to retrain - Your job matches
+    job_profiles_index: Get help to retrain - Search for a type of work
+    job_profiles_results: Get help to retrain - Search for a type of work results
     job_profiles_show: Get help to retrain - Job profile
     courses_index: Get help to retrain - Courses near me
     pages_task_list: Get help to retrain - Tasks
@@ -65,6 +68,7 @@ en-GB:
   events:
     pages_location_eligibility_search: Your location - Postcode search
     check_your_skills_index_search: Check your skills - Job search
+    job_profiles_index_search: Job profiles - Job search
     courses_index_search: Courses near me - Postcode search
     skills_index_selected: Current job skills - Skills selected
     user_personal_information_skipped: User personal information - Skip this step link clicked
@@ -87,7 +91,6 @@ en-GB:
         title: Add more skills
         body: Tell us another job you’ve done.
         placeholder: Enter a job title
-
     results:
       title: Your current job
       body: Select the job title that best matches what you do now. If you can’t see your job title, try searching with different words - for example, checkout operator instead of cashier.
@@ -96,6 +99,17 @@ en-GB:
         body: Select the job title that best matches your previous role. If you can’t see your job title, try searching with different words - for example, checkout operator instead of cashier.
       placeholder: Enter your current job title
       no_results: 0 results found - try again using a different job title
+  job_profiles:
+    index:
+      title: Search for a type of work
+      body: Enter a job title to find out how well your skills match to it
+      placeholder: Enter a job title
+    results:
+      title: Search for a type of work
+      body: Enter a job title to find out how well your skills match to it
+      placeholder: Enter a job title
+    destroy:
+      notice: The %{name} role has been removed.
   job_profiles_search:
     no_term_error: Enter a job title
   skills_matcher:
@@ -191,7 +205,3 @@ en-GB:
               blank: Enter a postcode
             dob:
               invalid: Enter a valid date of birth
-
-  job_profiles:
-    destroy:
-      notice: The %{name} role has been removed.
