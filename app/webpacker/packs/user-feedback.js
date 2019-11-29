@@ -21,6 +21,10 @@ function UserFeedback () {
       e.preventDefault();
       document.querySelector('#feedback-not-useful-container').classList.remove('hidden');
       document.querySelector('#feedback-prompt-container').classList.add('hidden');
+
+      element.setAttribute('aria-expanded', true);
+      document.querySelector('#page-is-useful-form').setAttribute('aria-hidden', true);
+      document.querySelector('#page-is-not-useful-form').setAttribute('aria-hidden', false);
     }
   }
 
@@ -29,6 +33,10 @@ function UserFeedback () {
       e.preventDefault();
       document.querySelector('#feedback-prompt-container').classList.remove('hidden');
       document.querySelector('#feedback-not-useful-container').classList.add('hidden');
+
+      document.querySelector('#answer-no').setAttribute('aria-expanded', false);
+      document.querySelector('#page-is-useful-form').setAttribute('aria-hidden', false);
+      document.querySelector('#page-is-not-useful-form').setAttribute('aria-hidden', true);
     }
   }
 }
