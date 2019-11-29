@@ -137,6 +137,6 @@ end
 
 group :production do
   # Logs formatter
-  gem 'data_dog_semantic_logger', '~>0.1.6', github: 'flipgroup/data-dog-semantic-logger'
+  gem 'data_dog_semantic_logger', github: 'flipgroup/data-dog-semantic-logger', ref: 'e6b47c0'
   gem 'rails_semantic_logger', '~> 4.4'
 end
