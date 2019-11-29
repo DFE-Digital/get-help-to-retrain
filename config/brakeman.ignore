@@ -31,6 +31,37 @@
       "note": "The attribute value is escaped at storage level as part of ActiveRecord behaviour. There is no danger."
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e1e88f91e58bc027b2425ba9387071f36bb1f90844f2c91945f6c1bbc2be8951",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/skills_matcher/index.html.erb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => JobProfileDecorator.decorate(Kaminari.paginate_array(skills_matcher.match).page(params[:page])), {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "SkillsMatcherController",
+          "method": "index",
+          "line": 8,
+          "file": "app/controllers/skills_matcher_controller.rb",
+          "rendered": {
+            "name": "skills_matcher/index",
+            "file": "app/views/skills_matcher/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "skills_matcher/index"
+      },
+      "user_input": "params[:page]",
+      "confidence": "Weak",
+      "note": "False positive; the render method is passed an array of job profiles. There is no danger."
+    },
+    {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
       "fingerprint": "f69515401ea52a993411003a30274e78738e810e45dd181d84d235e504cc51de",
