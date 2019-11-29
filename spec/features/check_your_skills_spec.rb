@@ -146,13 +146,30 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'tracks search string' do
-    allow(TrackingService).to receive(:track_event)
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
 
     visit(check_your_skills_path)
     fill_in('search', with: 'Bodyguard')
     find('.search-button').click
 
-    expect(TrackingService).to have_received(:track_event).with('Check your skills - Job search', search: 'Bodyguard')
+    expect(tracking_service).to have_received(:track_event).with(
+      key: :check_your_skills_index_search,
+      label: 'Check your skills - Job search',
+      value: 'Bodyguard'
+    )
+  end
+
+  scenario 'when TrackingService errors, user journey is not affected' do
+    tracking_service = instance_double(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+    allow(tracking_service).to receive(:track_event).and_raise(TrackingService::TrackingServiceError)
+
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Bodyguard')
+    find('.search-button').click
+
+    expect(page).to have_text('Your current job')
   end
 
   scenario 'paginates results of search' do

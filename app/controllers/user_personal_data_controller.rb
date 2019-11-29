@@ -30,7 +30,8 @@ class UserPersonalDataController < ApplicationController
   end
 
   def check_location_eligibility
-    track_location_eligibility_search
+    track_event(:pages_location_eligibility_search, postcode)
+
     user_session.postcode = postcode
 
     return redirect_to(location_ineligible_path) unless search.find_courses.any?
@@ -38,13 +39,6 @@ class UserPersonalDataController < ApplicationController
     redirect_to task_list_path
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to postcode_search_error_path
-  end
-
-  def track_location_eligibility_search
-    track_event(
-      :pages_location_eligibility_search,
-      search: postcode
-    )
   end
 
   def postcode

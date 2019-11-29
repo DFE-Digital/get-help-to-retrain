@@ -10,7 +10,7 @@ class CheckYourSkillsController < ApplicationController
   def results
     redirect_to(skills_path) if user_session.job_profiles_cap_reached?
 
-    track_event(:check_your_skills_index_search, search: search) if search.present?
+    track_event(:check_your_skills_index_search, search) if search.present?
 
     @job_profile_search = JobProfileSearch.new(term: search, profile_ids_to_exclude: profile_ids_to_exclude)
     @job_profiles = Kaminari.paginate_array(@job_profile_search.search).page(params[:page])

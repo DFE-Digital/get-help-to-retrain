@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   def index
-    track_event(:courses_index_search, search: postcode) if postcode.present?
+    track_event(:courses_index_search, postcode) if postcode.present?
 
     @search = CourseGeospatialSearch.new(
       postcode: postcode,

@@ -129,13 +129,30 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'tracks search postcode' do
-    allow(TrackingService).to receive(:track_event)
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
     find('.search-button-results').click
 
-    expect(TrackingService).to have_received(:track_event).with('Courses near me - Postcode search', search: 'NW6 8ET')
+    expect(tracking_service).to have_received(:track_event).with(
+      key: :courses_index_search,
+      label: 'Courses near me - Postcode search',
+      value: 'NW6 8ET'
+    )
+  end
+
+  scenario 'when TrackingService errors, user journey is not affected' do
+    tracking_service = instance_double(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+    allow(tracking_service).to receive(:track_event).and_raise(TrackingService::TrackingServiceError)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    find('.search-button-results').click
+
+    expect(page).to have_text('Maths courses near me')
   end
 
   scenario 'Breadcrumb links back to action plan' do

@@ -1,45 +1,56 @@
 class TrackingService
-  def self.track_event(event_text, properties = {})
-    return false unless key.present?
+  TrackingServiceError = Class.new(StandardError)
 
-    client.track_event(event_text, properties: properties)
+  API_ENDPOINT = 'https://www.google-analytics.com/collect'.freeze
+  DEBUG_API_ENDPOINT = 'https://www.google-analytics.com/debug/collect'.freeze
+
+  attr_reader :ga_tracking_id
+
+  def initialize(ga_tracking_id: Rails.configuration.google_analytics_tracking_id, debug: false)
+    @ga_tracking_id = ga_tracking_id
+    @debug = debug
   end
 
-  def self.key
-    @key ||= Rails.configuration.app_insights_instrumentation_key
+  def track_event(key:, label:, value:)
+    return unless ga_tracking_id && [key, label, value].all?
+
+    send_event(key, label, value)
+  rescue StandardError => e
+    Rails.logger.error("Tracking service error: #{e.message}")
+    raise TrackingServiceError, e.message
   end
 
-  def self.key=(key)
-    @key = key
-    @sender = nil
-    @queue = nil
-    @channel = nil
-    @client = nil
-  end
+  private
 
-  def self.sender
-    @sender ||= ApplicationInsights::Channel::AsynchronousSender.new
-  end
+  def uri
+    @uri ||= begin
+      return URI.parse(DEBUG_API_ENDPOINT) if debugging_enabled?
 
-  def self.queue
-    @queue ||= ApplicationInsights::Channel::AsynchronousQueue.new(sender)
-  end
-
-  def self.channel
-    @channel ||= ApplicationInsights::Channel::TelemetryChannel.new(nil, queue)
-  end
-
-  def self.client
-    @client ||= ApplicationInsights::TelemetryClient.new(key, channel).tap do |tc|
-      # flush telemetry if we have 10 or more telemetry items in our queue
-      tc.channel.queue.max_queue_length = 10
-      # send telemetry to the service in batches of 5
-      tc.channel.sender.send_buffer_size = 5
-      # the background worker thread will be active for 5 seconds before it shuts down. if
-      # during this time items are picked up from the queue, the timer is reset.
-      tc.channel.sender.send_time = 5
-      # the background worker thread will poll the queue every 0.5 seconds for new items
-      tc.channel.sender.send_interval = 0.5
+      URI.parse(API_ENDPOINT)
     end
+  end
+
+  def send_event(key, label, value)
+    ::Net::HTTP.post(uri, build_payload(key, label, value)).body
+  end
+
+  def debugging_enabled?
+    @debug
+  end
+
+  def anonymized_client_id
+    SecureRandom.uuid
+  end
+
+  def build_payload(key, label, value)
+    URI.encode_www_form(
+      tid: ga_tracking_id,
+      cid: anonymized_client_id,
+      t: 'event',
+      v: 1,
+      ec: key,
+      el: label,
+      ea: value
+    )
   end
 end
