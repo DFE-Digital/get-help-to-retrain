@@ -5,6 +5,13 @@ GIT
   specs:
     application_insights (0.5.7)
 
+GIT
+  remote: https://github.com/flipgroup/data-dog-semantic-logger.git
+  revision: e6b47c07fa57a99c8aff6d971829597938a4a41e
+  ref: e6b47c0
+  specs:
+    data-dog-semantic-logger (0.1.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
