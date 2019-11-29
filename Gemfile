@@ -138,4 +138,5 @@ end
 group :production do
   # Logs formatter
   gem 'rails_semantic_logger', '~> 4.4'
+  gem 'data_dog_semantic_logger', '~>0.1.6'
 end

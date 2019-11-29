@@ -453,6 +453,7 @@ DEPENDENCIES
   canonical-rails
   capybara (>= 2.15)
   database_cleaner (~> 1.7)
+  data_dog_semantic_logger (~> 0.1.6)
   dotenv-rails (~> 2.7.0)
   factory_bot_rails (~> 5.0)
   faker (~> 1.9)

@@ -96,6 +96,10 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
       formatter: config.rails_semantic_logger.format
     )
 
+    # log formating for datadog
+    config.log_tags = { request: ->(request) { request } }
+    config.rails_semantic_logger.format = :data_dog
+
     if ENV['LOGGLY_TOKEN'].present?
       loggly_url              = "https://logs-01.loggly.com/inputs/#{ENV['LOGGLY_TOKEN']}/tag/ruby/"
       loggly_logger           = Logglier.new(loggly_url, threaded: true)
