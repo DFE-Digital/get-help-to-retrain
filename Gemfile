@@ -67,6 +67,10 @@ gem 'notifications-ruby-client', '~> 4.0'
 # Passwordless authentication
 gem 'passwordless', '~> 0.8'
 
+gem 'data_dog_semantic_logger', git: 'https://github.com/flipgroup/data-dog-semantic-logger'
+
+gem 'rails_semantic_logger', '~> 4.4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -133,10 +137,4 @@ group :test do
   # Web request caching for tests
   gem 'vcr', '~> 5.0', require: false
   gem 'webmock', '~> 3.6', require: false
-end
-
-group :production do
-  # Logs formatter
-  gem 'data_dog_semantic_logger', github: 'flipgroup/data-dog-semantic-logger', ref: 'e6b47c0'
-  gem 'rails_semantic_logger', '~> 4.4'
 end

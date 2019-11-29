@@ -1,16 +1,17 @@
 GIT
+  remote: https://github.com/flipgroup/data-dog-semantic-logger
+  revision: e6b47c07fa57a99c8aff6d971829597938a4a41e
+  specs:
+    data_dog_semantic_logger (0.1.6)
+      semantic_logger
+      useragent
+
+GIT
   remote: https://github.com/microsoft/ApplicationInsights-Ruby.git
   revision: a74292001cf12f6de957dfdcefaf8dbe415d7181
   ref: a7429200
   specs:
     application_insights (0.5.7)
-
-GIT
-  remote: https://github.com/flipgroup/data-dog-semantic-logger.git
-  revision: e6b47c07fa57a99c8aff6d971829597938a4a41e
-  ref: e6b47c0
-  specs:
-    data-dog-semantic-logger (0.1.6)
 
 GEM
   remote: https://rubygems.org/
@@ -417,6 +418,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.0)
+    useragent (0.16.10)
     vcr (5.0.0)
     web-console (4.0.1)
       actionview (>= 6.0.0)
@@ -459,8 +461,8 @@ DEPENDENCIES
   byebug
   canonical-rails
   capybara (>= 2.15)
-  database_cleaner (~> 1.7)
   data_dog_semantic_logger!
+  database_cleaner (~> 1.7)
   dotenv-rails (~> 2.7.0)
   factory_bot_rails (~> 5.0)
   faker (~> 1.9)
