@@ -1,8 +1,17 @@
 <h2 class="govuk-heading-m">Skills and knowledge</h2>
-<p class="govuk-body-m">Employers may ask for:</p>
-<ul class="govuk-list govuk-list--bullet">
-  <%= render @job_profile.skills %>
-</ul>
+<p class="govuk-body-m">Employers may ask for these skills for this type of work.</p>
+<% if @existing_skills.any? %>
+  <h3 class="govuk-heading-s">Skills you have</h3>
+  <ul class="govuk-list govuk-list--bullet">
+    <%= render @existing_skills %>
+  </ul>
+<% end %>
+<% if @skills_to_develop.any? %>
+  <h3 class="govuk-heading-s">Skills you may need to develop</h3>
+  <ul class="govuk-list govuk-list--bullet">
+    <%= render @skills_to_develop %>
+  </ul>
+<% end %>
 <p class="govuk-body-m">
   You may not need all of these skills to apply for this type of work - you could develop some of them while you are in the job or you could take a course. If you need help with your maths and English skills, this service can help with this when you create your action plan.
 </p>

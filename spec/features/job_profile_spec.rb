@@ -92,6 +92,115 @@ RSpec.feature 'Job profile spec' do
     expect(page).to have_current_path(training_questions_path)
   end
 
+  scenario 'User can see their skills gap in section skills need to develop' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    uncheck('License to kill', allow_label_click: true)
+    click_on('Select these skills')
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page.all('h3:contains("Skills you may need to develop") + ul.govuk-list li').collect(&:text)).to eq(
+      ['Chameleon-like blend in tactics', 'License to kill']
+    )
+  end
+
+  scenario 'User can see their existing skills in section skills you have' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('License to kill', allow_label_click: true)
+    click_on('Select these skills')
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page.all('h3:contains("Skills you have") + ul.govuk-list li').collect(&:text)).to eq(
+      ['Chameleon-like blend in tactics', 'Baldness']
+    )
+  end
+
+  scenario 'User can see all skills under Skills need to develop if no skills selected' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
+    )
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page.all('h3:contains("Skills you may need to develop") + ul.govuk-list li').collect(&:text)).to eq(
+      ['Chameleon-like blend in tactics', 'License to kill', 'Baldness']
+    )
+  end
+
+  scenario 'User does not see skills you have if no skills selected' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
+    )
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_content('Skills you have')
+  end
+
+  scenario 'User can see all skills under skills you have if all skills selected' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page.all('h3:contains("Skills you have") + ul.govuk-list li').collect(&:text)).to eq(
+      ['Chameleon-like blend in tactics', 'License to kill', 'Baldness']
+    )
+  end
+
+  scenario 'User does not see Skills you may need to develop if all skills selected' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics'),
+        create(:skill, name: 'License to kill'),
+        create(:skill, name: 'Baldness')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(job_profile_path(job_profile.slug))
+
+    expect(page).not_to have_content('Skills you may need to develop')
+  end
+
   def user_enters_location
     visit(your_information_path)
     fill_in('user_personal_data[first_name]', with: 'John')
