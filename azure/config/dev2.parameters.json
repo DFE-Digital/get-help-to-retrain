@@ -108,9 +108,6 @@
     "keyVaultResourceGroup": {
       "value": "s108d01-shared"
     },
-    "userFeedbackSmartSurveyLink": {
-      "value": "https://www.smartsurvey.co.uk/s/PGL4M/"
-    },
     "googleAnalyticsTrackingId": {
       "value": ""
     }

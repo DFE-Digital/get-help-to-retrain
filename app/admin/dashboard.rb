@@ -29,6 +29,13 @@ if defined?(ActiveAdmin)
             end
           end
         end
+        column do
+          panel 'Feedback Survey' do
+            h1 do
+              link_to FeedbackSurvey.count, admin_feedback_surveys_path
+            end
+          end
+        end
       end
     end
   end

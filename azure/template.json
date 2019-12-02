@@ -127,13 +127,6 @@
       "type": "int",
       "defaultValue": 1
     },
-    "userFeedbackSmartSurveyLink": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description:": "User feedback in page Smart Survey URL"
-      }
-    },
     "sentryDsn": {
       "type": "string",
       "defaultValue": "",
@@ -164,7 +157,7 @@
     },
     "bingSpellCheckApiKey": {
       "type": "string",
-      "defaultValue": "", 
+      "defaultValue": "",
       "metadata": {
         "description:": "Bing Spell Check Service - API KEY"
       }
@@ -584,10 +577,6 @@
               {
                 "name": "SECRET_KEY_BASE",
                 "value": "[parameters('secretKeyBase')]"
-              },
-              {
-                "name": "USER_FEEDBACK_SMART_SURVEY_LINK",
-                "value": "[parameters('userFeedbackSmartSurveyLink')]"
               },
               {
                 "name": "SENTRY_DSN",

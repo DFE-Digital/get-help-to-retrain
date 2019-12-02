@@ -1,36 +1,36 @@
-<% if Rails.configuration.smart_survey_user_feedback_link.present? %>
-  <div id="feedback-survey-container" class="feedback-survey-container hidden">
-    <iframe id="ss-embed-frame" src="<%= Rails.configuration.smart_survey_user_feedback_link %>" frameborder="0" title="Smart Survey Feedback Form" ></iframe>
-  </div>
-
-  <div id="feedback-prompt-container" class="feedback-prompt-container" >
+<div id="feedback-survey-container">
+  <div id="feedback-prompt-container" class="feedback-prompt-container hidden" >
     <div id="feedback-prompt-question">
       <h2 class="feedback-prompt-content">Is this page useful?</h2>
-      <%= link_to '#', {
-        class: 'feedback-prompt-link govuk-link',
-        id: 'answer-yes',
-        data: {
-          tracked_event: 'User Feedback On Page Survey',
-          tracked_event_props: { 'answer': 'yes' }
-        },
-      } do %>
-        Yes
+      <%= form_with url: feedback_surveys_path, class: 'feedback-survey-form', id: 'page-is-useful-form', aria: { hidden: false } do |f| %>
+        <%= hidden_field_tag('page_useful', 'yes') %>
+        <%= submit_tag('Yes', role: 'button', class: 'unbutton-survey feedback-prompt-link') %>
+        <span class="govuk-visually-hidden">this page is useful</span>
       <% end %>
-
       <%= link_to '#', {
         class: 'feedback-prompt-link govuk-link',
         id: 'answer-no',
-        data: {
-          tracked_event: 'User Feedback On Page Survey',
-          tracked_event_props: { 'answer': 'no' }
-        },
+        role: 'button',
+        aria: {
+          expanded: false,
+          controls: 'page-is-not-useful'
+        }
       } do %>
         No
+        <span class="govuk-visually-hidden">this page is not useful</span>
       <% end %>
     </div>
-
-    <div id="feedback-prompt-success" class="feedback-prompt-content hidden">
-      Thank you for your feedback
-    </div>
   </div>
-<% end %>
+
+  <div id="feedback-not-useful-container" class="top-border__container  govuk-!-padding-top-2 hidden">
+    <%= link_to 'close', '#', class: 'govuk-body govuk-link close-feedback-survey', role: 'button', aria: { controls: 'page-is-not-useful', expanded: true } %>
+    <%= form_with url: feedback_surveys_path, id: 'page-is-not-useful-form', aria: { hidden: true } do |f| %>
+      <%= hidden_field_tag('page_useful', 'no') %>
+      <div class="govuk-form-group govuk-!-margin-top-6">
+        <%= label_tag :feedback_survey_message, 'How should we improve this page?', class: 'govuk-label govuk-!-margin-bottom-4' %>
+        <%= text_area_tag :message, nil, class: 'govuk-textarea govuk-!-width-two-thirds', rows: 3, maxlength: 250 %>
+      </div>
+      <%= f.button('Send message', name: nil, class: 'govuk-button govuk-!-margin-top-0 govuk-!-margin-bottom-4', data: { module: 'govuk-button' }) %>
+    <% end %>
+  </div>
+</div>

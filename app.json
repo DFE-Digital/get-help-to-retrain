@@ -7,9 +7,6 @@
     "SPLIT_API_KEY": {
       "required": true
     },
-    "USER_FEEDBACK_SMART_SURVEY_LINK": {
-      "required": true
-    },
 	  "DEV_DATABASE_URL": {
 	    "required": true
 	  },
