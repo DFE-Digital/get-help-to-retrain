@@ -7,7 +7,7 @@
     <p class="govuk-body-s govuk-!-margin-bottom-2 muted-text"><%= job_profile.alternative_titles %></p>
   <% end %>
   <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
-  <p class="govuk-body govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) %></span></p>
+  <p class="govuk-body govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) || 'None' %></span></p>
   <% if job_profile.growth.present? %>
     <p class="govuk-body govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.growth_type %></span></p>
     <details class="govuk-details" data-module="govuk-details">

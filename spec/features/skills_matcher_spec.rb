@@ -144,10 +144,36 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_text('More information needed')
   end
 
+  scenario 'search for unknown job title shows no results' do
+    visit_skills_for_current_job_profile
+
+    visit skills_matcher_index_path
+    click_on('Search for a job title')
+
+    fill_in('search', with: 'Escapologist')
+    find('.search-button').click
+
+    expect(page).to have_text('No results found')
+  end
+
+  scenario 'search for specific job title shows number of results' do
+    visit_skills_for_current_job_profile
+
+    create(:job_profile, :with_html_content, :growing, name: 'Florist')
+
+    visit skills_matcher_index_path
+    click_on('Search for a job title')
+
+    fill_in('search', with: 'florist')
+    find('.search-button').click
+
+    expect(page).to have_text('1 result found')
+  end
+
   scenario 'search for specific job title shows skills match' do
     visit_skills_for_current_job_profile
 
-    create(:job_profile, :with_html_content, :growing, name: 'Florist', skills: [skill3])
+    create(:job_profile, :with_html_content, name: 'Florist', skills: [skill3])
 
     visit skills_matcher_index_path
     click_on('Search for a job title')
@@ -160,10 +186,26 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
+  scenario 'search for specific job title shows no skills matching' do
+    visit_skills_for_current_job_profile
+
+    create(:job_profile, :with_html_content, name: 'Florist')
+
+    visit skills_matcher_index_path
+    click_on('Search for a job title')
+
+    fill_in('search', with: 'florist')
+    find('.search-button').click
+
+    expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
+      ['Florist', 'Skills match: None']
+    )
+  end
+
   scenario 'search for specific job title allows clicking through to job profile page' do
     visit_skills_for_current_job_profile
 
-    create(:job_profile, :with_html_content, :growing, name: 'Fluffer', slug: 'fluffer')
+    create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer')
 
     visit skills_matcher_index_path
     click_on('Search for a job title')
@@ -173,17 +215,5 @@ RSpec.feature 'Skills matcher', type: :feature do
     click_on('Fluffer')
 
     expect(page).to have_current_path(job_profile_path('fluffer'))
-  end
-
-  scenario 'search for unknown job title shows no results' do
-    visit_skills_for_current_job_profile
-
-    visit skills_matcher_index_path
-    click_on('Search for a job title')
-
-    fill_in('search', with: 'Escapologist')
-    find('.search-button').click
-
-    expect(page).to have_text('No results found')
   end
 end

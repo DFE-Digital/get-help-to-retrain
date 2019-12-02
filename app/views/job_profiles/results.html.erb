@@ -9,10 +9,10 @@
   end
 %>
 
-<div class="govuk-grid-row govuk-!-padding-top-7">
+<div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
     <% if @job_profiles.blank? %>
-      <%= render '/shared/search/no_results', scope: 'job_profiles.results' %>
+      <%= render '/shared/search/no_results', scope: 'job_profiles.index' %>
     <% else %>
       <%= render "search_form" %>
       <ul class="govuk-list">
