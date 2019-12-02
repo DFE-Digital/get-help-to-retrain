@@ -1,6 +1,8 @@
 class FeedbackSurveysController < ApplicationController
   def create
-    FeedbackSurvey.new(feedback_survey_params).save
+    FeedbackSurvey.new(
+      feedback_survey_params.merge(url: request.referrer)
+    ).save
   end
 
   private

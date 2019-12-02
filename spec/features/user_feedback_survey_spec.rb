@@ -9,10 +9,11 @@ RSpec.feature 'User Feedback In Page Survey' do
 
   scenario 'Page helpful survey is persisted when answering yes', :js do
     answer_yes
-    click_on('Start now')
+    click_on('Check your existing skills')
 
     expect(FeedbackSurvey.first.attributes).to include(
-      'page_useful' => 'yes'
+      'page_useful' => 'yes',
+      'url' => /task-list/
     )
   end
 
@@ -40,22 +41,23 @@ RSpec.feature 'User Feedback In Page Survey' do
     answer_no
     fill_in('message', with: 'Page was not useful')
     click_on('Send message')
-    click_on('Start now')
+    click_on('Check your existing skills')
 
     expect(FeedbackSurvey.first.attributes).to include(
       'message' => 'Page was not useful',
-      'page_useful' => 'no'
+      'page_useful' => 'no',
+      'url' => /task-list/
     )
   end
 
   def answer_yes
-    visit(root_path)
+    visit(task_list_path)
     click_on('Accept cookies')
     click_on('Yes')
   end
 
   def answer_no
-    visit(root_path)
+    visit(task_list_path)
     click_on('Accept cookies')
     click_on('No')
   end

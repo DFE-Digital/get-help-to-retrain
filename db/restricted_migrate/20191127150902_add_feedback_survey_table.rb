@@ -3,6 +3,7 @@ class AddFeedbackSurveyTable < ActiveRecord::Migration[6.0]
     create_table :feedback_surveys do |t|
       t.boolean :page_useful, null: false
       t.text :message
+      t.string :url, null: false
 
       t.timestamps
     end

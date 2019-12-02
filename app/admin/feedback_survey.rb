@@ -8,6 +8,7 @@ if defined?(ActiveAdmin)
       column :id
       column :page_useful
       column :message
+      column :url
       column :created_at
       column :updated_at
     end
@@ -16,6 +17,7 @@ if defined?(ActiveAdmin)
       column :id
       column :page_useful
       column :message
+      column :url
       column :created_at
       column :updated_at
     end
