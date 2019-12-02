@@ -32,7 +32,7 @@
       <%= hidden_field_tag('page_useful', 'no') %>
       <div class="govuk-form-group govuk-!-margin-top-6">
         <%= label_tag :feedback_survey_message, 'How should we improve this page?', class: 'govuk-label govuk-!-margin-bottom-4' %>
-        <%= text_area_tag :message, nil, class: 'govuk-textarea govuk-!-width-two-thirds', rows: 3 %>
+        <%= text_area_tag :message, nil, class: 'govuk-textarea govuk-!-width-two-thirds', rows: 3, maxlength: 250 %>
       </div>
       <%= f.button('Send message', class: 'govuk-button govuk-!-margin-top-0 govuk-!-margin-bottom-4', data: { module: 'govuk-button' }) %>
     <% end %>
