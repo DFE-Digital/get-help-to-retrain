@@ -23,6 +23,8 @@ class JobProfilesController < ApplicationController
   def show
     @job_profile = JobProfileDecorator.new(resource)
     @job_vacancy_count = job_vacancy_count
+    @skills_to_develop = @job_profile.skills - user_skills
+    @existing_skills = @job_profile.skills & user_skills
   end
 
   def target
@@ -55,5 +57,9 @@ class JobProfilesController < ApplicationController
     ).count
   rescue FindAJobService::APIError
     nil
+  end
+
+  def user_skills
+    @user_skills ||= Skill.find(user_session.skill_ids)
   end
 end
