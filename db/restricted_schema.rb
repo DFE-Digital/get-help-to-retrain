@@ -46,16 +46,6 @@ ActiveRecord::Schema.define(version: 2019_11_27_150902) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "user_personal_data", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "postcode"
-    t.date "dob"
-    t.string "gender"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.citext "email", null: false
     t.bigint "session_id"
@@ -65,4 +55,13 @@ ActiveRecord::Schema.define(version: 2019_11_27_150902) do
     t.index ["session_id"], name: "index_users_on_session_id"
   end
 
+  create_table "user_personal_data", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "postcode"
+    t.date "dob"
+    t.string "gender"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 end

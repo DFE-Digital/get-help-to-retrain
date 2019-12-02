@@ -1,7 +1,6 @@
 class FeedbackSurveysController < ApplicationController
   def create
-    @survey = FeedbackSurvey.new(feedback_survey_params)
-    render :show if @survey.save
+    FeedbackSurvey.new(feedback_survey_params).save
   end
 
   private
