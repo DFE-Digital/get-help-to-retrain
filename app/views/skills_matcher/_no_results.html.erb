@@ -1,4 +1,11 @@
-<h1 class="govuk-heading-xl">More information needed</h1>
-<p class="govuk-body">You'll get more job suggestions if you <%= link_to 'add more skills from another role', check_your_skills_path, class: 'govuk-link' %> you’ve done.</p>
-<!-- TODO: update copy to avoid linking to deprecated route -->
-<p class="govuk-body">If you haven't done any other jobs, doing some training will increase your job options. <%#= link_to 'Find a training course', training_hub_path, class: 'govuk-link' %></p>
+<p class="govuk-body">0 results found</p>
+<p class="govuk-body">There are no job matches for the skills you selected. If you select more skills, you should get more job matches.</p>
+<p class="govuk-body">You could:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>think about whether you may have more skills than you first thought and select them</li>
+  <li>go back and add one or more previous jobs</li>
+  <li>call an adviser on
+      <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-!-padding-left-1 govuk-link' %>
+      - they can help you discover your skills</li>
+</ul>
+<p class="govuk-body"><%= link_to 'Go back to your skills page', skills_path %></p>

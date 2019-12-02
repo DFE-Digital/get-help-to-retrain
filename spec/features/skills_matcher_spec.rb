@@ -141,7 +141,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     click_on('Select these skills')
     click_on('Find out what you can do with these skills')
 
-    expect(page).to have_text('More information needed')
+    expect(page).to have_text('0 results found')
   end
 
   scenario 'search for unknown job title shows no results' do
