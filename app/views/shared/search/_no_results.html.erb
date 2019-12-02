@@ -1,8 +1,8 @@
-<h3 class="govuk-heading-xl">No results found</h3>
-<%= render "shared/search/results_form", search_path: results_check_your_skills_path, scope: 'check_your_skills.results' %>
+<h1 class="govuk-heading-xl">No results found</h1>
+<%= render "shared/search/results_form", search_path: { action: :results }, scope: scope %>
 <p class="govuk-body">You could try:</p>
 <ul class="govuk-list govuk-list--bullet">
   <li>checking your spelling</li>
-  <li>using a different name for the job you do</li>
-  <li>searching for a different role you’ve done</li>
+  <li>using a different name for the job</li>
+  <li>searching for a different role</li>
 </ul>

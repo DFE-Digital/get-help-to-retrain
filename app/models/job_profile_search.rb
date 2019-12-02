@@ -12,7 +12,7 @@ class JobProfileSearch
   def search
     return JobProfile.none unless valid?
 
-    JobProfile.select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max)
+    JobProfile.select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth)
               .where(build_text_search_query, query_string: query_string)
               .where.not(id: profile_ids_to_exclude)
               .order(

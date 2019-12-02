@@ -1,8 +1,9 @@
 class SkillsMatcher
-  attr_reader :user_session, :job_profile_id
+  attr_reader :user_session, :options
 
-  def initialize(user_session)
+  def initialize(user_session, options = {})
     @user_session = user_session
+    @options = options
   end
 
   def match
@@ -37,7 +38,7 @@ class SkillsMatcher
         .from(Arel.sql("(#{skills_matched_query}) as ranked_job_profiles"))
         .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
         .order(skills_matched: :desc, growth: :desc, name: :asc)
-        .limit(50)
+        .limit(options[:limit])
     end
   end
 

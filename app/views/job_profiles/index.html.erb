@@ -1,0 +1,20 @@
+<% page_title :job_profiles_index %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.job_profiles_search'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds" >
+    <%= render "shared/search/form", search_path: job_profiles_path, scope: 'job_profiles.index' %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
+</div>

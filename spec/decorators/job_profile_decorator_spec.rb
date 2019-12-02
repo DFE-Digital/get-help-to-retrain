@@ -5,6 +5,15 @@ RSpec.describe JobProfileDecorator do
 
   let(:model) { build_stubbed :job_profile, content: html_body }
 
+  describe '.decorate' do
+    let(:model) { build_stubbed :job_profile, :with_html_content }
+
+    it 'decorates an array of job profiles' do
+      decorated = described_class.decorate([model, model])
+      expect(decorated.first).to be_a described_class
+    end
+  end
+
   describe '#salary_range' do
     context 'with defined minimum and maximum' do
       let(:model) { build_stubbed :job_profile, salary_min: 18_000, salary_max: 30_000 }
