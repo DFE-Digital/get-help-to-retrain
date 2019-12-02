@@ -2,5 +2,5 @@
 <p class="govuk-body-l"><%= t(:body, scope: 'job_profiles.index') %></p>
 <%= render "shared/search/results_form", search_path: results_job_profiles_path, scope: 'job_profiles.index' %>
 <p class="govuk-body">
-  <%= "#{pluralize(@job_profiles.count, 'result', locale: I18n.locale.to_s)} found" %>
+  <%= "#{pluralize(@results.total_count, 'result', locale: I18n.locale.to_s)} found" %>
 </p>
