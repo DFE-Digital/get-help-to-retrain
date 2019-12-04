@@ -18,7 +18,7 @@
             <h1 class="govuk-fieldset__heading govuk-!-margin-bottom-3">
               <%= t('.title') %>
             </h1>
-            <p class="govuk-body-l">Employers often say they want candidates with maths and English skills – and getting a qualification is one way to show you have those skills. Adult learning is taught in a relaxed and positive way, so there’s no need to be worried about going back into training.</p>
+            <p class="govuk-body">Employers often say they want candidates with maths and English skills – and getting a qualification is one way to show you have those skills. Adult learning is taught in a relaxed and positive way, so there’s no need to be worried about going back into training.</p>
             <p class="govuk-body govuk-!-margin-bottom-2">Lots of different courses are taught in your area that offer flexible learning and part-time study to fit around your life. Many courses are free.</p>
           </legend>
           <span id="training-options-hint" class="govuk-hint">
@@ -29,13 +29,29 @@
               <%= check_box_tag 'training[]', :english_skills, user_session.training&.include?('english_skills'), id: :training_english_skills, class: 'govuk-checkboxes__input' %>
               <%= label_tag :training_english_skills, 'I need to improve my English skills', class: 'govuk-label govuk-checkboxes__label' %>
             </div>
-            <div class="govuk-checkboxes__item govuk-!-margin-top-6">
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary" aria-controls="english-skills-details" aria-expanded="true" role="button">
+                <span class="govuk-details__summary-text">What will you learn on an English skills course?</span>
+              </summary>
+              <div class="govuk-details__text govuk-body-m" aria-hidden="false" id="english-skills-details">
+                On an English adult learning course you'll improve your confidence with reading and writing. This will help you with everyday tasks in work like looking up information, answering questions and selecting the right words to communicate clearly.
+              </div>
+            </details>
+            <div class="govuk-checkboxes__item govuk-!-margin-top-6 govuk-!-margin-bottom-2">
               <%= check_box_tag 'training[]', :math_skills, user_session.training&.include?('math_skills'), id: :training_math_skills, class: 'govuk-checkboxes__input' %>
               <%= label_tag :training_math_skills, 'I need to improve my maths skills', class: 'govuk-label govuk-checkboxes__label' %>
             </div>
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary" aria-controls="maths-skills-details" aria-expanded="true" role="button">
+                <span class="govuk-details__summary-text">What will you learn on a maths skills course?</span>
+              </summary>
+              <div class="govuk-details__text govuk-body-m" aria-hidden="false" id="maths-skills-details">
+                On an maths adult learning course you'll improve your confidence with numbers. This will help you with everyday tasks in work like using dates, reading timetables and measuring things.
+              </div>
+            </details>
           </div>
         </fieldset>
-        <p class="govuk-body govuk-!-margin-top-9">If none of these apply to you, just leave the boxes blank and select continue.</p>
+        <p class="govuk-body govuk-!-margin-top-6">If none of these apply to you, just leave the boxes blank and select continue.</p>
       </div>
       <%= f.button('Continue', class: 'govuk-button govuk-!-margin-top-0 govuk-button govuk-!-margin-bottom-2', data: { module: 'govuk-button' }) %>
     <% end %>
