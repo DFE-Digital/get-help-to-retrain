@@ -55,7 +55,7 @@ RSpec.feature 'Job profile spec' do
     user_enters_location
     visit(job_profile_path(job_profile.slug))
 
-    expect(page).to have_content('there are no jobs')
+    expect(page).to have_content('there are no vacancies')
   end
 
   scenario 'User does not see job vacancies if API is down' do

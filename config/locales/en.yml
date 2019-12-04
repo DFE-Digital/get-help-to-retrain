@@ -104,6 +104,9 @@ en-GB:
       title: Search for a type of work
       body: Enter a job title to find out how well your skills match to it
       placeholder: Enter a job title
+    vacancies:
+      one: is
+      other: are
     destroy:
       notice: The %{name} role has been removed.
   job_profiles_search:
