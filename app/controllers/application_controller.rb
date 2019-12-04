@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Passwordless::ControllerHelpers
+  include GaTrackingHelper
 
   before_action :set_raven_context
 
@@ -24,10 +25,22 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def track_event(event_key, value = nil)
+  def track_event(event_key, event_value)
     event_label = I18n.t(event_key, scope: :events)
 
-    TrackingService.new.track_event(key: event_key, label: event_label, value: value)
+    track_events(
+      event_key,
+      [
+        {
+          label: event_label,
+          value: event_value
+        }
+      ]
+    )
+  end
+
+  def track_events(event_key, props = [])
+    TrackingService.new.track_events(key: event_key, props: props)
   rescue TrackingService::TrackingServiceError
     nil
   end
