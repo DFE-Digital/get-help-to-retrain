@@ -33,6 +33,28 @@ RSpec.describe JobVacancyDecorator do
     end
   end
 
+  describe '#formatted_closing_date' do
+    it 'returns the formatted closing date' do
+      job_vacancy = JobVacancy.new('closing' => '2019-10-11T18:56:40')
+      decorated_vacancy = described_class.new(job_vacancy)
+
+      expect(decorated_vacancy.formatted_closing_date).to eq('11 October 2019')
+    end
+
+    it 'returns nil if closing date is empty' do
+      job_vacancy = JobVacancy.new('closing' => '')
+      decorated_vacancy = described_class.new(job_vacancy)
+
+      expect(decorated_vacancy.formatted_closing_date).to be_nil
+    end
+
+    it 'returns nil if closing date is missing' do
+      decorated_vacancy = described_class.new(JobVacancy.new({}))
+
+      expect(decorated_vacancy.formatted_closing_date).to be_nil
+    end
+  end
+
   describe '#formatted_date_posted' do
     it 'returns the posted date formatted' do
       job_vacancy = JobVacancy.new('posted' => '2019-10-11T18:56:40')

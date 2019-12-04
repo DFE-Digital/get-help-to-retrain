@@ -25,6 +25,23 @@ RSpec.describe JobVacancy do
     end
   end
 
+  describe '#closing_date' do
+    it 'returns the closing date from a parsed body' do
+      body = { 'closing' => '2019-10-11T18:56:40' }
+      expect(described_class.new(body).closing_date).to eq('2019-10-11T18:56:40')
+    end
+
+    it 'returns nil if closing date is empty' do
+      body = { 'closing' => '' }
+      expect(described_class.new(body).closing_date).to be_nil
+    end
+
+    it 'returns nil if closing date is missing' do
+      body = {}
+      expect(described_class.new(body).closing_date).to be_nil
+    end
+  end
+
   describe '#date_posted' do
     it 'returns the posted date from a parsed body' do
       body = { 'posted' => '2019-10-11T18:56:40' }

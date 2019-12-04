@@ -8,10 +8,12 @@ class JobVacancyDecorator < SimpleDelegator
       .html_safe
   end
 
+  def formatted_closing_date
+    formatted_date(closing_date)
+  end
+
   def formatted_date_posted
-    date_posted
-      &.to_time
-      &.strftime('%d %B %Y')
+    formatted_date(date_posted)
   end
 
   private
@@ -20,5 +22,11 @@ class JobVacancyDecorator < SimpleDelegator
     return unless company
 
     content_tag(:b, company)
+  end
+
+  def formatted_date(date_value)
+    date_value
+      &.to_time
+      &.strftime('%d %B %Y')
   end
 end

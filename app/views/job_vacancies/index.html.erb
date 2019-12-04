@@ -15,6 +15,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= target_job.name %> jobs near me</h1>
     <p class="govuk-body">These jobs within 20 miles of your postcode are currently being advertised in the <%= link_to('Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link') %> service from the Department for Work and Pensions.</p>
+    <p class="govuk-body">Selecting one of these jobs will take you to another government service.</p>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= form_with model: @job_vacancy_search, local: true, url: jobs_near_me_path do |form| %>
         <%= form_group_tag @job_vacancy_search, :postcode do %>
