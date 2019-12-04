@@ -3,6 +3,7 @@
 class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLength
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::NumberHelper
+  include ActionView::Context
 
   # rubocop:disable Metrics/LineLength
   HOW_TO_BECOME_XPATH = "//h2[contains(@class, 'job-profile-heading')]".freeze
@@ -31,10 +32,24 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     html_body.xpath(HOW_TO_BECOME_XPATH).text
   end
 
-  def salary_range
+  def salary_range # rubocop:disable Metrics/MethodLength
     return 'Variable' unless salary_min && salary_max
 
-    "#{number_to_currency(salary_min, precision: 0)} to #{number_to_currency(salary_max, precision: 0)}"
+    content_tag(:div, class: 'govuk-grid-row salary-container') {
+      column_data(
+        content: number_to_currency(salary_min, precision: 0) + tag(:br) + '(starter)',
+        content_classes: 'salary-range'
+      ) +
+        column_data(
+          content: ' – ',
+          column_classes: 'salary-separator-container',
+          content_classes: 'salary-separator'
+        ) +
+        column_data(
+          content: number_to_currency(salary_max, precision: 0) + tag(:br) + '(experienced)',
+          content_classes: 'salary-range'
+        )
+    }.html_safe
   end
 
   def working_hours
@@ -179,5 +194,11 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
 
   def separator_line
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
+  end
+
+  def column_data(content:, column_classes: nil, content_classes:)
+    content_tag(:div, class: "govuk-grid-column-one-third #{column_classes}".strip) do
+      content_tag(:p, content, class: content_classes)
+    end
   end
 end

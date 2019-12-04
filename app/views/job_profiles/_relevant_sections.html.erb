@@ -11,5 +11,7 @@
 <%= render 'jobs_in_your_area' %>
 
 <h2 class="govuk-heading-m">Select type of work</h2>
-<p class="govuk-body">Select this as your target type of work and we’ll help you prepare to apply.</p>
+<p class="govuk-body">Select this as your target type of work and we’ll add it to your personal action plan. We will start by checking if you need any maths and English training or job hunting advice.</p>
+<p class="govuk-body">If you change your mind, you can choose a different type of work on your personal action plan.</p>
 <%= button_to('Target this type of work', target_job_profile_path(@job_profile.slug), class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6', data: { module: 'govuk-button' }) %>
+<%= link_to('Back to your job matches', skills_matcher_index_path, class: 'govuk-link') %>
