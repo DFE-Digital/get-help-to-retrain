@@ -2,7 +2,7 @@
 <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Get job hunting advice</h3>
 <% if user_session.job_hunting.present? %>
   <p class="govuk-body">You chose to improve your job hunting skills. Getting this kind of advice can improve your chances of finding work.</p>
-  <p class="govuk-body">If you select one of these options you will be taken to another government service.</p>
+  <p class="govuk-body">Selecting one of these options will take you to another government service.</p>
 
   <% if user_session.job_hunting.include?('cv') %>
     <div class="govuk-grid-row">
