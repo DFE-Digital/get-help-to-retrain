@@ -37,8 +37,17 @@ class SkillsMatcher
         )
         .from(Arel.sql("(#{skills_matched_query}) as ranked_job_profiles"))
         .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
-        .order(skills_matched: :desc, growth: :desc, name: :asc)
+        .order(order_options)
         .limit(options[:limit])
+    end
+  end
+
+  def order_options
+    case options[:order]
+    when :growth
+      { growth: :desc, skills_matched: :desc, name: :asc }
+    else
+      { skills_matched: :desc, growth: :desc, name: :asc }
     end
   end
 

@@ -18,6 +18,7 @@
     <p class="govuk-body"><%= link_to 'Search for a job title', job_profiles_path, class: 'govuk-link' %></p>
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <% if @results.present? %>
+      <%= render 'sort_form' %>
       <ul class="govuk-list">
         <%= render @job_profiles %>
       </ul>
