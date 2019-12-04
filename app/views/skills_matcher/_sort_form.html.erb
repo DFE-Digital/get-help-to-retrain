@@ -1,0 +1,6 @@
+<div class="govuk-form-group hidden" id="sort-container">
+  <%= form_tag nil, method: :get, local: true do |f| %>
+    <%= label_tag :sort, 'Sort by', class: 'govuk-label' %>
+    <%= select_tag :sort, @options, class: 'govuk-select', id: 'sort-select' %>
+  <% end %>
+</div>
