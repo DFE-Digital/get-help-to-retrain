@@ -13,6 +13,10 @@ class JobVacancy
     body['url']
   end
 
+  def closing_date
+    body['closing'].presence
+  end
+
   def date_posted
     body['posted'].presence
   end
