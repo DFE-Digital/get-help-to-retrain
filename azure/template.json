@@ -635,53 +635,7 @@
           }
         }
       }
-    },
-    {
-      "apiVersion": "2019-08-01",
-      "name": "alerts",
-      "type": "Microsoft.Resources/deployments",
-      "condition": "[parameters('applyAlerts')]",
-      "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-              "contentVersion": "1.0.0.0",
-              "uri": "[concat(variables('deploymentUrlBase'), 'alerting.json')]"
-            },
-          "parameters": {
-              "webAppName": {
-                "value": "[variables('appServiceName')]"
-              },
-              "databaseName": {
-                  "value": "[variables('domainDatabaseServerName')]"
-              },
-              "actionGroupName": {
-                  "value": "[variables('actionGroupName')]"
-              },
-              "actionGroupShortName": {
-                  "value": "[parameters('actionGroupShortName')]"
-              },
-              "supportEmailAddresses": {
-                  "value": "[parameters('supportEmailAddresses')]"
-              },
-              "thresholdHttpErrors": {
-                  "value": "[parameters('thresholdHttpErrors')]"
-              },
-              "thresholdResponseTime": {
-                  "value": "[parameters('thresholdResponseTime')]"
-              },
-              "thresholdPostgresActiveConnections": {
-                  "value": "[parameters('thresholdPostgresActiveConnections')]"
-              },
-              "thresholdPostgresCPUPercent": {
-                  "value": "[parameters('thresholdPostgresCPUPercent')]"
-              },
-              "thresholdPostgresStoragePercent": {
-                  "value": "[parameters('thresholdPostgresStoragePercent')]"
-              }
-          }
-      },
-      "dependsOn": ["app-service-plan","postgresql-domain-database"]
-  }
+    }
   ],
   "outputs": {
     "appServiceName": {
