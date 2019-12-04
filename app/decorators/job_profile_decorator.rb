@@ -32,23 +32,13 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     html_body.xpath(HOW_TO_BECOME_XPATH).text
   end
 
-  def salary_range # rubocop:disable Metrics/MethodLength
+  def salary_range
     return 'Variable' unless salary_min && salary_max
 
-    content_tag(:div, class: 'govuk-grid-row salary-container') {
-      column_data(
-        content: number_to_currency(salary_min, precision: 0) + tag(:br) + '(starter)',
-        content_classes: 'salary-range'
-      ) +
-        column_data(
-          content: ' – ',
-          column_classes: 'salary-separator-container',
-          content_classes: 'salary-separator'
-        ) +
-        column_data(
-          content: number_to_currency(salary_max, precision: 0) + tag(:br) + '(experienced)',
-          content_classes: 'salary-range'
-        )
+    content_tag(:div, class: 'salary-columns') {
+      column_data(content: number_to_currency(salary_min, precision: 0) + tag(:br) + '(starter)') +
+        column_data(content: ' – ', content_classes: 'salary-separator') +
+        column_data(content: number_to_currency(salary_max, precision: 0) + tag(:br) + '(experienced)')
     }.html_safe
   end
 
@@ -196,9 +186,9 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 
-  def column_data(content:, column_classes: nil, content_classes:)
-    content_tag(:div, class: "govuk-grid-column-one-third #{column_classes}".strip) do
-      content_tag(:p, content, class: content_classes)
+  def column_data(content:, content_classes: nil)
+    content_tag(:div, class: 'salary-column') do
+      content_tag(:p, content, class: "govuk-!-margin-0 #{content_classes}".strip)
     end
   end
 end

@@ -20,15 +20,15 @@ RSpec.describe JobProfileDecorator do
 
       it 'formats the salary range' do
         expected_salary_range = <<~HTML.gsub(/\n/, '')
-          <div class="govuk-grid-row salary-container">
-          <div class="govuk-grid-column-one-third">
-          <p class="salary-range">£18,000<br />(starter)</p>
+          <div class="salary-columns">
+          <div class="salary-column">
+          <p class="govuk-!-margin-0">£18,000<br />(starter)</p>
           </div>
-          <div class="govuk-grid-column-one-third salary-separator-container">
-          <p class="salary-separator"> – </p>
+          <div class="salary-column">
+          <p class="govuk-!-margin-0 salary-separator"> – </p>
           </div>
-          <div class="govuk-grid-column-one-third">
-          <p class="salary-range">£30,000<br />(experienced)</p>
+          <div class="salary-column">
+          <p class="govuk-!-margin-0">£30,000<br />(experienced)</p>
           </div>
           </div>
         HTML
