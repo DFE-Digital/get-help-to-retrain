@@ -173,3 +173,31 @@
     padding-right: 0;
   }
 }
+
+.salary-columns {
+  display: flex;
+  flex-flow: row wrap;
+
+  @include govuk-media-query($until: tablet) {
+    width: 30%;
+  }
+}
+
+.salary-separator {
+  padding: 5px;
+
+  @include govuk-media-query($from: tablet) {
+    text-align: center;
+    padding: 0 2px;
+  }
+}
+
+.salary-column {
+  flex: 1;
+}
+
+@media screen and (max-width: 30%) {
+  .salary-columns .salary-column {
+    flex-basis: 10%;
+  }
+}
