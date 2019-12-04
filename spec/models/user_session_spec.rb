@@ -12,8 +12,7 @@ RSpec.describe UserSession do
         'target_job_id' => 100,
         'session_id' => 2,
         'training' => ['english_skills'],
-        'job_hunting' => ['cv'],
-        'skills_matcher_sort' => 'growth'
+        'job_hunting' => ['cv']
       }
       new_session = { 'session_id' => 1 }
       described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
@@ -23,8 +22,7 @@ RSpec.describe UserSession do
         'target_job_id' => 100,
         'session_id' => 1,
         'training' => ['english_skills'],
-        'job_hunting' => ['cv'],
-        'skills_matcher_sort' => 'growth'
+        'job_hunting' => ['cv']
       )
     end
 
@@ -50,18 +48,6 @@ RSpec.describe UserSession do
 
     it 'returns nil if no postcode set' do
       expect(user_session.postcode).to be_nil
-    end
-  end
-
-  describe '#skills_matcher_sort' do
-    it 'returns order if set' do
-      user_session.skills_matcher_sort = 'growth'
-
-      expect(user_session.skills_matcher_sort).to eq('growth')
-    end
-
-    it 'returns nil if no order set' do
-      expect(user_session.skills_matcher_sort).to be_nil
     end
   end
 
