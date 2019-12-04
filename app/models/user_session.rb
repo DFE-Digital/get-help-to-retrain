@@ -8,6 +8,7 @@ class UserSession
     target_job_id
     training
     job_hunting
+    skills_matcher_sort
   ].freeze
 
   def self.merge_sessions(new_session:, previous_session_data:)
@@ -27,6 +28,14 @@ class UserSession
 
   def postcode=(value)
     session[:postcode] = value
+  end
+
+  def skills_matcher_sort
+    session[:skills_matcher_sort]
+  end
+
+  def skills_matcher_sort=(value)
+    session[:skills_matcher_sort] = value
   end
 
   def target_job_id
