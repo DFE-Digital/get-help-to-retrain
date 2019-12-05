@@ -7,4 +7,8 @@ class Skill < PrimaryActiveRecordBase
   def self.import(names)
     names.map { |name| find_or_create_by(name: name) }
   end
+
+  def self.mapping
+    all.each_with_object({}) { |skill, hash| hash[skill.id.to_s] = skill.name }
+  end
 end

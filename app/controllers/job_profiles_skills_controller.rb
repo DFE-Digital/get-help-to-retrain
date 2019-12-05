@@ -42,9 +42,7 @@ class JobProfilesSkillsController < ApplicationController
   end
 
   def available_skills
-    @available_skills ||= job_profile.skills.each_with_object({}) do |skill, hash|
-      hash[skill.id.to_s] = skill.name
-    end
+    @available_skills ||= job_profile.skills.mapping
   end
 
   def user_skill_ids
