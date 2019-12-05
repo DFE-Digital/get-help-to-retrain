@@ -97,6 +97,50 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).not_to have_text('Baldness')
   end
 
+  scenario 'Tracks both ticked and unticked skills' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Baldness', allow_label_click: true)
+
+    click_on('Select these skills')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props: [
+        {
+          key: :skills_builder_ticked,
+          label: 'Hitman',
+          value: 'Chameleon-like blend in tactics'
+        },
+        {
+          key: :skills_builder_ticked,
+          label: 'Hitman',
+          value: 'License to kill'
+        },
+        {
+          key: :skills_builder_unticked,
+          label: 'Hitman',
+          value: 'Baldness'
+        }
+      ]
+    )
+  end
+
+  scenario 'If all skills are unticked, nothing gets tracked in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    uncheck('Baldness', allow_label_click: true)
+    uncheck('Chameleon-like blend in tactics', allow_label_click: true)
+    uncheck('License to kill', allow_label_click: true)
+
+    click_on('Select these skills')
+
+    expect(tracking_service).not_to have_received(:track_events)
+  end
+
   scenario 'User unticks all skills for a second profile then that profile should not be on Your Skills page' do
     hitman = create(
       :job_profile,

@@ -153,17 +153,22 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Bodyguard')
     find('.search-button').click
 
-    expect(tracking_service).to have_received(:track_event).with(
-      key: :check_your_skills_index_search,
-      label: 'Check your skills - Job search',
-      value: 'Bodyguard'
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :check_your_skills_index_search,
+          label: 'Check your skills - Job search',
+          value: 'Bodyguard'
+        }
+      ]
     )
   end
 
   scenario 'when TrackingService errors, user journey is not affected' do
     tracking_service = instance_double(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
-    allow(tracking_service).to receive(:track_event).and_raise(TrackingService::TrackingServiceError)
+    allow(tracking_service).to receive(:track_events).and_raise(TrackingService::TrackingServiceError)
 
     visit(check_your_skills_path)
     fill_in('search', with: 'Bodyguard')

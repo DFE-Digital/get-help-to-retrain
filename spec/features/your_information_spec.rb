@@ -89,17 +89,22 @@ RSpec.feature 'Your information' do
     fill_in_user_information_form
     click_on('Continue')
 
-    expect(tracking_service).to have_received(:track_event).with(
-      key: :pages_location_eligibility_search,
-      label: 'Your location - Postcode search',
-      value: 'NW6 1JJ'
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :pages_location_eligibility_search,
+          label: 'Your location - Postcode search',
+          value: 'NW6 1JJ'
+        }
+      ]
     )
   end
 
   scenario 'when TrackingService errors, user journey is not affected' do
     tracking_service = instance_double(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
-    allow(tracking_service).to receive(:track_event).and_raise(TrackingService::TrackingServiceError)
+    allow(tracking_service).to receive(:track_events).and_raise(TrackingService::TrackingServiceError)
     create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
 
     Geocoder::Lookup::Test.add_stub(
