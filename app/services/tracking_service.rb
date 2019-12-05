@@ -15,12 +15,12 @@ class TrackingService
     @debug = debug
   end
 
-  def track_events(key:, props:)
-    raise MissingAttributesError, 'Event key and event props must be present' unless key.present? && props.present?
+  def track_events(props:)
+    raise MissingAttributesError, 'Event props must be present' unless props.present?
 
     return unless ga_tracking_id
 
-    send_events(key, props)
+    send_events(props)
   rescue StandardError => e
     Rails.logger.error("Tracking service error: #{e.message}")
     raise TrackingServiceError, e.message
@@ -36,10 +36,10 @@ class TrackingService
     URI.parse(BATCH_API_ENDPOINT)
   end
 
-  def send_events(key, props)
+  def send_events(props)
     raise BatchTooBigError, "Batch size cannot be over #{MAX_BATCH_SIZE}" if props.size > MAX_BATCH_SIZE
 
-    net_http_post(key, props).body
+    net_http_post(props).body
   end
 
   def debugging_enabled?
@@ -62,15 +62,15 @@ class TrackingService
     )
   end
 
-  def build_batch_payload(key, props)
-    props.map { |prop| build_payload(key, prop[:label], prop[:value]) }.join("\n")
+  def build_batch_payload(props)
+    props.map { |prop| build_payload(prop[:key], prop[:label], prop[:value]) }.join("\n")
   end
 
-  def net_http_post(key, props)
-    return ::Net::HTTP.post(batch_uri, build_batch_payload(key, props)) unless debugging_enabled?
+  def net_http_post(props)
+    return ::Net::HTTP.post(batch_uri, build_batch_payload(props)) unless debugging_enabled?
 
     prop = props.first
 
-    ::Net::HTTP.post(debug_uri, build_payload(key, prop[:label], prop[:value]))
+    ::Net::HTTP.post(debug_uri, build_payload(prop[:key], prop[:label], prop[:value]))
   end
 end

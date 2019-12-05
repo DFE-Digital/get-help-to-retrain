@@ -29,9 +29,9 @@ class ApplicationController < ActionController::Base
     event_label = I18n.t(event_key, scope: :events)
 
     track_events(
-      event_key,
       [
         {
+          key: event_key,
           label: event_label,
           value: event_value
         }
@@ -39,8 +39,8 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  def track_events(event_key, props = [])
-    TrackingService.new.track_events(key: event_key, props: props)
+  def track_events(props = [])
+    TrackingService.new.track_events(props: props)
   rescue TrackingService::TrackingServiceError
     nil
   end

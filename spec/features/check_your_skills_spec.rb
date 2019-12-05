@@ -154,10 +154,10 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :check_your_skills_index_search,
       props:
       [
         {
+          key: :check_your_skills_index_search,
           label: 'Check your skills - Job search',
           value: 'Bodyguard'
         }

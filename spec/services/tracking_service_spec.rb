@@ -44,22 +44,21 @@ RSpec.describe TrackingService do
       it 'does not make a call to GA' do
         net_http = instance_spy(Net::HTTP)
 
-        service.track_events(key: 'key', props: [{ label: 'label', values: 'value' }])
+        service.track_events(props: [{ key: 'key', label: 'label', values: 'value' }])
 
         expect(net_http).not_to have_received(:start)
       end
     end
 
-    context 'without event key and props' do
+    context 'without event props' do
       let(:net_http) { instance_spy(Net::HTTP) }
 
       it 'raises TrackingServiceError' do
         expect {
           service.track_events(
-            key: nil,
             props: nil
           )
-        }.to raise_error(described_class::TrackingServiceError, 'Event key and event props must be present')
+        }.to raise_error(described_class::TrackingServiceError, 'Event props must be present')
       end
     end
 
@@ -73,9 +72,9 @@ RSpec.describe TrackingService do
       it 'returns the correct response' do
         expect(
           service.track_events(
-            key: :event_category,
             props: [
               {
+                key: :event_category,
                 label: 'Event Label',
                 value: 'Event action'
               }
@@ -120,9 +119,9 @@ RSpec.describe TrackingService do
       it 'returns an actual JSON object' do
         expect(
           service.track_events(
-            key: :event_category,
             props: [
               {
+                key: :event_category,
                 label: 'Event Label',
                 value: 'Event action'
               }
@@ -138,9 +137,9 @@ RSpec.describe TrackingService do
 
         expect {
           service.track_events(
-            key: :event_category,
             props: [
               {
+                key: :event_category,
                 label: 'Event Label',
                 values: 'Event action'
               }
@@ -156,7 +155,8 @@ RSpec.describe TrackingService do
         tracked_actions.map do |value|
           {
             label: 'Label',
-            value: value
+            value: value,
+            key: :event_category
           }
         end
       }
@@ -164,7 +164,6 @@ RSpec.describe TrackingService do
       it 'raises a TrackingServiceError' do
         expect {
           service.track_events(
-            key: :event_category,
             props: props
           )
         }.to raise_error(described_class::TrackingServiceError, 'Batch size cannot be over 20')
@@ -200,13 +199,14 @@ RSpec.describe TrackingService do
       it 'sends them in batch' do
         expect(
           service.track_events(
-            key: :event_category,
             props: [
               {
+                key: :event_category,
                 label: 'Event Label',
                 value: 'Event action'
               },
               {
+                key: :event_category,
                 label: 'Event Label',
                 value: 'New event action'
               }

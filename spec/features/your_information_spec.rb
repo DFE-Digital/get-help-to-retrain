@@ -90,10 +90,10 @@ RSpec.feature 'Your information' do
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :pages_location_eligibility_search,
       props:
       [
         {
+          key: :pages_location_eligibility_search,
           label: 'Your location - Postcode search',
           value: 'NW6 1JJ'
         }

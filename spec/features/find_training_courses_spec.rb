@@ -137,10 +137,10 @@ RSpec.feature 'Find training courses', type: :feature do
     find('.search-button-results').click
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :courses_index_search,
       props:
       [
         {
+          key: :courses_index_search,
           label: 'Courses near me - Postcode search',
           value: 'NW6 8ET'
         }

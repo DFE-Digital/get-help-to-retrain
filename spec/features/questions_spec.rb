@@ -97,15 +97,16 @@ RSpec.feature 'Questions' do
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :training,
       props:
       [
         {
-          label: 'Check your maths and English skills - Ticked',
+          key: :training_ticked,
+          label: 'Check your maths and English skills',
           value: 'english_skills'
         },
         {
-          label: 'Check your maths and English skills - Unticked',
+          key: :training_unticked,
+          label: 'Check your maths and English skills',
           value: 'math_skills'
         }
       ]
@@ -123,15 +124,16 @@ RSpec.feature 'Questions' do
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :training,
       props:
       [
         {
-          label: 'Check your maths and English skills - Unticked',
+          key: :training_unticked,
+          label: 'Check your maths and English skills',
           value: 'english_skills'
         },
         {
-          label: 'Check your maths and English skills - Unticked',
+          key: :training_unticked,
+          label: 'Check your maths and English skills',
           value: 'math_skills'
         }
       ]
@@ -167,19 +169,21 @@ RSpec.feature 'Questions' do
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :job_hunting,
       props:
       [
         {
-          label: 'Get help with your job hunting skills - Ticked',
+          key: :job_hunting_ticked,
+          label: 'Get help with your job hunting skills',
           value: 'cv'
         },
         {
-          label: 'Get help with your job hunting skills - Ticked',
+          key: :job_hunting_ticked,
+          label: 'Get help with your job hunting skills',
           value: 'interviews'
         },
         {
-          label: 'Get help with your job hunting skills - Unticked',
+          key: :job_hunting_unticked,
+          label: 'Get help with your job hunting skills',
           value: 'cover_letter'
         }
       ]
@@ -198,19 +202,21 @@ RSpec.feature 'Questions' do
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :job_hunting,
       props:
       [
         {
-          label: 'Get help with your job hunting skills - Unticked',
+          key: :job_hunting_unticked,
+          label: 'Get help with your job hunting skills',
           value: 'cv'
         },
         {
-          label: 'Get help with your job hunting skills - Unticked',
+          key: :job_hunting_unticked,
+          label: 'Get help with your job hunting skills',
           value: 'cover_letter'
         },
         {
-          label: 'Get help with your job hunting skills - Unticked',
+          key: :job_hunting_unticked,
+          label: 'Get help with your job hunting skills',
           value: 'interviews'
         }
       ]

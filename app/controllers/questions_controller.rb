@@ -10,9 +10,8 @@ class QuestionsController < ApplicationController
     user_session.training = questions_params[:training] || []
 
     track_selections(
-      :training,
-      selected: selected_options_for(:training),
-      unselected: unselected_options_for(:training)
+      selected: selected_options_for('training'),
+      unselected: unselected_options_for('training')
     )
 
     redirect_to helpers.job_hunting_questions || action_plan_path
@@ -22,9 +21,8 @@ class QuestionsController < ApplicationController
     user_session.job_hunting = questions_params[:job_hunting] || []
 
     track_selections(
-      :job_hunting,
-      selected: selected_options_for(:job_hunting),
-      unselected: unselected_options_for(:job_hunting)
+      selected: selected_options_for('job_hunting'),
+      unselected: unselected_options_for('job_hunting')
     )
 
     redirect_to action_plan_path
@@ -34,15 +32,17 @@ class QuestionsController < ApplicationController
 
   def selected_options_for(section)
     {
-      label: I18n.t(section, action: 'Ticked', scope: 'events'),
-      values: user_answers_for(section)
+      key: "#{section}_ticked".to_sym,
+      label: I18n.t(section, scope: 'events'),
+      values: user_answers_for(section.to_sym)
     }
   end
 
   def unselected_options_for(section)
     {
-      label: I18n.t(section, action: 'Unticked', scope: 'events'),
-      values: AVAILABLE_OPTIONS[section] - user_answers_for(section)
+      key: "#{section}_unticked".to_sym,
+      label: I18n.t(section, scope: 'events'),
+      values: AVAILABLE_OPTIONS[section.to_sym] - user_answers_for(section)
     }
   end
 

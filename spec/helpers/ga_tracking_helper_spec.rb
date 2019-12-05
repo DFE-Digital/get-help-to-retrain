@@ -4,14 +4,15 @@ RSpec.describe GaTrackingHelper do
   describe '#track_selections' do
     before do
       helper.singleton_class.class_eval do
-        def track_events(event_key, props = [])
-          TrackingService.new.track_events(key: event_key, props: props)
+        def track_events(props = [])
+          TrackingService.new.track_events(props: props)
         end
       end
     end
 
     let(:selected_options) {
       {
+        key: :skills_builder_ticked,
         label: 'Florist',
         values: ['must love plants', 'good sales skills']
       }
@@ -19,6 +20,7 @@ RSpec.describe GaTrackingHelper do
 
     let(:unselected_options) {
       {
+        key: :skills_builder_unticked,
         label: 'Florist',
         values: ['attention to details']
       }
@@ -29,24 +31,25 @@ RSpec.describe GaTrackingHelper do
       allow(TrackingService).to receive(:new).and_return(tracking_service)
 
       helper.track_selections(
-        :skills_builder,
         selected: selected_options,
         unselected: unselected_options
       )
 
       expect(tracking_service).to have_received(:track_events).with(
-        key: :skills_builder,
         props:
         [
           {
+            key: :skills_builder_ticked,
             label: 'Florist',
             value: 'must love plants'
           },
           {
+            key: :skills_builder_ticked,
             label: 'Florist',
             value: 'good sales skills'
           },
           {
+            key: :skills_builder_unticked,
             label: 'Florist',
             value: 'attention to details'
           }

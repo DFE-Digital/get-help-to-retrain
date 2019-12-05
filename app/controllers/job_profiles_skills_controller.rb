@@ -6,7 +6,7 @@ class JobProfilesSkillsController < ApplicationController
       skills_builder.build
 
       if skills_valid?
-        track_selections(:skills_builder, selected: selected_skills, unselected: unselected_skills)
+        track_selections(selected: selected_skills, unselected: unselected_skills)
 
         return redirect_to skills_path
       end
@@ -53,14 +53,16 @@ class JobProfilesSkillsController < ApplicationController
 
   def selected_skills
     {
-      label: "#{job_profile.name} - Ticked",
+      key: :skills_builder_ticked,
+      label: job_profile.name,
       values: available_skills.slice(*user_skill_ids).values
     }
   end
 
   def unselected_skills
     {
-      label: "#{job_profile.name} - Unticked",
+      key: :skills_builder_unticked,
+      label: job_profile.name,
       values: available_skills.except(*user_skill_ids).values
     }
   end

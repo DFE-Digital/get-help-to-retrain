@@ -107,18 +107,20 @@ RSpec.feature 'Build your skills', type: :feature do
     click_on('Select these skills')
 
     expect(tracking_service).to have_received(:track_events).with(
-      key: :skills_builder,
       props: [
         {
-          label: 'Hitman - Ticked',
+          key: :skills_builder_ticked,
+          label: 'Hitman',
           value: 'Chameleon-like blend in tactics'
         },
         {
-          label: 'Hitman - Ticked',
+          key: :skills_builder_ticked,
+          label: 'Hitman',
           value: 'License to kill'
         },
         {
-          label: 'Hitman - Unticked',
+          key: :skills_builder_unticked,
+          label: 'Hitman',
           value: 'Baldness'
         }
       ]
