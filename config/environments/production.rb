@@ -86,7 +86,7 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     config.rails_semantic_logger.processing = true
     config.rails_semantic_logger.rendered   = true
     config.rails_semantic_logger.quiet_assets = true
-    config.rails_semantic_logger.format = :json
+    config.rails_semantic_logger.format = :data_dog
 
     STDOUT.sync = true
     config.rails_semantic_logger.add_file_appender = false
@@ -98,7 +98,6 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
 
     # log formating for datadog
     config.log_tags = { request: ->(request) { request } }
-    config.rails_semantic_logger.format = :data_dog
 
     if ENV['LOGGLY_TOKEN'].present?
       loggly_url              = "https://logs-01.loggly.com/inputs/#{ENV['LOGGLY_TOKEN']}/tag/ruby/"
