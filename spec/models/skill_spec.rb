@@ -42,7 +42,6 @@ RSpec.describe Skill do
 
     it 'returns nothing if no ids intersect' do
       create(:skill, name: 'Skill1')
-      create(:skill, name: 'Skill2')
 
       expect(described_class.names_that_include('09990')).to be_empty
     end
@@ -62,7 +61,7 @@ RSpec.describe Skill do
       )
     end
 
-    it 'returns all original names if no ids intersect' do
+    it 'returns all skill names if excluded ids not present' do
       skill1 = create(:skill, name: 'Skill1')
       skill2 = create(:skill, name: 'Skill2')
 

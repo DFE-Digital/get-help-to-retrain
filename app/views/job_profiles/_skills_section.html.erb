@@ -3,17 +3,13 @@
 <% if @existing_skills.any? %>
   <h3 class="govuk-heading-s">Skills you have</h3>
   <ul class="govuk-list govuk-list--bullet">
-    <% @existing_skills.each do |skill_name| %>
-      <li><%= skill_name %></li>
-    <% end %>
+    <%= render partial: "skills/skill", collection: @existing_skills, as: :name %>
   </ul>
 <% end %>
 <% if @skills_to_develop.any? %>
   <h3 class="govuk-heading-s">Skills you may need to develop</h3>
   <ul class="govuk-list govuk-list--bullet">
-    <% @skills_to_develop.each do |skill_name| %>
-      <li><%= skill_name %></li>
-    <% end %>
+    <%= render partial: "skills/skill", collection: @skills_to_develop, as: :name %>
   </ul>
 <% end %>
 <p class="govuk-body-m">
