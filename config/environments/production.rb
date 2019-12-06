@@ -82,9 +82,7 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
     stdout_logger.formatter = config.log_formatter
     config.logger           = ActiveSupport::TaggedLogging.new(stdout_logger)
 
-    config.rails_semantic_logger.started    = true
     config.rails_semantic_logger.processing = true
-    config.rails_semantic_logger.rendered   = true
     config.rails_semantic_logger.quiet_assets = true
     config.rails_semantic_logger.format = :data_dog
 
