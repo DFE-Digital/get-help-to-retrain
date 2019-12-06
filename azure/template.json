@@ -85,17 +85,6 @@
         "description": "The docker compose-file to use with multi-containers"
       }
     },
-    "appInsightsJavaScriptEnabled": {
-      "type": "bool",
-      "defaultValue": true,
-      "allowedValues": [
-        true,
-        false
-      ],
-      "metadata": {
-        "description": "whether to enable JS page tracking for Application Insights"
-      }
-    },
     "logglyToken": {
       "type": "string",
       "defaultValue": "",
@@ -525,14 +514,6 @@
               {
                 "name": "ENVIRONMENT_NAME",
                 "value": "[variables('environmentName')]"
-              },
-              {
-                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                "value": "[reference('app-insights').outputs.instrumentationKey.value]"
-              },
-              {
-                "name": "APPINSIGHTS_JAVASCRIPT_ENABLED",
-                "value": "[parameters('appInsightsJavaScriptEnabled')]"
               },
               {
                 "name": "DB_DATABASE",
