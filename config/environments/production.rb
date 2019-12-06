@@ -76,6 +76,9 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # caches all static assets for up to a year
+  config.static_cache_control = 'public, max-age=31536000'
+
   # Use a different logger for distributed setups.
   if ENV['RAILS_LOG_TO_STDOUT'].present?
     stdout_logger           = ActiveSupport::Logger.new(STDOUT)
