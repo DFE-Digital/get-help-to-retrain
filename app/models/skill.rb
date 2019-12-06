@@ -8,6 +8,14 @@ class Skill < PrimaryActiveRecordBase
     names.map { |name| find_or_create_by(name: name) }
   end
 
+  def self.names_that_include(skill_ids)
+    mapping.slice(*skill_ids).values
+  end
+
+  def self.names_that_exclude(skill_ids)
+    mapping.except(*skill_ids).values
+  end
+
   def self.mapping
     all.each_with_object({}) { |skill, hash| hash[skill.id.to_s] = skill.name }
   end

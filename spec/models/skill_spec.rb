@@ -29,4 +29,51 @@ RSpec.describe Skill do
       expect(described_class.mapping).to be_empty
     end
   end
+
+  describe '#names_that_include' do
+    it 'returns skill names that only match included ids' do
+      skill1 = create(:skill, name: 'Skill1')
+      create(:skill, name: 'Skill2')
+
+      expect(described_class.names_that_include(skill1.id.to_s)).to contain_exactly(
+        skill1.name
+      )
+    end
+
+    it 'returns nothing if no ids intersect' do
+      create(:skill, name: 'Skill1')
+      create(:skill, name: 'Skill2')
+
+      expect(described_class.names_that_include('09990')).to be_empty
+    end
+
+    it 'returns nothing if there are no skills' do
+      expect(described_class.names_that_include('1')).to be_empty
+    end
+  end
+
+  describe '#names_that_exclude' do
+    it 'returns skill names that do not match included ids' do
+      skill1 = create(:skill, name: 'Skill1')
+      skill2 = create(:skill, name: 'Skill2')
+
+      expect(described_class.names_that_exclude(skill1.id.to_s)).to contain_exactly(
+        skill2.name
+      )
+    end
+
+    it 'returns all original names if no ids intersect' do
+      skill1 = create(:skill, name: 'Skill1')
+      skill2 = create(:skill, name: 'Skill2')
+
+      expect(described_class.names_that_exclude(%w[09990 555543])) .to contain_exactly(
+        skill1.name,
+        skill2.name
+      )
+    end
+
+    it 'returns nothing if there are no skills' do
+      expect(described_class.names_that_exclude('1')).to be_empty
+    end
+  end
 end

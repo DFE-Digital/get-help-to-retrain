@@ -23,8 +23,8 @@ class JobProfilesController < ApplicationController
   def show
     @job_profile = JobProfileDecorator.new(resource)
     @job_vacancy_count = job_vacancy_count
-    @skills_to_develop = @job_profile.skills - user_skills
-    @existing_skills = @job_profile.skills & user_skills
+    @skills_to_develop = @job_profile.skills.names_that_exclude(user_skill_ids)
+    @existing_skills = @job_profile.skills.names_that_include(user_skill_ids)
   end
 
   def target
@@ -59,7 +59,7 @@ class JobProfilesController < ApplicationController
     nil
   end
 
-  def user_skills
-    @user_skills ||= Skill.find(user_session.skill_ids)
+  def user_skill_ids
+    @user_skill_ids ||= user_session.skill_ids.map(&:to_s)
   end
 end
