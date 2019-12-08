@@ -178,16 +178,24 @@
   display: flex;
   flex-flow: row wrap;
 
-  @include govuk-media-query($until: tablet) {
-    width: 30%;
+  @include govuk-media-query($from: mobile, $until: desktop) {
+    width: 40%;
   }
 }
 
 .salary-separator {
   padding: 5px;
+  text-align: center;
+
+  @include govuk-media-query($from: tablet, $until: 965px) {
+    text-align: left;
+  }
+
+  @include govuk-media-query($from: mobile, $until: 480px) {
+    text-align: left;
+  }
 
   @include govuk-media-query($from: tablet) {
-    text-align: center;
     padding: 0 2px;
   }
 }
