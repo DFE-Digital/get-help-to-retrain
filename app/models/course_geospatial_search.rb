@@ -25,7 +25,9 @@ class CourseGeospatialSearch
   end
 
   def coordinates
-    @coordinates ||= Geocoder.coordinates(uk_postcode.to_s)
+    @coordinates ||= Rails.cache.fetch("#{uk_postcode}-coordinates", expires_in: 1.hours) {
+      Geocoder.coordinates(uk_postcode.to_s)
+    }
   rescue SocketError, Timeout::Error, Geocoder::Error => e
     Rails.logger.error("Geocoder API error: #{e.message}")
     raise GeocoderAPIError
