@@ -140,6 +140,23 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_current_path(skills_matcher_index_path(sort: 'growth'))
   end
 
+  scenario 'defaults sort order to skills match if not specified', :js do
+    visit_skills_for_current_job_profile(true)
+
+    expect(page).to have_select('sort-select', selected: 'Skills match')
+  end
+
+  scenario 'preserves selected sort order when returning to page', :js do
+    visit_skills_for_current_job_profile(true)
+
+    find("option[value='growth']").click
+
+    visit task_list_path
+    visit skills_matcher_index_path
+
+    expect(page).to have_select('sort-select', selected: 'Recent job growth')
+  end
+
   scenario 'paginates results of search' do
     create_list(:job_profile, 12, name: 'Hacker', skills: [skill1])
     visit_skills_for_current_job_profile
