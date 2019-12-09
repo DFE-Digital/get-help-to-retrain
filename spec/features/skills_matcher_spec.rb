@@ -120,6 +120,43 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
+  scenario 'allows profiles to be optionally sorted by growth' do
+    create(:job_profile, name: 'Hacker', skills: [skill1, skill2], growth: -5)
+    create(:job_profile, name: 'Admin', skills: [skill1], growth: 50)
+    visit_skills_for_current_job_profile
+
+    visit skills_matcher_index_path(sort: 'growth')
+
+    expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
+      ['Assasin', 'Skills match: Good', 'Admin', 'Skills match: Reasonable', 'Hacker', 'Skills match: Good']
+    )
+  end
+
+  scenario 'automatically reloads results when sort order changed', :js do
+    visit_skills_for_current_job_profile(true)
+
+    find("option[value='growth']").click
+
+    expect(page).to have_current_path(skills_matcher_index_path(sort: 'growth'))
+  end
+
+  scenario 'defaults sort order to skills match if not specified', :js do
+    visit_skills_for_current_job_profile(true)
+
+    expect(page).to have_select('sort-select', selected: 'Skills match')
+  end
+
+  scenario 'preserves selected sort order when returning to page', :js do
+    visit_skills_for_current_job_profile(true)
+
+    find("option[value='growth']").click
+
+    visit task_list_path
+    visit skills_matcher_index_path
+
+    expect(page).to have_select('sort-select', selected: 'Recent job growth')
+  end
+
   scenario 'paginates results of search' do
     create_list(:job_profile, 12, name: 'Hacker', skills: [skill1])
     visit_skills_for_current_job_profile
