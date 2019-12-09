@@ -100,7 +100,7 @@
       }
     },
     "customHostName": {
-      "value": "qa.nrs-ghtr.org.uk"
+      "value": "qa-origin.nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"
