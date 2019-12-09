@@ -19,11 +19,8 @@
     <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <% if @results.present? %>
       <%= render 'sort_form' %>
-      <ul class="govuk-list">
-        <%= render @job_profiles %>
-      </ul>
-      <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
-        <%= paginate @results %>
+      <div id="results-container">
+        <%= render 'results' %>
       </div>
     <% else %>
       <%= render 'no_results' %>

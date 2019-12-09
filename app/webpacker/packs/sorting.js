@@ -1,3 +1,5 @@
+import Rails from 'rails-ujs';
+
 function Sorting () {
   this.start = function () {
     var container = document.querySelector('#sort-container');
@@ -16,7 +18,7 @@ function Sorting () {
 
   function handleSortOrder(element) {
     element.onchange = function(e) {
-      element.form.submit();
+      Rails.fire(element.form, 'submit');
     }
   }
 }
