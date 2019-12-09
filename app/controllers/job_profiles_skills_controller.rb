@@ -41,12 +41,6 @@ class JobProfilesSkillsController < ApplicationController
     user_session.job_profile_ids.exclude?(job_profile.id)
   end
 
-  def available_skills
-    @available_skills ||= job_profile.skills.each_with_object({}) do |skill, hash|
-      hash[skill.id.to_s] = skill.name
-    end
-  end
-
   def user_skill_ids
     @user_skill_ids ||= skills_params[:skill_ids].reject(&:empty?)
   end
@@ -55,7 +49,7 @@ class JobProfilesSkillsController < ApplicationController
     {
       key: :skills_builder_ticked,
       label: job_profile.name,
-      values: available_skills.slice(*user_skill_ids).values
+      values: job_profile.skills.names_that_include(user_skill_ids)
     }
   end
 
@@ -63,7 +57,7 @@ class JobProfilesSkillsController < ApplicationController
     {
       key: :skills_builder_unticked,
       label: job_profile.name,
-      values: available_skills.except(*user_skill_ids).values
+      values: job_profile.skills.names_that_exclude(user_skill_ids)
     }
   end
 end
