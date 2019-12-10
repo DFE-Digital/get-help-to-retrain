@@ -98,13 +98,6 @@ Rails.application.configure do # rubocop:disable Metrics/BlockLength
       level: config.log_level,
       formatter: config.rails_semantic_logger.format
     )
-
-    if ENV['LOGGLY_TOKEN'].present?
-      loggly_url              = "https://logs-01.loggly.com/inputs/#{ENV['LOGGLY_TOKEN']}/tag/ruby/"
-      loggly_logger           = Logglier.new(loggly_url, threaded: true)
-      loggly_logger.formatter = config.log_formatter
-      config.logger.extend(ActiveSupport::Logger.broadcast(loggly_logger))
-    end
   end
 
   # Do not dump schema after migrations.
