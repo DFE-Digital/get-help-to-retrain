@@ -135,4 +135,5 @@ end
 group :production do
   # Logs formatter
   gem 'rails_semantic_logger', '~> 4.4'
+  gem 'useragent', '~> 0.16'
 end
