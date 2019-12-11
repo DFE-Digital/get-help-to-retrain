@@ -253,4 +253,27 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     expect(page).to have_current_path(job_profile_path('fluffer'))
   end
+
+  scenario 'tracks search string in job profile search' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+    visit_skills_for_current_job_profile
+
+    visit(skills_matcher_index_path)
+    click_on('Search for a job title')
+
+    fill_in('search', with: 'fluffer')
+    find('.search-button').click
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :job_profiles_index_search,
+          label: 'Job profiles - Job search',
+          value: 'fluffer'
+        }
+      ]
+    )
+  end
 end
