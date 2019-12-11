@@ -30,9 +30,6 @@ gem 'foreman'
 # Canonical meta tag
 gem 'canonical-rails'
 
-# Logging
-gem 'logglier', '~> 0.5'
-
 # Exception handling
 gem 'sentry-raven', '~> 2.11'
 

@@ -85,13 +85,6 @@
         "description": "The docker compose-file to use with multi-containers"
       }
     },
-    "logglyToken": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description:": "Optional token for Loggly logging service"
-      }
-    },
     "splitApiKey": {
       "type": "string",
       "defaultValue": "",
@@ -546,10 +539,6 @@
               {
                 "name": "RESTRICTED_DB_HOST",
                 "value": "[reference('postgresql-restricted-server').outputs.fullyQualifiedDomainName.value]"
-              },
-              {
-                "name": "LOGGLY_TOKEN",
-                "value": "[parameters('logglyToken')]"
               },
               {
                 "name": "SPLIT_API_KEY",
