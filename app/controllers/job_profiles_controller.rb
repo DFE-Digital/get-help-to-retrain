@@ -12,7 +12,7 @@ class JobProfilesController < ApplicationController
   def results
     return redirect_to task_list_path unless user_session.job_profile_skills?
 
-    track_event(:job_profiles_index_search, search: search) if search.present?
+    track_event(:job_profiles_index_search, search) if search.present?
 
     build_job_profile_search
     @results = job_profile_search_results
