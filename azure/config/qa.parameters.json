@@ -115,7 +115,7 @@
       "value": "UA-147538067-1"
     },
     "applyAlerts": {
-      "value": true
+      "value": false
     },
     "appServicePlanInstances": {
       "value": 2
