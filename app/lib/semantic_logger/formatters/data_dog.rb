@@ -105,12 +105,12 @@ module SemanticLogger
 
         {
           client: {
-            ip: request.ip,
-            port: request.port
+            ip: try(request, :ip),
+            port: try(request, :port)
           },
           destination: {
-            ip: request.remote_ip,
-            port: request.server_port
+            ip: try(request, :remote_ip),
+            port: try(request, :server_port)
           }
         }
       end
@@ -121,13 +121,13 @@ module SemanticLogger
         http_data.merge(
           useragent_details: {
             os: {
-              family: user_agent&.application&.to_s
+              family: try(user_agent, :application).to_s
             },
             browser: {
-              family: "#{user_agent&.webkit} #{user_agent&.browser}"
+              family: "#{try(user_agent, :webkit)} #{try(user_agent, :browser)}"
             },
             device: {
-              family: user_agent&.platform
+              family: try(user_agent, :platform)
             }
           }
         )
@@ -137,11 +137,11 @@ module SemanticLogger
         return {} if request.nil?
 
         {
-          url: request.original_url,
-          method: request.method,
-          referer: request.referer,
-          request_id: request.request_id,
-          useragent: request.user_agent,
+          url: try(request, :original_url),
+          method: try(request, :method),
+          referer: try(request, :referer),
+          request_id: try(request, :request_id),
+          useragent: try(request, :user_agent),
           url_details: url_details
         }
       end
@@ -150,11 +150,11 @@ module SemanticLogger
         return {} unless url
 
         {
-          host: url.host,
-          port: url.port,
-          path: url.path,
-          queryString: url.query,
-          scheme: url.scheme
+          host: try(url, :host),
+          port: try(url, :port),
+          path: try(url, :path),
+          queryString: try(url, :query),
+          scheme: try(url, :scheme)
         }
       end
 
@@ -163,8 +163,8 @@ module SemanticLogger
 
         {
           name: 'SemanticLogger',
-          thread_name: log.thread_name,
-          method_name: log.name
+          thread_name: try(log, :thread_name),
+          method_name: try(log, :name)
         }
       end
 
@@ -187,9 +187,9 @@ module SemanticLogger
         return {} if user.nil?
 
         {
-          id: user.id,
-          name: user.name,
-          email: user.email
+          id: try(user, :id),
+          name: try(user, :name),
+          email: try(user, :email)
         }
       end
 
@@ -207,7 +207,7 @@ module SemanticLogger
 
       def time
         local_time = log.time
-        return unless local_time.to_time
+        return unless try(local_time, :to_time)
 
         (local_time.to_time.utc.to_f * 1000).to_i
       end
@@ -293,6 +293,12 @@ module SemanticLogger
         ::URI.parse(original_url.to_s)
       rescue URI::InvalidURIError => _e
         nil
+      end
+
+      def try(object, property)
+        return nil unless object&.respond_to?(property)
+
+        object.send(property).to_s
       end
     end
   end

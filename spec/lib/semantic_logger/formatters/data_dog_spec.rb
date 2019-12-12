@@ -39,11 +39,11 @@ RSpec.describe SemanticLogger::Formatters::DataDog do
         'network' => {
           'client' => {
             'ip' => '192.168.0.1',
-            'port' => 3000
+            'port' => '3000'
           },
           'destination' => {
             'ip' => '192.168.0.2',
-            'port' => 3000
+            'port' => '3000'
           }
         },
         'db' => {
@@ -57,7 +57,7 @@ RSpec.describe SemanticLogger::Formatters::DataDog do
           'url_details' => {
             'host' => 'test.com',
             'path' => '/rspec',
-            'port' => 80,
+            'port' => '80',
             'queryString' => 'p=test',
             'scheme' => 'http'
           },
@@ -77,7 +77,7 @@ RSpec.describe SemanticLogger::Formatters::DataDog do
           }
         },
         'usr' => {
-          'id' => 12_345,
+          'id' => '12345',
           'name' => 'Mr Test',
           'email' => 'test@email.com'
         },
