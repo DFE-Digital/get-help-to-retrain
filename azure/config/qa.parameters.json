@@ -114,9 +114,6 @@
     "googleAnalyticsTrackingId": {
       "value": "UA-147538067-1"
     },
-    "applyAlerts": {
-      "value": true
-    },
     "appServicePlanInstances": {
       "value": 2
     }
