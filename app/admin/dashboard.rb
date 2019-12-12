@@ -35,6 +35,11 @@ if defined?(ActiveAdmin)
               link_to FeedbackSurvey.count, admin_feedback_surveys_path
             end
           end
+          panel 'User Personal Data' do
+            h1 do
+              link_to UserPersonalData.count, admin_user_personal_data_path
+            end
+          end
         end
       end
     end
