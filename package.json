@@ -3,16 +3,13 @@
     "node": "10.x.x"
   },
   "dependencies": {
-    "@rails/webpacker": "^4.0.7",
-    "copy-webpack-plugin": "^5.0.4",
-    "govuk-frontend": "^3.3.0",
-    "rails-ujs": "^5.2.3",
+    "@rails/webpacker": "^4.2.2",
+    "copy-webpack-plugin": "^5.1.0",
+    "govuk-frontend": "^3.4.0",
+    "rails-ujs": "^5.2.4",
     "set-value": "^3.0.1"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.9.0"
-  },
-  "resolutions": {
-    "serialize-javascript": "^2.1.1"
   }
 }
