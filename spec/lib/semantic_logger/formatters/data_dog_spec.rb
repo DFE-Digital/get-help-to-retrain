@@ -83,7 +83,7 @@ RSpec.describe SemanticLogger::Formatters::DataDog do
         },
         'syslog' => {
           'hostname' => 'test',
-          'appname' => 'get-help-to-retrain-test',
+          'appname' => 'GetHelpToRetrain',
           'severity' => 'crit',
           'timestamp' => '1514793600000',
           'env' => 'test'

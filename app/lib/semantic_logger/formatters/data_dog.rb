@@ -121,13 +121,13 @@ module SemanticLogger
         http_data.merge(
           useragent_details: {
             os: {
-              family: user_agent.application.to_s
+              family: user_agent&.application&.to_s
             },
             browser: {
-              family: "#{user_agent.webkit} #{user_agent.browser}"
+              family: "#{user_agent&.webkit} #{user_agent&.browser}"
             },
             device: {
-              family: user_agent.platform
+              family: user_agent&.platform
             }
           }
         )
@@ -217,7 +217,7 @@ module SemanticLogger
       end
 
       def appname
-        ENV['APP_NAME'].to_s
+        Rails.application.class.module_parent_name
       end
 
       def appname?
