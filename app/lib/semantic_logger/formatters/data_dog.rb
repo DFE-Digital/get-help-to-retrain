@@ -2,6 +2,7 @@ require 'json'
 require 'useragent'
 require 'uri'
 
+# This can be attributed to https://github.com/flipgroup/data-dog-semantic-logger/
 # Log message structure:
 # https://docs.datadoghq.com/logs/processing/attributes_naming_convention/
 # {
@@ -100,7 +101,7 @@ module SemanticLogger
       end
 
       def network # rubocop:disable Metrics/MethodLength
-        return {} unless request.present?
+        return {} if request.nil?
 
         {
           client: {
@@ -115,7 +116,7 @@ module SemanticLogger
       end
 
       def http # rubocop:disable Metrics/MethodLength
-        return http_data unless user_agent.present?
+        return http_data if user_agent.nil?
 
         http_data.merge(
           useragent_details: {
@@ -133,7 +134,7 @@ module SemanticLogger
       end
 
       def http_data
-        return {} unless request.present?
+        return {} if request.nil?
 
         {
           url: request.original_url,
@@ -158,7 +159,7 @@ module SemanticLogger
       end
 
       def logger
-        return {} unless log.present?
+        return {} if log.nil?
 
         {
           name: 'SemanticLogger',
@@ -259,7 +260,7 @@ module SemanticLogger
       end
 
       def sql
-        return nil unless sql?
+        return unless sql?
 
         log.payload[:sql].to_s
       end
@@ -273,7 +274,7 @@ module SemanticLogger
       end
 
       def user_agent
-        return nil if request.nil?
+        return if request.nil?
 
         user_agent = request.user_agent
         return if user_agent.nil?
@@ -284,7 +285,7 @@ module SemanticLogger
       end
 
       def url
-        return nil if request.nil?
+        return if request.nil?
 
         original_url = request.original_url
         return if original_url.nil?
