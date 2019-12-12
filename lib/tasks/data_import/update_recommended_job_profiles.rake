@@ -83,6 +83,7 @@ namespace :data_import do
                                                 translator
                                                 vet
                                                 zoologist
+                                                european-union-official
                                               ])
 
       JobProfile.update_all(recommended: true)
