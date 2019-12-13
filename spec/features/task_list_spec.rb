@@ -125,6 +125,7 @@ RSpec.feature 'Task list', type: :feature do
     ensure_target_job_on_session
     click_on('Continue')
     click_on('Continue')
+    click_on('Continue')
     visit(task_list_path)
     click_on('Personalised action plan')
 

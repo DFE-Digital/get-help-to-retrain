@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
 
   AVAILABLE_OPTIONS = {
     training: %w[english_skills math_skills],
-    job_hunting: %w[cv cover_letter interviews]
+    job_hunting: %w[cv cover_letter interviews],
+    it_training: %w[computer_skills]
   }.freeze
 
   def training_answers
@@ -12,6 +13,17 @@ class QuestionsController < ApplicationController
     track_selections(
       selected: selected_options_for('training'),
       unselected: unselected_options_for('training')
+    )
+
+    redirect_to helpers.it_training_questions || helpers.job_hunting_questions || action_plan_path
+  end
+
+  def it_training_answers
+    user_session.it_training = questions_params[:it_training] || []
+
+    track_selections(
+      selected: selected_options_for('it_training'),
+      unselected: unselected_options_for('it_training')
     )
 
     redirect_to helpers.job_hunting_questions || action_plan_path
@@ -49,7 +61,8 @@ class QuestionsController < ApplicationController
   def questions_params
     params.permit(
       training: [],
-      job_hunting: []
+      job_hunting: [],
+      it_training: []
     )
   end
 

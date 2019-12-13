@@ -31,6 +31,12 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_link('Edit your training choices', href: training_questions_path)
   end
 
+  scenario 'Page links to IT training questions' do
+    user_targets_a_job
+
+    expect(page).to have_link('Edit your IT training choices', href: it_training_questions_path)
+  end
+
   scenario 'Page links to English courses if training question answered for english' do
     user_targets_a_job
     click_on('Edit your training choices')
@@ -49,7 +55,16 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_link('Find a maths course', href: courses_path(:maths))
   end
 
-  scenario 'Page shows different content if no training questions answered' do
+  scenario 'Page links to IT training provider if IT training question answered' do
+    user_targets_a_job
+    click_on('Edit your IT training choices')
+    check('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(page).to have_link('Go to learning provider website', href: 'https://www.learnmyway.com/')
+  end
+
+  scenario 'Page shows different content if no training nor IT training questions answered' do
     user_targets_a_job
 
     expect(page).to have_text('Improve your chances of getting a job')
@@ -113,6 +128,7 @@ RSpec.feature 'Action plan spec' do
     create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer').tap do |job_profile|
       visit(job_profile_path(job_profile.slug))
       click_on('Target this type of work')
+      click_on('Continue')
       click_on('Continue')
       click_on('Continue')
     end

@@ -1,6 +1,14 @@
-<%= link_to 'Edit your training choices', training_questions_path, class: 'govuk-link action-plan-action' %>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-2">Find training</h3>
-<% if user_session.training.present? %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your training choices</h3>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    <%= link_to 'Edit your training choices', training_questions_path, class: 'govuk-link action-plan-action' %>
+    <br>
+    <%= link_to 'Edit your IT training choices', it_training_questions_path, class: 'govuk-link action-plan-action govuk-!-margin-bottom-2' %>
+  </div>
+</div>
+<% if user_session.training.present? || user_session.it_training.present? %>
   <p class="govuk-body">You chose to look for some training. Employers value these skills so this can improve your chances of getting a job. You can search for other job-related courses on <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %>, run by the National Careers Service.</p>
 
   <% if user_session.training.include?('math_skills') %>
@@ -20,7 +28,18 @@
         <h3 class="govuk-heading-s">English course</h3>
       </div>
       <div class="govuk-grid-column-one-half">
-        <%= link_to 'Find an English course', courses_path(:english), class: 'govuk-button govuk-button--secondary govuk-!-margin-bottom-2 action-plan-action', data: { module: 'govuk-button' } %>
+        <%= link_to 'Find an English course', courses_path(:english), class: 'govuk-button govuk-button--secondary action-plan-action', data: { module: 'govuk-button' } %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if user_session.it_training.include?('computer_skills') %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h3 class="govuk-heading-s">Computer skills training</h3>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <%= link_to 'Go to learning provider website', 'https://www.learnmyway.com/', class: 'govuk-button govuk-button--secondary action-plan-action govuk-!-margin-bottom-2', data: { module: 'govuk-button' } %>
       </div>
     </div>
   <% end %>

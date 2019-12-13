@@ -4,6 +4,7 @@ en-GB:
     action_plan: Action plan
     offers_near_me: Offers near me
     training_questions: Training options
+    it_training_questions: Computer skills training
     job_hunting_questions: Job hunting advice
     jobs_near_me: Jobs near me
     task_list: Get help to retrain
@@ -74,6 +75,7 @@ en-GB:
     user_personal_information_skipped: User personal information - Skip this step link clicked
     job_hunting: Get help with your job hunting skills
     training: Check your maths and English skills
+    it_training: Computer skills training
 
   contact_us:
     title: Free local advice
@@ -126,6 +128,8 @@ en-GB:
       title: Get help with your job hunting skills
     training:
       title: Check your maths and English skills
+    it_training:
+      title: Computer skills training
   pages:
     action_plan:
       title: Your personal action plan
