@@ -61,6 +61,10 @@ gem 'notifications-ruby-client', '~> 4.0'
 # Passwordless authentication
 gem 'passwordless', '~> 0.8'
 
+# Test data
+gem 'factory_bot_rails', '~> 5.0'
+gem 'faker', '~> 2.8'
+
 # Logs formatter
 gem 'rails_semantic_logger', '~> 4.4'
 
@@ -87,10 +91,6 @@ group :development, :test do
 
   # Entity relationship diagrams
   gem 'rails-erd', '~> 1.6'
-
-  # Test data
-  gem 'factory_bot_rails', '~> 5.0'
-  gem 'faker', '~> 2.8'
 
   # Spreadsheet access
   gem 'roo', '~> 2.8'
