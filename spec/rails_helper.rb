@@ -7,10 +7,12 @@ require 'support/capybara'
 require 'support/geocoder'
 require 'support/feature_flags'
 require 'support/session_helper'
+require 'support/semantic_logger_helper'
 require 'simplecov'
 require 'vcr'
 require 'notifications/client'
 require 'webmock/rspec'
+require 'semantic_logger'
 SimpleCov.start
 
 begin
