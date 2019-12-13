@@ -90,7 +90,7 @@ group :development, :test do
 
   # Test data
   gem 'factory_bot_rails', '~> 5.0'
-  gem 'faker', '~> 1.9'
+  gem 'faker', '~> 2.8'
 
   # Spreadsheet access
   gem 'roo', '~> 2.8'
