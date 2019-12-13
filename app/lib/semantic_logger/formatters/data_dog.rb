@@ -1,7 +1,3 @@
-require 'json'
-require 'useragent'
-require 'uri'
-
 # This can be attributed to https://github.com/flipgroup/data-dog-semantic-logger/
 # Log message structure:
 # https://docs.datadoghq.com/logs/processing/attributes_naming_convention/
@@ -31,17 +27,6 @@ require 'uri'
 #       path: <string>,
 #       queryString: <object>,
 #       scheme: <string>
-#     },
-#     useragent_details: {
-#       os: {
-#         family: <string>
-#       },
-#       browser: {
-#         family: <string>
-#       },
-#       device: {
-#         family: <string>
-#       }
 #     }
 #   },
 #   logger: {
@@ -91,7 +76,7 @@ module SemanticLogger
           level: level,
           message: message,
           logger: logger,
-          http: http,
+          http: http_data,
           error: error,
           network: network,
           db: database_info,
@@ -113,24 +98,6 @@ module SemanticLogger
             port: try(request, :server_port)
           }
         }
-      end
-
-      def http # rubocop:disable Metrics/MethodLength
-        return http_data if user_agent.nil?
-
-        http_data.merge(
-          useragent_details: {
-            os: {
-              family: try(user_agent, :application).to_s
-            },
-            browser: {
-              family: "#{try(user_agent, :webkit)} #{try(user_agent, :browser)}"
-            },
-            device: {
-              family: try(user_agent, :platform)
-            }
-          }
-        )
       end
 
       def http_data

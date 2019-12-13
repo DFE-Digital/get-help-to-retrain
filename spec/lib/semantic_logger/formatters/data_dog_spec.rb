@@ -63,18 +63,7 @@ RSpec.describe SemanticLogger::Formatters::DataDog do
           },
           'useragent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)' \
                          ' AppleWebKit/536.5 (KHTML, like Gecko) ' \
-                         'Chrome/19.0.1084.56 Safari/536.5',
-          'useragent_details' => {
-            'browser' => {
-              'family' => 'AppleWebKit/536.5 (KHTML, like Gecko) Chrome'
-            },
-            'device' => {
-              'family' => 'Macintosh'
-            },
-            'os' => {
-              'family' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8)'
-            }
-          }
+                         'Chrome/19.0.1084.56 Safari/536.5'
         },
         'usr' => {
           'id' => '12345',

@@ -66,7 +66,6 @@ gem 'passwordless', '~> 0.8'
 
 # Logs formatter
 gem 'rails_semantic_logger', '~> 4.4'
-gem 'useragent', '~> 0.16'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
