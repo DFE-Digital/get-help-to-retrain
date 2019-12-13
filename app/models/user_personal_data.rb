@@ -7,7 +7,7 @@ class UserPersonalData < RestrictedActiveRecordBase
   validates :last_name, presence: true
   validates :postcode, presence: true
   validates :postcode, postcode: true, allow_blank: true
-  validate  :dob_format
+  validate  :dob_format, unless: -> { dob? }
   validate  :dob_in_the_past, if: -> { dob? }
   validates :gender, presence: true
 
