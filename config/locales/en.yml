@@ -206,3 +206,9 @@ en-GB:
               blank: Enter a postcode
             dob:
               invalid: Enter a valid date of birth
+
+  active_admin:
+    filters:
+      predicates:
+        from: "From"
+        to: "To"
