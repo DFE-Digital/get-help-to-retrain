@@ -25,10 +25,11 @@ function OutboundLinkTracking () {
           addEvent(links[i], 'click', function(e) {
             var url = this.getAttribute('href');
             var win = this.getAttribute('target');
+            var event_category = this.getAttribute('data-ga-event-category') || 'outbound';
 
             // Log event to Analytics, once done, go to the link
             gtag('event', 'click', {
-              'event_category': 'outbound',
+              'event_category': event_category,
               'event_label': url,
               'transport_type': 'beacon',
               'event_callback': hitCallbackHandler(url, win)
