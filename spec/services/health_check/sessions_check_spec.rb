@@ -3,6 +3,19 @@ require 'rails_helper'
 RSpec.describe HealthCheck::SessionsCheck do
   subject(:check) { described_class.new }
 
+  describe '#enabled' do
+    it 'is true when not in admin mode' do
+      expect(check).to be_enabled
+    end
+
+    it 'is false when in admin mode' do
+      Rails.configuration.admin_mode = true
+      expect(check).not_to be_enabled
+    ensure
+      Rails.configuration.admin_mode = false
+    end
+  end
+
   describe '#status' do
     context 'with no sessions populated' do
       it 'returns fail' do

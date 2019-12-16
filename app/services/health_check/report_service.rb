@@ -33,7 +33,7 @@ module HealthCheck
     end
 
     def checks
-      @checks ||= CheckBase.descendants.map(&:new)
+      @checks ||= CheckBase.descendants.map(&:new).select(&:enabled?)
     end
   end
 end

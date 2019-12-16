@@ -2,6 +2,10 @@ module HealthCheck
   class FindAJobCheck < CheckBase
     CACHE_EXPIRY = 50.seconds
 
+    def enabled?
+      Rails.configuration.admin_mode == false
+    end
+
     def name
       'api:findajob.dwp.gov.uk'
     end

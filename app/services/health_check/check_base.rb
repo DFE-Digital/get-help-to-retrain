@@ -2,6 +2,10 @@ module HealthCheck
   class CheckBase
     attr_reader :output
 
+    def enabled?
+      true
+    end
+
     def name
       raise NotImplementedError
     end

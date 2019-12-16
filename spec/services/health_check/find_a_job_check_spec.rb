@@ -5,6 +5,19 @@ RSpec.describe HealthCheck::FindAJobCheck do
 
   let(:ping_response) { { 'ping' => 'ok' } }
 
+  describe '#enabled' do
+    it 'is true when not in admin mode' do
+      expect(check).to be_enabled
+    end
+
+    it 'is false when in admin mode' do
+      Rails.configuration.admin_mode = true
+      expect(check).not_to be_enabled
+    ensure
+      Rails.configuration.admin_mode = false
+    end
+  end
+
   describe '#status' do
     context 'with failed Find a Job API call' do
       it 'returns warn on api error' do
