@@ -20,7 +20,8 @@ RUN bundle install --clean --force --without "development test" \
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . ./
-RUN bundle exec rails webpacker:compile SECRET_KEY_BASE=stubbed
+# assets:precompile is necessary only for ActiveAdmin assets
+RUN bundle exec rails webpacker:compile assets:precompile SECRET_KEY_BASE=stubbed
 
 FROM ruby:2.6-alpine
 
