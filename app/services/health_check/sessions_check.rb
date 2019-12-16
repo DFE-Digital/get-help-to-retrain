@@ -2,6 +2,10 @@ module HealthCheck
   class SessionsCheck < CheckBase
     CACHE_EXPIRY = 48.seconds
 
+    def enabled?
+      Rails.configuration.admin_mode == false
+    end
+
     def name
       'database:sessions'
     end

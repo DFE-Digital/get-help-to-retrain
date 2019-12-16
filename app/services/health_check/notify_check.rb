@@ -2,6 +2,10 @@ module HealthCheck
   class NotifyCheck < CheckBase
     CACHE_EXPIRY = 42.seconds
 
+    def enabled?
+      Rails.configuration.admin_mode == false
+    end
+
     def name
       'api:notifications.service.gov.uk'
     end
