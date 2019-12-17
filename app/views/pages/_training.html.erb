@@ -1,9 +1,9 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-half">
+  <div class="govuk-grid-column-one-third">
     <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your training choices</h3>
   </div>
-  <div class="govuk-grid-column-one-half">
-    <%= link_to 'Edit your training choices', training_questions_path, class: 'govuk-link action-plan-action' %>
+  <div class="govuk-grid-column-two-thirds">
+    <%= link_to 'Edit your maths and English training choices', training_questions_path, class: 'govuk-link action-plan-action' %>
     <br>
     <%= link_to 'Edit your IT training choices', it_training_questions_path, class: 'govuk-link action-plan-action govuk-!-margin-bottom-2' %>
   </div>
@@ -39,7 +39,7 @@
         <h3 class="govuk-heading-s">Computer skills training</h3>
       </div>
       <div class="govuk-grid-column-one-half">
-        <%= link_to 'Go to learning provider website', 'https://www.learnmyway.com/', class: 'govuk-button govuk-button--secondary action-plan-action govuk-!-margin-bottom-2', data: { module: 'govuk-button' } %>
+        <%= link_to 'Go to learning provider website', 'https://www.learnmyway.com/subjects', class: 'govuk-button govuk-button--secondary action-plan-action govuk-!-margin-bottom-2', data: { module: 'govuk-button' } %>
       </div>
     </div>
   <% end %>

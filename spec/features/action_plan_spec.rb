@@ -28,7 +28,7 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links to training questions' do
     user_targets_a_job
 
-    expect(page).to have_link('Edit your training choices', href: training_questions_path)
+    expect(page).to have_link('Edit your maths and English training choices', href: training_questions_path)
   end
 
   scenario 'Page links to IT training questions' do
@@ -39,7 +39,7 @@ RSpec.feature 'Action plan spec' do
 
   scenario 'Page links to English courses if training question answered for english' do
     user_targets_a_job
-    click_on('Edit your training choices')
+    click_on('Edit your maths and English training choices')
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
 
@@ -48,7 +48,7 @@ RSpec.feature 'Action plan spec' do
 
   scenario 'Page links to maths courses if training question answered for maths' do
     user_targets_a_job
-    click_on('Edit your training choices')
+    click_on('Edit your maths and English training choices')
     check('I need to improve my maths skills', allow_label_click: true)
     click_on('Continue')
 
@@ -61,7 +61,7 @@ RSpec.feature 'Action plan spec' do
     check('I need to improve my computer skills', allow_label_click: true)
     click_on('Continue')
 
-    expect(page).to have_link('Go to learning provider website', href: 'https://www.learnmyway.com/')
+    expect(page).to have_link('Go to learning provider website', href: 'https://www.learnmyway.com/subjects')
   end
 
   scenario 'Page shows different content if no training nor IT training questions answered' do

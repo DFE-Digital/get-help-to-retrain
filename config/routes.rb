@@ -29,6 +29,8 @@ Rails.application.routes.draw do
     get 'offers-near-me', to: 'pages#offers_near_me'
     get 'training-questions', to: 'questions#training'
     post 'training-questions', to: 'questions#training_answers'
+    get 'it-training-questions', to: 'questions#it_training'
+    post 'it-training-questions', to: 'questions#it_training_answers'
     get 'job-hunting-questions', to: 'questions#job_hunting'
     post 'job-hunting-questions', to: 'questions#job_hunting_answers'
     get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
