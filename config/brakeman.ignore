@@ -3,13 +3,13 @@
     {
       "warning_type": "Cross-Site Scripting",
       "warning_code": 4,
-      "fingerprint": "580b682e8bc524f1a62645390f18000ae40fa0c30c07ab5ed5b10d3105f29bd0",
+      "fingerprint": "1f03bb2c037503d99df69e26faa3f7af517ba53c9b8a8abd7efe71c195d90de1",
       "check_name": "LinkToHref",
       "message": "Potentially unsafe model attribute in `link_to` href",
       "file": "app/views/courses/_course.html.erb",
       "line": 7,
       "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
-      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :aria => ({ :label => (\"Visit website of #{(Unresolved Model).new.provider}\") }), :data => ({ :module => \"govuk-button\", :ga_event_category => (Unresolved Model).new.topic }))",
+      "code": "link_to(\"Visit website\", (Unresolved Model).new.url, :class => \"govuk-!-margin-bottom-6 govuk-button\", :aria => ({ :label => (\"Visit website of #{(Unresolved Model).new.provider}\") }), :data => ({ :module => \"govuk-button\", :ga_event_category => (\"#{(Unresolved Model).new.topic}_courses\") }))",
       "render_path": [
         {
           "type": "template",
@@ -92,6 +92,6 @@
       "note": "The attribute value is escaped at storage level as part of ActiveRecord behaviour. There is no danger."
     }
   ],
-  "updated": "2019-12-13 15:35:44 +0000",
+  "updated": "2019-12-17 11:30:21 +0000",
   "brakeman_version": "4.7.1"
 }
