@@ -170,6 +170,7 @@ RSpec.feature 'Jobs near me', type: :feature do
       click_on('Target this type of work')
       click_on('Continue')
       click_on('Continue')
+      click_on('Continue')
       click_on('Show jobs near me')
     end
   end

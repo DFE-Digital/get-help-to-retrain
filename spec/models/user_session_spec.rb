@@ -89,6 +89,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#it_training' do
+    it 'returns IT training value if set' do
+      user_session.it_training = ['computer_skills']
+
+      expect(user_session.it_training).to contain_exactly('computer_skills')
+    end
+
+    it 'returns an empty array if no IT training set' do
+      expect(user_session.it_training).to be_nil
+    end
+  end
+
   describe '#job_hunting' do
     it 'returns job_hunting value if set' do
       user_session.job_hunting = %w[cv cover_letter]

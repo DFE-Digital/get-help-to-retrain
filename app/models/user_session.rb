@@ -8,6 +8,7 @@ class UserSession
     target_job_id
     training
     job_hunting
+    it_training
     skills_matcher_sort
   ].freeze
 
@@ -52,6 +53,14 @@ class UserSession
 
   def training=(value)
     session[:training] = value
+  end
+
+  def it_training
+    session[:it_training]
+  end
+
+  def it_training=(value)
+    session[:it_training] = value
   end
 
   def job_hunting

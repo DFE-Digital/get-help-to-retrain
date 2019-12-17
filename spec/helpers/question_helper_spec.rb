@@ -16,8 +16,15 @@ RSpec.describe QuestionHelper do
       expect(helper.action_plan_or_questions_path).to eq(training_questions_path)
     end
 
-    it 'returns job_hunting when only training question answered' do
+    it 'returns IT training path when only training question answered' do
       user_session.training = ['english_skills']
+
+      expect(helper.action_plan_or_questions_path).to eq(it_training_questions)
+    end
+
+    it 'returns job_hunting when both training questions answered' do
+      user_session.training = ['english_skills']
+      user_session.it_training = ['computer_skills']
 
       expect(helper.action_plan_or_questions_path).to eq(job_hunting_questions)
     end
@@ -28,8 +35,9 @@ RSpec.describe QuestionHelper do
       expect(helper.action_plan_or_questions_path).to eq(training_questions_path)
     end
 
-    it 'returns action plan path when both questions answered' do
+    it 'returns action plan path when all 3 questions answered' do
       user_session.training = ['english_skills']
+      user_session.it_training = ['computer_skills']
       user_session.job_hunting = ['cv']
 
       expect(helper.action_plan_or_questions_path).to eq(action_plan_path)
@@ -57,6 +65,18 @@ RSpec.describe QuestionHelper do
 
     it 'returns path when training question not answered' do
       expect(helper.training_questions).to eq(training_questions_path)
+    end
+  end
+
+  describe '#it_training_questions' do
+    it 'returns nil when IT training question answered' do
+      user_session.it_training = ['computer_skills']
+
+      expect(helper.it_training_questions).to be_nil
+    end
+
+    it 'returns path when IT training question not answered' do
+      expect(helper.it_training_questions).to eq(it_training_questions_path)
     end
   end
 end

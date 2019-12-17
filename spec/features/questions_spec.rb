@@ -9,8 +9,16 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(training_questions_path)
   end
 
+  scenario 'User sees IT training questions when targetting a job' do
+    user_targets_job
+    click_on('Continue')
+
+    expect(page).to have_current_path(it_training_questions_path)
+  end
+
   scenario 'User sees job hunting questions when targetting a job' do
     user_targets_job
+    click_on('Continue')
     click_on('Continue')
 
     expect(page).to have_current_path(job_hunting_questions_path)
@@ -18,6 +26,7 @@ RSpec.feature 'Questions' do
 
   scenario 'User navigates to action plan after going through questions' do
     user_targets_job
+    click_on('Continue')
     click_on('Continue')
     click_on('Continue')
 
@@ -28,6 +37,8 @@ RSpec.feature 'Questions' do
     user_targets_job
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
+    check('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
     check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
@@ -36,8 +47,9 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(action_plan_path)
   end
 
-  scenario 'User does not see questions if both already seen' do
+  scenario 'User does not see questions if all 3 questions already seen' do
     user_targets_job
+    click_on('Continue')
     click_on('Continue')
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
@@ -46,9 +58,21 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(action_plan_path)
   end
 
-  scenario 'User sees job hunting questions if only training questions already answered' do
+  scenario 'User sees IT training questions if only training questions already answered' do
     user_targets_job
     check('I need to improve my English skills', allow_label_click: true)
+    click_on('Continue')
+    visit(job_profile_path(job_profile.slug))
+    click_on('Target this type of work')
+
+    expect(page).to have_current_path(it_training_questions_path)
+  end
+
+  scenario 'User sees job hunting questions if both training and IT training questions already answered' do
+    user_targets_job
+    check('I need to improve my English skills', allow_label_click: true)
+    click_on('Continue')
+    check('I need to improve my computer skills', allow_label_click: true)
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
     click_on('Target this type of work')
@@ -56,13 +80,19 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(job_hunting_questions_path)
   end
 
-  scenario 'User redirected to task list if user deep links to training questions page' do
+  scenario 'User redirected to task list if user deep links to training questions page on a clean session' do
     visit(training_questions_path)
 
     expect(page).to have_current_path(task_list_path)
   end
 
-  scenario 'User redirected to task list if user deep links to job hunting questions page' do
+  scenario 'User redirected to task list if user deep links to IT training questions page on a clean session' do
+    visit(it_training_questions_path)
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
+  scenario 'User redirected to task list if user deep links to job hunting questions page on a clean session' do
     visit(job_hunting_questions_path)
 
     expect(page).to have_current_path(task_list_path)
@@ -113,6 +143,27 @@ RSpec.feature 'Questions' do
     )
   end
 
+  scenario 'If user selects IT training options, they get tracked in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_job
+    visit(it_training_questions_path)
+    check('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :it_training_ticked,
+          label: 'Computer skills training',
+          value: 'computer_skills'
+        }
+      ]
+    )
+  end
+
   scenario 'If user selects no training options, we still track those options in GA' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
@@ -135,6 +186,27 @@ RSpec.feature 'Questions' do
           key: :training_unticked,
           label: 'Check your maths and English skills',
           value: 'math_skills'
+        }
+      ]
+    )
+  end
+
+  scenario 'If user selects no IT training options, we still track those options in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_job
+    visit(it_training_questions_path)
+    uncheck('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :it_training_unticked,
+          label: 'Computer skills training',
+          value: 'computer_skills'
         }
       ]
     )
