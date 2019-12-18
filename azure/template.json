@@ -160,12 +160,14 @@
     "resourceNamePrefix": "[toLower(resourceGroup().name)]",
     "environmentName": "[split(variables('resourceNamePrefix'),'-')[1]]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
+    "adminServiceName": "[concat(variables('resourceNamePrefix'), 'admin-as')]",
     "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "domainDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-', parameters('domainDatabaseName'),'Psql')]",
     "restrictedDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-', parameters('restrictedDatabaseName'),'Psql')]",
     "appServiceRuntimeStack": "[concat('COMPOSE|', base64(replace(base64ToString(parameters('dockerComposeFile')),'__CONTAINER_REFERENCE__',parameters('containerImageReference'))))]",
+    "adminServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]",
     "warmupPingPath": "/status",
     "containerStartTimeLimit": "300"
   },
@@ -341,7 +343,7 @@
             "value": "[concat(variables('appServicePlanName'),'-AZURE_IP-')]"
           },
           "ipAddresses": {
-            "value": "[reference('app-service').outputs.possibleOutboundIpAddresses.value]"
+            "value": "[concat(reference('app-service').outputs.possibleOutboundIpAddresses.value)]"
           },
           "serverName": {
             "value": "[variables('restrictedDatabaseServerName')]"
@@ -547,6 +549,113 @@
           },
           "customHostName": {
             "value": "[parameters('customHostName')]"
+          },
+          "certificateThumbprint": {
+            "value": "[if(greater(length(parameters('customHostname')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "app-service-plan"
+      ]
+    },
+    {
+      "name": "admin-service",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-08-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'), 'app-service-linux.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServiceName": {
+            "value": "[variables('adminServiceName')]"
+          },
+          "appServicePlanResourceGroup": {
+            "value": "[resourceGroup().name]"
+          },
+          "appServicePlanName": {
+            "value": "[variables('appServicePlanName')]"
+          },
+          "runtimeStack": {
+            "value": "[variables('adminServiceRuntimeStack')]"
+          },
+          "appServiceAppSettings": {
+            "value": [
+              {
+                "name": "WEBSITE_SLOT_POLL_WORKER_FOR_CHANGE_NOTIFICATION",
+                "value": "0"
+              },
+              {
+                "name": "WEBSITE_SWAP_WARMUP_PING_PATH",
+                "value": "[variables('warmupPingPath')]"
+              },
+              {
+                "name": "WEBSITES_CONTAINER_START_TIME_LIMIT",
+                "value": "[variables('containerStartTimeLimit')]"
+              },
+              {
+                "name": "WEBSITES_WEB_CONTAINER_NAME",
+                "value": "web"
+              },
+              {
+                "name": "ENVIRONMENT_NAME",
+                "value": "[variables('environmentName')]"
+              },
+              {
+                "name": "ADMIN_MODE",
+                "value": "true"
+              },
+              {
+                "name": "DB_DATABASE",
+                "value": "[parameters('domainDatabaseName')]"
+              },
+              {
+                "name": "DB_PASSWORD",
+                "value": "[parameters('domainDatabasePassword')]"
+              },
+              {
+                "name": "DB_USERNAME",
+                "value": "[concat(parameters('domainDatabaseUsername'), '@', variables('domainDatabaseServerName'))]"
+              },
+              {
+                "name": "DB_HOST",
+                "value": "[reference('postgresql-domain-server').outputs.fullyQualifiedDomainName.value]"
+              },
+              {
+                "name": "RESTRICTED_DB_DATABASE",
+                "value": "[parameters('restrictedDatabaseName')]"
+              },
+              {
+                "name": "RESTRICTED_DB_PASSWORD",
+                "value": "[parameters('restrictedDatabasePassword')]"
+              },
+              {
+                "name": "RESTRICTED_DB_USERNAME",
+                "value": "[concat(parameters('restrictedDatabaseUsername'), '@', variables('restrictedDatabaseServerName'))]"
+              },
+              {
+                "name": "RESTRICTED_DB_HOST",
+                "value": "[reference('postgresql-restricted-server').outputs.fullyQualifiedDomainName.value]"
+              },
+              {
+                "name": "SPLIT_API_KEY",
+                "value": "[parameters('splitApiKey')]"
+              },
+              {
+                "name": "SECRET_KEY_BASE",
+                "value": "[parameters('secretKeyBase')]"
+              },
+              {
+                "name": "SENTRY_DSN",
+                "value": "[parameters('sentryDsn')]"
+              }
+            ]
+          },
+          "customHostName": {
+            "value": "[concat('admin',parameters('customHostName'))]"
           },
           "certificateThumbprint": {
             "value": "[if(greater(length(parameters('customHostname')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
