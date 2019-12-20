@@ -153,6 +153,10 @@
     },
     "supportEmailAddresses": {
       "type": "array"
+    },
+    "adminEnabled": {
+      "type": "bool",
+      "defaultValue": false
     }
   },
   "variables": {
@@ -562,6 +566,7 @@
     {
       "name": "admin-service",
       "type": "Microsoft.Resources/deployments",
+      "condition": "[parameters('adminEnabled')]",
       "apiVersion": "2019-08-01",
       "properties": {
         "mode": "Incremental",
@@ -671,6 +676,10 @@
     "appServiceName": {
       "type": "string",
       "value": "[variables('appServiceName')]"
+    },
+    "adminServiceName": {
+      "type": "string",
+      "value": "[if(bool(parameters('adminEnabled')), variables('adminServiceName'), 'disabled')]"
     }
   }
 }

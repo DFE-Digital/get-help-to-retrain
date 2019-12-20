@@ -105,6 +105,9 @@
     },
     "googleAnalyticsTrackingId": {
       "value": ""
+    },
+    "adminEnabled": {
+      "value": true
     }
   }
 }
