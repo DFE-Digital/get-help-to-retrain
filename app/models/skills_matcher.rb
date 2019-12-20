@@ -23,7 +23,8 @@ class SkillsMatcher
 
   def skills_matched_query
     JobProfileSkill
-      .select(:job_profile_id, 'COUNT(job_profile_id) AS skills_matched')
+      .select(:job_profile_id, 'MIN(rarity) as skills_rarity', 'COUNT(job_profile_id) AS skills_matched')
+      .joins('LEFT JOIN skills ON skills.id = job_profile_skills.skill_id')
       .where(skill_id: user_session.skill_ids)
       .group(:job_profile_id)
       .to_sql
@@ -45,9 +46,9 @@ class SkillsMatcher
   def order_options
     case options[:order]
     when :growth
-      { growth: :desc, skills_matched: :desc, name: :asc }
+      { growth: :desc, skills_matched: :desc, skills_rarity: :asc, name: :asc }
     else
-      { skills_matched: :desc, growth: :desc, name: :asc }
+      { skills_matched: :desc, growth: :desc, skills_rarity: :asc, name: :asc }
     end
   end
 

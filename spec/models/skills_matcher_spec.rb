@@ -227,6 +227,60 @@ RSpec.describe SkillsMatcher do
       )
     end
 
+    it 'arranges job profiles in matching skills, job growth and skills rarity order' do
+      skill1 = create(:skill, rarity: nil)
+      skill2 = create(:skill, rarity: 3)
+      skill3 = create(:skill, rarity: 2)
+      skill4 = create(:skill, rarity: 1)
+      job_profile1 = create(:job_profile)
+      job_profile2 = create(:job_profile, skills: [skill1, skill2])
+      job_profile3 = create(:job_profile, skills: [skill1, skill3])
+      job_profile4 = create(:job_profile, skills: [skill1, skill4])
+
+      session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id, skill4.id]
+        }
+      )
+
+      matcher = described_class.new(UserSession.new(session))
+      expect(matcher.match).to eq(
+        [
+          job_profile4,
+          job_profile3,
+          job_profile2
+        ]
+      )
+    end
+
+    it 'arranges job profiles in job growth, matching skills and skills rarity order' do
+      skill1 = create(:skill, rarity: nil)
+      skill2 = create(:skill, rarity: 3)
+      skill3 = create(:skill, rarity: 2)
+      skill4 = create(:skill, rarity: 1)
+      job_profile1 = create(:job_profile)
+      job_profile2 = create(:job_profile, growth: 0, skills: [skill1, skill2])
+      job_profile3 = create(:job_profile, growth: 0, skills: [skill1, skill3])
+      job_profile4 = create(:job_profile, growth: 0, skills: [skill1, skill4])
+
+      session = create_fake_session(
+        job_profile_ids: [job_profile1.id],
+        job_profile_skills: {
+          job_profile1.id.to_s => [skill1.id, skill2.id, skill3.id, skill4.id]
+        }
+      )
+
+      matcher = described_class.new(UserSession.new(session), order: :growth)
+      expect(matcher.match).to eq(
+        [
+          job_profile4,
+          job_profile3,
+          job_profile2
+        ]
+      )
+    end
+
     it 'ignores unrecommended jobs' do
       skill = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill])
