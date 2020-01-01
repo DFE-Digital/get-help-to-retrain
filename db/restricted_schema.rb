@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_114240) do
+ActiveRecord::Schema.define(version: 2019_12_18_121428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "resource_id", null: false
+    t.string "name", null: false
+    t.citext "email", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "feedback_surveys", force: :cascade do |t|
     t.boolean "page_useful", null: false

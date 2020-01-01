@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include Passwordless::ControllerHelpers
   include GaTrackingHelper
+  include Admin::AuthenticationHelper
 
   before_action :set_raven_context
 
