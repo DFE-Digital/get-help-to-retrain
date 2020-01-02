@@ -67,6 +67,7 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User enters an incorrect word and a correction is returned' do
+    Rails.configuration.bing_spell_check_api_key = 'test'
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -91,9 +92,12 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(page).to have_text('Did you mean gates')
+  ensure
+    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User enters an incorrect word and the correction leads to results page' do
+    Rails.configuration.bing_spell_check_api_key = 'test'
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -120,9 +124,12 @@ RSpec.feature 'Check your skills', type: :feature do
     click_on('gates')
 
     expect(page).to have_current_path(results_check_your_skills_path(search: 'gates'))
+  ensure
+    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User enters an incorrect word but sees no correction' do
+    Rails.configuration.bing_spell_check_api_key = 'test'
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': []
@@ -135,6 +142,8 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(page).not_to have_text('Did you mean Gates')
+  ensure
+    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User cannot find occupation through search' do

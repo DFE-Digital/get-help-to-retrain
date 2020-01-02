@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SpellCheckService do
-  subject(:service) { described_class.new }
+  subject(:service) { described_class.new(api_key: 'test') }
 
   let(:request_headers) {
     {
@@ -308,14 +308,8 @@ RSpec.describe SpellCheckService do
   context 'when the API key is missing' do
     subject(:service) { described_class.new(api_key: nil) }
 
-    let(:expected_error_message) {
-      'BingSpellCheck API Key is not set'
-    }
-
-    it 'raises SpellCheckServiceError' do
-      expect {
-        service.scan(search_term: search_term)
-      }.to raise_error(described_class::SpellCheckServiceError, expected_error_message)
+    it 'returns nil' do
+      expect(service.scan(search_term: search_term)).to be nil
     end
   end
 end
