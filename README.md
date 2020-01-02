@@ -113,6 +113,13 @@ Once job profiles have been scraped from NCS, run the relevant rake task (a one 
   bundle exec rails data_import:update_recommended_job_profiles
 ```
 
+### Skills rarity
+The skills are each associated with one or more job profiles and used to generate matching job profiles within the skills matcher. When job profiles have the same number of shared skills and identical growth prospects, then skills rarity (or ranked rareness) is used to further order skills matcher results. The rarity score is precalculated and held against each skill by running the rake task:
+
+```bash
+  bundle exec rails data_import:update_skills_rarity
+```
+
 ### Additional job profile data
 Growth information and SOC codes for job profiles are imported via an Excel spreadsheet and used to update specific attributes of existing job profiles matched by name (i.e. these must have been previously imported by running the scraping tasks). Copy the relevant spreadsheet locally and then run rake task:
 

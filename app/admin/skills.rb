@@ -1,4 +1,5 @@
 if defined?(ActiveAdmin)
+  # rubocop:disable Metrics/BlockLength
   ActiveAdmin.register Skill do
     actions :all, except: %i[new destroy]
 
@@ -10,6 +11,7 @@ if defined?(ActiveAdmin)
       column :id
       column :enabled
       column :name
+      column :rarity
       column :job_profiles
       actions
     end
@@ -24,6 +26,7 @@ if defined?(ActiveAdmin)
       column :id
       column :enabled
       column :name
+      column :rarity
       column :job_profiles do |skill|
         skill.job_profiles.map(&:name)
       end
@@ -31,4 +34,5 @@ if defined?(ActiveAdmin)
 
     config.sort_order = 'id_asc'
   end
+  # rubocop:enable Metrics/BlockLength
 end
