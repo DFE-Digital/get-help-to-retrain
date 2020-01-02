@@ -11,7 +11,7 @@ RSpec.feature 'Check your skills', type: :feature do
     )
   end
 
-  def fake_bing_api_call_with(response_body)
+  def fake_bing_api_call_with(response_body, text)
     request_headers = {
       'Content-Type' => 'application/x-www-form-urlencoded',
       'Ocp-Apim-Subscription-Key' => 'test'
@@ -19,7 +19,7 @@ RSpec.feature 'Check your skills', type: :feature do
 
     stub_request(:get, SpellCheckService::API_ENDPOINT)
       .with(headers: request_headers,
-            query: URI.encode_www_form(mkt: 'en-gb', mode: 'spell', text: 'Gatas'))
+            query: URI.encode_www_form(mkt: 'en-gb', mode: 'spell', text: text))
       .to_return(body: response_body, status: 200)
   end
 
@@ -67,6 +67,7 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User enters an incorrect word and a correction is returned' do
+    Rails.configuration.bing_spell_check_api_key = 'test'
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -84,17 +85,20 @@ RSpec.feature 'Check your skills', type: :feature do
       ]
     }.to_json
 
-    fake_bing_api_call_with(response_body)
+    fake_bing_api_call_with(response_body, 'Gatas')
 
     visit(check_your_skills_path)
     fill_in('search', with: 'Gatas')
     find('.search-button').click
 
     expect(page).to have_text('Did you mean gates')
+  ensure
+    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User enters an incorrect word and the correction leads to results page' do
-    response_body = {
+    Rails.configuration.bing_spell_check_api_key = 'test'
+    correction_response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
         {
@@ -110,31 +114,40 @@ RSpec.feature 'Check your skills', type: :feature do
         }
       ]
     }.to_json
+    no_correction_response_body = {
+      '_type': 'SpellCheck',
+      'flaggedTokens': []
+    }.to_json
 
-    fake_bing_api_call_with(response_body)
+    fake_bing_api_call_with(correction_response_body, 'Gatas')
 
     visit(check_your_skills_path)
     fill_in('search', with: 'Gatas')
     find('.search-button').click
-
+    fake_bing_api_call_with(no_correction_response_body, 'gates')
     click_on('gates')
 
     expect(page).to have_current_path(results_check_your_skills_path(search: 'gates'))
+  ensure
+    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User enters an incorrect word but sees no correction' do
+    Rails.configuration.bing_spell_check_api_key = 'test'
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': []
     }.to_json
 
-    fake_bing_api_call_with(response_body)
+    fake_bing_api_call_with(response_body, 'Gatas')
 
     visit(check_your_skills_path)
-    fill_in('search', with: 'Gates')
+    fill_in('search', with: 'Gatas')
     find('.search-button').click
 
-    expect(page).not_to have_text('Did you mean Gates')
+    expect(page).not_to have_text('Did you mean gates')
+  ensure
+    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User cannot find occupation through search' do

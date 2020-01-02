@@ -3,14 +3,14 @@ class SpellCheckService
 
   API_ENDPOINT = 'https://api.cognitive.microsoft.com/bing/v7.0/spellcheck'.freeze
 
-  attr_reader :response
+  attr_reader :response, :api_key
 
   def initialize(api_key: Rails.configuration.bing_spell_check_api_key)
     @api_key = api_key
   end
 
   def scan(search_term: nil)
-    return unless search_term
+    return unless api_key.present? && search_term
 
     bing_spell_check(search_term: search_term)
   rescue StandardError => e
@@ -44,12 +44,6 @@ class SpellCheckService
     @bing_correction ||= JSON.parse(response.body)['flaggedTokens'].each_with_object({}) do |token, hash|
       hash[token['token'].downcase] = token['suggestions'].first['suggestion'].downcase
     end
-  end
-
-  def api_key
-    raise 'BingSpellCheck API Key is not set' unless @api_key.present?
-
-    @api_key
   end
 
   def response_successful?
