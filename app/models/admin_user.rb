@@ -9,7 +9,7 @@ class AdminUser < RestrictedActiveRecordBase
 
     return unless user_info.present?
 
-    find_or_create_by(
+    find_or_initialize_by(
       email: user_info[:mail],
       name: user_info[:displayName],
       resource_id: user_info[:id]

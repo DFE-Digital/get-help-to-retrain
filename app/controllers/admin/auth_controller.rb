@@ -3,7 +3,7 @@ module Admin
     def callback
       admin_user = ::AdminUser.from_omniauth(omniauth_hash)
 
-      if admin_user.persisted?
+      if admin_user.save
         admin_user_session.user_id = admin_user.resource_id
         admin_user_session.user_roles = admin_user.roles_from(omniauth_hash)
 

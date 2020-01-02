@@ -48,17 +48,23 @@ RSpec.describe AdminUser do
   }
 
   describe '#from_omniauth' do
-    it 'stores the user details in the db' do
-      described_class.from_omniauth(auth_hash)
+    it 'returns an active record instance with correct attributes' do
+      active_admin = described_class.from_omniauth(auth_hash)
 
-      expect(described_class.last).to have_attributes(
+      expect(active_admin).to have_attributes(
         name: 'some.name',
         resource_id: '1111-111-11-1',
         email: 'test@test.com'
       )
     end
 
-    it 'does not store user details if user_info key has incomplete data' do
+    it 'returns a valid active record instance' do
+      active_admin = described_class.from_omniauth(auth_hash)
+
+      expect(active_admin.valid?).to be true
+    end
+
+    it 'returns an invalid active record instance if user_info key has incomplete data' do
       auth_hash = {
         'provider' => :azure_ad_auth,
         'uid' => '1111-111-11-1',
@@ -70,9 +76,9 @@ RSpec.describe AdminUser do
         }
       }.with_indifferent_access
 
-      expect {
-        described_class.from_omniauth(auth_hash)
-      }.not_to change(described_class, :count)
+      active_admin = described_class.from_omniauth(auth_hash)
+
+      expect(active_admin.valid?).to be false
     end
   end
 
