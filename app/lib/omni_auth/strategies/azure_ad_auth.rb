@@ -19,15 +19,6 @@ module OmniAuth
       # Send the scope parameter during authorize
       option :authorize_options, [:scope]
 
-      # Rescue any issue occuring during the request phase - TBD for when we have an error page available
-      # def call(env)
-      #   super
-      # rescue StandardError => e
-      #   Rails.logger.error("Admin Authentication Error: #{e.message}")
-
-      #   redirect '/admin/sign-in-error'
-      # end
-
       # Unique ID for the user is the id field
       uid { user_info['id'] }
 
