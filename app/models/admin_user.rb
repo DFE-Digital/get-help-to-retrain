@@ -1,8 +1,8 @@
 class AdminUser < RestrictedActiveRecordBase
-  validates :email, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
   validates :name, presence: true
-  validates :resource_id, presence: true
+  validates :resource_id, presence: true, uniqueness: true
 
   def self.from_omniauth(auth_hash)
     user_info = auth_hash.dig(:extra, :user_info)
