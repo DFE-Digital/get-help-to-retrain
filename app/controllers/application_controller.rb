@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def track_events(props = [])
-    TrackingService.new.track_events(props: props)
+    TrackingService.new(client_tracking_data: client_tracking_data).track_events(props: props)
   rescue TrackingService::TrackingServiceError
     nil
   end
