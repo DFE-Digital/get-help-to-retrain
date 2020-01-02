@@ -77,7 +77,11 @@ RSpec.feature 'Admin Users Authentication' do
 
     visit(auth_azure_ad_auth_callback_path)
 
-    expect(AdminUser.last.email).to eq('test@test.com')
+    expect(AdminUser.last).to have_attributes(
+      name: 'some.name',
+      resource_id: '1111-111-11-1',
+      email: 'test@test.com'
+    )
   end
 
   scenario 'Redirects to sign in page if omniauth hash is missing required information' do
