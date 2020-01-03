@@ -75,14 +75,6 @@
         "secretName": "prod-notifyApiKey"
       }
     },
-    "bingSpellCheckApiKey": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
-        },
-        "secretName": "prod-bingSpellCheckApiKey"
-      }
-    },
     "findAJobApiId": {
       "reference": {
         "keyVault": {
