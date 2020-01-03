@@ -5,14 +5,12 @@ class AdminUser < RestrictedActiveRecordBase
   validates :resource_id, presence: true, uniqueness: true
 
   def self.from_omniauth(auth_hash)
-    user_info = auth_hash.dig(:extra, :user_info)
-
-    return unless user_info.present?
+    user_info = auth_hash[:info] || {}
 
     find_or_initialize_by(
-      email: user_info[:mail],
-      name: user_info[:displayName],
-      resource_id: user_info[:id]
+      email: user_info[:email],
+      name: user_info[:name],
+      resource_id: auth_hash[:uid]
     )
   end
 

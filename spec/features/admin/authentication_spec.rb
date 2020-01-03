@@ -39,9 +39,13 @@ RSpec.feature 'Admin Users Authentication' do
     {
       'provider' => :azure_ad_auth,
       'uid' => '1111-111-11-1',
+      'info' => {
+        'email' => 'test@test.com',
+        'name' => 'some.name'
+      },
       'credentials' => jwt,
       'extra' => {
-        'user_info' => user_info,
+        'raw_info' => user_info,
         'user_roles' => {
           'value' => user_roles
         }
@@ -53,12 +57,7 @@ RSpec.feature 'Admin Users Authentication' do
     {
       'provider' => :azure_ad_auth,
       'uid' => '1111-111-11-1',
-      'credentials' => jwt,
-      'extra' => {
-        'user_info' => {
-          'displayName' => 'some.name'
-        }
-      }
+      'credentials' => jwt
     }
   }
 

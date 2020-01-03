@@ -22,10 +22,18 @@ module OmniAuth
       # Unique ID for the user is the id field
       uid { user_info['id'] }
 
+      # Main user information
+      info do
+        {
+          'name' => user_info['displayName'],
+          'email' => user_info['mail']
+        }
+      end
+
       # Get additional information after token is retrieved
       extra do
         {
-          'user_info' => user_info,
+          'raw_info' => user_info,
           'user_roles' => user_roles
         }
       end
