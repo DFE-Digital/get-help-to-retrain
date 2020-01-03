@@ -1,6 +1,6 @@
 class AdminUser < RestrictedActiveRecordBase
   validates :email, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
   validates :resource_id, presence: true, uniqueness: true
 

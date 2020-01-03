@@ -7,10 +7,10 @@ module Admin
 
     # Override active admin helper method that ensures we have access to a current_user
     def admin_current_user
-      if admin_user_session.user_id.present?
-        @admin_current_user ||= ::AdminUser.find_by(resource_id: session[:admin_user_id])
-      else
-        @admin_current_user = nil
+      @admin_current_user ||= begin
+        return unless admin_user_session.user_id.present?
+
+        ::AdminUser.find_by(resource_id: session[:admin_user_id])
       end
     end
 

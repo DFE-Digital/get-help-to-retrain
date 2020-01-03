@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     ActiveAdmin.routes(self)
 
     get '/', to: 'admin/dashboard#index'
-    get 'admin/sign-in', to: 'pages#admin_sign_in'
+    get 'admin/sign-in', to: 'admin/user_sessions#sign_in'
     get 'admin/sign-out', to: 'admin/user_sessions#destroy'
     get '/auth/azure_ad_auth/callback', to: 'admin/auth#callback'
   end
