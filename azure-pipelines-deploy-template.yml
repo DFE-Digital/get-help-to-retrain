@@ -40,6 +40,7 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Start Azure App Service: ${{parameters.environment}}'
+              condition: ne(variables['appServiceName'], 'disabled')
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Start Azure App Service'
@@ -50,6 +51,7 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Swap Slots: ${{parameters.environment}}'
+              condition: ne(variables['appServiceName'], 'disabled')
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 WebAppName: '${{parameters.resourceGroupName}}-as'
@@ -58,6 +60,7 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Stop Azure App Service: ${{parameters.environment}}'
+              condition: ne(variables['appServiceName'], 'disabled')
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Stop Azure App Service'

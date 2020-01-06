@@ -347,7 +347,7 @@
             "value": "[concat(variables('appServicePlanName'),'-AZURE_IP-')]"
           },
           "ipAddresses": {
-            "value": "[concat(reference('app-service').outputs.possibleOutboundIpAddresses.value)]"
+            "value": "[reference('app-service').outputs.possibleOutboundIpAddresses.value]"
           },
           "serverName": {
             "value": "[variables('restrictedDatabaseServerName')]"
