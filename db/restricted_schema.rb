@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_18_121428) do
+ActiveRecord::Schema.define(version: 2020_01_03_141442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -73,4 +73,15 @@ ActiveRecord::Schema.define(version: 2019_12_18_121428) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.bigint "item_id"
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.jsonb "object_changes"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
 end

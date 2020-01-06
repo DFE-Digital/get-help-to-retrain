@@ -13,6 +13,9 @@ gem 'rails-i18n', '~> 6.0.0'
 gem 'omniauth-oauth2', '~> 1.6'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
 
+# Gem for user activity auditing
+gem 'paper_trail', '~> 10.3'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 

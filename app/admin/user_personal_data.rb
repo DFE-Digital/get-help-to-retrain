@@ -1,4 +1,5 @@
 if defined?(ActiveAdmin)
+  # rubocop:disable Metrics/BlockLength
   ActiveAdmin.register UserPersonalData do
     GENDER_OPTIONS = {
       'Male' => :male,
@@ -16,6 +17,37 @@ if defined?(ActiveAdmin)
     filter :dob
     filter :gender, as: :select, collection: GENDER_OPTIONS
 
+    controller do
+      def destroy
+        track_custom_event(item_type: 'User Personal Data Page', event: 'record deleted') if resource.destroy
+      end
+    end
+
+    index do
+      track_custom_event(
+        item_type: 'User Personal Data Page',
+        event: 'visited page'
+      )
+
+      column :id
+      column :first_name
+      column :last_name
+      column :postcode
+      column :dob
+      column :gender
+      column :created_at
+      column :updated_at
+
+      actions
+    end
+
+    csv do
+      track_custom_event(
+        item_type: 'User Personal Data Page',
+        event: 'downloaded CSV'
+      )
+    end
+
     form do |f|
       f.semantic_errors
       f.inputs do
@@ -30,4 +62,5 @@ if defined?(ActiveAdmin)
 
     config.sort_order = 'id_asc'
   end
+  # rubocop:enable Metrics/BlockLength
 end

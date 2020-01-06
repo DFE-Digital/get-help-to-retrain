@@ -11,6 +11,8 @@ class UserPersonalData < RestrictedActiveRecordBase
   validate  :dob_in_the_past, if: -> { dob? }
   validates :gender, presence: true
 
+  has_paper_trail on: %i[update]
+
   private
 
   def dob_format
