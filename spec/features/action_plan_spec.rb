@@ -122,6 +122,22 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_current_path(offers_near_me_path)
   end
 
+  scenario 'Page links to appreticeships with target job' do
+    user_targets_a_job
+
+    expect(page).to have_link('Find an apprenticeship', href: 'https://www.findapprenticeship.service.gov.uk/apprenticeships?Keywords=fluffer&WithinDistance=20')
+  end
+
+  scenario 'Page links to appreticeships with target job and outcode' do
+    capture_user_location
+    user_targets_a_job
+
+    expect(page).to have_link(
+      'Find an apprenticeship',
+      href: 'https://www.findapprenticeship.service.gov.uk/apprenticeships?Keywords=fluffer&Location=NW11&WithinDistance=20'
+    )
+  end
+
   private
 
   def user_targets_a_job
@@ -132,5 +148,18 @@ RSpec.feature 'Action plan spec' do
       click_on('Continue')
       click_on('Continue')
     end
+  end
+
+  def capture_user_location
+    visit(your_information_path)
+    fill_in('user_personal_data[first_name]', with: 'John')
+    fill_in('user_personal_data[last_name]', with: 'Mayer')
+    fill_in('user_personal_data[postcode]', with: 'NW11 8QE')
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
+    choose('user_personal_data[gender]', option: 'male')
+
+    click_on('Continue')
   end
 end
