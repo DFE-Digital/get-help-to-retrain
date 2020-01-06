@@ -104,6 +104,16 @@ RSpec.feature 'Admin Users Authentication' do
     end
   end
 
+  scenario 'When a user checks a particular user personal data record that event gets logged' do
+    click_on('User Personal Data')
+    click_on('View')
+    visit(admin_audit_logs_path)
+    
+    ['User Personal Data Page', "visited record id: #{user_personal_data.id}"].each do |content|
+      expect(page).to have_content(content)
+    end
+  end
+
   scenario 'When a tracked resource updates it shows a readable diff of the changes' do
     click_on('Job Profiles')
     click_on('Edit')

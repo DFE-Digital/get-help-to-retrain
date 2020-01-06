@@ -11,9 +11,11 @@ if defined?(ActiveAdmin)
         link_to version.item_id, admin_job_profile_path(version.item_id) if version.item_id.present?
       end
       column :item_type
-      column :event
-      column 'Authored by User ID' do |event_entry|
-        link_to event_entry.whodunnit, admin_admin_user_path(event_entry.whodunnit)
+      column :event do |version|
+        version.event.html_safe
+      end
+      column 'Authored by User ID' do |version|
+        link_to version.whodunnit, admin_admin_user_path(version.whodunnit)
       end
       column :created_at
       actions

@@ -41,6 +41,24 @@ if defined?(ActiveAdmin)
       actions
     end
 
+    show do
+      track_custom_event(
+        item_type: 'User Personal Data Page',
+        event: "visited record id: #{link_to(resource.id, admin_user_personal_datum_path(resource.id))}"
+      )
+
+      attributes_table do
+        row :id
+        row :first_name
+        row :last_name
+        row :postcode
+        row :dob
+        row :gender
+        row :created_at
+        row :updated_at
+      end
+    end
+
     csv do
       track_custom_event(
         item_type: 'User Personal Data Page',
