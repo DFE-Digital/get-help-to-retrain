@@ -208,7 +208,6 @@ stages:
       containerImageReference: $(IMAGE_NAME):$(Build.BuildNumber)
       subscriptionServiceConnection: azdo.pipelines.cip.S108T.arm282af598-0480-4a28-ab29-efa10624365a
 
-
 - stage: SmokeTests
   displayName: 'Smoke tests'
   dependsOn: QADeployment
