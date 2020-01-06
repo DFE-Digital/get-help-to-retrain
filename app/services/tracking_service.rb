@@ -48,7 +48,7 @@ class TrackingService
 
   def client_tracking_info
     {
-      cid: client_tracking_data[:ga_cookies] || SecureRandom.uuid,
+      cid: client_tracking_data[:ga_cookie] || SecureRandom.uuid,
       ua: client_tracking_data[:user_agent],
       uip: client_tracking_data[:ip_address]
     }
