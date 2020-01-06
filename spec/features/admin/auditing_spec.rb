@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.feature 'Admin Users Authentication' do
   before do
     allow(Rails.configuration).to receive(:admin_mode).and_return(true)
+
+    AdminUser.create(resource_id: '1111-111-11-1')
+
+    stub_omniauth
+
+    visit(auth_azure_ad_auth_callback_path)
   end
 
   let(:jwt) {
@@ -53,29 +59,13 @@ RSpec.feature 'Admin Users Authentication' do
     }
   }
 
-  let!(:job_profile) {
-    create(:job_profile, name: 'therapist', growth: 12.3)
-  }
-
-  let!(:user_personal_data) {
-    create(:user_personal_data)
-  }
-
-  let!(:admin_user) {
-    AdminUser.create(resource_id: '1111-111-11-1')
-  }
-
-  before do
-    stub_omniauth
-
-    visit(auth_azure_ad_auth_callback_path)
-  end
-
   scenario 'It has an Audit Logs section' do
     expect(page).to have_content('Audit Logs')
   end
 
   scenario 'When a user visits user personal data page that event gets logged' do
+    create(:user_personal_data)
+
     click_on('User Personal Data')
     click_on('Audit Logs')
 
@@ -85,36 +75,44 @@ RSpec.feature 'Admin Users Authentication' do
   end
 
   scenario 'When a user downloads the user personal data as CSV that event gets logged' do
+    create(:user_personal_data)
+
     click_on('User Personal Data')
     click_on('CSV')
     visit(admin_audit_logs_path)
-    
+
     ['User Personal Data Page', 'downloaded CSV'].each do |content|
       expect(page).to have_content(content)
     end
   end
 
   scenario 'When a user deletes a user personal data record that event gets logged' do
+    create(:user_personal_data)
+
     click_on('User Personal Data')
     click_on('Delete')
     visit(admin_audit_logs_path)
-    
+
     ['User Personal Data Page', 'record deleted'].each do |content|
       expect(page).to have_content(content)
     end
   end
 
   scenario 'When a user checks a particular user personal data record that event gets logged' do
+    user_personal_data = create(:user_personal_data)
+
     click_on('User Personal Data')
     click_on('View')
     visit(admin_audit_logs_path)
-    
+
     ['User Personal Data Page', "visited record id: #{user_personal_data.id}"].each do |content|
       expect(page).to have_content(content)
     end
   end
 
   scenario 'When a tracked resource updates it shows a readable diff of the changes' do
+    create(:job_profile, name: 'therapist', growth: 12.3)
+
     click_on('Job Profiles')
     click_on('Edit')
     fill_in('job_profile_growth', with: 10)
