@@ -43,7 +43,7 @@ stages:
     steps:
       - task: NodeTool@0
         inputs:
-          versionSpec: '10.14.2'
+          versionSpec: '12.14.0'
 
       - script: |
           gateway_ip=$(docker network inspect bridge --format='{{range .IPAM.Config}}{{.Gateway}}{{end}}')
