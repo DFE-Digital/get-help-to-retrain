@@ -576,22 +576,6 @@
               {
                 "name": "BING_SPELL_CHECK_API_KEY",
                 "value": "[parameters('bingSpellCheckApiKey')]"
-              },
-              {
-                "name": "AZURE_CLIENT_ID",
-                "value": "[parameters('azureClientId')]"
-              },
-              {
-                "name": "AZURE_CLIENT_SECRET",
-                "value": "[parameters('azureClientSecret')]"
-              },
-              {
-                "name": "AZURE_SCOPES",
-                "value": "[parameters('azureScopes')]"
-              },
-              {
-                "name": "AZURE_TENANT_ID",
-                "value": "[parameters('azureTenantId')]"
               }
             ]
           },
@@ -700,6 +684,22 @@
               {
                 "name": "SENTRY_DSN",
                 "value": "[parameters('sentryDsn')]"
+              },
+              {
+                "name": "AZURE_CLIENT_ID",
+                "value": "[parameters('azureClientId')]"
+              },
+              {
+                "name": "AZURE_CLIENT_SECRET",
+                "value": "[parameters('azureClientSecret')]"
+              },
+              {
+                "name": "AZURE_SCOPES",
+                "value": "[parameters('azureScopes')]"
+              },
+              {
+                "name": "AZURE_TENANT_ID",
+                "value": "[parameters('azureTenantId')]"
               }
             ]
           },
