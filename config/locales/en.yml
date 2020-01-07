@@ -212,6 +212,10 @@ en-GB:
               invalid: Enter a valid date of birth
 
   active_admin:
+    sign_in:
+      title: GHTR Admin
+    errors:
+      authentication: We could not authenticate you.
     filters:
       predicates:
         from: "From"

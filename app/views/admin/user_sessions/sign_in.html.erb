@@ -1,0 +1,16 @@
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-full">
+    <% if flash[:alert].present? %>
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+          There is a problem
+        </h2>
+        <p class="govuk-body-s"><%= flash[:alert] %></p>
+      </div>
+    <% end %>
+    
+    <h1 class="govuk-heading-l"><%= t('active_admin.sign_in.title') %></h1>
+    <p class="govuk-body-l">Please make sure you have a Microsoft Azure account set up to use this service.</p>
+    <%= button_to 'Sign in', "/auth/azure_ad_auth", id: 'submit', class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8' %>
+  </div>
+</div>

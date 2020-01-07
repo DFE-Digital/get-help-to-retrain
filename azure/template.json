@@ -144,6 +144,34 @@
         "description:": "Bing Spell Check Service - API KEY"
       }
     },
+    "azureClientId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Azure Active Directory - CLIENT ID"
+      }
+    },
+    "azureClientSecret": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Azure Active Directory - CLIENT SECRET KEY"
+      }
+    },
+    "azureScopes": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Azure Active Directory - OAUTH2 SCOPES"
+      }
+    },
+    "azureTenantId": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Azure Active Directory - TENANT ID"
+      }
+    },
     "googleAnalyticsTrackingId": {
       "type": "string",
       "defaultValue": "",
@@ -656,6 +684,22 @@
               {
                 "name": "SENTRY_DSN",
                 "value": "[parameters('sentryDsn')]"
+              },
+              {
+                "name": "AZURE_CLIENT_ID",
+                "value": "[parameters('azureClientId')]"
+              },
+              {
+                "name": "AZURE_CLIENT_SECRET",
+                "value": "[parameters('azureClientSecret')]"
+              },
+              {
+                "name": "AZURE_SCOPES",
+                "value": "[parameters('azureScopes')]"
+              },
+              {
+                "name": "AZURE_TENANT_ID",
+                "value": "[parameters('azureTenantId')]"
               }
             ]
           },
