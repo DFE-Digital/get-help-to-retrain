@@ -97,7 +97,7 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Start Azure Admin Service: ${{parameters.environment}}'
-              condition: ne(variables['ArmOutputs.adminServiceName'], 'disabled')
+              condition: and(succeeded(), ne(variables['ArmOutputs.adminServiceName'], 'disabled'))
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Start Azure App Service'
@@ -108,7 +108,7 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Swap Slots Admin Service: ${{parameters.environment}}'
-              condition: ne(variables['ArmOutputs.adminServiceName'], 'disabled')
+              condition: and(succeeded(), ne(variables['ArmOutputs.adminServiceName'], 'disabled'))
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 WebAppName: '${{parameters.resourceGroupName}}admin-as'
@@ -117,7 +117,7 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Stop Azure Admin Service: ${{parameters.environment}}'
-              condition: ne(variables['ArmOutputs.adminServiceName'], 'disabled')
+              condition: and(succeeded(), ne(variables['ArmOutputs.adminServiceName'], 'disabled'))
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Stop Azure App Service'
