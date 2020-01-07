@@ -108,6 +108,9 @@
     },
     "appServicePlanInstances": {
       "value": 2
+    },
+    "adminEnabled": {
+      "value": true
     }
   }
 }

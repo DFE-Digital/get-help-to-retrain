@@ -36,11 +36,39 @@ jobs:
                 csmFile: '$(Pipeline.Workspace)\ARMTemplates\azure\template.json'
                 csmParametersFile: '$(Pipeline.Workspace)\ARMTemplates\azure\config\${{parameters.environment}}.parameters.json'
                 overrideParameters: '-containerImageReference "${{parameters.containerImageReference}}" -dockerComposeFile "$(dockerCompose)"  -supportEmailAddresses ${{parameters.supportEmailAddresses}}'
-                deploymentOutputs: DeploymentOutput
+                deploymentOutputs: ArmOutputs
+
+            - powershell: |
+                function Convert-ArmOutputToPsObject {
+                  param (
+                    [Parameter(Mandatory=$true)]
+                    [string]
+                    $ArmOutputString
+                  )
+
+                  $armOutputObj = $ArmOutputString | ConvertFrom-Json
+
+                  $armOutputObj.PSObject.Properties | ForEach-Object {
+                      $type = ($_.value.type).ToLower()
+                      $keyname = "ArmOutputs.$($_.name)"
+                      $value = $_.value.value
+
+                      if ($type -eq "securestring") {
+                          Write-Host "##vso[task.setvariable variable=$keyname;issecret=true]$value"
+                          Write-Host "Added Azure DevOps secret variable '$keyname' ('$type')"
+                      } elseif ($type -eq "string") {
+                          Write-Host "##vso[task.setvariable variable=$keyname]$value"
+                          Write-Host "Added Azure DevOps variable '$keyname' ('$type') with value '$value'"
+                      } else {
+                          Throw "Type '$type' is not supported for '$keyname'"
+                      }
+                  }
+                }
+                Convert-ArmOutputToPsObject -ArmOutputString '$(ArmOutputs)'
+              displayName: "Parsing outputs from ARM Deployment into pipeline variables"
 
             - task: AzureAppServiceManage@0
               displayName: 'Start Azure App Service: ${{parameters.environment}}'
-              condition: ne(variables['appServiceName'], 'disabled')
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Start Azure App Service'
@@ -50,8 +78,7 @@ jobs:
                 Slot: staging
 
             - task: AzureAppServiceManage@0
-              displayName: 'Swap Slots: ${{parameters.environment}}'
-              condition: ne(variables['appServiceName'], 'disabled')
+              displayName: 'Swap Slots App Service: ${{parameters.environment}}'
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 WebAppName: '${{parameters.resourceGroupName}}-as'
@@ -60,11 +87,41 @@ jobs:
 
             - task: AzureAppServiceManage@0
               displayName: 'Stop Azure App Service: ${{parameters.environment}}'
-              condition: ne(variables['appServiceName'], 'disabled')
               inputs:
                 azureSubscription: '${{parameters.subscriptionServiceConnection}}'
                 Action: 'Stop Azure App Service'
                 WebAppName: '${{parameters.resourceGroupName}}-as'
+                SpecifySlotOrASE: true
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                Slot: staging
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Start Azure Admin Service: ${{parameters.environment}}'
+              condition: ne(variables['ArmOutputs.adminServiceName'], 'disabled')
+              inputs:
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                Action: 'Start Azure App Service'
+                WebAppName: '${{parameters.resourceGroupName}}admin-as'
+                SpecifySlotOrASE: true
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                Slot: staging
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Swap Slots Admin Service: ${{parameters.environment}}'
+              condition: ne(variables['ArmOutputs.adminServiceName'], 'disabled')
+              inputs:
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                WebAppName: '${{parameters.resourceGroupName}}admin-as'
+                resourceGroupName: '${{parameters.resourceGroupName}}'
+                SourceSlot: staging
+
+            - task: AzureAppServiceManage@0
+              displayName: 'Stop Azure Admin Service: ${{parameters.environment}}'
+              condition: ne(variables['ArmOutputs.adminServiceName'], 'disabled')
+              inputs:
+                azureSubscription: '${{parameters.subscriptionServiceConnection}}'
+                Action: 'Stop Azure App Service'
+                WebAppName: '${{parameters.resourceGroupName}}admin-as'
                 SpecifySlotOrASE: true
                 resourceGroupName: '${{parameters.resourceGroupName}}'
                 Slot: staging
