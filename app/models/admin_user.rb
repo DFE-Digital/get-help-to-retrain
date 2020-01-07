@@ -1,10 +1,13 @@
 class AdminUser < RestrictedActiveRecordBase
+  ROLES = %w[manager write read].freeze
+
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
   validates :resource_id, presence: true, uniqueness: true
 
   has_paper_trail only: %i[update destroy]
+  scope :with_role, ->(role) { where("roles_mask & #{2**ROLES.index(role)} > 0 ") }
 
   def self.from_omniauth(auth_hash)
     user_info = auth_hash[:info] || {}
@@ -23,5 +26,15 @@ class AdminUser < RestrictedActiveRecordBase
 
     # We are extracting ids instead of names as ids will not change, while names could change
     roles_data.pluck(:id)
+  end
+
+  # convert list of roles to bitmask
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
+  end
+
+  # convert bitmask back to list of roles
+  def roles
+    ROLES.reject { |r| ((roles_mask || 0) & 2**ROLES.index(r)).zero? }
   end
 end

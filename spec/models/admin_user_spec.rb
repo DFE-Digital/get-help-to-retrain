@@ -106,4 +106,78 @@ RSpec.describe AdminUser do
       expect(admin_user.roles_from(auth_hash)).to be_empty
     end
   end
+
+  describe '#roles' do
+    it 'returns no roles if no roles given' do
+      expect(admin_user.roles).to be_empty
+    end
+
+    it 'sets roles mask to nil if no roles given' do
+      expect(admin_user.roles_mask).to be_nil
+    end
+
+    it 'returns a role if one role given' do
+      admin_user.roles = ['manager']
+      expect(admin_user.roles).to contain_exactly('manager')
+    end
+
+    it 'sets roles mask if one role given' do
+      admin_user.roles = ['manager']
+      expect(admin_user.roles_mask).to eq(1)
+    end
+
+    it 'returns roles if multiple roles given' do
+      admin_user.roles = %w[write manager]
+      expect(admin_user.roles).to contain_exactly('write', 'manager')
+    end
+
+    it 'sets roles mask if multiple roles given' do
+      admin_user.roles = %w[write manager]
+      expect(admin_user.roles_mask).to eq(3)
+    end
+
+    it 'overwrites roles if already set' do
+      admin_user.roles = %w[write manager]
+      admin_user.roles = %w[read manager]
+
+      expect(admin_user.roles).to contain_exactly('read', 'manager')
+    end
+
+    it 'overwrites roles mask if already set' do
+      admin_user.roles = %w[write manager]
+      admin_user.roles = %w[read manager]
+
+      expect(admin_user.roles_mask).to eq(5)
+    end
+
+    it 'returns no roles if non existing roles given' do
+      admin_user.roles = %w[captain]
+      expect(admin_user.roles).to be_empty
+    end
+
+    it 'sets roles mask to nil if non existing roles given' do
+      admin_user.roles = %w[captain]
+      expect(admin_user.roles_mask).to be_zero
+    end
+
+    it 'ignores non existing roles' do
+      admin_user.roles = %w[captain manager]
+      expect(admin_user.roles).to contain_exactly('manager')
+    end
+  end
+
+  describe '.with_roles' do
+    it 'returns all admin users with a set role' do
+      admin1 = create(:admin_user, roles: ['manager'])
+      admin2 = create(:admin_user, roles: ['write'])
+      admin3 = create(:admin_user, roles: ['manager', 'write'])
+
+      expect(described_class.with_role('write')).to contain_exactly(admin2, admin3)
+    end
+
+    it 'returns no admin users if role is not present' do
+      create(:admin_user, roles: ['manager'])
+      expect(described_class.with_role('write')).to be_empty
+    end
+  end
 end
