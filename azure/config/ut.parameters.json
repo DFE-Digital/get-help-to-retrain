@@ -72,38 +72,6 @@
         "secretName": "ut-notifyApiKey"
       }
     },
-    "azureClientId": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
-        },
-        "secretName": "ut-azureClientId"
-      }
-    },
-    "azureClientSecret": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
-        },
-        "secretName": "ut-azureClientSecret"
-      }
-    },
-    "azureScopes": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
-        },
-        "secretName": "ut-azureScopes"
-      }
-    },
-    "azureTenantId": {
-      "reference": {
-        "keyVault": {
-          "id": "/subscriptions/f35bd249-3028-48bd-9aab-d00e9d1a56b7/resourceGroups/s108d01-shared/providers/Microsoft.KeyVault/vaults/s108d01-shared-kv-01"
-        },
-        "secretName": "ut-azureTenantId"
-      }
-    },
     "findAJobApiId": {
       "reference": {
         "keyVault": {
