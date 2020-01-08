@@ -8,9 +8,14 @@ class TrackingService
 
   MAX_BATCH_SIZE = 20
 
-  attr_reader :ga_tracking_id
+  attr_reader :ga_tracking_id, :client_tracking_data
 
-  def initialize(ga_tracking_id: Rails.configuration.google_analytics_tracking_id, debug: false)
+  def initialize(
+    ga_tracking_id: Rails.configuration.google_analytics_tracking_id,
+    client_tracking_data: {},
+    debug: false
+  )
+    @client_tracking_data = client_tracking_data
     @ga_tracking_id = ga_tracking_id
     @debug = debug
   end
@@ -46,19 +51,24 @@ class TrackingService
     @debug
   end
 
-  def anonymized_client_id
-    SecureRandom.uuid
+  def client_tracking_info
+    {
+      cid: client_tracking_data[:ga_cookie],
+      uip: client_tracking_data[:ip_address],
+      ua: client_tracking_data[:user_agent]
+    }
   end
 
   def build_payload(key, label, value)
     URI.encode_www_form(
-      tid: ga_tracking_id,
-      cid: anonymized_client_id,
-      t: 'event',
-      v: 1,
-      ec: key,
-      el: label,
-      ea: value
+      {
+        tid: ga_tracking_id,
+        t: 'event',
+        v: 1,
+        ec: key,
+        el: label,
+        ea: value
+      }.merge(client_tracking_info)
     )
   end
 

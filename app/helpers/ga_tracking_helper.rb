@@ -11,6 +11,14 @@ module GaTrackingHelper
     )
   end
 
+  def client_tracking_data
+    {
+      ga_cookie: cookies['_ga'],
+      ip_address: request.remote_ip,
+      user_agent: request.env['HTTP_USER_AGENT']
+    }
+  end
+
   private
 
   def build_event_props(key:, label:, values:)

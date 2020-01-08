@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe TrackingService do
-  subject(:service) { described_class.new(ga_tracking_id: ga_tracking_id) }
+  subject(:service) { described_class.new(client_tracking_data: client_tracking_data, ga_tracking_id: ga_tracking_id) }
 
   let(:ga_tracking_id) { 'test' }
 
@@ -9,19 +9,31 @@ RSpec.describe TrackingService do
     'GIF89a\x01\x00\x01\x00\x80\xFF\x00\xFF\xFF\xFF\x00\;'
   }
 
-  let(:anonymized_client_id) {
-    SecureRandom.uuid
+  let(:ga_cookie) { 'GA1.1.1652866035.1575886179' }
+
+  let(:ip_address) { '84.17.50.171' }
+
+  let(:user_agent) { 'Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail' }
+
+  let(:client_tracking_data) {
+    {
+      ga_cookie: ga_cookie,
+      ip_address: ip_address,
+      user_agent: user_agent
+    }
   }
 
   let(:event_payload) {
     {
       tid: ga_tracking_id,
-      cid: anonymized_client_id,
       t: 'event',
       v: 1,
       ec: 'event_category',
       el: 'Event Label',
-      ea: 'Event action'
+      ea: 'Event action',
+      cid: ga_cookie,
+      uip: ip_address,
+      ua: user_agent
     }
   }
 
@@ -65,8 +77,6 @@ RSpec.describe TrackingService do
     context 'with a valid ga_tracking ID' do
       before do
         fake_batch_request_with(URI.encode_www_form(event_payload))
-
-        allow(SecureRandom).to receive(:uuid).and_return(anonymized_client_id)
       end
 
       it 'returns the correct response' do
@@ -85,7 +95,13 @@ RSpec.describe TrackingService do
     end
 
     context 'with a valid ga_tracking ID and debug mode on' do
-      subject(:service) { described_class.new(ga_tracking_id: ga_tracking_id, debug: true) }
+      subject(:service) {
+        described_class.new(
+          client_tracking_data: client_tracking_data,
+          ga_tracking_id: ga_tracking_id,
+          debug: true
+        )
+      }
 
       let(:ga_response) {
         {
@@ -112,8 +128,6 @@ RSpec.describe TrackingService do
 
       before do
         fake_debug_request_with(event_payload)
-
-        allow(SecureRandom).to receive(:uuid).and_return(anonymized_client_id)
       end
 
       it 'returns an actual JSON object' do
@@ -181,19 +195,19 @@ RSpec.describe TrackingService do
       let(:other_event_payload) {
         {
           tid: ga_tracking_id,
-          cid: anonymized_client_id,
           t: 'event',
           v: 1,
           ec: 'event_category',
           el: 'Event Label',
-          ea: 'New event action'
+          ea: 'New event action',
+          cid: ga_cookie,
+          uip: ip_address,
+          ua: user_agent
         }
       }
 
       before do
         fake_batch_request_with(bulk_payload)
-
-        allow(SecureRandom).to receive(:uuid).and_return(anonymized_client_id)
       end
 
       it 'sends them in batch' do
