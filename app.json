@@ -38,16 +38,25 @@
       "required": false
     },
     "AZURE_CLIENT_ID": {
-      "required": false
+      "required": true
     },
     "AZURE_CLIENT_SECRET": {
-      "required": false
+      "required": true
     },
     "AZURE_SCOPES": {
-      "required": false
+      "required": true
     },
     "AZURE_TENANT_ID": {
-      "required": false
+      "required": true
+    },
+    "AZURE_MANAGEMENT_ROLE_ID": {
+      "required": true
+    },
+    "AZURE_READWRITE_ROLE_ID": {
+      "required": true
+    },
+    "AZURE_READ_ROLE_ID": {
+      "required": true
     }
   },
   "formation": {
