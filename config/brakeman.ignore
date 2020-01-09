@@ -31,6 +31,26 @@
       "note": "The attribute value is escaped at storage level as part of ActiveRecord behaviour. There is no danger."
     },
     {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "ac5c218b856e4396e2427cbfe05d6b6891a6a6d46f87774def803b5a9678b3d7",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/admin_user.rb",
+      "line": 9,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "where(\"roles_mask & #{(2 ** [\"management\", \"readwrite\", \"read\"].index(role))} > 0 \")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AdminUser",
+        "method": "with_role"
+      },
+      "user_input": "(2 ** [\"management\", \"readwrite\", \"read\"].index(role))",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "e1e88f91e58bc027b2425ba9387071f36bb1f90844f2c91945f6c1bbc2be8951",
@@ -92,6 +112,6 @@
       "note": "The attribute value is escaped at storage level as part of ActiveRecord behaviour. There is no danger."
     }
   ],
-  "updated": "2019-12-17 11:30:21 +0000",
-  "brakeman_version": "4.7.1"
+  "updated": "2020-01-09 10:57:49 +0000",
+  "brakeman_version": "4.5.1"
 }
