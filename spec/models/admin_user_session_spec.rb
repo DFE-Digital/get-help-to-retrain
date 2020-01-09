@@ -16,16 +16,4 @@ RSpec.describe AdminUserSession do
       expect(user_session.user_id).to be_nil
     end
   end
-
-  describe '#user_roles' do
-    it 'returns the values for :user_roles key if set' do
-      user_session.user_roles = %w[c7e498f2-fb37 c7e498f2-fb39 c7e498f2-fb31]
-
-      expect(user_session.user_roles).to contain_exactly('c7e498f2-fb37', 'c7e498f2-fb39', 'c7e498f2-fb31')
-    end
-
-    it 'returns nil if :user_roles key if not set' do
-      expect(user_session.user_roles).to be_nil
-    end
-  end
 end
