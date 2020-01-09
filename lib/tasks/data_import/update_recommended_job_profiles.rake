@@ -8,7 +8,6 @@ namespace :data_import do
       non_recommended_jobs = JobProfile.where(slug: %w[
                                                 advertising-art-director
                                                 advertising-media-buyer
-                                                aid-worker
                                                 anaesthetist
                                                 archaeologist
                                                 archivist
@@ -19,10 +18,7 @@ namespace :data_import do
                                                 barrister
                                                 biochemist
                                                 botanist
-                                                boxer
-                                                celebrant
                                                 chiropractor
-                                                civil-service-manager
                                                 climate-scientist
                                                 clinical-psychologist
                                                 cognitive-behavioural-therapist
@@ -40,7 +36,6 @@ namespace :data_import do
                                                 ecologist
                                                 environmental-consultant
                                                 ergonomist
-                                                film-critic
                                                 forensic-psychologist
                                                 geneticist
                                                 geoscientist
@@ -52,7 +47,6 @@ namespace :data_import do
                                                 materials-engineer
                                                 medical-herbalist
                                                 medical-illustrator
-                                                motorsport-engineer
                                                 music-therapist
                                                 nanotechnologist
                                                 naturopath
@@ -72,7 +66,6 @@ namespace :data_import do
                                                 pathologist
                                                 pharmacist
                                                 pharmacologist
-                                                physician-associate
                                                 physicist
                                                 play-therapist
                                                 psychiatrist
@@ -82,13 +75,11 @@ namespace :data_import do
                                                 royal-navy-officer
                                                 school-nurse
                                                 seismologist
-                                                sonographer
                                                 speech-and-language-therapist
                                                 sport-and-exercise-psychologist
                                                 sports-scientist
                                                 surgeon
                                                 technical-textiles-designer
-                                                test-lead
                                                 translator
                                                 vet
                                                 zoologist
