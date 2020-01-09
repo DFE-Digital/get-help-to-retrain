@@ -1,5 +1,5 @@
 class AdminUser < RestrictedActiveRecordBase
-  ROLES = %w[manager write read].freeze
+  ROLES = %w[management readwrite read].freeze
 
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -12,20 +12,31 @@ class AdminUser < RestrictedActiveRecordBase
   def self.from_omniauth(auth_hash)
     user_info = auth_hash[:info] || {}
 
-    find_or_initialize_by(
+    admin_user = find_or_initialize_by(
       email: user_info[:email],
       name: user_info[:name],
       resource_id: auth_hash[:uid]
     )
+
+    admin_user.roles = roles_from(auth_hash)
+    admin_user
   end
 
-  def roles_from(auth_hash)
-    roles_data = auth_hash.dig(:extra, :user_roles, :value)
+  def self.roles_from(auth_hash)
+    user_roles = auth_hash.dig(:extra, :user_roles, :value)
+    return [] unless user_roles.present?
 
-    return [] unless roles_data.present?
+    groups_to_roles_mapping
+      .values_at(*user_roles.pluck(:id))
+      .compact
+  end
 
-    # We are extracting ids instead of names as ids will not change, while names could change
-    roles_data.pluck(:id)
+  def self.groups_to_roles_mapping
+    {
+      Rails.configuration.azure_management_role_id => ROLES[0],
+      Rails.configuration.azure_readwrite_role_id => ROLES[1],
+      Rails.configuration.azure_read_role_id => ROLES[2]
+    }.reject { |k, _v| k.blank? }
   end
 
   # convert list of roles to bitmask

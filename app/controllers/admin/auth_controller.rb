@@ -5,7 +5,6 @@ module Admin
 
       if admin_user.save
         admin_user_session.user_id = admin_user.resource_id
-        admin_user_session.user_roles = admin_user.roles_from(omniauth_hash)
 
         redirect_to root_path
       else
