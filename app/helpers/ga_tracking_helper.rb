@@ -13,7 +13,7 @@ module GaTrackingHelper
 
   def client_tracking_data
     {
-      ga_cookie: cookies['_ga'],
+      ga_cookie: cookies['_ga']&.gsub(/^(.*?\..*?\.)/, ''),
       ip_address: request.remote_ip,
       user_agent: request.env['HTTP_USER_AGENT']
     }
