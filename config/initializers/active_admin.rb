@@ -17,5 +17,8 @@ if defined?(ActiveAdmin)
 
     # Define the active admin's logout path
     config.logout_link_path = :admin_sign_out_path
+
+    # Define authorization adapter
+    config.authorization_adapter = ActiveAdmin::CanCanAdapter
   end
 end
