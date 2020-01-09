@@ -8,8 +8,8 @@
   <% end %>
   <p class="govuk-!-margin-0 govuk-!-margin-bottom-3"><%= job_profile.description %></p>
   <p class="govuk-body govuk-!-margin-bottom-1">Skills match: <span class="strong"><%= job_profile.skills_match(@scores[job_profile.id]) || 'None' %></span></p>
+  <p class="govuk-body govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.growth_type %></span></p>
   <% if job_profile.growth.present? %>
-    <p class="govuk-body govuk-!-margin-bottom-1">Recent job growth: <span class="strong"><%= job_profile.growth_type %></span></p>
     <details class="govuk-details" data-module="govuk-details">
       <summary class="govuk-details__summary" aria-controls="recent-growth-details" aria-expanded="true" role="button">
         <span class="govuk-details__summary-text">What does <%= job_profile.growth_type.downcase %> mean?</span>

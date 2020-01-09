@@ -193,9 +193,9 @@ RSpec.describe SkillsMatcher do
       matcher = described_class.new(UserSession.new(session))
       expect(matcher.match).to eq(
         [
-          job_profile3,
           job_profile4,
-          job_profile2
+          job_profile2,
+          job_profile3
         ]
       )
     end
