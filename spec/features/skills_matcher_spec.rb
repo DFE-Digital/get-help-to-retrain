@@ -105,7 +105,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     visit_skills_for_current_job_profile
 
     expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
-      ['Assasin', 'Skills match: Good', 'Hacker', 'Skills match: Good', 'Admin', 'Skills match: Good']
+      ['Hacker', 'Skills match: Good', 'Admin', 'Skills match: Good', 'Assasin', 'Skills match: Good']
     )
   end
 
@@ -116,7 +116,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     visit_skills_for_current_job_profile
 
     expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
-      ['Assasin', 'Skills match: Good', 'Hacker', 'Skills match: Good', 'Hitman', 'Skills match: Good', 'Admin', 'Skills match: Good']
+      ['Hacker', 'Skills match: Good', 'Hitman', 'Skills match: Good', 'Admin', 'Skills match: Good', 'Assasin', 'Skills match: Good']
     )
   end
 
@@ -128,7 +128,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     visit skills_matcher_index_path(sort: 'growth')
 
     expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
-      ['Assasin', 'Skills match: Good', 'Admin', 'Skills match: Reasonable', 'Hacker', 'Skills match: Good']
+      ['Admin', 'Skills match: Reasonable', 'Hacker', 'Skills match: Good', 'Assasin', 'Skills match: Good']
     )
   end
 
