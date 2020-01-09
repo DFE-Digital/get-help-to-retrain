@@ -125,7 +125,7 @@ RSpec.describe JobProfileDecorator do
       let(:model) { build(:job_profile, growth: nil) }
 
       it 'returns nil' do
-        expect(job_profile.growth_type).to be nil
+        expect(job_profile.growth_type).to eq('No data available')
       end
     end
   end

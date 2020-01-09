@@ -87,8 +87,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def growth_type
-    return unless growth
-
+    return 'No data available' unless growth
     return 'Falling' if growth <= -5
     return 'Stable' if growth > -5 && growth <= 5
     return 'Growing' if growth > 5 && growth <= 50
