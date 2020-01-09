@@ -41,13 +41,13 @@ RSpec.feature 'Task list', type: :feature do
 
     link = find_link('feedback')
 
-    expect(link[:href]).to eq('https://www.smartsurvey.co.uk/s/get-help-to-retrain/')
+    expect(link[:href]).to eq('https://forms.office.com/Pages/ResponsePage.aspx?id=yXfS-grGoU2187O4s0qC-QkD7_YqknBBowIXCwHR9UlUMDdIMUE3S0JUSFM0QU1ITUhTTzdXWFE1Mi4u')
   end
 
-  scenario 'With a clean new session the user will see sections 2,3,4 locked' do
+  scenario 'With a clean new session the user will see sections 2,3 locked' do
     visit(task_list_path)
 
-    (2..4).each do |section_no|
+    (2..3).each do |section_no|
       expect(page).to have_css("span#section-#{section_no}-blocked")
     end
   end
@@ -132,7 +132,7 @@ RSpec.feature 'Task list', type: :feature do
     expect(page).to have_current_path(action_plan_path)
   end
 
-  scenario 'User sets a target job on the session, but then removes all skills -> Sections 2,3,4 become locked again' do
+  scenario 'User sets a target job on the session, but then removes all skills -> Sections 2,3 become locked again' do
     ensure_target_job_on_session
 
     visit(task_list_path)
@@ -142,18 +142,8 @@ RSpec.feature 'Task list', type: :feature do
 
     visit(task_list_path)
 
-    (2..4).each do |section_no|
+    (2..3).each do |section_no|
       expect(page).to have_css("span#section-#{section_no}-blocked")
     end
-  end
-
-  scenario 'User unlocks survey section when one has a target job on the session' do
-    ensure_target_job_on_session
-
-    visit(task_list_path)
-
-    link = find_link('Take a quick survey')
-
-    expect(link[:href]).to eq('https://www.smartsurvey.co.uk/s/get-help-to-retrain/')
   end
 end
