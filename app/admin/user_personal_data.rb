@@ -19,7 +19,9 @@ if defined?(ActiveAdmin)
 
     controller do
       def destroy
-        track_custom_event(item_type: 'User Personal Data Page', event: 'record deleted') if resource.destroy
+        track_custom_event(item_type: 'UserPersonalData', event: 'destroy', item_id: resource.id) if resource.destroy
+
+        super
       end
     end
 
@@ -64,6 +66,15 @@ if defined?(ActiveAdmin)
         item_type: 'User Personal Data Page',
         event: 'downloaded CSV'
       )
+
+      column :id
+      column :first_name
+      column :last_name
+      column :postcode
+      column :dob
+      column :gender
+      column :created_at
+      column :updated_at
     end
 
     form do |f|

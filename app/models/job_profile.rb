@@ -13,7 +13,7 @@ class JobProfile < PrimaryActiveRecordBase
   scope :recommended, -> { where(recommended: true) }
   scope :excluded, -> { where(recommended: false) }
 
-  has_paper_trail on: %i[update]
+  has_paper_trail
 
   def self.find_by_name(name)
     where('lower(name) = ?', name.downcase).first

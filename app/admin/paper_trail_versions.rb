@@ -8,14 +8,16 @@ if defined?(ActiveAdmin)
     index do
       column :id
       column 'Changed Item ID' do |version|
-        link_to version.item_id, admin_job_profile_path(version.item_id) if version.item_id.present?
+        next unless version.item_id.present?
+
+        version.item ? link_to(version.item_id, [:admin, version.item]) : version.item_id
       end
       column :item_type
       column :event do |version|
         version.event.html_safe
       end
-      column 'Authored by User ID' do |version|
-        link_to version.whodunnit, admin_admin_user_path(version.whodunnit)
+      column 'Authored by' do |version|
+        whodunnit_for(version: version)
       end
       column :created_at
       actions
@@ -25,21 +27,22 @@ if defined?(ActiveAdmin)
       attributes_table do
         row :id
         row 'Changed Item ID' do |version|
-          link_to version.item_id, admin_job_profile_path(version.item_id) if version.item_id.present?
+          version.item ? link_to(version.item_id, [:admin, version.item]) : version.item_id
         end
         row :item_type
-        row :event
-        row 'Authored by User ID' do |version|
-          link_to version.whodunnit, admin_admin_user_path(version.whodunnit)
+        row :event do |version|
+          version.event.html_safe
+        end
+        row 'Authored by' do |version|
+          whodunnit_for(version: version)
         end
         row :changes do |version|
-          if version.object_changes.present? && version.event != 'record deleted'
+          if version.object_changes.present?
             changes_hash = version.object_changes.except('updated_at')
-
             changes_hash.map { |k, v|
               next unless v[0].present?
 
-              "<strong>#{k}</strong> value changed from: <strong>#{v[0]}</strong> -> <strong>#{v[1]}</strong>"
+              "<strong>#{k}: #{v.compact.join(' -> ')}</strong>"
             }.compact.join('<br>').html_safe
           end
         end

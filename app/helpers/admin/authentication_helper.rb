@@ -25,12 +25,20 @@ module Admin
     end
 
     # Send custom tracking events to PaperTrail
-    def track_custom_event(item_type:, event:)
+    def track_custom_event(item_type:, event:, item_id: nil)
       PaperTrail::Version.create(
         item_type: item_type,
         whodunnit: admin_current_user.id,
-        event: event
+        event: event,
+        item_id: item_id
       )
+    end
+
+    # Link to whodunnit resource
+    def whodunnit_for(version:)
+      return 'Platform' unless version.whodunnit.present?
+
+      link_to(version.whodunnit, admin_admin_user_path(version.whodunnit))
     end
   end
 end

@@ -10,7 +10,7 @@ class Course < PrimaryActiveRecordBase
   scope :geocoded, -> { where.not(latitude: 0).where.not(longitude: 0) }
   scope :not_geocoded, -> { where(latitude: 0, longitude: 0) }
 
-  has_paper_trail on: %i[update]
+  has_paper_trail
 
   def format_postcode
     return unless postcode

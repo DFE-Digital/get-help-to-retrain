@@ -93,7 +93,7 @@ RSpec.feature 'Admin Users Authentication' do
     click_on('Delete')
     visit(admin_audit_logs_path)
 
-    ['User Personal Data Page', 'record deleted'].each do |content|
+    ['User Personal Data Page', 'destroy'].each do |content|
       expect(page).to have_content(content)
     end
   end
@@ -119,9 +119,9 @@ RSpec.feature 'Admin Users Authentication' do
     uncheck('Recommended', allow_label_click: true)
     click_on('Update Job profile')
     click_on('Audit Logs')
-    click_on('View')
+    all('.view_link').first.click
 
-    ['growth value changed from: 12.3 -> 10.0', 'recommended value changed from: true -> false'].each do |content|
+    ['growth: 12.3 -> 10.0', 'recommended: true -> false'].each do |content|
       expect(page).to have_content(content)
     end
   end

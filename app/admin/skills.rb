@@ -1,6 +1,8 @@
 if defined?(ActiveAdmin)
   # rubocop:disable Metrics/BlockLength
   ActiveAdmin.register Skill do
+    config.per_page = 10
+
     actions :all, except: %i[new destroy]
 
     permit_params :name, :enabled
