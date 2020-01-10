@@ -3,7 +3,7 @@
     <div id="feedback-prompt-question">
       <h2 class="feedback-prompt-content">Is this page useful?</h2>
       <%= form_with url: feedback_surveys_path, class: 'feedback-survey-form', id: 'page-is-useful-form', aria: { hidden: false } do |f| %>
-        <%= hidden_field_tag('page_useful', 'yes') %>
+        <%= hidden_field_tag('page_useful', 'yes', id: 'page_useful_yes') %>
         <%= submit_tag('Yes', role: 'button', class: 'unbutton-survey feedback-prompt-link') %>
         <span class="govuk-visually-hidden">this page is useful</span>
       <% end %>
@@ -25,7 +25,7 @@
   <div id="feedback-not-useful-container" class="top-border__container  govuk-!-padding-top-2 hidden">
     <%= link_to 'close', '#', class: 'govuk-body govuk-link close-feedback-survey', role: 'button', aria: { controls: 'page-is-not-useful', expanded: true } %>
     <%= form_with url: feedback_surveys_path, id: 'page-is-not-useful-form', aria: { hidden: true } do |f| %>
-      <%= hidden_field_tag('page_useful', 'no') %>
+      <%= hidden_field_tag('page_useful', 'no', id: 'page_useful_no') %>
       <div class="govuk-form-group govuk-!-margin-top-6">
         <%= label_tag :feedback_survey_message, 'How should we improve this page?', class: 'govuk-label govuk-!-margin-bottom-4' %>
         <%= text_area_tag :message, nil, class: 'govuk-textarea govuk-!-width-two-thirds', rows: 3, maxlength: 250 %>
