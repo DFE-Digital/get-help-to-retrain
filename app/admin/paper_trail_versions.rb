@@ -40,8 +40,6 @@ if defined?(ActiveAdmin)
           if version.object_changes.present?
             changes_hash = version.object_changes.except('updated_at')
             changes_hash.map { |k, v|
-              next unless v[0].present?
-
               "<strong>#{k}: #{v.compact.join(' -> ')}</strong>"
             }.compact.join('<br>').html_safe
           end
