@@ -172,6 +172,13 @@
         "description:": "Azure Active Directory - TENANT ID"
       }
     },
+    "azureCallbackUrl": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Azure Active Directory - CALLBACK URL"
+      }
+    },
     "googleAnalyticsTrackingId": {
       "type": "string",
       "defaultValue": "",

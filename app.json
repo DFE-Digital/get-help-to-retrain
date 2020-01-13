@@ -48,6 +48,9 @@
     },
     "AZURE_TENANT_ID": {
       "required": false
+    },
+    "AZURE_CALLBACK_URL": {
+      "required": false
     }
   },
   "formation": {

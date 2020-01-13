@@ -13,6 +13,7 @@ module OmniAuth
       # Configure the Microsoft identity platform endpoints
       option :client_options,
              site: SITE,
+             callback_url: Rails.application.config.azure_callback_url,
              authorize_url: "/#{Rails.application.config.azure_tenant_id}/oauth2/v2.0/authorize",
              token_url: "/#{Rails.application.config.azure_tenant_id}/oauth2/v2.0/token"
 

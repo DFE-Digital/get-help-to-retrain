@@ -50,5 +50,6 @@ module GetHelpToRetrain
     config.azure_client_secret = ENV['AZURE_CLIENT_SECRET']
     config.azure_scopes = ENV['AZURE_SCOPES']
     config.azure_tenant_id = ENV['AZURE_TENANT_ID']
+    config.azure_callback_url = ENV['AZURE_CALLBACK_URL']
   end
 end
