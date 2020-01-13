@@ -4,7 +4,7 @@ class AdminUser < RestrictedActiveRecordBase
   validates :name, presence: true
   validates :resource_id, presence: true, uniqueness: true
 
-  has_paper_trail
+  has_paper_trail only: %i[update destroy]
 
   def self.from_omniauth(auth_hash)
     user_info = auth_hash[:info] || {}
