@@ -4,6 +4,8 @@ class Skill < PrimaryActiveRecordBase
 
   scope :without_job_profiles, -> { left_outer_joins(:job_profiles).where(job_profiles: { id: nil }) }
 
+  has_paper_trail
+
   def self.import(names)
     names.map { |name| find_or_create_by(name: name) }
   end

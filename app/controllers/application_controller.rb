@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include Admin::AuthenticationHelper
 
   before_action :set_raven_context
+  before_action :set_paper_trail_whodunnit, if: proc { Rails.configuration.admin_mode }
 
   def user_session
     @user_session ||= UserSession.new(session)
