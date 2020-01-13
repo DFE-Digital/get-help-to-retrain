@@ -20,5 +20,8 @@ if defined?(ActiveAdmin)
 
     # Define format for data download
     config.download_links = [:csv]
+
+    # Define authorization adapter
+    config.authorization_adapter = ActiveAdmin::CanCanAdapter
   end
 end

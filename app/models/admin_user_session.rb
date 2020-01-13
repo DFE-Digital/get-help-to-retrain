@@ -12,12 +12,4 @@ class AdminUserSession
   def user_id=(value)
     session[:admin_user_id] = value
   end
-
-  def user_roles
-    session[:admin_user_roles]
-  end
-
-  def user_roles=(value)
-    session[:admin_user_roles] = value
-  end
 end

@@ -50,5 +50,8 @@ module GetHelpToRetrain
     config.azure_client_secret = ENV['AZURE_CLIENT_SECRET']
     config.azure_scopes = ENV['AZURE_SCOPES']
     config.azure_tenant_id = ENV['AZURE_TENANT_ID']
+    config.azure_management_role_id = ENV['AZURE_MANAGEMENT_ROLE_ID']
+    config.azure_readwrite_role_id = ENV['AZURE_READWRITE_ROLE_ID']
+    config.azure_read_role_id = ENV['AZURE_READ_ROLE_ID']
   end
 end
