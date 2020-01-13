@@ -105,7 +105,7 @@ RSpec.feature 'Admin Users Authentication' do
     click_on('View')
     visit(admin_audit_logs_path)
 
-    ['User Personal Data Page', "visited record id: #{user_personal_data.id}"].each do |content|
+    ['User Personal Data Page', 'visited record', user_personal_data.id].each do |content|
       expect(page).to have_content(content)
     end
   end

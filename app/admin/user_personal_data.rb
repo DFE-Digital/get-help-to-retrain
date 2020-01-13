@@ -45,8 +45,9 @@ if defined?(ActiveAdmin)
 
     show do
       track_custom_event(
-        item_type: 'User Personal Data Page',
-        event: "visited record id: #{link_to(resource.id, admin_user_personal_datum_path(resource.id))}"
+        item_type: 'UserPersonalData',
+        event: 'visited record',
+        item_id: resource.id
       )
 
       attributes_table do
