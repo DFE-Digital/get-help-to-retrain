@@ -172,27 +172,6 @@
         "description:": "Azure Active Directory - TENANT ID"
       }
     },
-    "azureManagementRoleId": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description:": "Azure Active Directory Groups - Management Role ID"
-      }
-    },
-    "azureReadWriteRoleId": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description:": "Azure Active Directory Groups - Read Write Role ID"
-      }
-    },
-    "azureReadRoleId": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description:": "Azure Active Directory Groups - Read Role ID"
-      }
-    },
     "googleAnalyticsTrackingId": {
       "type": "string",
       "defaultValue": "",
@@ -721,18 +700,6 @@
               {
                 "name": "AZURE_TENANT_ID",
                 "value": "[parameters('azureTenantId')]"
-              },
-              {
-                "name": "AZURE_MANAGEMENT_ROLE_ID",
-                "value": "[parameters('azureManagementRoleId')]"
-              },
-              {
-                "name": "AZURE_READWRITE_ROLE_ID",
-                "value": "[parameters('azureReadWriteRoleId')]"
-              },
-              {
-                "name": "AZURE_READ_ROLE_ID",
-                "value": "[parameters('azureReadRoleId')]"
               }
             ]
           },

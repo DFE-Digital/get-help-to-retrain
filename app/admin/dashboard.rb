@@ -41,6 +41,13 @@ if defined?(ActiveAdmin)
             end
           end
         end
+        column do
+          panel 'Admin Roles' do
+            h1 do
+              link_to AdminRole.count, admin_admin_roles_path
+            end
+          end
+        end
       end
     end
   end

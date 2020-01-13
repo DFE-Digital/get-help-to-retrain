@@ -1,4 +1,10 @@
 class AdminUser < RestrictedActiveRecordBase
+  has_and_belongs_to_many :roles,
+                          class_name: 'AdminRole',
+                          join_table: 'admin_users_admin_roles',
+                          foreign_key: 'admin_role_id',
+                          association_foreign_key: 'admin_user_id'
+
   validates :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true
@@ -21,16 +27,10 @@ class AdminUser < RestrictedActiveRecordBase
     user_roles = auth_hash.dig(:extra, :user_roles, :value)
     return [] unless user_roles.present?
 
-    groups_to_roles_mapping
-      .values_at(*user_roles.pluck(:id))
-      .compact
+    AdminRole.where(resource_id: user_roles.pluck(:id))
   end
 
-  def self.groups_to_roles_mapping
-    {
-      Rails.configuration.azure_management_role_id => 'management',
-      Rails.configuration.azure_readwrite_role_id => 'readwrite',
-      Rails.configuration.azure_read_role_id => 'read'
-    }.reject { |k, _v| k.blank? }
+  def has_role?(role)
+    roles.pluck(:name).include?(role)
   end
 end

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'admin/sign-in', to: 'admin/user_sessions#sign_in'
     get 'admin/sign-out', to: 'admin/user_sessions#destroy'
     get '/auth/azure_ad_auth/callback', to: 'admin/auth#callback'
+    resources :admin_roles
   end
 
   constraints(UserConstraint.new) do

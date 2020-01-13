@@ -62,7 +62,7 @@ RSpec.feature 'Admin Users Authentication' do
   }
 
   scenario 'User sees failure messages if they do not belong to any groups' do
-    allow(Rails.configuration).to receive(:azure_management_role_id).and_return('another-id')
+    create(:admin_role, name: 'management', resource_id: 'another-id')
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)
 
@@ -71,7 +71,7 @@ RSpec.feature 'Admin Users Authentication' do
 
   scenario 'Management user can manage user personal data' do
     create(:user_personal_data)
-    allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
 
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)
@@ -84,7 +84,7 @@ RSpec.feature 'Admin Users Authentication' do
 
   scenario 'Management user can manage job profiles' do
     create(:job_profile)
-    allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
 
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)
@@ -97,7 +97,7 @@ RSpec.feature 'Admin Users Authentication' do
 
   scenario 'ReadWrite user cannot manage user personal data' do
     create(:user_personal_data)
-    allow(Rails.configuration).to receive(:azure_readwrite_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'readwrite', resource_id: 'be91dffe-b6bcb')
 
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)
@@ -108,7 +108,7 @@ RSpec.feature 'Admin Users Authentication' do
 
   scenario 'ReadWrite user can manage job profiles' do
     create(:job_profile)
-    allow(Rails.configuration).to receive(:azure_readwrite_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'readwrite', resource_id: 'be91dffe-b6bcb')
 
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)
@@ -121,7 +121,7 @@ RSpec.feature 'Admin Users Authentication' do
 
   scenario 'Read user cannot read user personal data' do
     create(:user_personal_data)
-    allow(Rails.configuration).to receive(:azure_read_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'read', resource_id: 'be91dffe-b6bcb')
 
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)
@@ -132,7 +132,7 @@ RSpec.feature 'Admin Users Authentication' do
 
   scenario 'Read user can only read job profiles' do
     create(:job_profile)
-    allow(Rails.configuration).to receive(:azure_read_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'read', resource_id: 'be91dffe-b6bcb')
 
     stub_omniauth
     visit(auth_azure_ad_auth_callback_path)

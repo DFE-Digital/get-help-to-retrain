@@ -51,6 +51,26 @@ RSpec.describe AdminUser do
     }.with_indifferent_access
   }
 
+  describe '.has_role?' do
+    it 'returns true if user belongs to a given role' do
+      user = create(
+        :admin_user,
+        roles: [
+          create(:admin_role, name: 'management'),
+          create(:admin_role, name: 'read')
+        ]
+      )
+
+      expect(user.has_role?('read')).to eq(true)
+    end
+
+    it 'returns false if user does not belong to role' do
+      user = create(:admin_user)
+
+      expect(user.has_role?('read')).to eq(false)
+    end
+  end
+
   describe '.from_omniauth' do
     it 'returns an active record instance with correct attributes' do
       active_admin = described_class.from_omniauth(auth_hash)
@@ -86,10 +106,10 @@ RSpec.describe AdminUser do
     end
 
     it 'sets admin user roles to a single role if set in auth hash' do
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+      management = create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
       admin_user = described_class.from_omniauth(auth_hash)
 
-      expect(admin_user.roles).to contain_exactly('management')
+      expect(admin_user.roles).to contain_exactly(management)
     end
 
     it 'sets admin user roles to multiple roles if set in auth hash' do
@@ -117,26 +137,26 @@ RSpec.describe AdminUser do
         }
       }.with_indifferent_access
 
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
-      allow(Rails.configuration).to receive(:azure_read_role_id).and_return('fe91dffe-sdf7s')
+      management = create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
+      read = create(:admin_role, name: 'read', resource_id: 'fe91dffe-sdf7s')
       admin_user = described_class.from_omniauth(auth_hash)
 
-      expect(admin_user.roles).to contain_exactly('management', 'read')
+      expect(admin_user.roles).to contain_exactly(management, read)
     end
 
     it 'updates admin user roles if user already exists' do
       admin_user = create(
         :admin_user,
-        roles: ['read'],
+        roles: [create(:admin_role, name: 'read')],
         name: 'some.name',
         resource_id: '1111-111-11-1',
         email: 'test@test.com'
       )
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+      management = create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
       updated_user = described_class.from_omniauth(auth_hash)
       updated_user.save
 
-      expect(admin_user.reload.roles).to contain_exactly('management')
+      expect(admin_user.reload.roles).to contain_exactly(management)
     end
 
     it 'does not set admin user roles if no role set in auth hash' do
@@ -151,14 +171,14 @@ RSpec.describe AdminUser do
         }
       }.with_indifferent_access
 
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+      create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
       admin_user = described_class.from_omniauth(auth_hash)
 
       expect(admin_user.roles).to be_empty
     end
 
     it 'ignores roles not included in set defaults' do
-      allow(Rails.configuration).to receive(:azure_read_role_id).and_return('fe91dffe-sdf7s')
+      create(:admin_role, name: 'read', resource_id: 'fe91dffe-sdf7s')
       admin_user = described_class.from_omniauth(auth_hash)
 
       expect(admin_user.roles).to be_empty
@@ -178,45 +198,21 @@ RSpec.describe AdminUser do
         }
       }.with_indifferent_access
 
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+      create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
 
       expect(described_class.roles_from(auth_hash)).to be_empty
     end
 
     it 'returns a role if its set in auth hash' do
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+      management = create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
 
-      expect(described_class.roles_from(auth_hash)).to contain_exactly('management')
+      expect(described_class.roles_from(auth_hash)).to contain_exactly(management)
     end
 
     it 'ignores roles not included in set defaults' do
-      allow(Rails.configuration).to receive(:azure_read_role_id).and_return('fe91dffe-sdf7s')
+      create(:admin_role, name: 'read', resource_id: 'fe91dffe-sdf7s')
 
       expect(described_class.roles_from(auth_hash)).to be_empty
-    end
-  end
-
-  describe '.groups_to_roles_mapping' do
-    it 'returns group to roles hash if mappings are set' do
-      allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
-      allow(Rails.configuration).to receive(:azure_readwrite_role_id).and_return('fe91dffe-b6bcb')
-      allow(Rails.configuration).to receive(:azure_read_role_id).and_return('reb6bcb-b6bcb')
-      roles = described_class.groups_to_roles_mapping
-
-      expect(roles).to eq(
-        'be91dffe-b6bcb' => 'management',
-        'fe91dffe-b6bcb' => 'readwrite',
-        'reb6bcb-b6bcb' => 'read'
-      )
-    end
-
-    it 'ignores keys which are not set' do
-      allow(Rails.configuration).to receive(:azure_readwrite_role_id).and_return('fe91dffe-b6bcb')
-      roles = described_class.groups_to_roles_mapping
-
-      expect(roles).to eq(
-        'fe91dffe-b6bcb' => 'readwrite'
-      )
     end
   end
 end

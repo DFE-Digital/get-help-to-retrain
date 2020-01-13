@@ -48,15 +48,6 @@
     },
     "AZURE_TENANT_ID": {
       "required": true
-    },
-    "AZURE_MANAGEMENT_ROLE_ID": {
-      "required": true
-    },
-    "AZURE_READWRITE_ROLE_ID": {
-      "required": true
-    },
-    "AZURE_READ_ROLE_ID": {
-      "required": true
     }
   },
   "formation": {

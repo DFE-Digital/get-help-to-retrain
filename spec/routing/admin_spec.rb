@@ -45,6 +45,10 @@ RSpec.describe 'routes for admin pages', type: :routing do
       expect(get('/admin/user_personal_data')).to route_to(controller: 'admin/user_personal_data', action: 'index')
     end
 
+    it 'successfully routes to admin/admin_roles#index' do
+      expect(get('/admin/admin_roles')).to route_to(controller: 'admin/admin_roles', action: 'index')
+    end
+
     it 'does not route requests to main application' do
       expect(get('/task-list')).not_to be_routable
     end
@@ -85,6 +89,10 @@ RSpec.describe 'routes for admin pages', type: :routing do
 
     it 'does not route /admin/user_personal_data' do
       expect(get('/admin/user_personal_data')).not_to be_routable
+    end
+
+    it 'does not route /admin/admin_roles' do
+      expect(get('/admin/admin_roles')).not_to be_routable
     end
 
     it 'routes requests to main application' do

@@ -4,12 +4,12 @@ class Ability
   def initialize(user)
     user ||= AdminUser.new
 
-    if user.roles.include?('management')
+    if user.has_role?('management')
       can :manage, :all
-    elsif user.roles.include?('readwrite')
+    elsif user.has_role?('readwrite')
       can :manage, :all
       cannot :manage, UserPersonalData
-    elsif user.roles.include?('read')
+    elsif user.has_role?('read')
       can :read, :all
       cannot :read, UserPersonalData
     end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Admin Users Authentication' do
   before do
     allow(Rails.configuration).to receive(:admin_mode).and_return(true)
-    allow(Rails.configuration).to receive(:azure_management_role_id).and_return('be91dffe-b6bcb')
+    create(:admin_role, name: 'management', resource_id: 'be91dffe-b6bcb')
   end
 
   let(:jwt) {
