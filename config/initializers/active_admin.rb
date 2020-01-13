@@ -17,5 +17,8 @@ if defined?(ActiveAdmin)
 
     # Define the active admin's logout path
     config.logout_link_path = :admin_sign_out_path
+
+    # Define format for data download
+    config.download_links = [:csv]
   end
 end
