@@ -25,13 +25,13 @@
       document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
-    <%= render 'shared/cookies_banner' unless current_page?(cookies_policy_path) %>
     <header class="govuk-header" role="banner" data-module="govuk-header">
       <div class="govuk-header__container govuk-width-container">
         <%= render 'shared/navigation/header_logo' %>
         <%= render 'shared/navigation/main_header' %>
       </div>
     </header>
+    <%= render 'shared/cookies_banner' unless current_page?(cookies_policy_path) %>
 
     <div class="govuk-width-container">
       <main class="govuk-main-wrapper govuk-!-padding-top-1 govuk-main-wrapper--auto-spacing" role="main">
