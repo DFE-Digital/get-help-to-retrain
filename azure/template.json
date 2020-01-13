@@ -707,6 +707,10 @@
               {
                 "name": "AZURE_TENANT_ID",
                 "value": "[parameters('azureTenantId')]"
+              },
+              {
+                "name": "AZURE_CALLBACK_URL",
+                "value": "[parameters('azureCallbackUrl')]"
               }
             ]
           },
