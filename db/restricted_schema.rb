@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_065914) do
     t.citext "email", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "roles_mask"
+    t.string "roles", default: [], array: true
   end
 
   create_table "feedback_surveys", force: :cascade do |t|
