@@ -5,7 +5,7 @@ function CookiesBanner () {
     if (typeof(cookiesModal) !== 'undefined' && cookiesModal != null) {
       if (getCookie('seen_cookie_message') !== 'true') {
         displayCookiesModal(cookiesModal);
-        trapFocus(cookiesModal)
+        trapFocus(cookiesModal);
       }
     }
   }
