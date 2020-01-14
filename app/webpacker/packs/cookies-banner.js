@@ -52,8 +52,8 @@ function CookiesBanner () {
 
   function trapFocus(element) {
     var focusableElements = element.querySelectorAll('a[href]:not([disabled])');
-    var acceptCookies = focusableElements[2];  
-    var cookieSettings = focusableElements[3];
+    var firstElement = focusableElements[0];  
+    var lastElement = focusableElements[focusableElements.length - 1];
     var KEYCODE_TAB = 9;
 
     element.addEventListener('keydown', function(e) {
@@ -64,13 +64,13 @@ function CookiesBanner () {
       }
 
       if ( e.shiftKey ) /* shift + tab */ {
-        if (document.activeElement === acceptCookies) {
-          cookieSettings.focus();
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
           e.preventDefault();
         }
       } else /* tab */ {
-        if (document.activeElement === cookieSettings) {
-          acceptCookies.focus();
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
           e.preventDefault();
         }
       }
