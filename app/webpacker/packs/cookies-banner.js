@@ -5,6 +5,7 @@ function CookiesBanner () {
     if (typeof(cookiesModal) !== 'undefined' && cookiesModal != null) {
       if (getCookie('seen_cookie_message') !== 'true') {
         displayCookiesModal(cookiesModal);
+        trapFocus(cookiesModal)
       }
     }
   }
@@ -47,6 +48,33 @@ function CookiesBanner () {
       modalElement.style.display = 'none';
       setCookie('seen_cookie_message', 'true', 30);
     }
+  }
+
+  function trapFocus(element) {
+    var focusableElements = element.querySelectorAll('a[href]:not([disabled])');
+    var acceptCookies = focusableElements[2];  
+    var cookieSettings = focusableElements[3];
+    var KEYCODE_TAB = 9;
+
+    element.addEventListener('keydown', function(e) {
+      var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+
+      if (!isTabPressed) { 
+        return; 
+      }
+
+      if ( e.shiftKey ) /* shift + tab */ {
+        if (document.activeElement === acceptCookies) {
+          cookieSettings.focus();
+          e.preventDefault();
+        }
+      } else /* tab */ {
+        if (document.activeElement === cookieSettings) {
+          acceptCookies.focus();
+          e.preventDefault();
+        }
+      }
+    });
   }
 }
 
