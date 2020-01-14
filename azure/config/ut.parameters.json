@@ -88,8 +88,14 @@
         "secretName": "ut-findAJobApiKey"
       }
     },
-    "customHostName": {
-      "value": "ut.nrs-ghtr.org.uk"
+    "appCustomHostName": {
+      "value": "ut"
+    },
+    "adminCustomHostName": {
+      "value": "admin-ut"
+    },
+    "baseDomainName": {
+      "value": "nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"

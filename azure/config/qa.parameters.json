@@ -147,8 +147,14 @@
         "secretName": "qa-azureReadRoleId"
       }
     },
-    "customHostName": {
-      "value": "qa-origin.nrs-ghtr.org.uk"
+    "appCustomHostName": {
+      "value": "qa-origin"
+    },
+    "adminCustomHostName": {
+      "value": "admin-qa"
+    },
+    "baseDomainName": {
+      "value": "nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"

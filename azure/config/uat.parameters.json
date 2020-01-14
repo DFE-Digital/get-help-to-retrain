@@ -91,8 +91,14 @@
         "secretName": "uat-findAJobApiKey"
       }
     },
-    "customHostName": {
-      "value": "uat.nrs-ghtr.org.uk"
+    "appCustomHostName": {
+      "value": "uat-origin"
+    },
+    "adminCustomHostName": {
+      "value": "admin-uat"
+    },
+    "baseDomainName": {
+      "value": "nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"
