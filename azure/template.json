@@ -94,6 +94,20 @@
         "description": "List of IP Addresses to whitelist on the database firewall"
       }
     },
+    "appIpSecurityRestrictions": {
+      "type": "array",
+      "defaultValue": [],
+      "metadata": {
+        "description": "List of IP Address to whitelist on the Application instance Azure Webapp service "
+      }
+    },
+    "adminIpSecurityRestrictions": {
+      "type": "array",
+      "defaultValue": [],
+      "metadata": {
+        "description": "List of IP Address to whitelist on the Admin instance Azure Webapp service "
+      }
+    },
     "containerImageReference": {
       "type": "string",
       "metadata": {
@@ -568,6 +582,9 @@
           "runtimeStack": {
             "value": "[variables('appServiceRuntimeStack')]"
           },
+          "ipSecurityRestrictions": {
+            "value": "[parameters('appIpSecurityRestrictions')]"
+          },
           "appServiceAppSettings": {
             "value": [
               {
@@ -694,6 +711,9 @@
           },
           "runtimeStack": {
             "value": "[variables('adminServiceRuntimeStack')]"
+          },
+          "ipSecurityRestrictions": {
+            "value": "[parameters('adminIpSecurityRestrictions')]"
           },
           "appServiceAppSettings": {
             "value": [

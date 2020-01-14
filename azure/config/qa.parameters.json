@@ -43,6 +43,18 @@
         "secretName": "qa-restrictedDatabasePassword"
       }
     },
+    "appIpSecurityRestrictions": {
+      "value": [
+        {
+          "ipAddress": "147.243.0.0/16",
+          "name": "FrontDoor ingress IPv4"
+        },
+        {
+          "ipAddress": "2a01:111:2050::/44",
+          "name": "FrontDoor ingress IPv6"
+        }
+      ]
+    },
     "secretKeyBase": {
       "reference": {
         "keyVault": {
