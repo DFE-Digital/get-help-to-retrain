@@ -674,15 +674,15 @@
       "condition": "[parameters('adminEnabled')]",
       "apiVersion": "2019-10-01",
       "properties": {
-        "resourceTags":{
-            "value": "[parameters('resourceTags')]"
-        },
         "mode": "Incremental",
         "templateLink": {
           "uri": "[concat(variables('deploymentUrlBase'), 'app-service-linux.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "resourceTags":{
+              "value": "[parameters('resourceTags')]"
+          },
           "appServiceName": {
             "value": "[variables('adminServiceName')]"
           },
