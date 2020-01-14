@@ -57,7 +57,7 @@ function CookiesBanner () {
     var KEYCODE_TAB = 9;
 
     element.addEventListener('keydown', function(e) {
-      var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+      var isTabPressed = (e.keyCode === KEYCODE_TAB);
 
       if (!isTabPressed) { 
         return; 
