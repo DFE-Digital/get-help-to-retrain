@@ -16,11 +16,25 @@
         "description": "The resource group for the key vault."
       }
     },
-    "customHostName": {
+    "appCustomHostName": {
       "type": "string",
       "defaultValue": "",
       "metadata": {
         "description": "The custom hostname to add to the app service."
+      }
+    },
+    "adminCustomHostName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The custom hostname to add to the admin service."
+      }
+    },
+    "baseDomainName": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "The base domain name for the service. the service hostname will be prefixed to this to compose a FQDN "
       }
     },
     "certificateName": {
@@ -214,7 +228,9 @@
     "environmentName": "[split(variables('resourceNamePrefix'),'-')[1]]",
     "appServiceName": "[concat(variables('resourceNamePrefix'), '-as')]",
     "adminServiceName": "[concat(variables('resourceNamePrefix'), 'admin-as')]",
-    "keyvaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('customHostName'), '.', '-'))]",
+    "appCustomFQDN": "[concat(parameters('appCustomHostName'), '.', parameters('baseDomainName'))]",
+    "adminCustomFQDN": "[concat(parameters('adminCustomHostName'), '.', parameters('baseDomainName'))]",
+    "keyVaultCertificateName": "[if(greater(length(parameters('certificateName')),0), parameters('certificateName'), replace(parameters('baseDomainName'), '.', '-'))]",
     "storageAccountName": "[replace(concat(variables('resourceNamePrefix'), 'str'), '-', '')]",
     "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
     "domainDatabaseServerName": "[concat(variables('resourceNamePrefix'), '-', parameters('domainDatabaseName'),'Psql')]",
@@ -228,7 +244,7 @@
     {
       "name": "storage-account",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -246,7 +262,7 @@
       }
     },
     {
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "name": "postgresql-domain-server",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -278,7 +294,7 @@
       ]
     },
     {
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "name": "postgresql-restricted-server",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -310,7 +326,7 @@
       ]
     },
     {
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "name": "postgresql-domain-database",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -333,7 +349,7 @@
       ]
     },
     {
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "name": "postgresql-restricted-database",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -356,7 +372,7 @@
       ]
     },
     {
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "name": "postgresql-domain-server-firewall-rules",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -382,7 +398,7 @@
       ]
     },
     {
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "name": "postgresql-restricted-server-firewall-rules",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -408,10 +424,10 @@
       ]
     },
     {
-      "condition": "[greater(length(parameters('customHostName')), 0)]",
+      "condition": "[or(greater(length(variables('appCustomFQDN')), 0), greater(length(variables('adminCustomFQDN')), 0))]",
       "name": "app-service-certificate",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -437,7 +453,7 @@
     {
       "name": "app-service-logs",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -469,7 +485,7 @@
     {
       "name": "app-service-plan",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -492,7 +508,7 @@
     {
       "name": "app-service",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -601,10 +617,10 @@
             ]
           },
           "customHostName": {
-            "value": "[parameters('customHostName')]"
+            "value": "[variables('appCustomFQDN')]"
           },
           "certificateThumbprint": {
-            "value": "[if(greater(length(parameters('customHostname')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
+            "value": "[if(greater(length(variables('appCustomFQDN')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
           }
         }
       },
@@ -616,7 +632,7 @@
       "name": "admin-service",
       "type": "Microsoft.Resources/deployments",
       "condition": "[parameters('adminEnabled')]",
-      "apiVersion": "2019-08-01",
+      "apiVersion": "2019-10-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -737,10 +753,10 @@
             ]
           },
           "customHostName": {
-            "value": "[concat('admin',parameters('customHostName'))]"
+            "value": "[variables('adminCustomFQDN')]"
           },
           "certificateThumbprint": {
-            "value": "[if(greater(length(parameters('customHostname')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
+            "value": "[if(greater(length(variables('adminCustomFQDN')), 0), reference('app-service-certificate').outputs.certificateThumbprint.value, '')]"
           }
         }
       },

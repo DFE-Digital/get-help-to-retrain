@@ -147,8 +147,14 @@
         "secretName": "dev-findAJobApiKey"
       }
     },
-    "customHostName": {
-      "value": "dev2.nrs-ghtr.org.uk"
+    "appCustomHostName": {
+      "value": "dev2"
+    },
+    "adminCustomHostName": {
+      "value": "admin-dev2"
+    },
+    "baseDomainName": {
+      "value": "nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"

@@ -147,8 +147,14 @@
         "secretName": "dev-azureReadRoleId"
       }
     },
-    "customHostName": {
-      "value": "dev1.nrs-ghtr.org.uk"
+    "appCustomHostName": {
+      "value": "dev1"
+    },
+    "adminCustomHostName": {
+      "value": "admin-dev1"
+    },
+    "baseDomainName": {
+      "value": "nrs-ghtr.org.uk"
     },
     "certificateName": {
       "value": "nrs-ghtr-org-uk"
