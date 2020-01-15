@@ -36,7 +36,7 @@
     </div>
 
     <div class="govuk-width-container">
-      <main class="govuk-main-wrapper govuk-!-padding-top-1 govuk-main-wrapper--auto-spacing" role="main">
+      <main class="govuk-main-wrapper govuk-!-padding-top-1 govuk-!-padding-bottom-0 govuk-main-wrapper--auto-spacing" role="main">
         <div class="govuk-phase-banner">
           <p class="govuk-phase-banner__content">
             <strong class="govuk-tag govuk-phase-banner__content__tag">beta</strong>
@@ -50,11 +50,11 @@
             <%= content_for :breadcrumb %>
           </ol>
         </nav>
-        <div id="main-content">
+        <div id="main-content" class="govuk-!-padding-bottom-7">
           <%= yield %>
         </div>
+        <%= render 'shared/feedback/survey' %>
       </main>
-      <%= render 'shared/feedback/survey' %>
     </div>
 
 
