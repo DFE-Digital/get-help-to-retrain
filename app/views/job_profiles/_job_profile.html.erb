@@ -14,7 +14,7 @@
       <summary class="govuk-details__summary" aria-controls="recent-growth-details" aria-expanded="true" role="button">
         <span class="govuk-details__summary-text">What does <%= job_profile.growth_type.downcase %> mean?</span>
       </summary>
-      <div class="govuk-details__text govuk-body-m" aria-hidden="false" id="recent-growth-details">
+      <div class="govuk-details__text govuk-body-m" aria-hidden="false" id="recent-growth-details-<%= job_profile.id %>">
         <%= job_profile.growth_explanation %>
       </div>
     </details>
