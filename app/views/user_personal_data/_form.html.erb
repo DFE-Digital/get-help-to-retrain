@@ -60,15 +60,15 @@
         <div class="govuk-radios">
           <%= errors_tag @user_personal_data, :gender %>
           <div class="govuk-radios__item">
-            <%= f.radio_button :gender, :female, class: 'govuk-radios__input', autocomplete: 'sex', data: { cy: 'pid-gender-female-radio-btn' } %>
+            <%= f.radio_button :gender, :female, class: 'govuk-radios__input', data: { cy: 'pid-gender-female-radio-btn' } %>
             <%= f.label :gender_female, 'Female', class: 'govuk-label govuk-radios__label' %>
           </div>
           <div class="govuk-radios__item">
-            <%= f.radio_button :gender, :male, class: 'govuk-radios__input', autocomplete: 'sex', data: { cy: 'pid-gender-male-radio-btn' } %>
+            <%= f.radio_button :gender, :male, class: 'govuk-radios__input', data: { cy: 'pid-gender-male-radio-btn' } %>
             <%= f.label :gender_male, 'Male', class: 'govuk-label govuk-radios__label' %>
           </div>
           <div class="govuk-radios__item">
-            <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input', autocomplete: 'sex', data: { cy: 'pid-gender-refuse-radio-btn' } %>
+            <%= f.radio_button :gender, :not_mentioned, class: 'govuk-radios__input', data: { cy: 'pid-gender-refuse-radio-btn' } %>
             <%= f.label :gender_not_mentioned, 'Prefer not to say', class: 'govuk-label govuk-radios__label' %>
           </div>
         </div>
