@@ -4,7 +4,7 @@
       <h2 class="feedback-prompt-content">Is this page useful?</h2>
       <%= form_with url: feedback_surveys_path, class: 'feedback-survey-form', id: 'page-is-useful-form', aria: { hidden: false } do |f| %>
         <%= hidden_field_tag('page_useful', 'yes', id: 'page_useful_yes') %>
-        <%= submit_tag('Yes', role: 'button', class: 'unbutton-survey feedback-prompt-link') %>
+        <%= submit_tag('Yes', role: 'button', class: 'unbutton-survey feedback-prompt-link', aria: { label: 'this page is useful' }) %>
         <span class="govuk-visually-hidden">this page is useful</span>
       <% end %>
       <%= link_to '#', {
