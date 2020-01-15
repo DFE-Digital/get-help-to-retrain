@@ -41,7 +41,7 @@ if defined?(ActiveAdmin)
             changes_hash = version.object_changes.except('updated_at')
             if version.event == 'search'
               "<strong>Searched for</strong>:<br>
-                #{changes_hash['query'].map { |k, v| "#{k}: #{v}" }.join('<br>')}".concat(
+                #{changes_hash['query']&.map { |k, v| "#{k.humanize}: <strong>#{v}</strong>" }&.join('<br>')}".concat(
                   "<br><br><strong>Results found</strong>: #{changes_hash['results']}"
                 ).html_safe
             else

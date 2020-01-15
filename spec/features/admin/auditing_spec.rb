@@ -75,6 +75,35 @@ RSpec.feature 'Admin Users Authentication' do
     end
   end
 
+  scenario 'Using the filters on user personal data page gets logged' do
+    create(:user_personal_data, first_name: 'James')
+    create(:user_personal_data, first_name: 'Jamie')
+
+    click_on('User Personal Data')
+    fill_in('q_first_name', with: 'Jamie')
+    click_on('Filter')
+    click_on('Audit Logs')
+    all('.view_link')[1].click
+
+    ['Results found: 1', 'Searched for:', 'First name contains: Jamie'].each do |content|
+      expect(page).to have_content(content)
+    end
+  end
+
+  scenario 'Using the filters without any filter input on user personal data page still gets logged' do
+    create(:user_personal_data, first_name: 'James')
+    create(:user_personal_data, first_name: 'Jamie')
+
+    click_on('User Personal Data')
+    click_on('Filter')
+    click_on('Audit Logs')
+    all('.view_link')[1].click
+
+    ['Results found: 2', 'Searched for:'].each do |content|
+      expect(page).to have_content(content)
+    end
+  end
+
   scenario 'When a user downloads the user personal data as CSV that event gets logged' do
     create(:user_personal_data)
 
