@@ -18,9 +18,9 @@
     <%= form_group_tag @user_personal_data, :dob do %>
       <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group', aria: { describedby: 'date-of-birth-hint' } do %>
         <legend class='govuk-fieldset__legend govuk-fieldset__legend--xl'>
-          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
             Date of birth
-          </h3>
+          </h2>
         </legend>
         <span id="date-of-birth-hint" class="govuk-hint">
           For example, 12 11 1980
@@ -53,9 +53,9 @@
     <%= form_group_tag @user_personal_data, :gender do %>
       <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group' do %>
         <legend class='govuk-fieldset__legend govuk-fieldset__legend--xl'>
-          <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+          <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
             Gender
-          </h3>
+          </h2>
         </legend>
         <div class="govuk-radios">
           <%= errors_tag @user_personal_data, :gender %>
