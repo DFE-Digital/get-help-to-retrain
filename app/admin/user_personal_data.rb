@@ -23,6 +23,18 @@ if defined?(ActiveAdmin)
 
         super
       end
+
+      def index
+        if params[:commit] == 'Filter'
+          track_custom_event(
+            item_type: 'User Personal Data Page',
+            event: 'search',
+            changes: { results: collection.total_count }
+          )
+        end
+
+        super
+      end
     end
 
     index do

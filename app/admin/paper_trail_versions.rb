@@ -39,9 +39,13 @@ if defined?(ActiveAdmin)
         row :changes do |version|
           if version.object_changes.present?
             changes_hash = version.object_changes.except('updated_at')
-            changes_hash.map { |k, v|
-              "<strong>#{k}: #{v.compact.join(' -> ')}</strong>"
-            }.compact.join('<br>').html_safe
+            if version.event == 'search'
+              "<strong>Results found</strong>: #{changes_hash['results']}".html_safe
+            else
+              changes_hash.map { |k, v|
+                "<strong>#{k}: #{v.compact.join(' -> ')}</strong>"
+              }.compact.join('<br>').html_safe
+            end
           end
         end
         row :created_at

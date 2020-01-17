@@ -25,12 +25,13 @@ module Admin
     end
 
     # Send custom tracking events to PaperTrail
-    def track_custom_event(item_type:, event:, item_id: nil)
+    def track_custom_event(item_type:, event:, item_id: nil, changes: nil)
       PaperTrail::Version.create(
         item_type: item_type,
         whodunnit: admin_current_user.id,
         event: event,
-        item_id: item_id
+        item_id: item_id,
+        object_changes: changes
       )
     end
 
