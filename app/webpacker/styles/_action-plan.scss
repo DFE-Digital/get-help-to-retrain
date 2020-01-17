@@ -3,7 +3,9 @@
 }
 
 .action-plan-action {
-  float: right;
+  @include govuk-media-query($from: desktop) {
+    float: right;
+  }
 
   &.govuk-button {
     display: block;
