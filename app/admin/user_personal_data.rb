@@ -29,7 +29,7 @@ if defined?(ActiveAdmin)
           track_custom_event(
             item_type: 'User Personal Data Page',
             event: 'search',
-            changes: { query: params[:q], results: collection.total_count }
+            changes: { results: collection.total_count }
           )
         end
 

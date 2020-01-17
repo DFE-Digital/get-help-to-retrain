@@ -85,7 +85,7 @@ RSpec.feature 'Admin Users Authentication' do
     click_on('Audit Logs')
     all('.view_link')[1].click
 
-    ['Results found: 1', 'Searched for:', 'First name contains: Jamie'].each do |content|
+    ['Results found: 1'].each do |content|
       expect(page).to have_content(content)
     end
   end
@@ -99,7 +99,7 @@ RSpec.feature 'Admin Users Authentication' do
     click_on('Audit Logs')
     all('.view_link')[1].click
 
-    ['Results found: 2', 'Searched for:'].each do |content|
+    ['Results found: 2'].each do |content|
       expect(page).to have_content(content)
     end
   end
