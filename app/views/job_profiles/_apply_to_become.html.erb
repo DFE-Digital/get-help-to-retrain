@@ -1,0 +1,21 @@
+<div class="action-plan-section">
+  <h2 class="govuk-heading-m govuk-!-margin-top-4">Apply to <%= @job_profile.become %></h2>
+  <% if @job_vacancy_count.present? %>
+    <% if @job_vacancy_count > 0 %>
+      <p class="govuk-body">At least <b><%= pluralize(@job_vacancy_count, 'vacancy', locale: I18n.locale.to_s) %></b> in this type of work <%= t('job_profiles.vacancies', count: @job_vacancy_count) %> being advertised near you. You can prepare to apply for these jobs by building a personal action plan.</p>
+    <% else %>
+      <p class="govuk-body">At the moment the Find a job service is advertising <b>no vacancies</b> in your area for this type of job. You may be able to find vacancies if you search other job websites. Or you can go back to your job matches and find types of work with vacancies in your area.</p>
+      <p class="govuk-body">You can prepare to apply for any <%= @job_profile.name.downcase %> vacancies that appear in future by building a personal action plan. </p>
+    <% end %>
+  <% end %>
+  <p class="govuk-body">You’ll be asked if you need any training in:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>maths</li>
+    <li>English</li>
+    <li>computer skills</li>
+  </ul>
+  <p class="govuk-body">You’ll also be offered support with job hunting, such as advice on writing a CV.</p>
+  <p class="govuk-body">You can change your target job at any time.</p>
+  <%= button_to('Target this type of work', target_job_profile_path(@job_profile.slug), class: 'govuk-button govuk-!-margin-top-1 govuk-!-margin-bottom-6', data: { module: 'govuk-button' }) %>
+  <%= link_to('Back to your job matches', skills_matcher_index_path, class: 'govuk-link') %>
+</div>

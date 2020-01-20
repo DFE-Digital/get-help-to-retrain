@@ -29,7 +29,11 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def how_to_become
-    html_body.xpath(HOW_TO_BECOME_XPATH).text
+    @how_to_become ||= html_body.xpath(HOW_TO_BECOME_XPATH).text
+  end
+
+  def become
+    how_to_become.gsub('How to', '').strip
   end
 
   def salary_range
@@ -62,6 +66,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     html_body.xpath(ADDITIONAL_COPY_XPATH).children.map(&:text)
   end
 
+  # TODO: Refactor this method and separate the apprenticeship logic
   def section(key)
     return unless (xpath = SECTIONS_XPATH[key])
 
@@ -72,7 +77,11 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     mutate_apprenticeship_content if key == :apprenticeship
     mutate_html_body
 
-    @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').concat(separator_line)
+    html_body_with_no_links = @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').html_safe
+
+    return html_body_with_no_links if key == :apprenticeship
+
+    separator_line.concat(html_body_with_no_links)
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
