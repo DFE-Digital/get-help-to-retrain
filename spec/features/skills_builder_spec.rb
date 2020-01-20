@@ -180,7 +180,7 @@ RSpec.feature 'Build your skills', type: :feature do
   scenario 'User can search for other job profiles' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Add more skills from another role')
+    click_on('Add more skills from another job or volunteer role')
 
     expect(page).to have_text('Add more skills')
   end
@@ -199,7 +199,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Add more skills from another role')
+    click_on('Add more skills from another job or volunteer role')
     fill_in('search', with: 'Hitman')
     find('.search-button').click
 
@@ -218,7 +218,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Add more skills from another role')
+    click_on('Add more skills from another job or volunteer role')
     fill_in('search', with: 'Hitman')
     find('.search-button').click
     click_on('Classic-hitman')
@@ -268,7 +268,7 @@ RSpec.feature 'Build your skills', type: :feature do
     )
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    expect(page).not_to have_link('Add more skills from another role')
+    expect(page).not_to have_link('Add more skills from another job or volunteer role')
   end
 
   scenario 'User can not search for job profiles anymore when one has 5 profiles persisted on the session' do
