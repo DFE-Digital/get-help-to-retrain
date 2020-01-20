@@ -93,7 +93,7 @@ en-GB:
       placeholder: Enter your current job title
       additional_skills:
         title: Add more skills
-        body: Tell us another job you’ve done.
+        body: Tell us another job or volunteer role you've done.
         placeholder: Enter a job title
     results:
       title: Your current job
