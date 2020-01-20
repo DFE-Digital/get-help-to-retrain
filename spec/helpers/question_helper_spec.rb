@@ -79,4 +79,16 @@ RSpec.describe QuestionHelper do
       expect(helper.it_training_questions).to eq(it_training_questions_path)
     end
   end
+
+  describe '#progression_indicator' do
+    it 'returns nil when show indictator is false' do
+      expect(helper.progression_indicator(show_indicator: nil, step: 1)).to be_nil
+    end
+
+    it 'returns progress indicator when show indicator is true with correct page' do
+      expect(helper.progression_indicator(show_indicator: true, step: 2)).to eq(
+        '<span class="govuk-caption-xl">Step 2 of 3</span>'
+      )
+    end
+  end
 end

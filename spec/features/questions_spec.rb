@@ -230,6 +230,44 @@ RSpec.feature 'Questions' do
     expect(page).to have_selector('input[checked="checked"]', count: 2)
   end
 
+  scenario 'user sees progression on question pages' do
+    user_targets_job
+    (1..3).each do |step|
+      expect(page).to have_text("Step #{step} of 3")
+
+      click_on('Continue')
+    end
+  end
+
+  scenario 'user does not see progression on question pages after reaching action plan' do
+    user_targets_job
+    click_on('Continue')
+    click_on('Continue')
+    click_on('Continue')
+
+    {
+      '1' => training_questions_path,
+      '2' => it_training_questions_path,
+      '3' => job_hunting_questions_path
+    }.each do |step, question_page|
+      visit(question_page)
+
+      expect(page).not_to have_text("Step #{step} of 3")
+    end
+  end
+
+  scenario 'user sees progression on question pages if journey interrupted' do
+    user_targets_job
+    click_on('Continue')
+    visit(it_training_questions_path)
+
+    (2..3).each do |step|
+      expect(page).to have_text("Step #{step} of 3")
+
+      click_on('Continue')
+    end
+  end
+
   scenario 'If user selects job hunting options, they get tracked in GA' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
