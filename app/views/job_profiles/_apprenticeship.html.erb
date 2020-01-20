@@ -1,6 +1,7 @@
 <% apprenticeship_section = @job_profile.section(:apprenticeship) %>
 
 <% if apprenticeship_section.present? %>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
   <h2 class='govuk-heading-m'>Apprenticeship</h2>
   <p class="govuk-body-m">You can do an apprenticeship at any age. You may be able to earn the same money and work at the same level as you do now.</p>
   <%= apprenticeship_section.html_safe %>
