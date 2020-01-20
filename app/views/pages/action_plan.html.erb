@@ -16,8 +16,15 @@
 
     <div class="govuk-related-items action-plan-section">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you’ve done so far:</h2>
-      <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your target type of work</h3>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your target type of work</h3>
+        </div>
+        <div class="govuk-grid-column-one-half govuk-!-margin-bottom-1">
+          <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+        </div>
+      </div>
+
       <p class="govuk-body govuk-!-margin-bottom-2">You've chosen to target this type of work.</p>
       <h3 class="govuk-heading-s">
         <%= link_to target_job.name, job_profile_path(target_job.slug), class: 'govuk-link' %>
@@ -25,12 +32,18 @@
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
 
-      <%= link_to 'View / edit your skills', skills_path, class: 'govuk-link action-plan-action' %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your skills</h3>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your skills</h3>
+        </div>
+        <div class="govuk-grid-column-one-third govuk-!-margin-bottom-1">
+          <%= link_to 'View / edit your skills', skills_path, class: 'govuk-link action-plan-action' %>
+        </div>
+      </div>
+
       <p class="govuk-body">You added skills based on jobs you've already done.</p>
       <p class="govuk-body">You can see different types of work ideas if you edit your skills.</p>
     </div>
-
 
     <div class="govuk-related-items action-plan-section">
       <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-4">Here’s what you need to do next:</h2>
@@ -60,8 +73,14 @@
 
       <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
 
-      <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
-      <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Apply for a job</h3>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Apply for a job</h3>
+        </div>
+        <div class="govuk-grid-column-one-half govuk-!-margin-bottom-1">
+          <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+        </div>
+      </div>
       <p class="govuk-body">Once you're ready to apply, find jobs in your local area.</p>
 
       <div class="govuk-grid-row">
