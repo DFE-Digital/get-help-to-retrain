@@ -81,14 +81,26 @@ RSpec.describe QuestionHelper do
   end
 
   describe '#progression_indicator' do
-    it 'returns nil when show indictator is false' do
-      expect(helper.progression_indicator(show_indicator: nil, step: 1)).to be_nil
+    it 'shows progress indicator and step when no questions page have been visited' do
+      expect(helper.progression_indicator(step: 1)).to eq(
+        '<span class="govuk-caption-xl">Step 1 of 3</span>'
+      )
     end
 
-    it 'returns progress indicator when show indicator is true with correct page' do
-      expect(helper.progression_indicator(show_indicator: true, step: 2)).to eq(
+    it 'shows progress indicator and step when at least one question page has been visited' do
+      user_session.training = ['english_skills']
+
+      expect(helper.progression_indicator(step: 2)).to eq(
         '<span class="govuk-caption-xl">Step 2 of 3</span>'
       )
+    end
+
+    it 'hides progress indicator if all question pages have been visited' do
+      user_session.training = ['english_skills']
+      user_session.it_training = ['computer_skills']
+      user_session.job_hunting = ['cv']
+
+      expect(helper.progression_indicator(step: 1)).to be_nil
     end
   end
 end
