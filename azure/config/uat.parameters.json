@@ -43,6 +43,26 @@
         "secretName": "uat-restrictedDatabasePassword"
       }
     },
+    "appIpSecurityRestrictions": {
+      "value": [
+        {
+          "ipAddress": "147.243.0.0/16",
+          "name": "FrontDoor ingress IPv4"
+        },
+        {
+          "ipAddress": "2a01:111:2050::/44",
+          "name": "FrontDoor ingress IPv6"
+        }
+      ]
+    },
+    "adminIpSecurityRestrictions": {
+      "value": [
+        {
+          "ipAddress": "217.38.175.64/28",
+          "name": "Office Range"
+        }
+      ]
+    },
     "secretKeyBase": {
       "reference": {
         "keyVault": {
