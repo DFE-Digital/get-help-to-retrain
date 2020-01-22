@@ -259,6 +259,7 @@
     "appServiceRuntimeStack": "[concat('COMPOSE|', base64(replace(base64ToString(parameters('dockerComposeFile')),'__CONTAINER_REFERENCE__',parameters('containerImageReference'))))]",
     "adminServiceRuntimeStack": "[concat('DOCKER|', parameters('containerImageReference'))]",
     "warmupPingPath": "/status",
+    "warmupAllowedStatuses": "200,301",
     "containerStartTimeLimit": "300"
   },
   "resources": [
@@ -595,6 +596,9 @@
                 "name": "WEBSITE_SWAP_WARMUP_PING_PATH",
                 "value": "[variables('warmupPingPath')]"
               },
+              {  "name": "WEBSITE_SWAP_WARMUP_PING_STATUSES",
+                 "value": "[variables('warmupAllowedStatuses')]"
+              },
               {
                 "name": "WEBSITES_CONTAINER_START_TIME_LIMIT",
                 "value": "[variables('containerStartTimeLimit')]"
@@ -724,6 +728,9 @@
               {
                 "name": "WEBSITE_SWAP_WARMUP_PING_PATH",
                 "value": "[variables('warmupPingPath')]"
+              },
+              {  "name": "WEBSITE_SWAP_WARMUP_PING_STATUSES",
+                 "value": "[variables('warmupAllowedStatuses')]"
               },
               {
                 "name": "WEBSITES_CONTAINER_START_TIME_LIMIT",
