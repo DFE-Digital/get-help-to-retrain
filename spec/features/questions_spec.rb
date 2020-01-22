@@ -256,6 +256,18 @@ RSpec.feature 'Questions' do
     end
   end
 
+  scenario 'user sees progression on question pages if user goes back to previous page mid journey' do
+    user_targets_job
+    click_on('Continue')
+    visit(training_questions_path)
+
+    (1..3).each do |step|
+      expect(page).to have_text("Step #{step} of 3")
+
+      click_on('Continue')
+    end
+  end
+
   scenario 'user sees progression on question pages if journey interrupted' do
     user_targets_job
     click_on('Continue')
