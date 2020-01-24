@@ -122,20 +122,10 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_current_path(offers_near_me_path)
   end
 
-  scenario 'Page links to appreticeships with target job' do
+  scenario 'Page links to apprenticeships page' do
     user_targets_a_job
 
-    expect(page).to have_link('Find an apprenticeship', href: 'https://www.findapprenticeship.service.gov.uk/apprenticeships?Keywords=fluffer&WithinDistance=20')
-  end
-
-  scenario 'Page links to appreticeships with target job and outcode' do
-    capture_user_location
-    user_targets_a_job
-
-    expect(page).to have_link(
-      'Find an apprenticeship',
-      href: 'https://www.findapprenticeship.service.gov.uk/apprenticeships?Keywords=fluffer&Location=NW11&WithinDistance=20'
-    )
+    expect(page).to have_link('Find an apprenticeship', href: 'https://www.findapprenticeship.service.gov.uk/apprenticeshipsearch?searchMode=Category')
   end
 
   private
