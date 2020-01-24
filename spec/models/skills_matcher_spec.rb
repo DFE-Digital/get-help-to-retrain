@@ -200,7 +200,6 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-
     it 'arranges job profiles in matching skills order, then job growth type order, then alphabetical order' do
       skill1 = create(:skill)
       skill2 = create(:skill)
