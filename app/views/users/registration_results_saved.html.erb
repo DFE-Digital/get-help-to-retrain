@@ -19,7 +19,7 @@
       <p class="govuk-body">If you haven't received this email you can <%= submit_tag('send it again', class: 'unbutton govuk-body govuk-link') %>.</p>
     <% end %>
     <p class="govuk-body">If the email address above is incorrect, <%= link_to 'enter your email address again',save_your_results_path, class: 'govuk-link' %>.</p>
-    <%= link_to 'Continue', user_session.registration_triggered_path || task_list_path, class: 'govuk-button', data: { module: 'govuk-button' } %>
+    <%= link_to 'Continue', user_session.registration_triggered_path || task_list_path, class: 'govuk-button', role: 'button', data: { module: 'govuk-button' } %>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "shared/contact_us" %>
