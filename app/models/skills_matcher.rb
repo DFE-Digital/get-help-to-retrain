@@ -30,25 +30,30 @@ class SkillsMatcher
       .to_sql
   end
 
+  # rubocop:disable Metrics/MethodLength
   def build_query
     @build_query ||= begin
       job_profile_scope
         .select(
-          :skills_matched, :id, :name, :description, :alternative_titles, :salary_min, :salary_max, :slug, :growth
+          :skills_matched, :id, :name, :description, :alternative_titles, :salary_min, :salary_max, :slug, :growth,
+          growth_type
         )
         .from(Arel.sql("(#{skills_matched_query}) as ranked_job_profiles"))
         .joins('LEFT JOIN job_profiles ON job_profiles.id = ranked_job_profiles.job_profile_id')
         .order(order_options)
         .limit(options[:limit])
     end
+
+    @build_query
   end
+  # rubocop:enable Metrics/MethodLength
 
   def order_options
     case options[:order]
     when :growth
-      ['growth DESC NULLS LAST', { skills_matched: :desc, skills_rarity: :asc, name: :asc }]
+      { growth_type: :desc, skills_matched: :desc, skills_rarity: :asc, name: :asc }
     else
-      [{ skills_matched: :desc }, 'growth DESC NULLS LAST', { skills_rarity: :asc, name: :asc }]
+      { skills_matched: :desc, growth_type: :desc, skills_rarity: :asc, name: :asc }
     end
   end
 
@@ -56,5 +61,16 @@ class SkillsMatcher
     JobProfile
       .recommended
       .where.not(id: user_session.job_profile_ids)
+  end
+
+  def growth_type
+    <<-SQL
+    CASE WHEN growth <= - 5 THEN 1
+      WHEN growth > -5 AND growth <= 5 THEN 2
+      WHEN growth > 5 AND growth <= 50 THEN 3
+      WHEN growth > 50 THEN 4
+      ELSE 0 END
+      AS growth_type
+    SQL
   end
 end

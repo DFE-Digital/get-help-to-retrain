@@ -22,7 +22,7 @@ RSpec.describe SkillsMatcher do
       )
       matcher = described_class.new(UserSession.new(session), limit: 10)
 
-      expect(matcher.match.size).to eq 10
+      expect(matcher.match.length).to eq 10
     end
 
     it 'returns multiple jobs matching skill selected ignoring job profiles in the session' do
@@ -129,7 +129,7 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    it 'arranges job profiles in matching skills order as well as job growth order' do
+    it 'arranges job profiles in matching skills order as well as job growth type order' do
       skill = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill], growth: -5)
@@ -150,7 +150,7 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    it 'arranges job profiles in job growth order as well as matching skills order' do
+    it 'arranges job profiles in job growth type order as well as matching skills order' do
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)
@@ -177,7 +177,7 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    it 'arranges job profiles in job growth order unless job growth is nil' do
+    it 'arranges job profiles in job growth type order and profiles with job growth nil go at the end' do
       skill = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill])
       job_profile2 = create(:job_profile, skills: [skill], growth: -5)
@@ -200,14 +200,15 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    it 'arranges job profiles in job growth order, alphabetical order as well as matching skills order' do
+    it 'arranges job profiles in matching skills order, then job growth type order, then alphabetical order' do
       skill1 = create(:skill)
       skill2 = create(:skill)
       skill3 = create(:skill)
       job_profile1 = create(:job_profile, skills: [skill1, skill2, skill3])
-      job_profile2 = create(:job_profile, name: 'Researcher', skills: [skill2], growth: 52)
+      job_profile2 = create(:job_profile, name: 'Researcher', skills: [skill2], growth: 59)
       job_profile3 = create(:job_profile, name: 'Beekeeper', skills: [skill1, skill2, skill3], growth: 45)
-      job_profile4 = create(:job_profile, name: 'Admin', skills: [skill1, skill2, skill3], growth: -5)
+      job_profile4 = create(:job_profile, name: 'Office Admin', skills: [skill1, skill2, skill3], growth: -5)
+      job_profile6 = create(:job_profile, name: 'Admin', skills: [skill1, skill2, skill3], growth: -6)
       job_profile5 = create(:job_profile, name: 'Boat builder', skills: [skill3], growth: 52)
       session = create_fake_session(
         job_profile_ids: [job_profile1.id],
@@ -220,6 +221,7 @@ RSpec.describe SkillsMatcher do
       expect(matcher.match).to eq(
         [
           job_profile3,
+          job_profile6,
           job_profile4,
           job_profile5,
           job_profile2
@@ -227,15 +229,15 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    it 'arranges job profiles in matching skills, job growth and skills rarity order' do
+    it 'arranges job profiles in matching skills, job growth type and skills rarity order' do
       skill1 = create(:skill, rarity: nil)
       skill2 = create(:skill, rarity: 3)
       skill3 = create(:skill, rarity: 2)
       skill4 = create(:skill, rarity: 1)
       job_profile1 = create(:job_profile)
-      job_profile2 = create(:job_profile, skills: [skill1, skill2])
-      job_profile3 = create(:job_profile, skills: [skill1, skill3])
-      job_profile4 = create(:job_profile, skills: [skill1, skill4])
+      job_profile2 = create(:job_profile, skills: [skill1, skill2], growth: 1.6)
+      job_profile3 = create(:job_profile, skills: [skill1, skill3], growth: 4.2)
+      job_profile4 = create(:job_profile, skills: [skill1, skill4], growth: 2)
 
       session = create_fake_session(
         job_profile_ids: [job_profile1.id],
@@ -254,7 +256,7 @@ RSpec.describe SkillsMatcher do
       )
     end
 
-    it 'arranges job profiles in job growth, matching skills and skills rarity order' do
+    it 'arranges job profiles in job growth_type, matching skills and skills rarity order' do
       skill1 = create(:skill, rarity: nil)
       skill2 = create(:skill, rarity: 3)
       skill3 = create(:skill, rarity: 2)
