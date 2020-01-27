@@ -51,9 +51,9 @@ class SkillsMatcher
   def order_options
     case options[:order]
     when :growth
-      ['growth_type DESC', { skills_matched: :desc, skills_rarity: :asc, name: :asc }]
+      { growth_type: :desc, skills_matched: :desc, skills_rarity: :asc, name: :asc }
     else
-      [{ skills_matched: :desc }, 'growth_type DESC', { skills_rarity: :asc, name: :asc }]
+      { skills_matched: :desc, growth_type: :desc, skills_rarity: :asc, name: :asc }
     end
   end
 
