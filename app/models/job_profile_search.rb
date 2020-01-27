@@ -15,9 +15,7 @@ class JobProfileSearch
     JobProfile.select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth)
               .where(build_text_search_query, query_string: query_string)
               .where.not(id: profile_ids_to_exclude)
-              .order(
-                Arel.sql(build_rank_query) => :desc
-              )
+              .order(Arel.sql(build_rank_query) => :desc, name: :asc)
   end
 
   private
@@ -33,10 +31,50 @@ class JobProfileSearch
   end
 
   def build_rank_query
-    quoted_query_string = PrimaryActiveRecordBase.connection.quote(query_string)
+    (exact_match_ranking + partial_match_ranking)
+      .join(" +\n")
+  end
 
+  def quoted_query
+    @quoted_query ||= PrimaryActiveRecordBase.connection.quote(query_string)
+  end
+
+  def exact_match_ranking
+    {
+      name: 'A',
+      alternative_titles: 'AB',
+      specialism: 'ABC',
+      hidden_titles: 'ABC',
+      description: 'ABCD'
+    }.map do |column, weight|
+      vector_rank(match: 'simple', column: column, weight: weight)
+    end
+  end
+
+  def partial_match_ranking
+    {
+      name: 'A',
+      alternative_titles: 'B',
+      specialism: 'C',
+      hidden_titles: 'C',
+      description: 'D'
+    }.map do |column, weight|
+      vector_rank(match: 'english', column: column, weight: weight)
+    end
+  end
+
+  def vector_rank(match:, column:, weight:)
     <<-RANK
-      ts_rank(to_tsvector('english', name), to_tsquery('english', #{quoted_query_string}))
+      COALESCE(
+        ts_rank(
+          setweight(
+            to_tsvector('#{match}', #{column}),
+            '#{weight}'
+          ),
+          to_tsquery('#{match}', #{quoted_query})
+        ),
+        0
+      )
     RANK
   end
 
