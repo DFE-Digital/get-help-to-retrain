@@ -28,6 +28,7 @@ en-GB:
     link_expired: Link expired
     cookies_policy: Cookies
     privacy_policy: Privacy policy
+    cv_advice: CV advice
 
   page_titles:
     default: Get help to retrain
@@ -47,6 +48,7 @@ en-GB:
     pages_location_ineligible: Get help to retrain - No courses in your area
     pages_action_plan: Get help to retrain - Action plan
     pages_offers_near_me: Get help to retrain - Offers near me
+    pages_cv_advice: Get help to retrain - CV advice
     training_questions: Get help to retrain - Training options
     job_hunting_questions: Get help to retrain - Job hunting advice
     user_personal_data: Get help to retrain - Your information
@@ -133,6 +135,8 @@ en-GB:
   pages:
     action_plan:
       title: Your personal action plan
+    cv_advice:
+      title: CV advice
     offers_near_me:
       title: Find local schemes and offers
     task_list:

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       to: 'job_vacancies#index', as: :jobs_near_me, via: %i[get post]
     )
     get 'offers-near-me', to: 'pages#offers_near_me'
+    get 'cv-advice', to: 'pages#cv_advice'
     get 'training-questions', to: 'questions#training'
     post 'training-questions', to: 'questions#training_answers'
     get 'it-training-questions', to: 'questions#it_training'

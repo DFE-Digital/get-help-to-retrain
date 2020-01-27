@@ -81,8 +81,9 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your advice choices')
     check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
+    click_on('Get CV advice')
 
-    expect(page).to have_link('Get CV advice')
+    expect(page).to have_current_path(cv_advice_path)
   end
 
   scenario 'Page links to cover letter help if job hunting question answered for cover letter' do
