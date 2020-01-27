@@ -101,8 +101,9 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your advice choices')
     check('I want advice on preparing for interviews', allow_label_click: true)
     click_on('Continue')
+    click_on('Get interview advice')
 
-    expect(page).to have_link('Get interview advice')
+    expect(page).to have_current_path(interview_advice_path)
   end
 
   scenario 'Page shows different content if no job hunting questions answered' do

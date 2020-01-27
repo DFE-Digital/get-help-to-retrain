@@ -30,6 +30,7 @@ en-GB:
     privacy_policy: Privacy policy
     cv_advice: CV advice
     cover_letter_advice: Cover letter advice
+    interview_advice: Interview advice
 
   page_titles:
     default: Get help to retrain
@@ -51,6 +52,7 @@ en-GB:
     pages_offers_near_me: Get help to retrain - Offers near me
     pages_cv_advice: Get help to retrain - CV advice
     pages_cover_letter_advice: Get help to retrain - Cover letter advice
+    pages_interview_advice: Get help to retrain - Interview advice
     training_questions: Get help to retrain - Training options
     job_hunting_questions: Get help to retrain - Job hunting advice
     user_personal_data: Get help to retrain - Your information
@@ -141,6 +143,8 @@ en-GB:
       title: CV advice
     cover_letter_advice:
       title: How to write a covering letter
+    interview_advice:
+      title: Interview advice
     offers_near_me:
       title: Find local schemes and offers
     task_list:
