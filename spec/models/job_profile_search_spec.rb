@@ -90,11 +90,11 @@ RSpec.describe JobProfileSearch do
 
     it 'matches different records in query' do
       job_profiles = [
-        create(:job_profile, name: 'Head Chef', description: nil),
-        create(:job_profile, name: 'name', alternative_titles: 'Cook', description: nil),
-        create(:job_profile, name: 'name', specialism: 'foody', description: nil),
-        create(:job_profile, name: 'name', hidden_titles: 'Pastry Chef', description: nil),
-        create(:job_profile, name: 'name', description: 'Street food traders ')
+        create(:job_profile, name: 'Head Chef', description: 'some description'),
+        create(:job_profile, name: 'name', alternative_titles: 'Cook', description: 'some description'),
+        create(:job_profile, name: 'name', specialism: 'foody', description: 'some description'),
+        create(:job_profile, name: 'name', hidden_titles: 'Pastry Chef', description: 'some description'),
+        create(:job_profile, name: 'name', description: 'Street food traders')
       ]
 
       expect(described_class.new(term: 'food cook chef').search).to eq(job_profiles)
@@ -131,11 +131,11 @@ RSpec.describe JobProfileSearch do
     end
 
     it 'orders records according to matched name' do
-      cook = create(:job_profile, alternative_titles: 'Cook', name: 'name', description: nil)
-      baker = create(:job_profile, hidden_titles: 'Pastry Chef', name: 'name', description: nil)
+      cook = create(:job_profile, alternative_titles: 'Cook', name: 'name 1', description: nil)
+      baker = create(:job_profile, hidden_titles: 'Pastry Chef', name: 'name 2', description: nil)
       head_chef = create(:job_profile, name: 'Head Chef', description: nil)
-      foody = create(:job_profile, specialism: 'foody', name: 'name', description: nil)
-      food_trader = create(:job_profile, description: 'Street food traders ', name: 'Trader')
+      foody = create(:job_profile, specialism: 'a foody', name: 'name 3', description: nil)
+      food_trader = create(:job_profile, description: 'Street food traders', name: 'Trader')
       kitchen_chef = create(:job_profile, name: 'Kitchen Chef', description: nil)
 
       job_profiles_in_order = [
@@ -148,6 +148,107 @@ RSpec.describe JobProfileSearch do
       ]
 
       expect(described_class.new(term: 'food cook chef').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders name, alternative title, hidden title then specialism, then description on exact match' do
+      exact_alternative_title = create(:job_profile, alternative_titles: 'Head chef', name: 'name', description: nil)
+      exact_hidden_title = create(:job_profile, hidden_titles: 'Head chef', name: 'name B', description: nil)
+      exact_name = create(:job_profile, name: 'Head chef', description: nil)
+      exact_specialism = create(:job_profile, specialism: 'Head chef', name: 'name A', description: nil)
+      exact_desc = create(:job_profile, description: 'Head chef traders', name: 'Trader')
+
+      job_profiles_in_order = [
+        exact_name,
+        exact_alternative_title,
+        exact_specialism,
+        exact_hidden_title,
+        exact_desc
+      ]
+
+      expect(described_class.new(term: 'Head chef').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders name, alternative title, hidden title then specialism, then description on partial match' do
+      partial_alternative_title = create(:job_profile, alternative_titles: 'development', name: 'name', description: nil)
+      partial_hidden_title = create(:job_profile, hidden_titles: 'development', name: 'name B', description: nil)
+      partial_name = create(:job_profile, name: 'development', description: nil)
+      partial_specialism = create(:job_profile, specialism: 'development', name: 'name A', description: nil)
+      partial_desc = create(:job_profile, description: 'development traders', name: 'Trader')
+
+      job_profiles_in_order = [
+        partial_name,
+        partial_alternative_title,
+        partial_specialism,
+        partial_hidden_title,
+        partial_desc
+      ]
+
+      expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders exact match before partial match' do
+      partial_alternative_title = create(:job_profile, alternative_titles: 'development', name: 'name 1', description: nil)
+      exact_name = create(:job_profile, name: 'Web Developer', description: nil)
+      partial_name = create(:job_profile, name: 'development', description: nil)
+      exact_desc = create(:job_profile, description: 'A Developer', name: 'name 2')
+      partial_specialism = create(:job_profile, specialism: 'development', name: 'name C', description: nil)
+      partial_desc = create(:job_profile, description: 'development traders', name: 'Trader')
+      exact_hidden_title = create(:job_profile, hidden_titles: 'App Developer', name: 'name B', description: nil)
+      exact_specialism = create(:job_profile, specialism: 'App Developer', name: 'name A', description: nil)
+      exact_alternative_title = create(:job_profile, alternative_titles: 'Software Developer', name: 'name 3', description: nil)
+      partial_hidden_title = create(:job_profile, hidden_titles: 'development', name: 'name D', description: nil)
+
+      job_profiles_in_order = [
+        exact_name,
+        exact_alternative_title,
+        exact_specialism,
+        exact_hidden_title,
+        exact_desc,
+        partial_name,
+        partial_alternative_title,
+        partial_specialism,
+        partial_hidden_title,
+        partial_desc
+
+      ]
+
+      expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders alphabetically after matching' do
+      job_profile1 = create(:job_profile, name: 'Web B', description: nil)
+      job_profile2 = create(:job_profile, name: 'Web A', description: nil)
+
+      job_profiles_in_order = [
+        job_profile2,
+        job_profile1
+      ]
+
+      expect(described_class.new(term: 'web').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders alphabetically after partial matching' do
+      job_profile1 = create(:job_profile, name: 'development B', description: nil)
+      job_profile2 = create(:job_profile, name: 'development A', description: nil)
+
+      job_profiles_in_order = [
+        job_profile2,
+        job_profile1
+      ]
+
+      expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders correctly even when values are nil' do
+      job_profile1 = create(:job_profile, name: 'development C', alternative_titles: nil, description: nil)
+      job_profile2 = create(:job_profile, name: 'development A', alternative_titles: nil, description: nil)
+
+      job_profiles_in_order = [
+        job_profile2,
+        job_profile1
+      ]
+
+      expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
     end
   end
 
