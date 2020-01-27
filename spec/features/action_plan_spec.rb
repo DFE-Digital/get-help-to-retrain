@@ -91,8 +91,9 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your advice choices')
     check('I want advice on writing a cover letter', allow_label_click: true)
     click_on('Continue')
+    click_on('Get cover letter advice')
 
-    expect(page).to have_link('Get cover letter advice')
+    expect(page).to have_current_path(cover_letter_advice_path)
   end
 
   scenario 'Page links to interview prep help if job hunting question answered for interview prep' do

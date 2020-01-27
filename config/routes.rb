@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     )
     get 'offers-near-me', to: 'pages#offers_near_me'
     get 'cv-advice', to: 'pages#cv_advice'
+    get 'cover-letter-advice', to: 'pages#cover_letter_advice'
     get 'training-questions', to: 'questions#training'
     post 'training-questions', to: 'questions#training_answers'
     get 'it-training-questions', to: 'questions#it_training'
