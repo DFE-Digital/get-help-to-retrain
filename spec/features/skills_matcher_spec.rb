@@ -190,7 +190,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     fill_in('search', with: 'Escapologist')
     find('.search-button').click
 
-    expect(page).to have_text('No results found')
+    expect(page).to have_text('0 results found')
   end
 
   scenario 'search for specific job title shows number of results' do

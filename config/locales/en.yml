@@ -111,8 +111,8 @@ en-GB:
       no_results: 0 results found - try again using a different job title
   job_profiles:
     index:
-      title: Search for a type of work
-      body: Enter a job title to find out how well your skills match to it
+      title: Search for a type of work you're interested in
+      body: Enter a job title to find out how well your skills match to it.
       placeholder: Enter a job title
     vacancies:
       one: is
