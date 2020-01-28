@@ -81,8 +81,9 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your advice choices')
     check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
+    click_on('Get CV advice')
 
-    expect(page).to have_link('Get CV advice')
+    expect(page).to have_current_path(cv_advice_path)
   end
 
   scenario 'Page links to cover letter help if job hunting question answered for cover letter' do
@@ -90,8 +91,9 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your advice choices')
     check('I want advice on writing a cover letter', allow_label_click: true)
     click_on('Continue')
+    click_on('Get cover letter advice')
 
-    expect(page).to have_link('Get cover letter advice')
+    expect(page).to have_current_path(cover_letter_advice_path)
   end
 
   scenario 'Page links to interview prep help if job hunting question answered for interview prep' do
@@ -99,8 +101,9 @@ RSpec.feature 'Action plan spec' do
     click_on('Edit your advice choices')
     check('I want advice on preparing for interviews', allow_label_click: true)
     click_on('Continue')
+    click_on('Get interview advice')
 
-    expect(page).to have_link('Get interview advice')
+    expect(page).to have_current_path(interview_advice_path)
   end
 
   scenario 'Page shows different content if no job hunting questions answered' do

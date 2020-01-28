@@ -1,0 +1,95 @@
+<% page_title :pages_cover_letter_advice %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.cover_letter_advice'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.action_plan'), action_plan_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <p class="govuk-body">Your CV and covering letter are your chance to sell yourself to employers.</p>
+    <p class="govuk-body">To create a good first impression, make sure your covering letter:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>is well written</li>
+      <li>doesn't contain any spelling mistakes or bad grammar</li>
+      <li>supports what's in your CV</li>
+    </ul>
+    <p class="govuk-body">A good covering letter will show that you've done your research, you know what the job involves and what the employer's looking for.</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <h2 class="govuk-heading-l">Covering letters - the main rules</h2>
+    <p class="govuk-body">Your covering letter should be short and to the point. Write it on a computer as it makes it easier to make any changes or corrections before you send it.</p>
+    <p class="govuk-body">Highlight your most relevant skills and achievements, and explain any gaps in your CV, like periods of unemployment, time spent in prison, travelling or being a carer. For each of these explain what you learned from the experience.</p>
+    <p class="govuk-body">Make specific reference to the employer - don't send out identical covering letters with no organisation details. Use the right language and tone, and the same font and text size as on your CV. Always check for spelling and grammatical errors.</p>
+    <p class="govuk-body">If you mention your disability at the application stage it can give you an opportunity to talk about the transferable skills you've developed as a result of dealing with your disability. But you don't need to mention your disability if you don't want to.</p>
+    <p class="govuk-body">It's important to address your letter to the person named in the advert, if there is one. If there isn't, find out the name of the recruiter or the head of the department you want to work for.</p>
+    <p class="govuk-body">You also need to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>spell any names correctly and address them with their preferred title, whether it's Dr, Mr, Mrs, or Ms</li>
+      <li>explain why you're writing</li>
+      <li>be clear about what you're applying for by including the full title of the job, the reference number, and where you saw it advertised</li>
+      <li>research the company and the job to find out the main skills the employer is looking for</li>
+      <li>give evidence to show that you have the right personal qualities, experience, qualifications, and skills for the role</li>
+      <li>include real examples of when you've used these skills, and highlight any major achievements, like completing training courses</li>
+      <li>present your skills in a way that shows how giving you the job will benefit the organisation</li>
+    </ul>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <h2 class="govuk-heading-l">Show your enthusiasm</h2>
+    <p class="govuk-body">Show how keen you are to get this job and work for this employer. Many employers skim-read covering letters, so the opening paragraph is your opportunity to impress them with how much you know about their work.</p>
+    <p class="govuk-body">Explain why you believe you're the right person for the company, and what makes you highly motivated to work for them. Show you're familiar with their products and services, and recent news about them. You could also explain that you're enthusiastic about working for them because you share their work values, culture and style.</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <h2 class="govuk-heading-l">Take the employer's point of view</h2>
+    <p class="govuk-body">Imagine you're the employer and ask yourself:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>what would make a candidate stand out?</li>
+      <li>what would be my ideal candidate?</li>
+      <li>why would I hire the person who sent this covering letter?</li>
+    </ul>
+    <p class="govuk-body">Cover all the essential points clearly - remember employers are busy and might not have the time to read a long letter.</p>
+    <p class="govuk-body">Use the same language that the employer uses on their website, in job adverts and any other communications. Use the same tone as the employer, but remember to keep it professional.</p>
+    <p class="govuk-body">Present your skills in a way that shows how giving you the job will benefit their company. You can do this by cutting down on the number of times you use the word 'I' and increasing the number of times you use 'you' and 'your organisation'.</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <h2 class="govuk-heading-l">Identify your unique selling points</h2>
+    <p class="govuk-body">Be positive about who you are and what you have to offer, like your ability to learn quickly, your experience if you're older, or your ideas, enthusiasm and willingness to learn if you've recently finished college. Highlight to the employer what special skills, knowledge or expertise you can bring.</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <h2 class="govuk-heading-l">Promote your transferable skills</h2>
+    <p class="govuk-body">Think about a job you've done before and the job you want to get into, and try to identify the skills you need for both, like working to deadlines, managing budgets and working well with a wide range of people.</p>
+
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+
+    <h2 class="govuk-heading-l">Sign off</h2>
+    <p class="govuk-body">Lastly, you should finish your letter by bringing it all together.</p>
+    <p class="govuk-body">You should:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>invite the employer to get more details about you from your attached or enclosed CV</li>
+      <li>say you're looking forward to hearing from them, if you're replying to an advertised vacancy</li>
+      <li>say you'll wait for their call, or that you'll contact them in a week or two, if you're applying on the off-chance of a job</li>
+      <li>explain how you'd like to be contacted, for example by phone, email or post, and make sure your contact details are correct on your covering letter and CV</li>
+    </ul>
+
+    <%= render 'advice_on_finding_work' %>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
+</div>
