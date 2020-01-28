@@ -2,6 +2,12 @@
   border-top: 7px solid govuk-colour("blue");
 }
 
+.action-plan-section__bottom {
+  @include govuk-media-query($from: tablet) {
+    border-bottom: 7px solid govuk-colour("blue");
+  }
+}
+
 .action-plan-action {
   @include govuk-media-query($from: desktop) {
     float: right;
