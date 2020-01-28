@@ -19,7 +19,7 @@ en-GB:
     location_ineligible: No courses in your area
     current_job_skills: Job skills
     user_personal_data: Your information
-    save_your_results: Save your results
+    save_your_results: Save your progress
     return_to_saved_results: Return to saved results
     link_sent: Link sent
     results_saved: Results saved
@@ -153,11 +153,11 @@ en-GB:
   user_personal_data:
     title: Your information
   save_your_results:
-    title: Save your results
+    title: Save your progress
     sub_title: If you like, you can save these results so you can come back to them later.
   users:
     new:
-      title: Save your results
+      title: Save your progress
     registration_results_saved:
       title: Your results have been saved
     sign_in_link_sent:
