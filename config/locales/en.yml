@@ -20,7 +20,7 @@ en-GB:
     current_job_skills: Job skills
     user_personal_data: Your information
     save_your_results: Save your progress
-    return_to_saved_results: Return to saved results
+    return_to_saved_results: Return to saved progress
     link_sent: Link sent
     results_saved: Progress saved
     email_sent_again: Email sent again
@@ -62,10 +62,10 @@ en-GB:
     errors_internal_server_error: Get help to retrain - Internal server error
     errors_postcode_search_error: Get help to retrain - Postcode search error
     errors_jobs_near_me_error: Get help to retrain - Jobs near me error
-    errors_return_to_saved_results_error: Get help to retrain - Return to saved results error
+    errors_return_to_saved_results_error: Get help to retrain - Return to saved progress error
     errors_save_results_error: Get help to retrain - Save your results error
     save_your_results: Get help to retrain - Save your results
-    return_to_saved_results: Get help to retrain - Return to saved results
+    return_to_saved_results: Get help to retrain - Return to saved progress
     link_sent: Get help to retrain - Link sent
     results_saved: Get help to retrain - Results saved
     email_sent_again: Get help to retrain - Email sent again
@@ -179,8 +179,8 @@ en-GB:
     sign_in_link_sent_again:
       title: Link sent again
   return_to_saved_results:
-    title: Return to saved results
-    sub_title: Return to any results you've previously saved in the service.
+    title: Return to saved progress
+    sub_title: If you’ve previously saved your progress in this service, you can return to it by selecting the button below.
 
   pagination:
     previous: Previous

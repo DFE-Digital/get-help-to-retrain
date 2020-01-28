@@ -88,30 +88,30 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   context 'when user signs in' do
-    scenario 'user sees return to saved results in sidebar without skills' do
+    scenario 'user sees return to saved progress in sidebar without skills' do
       paths.each do |path|
         visit(path)
 
-        expect(page).to have_text('Return to saved results')
+        expect(page).to have_text('Return to saved progress')
       end
     end
 
-    scenario 'user sees return to saved results in sidebar if user registered' do
+    scenario 'user sees return to saved progress in sidebar if user registered' do
       register_user
 
       paths.each do |path|
         visit(path)
 
-        expect(page).to have_text('Return to saved results')
+        expect(page).to have_text('Return to saved progress')
       end
     end
 
-    scenario 'user sees return to saved results in sidebar if user selects empty job skills' do
+    scenario 'user sees return to saved progress in sidebar if user selects empty job skills' do
       visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
       uncheck('Baldness', allow_label_click: true)
       click_on('Select these skills')
 
-      expect(page).to have_text('Return to saved results')
+      expect(page).to have_text('Return to saved progress')
     end
 
     scenario 'user does not see return to save results when having atleast one job profile skill' do
@@ -119,11 +119,11 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Return to saved results')
+        expect(page).not_to have_text('Return to saved progress')
       end
     end
 
-    scenario 'user does not see return to saved results in sidebar if user sign in through registration' do
+    scenario 'user does not see return to saved progress in sidebar if user sign in through registration' do
       register_user
       click_on('send it again')
       Capybara.reset_sessions!
@@ -132,11 +132,11 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Return to saved results')
+        expect(page).not_to have_text('Return to saved progress')
       end
     end
 
-    scenario 'user does not see return to saved results in sidebar if user signs in through sign in' do
+    scenario 'user does not see return to saved progress in sidebar if user signs in through sign in' do
       register_user
 
       visit(return_to_saved_results_path)
@@ -148,7 +148,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Return to saved results')
+        expect(page).not_to have_text('Return to saved progress')
       end
     end
 

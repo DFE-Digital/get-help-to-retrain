@@ -13,14 +13,14 @@
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-body">We've re-sent this email to</p>
     <h3 class="govuk-heading-m"><%= params[:email] %></h3>
-    <p class="govuk-body">This email contains a link that will take you back to your saved information.</p>
+    <p class="govuk-body">This email contains a link that will take you back to any progress you’ve saved.</p>
     <p class="govuk-body">The link expires after one hour.</p>
     <p class="govuk-body">If you haven't received this email</p>
     <ul class="govuk-list govuk-list--bullet">
       <li>check the email address you entered is correct</li>
       <li>check your junk mail</li>
     </ul>
-    <p class="govuk-body">You'll only be able to return to your results if you have previously saved results in this service. If you haven't previously done this, you won't receive an email.</p>
+    <p class="govuk-body">You'll only be able to return to your progress if you previously saved your progress in this service. If you haven't saved any progress, you won't receive an email.</p>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "shared/contact_us" %>
