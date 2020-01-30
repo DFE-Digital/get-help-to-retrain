@@ -216,6 +216,24 @@ RSpec.feature 'Check your skills', type: :feature do
     expect(page).to have_text(/Enter a job title/)
   end
 
+  scenario 'Error summary message present if no search is entered' do
+    visit(check_your_skills_path)
+    find('.search-button').click
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no search is entered' do
+    visit(check_your_skills_path)
+    find('.search-button').click
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a job title'
+      ]
+    )
+  end
+
   scenario 'User gets relevant messaging if no search in results is entered' do
     create(:job_profile, name: 'Hacker')
     visit(results_check_your_skills_path(search: 'Hacker'))
@@ -223,5 +241,21 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(page).to have_text(/Enter a job title/)
+  end
+
+  scenario 'Error summary message present if no search is entered on results page' do
+    visit(results_check_your_skills_path(search: ''))
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no search is entered on results page' do
+    visit(results_check_your_skills_path(search: ''))
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a job title'
+      ]
+    )
   end
 end
