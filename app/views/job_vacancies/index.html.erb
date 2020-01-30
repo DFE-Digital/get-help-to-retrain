@@ -13,6 +13,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
+    <%= error_summary(@job_vacancy_search) %>
     <h1 class="govuk-heading-xl"><%= target_job.name %> jobs near me</h1>
     <p class="govuk-body">These jobs within 20 miles of your postcode are currently being advertised in the <%= link_to('Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link') %> service from the Department for Work and Pensions.</p>
     <p class="govuk-body">Selecting one of these jobs will take you to another government service.</p>

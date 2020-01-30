@@ -13,6 +13,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
+    <%= error_summary(@search) %>
     <h1 class="govuk-heading-xl"><%= params[:topic_id].titleize %> courses near me</h1>
     <p class="govuk-body-l">Apply for a course by calling the course provider or visiting their website.</p>
     <div class="govuk-grid-column-full govuk-!-padding-0">
