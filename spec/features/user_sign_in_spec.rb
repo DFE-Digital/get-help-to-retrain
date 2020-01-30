@@ -280,6 +280,27 @@ RSpec.feature 'User sign in' do
     expect(page).to have_text(/Enter a valid email address/)
   end
 
+  scenario 'Error summary message present if no email is entered' do
+    visit return_to_saved_results_path
+
+    click_on('Send link')
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if invalid email is entered' do
+    visit return_to_saved_results_path
+
+    fill_in('email', with: 'dummy-mail')
+    click_on('Send link')
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a valid email address'
+      ]
+    )
+  end
+
   scenario 'valid email submission redirects to link sent page' do
     visit return_to_saved_results_path
 

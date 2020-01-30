@@ -11,6 +11,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
+    <%= error_summary(@user) %>
     <h1 class="govuk-heading-xl"><%= t('return_to_saved_results.title') %></h1>
     <p class="govuk-body"><%= t('return_to_saved_results.sub_title') %></p>
     <p class="govuk-body">The link expires after one hour.</p>
