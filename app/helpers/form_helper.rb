@@ -1,4 +1,17 @@
 module FormHelper
+  def error_summary(object)
+    return unless object.errors.any?
+
+    content_tag('div', class: 'govuk-error-summary', **error_summary_attributes) do
+      safe_join(
+        [
+          tag.h2('There is a problem', id: 'error-summary-title', class: 'govuk-error-summary__title'),
+          error_list(object)
+        ]
+      )
+    end
+  end
+
   def form_group_tag(object, attribute, tag_class: [], &_block)
     css_classes = ['govuk-form-group'] + tag_class
     css_classes << 'govuk-form-group--error' if object.errors.key?(attribute)
@@ -35,5 +48,43 @@ module FormHelper
     object.errors.messages[attribute].map { |message|
       content_tag(:span, 'Error:', class: 'govuk-visually-hidden') + ' ' + message
     }
+  end
+
+  def error_summary_attributes
+    {
+      tabindex: -1,
+      role: 'alert',
+      data: {
+        module: 'govuk-error-summary'
+      },
+      aria: {
+        labelledby: 'error-summary-title'
+      }
+    }
+  end
+
+  def error_list(object)
+    content_tag('div', class: 'govuk-error-summary__body') do
+      content_tag('ul', class: 'govuk-list govuk-error-summary__list') do
+        safe_join(
+          object.errors.messages.map { |attribute, messages|
+            error_list_item(object.class.model_name.singular, attribute, messages.first)
+          }
+        )
+      end
+    end
+  end
+
+  def error_list_item(object_name, attribute, message)
+    content_tag('li') do
+      link_to(
+        message,
+        same_page_link(error_id(object_name, attribute))
+      )
+    end
+  end
+
+  def same_page_link(target)
+    '#'.concat(target)
   end
 end
