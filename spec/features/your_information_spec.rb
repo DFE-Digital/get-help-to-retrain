@@ -117,6 +117,26 @@ RSpec.feature 'Your information' do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'Error summary message present when there is an error in the page' do
+    click_on('Continue')
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains list of all errors on the page' do
+    fill_in('user_personal_data[postcode]', with: 'NW6 1JJ')
+    click_on('Continue')
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        first_name_blank_error,
+        last_name_blank_error,
+        dob_invalid_error,
+        gender_blank_error
+      ]
+    )
+  end
+
   scenario 'Error message present when first name is missing' do
     click_on('Continue')
 
