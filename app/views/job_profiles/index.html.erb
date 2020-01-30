@@ -11,6 +11,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
+    <%= error_summary(@job_profile_search) %>
     <%= render "shared/search/form", search_path: job_profiles_path, scope: 'job_profiles.index' %>
   </div>
   <div class="govuk-grid-column-one-third">

@@ -207,6 +207,46 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_text('1 result found')
   end
 
+  scenario 'Error summary message present if no search is entered on job search page' do
+    visit_skills_for_current_job_profile
+
+    visit job_profiles_path
+    find('.search-button').click
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no search is entered on job search page' do
+    visit_skills_for_current_job_profile
+
+    visit job_profiles_path
+    find('.search-button').click
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a job title'
+      ]
+    )
+  end
+
+  scenario 'Error summary message present if no search is entered on job results page' do
+    visit_skills_for_current_job_profile
+    visit(results_job_profiles_path(search: ''))
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no search is entered on job results page' do
+    visit_skills_for_current_job_profile
+    visit(results_job_profiles_path(search: ''))
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a job title'
+      ]
+    )
+  end
+
   scenario 'search for specific job title shows skills match' do
     visit_skills_for_current_job_profile
 
