@@ -11,8 +11,8 @@
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-    <p class="govuk-body">If you like, you can save your skills list and job matches so you can return to them later.</p>
-    <p class="govuk-body">To save your results, just enter your email address below.</p>
+    <p class="govuk-body">If you like, you can save your progress so you can return later.</p>
+    <p class="govuk-body">To save your progress, just enter your email address below.</p>
     <%= form_with model: @user, local: true, url: save_your_results_path do |form| %>
       <%= form_group_tag @user, :email do %>
         <%= form.label :email, class: 'govuk-label' %>
@@ -20,7 +20,7 @@
         <%= text_field_tag(:email, params.fetch(:email, nil), class: css_classes_for_input(@user, :email, "govuk-input govuk-!-width-two-thirds"), autocomplete: 'email') %>
       <% end %>
       <p class="govuk-body">We'll send you a confirmation email to this email address.</p>
-      <%= button_tag('Save your results', class: 'govuk-button', name: nil, data: { module: 'govuk-button' }) %>
+      <%= button_tag('Save your progress', class: 'govuk-button', name: nil, data: { module: 'govuk-button' }) %>
     <% end %>
   </div>
   <div class="govuk-grid-column-one-third">

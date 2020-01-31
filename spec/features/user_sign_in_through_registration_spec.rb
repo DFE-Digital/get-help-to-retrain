@@ -24,7 +24,7 @@ RSpec.feature 'User sign in through registration' do
     fill_in('email', with: 'test@test.test')
     page.driver.header('User-Agent', 'some-agent')
 
-    click_on('Save your results')
+    click_on('Save your progress')
   end
 
   def sign_in_user

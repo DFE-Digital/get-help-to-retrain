@@ -40,7 +40,7 @@ RSpec.feature 'User authentication in sidebar' do
     visit(save_your_results_path)
     fill_in('email', with: 'test@test.test')
     page.driver.header('User-Agent', 'some-agent')
-    click_on('Save your results')
+    click_on('Save your progress')
   end
 
   context 'when user saves their progress' do
@@ -50,7 +50,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).to have_text('Save your results')
+        expect(page).to have_text('Save your progress')
       end
     end
 
@@ -61,7 +61,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Save your results')
+        expect(page).not_to have_text('Save your progress')
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Save your results')
+        expect(page).not_to have_text('Save your progress')
       end
     end
 
@@ -82,7 +82,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Save your results')
+        expect(page).not_to have_text('Save your progress')
       end
     end
   end
@@ -161,7 +161,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).to have_text('Save your results')
+        expect(page).to have_text('Save your progress')
       end
     end
 
@@ -177,7 +177,7 @@ RSpec.feature 'User authentication in sidebar' do
       paths.each do |path|
         visit(path)
 
-        expect(page).not_to have_text('Save your results')
+        expect(page).not_to have_text('Save your progress')
       end
     end
   end
