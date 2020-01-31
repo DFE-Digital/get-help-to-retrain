@@ -11,6 +11,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
+    <%= error_summary(@job_profile_search) %>
     <% if @job_profiles.blank? %>
       <%= render 'no_results', scope: 'job_profiles.index' %>
     <% else %>

@@ -128,6 +128,26 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Enter a postcode/)
   end
 
+  scenario 'Error summary message present if no address is entered' do
+    create(:course, topic: 'maths')
+    visit(courses_path(topic_id: 'maths'))
+    find('.search-button-results').click
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no address is entered' do
+    create(:course, topic: 'maths')
+    visit(courses_path(topic_id: 'maths'))
+    find('.search-button-results').click
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a postcode'
+      ]
+    )
+  end
+
   scenario 'tracks search postcode' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)

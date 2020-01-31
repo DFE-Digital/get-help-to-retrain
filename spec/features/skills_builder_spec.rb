@@ -314,6 +314,22 @@ RSpec.feature 'Build your skills', type: :feature do
     expect(page).to have_text(/Select at least one skill/)
   end
 
+  scenario 'Error summary message present if no skills selected' do
+    unselect_all_skills_for(job_profile)
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no skills selected' do
+    unselect_all_skills_for(job_profile)
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Select at least one skill'
+      ]
+    )
+  end
+
   scenario 'remains on skills page if no skills present on session for a job profile' do
     unselect_all_skills_for(job_profile)
     visit(skills_path)

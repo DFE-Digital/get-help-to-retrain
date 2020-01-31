@@ -152,6 +152,24 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(page).to have_text(/Enter a postcode/)
   end
 
+  scenario 'Error summary message present if no address is entered' do
+    user_targets_a_job
+    find('.search-button-results').click
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no address is entered' do
+    user_targets_a_job
+    find('.search-button-results').click
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter a postcode'
+      ]
+    )
+  end
+
   scenario 'User gets relevant messaging if there is an API error' do
     find_a_job_service = instance_double(FindAJobService)
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)

@@ -56,6 +56,24 @@ RSpec.feature 'User registration' do
     expect(page).to have_text(/Enter an email address/)
   end
 
+  scenario 'Error summary message present if no email is entered' do
+    visit(save_your_results_path)
+    click_on('Save your results')
+
+    expect(page).to have_content('There is a problem')
+  end
+
+  scenario 'Error summary contains error if no email is entered' do
+    visit(save_your_results_path)
+    click_on('Save your results')
+
+    expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
+      [
+        'Enter an email address'
+      ]
+    )
+  end
+
   scenario 'User gets relevant messaging if invalid email is entered' do
     visit(save_your_results_path)
     fill_in('email', with: 'wrong email')

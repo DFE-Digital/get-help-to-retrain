@@ -11,6 +11,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
+    <%= error_summary(@job_profile_search) %>
     <% if user_session.job_profile_skills? %>
       <%= render "shared/search/form", search_path: check_your_skills_path, scope: 'check_your_skills.index.additional_skills' %>
     <% else %>

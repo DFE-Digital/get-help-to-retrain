@@ -3,6 +3,30 @@ require 'rails_helper'
 RSpec.describe FormHelper do
   let(:search) { CourseGeospatialSearch.new(postcode: 'NW9 8ET') }
 
+  describe '#error_summary' do
+    it 'returns nothing if object supplied has no errors' do
+      expect(helper.error_summary(search)).to be_nil
+    end
+
+    it 'returns the error summary title' do
+      search.errors.add(:postcode, 'Test error')
+
+      expect(helper.error_summary(search)).to include(
+        '<h2 id="error-summary-title" class="govuk-error-summary__title">There is a problem</h2>'
+      )
+    end
+
+    it 'returns a link for each object error with the correct error id' do
+      search.errors.add(:postcode, 'Test error')
+      search.errors.add(:postcode_in_uk, 'Postcode not in uk')
+
+      expect(helper.error_summary(search)).to include(
+        '<a href="#course_geospatial_search_postcode-error">Test error</a>',
+        '<a href="#course_geospatial_search_postcode_in_uk-error">Postcode not in uk</a>'
+      )
+    end
+  end
+
   describe '#form_group_tag' do
     it 'wraps the supplied block in a form group <div> tag' do
       expect(helper.form_group_tag(search, :postcode) { content_tag(:div) }).to eq('<div class="govuk-form-group"><div></div></div>')

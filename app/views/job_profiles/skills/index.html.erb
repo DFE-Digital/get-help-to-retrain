@@ -14,6 +14,7 @@
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">
     <div class="govuk-grid-column-full govuk-!-padding-0">
+      <%= error_summary(@skills_builder) %>
       <%= form_tag job_profile_skills_path, method: 'get' do %>
         <%= form_group_tag @skills_builder, :skills do %>
           <fieldset class="govuk-fieldset" aria-describedby="current-job-skills-hint">
