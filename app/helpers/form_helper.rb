@@ -79,12 +79,8 @@ module FormHelper
     content_tag('li') do
       link_to(
         message,
-        same_page_link(error_id(object_name, attribute))
+        '#' + error_id(object_name, attribute)
       )
     end
-  end
-
-  def same_page_link(target)
-    '#'.concat(target)
   end
 end
