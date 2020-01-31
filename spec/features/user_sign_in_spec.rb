@@ -254,7 +254,7 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(link_expired_path)
   end
 
-  scenario 'when the user lands on link-expired page one can navigate to Return to saved results page' do
+  scenario 'when the user lands on link-expired page one can navigate to Return to saved progress page' do
     visit link_expired_path
 
     click_on('send yourself the link again')
@@ -262,7 +262,7 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(return_to_saved_results_path)
   end
 
-  scenario 'empty email submission on Return to saved results page prompts error' do
+  scenario 'empty email submission on Return to saved progress page prompts error' do
     visit return_to_saved_results_path
 
     click_on('Send link')
@@ -270,7 +270,7 @@ RSpec.feature 'User sign in' do
     expect(page).to have_text(/Enter an email address/)
   end
 
-  scenario 'invalid email submission on Return to saved results page prompts error' do
+  scenario 'invalid email submission on Return to saved progress page prompts error' do
     visit return_to_saved_results_path
 
     fill_in('email', with: 'dummy-mail')
@@ -312,10 +312,10 @@ RSpec.feature 'User sign in' do
       .with(sign_in_email)
   end
 
-  scenario 'user gets to Return to saved results page when clicking Return to saved results button' do
+  scenario 'user gets to Return to saved progress page when clicking Return to saved progress button' do
     visit(root_path)
 
-    click_on('Return to saved results')
+    click_on('Return to saved progress')
 
     expect(page).to have_current_path(return_to_saved_results_path)
   end
