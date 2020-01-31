@@ -43,7 +43,7 @@ RSpec.feature 'User sign in' do
     fill_in('email', with: 'test@test.test')
     page.driver.header('User-Agent', 'some-agent')
 
-    click_on('Save your results')
+    click_on('Save your progress')
   end
 
   def send_sign_in_email

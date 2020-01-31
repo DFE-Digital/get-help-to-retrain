@@ -35,7 +35,7 @@ RSpec.feature 'User registration' do
     visit(save_your_results_path)
     fill_in('email', with: 'test@test.test')
     page.driver.header('User-Agent', 'some-agent')
-    click_on('Save your results')
+    click_on('Save your progress')
   end
 
   before do
@@ -45,13 +45,13 @@ RSpec.feature 'User registration' do
   scenario 'user sees save your results page when navigating from sidebar' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Save my results')
+    click_on('Save your progress')
     expect(page).to have_current_path(save_your_results_path)
   end
 
   scenario 'User gets relevant messaging if no email is entered' do
     visit(save_your_results_path)
-    click_on('Save your results')
+    click_on('Save your progress')
 
     expect(page).to have_text(/Enter an email address/)
   end
@@ -59,7 +59,7 @@ RSpec.feature 'User registration' do
   scenario 'User gets relevant messaging if invalid email is entered' do
     visit(save_your_results_path)
     fill_in('email', with: 'wrong email')
-    click_on('Save your results')
+    click_on('Save your progress')
 
     expect(page).to have_text(/Enter a valid email address/)
   end
@@ -67,7 +67,7 @@ RSpec.feature 'User registration' do
   scenario 'User is taken to link sent page after entering email to save results' do
     register_user
 
-    expect(page).to have_text(/Your results have been saved/)
+    expect(page).to have_text(/Your progress has been saved/)
   end
 
   scenario 'User can see their email on link page' do
@@ -80,16 +80,16 @@ RSpec.feature 'User registration' do
     register_user
     click_on('enter your email address again')
 
-    expect(page).to have_text(/Save your results/)
+    expect(page).to have_text(/Save your progress/)
   end
 
   scenario 'User does not get error message if they enter their same email but different case' do
     register_user
     click_on('enter your email address again')
     fill_in('email', with: 'Test@Test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
 
-    expect(page).to have_text(/Your results have been saved/)
+    expect(page).to have_text(/Your progress has been saved/)
   end
 
   scenario 'User can resend email and is redirected to email sent page' do
@@ -109,11 +109,11 @@ RSpec.feature 'User registration' do
   scenario 'User can resume their journey from resend page to where they first clicked save my results' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Save my results')
+    click_on('Save your progress')
     visit(skills_matcher_index_path)
-    click_on('Save my results')
+    click_on('Save your progress')
     fill_in('email', with: 'test@test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
     click_on('send it again')
     click_on('Continue')
 
@@ -125,9 +125,9 @@ RSpec.feature 'User registration' do
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Save my results')
+    click_on('Save your progress')
     fill_in('email', with: 'test@test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
 
     expect(page).to have_current_path(save_results_error_path)
   end
@@ -138,9 +138,9 @@ RSpec.feature 'User registration' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
     visit(skills_matcher_index_path)
-    click_on('Save my results')
+    click_on('Save your progress')
     fill_in('email', with: 'test@test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
 
     click_on('Continue')
 
@@ -150,11 +150,11 @@ RSpec.feature 'User registration' do
   scenario 'User can resume their journey to where they first clicked save my results' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Save my results')
+    click_on('Save your progress')
     visit(skills_matcher_index_path)
-    click_on('Save my results')
+    click_on('Save your progress')
     fill_in('email', with: 'test@test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
     click_on('Continue')
 
     expect(page).to have_current_path(skills_matcher_index_path)
@@ -179,7 +179,7 @@ RSpec.feature 'User registration' do
     register_user
     click_on('enter your email address again')
     fill_in('email', with: 'test@test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
     click_on('Continue')
 
     expect(page).to have_current_path(task_list_path)
@@ -189,7 +189,7 @@ RSpec.feature 'User registration' do
     register_user
     click_on('enter your email address again')
     fill_in('email', with: 'test@test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
     click_on('send it again')
     click_on('Continue')
 
@@ -224,7 +224,7 @@ RSpec.feature 'User registration' do
     register_user
     click_on('enter your email address again')
     fill_in('email', with: 'Test@Test.test')
-    click_on('Save your results')
+    click_on('Save your progress')
 
     expect(client).to have_received(:send_email)
       .with(confirmation_email)
