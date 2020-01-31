@@ -58,14 +58,14 @@ RSpec.feature 'User registration' do
 
   scenario 'Error summary message present if no email is entered' do
     visit(save_your_results_path)
-    click_on('Save your results')
+    click_on('Save your progress')
 
     expect(page).to have_content('There is a problem')
   end
 
   scenario 'Error summary contains error if no email is entered' do
     visit(save_your_results_path)
-    click_on('Save your results')
+    click_on('Save your progress')
 
     expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
       [
