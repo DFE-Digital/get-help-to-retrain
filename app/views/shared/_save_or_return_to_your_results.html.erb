@@ -1,4 +1,4 @@
-<% if user_session.job_profile_skills? %>
+<% if user_session.postcode.present? %>
   <%= render 'shared/save_your_results'  %>
 <% else %>
   <% return unless user_not_authenticated? %>
