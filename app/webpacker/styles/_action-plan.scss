@@ -18,3 +18,7 @@
     width: 100%;
   }
 }
+
+.action-plan-list .govuk-grid-row:last-child a {
+  margin-bottom: govuk-spacing(2);
+}
