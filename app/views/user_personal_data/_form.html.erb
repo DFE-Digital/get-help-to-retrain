@@ -16,7 +16,7 @@
   <% end %>
   <div class="govuk-form-group">
     <%= form_group_tag @user_personal_data, :dob do %>
-      <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group', aria: { describedby: 'date-of-birth-hint' } do %>
+      <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group', aria: { describedby: 'date-of-birth-hint', label: 'Date of birth' } do %>
         <legend class='govuk-fieldset__legend govuk-fieldset__legend--xl'>
           <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
             Date of birth
@@ -51,7 +51,7 @@
   </div>
   <div class="govuk-radios">
     <%= form_group_tag @user_personal_data, :gender do %>
-      <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group' do %>
+      <%= field_set_tag nil, class: 'govuk-fieldset', role: 'group', aria: { label: 'Gender' } do %>
         <legend class='govuk-fieldset__legend govuk-fieldset__legend--xl'>
           <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
             Gender
