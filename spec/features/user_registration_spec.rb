@@ -38,14 +38,26 @@ RSpec.feature 'User registration' do
     click_on('Save your progress')
   end
 
+  def fill_in_user_personal_information
+    visit(your_information_path)
+    fill_in('user_personal_data[first_name]', with: 'John')
+    fill_in('user_personal_data[last_name]', with: 'Mayer')
+    fill_in('user_personal_data[postcode]', with: 'NW6 1JJ')
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
+    choose('user_personal_data[gender]', option: 'male')
+    click_on('Continue')
+  end
+
   before do
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
   scenario 'user sees save your results page when navigating from sidebar' do
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
+    fill_in_user_personal_information
     click_on('Save your progress')
+
     expect(page).to have_current_path(save_your_results_path)
   end
 
@@ -125,6 +137,7 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User can resume their journey from resend page to where they first clicked save my results' do
+    fill_in_user_personal_information
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
     click_on('Save your progress')
@@ -141,8 +154,7 @@ RSpec.feature 'User registration' do
   scenario 'When NotifyService is down, the user sees the correct error page when one tries to save results' do
     allow(Notifications::Client).to receive(:new).and_raise(ArgumentError)
 
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
+    fill_in_user_personal_information
     click_on('Save your progress')
     fill_in('email', with: 'test@test.test')
     click_on('Save your progress')
@@ -153,6 +165,7 @@ RSpec.feature 'User registration' do
   scenario 'When NotifyService is down, user can resume the journey from the point one tries saving the results' do
     allow(Notifications::Client).to receive(:new).and_raise(ArgumentError)
 
+    fill_in_user_personal_information
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
     visit(skills_matcher_index_path)
@@ -166,6 +179,7 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User can resume their journey to where they first clicked save my results' do
+    fill_in_user_personal_information
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
     click_on('Save your progress')

@@ -31,9 +31,16 @@ RSpec.feature 'User authentication in sidebar' do
     allow(Notifications::Client).to receive(:new).and_return(client)
   end
 
-  def unlock_tasklist_steps(job_profile: job_profile1)
-    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
-    click_on('Select these skills')
+  def fill_in_user_personal_information
+    visit(your_information_path)
+    fill_in('user_personal_data[first_name]', with: 'John')
+    fill_in('user_personal_data[last_name]', with: 'Mayer')
+    fill_in('user_personal_data[postcode]', with: 'NW6 1JJ')
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
+    choose('user_personal_data[gender]', option: 'male')
+    click_on('Continue')
   end
 
   def register_user
@@ -44,8 +51,8 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   context 'when user saves their progress' do
-    scenario 'user sees save your results in sidebar with skills' do
-      unlock_tasklist_steps
+    scenario 'user sees save your results in sidebar after filling PID form' do
+      fill_in_user_personal_information
 
       paths.each do |path|
         visit(path)
@@ -55,7 +62,7 @@ RSpec.feature 'User authentication in sidebar' do
     end
 
     scenario 'user does not see save your results in sidebar if user registered' do
-      unlock_tasklist_steps
+      fill_in_user_personal_information
       register_user
 
       paths.each do |path|
@@ -66,7 +73,7 @@ RSpec.feature 'User authentication in sidebar' do
     end
 
     scenario 'user does not see save your results in sidebar if user existed before' do
-      unlock_tasklist_steps
+      fill_in_user_personal_information
       register_user
       Capybara.reset_sessions!
       register_user
@@ -78,7 +85,7 @@ RSpec.feature 'User authentication in sidebar' do
       end
     end
 
-    scenario 'user does not see save your results with no previously selected skills' do
+    scenario 'user does not see save your results before filling PID form' do
       paths.each do |path|
         visit(path)
 
@@ -88,7 +95,7 @@ RSpec.feature 'User authentication in sidebar' do
   end
 
   context 'when user signs in' do
-    scenario 'user sees return to saved progress in sidebar without skills' do
+    scenario 'user sees return to saved results in sidebar before filling PID form' do
       paths.each do |path|
         visit(path)
 
@@ -106,16 +113,15 @@ RSpec.feature 'User authentication in sidebar' do
       end
     end
 
-    scenario 'user sees return to saved progress in sidebar if user selects empty job skills' do
-      visit(job_profile_skills_path(job_profile_id: job_profile1.slug))
-      uncheck('Baldness', allow_label_click: true)
-      click_on('Select these skills')
+    scenario 'user sees return to saved results in sidebar if user gets validation errors on PID form' do
+      visit(your_information_path)
+      click_on('Continue')
 
       expect(page).to have_text('Return to saved progress')
     end
 
-    scenario 'user does not see return to save results when having atleast one job profile skill' do
-      unlock_tasklist_steps(job_profile: job_profile1)
+    scenario 'user does not see return to save results after filling in PID form' do
+      fill_in_user_personal_information
       paths.each do |path|
         visit(path)
 
@@ -156,7 +162,7 @@ RSpec.feature 'User authentication in sidebar' do
       visit(return_to_saved_results_path)
       fill_in('email', with: 'test@test.test')
       click_on('Send link')
-      unlock_tasklist_steps
+      fill_in_user_personal_information
 
       paths.each do |path|
         visit(path)
