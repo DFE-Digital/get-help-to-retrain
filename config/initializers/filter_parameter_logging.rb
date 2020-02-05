@@ -13,4 +13,5 @@ Rails.application.config.filter_parameters += %i[
   email
   authenticity_token
   token
+  dob
 ]
