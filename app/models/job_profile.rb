@@ -1,7 +1,5 @@
 class JobProfile < PrimaryActiveRecordBase
-  has_many :job_profile_categories
   has_many :job_profile_skills
-  has_many :categories, through: :job_profile_categories, inverse_of: :job_profiles
   has_many :skills, through: :job_profile_skills, inverse_of: :job_profiles
 
   has_and_belongs_to_many :related_job_profiles,

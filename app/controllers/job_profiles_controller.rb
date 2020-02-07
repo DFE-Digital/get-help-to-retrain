@@ -21,10 +21,10 @@ class JobProfilesController < ApplicationController
   end
 
   def show
-    @job_profile = JobProfileDecorator.new(resource)
+    @job_profile = JobProfileDecoratorV2.new(resource)
     @job_vacancy_count = job_vacancy_count
-    @skills_to_develop = @job_profile.skills.names_that_exclude(user_skill_ids)
-    @existing_skills = @job_profile.skills.names_that_include(user_skill_ids)
+    @skills_to_develop = @job_profile.v2_skills.names_that_exclude(user_skill_ids)
+    @existing_skills = @job_profile.v2_skills.names_that_include(user_skill_ids)
   end
 
   def target
@@ -43,7 +43,7 @@ class JobProfilesController < ApplicationController
   private
 
   def resource
-    @resource ||= JobProfile.find_by(slug: job_profile_params[:id])
+    @resource ||= V2JobProfile.find_by(slug: job_profile_params[:id])
   end
 
   def job_profile_params

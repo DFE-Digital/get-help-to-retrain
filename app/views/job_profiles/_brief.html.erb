@@ -1,7 +1,5 @@
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-2"><%= @job_profile.how_to_become %></h1>
-<% @job_profile.additional_hero_copy.each do |paragraph| %>
-  <p class="govuk-body-l"><%= paragraph %></p>
-<% end %>
+<p class="govuk-body-l"><%= @job_profile.additional_hero_copy %></p>
 <% if @job_profile.alternative_titles.present? %>
   <p class="govuk-body-l muted-text">Other similar jobs include: <%= @job_profile.alternative_titles.downcase %></p>
 <% end %>

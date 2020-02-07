@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_141306) do
+ActiveRecord::Schema.define(version: 2020_02_06_145253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,6 +104,45 @@ ActiveRecord::Schema.define(version: 2019_12_17_141306) do
     t.index ["enabled"], name: "index_skills_on_enabled"
     t.index ["name"], name: "index_skills_on_name"
     t.index ["rarity"], name: "index_skills_on_rarity"
+  end
+
+  create_table "v2_job_profile_skills", force: :cascade do |t|
+    t.bigint "v2_job_profile_id"
+    t.bigint "v2_skill_id"
+    t.boolean "required", default: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["v2_job_profile_id"], name: "index_v2_job_profile_skills_on_v2_job_profile_id"
+    t.index ["v2_skill_id"], name: "index_v2_job_profile_skills_on_v2_skill_id"
+  end
+
+  create_table "v2_job_profiles", force: :cascade do |t|
+    t.string "slug"
+    t.string "name"
+    t.string "source_url"
+    t.string "description"
+    t.boolean "recommended", default: false
+    t.jsonb "content", default: "{}", null: false
+    t.datetime "last_updated"
+    t.integer "salary_min"
+    t.integer "salary_max"
+    t.string "alternative_titles"
+    t.string "soc"
+    t.string "onet_occupation_code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["slug"], name: "index_v2_job_profiles_on_slug", unique: true
+  end
+
+  create_table "v2_skills", force: :cascade do |t|
+    t.string "name"
+    t.decimal "onet_rank"
+    t.string "onet_element_id"
+    t.string "onet_attribute_type"
+    t.string "level"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_v2_skills_on_name"
   end
 
 end

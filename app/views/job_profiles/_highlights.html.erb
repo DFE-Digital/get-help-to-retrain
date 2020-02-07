@@ -11,20 +11,5 @@
       </div>
     </div>
   </div>
-
-  <% if @job_profile.growth %>
-    <div class="govuk-grid-column-one-half">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-quarter govuk-!-margin-top-5 govuk-!-margin-bottom-6">
-          <div class="profile-highlights <%= @job_profile.growth_icon %>" role="img" aria-label="Arrow pointing upwards"></div>
-        </div>
-        <div class="govuk-grid-column-three-quarters">
-          <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Recent job growth</h2>
-          <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-2 responsive-section-break">
-          <p id="lifestyle" class="govuk-body"><%= @job_profile.growth_type %></p>
-        </div>
-      </div>
-    </div>
-  <% end %>
 </div>
 <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-margin-top-5">
