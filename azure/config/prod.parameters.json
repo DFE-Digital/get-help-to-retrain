@@ -111,6 +111,62 @@
         "secretName": "prod-findAJobApiKey"
       }
     },
+    "azureClientId": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureClientId"
+      }
+    },
+    "azureClientSecret": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureClientSecret"
+      }
+    },
+    "azureScopes": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureScopes"
+      }
+    },
+    "azureTenantId": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureTenantId"
+      }
+    },
+    "azureManagementRoleId": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureManagementRoleId"
+      }
+    },
+    "azureReadWriteRoleId": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureReadWriteRoleId"
+      }
+    },
+    "azureReadRoleId": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/eaff0b89-17c5-4a97-9a00-f77551fe2c27/resourceGroups/s108p01-shared/providers/Microsoft.KeyVault/vaults/s108p01-shared-kv-01"
+        },
+        "secretName": "prod-azureReadRoleId"
+      }
+    },
     "appCustomHostName": {
       "value": "origin"
     },
@@ -134,6 +190,9 @@
     },
     "appServicePlanInstances": {
       "value": 2
+    },
+    "adminEnabled": {
+      "value": true
     }
   }
 }
