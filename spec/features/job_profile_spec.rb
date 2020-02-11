@@ -25,7 +25,7 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Apprenticeship')
   end
 
-  scenario 'User can see number of job vacancies near them' do
+  xscenario 'User can see number of job vacancies near them' do
     job_vacancy_search = instance_double(JobVacancySearch, count: 3)
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
@@ -36,7 +36,7 @@ RSpec.feature 'Job profile spec' do
     expect(page).to have_content('At least 3 vacancies')
   end
 
-  scenario 'User can see singular job vacancy if only one near them' do
+  xscenario 'User can see singular job vacancy if only one near them' do
     job_vacancy_search = instance_double(JobVacancySearch, count: 1)
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
@@ -47,7 +47,7 @@ RSpec.feature 'Job profile spec' do
     expect(page).to have_content('At least 1 vacancy')
   end
 
-  scenario 'User can see no job vacancies near them if none are available' do
+  xscenario 'User can see no job vacancies near them if none are available' do
     job_vacancy_search = instance_double(JobVacancySearch, count: 0)
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)

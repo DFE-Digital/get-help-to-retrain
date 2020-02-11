@@ -51,10 +51,11 @@ class JobProfilesController < ApplicationController
   end
 
   def job_vacancy_count
-    JobVacancySearch.new(
-      name: resource.name,
-      postcode: user_session.postcode
-    ).count
+    # Disabling temporarily until search improved
+    # JobVacancySearch.new(
+    #   name: resource.name,
+    #   postcode: user_session.postcode
+    # ).count
   rescue FindAJobService::APIError
     nil
   end
