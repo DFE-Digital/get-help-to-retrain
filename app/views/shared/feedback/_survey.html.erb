@@ -13,7 +13,7 @@
         role: 'button',
         aria: {
           expanded: false,
-          controls: 'page-is-not-useful'
+          controls: 'page-is-not-useful-form'
         }
       } do %>
         No
@@ -23,7 +23,7 @@
   </div>
 
   <div id="feedback-not-useful-container" class="top-border__container  govuk-!-padding-top-2 hidden">
-    <%= link_to 'close', '#', class: 'govuk-body govuk-link close-feedback-survey', role: 'button', aria: { controls: 'page-is-not-useful', expanded: true } %>
+    <%= link_to 'close', '#', class: 'govuk-body govuk-link close-feedback-survey', role: 'button', aria: { controls: 'page-is-not-useful-form', expanded: true } %>
     <%= form_with url: feedback_surveys_path, id: 'page-is-not-useful-form', aria: { hidden: true } do |f| %>
       <%= hidden_field_tag('page_useful', 'no', id: 'page_useful_no') %>
       <div class="govuk-form-group govuk-!-margin-top-6">
