@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def track_event(event_key, event_value)
-    event_label = I18n.t(event_key, scope: :events)
+  def track_event(event_key, event_value, scope = 'events')
+    event_label = I18n.t(event_key, scope: scope)
 
     track_events(
       [

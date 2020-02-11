@@ -33,6 +33,8 @@ class UsersController < ApplicationController
   def register_user
     if user.new_record?
       user.register_new_user(user_session, request.base_url)
+
+      track_event(:progress, 'save_journey', 'events.save')
     else
       sign_in_user
     end
@@ -42,6 +44,8 @@ class UsersController < ApplicationController
   def sign_in_user
     passwordless_session = build_passwordless_session(user)
     user.register_existing_user(passwordless_session, request.base_url)
+
+    track_event(:progress, 'return_journey', 'events.return_to_saved')
   end
 
   def set_redirect_path_for_registration

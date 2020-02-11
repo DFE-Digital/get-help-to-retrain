@@ -82,6 +82,10 @@ en-GB:
     job_hunting: Get help with your job hunting skills
     training: Check your maths and English skills
     it_training: Computer skills training
+    save:
+      progress: Saved progress
+    return_to_saved:
+      progress: Returned to progress
 
   contact_us:
     title: Free local advice
