@@ -1,0 +1,2 @@
+class Coursescsv < PrimaryActiveRecordBase
+end

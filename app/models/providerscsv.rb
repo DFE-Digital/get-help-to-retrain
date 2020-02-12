@@ -1,0 +1,2 @@
+class Providerscsv < PrimaryActiveRecordBase
+end

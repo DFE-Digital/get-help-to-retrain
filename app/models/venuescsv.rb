@@ -1,0 +1,2 @@
+class Venuescsv < PrimaryActiveRecordBase
+end

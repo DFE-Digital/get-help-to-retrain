@@ -1,0 +1,2 @@
+class Opportunitiescsv < PrimaryActiveRecordBase
+end
