@@ -54,6 +54,7 @@ en-GB:
     pages_cover_letter_advice: Get help to retrain - Cover letter advice
     pages_interview_advice: Get help to retrain - Interview advice
     pages_information_sources: Get help to retrain - Information sources
+    pages_accessibility_statement: Get help to retrain - Accessibility
     training_questions: Get help to retrain - Training options
     job_hunting_questions: Get help to retrain - Job hunting advice
     user_personal_data: Get help to retrain - Your information
@@ -158,6 +159,8 @@ en-GB:
       title: Privacy policy
     information_sources:
       title: Information sources
+    accessibility_statement:
+      title: Accessibility
   help_improve_this_service:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience
