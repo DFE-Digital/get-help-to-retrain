@@ -1,0 +1,46 @@
+<% page_title :pages_information_sources %>
+<%= link_to('Back', @back_url, class: 'govuk-back-link') %>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body">The Get help to retrain service takes information from several different sources. This page describes what information is used in the service and where this information comes from.</p>
+    <p class="govuk-body">We're constantly working to improve the information used in this service and your feedback is important to us. If you have any feedback about the information the service uses, please send an email to <%= mail_to('ghtr.support@digital.education.gov.uk', 'ghtr.support@digital.education.gov.uk', class: 'govuk-link') %>.</p>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+    <h2 class="govuk-heading-m">Job profiles</h2>
+    <h3 class="govuk-heading-s">How is this information used?</h3>
+    <p class="govuk-body">The service:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>matches a job title that you put into the service to a list of job titles that we have information about</li>
+      <li>describes what skills and knowledge you need to do a particular job</li>
+      <li>explains various ways you can get into a job that interests you</li>
+      <li>provides job descriptions for different types of job including what kinds of tasks people with that job do</li>
+    </ul>
+    <h3 class="govuk-heading-s">Source of this information</h3>
+    <p class="govuk-body">Much of the information used by this service comes from the National Careers Service. The National Careers Service uses information from O*NET OnLine and LMI for All, as well as from its own subject matter experts.</p>
+    <p class="govuk-body">O*NET OnLine is sponsored by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Information from O*NET OnLine is used under Creative Commons license <%= link_to 'CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0/', class: 'govuk-link' %>. O*NET® is a trademark of USDOL/ETA. The National Careers Service has modified all or some of the O*NET information. USDOL/ETA has not approved, endorsed, or tested these modifications.</p>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+    <h2 class="govuk-heading-m">Recent job growth</h2>
+    <h3 class="govuk-heading-s">How is this information used?</h3>
+    <p class="govuk-body">The service tells you whether the number of people doing a particular job is growing or not.</p>
+    <h3 class="govuk-heading-s">Source of this information</h3>
+    <p class="govuk-body">This information is based on annual population survey data from the Office of National Statistics.</p>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+    <h2 class="govuk-heading-m">Apprenticeship vacancies in your area</h2>
+    <h3 class="govuk-heading-s">How is this information used?</h3>
+    <p class="govuk-body">The service suggests apprenticeship vacancies in your area for the type of job you are interested in.</p>
+    <h3 class="govuk-heading-s">Source of this information</h3>
+    <p class="govuk-body">This information comes from the Find an apprenticeship service, built and run by the Education and Skills Funding Agency.</p>
+    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+    <h2 class="govuk-heading-m">Job vacancies in your area</h2>
+    <h3 class="govuk-heading-s">How is this information used?</h3>
+    <p class="govuk-body">The service suggests job vacancies in your local area that may be suitable for you based on the skills you have.</p>
+    <h3 class="govuk-heading-s">Source of this information</h3>
+    <p class="govuk-body">Information about job vacancies comes from the Find a job service run by Adhunter Ltd trading as Adzuna on behalf of the Department for Work and Pensions (DWP).</p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
+</div>

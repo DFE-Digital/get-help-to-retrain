@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'task-list', to: 'pages#task_list'
     get 'cookies-policy', to: 'pages#cookies_policy'
     get 'privacy-policy', to: 'pages#privacy_policy'
+    get 'information-sources', to: 'pages#information_sources'
 
     get 'action-plan', to: 'pages#action_plan'
     match(
