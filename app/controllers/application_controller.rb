@@ -23,7 +23,11 @@ class ApplicationController < ActionController::Base
     redirect_to task_list_path unless target_job.present?
   end
 
-  helper_method :user_session, :current_user
+  def url_parser
+    @url_parser ||= UrlParser.new(request.referer, request.host)
+  end
+
+  helper_method :user_session, :current_user, :url_parser
 
   private
 

@@ -49,10 +49,6 @@ class UsersController < ApplicationController
     user_session.registration_triggered_path = redirect_url
   end
 
-  def url_parser
-    @url_parser ||= UrlParser.new(request.referer, request.host)
-  end
-
   def sign_in_with(partial:)
     if user.valid?
       sign_in_user unless user.new_record?

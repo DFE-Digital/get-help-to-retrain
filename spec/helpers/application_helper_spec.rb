@@ -108,4 +108,26 @@ RSpec.describe ApplicationHelper do
       expect(helper.target_job).to be_nil
     end
   end
+
+  describe '.back_link' do
+    it 'returns path in formatted link html if path exists under host' do
+      helper.singleton_class.class_eval do
+        def url_parser
+          UrlParser.new('http://some-host.com/path', 'some-host.com')
+        end
+      end
+
+      expect(helper.back_link).to eq('<a class="govuk-back-link" href="/path">Back</a>')
+    end
+
+    it 'returns root path in formatted link html if path does not exists under host' do
+      helper.singleton_class.class_eval do
+        def url_parser
+          UrlParser.new('http://some-host.com/path', 'another-host.com')
+        end
+      end
+
+      expect(helper.back_link).to eq('<a class="govuk-back-link" href="/">Back</a>')
+    end
+  end
 end
