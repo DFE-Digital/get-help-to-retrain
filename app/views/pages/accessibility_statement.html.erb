@@ -1,0 +1,50 @@
+<% page_title :pages_accessibility_statement %>
+<%= back_link %>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body">We’re constantly working to make Get help to retrain as accessible and usable as possible. This service will continue to change over time as we make improvements and add new features. In the meantime, you should be able to:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>change colours, contrast levels and fonts</li>
+      <li>zoom in up to 300% without the text spilling off the screen</li>
+      <li>navigate all of the service using speech recognition software, such as Dragon Naturally Speaking</li>
+      <li>navigate most of the service using just a keyboard</li>
+      <li>use basic operating system screen magnifiers on the service, such as ZoomText magnifier</li>
+      <li>listen to most of the service using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li>
+    </ul>
+    <p class="govuk-body">We know some parts of this website are not fully accessible and we’re working on improving accessibility. This website is compliant with the Web Content Accessibility Guidelines version 2.1 AA standard as it does not comply with some level AAA compliances listed below.</p>
+    <h2 class="govuk-heading-m">Issues affecting screen reader users</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>When you’re looking at search results for courses in your area, it may be difficult to tell which phone number relates to which course provider. To overcome this issue you can either follow the link to the course provider’s website and locate the phone number there or call Get help to retrain on <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-link' %> Monday to Friday, 9am to 5pm for assistance.</li>
+      <li>You may notice the page, service name and suffix of .gov are not all included in page titles and the service name does not appear first within the page title. We’re working on this issue but we don’t yet know when we will get this fixed by.</li>
+      <li>Depending on which type of screen reading technology you’re using, you may not be able to find a supporting explanation for the date of birth field when navigating using the tab button. The supporting explanation provides an example date of birth in the format day, month, year. Other hint text may also behave in a similar manner. We’re working on this issue but we don’t yet know when we will get this fixed by.</li>
+      <li>You may experience some images and screen separator images being announced unnecessarily. This should not affect how the service works.</li>
+      <li>On the skills matcher page some information may be repeated. We’re working on this issue but we don’t yet know when we will get this fixed by.</li>
+    </ul>
+    <h2 class="govuk-heading-m">Issues affecting users with low vision</h2>
+    <p class="govuk-body">You may not be able to find the search function on the page asking for your postcode. This is more likely to be an issue if you’re using colour inversion. If you experience this problem try using the enter key to search once you’ve entered your postcode. We’re working on this issue but we don’t yet know when we will get this fixed by.</p>
+    <h2 class="govuk-heading-m">Other issues</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>If you commit an error when completing a form field, the service will display an error message. At the moment the word ‘error’ is not used in the error page heading and no summary of the error is given. As a result the error page might appear confusing. We’re working on this issue but we don’t yet know when we will get this fixed by</li>
+      <li>You may find some buttons on the page can be moved or dragged even though they should be static. We’re working on this issue but we don’t yet know when we will get this fixed by.</li>
+    </ul>
+    <h2 class="govuk-heading-m">How we tested this website</h2>
+    <p class="govuk-body">We last tested this website for accessibility issues in November 2019. The service was assessed against the Web Content Accessibility Guidelines WCAG 2.1.</p>
+    <p class="govuk-body">We used manual and automated tests to look for issues such as:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>difficulties navigating the site using only a keyboard</li>
+      <li>difficulties navigating the site by screen reader</li>
+      <li>link text that’s not descriptive</li>
+      <li>lack of colour contrast for text, important graphics and controls</li>
+      <li>images not having meaningful alt text</li>
+      <li>problems when using assistive technologies such as screen readers and screen magnifiers</li>
+      <li>abbreviations being presented without explanation</li>
+    </ul>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
+</div>

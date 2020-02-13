@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get 'cookies-policy', to: 'pages#cookies_policy'
     get 'privacy-policy', to: 'pages#privacy_policy'
     get 'information-sources', to: 'pages#information_sources'
+    get 'accessibility-statement', to: 'pages#accessibility_statement'
 
     get 'action-plan', to: 'pages#action_plan'
     match(

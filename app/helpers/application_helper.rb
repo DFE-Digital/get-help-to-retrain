@@ -27,4 +27,10 @@ module ApplicationHelper
   def target_job
     @target_job ||= JobProfile.find_by(id: user_session.target_job_id)
   end
+
+  def back_link
+    back_url = url_parser.get_redirect_path || root_path
+
+    link_to('Back', back_url, class: 'govuk-back-link')
+  end
 end
