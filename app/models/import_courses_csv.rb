@@ -215,4 +215,61 @@ class ImportCoursesCsv
       )
     end
   end
+
+  def fetch_aims
+    data = CSV.read("S_LEARNING_AIMS.csv", col_sep: ",", headers: true, encoding: 'ISO-8859-1')
+
+    Slearningaimscsv.delete_all
+
+    data.each do |res|
+      Slearningaimscsv.create(
+        lara_release_version: res[0],
+        lara_download_date: res[1],
+        learning_aim_ref: res[2],
+        learning_aim_title: res[3],
+        learning_aim_type_desc: res[4],
+        awarding_body_name: res[5],
+        entry_sub_level_desc: res[6],
+        notional_level_v2_code: res[7],
+        notional_level_v2_desc: res[8],
+        credit_based_type_desc: res[9],
+        qca_glh: res[10],
+        sector_lead_body_desc: res[11],
+        level2_entitlement_cat_desc: res[12],
+        level3_entitlement_cat_desc: res[13],
+        skills_for_life: res[14],
+        skills_for_life_type_desc: res[15],
+        ssa_tier1_code: res[16],
+        ssa_tier1_desc: res[17],
+        ssa_tier2_code: res[18],
+        ssa_tier2_desc: res[19],
+        ldcs_code_code: res[20],
+        accreditation_start_date: res[21],
+        accreditation_end_date: res[22],
+        certification_end_date: res[23],
+        ffa_credit: res[24],
+        indep_living_skills: res[25],
+        er_app_status: res[26],
+        er_ttg_status: res[27],
+        adultlr_status: res[28],
+        otherfunding_nonfundedstatus: res[29],
+        learning_aim_type: res[30],
+        qual_reference_authority: res[31],
+        qualification_reference: res[32],
+        qualification_title: res[33],
+        qualification_level: res[34],
+        qualification_type: res[35],
+        date_updated: res[36],
+        qualification_type_code: res[37],
+        status: res[38],
+        qualification_level_code: res[39],
+        date_created: res[40],
+        source_system_reference: res[41],
+        section_96_apprvl_status_code: res[42],
+        section_96_apprvl_status_desc: res[43],
+        sklls_fundng_apprv_stat_code: res[44],
+        sklls_fundng_apprv_stat_desc: res[45]
+      )
+    end
+  end
 end

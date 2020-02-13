@@ -1,0 +1,2 @@
+class Slearningaimscsv < PrimaryActiveRecordBase
+end

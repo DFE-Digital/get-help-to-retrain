@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_110155) do
+ActiveRecord::Schema.define(version: 2020_02_13_130113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 2020_02_12_110155) do
   end
 
   create_table "coursescsvs", force: :cascade do |t|
-    t.text "course_id"
-    t.text "provider_id"
+    t.bigint "course_id"
+    t.bigint "provider_id"
     t.text "lad_id"
     t.text "provider_course_title"
     t.text "course_summary"
@@ -126,12 +126,12 @@ ActiveRecord::Schema.define(version: 2020_02_12_110155) do
   end
 
   create_table "oppa10csvs", force: :cascade do |t|
-    t.text "opportunity_id"
+    t.bigint "opportunity_id"
     t.text "a10_code"
   end
 
   create_table "opportunitiescsvs", force: :cascade do |t|
-    t.text "opportunity_id"
+    t.bigint "opportunity_id"
     t.text "provider_opportunity_id"
     t.text "price"
     t.text "price_description"
@@ -153,8 +153,8 @@ ActiveRecord::Schema.define(version: 2020_02_12_110155) do
     t.text "apply_unti_desc"
     t.text "url"
     t.text "timetable"
-    t.text "course_id"
-    t.text "venue_id"
+    t.bigint "course_id"
+    t.bigint "venue_id"
     t.text "apply_throughout_year"
     t.text "eis_flag"
     t.text "region_name"
@@ -173,14 +173,14 @@ ActiveRecord::Schema.define(version: 2020_02_12_110155) do
   end
 
   create_table "oppstartdatescsvs", force: :cascade do |t|
-    t.text "opportunity_id"
+    t.bigint "opportunity_id"
     t.text "start_date"
     t.text "places_available"
     t.text "date_format"
   end
 
   create_table "providerscsvs", force: :cascade do |t|
-    t.text "provider_id"
+    t.bigint "provider_id"
     t.text "provider_name"
     t.text "ukprn"
     t.text "provider_type_id"
@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(version: 2020_02_12_110155) do
     t.text "dfe_region_description"
     t.text "dfe_establishment_type_code"
     t.text "dfe_establishment_type_description"
+    t.index ["provider_id"], name: "provider_idx", unique: true
   end
 
   create_table "related_job_profiles", id: false, force: :cascade do |t|
@@ -239,9 +240,58 @@ ActiveRecord::Schema.define(version: 2020_02_12_110155) do
     t.index ["rarity"], name: "index_skills_on_rarity"
   end
 
+  create_table "slearningaimscsvs", force: :cascade do |t|
+    t.text "lara_release_version"
+    t.text "lara_download_date"
+    t.text "learning_aim_ref"
+    t.text "learning_aim_title"
+    t.text "learning_aim_type_desc"
+    t.text "awarding_body_name"
+    t.text "entry_sub_level_desc"
+    t.text "notional_level_v2_code"
+    t.text "notional_level_v2_desc"
+    t.text "credit_based_type_desc"
+    t.text "qca_glh"
+    t.text "sector_lead_body_desc"
+    t.text "level2_entitlement_cat_desc"
+    t.text "level3_entitlement_cat_desc"
+    t.text "skills_for_life"
+    t.text "skills_for_life_type_desc"
+    t.text "ssa_tier1_code"
+    t.text "ssa_tier1_desc"
+    t.text "ssa_tier2_code"
+    t.text "ssa_tier2_desc"
+    t.text "ldcs_code_code"
+    t.text "accreditation_start_date"
+    t.text "accreditation_end_date"
+    t.text "certification_end_date"
+    t.text "ffa_credit"
+    t.text "indep_living_skills"
+    t.text "er_app_status"
+    t.text "er_ttg_status"
+    t.text "adultlr_status"
+    t.text "otherfunding_nonfundedstatus"
+    t.text "learning_aim_type"
+    t.text "qual_reference_authority"
+    t.text "qualification_reference"
+    t.text "qualification_title"
+    t.text "qualification_level"
+    t.text "qualification_type"
+    t.text "date_updated"
+    t.text "qualification_type_code"
+    t.text "status"
+    t.text "qualification_level_code"
+    t.text "date_created"
+    t.text "source_system_reference"
+    t.text "section_96_apprvl_status_code"
+    t.text "section_96_apprvl_status_desc"
+    t.text "sklls_fundng_apprv_stat_code"
+    t.text "sklls_fundng_apprv_stat_desc"
+  end
+
   create_table "venuescsvs", force: :cascade do |t|
-    t.text "provider_id"
-    t.text "venue_id"
+    t.bigint "provider_id"
+    t.bigint "venue_id"
     t.text "venue_name"
     t.text "prov_venue_id"
     t.text "phone"
