@@ -1,4 +1,8 @@
 .govuk-footer__inline-list .govuk-footer__link,
 .govuk-footer__list .govuk-footer__link {
   text-decoration: underline;
+
+  &:focus {
+    text-decoration: none;
+  }
 }
