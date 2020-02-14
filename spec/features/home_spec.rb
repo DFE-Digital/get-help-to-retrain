@@ -107,7 +107,7 @@ RSpec.feature 'Navigation from home page' do
 
   scenario 'User can access the terms and conditions page from the footer' do
     visit(root_path)
-    click_on('Terms and Conditions')
+    click_on('Terms and conditions')
 
     expect(page).to have_text('Terms and Conditions')
   end
@@ -122,7 +122,7 @@ RSpec.feature 'Navigation from home page' do
   scenario 'User can go back to previous page from terms and conditions page' do
     visit(task_list_path)
 
-    click_on('Terms and Conditions')
+    click_on('Terms and conditions')
     click_on('Back')
 
     expect(page).to have_current_path(task_list_path)
