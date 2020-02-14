@@ -105,6 +105,29 @@ RSpec.feature 'Navigation from home page' do
     expect(page).to have_current_path(task_list_path)
   end
 
+  scenario 'User can access the terms and conditions page from the footer' do
+    visit(root_path)
+    click_on('Terms and conditions')
+
+    expect(page).to have_text('Terms and Conditions')
+  end
+
+  scenario 'User defaults to going back to root path from terms and conditions page' do
+    visit(terms_and_conditions_path)
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
+  end
+
+  scenario 'User can go back to previous page from terms and conditions page' do
+    visit(task_list_path)
+
+    click_on('Terms and conditions')
+    click_on('Back')
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
   scenario 'Sessions not created when user has no previous session' do
     visit(root_path)
 
