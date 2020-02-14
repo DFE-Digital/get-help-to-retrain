@@ -27,7 +27,6 @@ en-GB:
     link_sent_again: Link sent again
     link_expired: Link expired
     cookies_policy: Cookies
-    privacy_policy: Privacy policy
     cv_advice: CV advice
     cover_letter_advice: Cover letter advice
     interview_advice: Interview advice
@@ -156,7 +155,7 @@ en-GB:
     cookies_policy:
       title: Cookies
     privacy_policy:
-      title: Privacy policy
+      title: Privacy policy for Get help to retrain
     information_sources:
       title: Information sources
     accessibility_statement:
