@@ -340,4 +340,43 @@ RSpec.feature 'User sign in' do
 
     expect(page).to have_current_path(return_to_saved_results_path)
   end
+
+  scenario 'User sign in is tracked if successful' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    register_user
+    send_sign_in_email
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :progress,
+          label: 'Returned to progress',
+          value: 'return_journey'
+        }
+      ]
+    )
+  end
+
+  scenario 'Non existing user sign in is not tracked' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    send_sign_in_email
+
+    expect(tracking_service).not_to have_received(:track_events)
+  end
+
+  scenario 'User sign in is not tracked if invalid' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit return_to_saved_results_path
+    fill_in('email', with: 'dummy-mail')
+    click_on('Send link')
+
+    expect(tracking_service).not_to have_received(:track_events)
+  end
 end

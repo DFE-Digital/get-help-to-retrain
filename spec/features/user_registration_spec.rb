@@ -262,4 +262,52 @@ RSpec.feature 'User registration' do
       .with(confirmation_email)
       .with(sign_in_email)
   end
+
+  scenario 'User registration is tracked if successful' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    register_user
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :progress,
+          label: 'Saved progress',
+          value: 'save_journey'
+        }
+      ]
+    )
+  end
+
+  scenario 'Existing user registration is tracked if successful' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    register_user
+    register_user
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :progress,
+          label: 'Returned to progress',
+          value: 'return_journey'
+        }
+      ]
+    )
+  end
+
+  scenario 'User registration is not tracked if invalid' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(save_your_results_path)
+    fill_in('email', with: 'wrong email')
+    click_on('Save your progress')
+
+    expect(tracking_service).not_to have_received(:track_events)
+  end
 end
