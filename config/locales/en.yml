@@ -86,8 +86,10 @@ en-GB:
     it_training: Computer skills training
     save:
       progress: Saved progress
-    return_to_saved:
-      progress: Returned to progress
+    return_to_saved_button:
+      progress: Returned to progress button
+    return_to_saved_link:
+      progress: Returned to progress link
 
   contact_us:
     title: Free local advice

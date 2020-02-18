@@ -7,6 +7,7 @@ Passwordless::SessionsController.class_eval do
     BCrypt::Password.create(params[:token])
 
     sign_in passwordless_session
+    track_event(:progress, 'return_journey', 'events.return_to_saved_link')
 
     redirect_to main_app.task_list_path
   rescue Passwordless::Errors::TokenAlreadyClaimedError,
