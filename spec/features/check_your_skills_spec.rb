@@ -37,7 +37,17 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Bodyguard')
     find('.search-button').click
 
-    expect(page).to have_text('Your current job')
+    expect(page).to have_text('Tell us your current job title')
+  end
+
+  scenario 'When user tries adding the first job but finds no results' do
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Some weird title nobody would find')
+    find('.search-button').click
+
+    ['Tell us your current job title', 'We can\'t find any results for this job title.'].each do |text|
+      expect(page).to have_text(text)
+    end
   end
 
   scenario 'When user adds previous job titles the results page should reflect that' do
@@ -55,7 +65,27 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Bodyguard')
     find('.search-button').click
 
-    expect(page).to have_text('Your previous job')
+    expect(page).to have_text('Tell us your previous job title')
+  end
+
+  scenario 'When user tries adding a previous job title but no results are found' do
+    hitman = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Hitman5',
+      skills: [
+        create(:skill)
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: hitman.slug))
+    click_on('Select these skills')
+    visit(check_your_skills_path)
+    fill_in('search', with: 'A weird title that doesn not exist')
+    find('.search-button').click
+
+    ['Tell us your previous job title', 'We can\'t find any results for this job title.'].each do |text|
+      expect(page).to have_text(text)
+    end
   end
 
   scenario 'User enters an incorrect word but no api key is available' do
@@ -155,7 +185,7 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Embalmer')
     find('.search-button').click
 
-    expect(page).to have_text('No results found')
+    expect(page).to have_text('We can\'t find any results for this job title.')
   end
 
   scenario 'tracks search string' do
@@ -187,7 +217,7 @@ RSpec.feature 'Check your skills', type: :feature do
     fill_in('search', with: 'Bodyguard')
     find('.search-button').click
 
-    expect(page).to have_text('Your current job')
+    expect(page).to have_text('Tell us your current job title')
   end
 
   scenario 'paginates results of search' do
