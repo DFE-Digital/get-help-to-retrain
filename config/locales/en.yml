@@ -100,19 +100,20 @@ en-GB:
 
   check_your_skills:
     index:
-      title: Tell us your job title
+      title: Tell us your current job title
       body: Tell us your current job title so we know what skills you already have.
       placeholder: Enter your current job title
       additional_skills:
-        title: Add more skills
-        body: Tell us another job or volunteer role you've done.
+        title: Tell us your previous job title
+        body: Tell us your previous job title or volunteer role so we know what skills you already have.
         placeholder: Enter a job title
     results:
-      title: Your current job
-      body: Select the job title that best matches what you do now. If you can’t see your job title, try searching with different words - for example, checkout operator instead of cashier.
+      title: Tell us your current job title
+      body: Tell us your current job title so we know what skills you already have.
       additional_skills:
-        title: Your previous job
-        body: Select the job title that best matches your previous role. If you can’t see your job title, try searching with different words - for example, checkout operator instead of cashier.
+        title: Tell us your previous job title
+        body: Tell us your previous job title or volunteer role so we know what skills you already have.
+        placeholder: Enter a job title
       placeholder: Enter your current job title
       no_results: 0 results found - try again using a different job title
   job_profiles:

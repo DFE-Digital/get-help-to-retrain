@@ -14,7 +14,7 @@
   <div class="govuk-grid-column-two-thirds" >
     <%= error_summary(@job_profile_search) %>
     <% if @job_profiles.blank? %>
-      <%= render '/shared/search/no_results', scope: 'check_your_skills.results' %>
+      <%= render '/shared/search/no_results', scope: user_session.job_profile_skills? ? 'check_your_skills.results.additional_skills' : 'check_your_skills.results' %>
     <% else %>
       <%= render "search_form", scope: user_session.job_profile_skills? ? 'check_your_skills.results.additional_skills' : 'check_your_skills.results' %>
       <%= render "results_list", job_profiles: @job_profiles %>

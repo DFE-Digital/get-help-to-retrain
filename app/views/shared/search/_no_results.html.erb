@@ -1,8 +1,11 @@
-<h1 class="govuk-heading-xl">No results found</h1>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-7"><%= t('title', scope: scope) %></h1>
+<p class="govuk-body-l"><%= t('body', scope: scope) %></p>
 <%= render "shared/search/results_form", search_path: { action: :results }, scope: scope %>
+<p class="govuk-body">0 results found</p>
+<p class="govuk-body">We can't find any results for this job title.</p>
 <p class="govuk-body">You could try:</p>
 <ul class="govuk-list govuk-list--bullet">
   <li>checking your spelling</li>
-  <li>using a different name for the job</li>
-  <li>searching for a different role</li>
+  <li>using a different name for this job  title – for example, checkout operator instead of cashier</li>
+  <li>searching for a different job title</li>
 </ul>
