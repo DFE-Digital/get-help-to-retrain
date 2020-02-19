@@ -341,7 +341,7 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(return_to_saved_results_path)
   end
 
-  scenario 'User sign in is tracked if successful' do
+  scenario 'User sign in button click is tracked if successful' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
 
@@ -353,14 +353,14 @@ RSpec.feature 'User sign in' do
       [
         {
           key: :progress,
-          label: 'Returned to progress',
+          label: 'Returned to progress button',
           value: 'return_journey'
         }
       ]
     )
   end
 
-  scenario 'Non existing user sign in is not tracked' do
+  scenario 'Non existing user sign in button click is not tracked' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
 
@@ -369,7 +369,7 @@ RSpec.feature 'User sign in' do
     expect(tracking_service).not_to have_received(:track_events)
   end
 
-  scenario 'User sign in is not tracked if invalid' do
+  scenario 'User sign in button click is not tracked if invalid' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
 
@@ -378,5 +378,45 @@ RSpec.feature 'User sign in' do
     click_on('Send link')
 
     expect(tracking_service).not_to have_received(:track_events)
+  end
+
+  scenario 'User sign in email link click is tracked if successful' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    register_user
+    sign_in_user
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :progress,
+          label: 'Returned to progress link',
+          value: 'return_journey'
+        }
+      ]
+    )
+  end
+
+  scenario 'user sign in email expired link click is not tracked' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    register_user
+    sign_in_user
+
+    visit(token_sign_in_path(token: Passwordless::Session.last.token))
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :progress,
+          label: 'Returned to progress link',
+          value: 'return_journey'
+        }
+      ]
+    ).at_most(:once)
   end
 end

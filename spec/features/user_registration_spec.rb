@@ -293,7 +293,7 @@ RSpec.feature 'User registration' do
       [
         {
           key: :progress,
-          label: 'Returned to progress',
+          label: 'Returned to progress button',
           value: 'return_journey'
         }
       ]

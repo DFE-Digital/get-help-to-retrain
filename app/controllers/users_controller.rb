@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     passwordless_session = build_passwordless_session(user)
     user.register_existing_user(passwordless_session, request.base_url)
 
-    track_event(:progress, 'return_journey', 'events.return_to_saved')
+    track_event(:progress, 'return_journey', 'events.return_to_saved_button')
   end
 
   def set_redirect_path_for_registration
