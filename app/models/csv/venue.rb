@@ -4,5 +4,6 @@ class Csv::Venue < PrimaryActiveRecordBase
   belongs_to :provider
 
   has_many :opportunities
+  has_many :courses, as: :addressable
   has_many :course_details, through: :opportunities, inverse_of: :venues
 end
