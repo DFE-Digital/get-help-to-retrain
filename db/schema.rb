@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_132648) do
+ActiveRecord::Schema.define(version: 2020_02_20_142433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,14 @@ ActiveRecord::Schema.define(version: 2020_02_20_132648) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["course_detail_id"], name: "index_csv_opportunities_on_course_detail_id"
     t.index ["venue_id"], name: "index_csv_opportunities_on_venue_id"
+  end
+
+  create_table "csv_opportunity_start_dates", force: :cascade do |t|
+    t.bigint "opportunity_id"
+    t.date "start_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["opportunity_id"], name: "index_csv_opportunity_start_dates_on_opportunity_id"
   end
 
   create_table "csv_providers", force: :cascade do |t|
