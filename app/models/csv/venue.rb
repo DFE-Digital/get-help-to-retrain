@@ -1,9 +1,11 @@
-class Csv::Venue < PrimaryActiveRecordBase
-  self.table_name = 'csv_venues'
+module Csv
+  class Venue < PrimaryActiveRecordBase
+    self.table_name = 'csv_venues'
 
-  belongs_to :provider
+    belongs_to :provider
 
-  has_many :opportunities
-  has_many :courses, as: :addressable
-  has_many :course_details, through: :opportunities, inverse_of: :venues
+    has_many :opportunities
+    has_many :courses, as: :addressable
+    has_many :course_details, through: :opportunities, inverse_of: :venues
+  end
 end
