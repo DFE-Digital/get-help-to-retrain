@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_17_141306) do
+ActiveRecord::Schema.define(version: 2020_02_20_112538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,19 @@ ActiveRecord::Schema.define(version: 2019_12_17_141306) do
     t.index ["longitude", "latitude"], name: "index_courses_on_longitude_and_latitude"
     t.index ["postcode"], name: "index_courses_on_postcode"
     t.index ["topic"], name: "index_courses_on_topic"
+  end
+
+  create_table "csv_course_details", force: :cascade do |t|
+    t.bigint "external_course_id"
+    t.string "name"
+    t.string "qualification_name"
+    t.string "qualification_type"
+    t.string "qualification_level"
+    t.text "description"
+    t.string "url"
+    t.string "booking_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "job_profile_categories", force: :cascade do |t|
