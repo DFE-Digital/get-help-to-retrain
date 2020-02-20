@@ -3,4 +3,6 @@ class Csv::CourseDetail < PrimaryActiveRecordBase
 
   has_one :provider
   has_many :opportunities
+  has_many :opportunity_start_dates, through: :opportunities, inverse_of: :course_details
+  has_many :venues, through: :opportunities, inverse_of: :course_details
 end
