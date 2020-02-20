@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_112538) do
+ActiveRecord::Schema.define(version: 2020_02_20_114924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,24 @@ ActiveRecord::Schema.define(version: 2020_02_20_112538) do
     t.string "booking_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "csv_providers", force: :cascade do |t|
+    t.bigint "course_detail_id"
+    t.bigint "external_provider_id"
+    t.bigint "ukprn"
+    t.string "name"
+    t.string "address_line_1"
+    t.string "address_line_2"
+    t.string "town"
+    t.string "county"
+    t.string "postcode"
+    t.string "phone"
+    t.string "email"
+    t.string "url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_detail_id"], name: "index_csv_providers_on_course_detail_id"
   end
 
   create_table "job_profile_categories", force: :cascade do |t|
