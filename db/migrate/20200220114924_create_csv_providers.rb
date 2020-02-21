@@ -1,7 +1,6 @@
 class CreateCsvProviders < ActiveRecord::Migration[6.0]
   def change
     create_table :csv_providers do |t|
-      t.belongs_to :course_detail
       t.bigint :external_provider_id
       t.bigint :ukprn
       t.string :name

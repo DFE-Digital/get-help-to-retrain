@@ -1,6 +1,7 @@
 class CreateCsvCourseDetails < ActiveRecord::Migration[6.0]
   def change
     create_table :csv_course_details do |t|
+      t.belongs_to :provider
       t.bigint :external_course_id
       t.string :name
       t.string :qualification_name

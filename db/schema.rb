@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
   end
 
   create_table "csv_course_details", force: :cascade do |t|
+    t.bigint "provider_id"
     t.bigint "external_course_id"
     t.string "name"
     t.string "qualification_name"
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
     t.string "booking_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider_id"], name: "index_csv_course_details_on_provider_id"
   end
 
   create_table "csv_courses", force: :cascade do |t|
@@ -102,7 +104,6 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
   end
 
   create_table "csv_providers", force: :cascade do |t|
-    t.bigint "course_detail_id"
     t.bigint "external_provider_id"
     t.bigint "ukprn"
     t.string "name"
@@ -116,7 +117,6 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["course_detail_id"], name: "index_csv_providers_on_course_detail_id"
   end
 
   create_table "csv_venues", force: :cascade do |t|
