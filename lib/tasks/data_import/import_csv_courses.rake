@@ -17,5 +17,7 @@ namespace :data_import do
     Csv::Course.delete_all
     importer = Csv::CourseImportService.new
     importer.import(folder)
+
+    print "\nResults:\n#{importer.import_stats}"
   end
 end
