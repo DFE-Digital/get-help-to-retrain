@@ -2,7 +2,7 @@ module Csv
   class Provider < PrimaryActiveRecordBase
     self.table_name = 'csv_providers'
 
-    has_many :course_details, inverse_of: :provider
+    has_many :courses, inverse_of: :provider
 
     has_many :venues, inverse_of: :provider
     has_many :course_lookups, as: :addressable

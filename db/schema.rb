@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_150422) do
+ActiveRecord::Schema.define(version: 2020_02_23_195735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,22 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
     t.index ["topic"], name: "index_courses_on_topic"
   end
 
-  create_table "csv_course_details", force: :cascade do |t|
+  create_table "csv_course_lookups", force: :cascade do |t|
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.string "subject"
+    t.string "hours"
+    t.string "delivery_type"
+    t.string "postcode"
+    t.float "latitude", default: 0.0, null: false
+    t.float "longitude", default: 0.0, null: false
+    t.bigint "opportunity_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_csv_course_lookups_on_addressable_type_and_addressable_id"
+    t.index ["longitude", "latitude"], name: "index_csv_course_lookups_on_longitude_and_latitude"
+    t.index ["opportunity_id"], name: "index_csv_course_lookups_on_opportunity_id"
+  end
+
+  create_table "csv_courses", force: :cascade do |t|
     t.bigint "provider_id"
     t.bigint "external_course_id"
     t.string "name"
@@ -56,26 +71,10 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
     t.string "booking_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["provider_id"], name: "index_csv_course_details_on_provider_id"
-  end
-
-  create_table "csv_courses", force: :cascade do |t|
-    t.bigint "course_detail_id"
-    t.string "addressable_type"
-    t.bigint "addressable_id"
-    t.string "subject"
-    t.string "hours"
-    t.string "delivery_type"
-    t.string "postcode"
-    t.float "latitude", default: 0.0, null: false
-    t.float "longitude", default: 0.0, null: false
-    t.index ["addressable_type", "addressable_id"], name: "index_csv_courses_on_addressable_type_and_addressable_id"
-    t.index ["course_detail_id"], name: "index_csv_courses_on_course_detail_id"
-    t.index ["longitude", "latitude"], name: "index_csv_courses_on_longitude_and_latitude"
+    t.index ["provider_id"], name: "index_csv_courses_on_provider_id"
   end
 
   create_table "csv_opportunities", force: :cascade do |t|
-    t.bigint "course_detail_id"
     t.bigint "venue_id"
     t.bigint "external_opportunities_id"
     t.string "attendance_modes"
@@ -91,7 +90,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_150422) do
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["course_detail_id"], name: "index_csv_opportunities_on_course_detail_id"
+    t.bigint "course_id"
+    t.index ["course_id"], name: "index_csv_opportunities_on_course_id"
     t.index ["venue_id"], name: "index_csv_opportunities_on_venue_id"
   end
 
