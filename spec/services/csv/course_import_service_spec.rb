@@ -60,6 +60,10 @@ RSpec.describe Csv::CourseImportService do
     it 'creates csv courses' do
       expect { importer.import(folder) }.to change(Csv::Course, :count).by(4)
     end
+
+    it 'creates csv opportunities' do
+      expect { importer.import(folder) }.to change(Csv::Opportunity, :count).by(5)
+    end
   end
 
   describe '#import_stats' do

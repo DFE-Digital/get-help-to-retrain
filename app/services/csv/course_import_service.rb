@@ -46,10 +46,9 @@ module Csv
       [
         Csv::Persistor::Provider,
         Csv::Persistor::Venue,
-        Csv::Persistor::Course
-        # Csv::Opportunity,
-        # Csv::OpportunityStartDate,
-        # Csv::CourseLookup,
+        Csv::Persistor::Course,
+        Csv::Persistor::Opportunity,
+        Csv::Persistor::OpportunityStartDate
       ]
     end
 
