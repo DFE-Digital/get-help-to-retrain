@@ -3,24 +3,14 @@ module Csv
     class Provider
       FILENAME = 'C_PROVIDERS.csv'.freeze
 
-      attr_reader :path
+      attr_reader :row
 
-      def initialize(folder)
-        @path = File.join(folder, FILENAME)
+      def initialize(row)
+        @row = row
       end
 
-      def persist!
-        CSV.foreach(path, headers: true) do |row|
-          Csv::Provider.create!(
-            attributes_for(row)
-          )
-        end
-      end
-
-      private
-
-      def attributes_for(row) # rubocop:disable Metrics/MethodLength
-        {
+      def persist! # rubocop:disable Metrics/MethodLength
+        Csv::Provider.create!(
           external_provider_id: row['PROVIDER_ID'],
           ukprn: row['UKPRN'],
           name: row['PROVIDER_NAME'],
@@ -32,7 +22,7 @@ module Csv
           phone: row['PHONE'],
           email: row['EMAIL'],
           url: row['WEBSITE']
-        }
+        )
       end
     end
   end

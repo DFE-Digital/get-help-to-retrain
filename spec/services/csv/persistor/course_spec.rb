@@ -1,25 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Csv::Persistor::Course do
-  let(:folder) { Rails.root.join('spec', 'fixtures', 'files', 'csv').to_s }
+  let(:row) do
+    CSV.read(
+      Rails.root.join('spec', 'fixtures', 'files', 'csv', described_class::FILENAME),
+      headers: true
+    ).first
+  end
 
   describe '#persist!' do
-    it 'persists all records in csv' do
-      create(:provider, external_provider_id: 301_751)
-      create(:provider, external_provider_id: 304_241)
-      create(:provider, external_provider_id: 300_989)
-      create(:provider, external_provider_id: 304_095)
-
-      expect { described_class.new(folder).persist! }.to change(Csv::Course, :count).by(4)
-    end
-
     it 'sets the correct attributes for a course' do
       provider = create(:provider, external_provider_id: 301_751)
-      create(:provider, external_provider_id: 304_241)
-      create(:provider, external_provider_id: 300_989)
-      create(:provider, external_provider_id: 304_095)
 
-      described_class.new(folder).persist!
+      described_class.new(row).persist!
       expect(Csv::Course.first).to have_attributes(
         external_course_id: 50_559_039,
         name: 'Edexcel Entry Level Award in ESOL Skills for Life(Entry 3)',
@@ -34,18 +27,14 @@ RSpec.describe Csv::Persistor::Course do
     end
 
     it 'is linked to correct provider' do
-      create(:provider, external_provider_id: 301_751)
-      create(:provider, external_provider_id: 304_241)
-      create(:provider, external_provider_id: 304_095)
-
-      provider = create(:provider, external_provider_id: 300_989)
-      described_class.new(folder).persist!
+      provider = create(:provider, external_provider_id: 301_751)
+      described_class.new(row).persist!
 
       expect(provider.courses.count).to eq(1)
     end
 
     it 'fails if no provider found' do
-      expect { described_class.new(folder).persist! }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { described_class.new(row).persist! }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 end

@@ -6,7 +6,7 @@ module Csv
     end
 
     def import(folder)
-      delete_old_records!
+      detele_old_records!
       create_records_from!(folder)
     end
 
@@ -27,22 +27,41 @@ module Csv
       raise 'Not to be run in production' if Rails.env.production?
     end
 
-    def delete_old_records!
-      Csv::Provider.delete_all
-      Csv::Course.delete_all
-      Csv::Opportunity.delete_all
-      Csv::OpportunityStartDate.delete_all
-      Csv::Venue.delete_all
-      Csv::CourseLookup.delete_all
+    def create_records_from!(folder)
+      klass_list.each do |klass|
+        path = File.join(folder, klass::FILENAME)
+        CSV.foreach(path, headers: true) do |row|
+          klass.new(row).persist!
+        end
+      end
     end
 
-    def create_records_from!(folder)
-      Csv::Persistor::Provider.new(folder).persist!
-      Csv::Persistor::Venue.new(folder).persist!
-      Csv::Persistor::Course.new(folder).persist!
-      # Csv::Persistor::Opportunity.new(folder).persist!
-      # Csv::Persistor::OpportunityStartDate.new(folder).persist!
-      # Csv::Persistor::CourseLookup.new.persist!
+    def detele_old_records!
+      klass_list_2.each do |klass|
+        klass.delete_all
+      end
+    end
+
+    def klass_list
+      [
+        Csv::Persistor::Provider,
+        Csv::Persistor::Venue,
+        Csv::Persistor::Course
+        # Csv::Opportunity,
+        # Csv::OpportunityStartDate,
+        # Csv::CourseLookup,
+      ]
+    end
+
+    def klass_list_2
+      [
+        Csv::Provider,
+        Csv::Venue,
+        Csv::Course,
+        Csv::Opportunity,
+        Csv::OpportunityStartDate,
+        Csv::CourseLookup
+      ]
     end
   end
 end

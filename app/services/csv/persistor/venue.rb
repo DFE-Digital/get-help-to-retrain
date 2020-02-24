@@ -3,21 +3,13 @@ module Csv
     class Venue
       FILENAME = 'C_VENUES.csv'.freeze
 
-      attr_reader :path
+      attr_reader :row
 
-      def initialize(folder)
-        @path = File.join(folder, FILENAME)
+      def initialize(row)
+        @row = row
       end
 
-      def persist!
-        CSV.foreach(path, headers: true) do |row|
-          attributes_for(row)
-        end
-      end
-
-      private
-
-      def attributes_for(row) # rubocop:disable Metrics/MethodLength
+      def persist! # rubocop:disable Metrics/MethodLength
         Csv::Venue.create!(
           external_venue_id: row['VENUE_ID'],
           name: row['VENUE_NAME'],

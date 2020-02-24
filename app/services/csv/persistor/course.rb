@@ -3,24 +3,14 @@ module Csv
     class Course
       FILENAME = 'O_COURSES.csv'.freeze
 
-      attr_reader :path
+      attr_reader :row
 
-      def initialize(folder)
-        @path = File.join(folder, FILENAME)
+      def initialize(row)
+        @row = row
       end
 
       def persist!
-        CSV.foreach(path, headers: true) do |row|
-          Csv::Course.create!(
-            attributes_for(row)
-          )
-        end
-      end
-
-      private
-
-      def attributes_for(row) # rubocop:disable Metrics/MethodLength
-        {
+        Csv::Course.create!(
           external_course_id: row['COURSE_ID'],
           name: row['PROVIDER_COURSE_TITLE'],
           qualification_name: row['QUALIFICATION_TITLE'],
@@ -30,7 +20,7 @@ module Csv
           url: row['COURSE_URL'],
           booking_url: row['BOOKING_URL'],
           provider: Csv::Provider.find_by(external_provider_id: row['PROVIDER_ID'])
-        }
+        )
       end
     end
   end

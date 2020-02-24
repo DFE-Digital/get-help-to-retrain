@@ -1,23 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Csv::Persistor::Venue do
-  let(:folder) { Rails.root.join('spec', 'fixtures', 'files', 'csv').to_s }
+  let(:row) do
+    CSV.read(
+      Rails.root.join('spec', 'fixtures', 'files', 'csv', described_class::FILENAME),
+      headers: true
+    ).first
+  end
 
   describe '#persist!' do
-    it 'persists all records in csv' do
-      create(:provider, external_provider_id: 301_751)
-      create(:provider, external_provider_id: 304_241)
-      create(:provider, external_provider_id: 300_989)
-
-      expect { described_class.new(folder).persist! }.to change(Csv::Venue, :count).by(4)
-    end
-
     it 'sets the correct attributes for a venue' do
       provider = create(:provider, external_provider_id: 301_751)
-      create(:provider, external_provider_id: 304_241)
-      create(:provider, external_provider_id: 300_989)
+      described_class.new(row).persist!
 
-      described_class.new(folder).persist!
       expect(Csv::Venue.first).to have_attributes(
         external_venue_id: 3_041_969,
         name: 'MI SKILLS DEVELOPMENT CENTRE - BRIXTON',
@@ -34,17 +29,14 @@ RSpec.describe Csv::Persistor::Venue do
     end
 
     it 'is linked to correct provider' do
-      create(:provider, external_provider_id: 301_751)
-      create(:provider, external_provider_id: 300_989)
+      provider = create(:provider, external_provider_id: 301_751)
+      described_class.new(row).persist!
 
-      provider = create(:provider, external_provider_id: 304_241)
-      described_class.new(folder).persist!
-
-      expect(provider.venues.count).to eq(2)
+      expect(provider.venues.count).to eq(1)
     end
 
     it 'fails if no provider found' do
-      expect { described_class.new(folder).persist! }.to raise_exception(ActiveRecord::RecordInvalid)
+      expect { described_class.new(row).persist! }.to raise_exception(ActiveRecord::RecordInvalid)
     end
   end
 end
