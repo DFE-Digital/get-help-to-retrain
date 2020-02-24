@@ -38,7 +38,7 @@ module Csv
 
     def create_records_from!(folder)
       Csv::Persistor::Provider.new(folder).persist!
-      # Csv::Persistor::Venue.new(folder).persist!
+      Csv::Persistor::Venue.new(folder).persist!
       # Csv::Persistor::Course.new(folder).persist!
       # Csv::Persistor::Opportunity.new(folder).persist!
       # Csv::Persistor::OpportunityStartDate.new(folder).persist!
