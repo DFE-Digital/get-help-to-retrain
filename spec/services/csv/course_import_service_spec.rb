@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Csv::CourseImportService do
   subject(:importer) { described_class.new }
 
-  let(:folder) { Rails.root.join('spec', 'fixtures', 'csv').to_s }
+  let(:folder) { Rails.root.join('spec', 'fixtures', 'files', 'csv').to_s }
 
   describe '#import' do
     it 'deletes existing course records' do
@@ -48,13 +48,17 @@ RSpec.describe Csv::CourseImportService do
 
       expect(Csv::CourseLookup.where(subject: 'old subject')).to be_empty
     end
+
+    it 'creates csv providers' do
+      expect { importer.import(folder) }.to change(Csv::Provider, :count).by(4)
+    end
   end
 
   describe '#import_stats' do
     before { importer.import(folder) }
 
     it 'reports statistics on completion' do
-      expect(importer.import_stats).to eq({})
+      expect(importer.import_stats).to eq(providers_total: 4)
     end
   end
 end
