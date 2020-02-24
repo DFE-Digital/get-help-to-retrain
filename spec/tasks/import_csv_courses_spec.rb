@@ -12,8 +12,8 @@ RSpec.describe 'rake data_import:import_csv_courses' do
     expect { task.execute(folder: folder) }.not_to raise_exception
   end
 
-  xit 'creates new csv courses' do
-    expect { task.execute(filename: folder) }.to change(Csv::CourseDetail, :count).by(4)
+  it 'creates new csv courses' do
+    expect { task.execute(filename: folder) }.to change(Csv::Course, :count).by(4)
   end
 
   it 'creates new csv providers' do

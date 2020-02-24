@@ -6,5 +6,7 @@ module Csv
     has_many :opportunities, inverse_of: :course
     has_many :opportunity_start_dates, through: :opportunities, inverse_of: :course
     has_many :venues, through: :opportunities, inverse_of: :courses
+
+    validates_presence_of :external_course_id
   end
 end
