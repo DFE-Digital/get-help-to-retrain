@@ -32,7 +32,7 @@ RSpec.describe 'rake data_import:import_csv_courses' do
     expect { task.execute(filename: folder) }.to change(Csv::OpportunityStartDate, :count).by(2)
   end
 
-  xit 'creates new course lookups' do
-    expect { task.execute(filename: folder) }.to change(Csv::Course, :count).by(3)
+  it 'creates new course lookups' do
+    expect { task.execute(filename: folder) }.to change(Csv::CourseLookup, :count).by(3)
   end
 end
