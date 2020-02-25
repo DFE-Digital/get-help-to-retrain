@@ -27,4 +27,3 @@ module Csv
     end
   end
 end
-
