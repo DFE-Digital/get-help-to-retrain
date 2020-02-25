@@ -24,11 +24,11 @@ RSpec.describe 'rake data_import:import_csv_courses' do
     expect { task.execute(filename: folder) }.to change(Csv::Venue, :count).by(4)
   end
 
-  xit 'creates new csv opportunities for courses' do
+  it 'creates new csv opportunities for courses' do
     expect { task.execute(filename: folder) }.to change(Csv::Opportunity, :count).by(4)
   end
 
-  xit 'creates new csv opportunity start dates' do
+  it 'creates new csv opportunity start dates' do
     expect { task.execute(filename: folder) }.to change(Csv::OpportunityStartDate, :count).by(2)
   end
 
