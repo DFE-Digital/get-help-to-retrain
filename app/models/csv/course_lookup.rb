@@ -5,6 +5,7 @@ module Csv
     geocoded_by :postcode
 
     belongs_to :opportunity, inverse_of: :course_lookups
+    has_one :course, through: :opportunities, inverse_of: :course_lookups
     belongs_to :addressable, polymorphic: true
 
     validates :postcode, presence: true, postcode: true

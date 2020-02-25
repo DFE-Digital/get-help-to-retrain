@@ -2,22 +2,22 @@ module Csv
   class CourseImportService
     def initialize
       not_production!
-      @errors = []
     end
 
     def import(folder)
       detele_old_records!
       create_records_from!(folder)
+      generate_course_lookups!
     end
 
     def import_stats
       {
-        providers_total: Csv::Provider.count,
-        courses_total: Csv::Course.count
-        # filtered_courses_total: Csv::CourseLookup.count,
-        # filtered_courses_with_geocoding: Course.geocoded.count,
-        # filtered_courses_without_geocoding: courses_without_geocoding.count,
-        # errors: @errors.count
+        course_lookup_total: Csv::CourseLookup.count,
+        english_course_lookups: Csv::CourseLookup.where(subject: 'english').count,
+        esol_course_lookups: Csv::CourseLookup.where(subject: 'esol').count,
+        maths_course_lookups: Csv::CourseLookup.where(subject: 'maths').count,
+        course_lookups_with_geocoding: Csv::CourseLookup.geocoded.count,
+        course_lookups_without_geocoding: Csv::CourseLookup.not_geocoded.count
       }
     end
 
@@ -28,7 +28,7 @@ module Csv
     end
 
     def create_records_from!(folder)
-      klass_list.each do |klass|
+      classes_to_persist.each do |klass|
         path = File.join(folder, klass::FILENAME)
         CSV.foreach(path, headers: true) do |row|
           klass.new(row).persist!
@@ -36,30 +36,28 @@ module Csv
       end
     end
 
-    def detele_old_records!
-      klass_list_2.each do |klass|
-        klass.delete_all
+    def generate_course_lookups!
+      Csv::Opportunity.valid_qualifications.find_each do |opportunity|
+        Csv::Persistor::CourseLookup.new(opportunity).persist!
       end
     end
 
-    def klass_list
+    def detele_old_records!
+      Csv::Provider.delete_all
+      Csv::Venue.delete_all
+      Csv::Course.delete_all
+      Csv::Opportunity.delete_all
+      Csv::OpportunityStartDate.delete_all
+      Csv::CourseLookup.delete_all
+    end
+
+    def classes_to_persist
       [
         Csv::Persistor::Provider,
         Csv::Persistor::Venue,
         Csv::Persistor::Course,
         Csv::Persistor::Opportunity,
         Csv::Persistor::OpportunityStartDate
-      ]
-    end
-
-    def klass_list_2
-      [
-        Csv::Provider,
-        Csv::Venue,
-        Csv::Course,
-        Csv::Opportunity,
-        Csv::OpportunityStartDate,
-        Csv::CourseLookup
       ]
     end
   end
