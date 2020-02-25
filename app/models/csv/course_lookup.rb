@@ -6,9 +6,5 @@ module Csv
 
     belongs_to :opportunity, inverse_of: :course_lookups
     belongs_to :addressable, polymorphic: true
-
-    def full_address
-      CourseDecorator.new(addressable).full_address
-    end
   end
 end
