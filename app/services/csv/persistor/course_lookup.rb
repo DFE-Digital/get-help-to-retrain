@@ -23,7 +23,7 @@ module Csv
       private
 
       def addressable
-        opportunity.venue || opportunity.course.provider
+        @addressable ||= opportunity.venue || opportunity.course.provider
       end
 
       def subject

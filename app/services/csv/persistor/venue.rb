@@ -9,7 +9,7 @@ module Csv
         @row = row
       end
 
-      def persist! # rubocop:disable Metrics/MethodLength
+      def persist! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         Csv::Venue.create!(
           external_venue_id: row['VENUE_ID'],
           name: row['VENUE_NAME'],

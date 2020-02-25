@@ -72,8 +72,8 @@ RSpec.describe Csv::Opportunity, type: :model do
         qualification_level: 'LV1',
         qualification_type: 'Some valid qualification'
       )
-      opportunity_1 = create(:opportunity, course: course)
-      opportunity_2 = create(:opportunity, course: course)
+      opportunity1 = create(:opportunity, course: course)
+      opportunity2 = create(:opportunity, course: course)
       create(
         :opportunity,
         course: create(
@@ -83,7 +83,7 @@ RSpec.describe Csv::Opportunity, type: :model do
         )
       )
 
-      expect(described_class.valid_qualifications).to contain_exactly(opportunity_1, opportunity_2)
+      expect(described_class.valid_qualifications).to contain_exactly(opportunity1, opportunity2)
     end
   end
 end

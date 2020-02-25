@@ -9,7 +9,7 @@ module Csv
         @row = row
       end
 
-      def persist! # rubocop:disable Metrics/MethodLength
+      def persist! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         Csv::Opportunity.create!(
           external_opportunities_id: row['OPPORTUNITY_ID'],
           attendance_modes: attendance_mode,
@@ -38,7 +38,7 @@ module Csv
         Csv::Venue.find_by(external_venue_id: row['VENUE_ID'])
       end
 
-      def study_mode
+      def study_mode # rubocop:disable Metrics/CyclomaticComplexity
         return unless row['STUDY_MODE']
 
         case row['STUDY_MODE']
@@ -51,7 +51,7 @@ module Csv
         end
       end
 
-      def attendance_mode
+      def attendance_mode # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
         return unless row['ATTENDANCE_MODE']
 
         case row['ATTENDANCE_MODE']
@@ -68,7 +68,7 @@ module Csv
         end
       end
 
-      def attendance_pattern
+      def attendance_pattern # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
         return unless row['ATTENDANCE_PATTERN']
 
         case row['ATTENDANCE_PATTERN']
@@ -84,7 +84,7 @@ module Csv
         end
       end
 
-      def duration_units
+      def duration_units # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
         return unless row['DURATION_UNITS']
 
         case row['DURATION_UNITS']

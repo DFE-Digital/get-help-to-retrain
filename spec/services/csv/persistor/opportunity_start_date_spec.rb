@@ -10,7 +10,7 @@ RSpec.describe Csv::Persistor::OpportunityStartDate do
 
   describe '#persist!' do
     it 'sets the correct attributes for an opportunity start date' do
-      opportunity = create(:opportunity, external_opportunities_id: 4_531_489)
+      create(:opportunity, external_opportunities_id: 4_531_489)
 
       described_class.new(row).persist!
       expect(Csv::OpportunityStartDate.first).to have_attributes(
@@ -26,7 +26,7 @@ RSpec.describe Csv::Persistor::OpportunityStartDate do
     end
 
     it 'persists opportunity start dates not linked to any opportunity' do
-      expect{ described_class.new(row).persist! }.to change(Csv::OpportunityStartDate, :count).by(1)
+      expect { described_class.new(row).persist! }.to change(Csv::OpportunityStartDate, :count).by(1)
     end
   end
 end

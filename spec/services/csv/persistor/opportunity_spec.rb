@@ -61,7 +61,7 @@ RSpec.describe Csv::Persistor::Opportunity do
 
       described_class.new(row).persist!
 
-      expect{ described_class.new(row).persist! }.to change(Csv::Opportunity, :count).by(1)
+      expect { described_class.new(row).persist! }.to change(Csv::Opportunity, :count).by(1)
     end
 
     it 'sets the correct study mode' do

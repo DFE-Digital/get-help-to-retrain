@@ -9,7 +9,7 @@ module Csv
         @row = row
       end
 
-      def persist! # rubocop:disable Metrics/MethodLength
+      def persist! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
         Csv::Provider.create!(
           external_provider_id: row['PROVIDER_ID'],
           ukprn: row['UKPRN'],

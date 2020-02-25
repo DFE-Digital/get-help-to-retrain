@@ -10,6 +10,10 @@ RSpec.describe Csv::Persistor::CourseLookup do
         course: create(:csv_course, name: 'english')
       )
 
+      Geocoder::Lookup::Test.add_stub(
+        opportunity.venue.postcode, [{ 'coordinates' => [0.1, 1] }]
+      )
+
       described_class.new(opportunity).persist!
       expect(Csv::CourseLookup.first).to have_attributes(
         subject: 'english',
@@ -17,8 +21,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
         hours: 'study mode',
         delivery_type: 'attendance mode',
         postcode: opportunity.venue.postcode,
-        latitude: 40.7143528,
-        longitude: -74.0059731,
+        latitude: 0.1,
+        longitude: 1,
         opportunity: opportunity
       )
     end

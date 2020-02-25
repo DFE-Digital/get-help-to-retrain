@@ -9,7 +9,7 @@ module Csv
         @row = row
       end
 
-      def persist!
+      def persist! # rubocop:disable Metrics/MethodLength
         Csv::Course.create!(
           external_course_id: row['COURSE_ID'],
           name: row['PROVIDER_COURSE_TITLE'],
