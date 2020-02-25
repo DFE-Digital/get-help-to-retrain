@@ -41,7 +41,11 @@
         </ul>
       <% else %>
         <ul class="govuk-list">
-          <%= render partial: 'course', collection: @courses %>
+          <% if Flipflop.csv_courses? %>
+            <%= render partial: 'courses/csv/course', collection: @courses, as: :course_lookup %>
+          <% else %>
+            <%= render partial: 'course', collection: @courses %>
+          <% end %>
         </ul>
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
           <%= paginate @courses, params: { postcode: nil } %>
