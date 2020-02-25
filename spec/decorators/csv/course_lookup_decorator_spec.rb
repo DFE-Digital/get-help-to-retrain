@@ -6,7 +6,8 @@ RSpec.describe Csv::CourseLookupDecorator do
   let(:course_lookup) {
     build_stubbed(
       :course_lookup,
-      addressable: venue
+      addressable: venue,
+      postcode: '1DF 3HG'
     )
   }
 

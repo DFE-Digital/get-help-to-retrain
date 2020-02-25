@@ -21,9 +21,5 @@ module Csv
     def full_region
       [addressable.town, addressable.county].compact.join(', ')
     end
-
-    def postcode
-      addressable.postcode
-    end
   end
 end
