@@ -100,7 +100,7 @@ RSpec.describe Csv::Persistor::Opportunity do
       row['STUDY_MODE'] = 'unknown code'
       described_class.new(row).persist!
 
-      expect(Csv::Opportunity.first.study_modes).to eq('No matching value')
+      expect(Csv::Opportunity.first.study_modes).to eq('unknown code')
     end
 
     it 'sets the correct attendance mode' do
@@ -143,7 +143,7 @@ RSpec.describe Csv::Persistor::Opportunity do
       row['ATTENDANCE_MODE'] = 'unknown code'
       described_class.new(row).persist!
 
-      expect(Csv::Opportunity.first.attendance_modes).to eq('No matching value')
+      expect(Csv::Opportunity.first.attendance_modes).to eq('unknown code')
     end
 
     it 'sets the correct attendance pattern' do
@@ -185,7 +185,7 @@ RSpec.describe Csv::Persistor::Opportunity do
       row['ATTENDANCE_PATTERN'] = 'unknown code'
       described_class.new(row).persist!
 
-      expect(Csv::Opportunity.first.attendance_pattern).to eq('No matching value')
+      expect(Csv::Opportunity.first.attendance_pattern).to eq('unknown code')
     end
 
     it 'sets the correct duration unit' do
@@ -226,7 +226,7 @@ RSpec.describe Csv::Persistor::Opportunity do
       row['DURATION_UNITS'] = 'unknown code'
       described_class.new(row).persist!
 
-      expect(Csv::Opportunity.first.duration_type).to eq('No matching value')
+      expect(Csv::Opportunity.first.duration_type).to eq('unknown code')
     end
   end
 end

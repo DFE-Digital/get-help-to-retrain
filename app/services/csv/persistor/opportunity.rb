@@ -47,7 +47,7 @@ module Csv
         when 'SM3' then 'Part of a full-time program'
         when 'SM4' then 'Flexible'
         when 'SM5' then 'Not known'
-        else 'No matching value'
+        else row['STUDY_MODE']
         end
       end
 
@@ -64,7 +64,7 @@ module Csv
         when 'AM7' then 'Online without attendance'
         when 'AM8' then 'Online with attendance'
         when 'AM9' then 'Not known'
-        else 'No matching value'
+        else row['ATTENDANCE_MODE']
         end
       end
 
@@ -80,7 +80,7 @@ module Csv
         when 'AP6' then 'Customised'
         when 'AP7' then 'Not known'
         when 'AP8' then 'Not applicable'
-        else 'No matching value'
+        else row['ATTENDANCE_PATTERN']
         end
       end
 
@@ -95,7 +95,7 @@ module Csv
         when 'DU5' then 'Term'
         when 'DU6' then 'Semester'
         when 'DU7' then 'Year'
-        else 'No matching value'
+        else row['DURATION_UNITS']
         end
       end
     end
