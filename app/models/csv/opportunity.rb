@@ -24,10 +24,10 @@ module Csv
 
     QUALIFICATION_LEVEL = ['LV3', 'LV4', 'LV5', 'LV6', 'LV7', 'LV8', 'LV9', nil].freeze
 
-    def self.valid_qualifications
+    scope :valid_qualifications, lambda {
       joins(:course)
         .where.not('csv_courses.qualification_type': QUALIFICATION_TYPE)
         .where.not('csv_courses.qualification_level': QUALIFICATION_LEVEL)
-    end
+    }
   end
 end

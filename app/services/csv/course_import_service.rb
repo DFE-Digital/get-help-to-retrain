@@ -5,7 +5,7 @@ module Csv
     end
 
     def import(folder)
-      detele_old_records!
+      delete_old_records!
       create_records_from!(folder)
       generate_course_lookups!
     end
@@ -42,7 +42,7 @@ module Csv
       end
     end
 
-    def detele_old_records!
+    def delete_old_records!
       Csv::Provider.delete_all
       Csv::Venue.delete_all
       Csv::Course.delete_all
