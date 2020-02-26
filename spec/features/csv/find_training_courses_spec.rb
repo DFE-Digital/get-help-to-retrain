@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.feature 'Find training courses', type: :feature do
   before do
-    disable_feature!(:csv_courses)
+    enable_feature!(:csv_courses)
   end
 
   scenario 'User cannot see a list of all training courses for a topic without postcode' do
-    create_list(:course, 2, topic: 'maths')
+    create_list(:course_lookup, 2, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_text('0 courses found')
@@ -24,9 +24,9 @@ RSpec.feature 'Find training courses', type: :feature do
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
 
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
-    create(:course, latitude: 0.1, longitude: 2, topic: 'maths')
-    create(:course, latitude: 0.1, longitude: 3, topic: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 2, subject: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 3, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
@@ -65,7 +65,7 @@ RSpec.feature 'Find training courses', type: :feature do
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
 
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
@@ -79,7 +79,7 @@ RSpec.feature 'Find training courses', type: :feature do
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
 
-    create_list(:course, 11, latitude: 0.1, longitude: 1.001, topic: 'maths')
+    create_list(:course_lookup, 11, latitude: 0.1, longitude: 1.001, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
@@ -91,7 +91,7 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'User gets relevant messaging if their address is not valid' do
-    create(:course, topic: 'maths')
+    create(:course_lookup, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8E')
@@ -104,7 +104,7 @@ RSpec.feature 'Find training courses', type: :feature do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [] }]
     )
-    create(:course, topic: 'maths')
+    create(:course_lookup, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
@@ -115,7 +115,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
   scenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
     allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
-    create(:course, topic: 'maths')
+    create(:course_lookup, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
@@ -125,7 +125,7 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'User gets relevant messaging if no address is entered' do
-    create(:course, topic: 'maths')
+    create(:course_lookup, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
     find('.search-button-results').click
 
@@ -133,7 +133,7 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Error summary message present if no address is entered' do
-    create(:course, topic: 'maths')
+    create(:course_lookup, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
     find('.search-button-results').click
 
@@ -141,7 +141,7 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Error summary contains error if no address is entered' do
-    create(:course, topic: 'maths')
+    create(:course_lookup, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
     find('.search-button-results').click
 
