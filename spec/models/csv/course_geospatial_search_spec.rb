@@ -63,9 +63,9 @@ RSpec.describe Csv::CourseGeospatialSearch do
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
       )
 
-      create(:course, latitude: 0.1, longitude: 2)
-      create(:course, latitude: 0.1, longitude: 3)
-      create(:course, latitude: 0.1, longitude: 4)
+      create(:course_lookup, latitude: 0.1, longitude: 2)
+      create(:course_lookup, latitude: 0.1, longitude: 3)
+      create(:course_lookup, latitude: 0.1, longitude: 4)
       search = described_class.new(postcode: 'NW6 8ET', distance: 10, topic: nil)
 
       expect(search.find_courses).to be_empty
