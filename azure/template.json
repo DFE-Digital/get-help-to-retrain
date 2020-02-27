@@ -674,6 +674,10 @@
               {
                 "name": "BING_SPELL_CHECK_API_KEY",
                 "value": "[parameters('bingSpellCheckApiKey')]"
+              },
+              {
+                "name": "STRAPI_API_KEY",
+                "value": "[parameters('strapiApiKey')]"
               }
             ]
           },

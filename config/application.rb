@@ -46,6 +46,7 @@ module GetHelpToRetrain
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
     config.host_name = Socket.gethostname
     config.bing_spell_check_api_key = ENV['BING_SPELL_CHECK_API_KEY']
+    config.strapi_authorization = ENV['STRAPI_AUTHORIZATION']
     config.azure_client_id = ENV['AZURE_CLIENT_ID']
     config.azure_client_secret = ENV['AZURE_CLIENT_SECRET']
     config.azure_scopes = ENV['AZURE_SCOPES']

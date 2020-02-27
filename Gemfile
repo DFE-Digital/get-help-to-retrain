@@ -9,6 +9,9 @@ ruby File.read('.ruby-version').chomp
 gem 'rails', '~> 6.0.0'
 gem 'rails-i18n', '~> 6.0.0'
 
+# redcarpet for processing markdown
+gem 'redcarpet', '~> 3.5.0'
+
 # Azure AD integration with Omniauth and OAuth2
 gem 'omniauth-oauth2', '~> 1.6'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
