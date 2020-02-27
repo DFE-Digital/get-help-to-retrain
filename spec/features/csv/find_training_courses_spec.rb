@@ -35,6 +35,20 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
+  scenario 'Users can find training courses near them when they visit the page' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 2, subject: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 3, subject: 'maths')
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
   scenario 'Users can update their session postcode if there was none there' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
@@ -205,7 +219,7 @@ RSpec.feature 'Find training courses', type: :feature do
     )
     capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
-    select('Flexible', from: 'hours')
+    select('Online', from: 'delivery_type')
     click_on('Apply filters')
 
     expect(page).not_to have_text(course_lookup.course.name)

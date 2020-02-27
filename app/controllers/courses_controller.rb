@@ -62,7 +62,7 @@ class CoursesController < ApplicationController
       postcode: postcode,
       topic: courses_params[:topic_id],
       options: {
-        distance: courses_params[:distance].to_i || 20,
+        distance: courses_params[:distance],
         hours: courses_params[:hours] || 'All',
         delivery_type: courses_params[:delivery_type] || 'All'
       }
