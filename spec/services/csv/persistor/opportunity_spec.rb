@@ -16,7 +16,7 @@ RSpec.describe Csv::Persistor::Opportunity do
       described_class.new(row).persist!
       expect(Csv::Opportunity.first).to have_attributes(
         external_opportunities_id: 922_907,
-        attendance_modes: 'Mixed Mode',
+        attendance_modes: 'Work-based',
         attendance_pattern: 'Daytime/working hours',
         study_modes: 'Flexible',
         end_date: nil,

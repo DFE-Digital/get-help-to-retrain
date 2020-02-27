@@ -3,9 +3,9 @@ FactoryBot.define do
     venue { create(:venue) }
     course { create(:csv_course) }
     external_opportunities_id { Faker::Number.number(digits: 10) }
-    attendance_modes { ['Location / campus', 'Work-based', 'Mixed Mode'].sample }
+    attendance_modes { ['Location / campus', 'Online with attendance', 'Mixed Mode'].sample }
     attendance_pattern { %w[Evening Weekend Customised].sample }
-    study_modes { ['full time', 'part time', 'flexible'].sample }
+    study_modes { ['Full time', 'Part time', 'Flexible'].sample }
     end_date { Faker::Date.forward(days: 90) }
     duration_value { Faker::Types.rb_integer }
     duration_type { %w[Hours Days Month].sample }
