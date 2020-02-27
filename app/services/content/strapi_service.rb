@@ -1,6 +1,6 @@
 require 'redcarpet'
 
-module Strapi
+module Content
   class StrapiService
     attr_reader :authorization
 
@@ -12,11 +12,6 @@ module Strapi
       authorization: Rails.configuration.strapi_authorization
     )
       @authorization = authorization
-    end
-
-    def render(json, renderer = Strapi::Renderer.new(link_attributes: {:class => 'govuk-link'}))
-      markdown = Redcarpet::Markdown.new(renderer, extensions = {})
-      markdown.render(json)
     end
 
     def content_as_hash(path)
@@ -47,7 +42,7 @@ module Strapi
         response.body
       end
     rescue StandardError => e
-      Rails.logger.error("Strapi Service API error: #{e.inspect}")
+      Rails.logger.error("Content Service API error: #{e.inspect}")
       raise APIError, e
     end
 

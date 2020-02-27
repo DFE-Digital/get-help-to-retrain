@@ -8,6 +8,6 @@ class PagesController < ApplicationController
   end
 
   def offers_near_me
-    @offers_content = Strapi::ContentTypes::OfferContentType.new.content
+    @offers_content = Content::ContentTypes::OfferContentType.new.content
   end
 end

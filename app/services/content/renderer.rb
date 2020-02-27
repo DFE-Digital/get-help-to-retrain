@@ -1,6 +1,6 @@
 require 'redcarpet'
 
-module Strapi
+module Content
 
   class Renderer < Redcarpet::Render::HTML
 

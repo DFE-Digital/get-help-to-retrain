@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
       topic: courses_params[:topic_id]
     )
 
-    @course_content = Strapi::ContentTypes::CourseContentType.new.content
+    @course_content = Content::ContentTypes::CourseContentType.new.content
 
     user_session.postcode = postcode if postcode && @search.valid?
 

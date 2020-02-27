@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Strapi::StrapiService do
+RSpec.describe Content::StrapiService do
   subject(:service) { described_class.new(authorization: 'Bearer test123') }
 
   let(:request_headers) {
@@ -25,21 +25,21 @@ RSpec.describe Strapi::StrapiService do
 
   describe 'courses' do
     before do
-      stub_request(:get, Strapi::StrapiService::API_ENDPOINT + 'courses/1')
+      stub_request(:get, Content::StrapiService::API_ENDPOINT + 'courses/1')
         .with(headers: request_headers)
         .to_return(body: response_body, status: status)
     end
 
     context 'when we ask for course search results content' do
       it 'Content in JSON format is returned and value for title is as expected' do
-        course_content_type = Strapi::ContentTypes::CourseContentType.new(service)
+        course_content_type = Content::ContentTypes::CourseContentType.new(service)
         expect(course_content_type.content['title']).to eq('courses near me')
       end
     end
 
     context 'when we ask for the no courses content from course search results' do
       it 'returns correctly marked up content HTML' do
-        course_content_type = Strapi::ContentTypes::CourseContentType.new(service)
+        course_content_type = Content::ContentTypes::CourseContentType.new(service)
         expect(course_content_type.content['no_results']).to eq('courses near me')
       end
     end

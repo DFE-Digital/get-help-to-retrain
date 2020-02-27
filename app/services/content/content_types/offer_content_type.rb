@@ -1,8 +1,8 @@
-module Strapi::ContentTypes
-  class OfferContentType < Strapi::ContentTypes::BaseContentType
+module Content::ContentTypes
+  class OfferContentType < Content::ContentTypes::BaseContentType
 
     def content()
-      offer_hash = @strapi_service.content_as_hash('offers/1')
+      offer_hash = @content_service.content_as_hash('offers/1')
 
       content_hash = offer_hash['Standard'][0]
       content_hash['body'] = @renderer.render_markdown(content_hash['body'])

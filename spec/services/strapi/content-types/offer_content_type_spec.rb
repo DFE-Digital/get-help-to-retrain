@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Strapi::StrapiService do
+RSpec.describe Content::StrapiService do
   subject(:service) { described_class.new(authorization: 'Bearer test123') }
 
   let(:request_headers) {
@@ -39,27 +39,27 @@ RSpec.describe Strapi::StrapiService do
 
   describe 'offers' do
     before do
-      stub_request(:get, Strapi::StrapiService::API_ENDPOINT + 'offers/1')
+      stub_request(:get, Content::StrapiService::API_ENDPOINT + 'offers/1')
         .with(headers: request_headers)
         .to_return(body: response_body, status: status)
     end
 
     context 'when we ask for the offers link warning' do
       it 'returns correctly the correct text' do
-        offer_content_type = Strapi::ContentTypes::OfferContentType.new(service)
+        offer_content_type = Content::ContentTypes::OfferContentType.new(service)
         expect(offer_content_type.content['external_link_warning']).to eq('Selecting one of these links will take you to another website.')
       end
     end
 
     context 'when we ask for the offers standard content' do
       it 'returns correctly marked up content HTML' do
-        offer_content_type = Strapi::ContentTypes::OfferContentType.new(service)
+        offer_content_type = Content::ContentTypes::OfferContentType.new(service)
         expect(offer_content_type.content['standard']).to eq('Selecting one of these links will take you to another website.')
       end
     end
     context 'when we ask for the offers tel content' do
       it 'returns correctly marked up content HTML' do
-        offer_content_type = Strapi::ContentTypes::OfferContentType.new(service)
+        offer_content_type = Content::ContentTypes::OfferContentType.new(service)
         expect(offer_content_type.content['tel']).to eq('Selecting one of these links will take you to another website.')
       end
     end
