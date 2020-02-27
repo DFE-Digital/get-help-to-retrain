@@ -13,27 +13,32 @@
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-    <p class="govuk-body-l">Some areas have local schemes that can offer you more ideas and opportunities.</p>
-    <p class="govuk-body">If you don't see anything listed below for your area, try calling the number below. The adviser may be able to point you to schemes in your area.</p>
 
-    <p class="govuk-!-margin-bottom-0">
-      Call <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-!-padding-left-1 govuk-link' %>
-    </p>
-    <p class="govuk-body-s muted-text"><%= t('contact_us.telephone_times') %></p>
 
-    <p class="govuk-body govuk-!-margin-bottom-3">Selecting one of these links will take you to another website.</p>
+<!--    <p class="govuk-body-l">Some areas have local schemes that can offer you more ideas and opportunities.</p>-->
+<!--    <p class="govuk-body">If you don't see anything listed below for your area, try calling the number below. The adviser may be able to point you to schemes in your area.</p>-->
 
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Cambridge & Peterborough</h2>
-    <p class="govuk-body">The <%= link_to 'Health and Care Sector Work Academy', 'https://cambridgeshirepeterborough-ca.gov.uk/about-us/programmes/skills/star-hub/health-and-care-sector-work-academy/', class:'govuk-link' %> helps you move into the health and care sector or progress further if you're already working in this area.</p>
+<!--    <p class="govuk-!-margin-bottom-0">-->
+<!--      Call <%#= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-!-padding-left-1 govuk-link' %>-->
+<!--    </p>-->
+<!--    <p class="govuk-body-s muted-text"><%#= t('contact_us.telephone_times') %></p>-->
 
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Leeds</h2>
-    <p class="govuk-body">Information on changing careers from <%= link_to 'Leeds City Region Local Enterprise Partnership', 'https://futuregoals.co.uk/', class:'govuk-link' %>.</p>
+    <%= raw(@offers_content) %>
 
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Liverpool</h2>
-    <p class="govuk-body">Use the <%= link_to 'Be More', 'https://be-more.info', class:'govuk-link' %> service to find apprenticeships in the Liverpool area.</p>
+<!--    <p class="govuk-body govuk-!-margin-bottom-3">Selecting one of these links will take you to another website.</p>-->
 
-    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">West Midlands</h2>
-    <p class="govuk-body">The <%= link_to 'West Midlands Combined Authority', 'https://www.wmca.org.uk/what-we-do/productivity-skills/', class:'govuk-link' %> runs projects that can help you get the general skills many employers ask for and the technical skills most needed in the local area. </p>
+<!--    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Cambridge & Peterborough</h2>-->
+<!--    <p class="govuk-body">The <%#= link_to 'Health and Care Sector Work Academy', 'https://cambridgeshirepeterborough-ca.gov.uk/about-us/programmes/skills/star-hub/health-and-care-sector-work-academy/', class:'govuk-link' %> helps you move into the health and care sector or progress further if you're already working in this area.</p>-->
+
+<!--    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Leeds</h2>-->
+<!--    <p class="govuk-body">Information on changing careers from <%#= link_to 'Leeds City Region Local Enterprise Partnership', 'https://futuregoals.co.uk/', class:'govuk-link' %>.</p>-->
+
+<!--    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">Liverpool</h2>-->
+<!--    <p class="govuk-body">Use the <%#= link_to 'Be More', 'https://be-more.info', class:'govuk-link' %> service to find apprenticeships in the Liverpool area.</p>-->
+
+<!--    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">West Midlands</h2>-->
+<!--    <p class="govuk-body">The <%#= link_to 'West Midlands Combined Authority', 'https://www.wmca.org.uk/what-we-do/productivity-skills/', class:'govuk-link' %> runs projects that can help you get the general skills many employers ask for and the technical skills most needed in the local area. </p>-->
+
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "shared/contact_us" %>

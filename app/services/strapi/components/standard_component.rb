@@ -1,5 +1,4 @@
 module Strapi::Components
-  class StandardComponentRenderer < ContentRenderer
-
+  class StandardComponent < Strapi::Renderer
   end
 end

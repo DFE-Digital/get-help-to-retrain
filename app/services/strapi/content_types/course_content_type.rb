@@ -7,7 +7,7 @@ module Strapi::ContentTypes
     end
 
     def content()
-      json = @strapi_service.content('courses/1')
+      json = @strapi_service.content_as_hash('courses/1')
       json['no_results'] = @strapi_service.render(json['no_results'])
       json
     end

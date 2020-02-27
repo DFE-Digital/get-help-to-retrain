@@ -2,7 +2,18 @@ require 'redcarpet'
 
 module Strapi
 
-  class ContentRenderer < Redcarpet::Render::HTML
+  class Renderer < Redcarpet::Render::HTML
+
+    def render_component(component_name, content)
+      file_path = "#{Dir.getwd}/public/components/#{component_name}"
+      @template = File.open(file_path, 'rb', &:read)
+      ERB.new(@template).result(binding)
+    end
+
+    def render_markdown(md)
+      markdown = Redcarpet::Markdown.new(self, extensions = {})
+      markdown.render(md)
+    end
 
     def paragraph(text)
       %(<p class="govuk-body-m">#{text}</p>

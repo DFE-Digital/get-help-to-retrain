@@ -1,5 +1,4 @@
 module Strapi::Components
-  class TelephoneComponentRenderer < ContentRenderer
-
+  class TelephoneComponent < Strapi::Renderer
   end
 end

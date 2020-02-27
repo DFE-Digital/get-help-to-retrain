@@ -23,7 +23,7 @@ RSpec.describe Strapi::StrapiService do
 
   let(:status) { 200 }
 
-  describe '.course' do
+  describe 'courses' do
     before do
       stub_request(:get, Strapi::StrapiService::API_ENDPOINT + 'courses/1')
         .with(headers: request_headers)
@@ -35,14 +35,6 @@ RSpec.describe Strapi::StrapiService do
         course_content_type = Strapi::ContentTypes::CourseContentType.new(service)
         expect(course_content_type.content['title']).to eq('courses near me')
       end
-    end
-  end
-
-  describe '.course.no_results' do
-    before do
-      stub_request(:get, Strapi::StrapiService::API_ENDPOINT + 'courses/1')
-        .with(headers: request_headers)
-        .to_return(body: response_body, status: status)
     end
 
     context 'when we ask for the no courses content from course search results' do

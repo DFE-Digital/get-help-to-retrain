@@ -1,18 +1,15 @@
 module Strapi::ContentTypes
-  class OfferContentType
-    attr_reader :strapi_service
-
-    def initialize(strapi_service: Strapi::StrapiService.new)
-      @strapi_service = strapi_service
-      @standard_component_renderer = Strapi::Components::StandardComponentRenderer.new(link_attributes: {:class => 'govuk-link'})
-      @telephone_component_renderer = Strapi::Components::StandardComponentRenderer.new(link_attributes: {:class => 'govuk-link'})
-    end
+  class OfferContentType < Strapi::ContentTypes::BaseContentType
 
     def content()
-      json = @strapi_service.content('offers/1')
-      json['standard'] = @strapi_service.render(json['Standard'][0], @standard_component_renderer)
-      json['telephone'] = @strapi_service.render(json['Telephone'][0], @telephone_component_renderer)
-      json
+      offer_hash = @strapi_service.content_as_hash('offers/1')
+
+      content_hash = offer_hash['Standard'][0]
+      content_hash['body'] = @renderer.render_markdown(content_hash['body'])
+      content_hash['tel'] = offer_hash['Tel'][0]
+
+      rendered = @renderer.render_component("standard_component.erb", content_hash)
+      rendered
     end
   end
 end

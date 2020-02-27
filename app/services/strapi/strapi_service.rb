@@ -14,16 +14,19 @@ module Strapi
       @authorization = authorization
     end
 
-    def render(json, renderer = Strapi::ContentRenderer.new(link_attributes: {:class => 'govuk-link'}))
+    def render(json, renderer = Strapi::Renderer.new(link_attributes: {:class => 'govuk-link'}))
       markdown = Redcarpet::Markdown.new(renderer, extensions = {})
       markdown.render(json)
     end
 
+    def content_as_hash(path)
+      JSON.parse(content(path))
+    end
+
     def content(path)
-      return JSON.parse({}) unless authorization
+      return {} unless authorization
       uri = build_uri(path: path, options: {})
-      json = JSON.parse(response_body(uri))
-      json
+      response_body(uri)
     end
 
     def health_check
