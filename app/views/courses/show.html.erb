@@ -1,0 +1,107 @@
+<% page_title :courses_show %>
+
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.course_details'),
+      [
+        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.action_plan'), action_plan_path],
+        [t('breadcrumb.csv_courses_training_courses_near_you'), courses_path(topic_id: params[:topic_id])]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= @opportunity.course.name %></h1>
+    <h2 class="govuk-heading-m">Course details</h2>
+    <table class="govuk-table">
+      <tbody class="govuk-table__body">
+        <% if @opportunity.course.qualification_name.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Qualification name</th>
+            <td class="govuk-table__cell"><%= @opportunity.course.qualification_name %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.course.qualification_type.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Qualification level</th>
+            <td class="govuk-table__cell"><%= @opportunity.course.qualification_type %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.study_modes.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Course hours</th>
+            <td class="govuk-table__cell"><%= @opportunity.study_modes %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.attendance_modes.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Course type</th>
+            <td class="govuk-table__cell"><%= @opportunity.attendance_modes %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.attendance_pattern.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Attendance pattern</th>
+            <td class="govuk-table__cell"><%= @opportunity.attendance_pattern %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.course_start_date.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Course start date</th>
+            <td class="govuk-table__cell"><%= @opportunity.course_start_date %></td>
+          </tr>
+        <% end %>
+        <% if @opportunity.course_price.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Price</th>
+            <td class="govuk-table__cell"><%= @opportunity.course_price %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if @opportunity.course_description.present? %>
+      <h2 class="govuk-heading-m">Course description</h2>
+      <p class="govuk-body">
+        <%= @opportunity.course_description %>
+      </p>
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+    <% end %>
+    <h2 class="govuk-heading-m">Provider details</h2>
+    <table class="govuk-table">
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header">Name</th>
+          <td class="govuk-table__cell"><%= @opportunity.provider.name %></td>
+        </tr>
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header">Address</th>
+          <td class="govuk-table__cell"><%= @opportunity.provider_full_address %></td>
+        </tr>
+        <% if @opportunity.provider.phone.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Phone</th>
+            <td class="govuk-table__cell"><%= link_to(@opportunity.provider.phone, "tel:#{@opportunity.provider.phone}", class: 'govuk-link') %></td>
+          </tr>
+        <% end %>
+         <% if @opportunity.provider.email.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Email</th>
+            <td class="govuk-table__cell"><%= mail_to(@opportunity.provider.email, @opportunity.provider.email, class: 'govuk-link') %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if @opportunity.course_url.present? %>
+      <p class="govuk-body">If you are interested in this course, visit the course providers website to find out how to apply.</p>
+      <%= link_to('Visit website', @opportunity.course_url, class: 'govuk-button govuk-!-margin-top-1', role: 'button', data: { cy: 'course-website-btn', module: 'govuk-button' }) %>
+    <% end %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render 'shared/contact_us' %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+    <%= render 'shared/help_improve_this_service' %>
+  </div>
+</div>

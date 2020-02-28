@@ -5,5 +5,5 @@ Flipflop.configure do
 
   feature :foo, description: 'Example feature flag', default: true
   feature :health_check, description: 'Dummy feature for split.io health check'
-  feature :csv_courses, description: 'Enable service to use the new CSV courses data'
+  feature :csv_courses, description: 'Enable service to use the new CSV courses data', default: true
 end

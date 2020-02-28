@@ -39,7 +39,7 @@ RSpec.describe Csv::CourseLookupDecorator do
         )
       }
 
-      it 'doesn not show the town in the full address block' do
+      it 'does not show the town in the full address block' do
         expect(decorated_course_lookup.full_address).to eq 'Flat 5, Street 1<br>Great Manchester<br>1DF 3HG'
       end
     end
