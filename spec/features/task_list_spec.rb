@@ -10,7 +10,7 @@ RSpec.feature 'Task list', type: :feature do
     click_on('Select these skills')
     click_on('Find out what you can do with these skills')
     click_on('CEO')
-    click_on('Target this type of work')
+    click_on('Select this type of work')
   end
 
   scenario 'User checks their existing skills' do

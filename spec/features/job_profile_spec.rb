@@ -87,7 +87,7 @@ RSpec.feature 'Job profile spec' do
     job_profile = create(:job_profile, :with_html_content)
 
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
+    click_on('Select this type of work')
 
     expect(page).to have_current_path(training_questions_path)
   end

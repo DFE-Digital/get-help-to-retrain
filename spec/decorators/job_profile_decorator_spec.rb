@@ -192,7 +192,7 @@ RSpec.describe JobProfileDecorator do
     end
 
     it 'strips down How to from #how_to_become' do
-      expect(job_profile.become).to eq 'become an RAF officer'
+      expect(job_profile.become).to eq 'an RAF officer'
     end
   end
 
