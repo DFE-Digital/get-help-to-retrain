@@ -23,8 +23,8 @@
           </div>
           <div class="govuk-grid-column-one-half">
             <div class="govuk-form-group govuk-!-margin-bottom-3">
-              <%= label_tag :distance, 'Distance', for: 'distance', class: 'govuk-label' %>
               <%= errors_tag_minimal @search, :postcode %>
+              <%= label_tag :distance, 'Distance', for: 'distance', class: 'govuk-label' %>
               <%= select_tag :distance, @distance_options, class: 'govuk-select govuk-!-width-full', id: 'distance' %>
             </div>
             <div class="govuk-form-group">

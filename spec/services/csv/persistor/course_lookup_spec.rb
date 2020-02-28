@@ -236,7 +236,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
           'Distance without attendance' => 'Distance learning',
           'Online without attendance' => 'Online',
           'Online with attendance' => 'Online',
-          'Not known' => 'Not known'
+          'Not known' => 'Not known',
+          nil => nil
         }
 
         modes.each do |mode, value|

@@ -1,12 +1,12 @@
 class CoursesController < ApplicationController
-  DISTANCE_OPTIONS = [
+  DISTANCE = [
     ['Up to 10 miles', 10],
     ['Up to 20 miles', 20],
     ['Up to 30 miles', 30],
     ['Up to 40 miles', 40]
   ].freeze
 
-  DELIVERY_TYPES = ['All', 'Classroom based', 'Distance learning', 'Online', 'Work based'].freeze
+  DELIVERY_TYPES = ['All', 'Classroom based', 'Distance learning', 'Online'].freeze
   HOURS = ['All', 'Full time', 'Part time', 'Flexible'].freeze
 
   def index
@@ -63,14 +63,14 @@ class CoursesController < ApplicationController
       topic: courses_params[:topic_id],
       options: {
         distance: courses_params[:distance],
-        hours: courses_params[:hours] || 'All',
-        delivery_type: courses_params[:delivery_type] || 'All'
+        hours: courses_params[:hours],
+        delivery_type: courses_params[:delivery_type]
       }
     )
   end
 
   def filter_options
-    @distance_options = helpers.options_for_select(DISTANCE_OPTIONS, courses_params[:distance] || 20)
+    @distance_options = helpers.options_for_select(DISTANCE, courses_params[:distance] || 20)
     @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'All')
     @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'All')
   end

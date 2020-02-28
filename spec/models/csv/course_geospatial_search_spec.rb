@@ -58,6 +58,21 @@ RSpec.describe Csv::CourseGeospatialSearch do
       )
     end
 
+    it 'defaults to distance 20 miles if no distance passed in' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+
+      course_lookup1 = create(:course_lookup, latitude: 0.1, longitude: 1.2)
+      create(:course_lookup, latitude: 0.1, longitude: 2)
+      create(:course_lookup, latitude: 0.1, longitude: 3)
+      search = described_class.new(postcode: 'NW6 8ET', topic: nil)
+
+      expect(search.find_courses).to eq(
+        [course_lookup1]
+      )
+    end
+
     it 'returns nothing if postcode entered is too far' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]

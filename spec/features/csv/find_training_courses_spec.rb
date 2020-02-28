@@ -35,7 +35,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'Users can find training courses near them when they visit the page' do
+  scenario 'Users can find training courses near them when they visit the page for the first time' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -215,11 +215,59 @@ RSpec.feature 'Find training courses', type: :feature do
       latitude: 0.1,
       longitude: 1,
       subject: 'maths',
-      delivery_type: 'Work based'
+      delivery_type: 'Distance learning'
     )
     capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
     select('Online', from: 'delivery_type')
+    click_on('Apply filters')
+
+    expect(page).not_to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User can see relevant courses from selecting multiple filters' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 1.5,
+      subject: 'maths',
+      delivery_type: 'Online',
+      hours: 'Flexible'
+    )
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    select('Online', from: 'delivery_type')
+    select('Flexible', from: 'hours')
+
+    click_on('Apply filters')
+
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User does not see courses that do not match filter criteria' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 2,
+      subject: 'maths',
+      delivery_type: 'Online',
+      hours: 'Flexible'
+    )
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    select('Distance learning', from: 'delivery_type')
+    select('Full time', from: 'hours')
+
     click_on('Apply filters')
 
     expect(page).not_to have_text(course_lookup.course.name)

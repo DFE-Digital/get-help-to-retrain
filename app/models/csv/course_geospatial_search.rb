@@ -11,8 +11,8 @@ module Csv
       @postcode = postcode
       @topic = topic
       @distance = options[:distance] || 20
-      @hours = options[:hours]
-      @delivery_type = options[:delivery_type]
+      @hours = options[:hours] || 'All'
+      @delivery_type = options[:delivery_type] || 'All'
     end
 
     def find_courses
@@ -32,7 +32,7 @@ module Csv
         subject: topic,
         hours: hours,
         delivery_type: delivery_type
-      }.reject { |_, value| value == 'All' || value.blank? }
+      }.reject { |_, value| value == 'All' }
     end
 
     def coordinates
