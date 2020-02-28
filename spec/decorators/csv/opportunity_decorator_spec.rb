@@ -233,6 +233,30 @@ RSpec.describe Csv::OpportunityDecorator do
         expect(decorated_opportunity.course_url).to be nil
       end
     end
+
+    context 'when course urls are missing, provider url is missing, and venue is missing' do
+      let(:course) {
+        create(
+          :csv_course,
+          provider: provider,
+          url: nil,
+          booking_url: nil
+        )
+      }
+
+      let(:provider) {
+        create(
+          :provider,
+          url: nil
+        )
+      }
+
+      let(:opportunity) { create(:opportunity, course: course, venue: nil, end_date: '2020-01-01', price: nil) }
+
+      it 'returns nil' do
+        expect(decorated_opportunity.course_url).to be nil
+      end
+    end
   end
 
   describe '#course_description' do

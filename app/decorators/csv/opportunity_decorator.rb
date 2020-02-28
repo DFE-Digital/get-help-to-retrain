@@ -27,7 +27,7 @@ module Csv
     end
 
     def course_url
-      course.booking_url.presence || course.url.presence || provider.url.presence || venue.url.presence
+      course.booking_url.presence || course.url.presence || provider.url.presence || venue&.url.presence
     end
 
     def course_description
