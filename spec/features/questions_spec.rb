@@ -42,7 +42,7 @@ RSpec.feature 'Questions' do
     check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
+    click_on('Select this type of work')
 
     expect(page).to have_current_path(action_plan_path)
   end
@@ -53,7 +53,7 @@ RSpec.feature 'Questions' do
     click_on('Continue')
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
+    click_on('Select this type of work')
 
     expect(page).to have_current_path(action_plan_path)
   end
@@ -63,7 +63,7 @@ RSpec.feature 'Questions' do
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
+    click_on('Select this type of work')
 
     expect(page).to have_current_path(it_training_questions_path)
   end
@@ -75,7 +75,7 @@ RSpec.feature 'Questions' do
     check('I need to improve my computer skills', allow_label_click: true)
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
+    click_on('Select this type of work')
 
     expect(page).to have_current_path(job_hunting_questions_path)
   end
@@ -347,6 +347,6 @@ RSpec.feature 'Questions' do
 
   def user_targets_job
     visit(job_profile_path(job_profile.slug))
-    click_on('Target this type of work')
+    click_on('Select this type of work')
   end
 end

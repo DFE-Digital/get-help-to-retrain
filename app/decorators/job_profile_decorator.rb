@@ -33,7 +33,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def become
-    how_to_become.gsub('How to', '').strip
+    how_to_become.gsub('How to become', '').strip
   end
 
   def salary_range
