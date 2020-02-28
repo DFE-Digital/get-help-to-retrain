@@ -24,10 +24,10 @@
             <td class="govuk-table__cell"><%= @opportunity.course.qualification_name %></td>
           </tr>
         <% end %>
-        <% if @opportunity.course.qualification_type.present? %>
+        <% if @opportunity.course.qualification_level.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Qualification level</th>
-            <td class="govuk-table__cell"><%= @opportunity.course.qualification_type %></td>
+            <td class="govuk-table__cell"><%= @opportunity.course.qualification_level %></td>
           </tr>
         <% end %>
         <% if @opportunity.study_modes.present? %>
