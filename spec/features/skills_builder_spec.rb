@@ -90,7 +90,7 @@ RSpec.feature 'Build your skills', type: :feature do
   scenario 'User selects the skills for the first job profile and can edit the skills' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('edit these skills')
+    click_on('edit skills for this role')
     uncheck('Baldness', allow_label_click: true)
     click_on('Select these skills')
 
@@ -303,7 +303,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
 
-    first(:link, 'edit these skills').click
+    first(:link, 'edit skills for this role').click
 
     expect(page).to have_selector('input[checked="checked"]', count: 1)
   end
