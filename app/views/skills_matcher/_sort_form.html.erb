@@ -2,5 +2,6 @@
   <%= form_tag nil, method: :get, local: true do |f| %>
     <%= label_tag :sort, 'Sort by', for: 'sort-select', class: 'govuk-label' %>
     <%= select_tag :sort, @options, class: 'govuk-select', id: 'sort-select' %>
+    <%= hidden_field_tag :search, params[:search] if params[:search].present? %>
   <% end %>
 </div>

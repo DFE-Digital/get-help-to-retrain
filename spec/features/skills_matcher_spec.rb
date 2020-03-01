@@ -157,6 +157,26 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_select('sort-select', selected: 'Recent job growth')
   end
 
+  scenario 'passes along the search query string when sorting if present', :js do
+    visit_skills_for_current_job_profile(true)
+
+    visit skills_matcher_index_path(search: 'therapy')
+
+    find("option[value='growth']").click
+
+    expect(page).to have_current_path(skills_matcher_index_path(sort: 'growth', search: 'therapy'))
+  end
+
+  scenario 'does not pass along the search query string when sorting if absent', :js do
+    visit_skills_for_current_job_profile(true)
+
+    visit skills_matcher_index_path
+
+    find("option[value='growth']").click
+
+    expect(page).to have_current_path(skills_matcher_index_path(sort: 'growth'))
+  end
+
   scenario 'paginates results of search' do
     create_list(:job_profile, 12, name: 'Hacker', skills: [skill1])
     visit_skills_for_current_job_profile
