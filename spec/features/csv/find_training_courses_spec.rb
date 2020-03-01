@@ -135,7 +135,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'User does not see unselected distances' do
+  scenario 'User does not see results that do not match selected distances' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -168,7 +168,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'User does not see unselected hours' do
+  scenario 'User does not see results that do not match selected hours' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -206,7 +206,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'User does not see unselected delivery types' do
+  scenario 'User does not see results that do not match selected delivery types' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
