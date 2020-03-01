@@ -11,8 +11,28 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-8"><%= t('.title') %></h1>
     <%= error_summary(@job_profile_search) %>
-    <%= render "shared/search/form", search_path: job_profiles_path, scope: 'job_profiles.index' %>
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item">
+          <%= link_to('Your matches', params[:search].present? ? skills_matcher_index_path(search: params[:search]) : skills_matcher_index_path, class: 'govuk-link') %>
+        </li>
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <%= link_to('Search by job title', '#job-profiles-search', class: 'govuk-tabs__tab') %>
+        </li>
+      </ul>
+      <section class="govuk-tabs__panel" id="job-profiles-search">
+        <p class="govuk-body"><%= t('.body') %></p>
+        <%= form_tag job_profiles_path, method: 'get' do %>
+          <%= form_group_tag @job_profile_search, :term do %>
+            <%= errors_tag @job_profile_search, :term %>
+            <%= text_field(nil, :search, class: 'govuk-input search-input govuk-!-width-one-half', placeholder: t('.placeholder'), aria: { label: 'Search' }, data: { cy: 'search-field'}) %>
+            <%= button_tag('Search', class: 'govuk-button search-button', name: nil, aria: { label: 'Search button' }, data: { cy: 'search-field-submit-btn', module: 'govuk-button' }) %>
+          <% end %>
+        <% end %>
+      </section>
+    </div>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "shared/contact_us" %>

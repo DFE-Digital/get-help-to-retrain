@@ -185,7 +185,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     visit_skills_for_current_job_profile
 
     visit skills_matcher_index_path
-    click_on('Search for a job title')
+    click_on('Search by job title')
 
     fill_in('search', with: 'Escapologist')
     find('.search-button').click
@@ -199,7 +199,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     create(:job_profile, :with_html_content, :growing, name: 'Florist')
 
     visit skills_matcher_index_path
-    click_on('Search for a job title')
+    click_on('Search by job title')
 
     fill_in('search', with: 'florist')
     find('.search-button').click
@@ -247,13 +247,31 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
+  scenario 'The search query string param is passed along to your matches page if present' do
+    visit_skills_for_current_job_profile
+    visit(results_job_profiles_path(search: 'therapy'))
+
+    click_on('Your matches')
+
+    expect(page).to have_current_path(skills_matcher_index_path(search: 'therapy'))
+  end
+
+  scenario 'The search query string param is not passed along to your matches page if absent' do
+    visit_skills_for_current_job_profile
+    visit(job_profiles_path)
+
+    click_on('Your matches')
+
+    expect(page).to have_current_path(skills_matcher_index_path)
+  end
+
   scenario 'search for specific job title shows skills match' do
     visit_skills_for_current_job_profile
 
     create(:job_profile, :with_html_content, name: 'Florist', skills: [skill3])
 
     visit skills_matcher_index_path
-    click_on('Search for a job title')
+    click_on('Search by job title')
 
     fill_in('search', with: 'florist')
     find('.search-button').click
@@ -269,7 +287,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     create(:job_profile, :with_html_content, name: 'Florist')
 
     visit skills_matcher_index_path
-    click_on('Search for a job title')
+    click_on('Search by job title')
 
     fill_in('search', with: 'florist')
     find('.search-button').click
@@ -285,7 +303,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer')
 
     visit skills_matcher_index_path
-    click_on('Search for a job title')
+    click_on('Search by job title')
 
     fill_in('search', with: 'fluffer')
     find('.search-button').click
@@ -294,13 +312,37 @@ RSpec.feature 'Skills matcher', type: :feature do
     expect(page).to have_current_path(job_profile_path('fluffer'))
   end
 
+  scenario 'search query string param is passed to job profiles search page if present' do
+    visit_skills_for_current_job_profile
+
+    create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer')
+
+    visit skills_matcher_index_path(search: 'therapy')
+
+    click_on('Search by job title')
+
+    expect(page).to have_current_path(results_job_profiles_path(search: 'therapy'))
+  end
+
+  scenario 'no search query string param is passed to job profiles search page if missing' do
+    visit_skills_for_current_job_profile
+
+    create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer')
+
+    visit skills_matcher_index_path
+
+    click_on('Search by job title')
+
+    expect(page).to have_current_path(job_profiles_path)
+  end
+
   scenario 'tracks search string in job profile search' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
     visit_skills_for_current_job_profile
 
     visit(skills_matcher_index_path)
-    click_on('Search for a job title')
+    click_on('Search by job title')
 
     fill_in('search', with: 'fluffer')
     find('.search-button').click
