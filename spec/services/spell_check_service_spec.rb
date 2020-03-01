@@ -20,9 +20,13 @@ RSpec.describe SpellCheckService do
   let(:search_term) { 'hallo wrld' }
   let(:status) { 200 }
 
+  before do
+    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return('https://s111-bingspellcheck.cognitiveservices.azure.com/bing/v7.0/spellcheck')
+  end
+
   describe '.call' do
     before do
-      stub_request(:get, SpellCheckService::API_ENDPOINT)
+      stub_request(:get, Rails.configuration.bing_spell_check_api_endpoint)
         .with(headers: request_headers,
               query: URI.encode_www_form(mkt: 'en-gb', mode: 'spell', text: search_term))
         .to_return(body: response_body, status: status)
@@ -309,6 +313,16 @@ RSpec.describe SpellCheckService do
     subject(:service) { described_class.new(api_key: nil) }
 
     it 'returns nil' do
+      expect(service.scan(search_term: search_term)).to be nil
+    end
+  end
+
+  context 'when the API endpoint is missing' do
+    subject(:service) { described_class.new(api_key: nil) }
+
+    it 'returns nil' do
+      allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return(nil)
+
       expect(service.scan(search_term: search_term)).to be nil
     end
   end
