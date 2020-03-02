@@ -139,5 +139,5 @@ group :test do
 
   # Web request caching for tests
   gem 'vcr', '~> 5.0', require: false
-  gem 'webmock', '~> 3.6', require: false
+  gem 'webmock', '~> 3.8', require: false
 end

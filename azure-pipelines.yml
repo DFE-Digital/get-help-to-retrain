@@ -63,7 +63,7 @@ stages:
           echo "##vso[task.prependpath]$(HOME)/.rvm/rubies/ruby-2.6.5/bin"
         displayName: 'Install dependencies'
 
-      - task: CacheBeta@0
+      - task: Cache@2
         inputs:
           key: $(Build.SourcesDirectory)/Gemfile.lock
           path: $(BUNDLE_CACHE_FOLDER)
@@ -72,15 +72,10 @@ stages:
 
       - script: |
           gem install bundler
-          bundle config force_ruby_platform true
+          bundle config --global build.sassc --disable-march-tune-native
+          bundle config --global force_ruby_platform true
           bundle install --jobs=4 --retry=3 --path $(BUNDLE_CACHE_FOLDER) --without development
         displayName: 'bundle install'
-
-      - script: |
-          chmod -R +x $(BUNDLE_CACHE_FOLDER)/ruby/2.6.0/bin
-        condition: eq(variables.CACHE_RESTORED_BUNDLE, 'true')
-        displayName: Restore executable bundle bit
-       # Temporary fix for https://github.com/microsoft/azure-pipelines-tasks/issues/10841
 
       - script: |
           bundle exec rubocop --format clang
