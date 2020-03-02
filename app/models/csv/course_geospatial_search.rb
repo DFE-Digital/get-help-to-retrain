@@ -3,14 +3,16 @@ module Csv
     include ActiveModel::Validations
     GeocoderAPIError = Class.new(StandardError)
 
-    attr_reader :postcode, :topic, :distance
+    attr_reader :postcode, :topic, :distance, :hours, :delivery_type
     validates :postcode, presence: { message: I18n.t('courses.no_postcode_error') }
     validate :postcode_in_uk, :postcode_exists
 
-    def initialize(postcode:, topic: nil, distance: 20)
+    def initialize(postcode:, topic: nil, options: {})
       @postcode = postcode
       @topic = topic
-      @distance = distance
+      @distance = options[:distance] || 20
+      @hours = options[:hours] || 'All'
+      @delivery_type = options[:delivery_type] || 'All'
     end
 
     def find_courses
@@ -22,7 +24,15 @@ module Csv
     private
 
     def scope
-      topic.present? ? Csv::CourseLookup.where(subject: topic) : Csv::CourseLookup.all
+      topic.present? ? Csv::CourseLookup.where(**selected_options) : Csv::CourseLookup.all
+    end
+
+    def selected_options
+      {
+        subject: topic,
+        hours: hours,
+        delivery_type: delivery_type
+      }.reject { |_, value| value == 'All' }
     end
 
     def coordinates

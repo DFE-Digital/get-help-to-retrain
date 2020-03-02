@@ -24,15 +24,29 @@ RSpec.feature 'Find training courses', type: :feature do
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
 
-    create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
+    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
     create(:course_lookup, latitude: 0.1, longitude: 2, subject: 'maths')
     create(:course_lookup, latitude: 0.1, longitude: 3, subject: 'maths')
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
-    expect(page).to have_selector('ul.govuk-list li', count: 1)
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
+  scenario 'Users can find training courses near them when they visit the page for the first time' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 2, subject: 'maths')
+    create(:course_lookup, latitude: 0.1, longitude: 3, subject: 'maths')
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_text(course_lookup.course.name)
   end
 
   scenario 'Users can update their session postcode if there was none there' do
@@ -41,7 +55,7 @@ RSpec.feature 'Find training courses', type: :feature do
     )
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
     visit(courses_path(topic_id: 'maths'))
 
     expect(find_field('postcode').value).to eq 'NW6 8ET'
@@ -54,10 +68,209 @@ RSpec.feature 'Find training courses', type: :feature do
     capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
     visit(courses_path(topic_id: 'maths'))
 
     expect(find_field('postcode').value).to eq 'NW6 8ET'
+  end
+
+  scenario 'Users see distance 20 miles selected by default' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_select('distance', selected: 'Up to 20 miles')
+  end
+
+  scenario 'Users see course hours all selected by default' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_select('hours', selected: 'All')
+  end
+
+  scenario 'Users see course type all selected by default' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_select('delivery_type', selected: 'All')
+  end
+
+  scenario 'Users see selected distance filter when returning results' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    click_on('Apply filters')
+
+    expect(page).to have_select('distance', selected: 'Up to 40 miles')
+  end
+
+  scenario 'Users see selected course hour filter when returning results' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+    select('Flexible', from: 'hours')
+    click_on('Apply filters')
+
+    expect(page).to have_select('hours', selected: 'Flexible')
+  end
+
+  scenario 'Users see selected course type filter when returning results' do
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+    select('Online', from: 'delivery_type')
+    click_on('Apply filters')
+
+    expect(page).to have_select('delivery_type', selected: 'Online')
+  end
+
+  scenario 'User can find results for certain distance' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.5, subject: 'maths')
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    click_on('Apply filters')
+
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User does not see results that do not match selected distances' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.5, subject: 'maths')
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 10 miles', from: 'distance')
+    click_on('Apply filters')
+
+    expect(page).not_to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User can find results for certain hours' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 1,
+      subject: 'maths',
+      hours: 'Flexible'
+    )
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Flexible', from: 'hours')
+    click_on('Apply filters')
+
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User does not see results that do not match selected hours' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 1,
+      subject: 'maths',
+      hours: 'Part time'
+    )
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Flexible', from: 'hours')
+    click_on('Apply filters')
+
+    expect(page).not_to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User can find results for certain delivery types' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 1,
+      subject: 'maths',
+      delivery_type: 'Online'
+    )
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Online', from: 'delivery_type')
+    click_on('Apply filters')
+
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User does not see results that do not match selected delivery types' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 1,
+      subject: 'maths',
+      delivery_type: 'Distance learning'
+    )
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Online', from: 'delivery_type')
+    click_on('Apply filters')
+
+    expect(page).not_to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User can see relevant courses from selecting multiple filters' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 1.5,
+      subject: 'maths',
+      delivery_type: 'Online',
+      hours: 'Flexible'
+    )
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    select('Online', from: 'delivery_type')
+    select('Flexible', from: 'hours')
+
+    click_on('Apply filters')
+
+    expect(page).to have_text(course_lookup.course.name)
+  end
+
+  scenario 'User does not see courses that do not match filter criteria' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    course_lookup = create(
+      :course_lookup,
+      latitude: 0.1,
+      longitude: 2,
+      subject: 'maths',
+      delivery_type: 'Online',
+      hours: 'Flexible'
+    )
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    select('Distance learning', from: 'delivery_type')
+    select('Full time', from: 'hours')
+
+    click_on('Apply filters')
+
+    expect(page).not_to have_text(course_lookup.course.name)
   end
 
   scenario 'Pagination not visible if results number < 10' do
@@ -69,7 +282,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).not_to have_selector('nav.pagination')
   end
@@ -83,7 +296,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     click_on('Next')
 
@@ -95,7 +308,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8E')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Enter a valid postcode/)
   end
@@ -108,7 +321,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Enter a real postcode/)
   end
@@ -119,7 +332,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
@@ -127,7 +340,7 @@ RSpec.feature 'Find training courses', type: :feature do
   scenario 'User gets relevant messaging if no address is entered' do
     create(:course_lookup, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Enter a postcode/)
   end
@@ -135,7 +348,7 @@ RSpec.feature 'Find training courses', type: :feature do
   scenario 'Error summary message present if no address is entered' do
     create(:course_lookup, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_content('There is a problem')
   end
@@ -143,7 +356,7 @@ RSpec.feature 'Find training courses', type: :feature do
   scenario 'Error summary contains error if no address is entered' do
     create(:course_lookup, subject: 'maths')
     visit(courses_path(topic_id: 'maths'))
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
       [
@@ -158,7 +371,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(tracking_service).to have_received(:track_events).with(
       props:
@@ -179,7 +392,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text('Maths courses near me')
   end

@@ -1,0 +1,10 @@
+.govuk-accordion__controls {
+  display: none;
+}
+
+.govuk-error-message-placeholder {
+  @include govuk-media-query($from: tablet) {
+    display: block;
+    margin-bottom: 40px;
+  }
+}

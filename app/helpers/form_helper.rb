@@ -31,6 +31,16 @@ module FormHelper
     )
   end
 
+  def errors_tag_minimal(object, attribute)
+    return unless object.errors.messages[attribute].present?
+
+    content_tag(
+      :span,
+      nil,
+      class: 'govuk-error-message-placeholder'
+    )
+  end
+
   def css_classes_for_input(object, attribute, css_classes = '')
     css_classes = css_classes.split
     css_classes << 'govuk-input'

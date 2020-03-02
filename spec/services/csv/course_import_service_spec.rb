@@ -70,7 +70,7 @@ RSpec.describe Csv::CourseImportService do
     end
 
     it 'creates course lookups' do
-      expect { importer.import(folder) }.to change(Csv::CourseLookup, :count).by(3)
+      expect { importer.import(folder) }.to change(Csv::CourseLookup, :count).by(2)
     end
 
     it 'creates multiple course lookups for courses' do
@@ -86,11 +86,11 @@ RSpec.describe Csv::CourseImportService do
 
     it 'reports statistics on completion' do
       expect(importer.import_stats).to eq(
-        course_lookup_total: 3,
-        course_lookups_with_geocoding: 3,
+        course_lookup_total: 2,
+        course_lookups_with_geocoding: 2,
         course_lookups_without_geocoding: 0,
         english_course_lookups: 2,
-        esol_course_lookups: 1,
+        esol_course_lookups: 0,
         maths_course_lookups: 0
       )
     end

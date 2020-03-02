@@ -5,8 +5,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
     it 'sets the correct attributes for a course lookup' do
       opportunity = create(
         :opportunity,
-        study_modes: 'study mode',
-        attendance_modes: 'attendance mode',
+        study_modes: 'Full time',
+        attendance_modes: 'Location / campus',
         course: create(:csv_course, name: 'english')
       )
 
@@ -18,8 +18,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
       expect(Csv::CourseLookup.first).to have_attributes(
         subject: 'english',
         addressable: opportunity.venue,
-        hours: 'study mode',
-        delivery_type: 'attendance mode',
+        hours: 'Full time',
+        delivery_type: 'Classroom based',
         postcode: opportunity.venue.postcode,
         latitude: 0.1,
         longitude: 1,
@@ -30,8 +30,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
     it 'sets addressable as venue if venue exists' do
       opportunity = create(
         :opportunity,
-        study_modes: 'study mode',
-        attendance_modes: 'attendance mode',
+        study_modes: 'Full time',
+        attendance_modes: 'Location / campus',
         course: create(:csv_course, name: 'english'),
         venue: create(:venue, postcode: 'L1 0BG')
       )
@@ -44,8 +44,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
     it 'sets addressable as provider if opportunity has no venue' do
       opportunity = create(
         :opportunity,
-        study_modes: 'study mode',
-        attendance_modes: 'attendance mode',
+        study_modes: 'Full time',
+        attendance_modes: 'Classroom based',
         course: create(:csv_course, name: 'english'),
         venue: nil
       )
@@ -58,8 +58,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
     it 'sets postcode from venue if venue exists' do
       opportunity = create(
         :opportunity,
-        study_modes: 'study mode',
-        attendance_modes: 'attendance mode',
+        study_modes: 'Full time',
+        attendance_modes: 'Location / campus',
         course: create(:csv_course, name: 'english'),
         venue: create(:venue, postcode: 'L1 0BG')
       )
@@ -72,8 +72,8 @@ RSpec.describe Csv::Persistor::CourseLookup do
     it 'sets postcode from provider if opportunity has no venue' do
       opportunity = create(
         :opportunity,
-        study_modes: 'study mode',
-        attendance_modes: 'attendance mode',
+        study_modes: 'Full time',
+        attendance_modes: 'Location / campus',
         course: create(:csv_course, name: 'english'),
         venue: nil
       )
@@ -205,6 +205,52 @@ RSpec.describe Csv::Persistor::CourseLookup do
         described_class.new(opportunity).persist!
 
         expect { described_class.new(opportunity).persist! }.not_to change(Csv::CourseLookup, :count)
+      end
+
+      it 'does not persist a lookup if opportunity study mode is part of a full time program' do
+        opportunity = create(
+          :opportunity,
+          study_modes: 'Part of a full-time program',
+          course: create(:csv_course, name: 'english')
+        )
+
+        expect { described_class.new(opportunity).persist! }.not_to change(Csv::CourseLookup, :count)
+      end
+
+      it 'does not persist a lookup if opportunity attendance mode is work based' do
+        opportunity = create(
+          :opportunity,
+          attendance_modes: 'Work-based',
+          course: create(:csv_course, name: 'english')
+        )
+
+        expect { described_class.new(opportunity).persist! }.not_to change(Csv::CourseLookup, :count)
+      end
+
+      it 'maps attendance modes to filter terms' do
+        modes = {
+          'Location / campus' => 'Classroom based',
+          'Face-to-face (non-campus)' => 'Classroom based',
+          'Mixed Mode' => 'Classroom based',
+          'Distance with attendance' => 'Distance learning',
+          'Distance without attendance' => 'Distance learning',
+          'Online without attendance' => 'Online',
+          'Online with attendance' => 'Online',
+          'Not known' => 'Not known',
+          nil => nil
+        }
+
+        modes.each do |mode, value|
+          opportunity = create(
+            :opportunity,
+            attendance_modes: mode,
+            course: create(:csv_course, name: 'english')
+          )
+
+          described_class.new(opportunity).persist!
+
+          expect(Csv::CourseLookup.last.delivery_type).to eq(value)
+        end
       end
     end
   end

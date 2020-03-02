@@ -78,6 +78,29 @@ RSpec.describe FormHelper do
     end
   end
 
+  describe '#errors_tag_minimal' do
+    it 'adds error classs' do
+      search.errors.add(:attribute, 'Test error one')
+
+      error_message = helper.errors_tag_minimal(search, :attribute)
+
+      expect(error_message).to have_css('.govuk-error-message-placeholder')
+    end
+
+    it 'returns correctly formatted error span' do
+      search.errors.add(:attribute, 'Test error one')
+
+      error_message = helper.errors_tag_minimal(search, :attribute)
+      expect(error_message).to eq('<span class="govuk-error-message-placeholder"></span>')
+    end
+
+    it 'only returns if there is a error for the attribute' do
+      search.errors.add(:attribute, 'Test error')
+
+      expect(helper.errors_tag_minimal(search, :a_different_attribute)).to be_nil
+    end
+  end
+
   describe '#css_classes_for_input' do
     it 'adds the correct css class' do
       expect(helper.css_classes_for_input(search, :attribute) {}).to eq('govuk-input')

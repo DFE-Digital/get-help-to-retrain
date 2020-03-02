@@ -75,6 +75,7 @@ stages:
           bundle config --global build.sassc --disable-march-tune-native
           bundle config --global force_ruby_platform true
           bundle install --jobs=4 --retry=3 --path $(BUNDLE_CACHE_FOLDER) --without development
+          bundle config --local build.sassc --disable-march-tune-native
         displayName: 'bundle install'
 
       - script: |
