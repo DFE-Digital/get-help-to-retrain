@@ -28,18 +28,12 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links to training questions' do
     user_targets_a_job
 
-    expect(page).to have_link('Edit your maths and English training choices', href: training_questions_path)
-  end
-
-  scenario 'Page links to IT training questions' do
-    user_targets_a_job
-
-    expect(page).to have_link('Edit your IT training choices', href: it_training_questions_path)
+    expect(page).to have_link('Edit your training choices', href: edit_training_questions_path)
   end
 
   scenario 'Page links to English courses if training question answered for english' do
     user_targets_a_job
-    click_on('Edit your maths and English training choices')
+    click_on('Edit your training choices')
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
 
@@ -48,7 +42,7 @@ RSpec.feature 'Action plan spec' do
 
   scenario 'Page links to maths courses if training question answered for maths' do
     user_targets_a_job
-    click_on('Edit your maths and English training choices')
+    click_on('Edit your training choices')
     check('I need to improve my maths skills', allow_label_click: true)
     click_on('Continue')
 
@@ -57,11 +51,118 @@ RSpec.feature 'Action plan spec' do
 
   scenario 'Page links to IT training provider if IT training question answered' do
     user_targets_a_job
-    click_on('Edit your IT training choices')
+    click_on('Edit your training choices')
     check('I need to improve my computer skills', allow_label_click: true)
     click_on('Continue')
 
     expect(page).to have_link('Go to learning provider website', href: 'https://www.learnmyway.com/subjects')
+  end
+
+  scenario 'If user edits training options, options are persisted if user revisits edit page' do
+    user_targets_a_job
+    click_on('Edit your training choices')
+    check('I need to improve my maths skills', allow_label_click: true)
+    check('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
+    click_on('Edit your training choices')
+
+    expect(page).to have_selector('input[checked="checked"]', count: 2)
+  end
+
+  scenario 'If user edits training options, they get tracked in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    click_on('Edit your training choices')
+    check('I need to improve my maths skills', allow_label_click: true)
+    check('I need to improve my English skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :training_ticked,
+          label: 'Check your maths and English skills',
+          value: 'english_skills'
+        },
+        {
+          key: :training_ticked,
+          label: 'Check your maths and English skills',
+          value: 'math_skills'
+        }
+      ]
+    )
+  end
+
+  scenario 'If user edits IT training options, they get tracked in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    click_on('Edit your training choices')
+    check('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :it_training_ticked,
+          label: 'Computer skills training',
+          value: 'computer_skills'
+        }
+      ]
+    )
+  end
+
+  scenario 'If user selects no training options, we still track those options in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    click_on('Edit your training choices')
+    uncheck('I need to improve my English skills', allow_label_click: true)
+    uncheck('I need to improve my maths skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :training_unticked,
+          label: 'Check your maths and English skills',
+          value: 'english_skills'
+        },
+        {
+          key: :training_unticked,
+          label: 'Check your maths and English skills',
+          value: 'math_skills'
+        }
+      ]
+    ).twice
+  end
+
+  scenario 'If user selects no IT training options, we still track those options in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    click_on('Edit your training choices')
+    uncheck('I need to improve my computer skills', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :it_training_unticked,
+          label: 'Computer skills training',
+          value: 'computer_skills'
+        }
+      ]
+    ).twice
   end
 
   scenario 'Page shows different content if no training nor IT training questions answered' do

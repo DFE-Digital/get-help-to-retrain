@@ -4,6 +4,7 @@ en-GB:
     action_plan: Action plan
     offers_near_me: Offers near me
     training_questions: Training options
+    edit_training_questions: Edit your training choices
     it_training_questions: Computer skills training
     job_hunting_questions: Job hunting advice
     jobs_near_me: Jobs near me
@@ -56,6 +57,7 @@ en-GB:
     pages_accessibility_statement: Get help to retrain - Accessibility
     pages_terms_and_conditions: Get help to retrain - Terms and Conditions
     training_questions: Get help to retrain - Training options
+    edit_training_questions: Get help to retrain - Edit your training choices
     job_hunting_questions: Get help to retrain - Job hunting advice
     user_personal_data: Get help to retrain - Your information
     jobs_near_me: Get help to retrain - Jobs near me
@@ -143,6 +145,8 @@ en-GB:
       title: Get help with your job hunting skills
     training:
       title: Maths and English skills
+    edit_training:
+      title: Edit your training choices
     it_training:
       title: Computer skills training
   pages:

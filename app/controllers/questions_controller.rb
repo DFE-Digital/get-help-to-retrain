@@ -18,6 +18,15 @@ class QuestionsController < ApplicationController
     redirect_to helpers.it_training_questions || helpers.job_hunting_questions || action_plan_path
   end
 
+  def edit_training_answers
+    user_session.training = questions_params[:training] || []
+    user_session.it_training = questions_params[:it_training] || []
+
+    track_training_options
+
+    redirect_to action_plan_path
+  end
+
   def it_training_answers
     user_session.it_training = questions_params[:it_training] || []
 
@@ -41,6 +50,18 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def track_training_options
+    track_selections(
+      selected: selected_options_for('training'),
+      unselected: unselected_options_for('training')
+    )
+
+    track_selections(
+      selected: selected_options_for('it_training'),
+      unselected: unselected_options_for('it_training')
+    )
+  end
 
   def selected_options_for(section)
     {
