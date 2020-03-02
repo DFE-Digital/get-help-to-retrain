@@ -681,6 +681,10 @@
               {
                 "name": "BING_SPELL_CHECK_API_KEY",
                 "value": "[parameters('bingSpellCheckApiKey')]"
+              },
+              {
+                "name": "BING_SPELL_CHECK_API_ENDPOINT",
+                "value": "[parameters('bingSpellCheckApiEndpoint')]"
               }
             ]
           },
