@@ -164,7 +164,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     find("option[value='growth']").click
 
-    expect(page).to have_current_path(skills_matcher_index_path(sort: 'growth', search: 'therapy'))
+    expect(page).to have_current_path('/job-matches?sort=growth&search=therapy')
   end
 
   scenario 'does not pass along the search query string when sorting if absent', :js do
