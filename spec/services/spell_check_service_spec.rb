@@ -318,11 +318,9 @@ RSpec.describe SpellCheckService do
   end
 
   context 'when the API endpoint is missing' do
-    subject(:service) { described_class.new(api_key: nil) }
+    subject(:service) { described_class.new(api_key: 'test', api_endpoint: nil) }
 
     it 'returns nil' do
-      allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return(nil)
-
       expect(service.scan(search_term: search_term)).to be nil
     end
   end
