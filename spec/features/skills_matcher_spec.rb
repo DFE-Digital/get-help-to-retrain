@@ -335,8 +335,6 @@ RSpec.feature 'Skills matcher', type: :feature do
   scenario 'search query string param is passed to job profiles search page if present' do
     visit_skills_for_current_job_profile
 
-    create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer')
-
     visit skills_matcher_index_path(search: 'therapy')
 
     click_on('Search by job title')
@@ -346,8 +344,6 @@ RSpec.feature 'Skills matcher', type: :feature do
 
   scenario 'no search query string param is passed to job profiles search page if missing' do
     visit_skills_for_current_job_profile
-
-    create(:job_profile, :with_html_content, name: 'Fluffer', slug: 'fluffer')
 
     visit skills_matcher_index_path
 
