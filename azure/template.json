@@ -179,6 +179,13 @@
         "description:": "Bing Spell Check Service - API KEY"
       }
     },
+    "bingSpellCheckApiEndpoint": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "Bing Spell Check Service - API ENDPOINT"
+      }
+    },
     "azureClientId": {
       "type": "string",
       "defaultValue": "",
@@ -674,6 +681,10 @@
               {
                 "name": "BING_SPELL_CHECK_API_KEY",
                 "value": "[parameters('bingSpellCheckApiKey')]"
+              },
+              {
+                "name": "BING_SPELL_CHECK_API_ENDPOINT",
+                "value": "[parameters('bingSpellCheckApiEndpoint')]"
               }
             ]
           },
