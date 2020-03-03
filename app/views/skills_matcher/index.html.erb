@@ -15,7 +15,7 @@
     <div class="govuk-tabs" data-module="govuk-tabs">
       <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <%= link_to('Your matches', '#your-matches', class: 'govuk-tabs__tab') %>
+          <%= link_to('Your matches', '#your-matches', class: 'govuk-tabs__tab govuk-tabs__tab-mobile') %>
         </li>
         <li class="govuk-tabs__list-item">
           <%= link_to('Search by job title', params[:search].present? ? job_profiles_path(search: params[:search]) : job_profiles_path, class: 'govuk-link') %>

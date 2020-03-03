@@ -19,7 +19,7 @@
           <%= link_to('Your matches', params[:search].present? ? skills_matcher_index_path(search: params[:search]) : skills_matcher_index_path, class: 'govuk-link') %>
         </li>
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <%= link_to('Search by job title', '#job-profiles-search', class: 'govuk-tabs__tab') %>
+          <%= link_to('Search by job title', '#job-profiles-search', class: 'govuk-tabs__tab govuk-tabs__tab-mobile') %>
         </li>
       </ul>
       <section class="govuk-tabs__panel" id="job-profiles-search">
