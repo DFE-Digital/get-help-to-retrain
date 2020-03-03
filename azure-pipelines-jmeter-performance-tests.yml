@@ -12,7 +12,7 @@ jobs:
     inputs:
       targetType: filePath
       filePath: 'azure/jmeter/test.sh'
-      arguments: '$PWD jmeter-performance-tests.jmx $(host)'
+      arguments: '$PWD/azure/jmeter/jmeter-performance-tests.jmx $(host)'
       workingDirectory: azure/jmeter
       failOnStderr: true
   - task: PublishPipelineArtifact@1
