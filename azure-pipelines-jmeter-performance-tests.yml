@@ -11,7 +11,7 @@ jobs:
     displayName: Execute JMeter tests
     inputs:
       targetType: filePath
-      filePath: 'jmeter/test.sh'
+      filePath: 'azure/jmeter/test.sh'
       arguments: '$PWD jmeter-performance-tests.jmx $(host)'
       workingDirectory: azure/jmeter
       failOnStderr: true
