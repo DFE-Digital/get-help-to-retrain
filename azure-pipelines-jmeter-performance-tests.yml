@@ -1,5 +1,5 @@
 variables:
-  host: dev1.nrs-ghtr.org.uk
+  host: dev2.nrs-ghtr.org.uk
 
 jobs:
 - job: jmeter
