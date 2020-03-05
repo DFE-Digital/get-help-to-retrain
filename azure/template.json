@@ -172,6 +172,20 @@
         "description:": "GOV.UK Find A Job - API KEY"
       }
     },
+    "findACourseApiKey": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "NCS Find A Course - API KEY"
+      }
+    },
+    "findACourseApiBaseUrl": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "NCS Find A Course - API BASE URL"
+      }
+    },
     "bingSpellCheckApiKey": {
       "type": "string",
       "defaultValue": "",
@@ -673,6 +687,14 @@
               {
                 "name": "FIND_A_JOB_API_KEY",
                 "value": "[parameters('findAJobApiKey')]"
+              },
+              {
+                "name": "FIND_A_COURSE_API_KEY",
+                "value": "[parameters('findACourseApiKey')]"
+              },
+              {
+                "name": "FIND_A_COURSE_API_BASE_URL",
+                "value": "[parameters('findACourseApiBaseUrl')]"
               },
               {
                 "name": "GOOGLE_ANALYTICS_TRACKING_ID",
