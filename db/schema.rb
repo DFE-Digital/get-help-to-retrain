@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 2020_02_23_195735) do
     t.decimal "growth"
     t.string "hidden_titles"
     t.string "specialism"
+    t.string "heirarchy"
+    t.string "sector"
     t.index "to_tsvector('english'::regconfig, (alternative_titles)::text)", name: "job_profiles_alternative_titles_idx", using: :gin
     t.index "to_tsvector('english'::regconfig, (description)::text)", name: "job_profiles_description_idx", using: :gin
     t.index "to_tsvector('english'::regconfig, (name)::text)", name: "job_profiles_name_idx", using: :gin

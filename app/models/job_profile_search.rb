@@ -12,10 +12,10 @@ class JobProfileSearch
   def search
     return JobProfile.none unless valid?
 
-    JobProfile.select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth)
+    JobProfile.select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth, "#{build_rank_query} as rank", "#{build_rank_query2} as rank2")
               .where(build_text_search_query, query_string: query_string)
               .where.not(id: profile_ids_to_exclude)
-              .order(Arel.sql(build_rank_query) => :desc, name: :asc)
+              .order(rank: :desc, rank2: :asc, name: :asc)
   end
 
   private
@@ -30,8 +30,12 @@ class JobProfileSearch
     SQL
   end
 
+  def build_rank_query2
+    build_hrank_query
+  end
+
   def build_rank_query
-    (exact_match_ranking + partial_match_ranking)
+    (exact_match_ranking + partial_match_ranking + sector)
       .join(" +\n")
   end
 
@@ -39,31 +43,56 @@ class JobProfileSearch
     @quoted_query ||= PrimaryActiveRecordBase.connection.quote(query_string)
   end
 
+  def build_hrank_query
+    (hrank)
+      .join(" +\n")
+  end
+
+  def hrank
+    {
+      heirarchy: { weight: 'A', score: 0 },
+      name: { weight: 'A', score: 2 }
+    }.map do |column, values|
+      vector_rank(match: 'simple', column: column, weight: values[:weight], score: values[:score])
+    end
+  end
+
   def exact_match_ranking
     {
-      name: 'A',
-      alternative_titles: 'AB',
-      specialism: 'ABC',
-      hidden_titles: 'ABC',
-      description: 'ABCD'
-    }.map do |column, weight|
-      vector_rank(match: 'simple', column: column, weight: weight)
+      name: { weight: 'A', score: 2 },
+      alternative_titles: { weight: 'AB', score: 8 },
+      specialism: { weight: 'ABC', score: 2 },
+      hidden_titles: { weight: 'ABC', score: 2 },
+      description: { weight: 'ABCD', score: 2 }
+    }.map do |column, values|
+      vector_rank2(match: 'simple', column: column, weight: values[:weight], score: values[:score])
     end
   end
 
   def partial_match_ranking
     {
-      name: 'A',
-      alternative_titles: 'B',
-      specialism: 'C',
-      hidden_titles: 'C',
-      description: 'D'
-    }.map do |column, weight|
-      vector_rank(match: 'english', column: column, weight: weight)
+      name: { weight: 'A', score: 2 },
+      alternative_titles: { weight: 'B', score: 8 },
+      specialism: { weight: 'C', score: 2 },
+      hidden_titles: { weight: 'C', score: 2 },
+      description: { weight: 'D', score: 2 }
+    }.map do |column, values|
+      vector_rank(match: 'english', column: column, weight: values[:weight], score: values[:score])
     end
   end
 
-  def vector_rank(match:, column:, weight:)
+  def sector
+    {
+      sector: { weight: 'A', score: 0},
+      name: { weight: 'A', score: 0},
+      alternative_titles: { weight: 'B', score: 8 },
+      description: { weight: 'D', score: 2 }
+    }.map do |column, values|
+      vector_rank(match: 'english', column: column, weight: values[:weight], score: values[:score])
+    end
+  end
+
+  def vector_rank(match:, column:, weight:, score:)
     <<-RANK
       COALESCE(
         ts_rank(
@@ -71,7 +100,24 @@ class JobProfileSearch
             to_tsvector('#{match}', #{column}),
             '#{weight}'
           ),
-          to_tsquery('#{match}', #{quoted_query})
+          to_tsquery('#{match}', #{quoted_query}),
+          #{score}
+        ),
+        0
+      )
+    RANK
+  end
+
+  def vector_rank2(match:, column:, weight:, score:)
+    <<-RANK
+      COALESCE(
+        ts_rank(
+          setweight(
+            to_tsvector('#{match}', #{column}),
+            '#{weight}'
+          ),
+          to_tsquery('#{match}', #{PrimaryActiveRecordBase.connection.quote(term.gsub(' ', ' & '))}),
+          #{score}
         ),
         0
       )
