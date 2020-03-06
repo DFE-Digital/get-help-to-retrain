@@ -1,11 +1,12 @@
 class FindACourseService
   APIError = Class.new(StandardError)
+  ResponseError = Class.new(StandardError)
 
   attr_reader :api_key, :api_base_url
 
   def initialize(
     api_key: Rails.configuration.find_a_course_api_key,
-    api_base_url: Rails.configuration.find_a_course_base_url
+    api_base_url: Rails.configuration.find_a_course_api_base_url
   )
     @api_key = api_key
     @api_base_url = api_base_url
@@ -15,7 +16,50 @@ class FindACourseService
     # Search course endpoint
   end
 
-  def details
-    # Search for the course details
+  def details(course_id:, course_run_id:)
+    return {} unless [api_key, api_base_url, course_id, course_run_id].all?(&:present?)
+
+    find_course_details_for(course_id: course_id, course_run_id: course_run_id)
+  end
+
+  private
+
+  def build_uri(path:)
+    URI.join(api_base_url, path)
+  end
+
+  def headers(content_type:)
+    {
+      'Content-Type' => content_type,
+      'Ocp-Apim-Subscription-Key' => api_key
+    }
+  end
+
+  def response_body(uri, request)
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', read_timeout: 5) do |http|
+      response = http.request(request)
+
+      raise ResponseError, "#{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
+
+      response.body
+    end
+  rescue StandardError => e
+    Rails.logger.error("Find a Course Service API error: #{e.inspect}")
+    raise APIError, e
+  end
+
+  def find_course_details_for(course_id:, course_run_id:)
+    uri = build_uri(path: 'courserundetail')
+
+    uri.query = URI.encode_www_form('CourseId' => course_id, 'CourseRunId' => course_run_id)
+
+    request = Net::HTTP::Get.new(
+      uri.request_uri,
+      headers(
+        content_type: 'application/x-www-form-urlencoded'
+      )
+    )
+
+    JSON.parse(response_body(uri, request))
   end
 end
