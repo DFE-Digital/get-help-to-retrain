@@ -12,8 +12,16 @@ class FindACourseService
     @api_base_url = api_base_url
   end
 
-  def search
-    # Search course endpoint
+  def search(options: {})
+    return {} unless api_key && api_base_url
+
+    uri = build_uri(path: 'coursesearch')
+    headers = headers(content_type: 'application/json-patch+json')
+
+    request = Net::HTTP::Post.new(uri, headers)
+    request.body = build_search(options).to_json
+
+    JSON.parse(response_body(uri, request))
   end
 
   def details(course_id:, course_run_id:)
@@ -61,5 +69,19 @@ class FindACourseService
     )
 
     JSON.parse(response_body(uri, request))
+  end
+
+  def build_search(options) # rubocop:disable Metrics/MethodLength
+    {
+      'subjectKeyword' => options[:keyword],
+      'distance' => options[:distance],
+      'qualificationLevels' => options[:qualification_levels],
+      'studyModes' => options[:study_modes],
+      'deliveryModes' => options[:delivery_modes],
+      'postcode' => options[:postcode],
+      'sortBy' => options[:sort_by],
+      'limit' => options[:limit],
+      'start' => options[:start]
+    }.select { |_k, v| v.present? }
   end
 end
