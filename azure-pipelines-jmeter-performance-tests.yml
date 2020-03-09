@@ -34,6 +34,7 @@ jobs:
       script: |
         echo Hello world
         pwd
+        cd azure
         ls
   - task: AzureFileCopy@4
     inputs:
