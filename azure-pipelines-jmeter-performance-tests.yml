@@ -17,3 +17,10 @@ jobs:
     inputs:
       targetPath: azure/jmeter/report
       artifact: jmeter
+  - task: AzureFileCopy@4
+    inputs:
+      SourcePath: 'azure/jmeter/report*'
+      azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
+      Destination: 'AzureBlob'
+      storage: 's108d01devstr'
+      ContainerName: '$web'
