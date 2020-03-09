@@ -13,7 +13,7 @@
     "email": "test@test.com",
     "telephone": "0191 218 9500",
     "fax": "0191 270 6760",
-    "website": null,
+    "website": "http://www.provider.com",
     "learnerSatisfaction": null,
     "employerSatisfaction": null
   },
@@ -40,7 +40,7 @@
     "postcode": "NE12 8ER",
     "telephone": null,
     "email": null,
-    "website": null,
+    "website": "http://www.venue.com",
     "latitude": 55.018459,
     "longitude": -1.57564
   },
@@ -60,7 +60,7 @@
   "cost": 0.0,
   "costDescription": "",
   "courseName": "GCE ADV Further Maths",
-  "courseURL": null,
+  "courseURL": "http://www.course.com",
   "createdDate": "2019-09-09T16:25:28.1018933+00:00",
   "deliveryMode": "ClassroomBased",
   "durationUnit": "Years",

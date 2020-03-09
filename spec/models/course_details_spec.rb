@@ -468,4 +468,94 @@ RSpec.describe CourseDetails do
       end
     end
   end
+
+  describe '#provider_website' do
+    context 'when both keys exist in the body' do
+      it 'returns the correct provider website' do
+        expect(
+          course_details.provider_website
+        ).to eq 'http://www.provider.com'
+      end
+    end
+
+    context 'when provider key is missing from the body' do
+      let(:find_a_course_search_response) { {} }
+
+      it 'returns nil' do
+        expect(
+          course_details.provider_website
+        ).to be nil
+      end
+    end
+
+    context 'when provider key is present but website is missing' do
+      let(:find_a_course_search_response) {
+        {
+          'provider' => {}
+        }
+      }
+
+      it 'returns nil' do
+        expect(
+          course_details.provider_website
+        ).to be nil
+      end
+    end
+  end
+
+  describe '#website' do
+    context 'when the courseURL key exists in the body' do
+      it 'returns the correct provider website' do
+        expect(
+          course_details.website
+        ).to eq 'http://www.course.com'
+      end
+    end
+
+    context 'when the courseURL key is missing' do
+      let(:find_a_course_search_response) {
+        {}
+      }
+
+      it 'returns nil' do
+        expect(
+          course_details.website
+        ).to be nil
+      end
+    end
+  end
+
+  describe '#venue_website' do
+    context 'when both keys exist in the body' do
+      it 'returns the correct venue website' do
+        expect(
+          course_details.venue_website
+        ).to eq 'http://www.venue.com'
+      end
+    end
+
+    context 'when venue key is missing from the body' do
+      let(:find_a_course_search_response) { {} }
+
+      it 'returns nil' do
+        expect(
+          course_details.venue_website
+        ).to be nil
+      end
+    end
+
+    context 'when venue key is present but website is missing' do
+      let(:find_a_course_search_response) {
+        {
+          'venue' => {}
+        }
+      }
+
+      it 'returns nil' do
+        expect(
+          course_details.venue_website
+        ).to be nil
+      end
+    end
+  end
 end

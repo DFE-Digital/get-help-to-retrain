@@ -33,6 +33,10 @@ class CourseDetails
     body.dig('course', 'courseDescription')
   end
 
+  def website
+    body['courseURL']
+  end
+
   def provider_name
     body.dig('provider', 'providerName')
   end
@@ -63,5 +67,13 @@ class CourseDetails
 
   def provider_phone
     body.dig('provider', 'telephone')
+  end
+
+  def provider_website
+    body.dig('provider', 'website')
+  end
+
+  def venue_website
+    body.dig('venue', 'website')
   end
 end
