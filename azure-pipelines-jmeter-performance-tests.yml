@@ -28,7 +28,7 @@ jobs:
     inputs:
       buildType: 'current'
       downloadType: 'specific'
-      downloadPath: '$(System.ArtifactsDirectory)'
+      downloadPath: '$(Pipeline.Workspace)\ARMTemplates\azure\'
   - task: CmdLine@2
     inputs:
       script: |
@@ -37,10 +37,10 @@ jobs:
         cd azure\jmeter\
         ls
         echo Hello world2 !!!!
-        ls $(System.ArtifactsDirectory)
+        ls $(Pipeline.Workspace)\ARMTemplates\azure\
   - task: AzureFileCopy@4
     inputs:
-      SourcePath: '$(System.ArtifactsDirectory)'
+      SourcePath: '$(Pipeline.Workspace)\ARMTemplates\azure\'
       azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
       Destination: 'AzureBlob'
       storage: 's108d01devstr'
