@@ -29,15 +29,15 @@ jobs:
       buildType: 'current'
       downloadType: 'specific'
       downloadPath: '$(Pipeline.Workspace)\ARMTemplates\azure\'
-  - task: CmdLine@2
-    inputs:
-      script: |
-        echo Hello world
-        pwd
-        cd azure\jmeter\
-        ls
-        echo Hello world2 !!!!
-        ls $(Pipeline.Workspace)\ARMTemplates\azure\
+  # - task: CmdLine@2
+  #   inputs:
+  #     script: |
+  #       echo Hello world
+  #       pwd
+  #       cd azure\jmeter\
+  #       ls
+  #       echo Hello world2 !!!!
+  #       ls $(Pipeline.Workspace)\ARMTemplates\azure\
   - task: AzureFileCopy@4
     inputs:
       SourcePath: '$(Pipeline.Workspace)\ARMTemplates\azure\'
