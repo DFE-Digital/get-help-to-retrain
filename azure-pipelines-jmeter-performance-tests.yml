@@ -17,14 +17,3 @@ jobs:
     inputs:
       targetPath: azure/jmeter/report
       artifact: jmeter
-  - task: AzureResourceManagerTemplateDeployment@3
-    inputs:
-      deploymentScope: 'Resource Group'
-      azureResourceManagerConnection: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
-      subscriptionId: 'f35bd249-3028-48bd-9aab-d00e9d1a56b7'
-      action: 'Create Or Update Resource Group'
-      resourceGroupName: 's108d01-dev'
-      location: 'West Europe'
-      templateLocation: 'https://raw.githubusercontent.com/DFE-Digital/get-help-to-retrain-devops/master/templates/storage-account.json'
-      csmFileLink: '$(Pipeline.Workspace)\ARMTemplates\azure\config\dev1.parameters.json'
-      deploymentMode: 'Incremental'
