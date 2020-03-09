@@ -36,6 +36,7 @@ jobs:
         pwd
         cd azure
         ls
+        ls $(System.ArtifactsDirectory)
   - task: AzureFileCopy@4
     inputs:
       SourcePath: '$(System.ArtifactsDirectory)'
