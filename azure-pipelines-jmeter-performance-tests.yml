@@ -34,8 +34,9 @@ jobs:
       script: |
         echo Hello world
         pwd
-        cd azure
+        cd azure\jmeter\
         ls
+        echo Hello world2 !!!!
         ls $(System.ArtifactsDirectory)
   - task: AzureFileCopy@4
     inputs:
