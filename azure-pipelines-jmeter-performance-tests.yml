@@ -27,7 +27,7 @@ jobs:
   - task: DownloadBuildArtifacts@0
     inputs:
       buildType: 'current'
-      downloadType: 'specific'
+      downloadType: 'all'
       downloadPath: '$(System.ArtifactsDirectory)'
   - task: CmdLine@2
     inputs:
