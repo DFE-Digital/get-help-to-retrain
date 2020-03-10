@@ -49,7 +49,7 @@ class CourseDetailsDecorator < SimpleDelegator
   end
 
   def add_protocol(url)
-    url = "http://#{url}" unless url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
+    url = "http://#{url}" unless url.match(%r{https?://}) || url.match(%r{http?://})
 
     url
   end

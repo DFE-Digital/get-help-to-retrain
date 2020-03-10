@@ -216,7 +216,7 @@ RSpec.describe CourseDetailsDecorator do
           'courseURL' => 'www.test.com'
         }
       }
-  
+
       it 'does attach the http protocol' do
         expect(
           decorated_course_details.course_url
