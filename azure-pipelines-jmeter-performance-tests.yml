@@ -1,0 +1,19 @@
+jobs:
+- job: jmeter
+  pool:
+    vmImage: ubuntu-latest
+  displayName: Run JMeter tests
+  steps:
+  - task: Bash@3
+    displayName: Execute JMeter tests
+    inputs:
+      targetType: filePath
+      filePath: 'azure/jmeter/test.sh'
+      arguments: '$PWD test/jmeter-performance-tests.jmx $(host)'
+      workingDirectory: azure/jmeter
+      failOnStderr: false
+  - task: PublishPipelineArtifact@1
+    displayName: Publish JMeter Report
+    inputs:
+      targetPath: azure/jmeter/report
+      artifact: jmeter
