@@ -1,0 +1,215 @@
+{
+  "facets": {
+    "Region": [{
+      "count": 166,
+      "value": ""
+    }],
+    "ProviderName": [{
+      "count": 45,
+      "value": "BEXLEY LONDON BOROUGH COUNCIL"
+    }, {
+      "count": 19,
+      "value": "BRENT LONDON BOROUGH COUNCIL"
+    }, {
+      "count": 16,
+      "value": "HAVERING LONDON BOROUGH COUNCIL"
+    }, {
+      "count": 15,
+      "value": "SOUTH BANK COLLEGES"
+    }, {
+      "count": 10,
+      "value": "HARINGEY LONDON BOROUGH COUNCIL"
+    }, {
+      "count": 9,
+      "value": "SURREY COUNTY COUNCIL"
+    }, {
+      "count": 8,
+      "value": "BEST PRACTICE TRAINING & DEVELOPMENT LIMITED"
+    }, {
+      "count": 8,
+      "value": "HERTFORD REGIONAL COLLEGE"
+    }, {
+      "count": 7,
+      "value": "BUCKINGHAMSHIRE COUNTY COUNCIL"
+    }, {
+      "count": 6,
+      "value": "FIRST RUNG LIMITED"
+    }, {
+      "count": 4,
+      "value": "WAKEFIELD CITY COUNCIL"
+    }, {
+      "count": 3,
+      "value": "HAVERING COLLEGE OF FURTHER AND HIGHER EDUCATION"
+    }, {
+      "count": 3,
+      "value": "NORTH EAST SURREY COLLEGE OF TECHNOLOGY (NESCOT)"
+    }, {
+      "count": 3,
+      "value": "WEST THAMES COLLEGE"
+    }, {
+      "count": 2,
+      "value": "HILLINGDON LONDON BOROUGH COUNCIL"
+    }, {
+      "count": 2,
+      "value": "SLOUGH BOROUGH COUNCIL"
+    }, {
+      "count": 1,
+      "value": "HAMMERSMITH AND FULHAM LONDON BOROUGH COUNCIL"
+    }, {
+      "count": 1,
+      "value": "NEWHAM TRAINING AND EDUCATION CENTRE"
+    }, {
+      "count": 1,
+      "value": "RICHMOND UPON THAMES COLLEGE"
+    }, {
+      "count": 1,
+      "value": "THE WINDSOR FOREST COLLEGES GROUP"
+    }, {
+      "count": 1,
+      "value": "THE WKCIC GROUP"
+    }, {
+      "count": 1,
+      "value": "WORKING MEN'S COLLEGE CORPORATION"
+    }],
+    "AttendancePattern": [{
+      "count": 106,
+      "value": "1"
+    }, {
+      "count": 56,
+      "value": "2"
+    }, {
+      "count": 4,
+      "value": "3"
+    }],
+    "StudyMode": [{
+      "count": 166,
+      "value": "2"
+    }],
+    "DeliveryMode": [{
+      "count": 166,
+      "value": "1"
+    }],
+    "QualificationLevel": [{
+      "count": 45,
+      "value": "1"
+    }, {
+      "count": 43,
+      "value": "E"
+    }, {
+      "count": 40,
+      "value": "2"
+    }, {
+      "count": 38,
+      "value": "X"
+    }]
+  },
+  "results": [{
+    "searchScore": 0.70710677,
+    "distance": 3.32,
+    "venueLocation": {
+      "latitude": 51.542198,
+      "longitude": -0.260254
+    },
+    "courseId": "3b1dbda2-2eff-4baa-9647-14eb0de1dc53",
+    "courseRunId": "49158449-bae2-4bfb-ae0f-698781c619c7",
+    "qualificationCourseTitle": "Non regulated Adult skills formula funded provision, Level 2, Maths, 45 to 68 hrs",
+    "learnAimRef": "Z0004429",
+    "qualificationLevel": "2",
+    "updatedOn": "2019-11-14T15:31:53.875Z",
+    "venueName": "Stonebridge Centre",
+    "venueAddress": "STONEBRIDGE CENTRE, 1 MORLAND GARDENS, LONDON, NW10 8DY",
+    "venueAttendancePattern": "2",
+    "venueAttendancePatternDescription": "Evening",
+    "providerName": "BRENT LONDON BOROUGH COUNCIL",
+    "region": "",
+    "venueStudyMode": "2",
+    "venueStudyModeDescription": "Part-time",
+    "deliveryMode": "1",
+    "deliveryModeDescription": "Classroom based",
+    "startDate": "2020-01-07T00:00:00Z",
+    "venueTown": "LONDON",
+    "cost": 0,
+    "costDescription": "",
+    "courseText": "For students who want to enhance their maths skills",
+    "ukprn": "10000863",
+    "courseDescription": "For students who want to enhance their maths skills",
+    "courseName": "Mathematics Level 2",
+    "flexibleStartDate": false,
+    "durationUnit": "Weeks",
+    "durationValue": 12,
+    "national": null
+  }, {
+    "searchScore": 0.70710677,
+    "distance": 3.5,
+    "venueLocation": {
+      "latitude": 51.522605,
+      "longitude": -0.210116
+    },
+    "courseId": "80ad7954-07fe-4ac1-aa7e-3fe0406e406c",
+    "courseRunId": "cd06ddbe-9057-4773-8507-e94d16322885",
+    "qualificationCourseTitle": "Education assessment in Maths",
+    "learnAimRef": "Z0007842",
+    "qualificationLevel": "X",
+    "updatedOn": "2019-09-20T09:12:38.981Z",
+    "venueName": "Best Practice Kensington and Chelsea",
+    "venueAddress": "Venture Community Association, 103A Wornington Road, London, London, W10 5YB",
+    "venueAttendancePattern": "1",
+    "venueAttendancePatternDescription": "Daytime",
+    "providerName": "BEST PRACTICE TRAINING & DEVELOPMENT LIMITED",
+    "region": "",
+    "venueStudyMode": "2",
+    "venueStudyModeDescription": "Part-time",
+    "deliveryMode": "1",
+    "deliveryModeDescription": "Classroom based",
+    "startDate": null,
+    "venueTown": "London",
+    "cost": 0,
+    "costDescription": "We will register all learners with ESFA to access Adult Education Budget funding.",
+    "courseText": "DIGITAL EMPLOYABILITY SKILLS.&#xD;&#xA;Increase your confidence and digital skills to move closer to work!&#xD;&#xA;&#xD;&#xA;Working in partnership with local authorities, DWP and local employers, we provide focused support to help unemployed and employed individuals of all ages and backgrounds.&#xD;&#xA;&#xD;&#xA;Courses run in multiple locations including East &amp; North London, Hertfordshire, East Midlands, North West and North East.&#xD;&#xA;&#xD;&#xA;The programmes are delivered by expert tutors and mentors &#x2013; giving every learner the support they need to move towards employment.",
+    "ukprn": "10023705",
+    "courseDescription": "DIGITAL EMPLOYABILITY SKILLS.&#xD;&#xA;Increase your confidence and digital skills to move closer to work!&#xD;&#xA;&#xD;&#xA;Working in partnership with local authorities, DWP and local employers, we provide focused support to help unemployed and employed individuals of all ages and backgrounds.&#xD;&#xA;&#xD;&#xA;Courses run in multiple locations including East &amp; North London, Hertfordshire, East Midlands, North West and North East.&#xD;&#xA;&#xD;&#xA;The programmes are delivered by expert tutors and mentors &#x2013; giving every learner the support they need to move towards employment.",
+    "courseName": "Digital Employability Skills",
+    "flexibleStartDate": true,
+    "durationUnit": "Weeks",
+    "durationValue": 12,
+    "national": null
+  }, {
+    "searchScore": 0.70710677,
+    "distance": 3.81,
+    "venueLocation": {
+      "latitude": 51.535237,
+      "longitude": -0.136056
+    },
+    "courseId": "c0842fbb-0c96-415c-b731-fd5548135b58",
+    "courseRunId": "97498a06-82d5-41e3-8991-f304f2344c9e",
+    "qualificationCourseTitle": "Non regulated Adult skills formula funded provision, Entry Level, Foundations for Learning and Life, 21 to 44 hrs, PW A",
+    "learnAimRef": "Z0003480",
+    "qualificationLevel": "E",
+    "updatedOn": "2019-07-05T14:05:28.703Z",
+    "venueName": "WMC Crowndale Rd",
+    "venueAddress": "44 Crowndale Road, LONDON, NW1 1TR",
+    "venueAttendancePattern": "1",
+    "venueAttendancePatternDescription": "Daytime",
+    "providerName": "WORKING MEN'S COLLEGE CORPORATION",
+    "region": "",
+    "venueStudyMode": "2",
+    "venueStudyModeDescription": "Part-time",
+    "deliveryMode": "1",
+    "deliveryModeDescription": "Classroom based",
+    "startDate": "2019-05-02T00:00:00Z",
+    "venueTown": "LONDON",
+    "cost": null,
+    "costDescription": "Please contact The Working Mens College on 020 7255 4759 or email enrol@wmcollege.ac.uk for up to date fees",
+    "courseText": "Explore maths in fun and creative ways. Learners will develop confidence and improve skills with numbers, shapes, time and more in small groups with a creative feel. Learners will use practical activities and crafts in additional to workbooks and interactive websites to develop useful everyday numeracy skills. (SLMATHS01C)",
+    "ukprn": "10007636",
+    "courseDescription": "Explore maths in fun and creative ways. Learners will develop confidence and improve skills with numbers, shapes, time and more in small groups with a creative feel. Learners will use practical activities and crafts in additional to workbooks and interactive websites to develop useful everyday numeracy skills. (SLMATHS01C)",
+    "courseName": "Creative Maths",
+    "flexibleStartDate": false,
+    "durationUnit": "Months",
+    "durationValue": 10,
+    "national": null
+  }],
+  "total": 166,
+  "limit": 3,
+  "start": 20
+}

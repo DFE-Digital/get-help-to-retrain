@@ -13,6 +13,10 @@ class CoursesController < ApplicationController
     Flipflop.csv_courses? ? find_csv_courses : find_courses
   end
 
+  def show
+    @opportunity = Csv::OpportunityDecorator.new(course_opportunity)
+  end
+
   private
 
   def find_courses
@@ -73,5 +77,9 @@ class CoursesController < ApplicationController
     @distance_options = helpers.options_for_select(DISTANCE, courses_params[:distance] || 20)
     @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'All')
     @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'All')
+  end
+
+  def course_opportunity
+    Csv::Opportunity.find(params[:opportunity_id])
   end
 end

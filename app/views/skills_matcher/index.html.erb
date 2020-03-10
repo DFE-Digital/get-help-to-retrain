@@ -12,22 +12,31 @@
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
-    <p class="govuk-body">You may already have many of the skills for these types of work. Select a job title to find out if you need to do more training.</p>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    <p class="govuk-body govuk-!-margin-bottom-1">If you have a particular job in mind, find out how well your skills match to it.</p>
-    <p class="govuk-body"><%= link_to 'Search for a job title', job_profiles_path, class: 'govuk-link' %></p>
-    <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
-    <% if @results.present? %>
-      <%= render 'sort_form' %>
-      <ul class="govuk-list">
-        <%= render @job_profiles %>
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <%= link_to('Your matches', '#your-matches', class: 'govuk-tabs__tab') %>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <%= link_to('Search by job title', params[:search].present? ? job_profiles_path(search: params[:search]) : job_profiles_path, class: 'govuk-link') %>
+        </li>
       </ul>
-      <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
-        <%= paginate @results %>
-      </div>
-    <% else %>
-      <%= render 'no_results' %>
-    <% end %>
+      <section class="govuk-tabs__panel" id="your-matches">
+        <p class="govuk-body">Here are some types of work you could do using many of your current skills. Select a job title to build an action plan that will help you change jobs.</p>
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        <% if @results.present? %>
+          <%= render 'sort_form' %>
+          <ul class="govuk-list">
+            <%= render @job_profiles %>
+          </ul>
+          <div class="<%= @results.size  > 1 ? 'govuk-!-padding-top-6 govuk-!-margin-top-6 pagination__section govuk-!-margin-bottom-4' : '' %>">
+            <%= paginate @results %>
+          </div>
+        <% else %>
+          <%= render 'no_results' %>
+        <% end %>
+      </section>
+    </div>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "shared/contact_us" %>

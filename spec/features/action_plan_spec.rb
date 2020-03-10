@@ -168,7 +168,7 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page shows different content if no training nor IT training questions answered' do
     user_targets_a_job
 
-    expect(page).to have_text('Improve your chances of getting a job')
+    expect(page).to have_text('You chose not to get help')
   end
 
   scenario 'Page links to job hunting questions' do

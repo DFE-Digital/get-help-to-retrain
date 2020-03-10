@@ -57,6 +57,13 @@ Rails.application.routes.draw do
       to: 'courses#index', as: :courses, via: %i[get post], constraints: { topic_id: /maths|english/ }
     )
 
+    constraints(CsvCoursesConstraint.new) do
+      match(
+        'courses/:topic_id/:opportunity_id',
+        to: 'courses#show', as: :course_details, via: :get, constraints: { topic_id: /maths|english/ }
+      )
+    end
+
     resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
       get :results, on: :collection
     end

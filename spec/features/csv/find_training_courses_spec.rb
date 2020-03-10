@@ -49,6 +49,22 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
+  scenario 'Users can see the course details of a course' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Apply filters')
+
+    first('ul.govuk-list li').click
+
+    expect(page).to have_content(course_lookup.course.name)
+  end
+
   scenario 'Users can update their session postcode if there was none there' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]

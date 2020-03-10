@@ -34,7 +34,16 @@
     "FIND_A_JOB_API_KEY": {
       "required": true
     },
+    "FIND_A_COURSE_API_KEY": {
+      "required": true
+    },
+    "FIND_A_COURSE_API_BASE_URL": {
+      "required": true
+    },
     "BING_SPELL_CHECK_API_KEY": {
+      "required": false
+    },
+    "BING_SPELL_CHECK_API_ENDPOINT": {
       "required": false
     },
     "AZURE_CLIENT_ID": {

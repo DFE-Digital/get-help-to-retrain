@@ -18,14 +18,14 @@
       <h2 class="govuk-heading-m govuk-!-margin-bottom-6 govuk-!-margin-top-6">Here’s what you’ve done so far:</h2>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
-          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your target type of work</h3>
+          <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your selected type of work</h3>
         </div>
         <div class="govuk-grid-column-one-half govuk-!-margin-bottom-1">
-          <%= link_to 'Change target type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
+          <%= link_to 'Select a different type of work', skills_matcher_index_path, class: 'govuk-link action-plan-action' %>
         </div>
       </div>
 
-      <p class="govuk-body govuk-!-margin-bottom-2">You've chosen to target this type of work.</p>
+      <p class="govuk-body govuk-!-margin-bottom-2">You’ve decided to focus on getting this type of work.</p>
       <h3 class="govuk-heading-s">
         <%= link_to target_job.name, job_profile_path(target_job.slug), class: 'govuk-link' %>
       </h3>
@@ -59,6 +59,7 @@
 
       <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Explore on the job training</h3>
       <p class="govuk-body">Find an adult apprenticeship that lets you earn and learn at your chosen level.</p>
+      <p class="govuk-body">Selecting this link will take you to another government service.</p>
       <p class="govuk-body">
         <%= link_to 'Find an apprenticeship', 'https://www.findapprenticeship.service.gov.uk/apprenticeshipsearch?searchMode=Category', class: 'govuk-link' %>
       </p>

@@ -11,12 +11,14 @@ en-GB:
     task_list: Get help to retrain
     task_list_home: 'Home: Get help to retrain'
     check_your_skills: Check your existing skills
-    job_matches: Your job matches
+    job_matches: Your work matches
     search_results: Search results
-    job_profiles_search: Search for a type of work
+    job_profiles_search: Your work matches
     job_profile: Job profile details
     your_skills: Your skills
     training_courses_near_you: Find and apply to training courses near you
+    csv_courses_training_courses_near_you: Training courses near you
+    course_details: Course details
     location_ineligible: No courses in your area
     current_job_skills: Job skills
     user_personal_data: Your information
@@ -44,6 +46,7 @@ en-GB:
     job_profiles_results: Get help to retrain - Search for a type of work results
     job_profiles_show: Get help to retrain - Job profile
     courses_index: Get help to retrain - Courses near me
+    courses_show: Get help to retrain - Courses details
     pages_task_list: Get help to retrain - Tasks
     pages_cookies_policy: Get help to retrain - Cookies policy
     pages_privacy_policy: Get help to retrain - Privacy policy
@@ -122,8 +125,8 @@ en-GB:
       no_results: 0 results found - try again using a different job title
   job_profiles:
     index:
-      title: Search for a type of work you're interested in
-      body: Enter a job title to find out how well your skills match to it.
+      title: Types of work that match your skills
+      body: Enter any job title to find out how well your skills match to it.
       placeholder: Enter a job title
     vacancies:
       one: is
