@@ -17,33 +17,3 @@ jobs:
     inputs:
       targetPath: azure/jmeter/report
       artifact: jmeter
-
-- job: upload_report
-  dependsOn: jmeter
-  pool:
-    vmImage: windows-2019
-  displayName: Upload JMeter tests
-  steps:
-  - task: DownloadPipelineArtifact@2
-    inputs:
-      buildType: 'current'
-      artifactName: 'jmeter'
-      targetPath: '$(Pipeline.Workspace)'
-  # - task: CmdLine@2
-  #   inputs:
-  #     script: |
-  #       echo Hello world
-  #       pwd
-  #       cd "$(Pipeline.Workspace)"
-  #       ls
-  #       echo Hello world2 !!!!
-  #       echo "$(Pipeline.Workspace)"
-  #       ls "$(Pipeline.Workspace)"
-  # - task: AzureFileCopy@4
-  #   inputs:
-  #     SourcePath: '$(Pipeline.Workspace)'
-  #     azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
-  #     Destination: 'AzureBlob'
-  #     storage: 's108d01devstr'
-  #     ContainerName: '$web'
-
