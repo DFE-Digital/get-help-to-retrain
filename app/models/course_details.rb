@@ -37,6 +37,10 @@ class CourseDetails
     body['startDate']
   end
 
+  def flexible_start_date
+    body['flexibleStartDate']
+  end
+
   def description
     body.dig('course', 'courseDescription')
   end

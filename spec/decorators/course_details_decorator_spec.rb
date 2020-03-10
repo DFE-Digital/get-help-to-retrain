@@ -252,4 +252,58 @@ RSpec.describe CourseDetailsDecorator do
       end
     end
   end
+
+  describe '#formatted_start_date' do
+    context 'when start_date present' do
+      it 'returns a formatted date' do
+        expect(
+          decorated_course_details.formatted_start_date
+        ).to eq('01 Sep 2020')
+      end
+    end
+
+    context 'when start date is nil, but flexible start date is true' do
+      let(:find_a_course_search_response) do
+        {
+          'startDate' => nil,
+          'flexibleStartDate' => true
+        }
+      end
+
+      it 'returns Flexible start date' do
+        expect(
+          decorated_course_details.formatted_start_date
+        ).to eq('Flexible start date')
+      end
+    end
+
+    context 'when start date is nil, and flexible start date is false' do
+      let(:find_a_course_search_response) do
+        {
+          'startDate' => nil,
+          'flexibleStartDate' => false
+        }
+      end
+
+      it 'returns Contact provider' do
+        expect(
+          decorated_course_details.formatted_start_date
+        ).to eq('Contact provider')
+      end
+    end
+
+    context 'when start date is invalid' do
+      let(:find_a_course_search_response) do
+        {
+          'startDate' => '2019-99-99'
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.formatted_start_date
+        ).to be nil
+      end
+    end
+  end
 end

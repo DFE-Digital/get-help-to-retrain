@@ -569,6 +569,28 @@ RSpec.describe CourseDetails do
     end
   end
 
+  describe '#flexible_start_date' do
+    context 'when the flexibleStartDate key exists in the body' do
+      it 'returns the correct flexible start date value' do
+        expect(
+          course_details.flexible_start_date
+        ).to be false
+      end
+    end
+
+    context 'when the flexibleStartDate key is missing' do
+      let(:find_a_course_search_response) {
+        {}
+      }
+
+      it 'returns nil' do
+        expect(
+          course_details.flexible_start_date
+        ).to be nil
+      end
+    end
+  end
+
   describe '#venue_website' do
     context 'when both keys exist in the body' do
       it 'returns the correct venue website' do
