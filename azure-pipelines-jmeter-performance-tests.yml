@@ -39,10 +39,10 @@ jobs:
   #       echo Hello world2 !!!!
   #       echo "$(Pipeline.Workspace)"
   #       ls "$(Pipeline.Workspace)"
-  - task: AzureFileCopy@4
-    inputs:
-      SourcePath: '$(Pipeline.Workspace)'
-      azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
-      Destination: 'AzureBlob'
-      storage: 's108d01devstr'
-      ContainerName: '$web'
+  # - task: AzureFileCopy@4
+  #   inputs:
+  #     SourcePath: '$(Pipeline.Workspace)'
+  #     azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
+  #     Destination: 'AzureBlob'
+  #     storage: 's108d01devstr'
+  #     ContainerName: '$web'
