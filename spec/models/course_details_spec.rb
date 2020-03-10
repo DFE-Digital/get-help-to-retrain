@@ -474,7 +474,7 @@ RSpec.describe CourseDetails do
       it 'returns the correct provider website' do
         expect(
           course_details.provider_website
-        ).to eq 'http://www.provider.com'
+        ).to eq 'https://www.provider.com'
       end
     end
 
@@ -508,7 +508,7 @@ RSpec.describe CourseDetails do
       it 'returns the correct provider website' do
         expect(
           course_details.website
-        ).to eq 'http://www.course.com'
+        ).to eq 'https://www.course.com'
       end
     end
 
@@ -574,7 +574,7 @@ RSpec.describe CourseDetails do
       it 'returns the correct venue website' do
         expect(
           course_details.venue_website
-        ).to eq 'http://www.venue.com'
+        ).to eq 'https://www.venue.com'
       end
     end
 

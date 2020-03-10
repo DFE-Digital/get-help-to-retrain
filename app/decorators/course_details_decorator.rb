@@ -25,7 +25,11 @@ class CourseDetailsDecorator < SimpleDelegator
   end
 
   def course_url
-    website || provider_website || venue_website
+    url = website || provider_website || venue_website
+
+    return unless url.present?
+
+    add_protocol(url)
   end
 
   def course_description
@@ -42,5 +46,11 @@ class CourseDetailsDecorator < SimpleDelegator
 
   def full_region
     [provider_town, provider_county].compact.join(', ')
+  end
+
+  def add_protocol(url)
+    url = "http://#{url}" unless url[/\Ahttp:\/\//] || url[/\Ahttps:\/\//]
+
+    url
   end
 end

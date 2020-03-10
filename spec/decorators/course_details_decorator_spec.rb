@@ -209,6 +209,20 @@ RSpec.describe CourseDetailsDecorator do
         expect(decorated_course_details.course_url).to be nil
       end
     end
+
+    context 'when a course url is missing the protocol' do
+      let(:find_a_course_search_response) {
+        {
+          'courseURL' => 'www.test.com'
+        }
+      }
+  
+      it 'does attach the http protocol' do
+        expect(
+          decorated_course_details.course_url
+        ).to eq('http://www.test.com')
+      end
+    end
   end
 
   describe '#course_description' do
