@@ -37,5 +37,13 @@ RSpec.describe CourseSearchLookupDecorator do
         'Building no 5, 83a avenue, Queens Gardens Sites<br/> Kingston Upon Hull<br/> HU1 3DG'
       )
     end
+
+    it 'returns nothing if no address available' do
+      search_course = SearchCourse.new(
+        'venueAddress' => nil
+      )
+
+      expect(described_class.new(search_course).full_address).to be_nil
+    end
   end
 end

@@ -33,7 +33,7 @@ class CourseSearch
 
   private
 
-  def selected_options
+  def selected_options # rubocop:disable Metrics/MethodLength
     {
       keyword: topic,
       distance: distance,

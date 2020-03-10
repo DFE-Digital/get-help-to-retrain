@@ -18,7 +18,7 @@
     <p class="govuk-body-l">Apply for a course by calling the course provider or visiting their website.</p>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <% if Flipflop.csv_courses? %>
-        <%= render partial: 'courses/csv/filter' %>
+        <%= render 'search_filter' %>
       <% else %>
         <%= form_tag courses_path do %>
           <%= form_group_tag @search, :postcode do %>
@@ -46,7 +46,7 @@
       <% else %>
         <ul class="govuk-list">
           <% if Flipflop.csv_courses? %>
-            <%= render partial: 'courses/csv/course', collection: @courses, as: :course_lookup %>
+            <%= render partial: 'search_course', collection: @courses, as: :course %>
           <% else %>
             <%= render partial: 'course', collection: @courses %>
           <% end %>

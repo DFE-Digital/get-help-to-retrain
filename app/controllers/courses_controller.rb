@@ -6,8 +6,19 @@ class CoursesController < ApplicationController
     ['Up to 40 miles', 40]
   ].freeze
 
-  DELIVERY_TYPES = ['All', 'Classroom based', 'Distance learning', 'Online'].freeze
-  HOURS = ['All', 'Full time', 'Part time', 'Flexible'].freeze
+  DELIVERY_TYPES = [
+    ['All', 0],
+    ['Classroom based', 1],
+    ['Online', 2],
+    ['Work based', 3]
+  ].freeze
+
+  HOURS = [
+    ['All', 0],
+    ['Full time', 1],
+    ['Part time', 2],
+    ['Flexible', 3]
+  ].freeze
 
   def index
     Flipflop.csv_courses? ? find_csv_courses : find_courses
@@ -29,19 +40,22 @@ class CoursesController < ApplicationController
 
     user_session.postcode = postcode if postcode && @search.valid?
 
-    @courses = Kaminari.paginate_array(course_search).page(params[:page])
+    @courses = Kaminari.paginate_array(course_search).page(courses_params[:page])
   rescue CourseGeospatialSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
   end
 
   def find_csv_courses
     track_event(:courses_index_search, postcode) if postcode.present?
-    geospatial_search
+    search_courses
     filter_options
 
     user_session.postcode = postcode if postcode && @search.valid?
-    @courses = Kaminari.paginate_array(csv_course_search).page(params[:page])
-  rescue Csv::CourseGeospatialSearch::GeocoderAPIError
+    @courses =
+      Kaminari
+      .paginate_array(csv_course_search, total_count: @search.count)
+      .page(courses_params[:page])
+  rescue CourseSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
   end
 
@@ -50,7 +64,7 @@ class CoursesController < ApplicationController
   end
 
   def courses_params
-    params.permit(:postcode, :topic_id, :hours, :delivery_type, :distance)
+    params.permit(:postcode, :topic_id, :hours, :delivery_type, :distance, :page)
   end
 
   def course_search
@@ -58,25 +72,26 @@ class CoursesController < ApplicationController
   end
 
   def csv_course_search
-    @search.find_courses.map { |c| Csv::CourseLookupDecorator.new(c) }
+    @search.search.map { |c| CourseSearchLookupDecorator.new(c) }
   end
 
-  def geospatial_search
-    @search = Csv::CourseGeospatialSearch.new(
+  def search_courses
+    @search = CourseSearch.new(
       postcode: postcode,
       topic: courses_params[:topic_id],
       options: {
         distance: courses_params[:distance],
         hours: courses_params[:hours],
-        delivery_type: courses_params[:delivery_type]
+        delivery_type: courses_params[:delivery_type],
+        page: courses_params[:page]
       }
     )
   end
 
   def filter_options
     @distance_options = helpers.options_for_select(DISTANCE, courses_params[:distance] || 20)
-    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'All')
-    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'All')
+    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 0)
+    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 0)
   end
 
   def course_details_api_response

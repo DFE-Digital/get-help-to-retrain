@@ -1,0 +1,11 @@
+<li>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-heading-l"><%= link_to(course.name, '#', class: 'govuk-link') %></h2>
+  <h3 class="govuk-heading-s govuk-!-margin-bottom-0"><span class="govuk-visually-hidden">Provider:</span><%= course.provider_name %></h3>
+  <% if course.distance %>
+    <p class="govuk-body govuk-!-margin-bottom-0">Distance: <strong><%= course.distance.round(1) %> miles</strong></p>
+  <% end %>
+  <p class="govuk-body govuk-!-margin-bottom-0">Course type: <strong><%= course.course_type  %></strong></p>
+  <p class="govuk-body govuk-!-margin-bottom-0">Course hours: <strong><%= course.course_hours %></strong></p>
+  <p class="govuk-body-s govuk-!-margin-top-2"><%= course.full_address %></p>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
+</li>
