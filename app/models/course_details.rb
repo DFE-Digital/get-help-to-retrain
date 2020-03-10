@@ -5,6 +5,10 @@ class CourseDetails
     @body = body
   end
 
+  def name
+    body['courseName']
+  end
+
   def qualification_name
     body.dig('qualification', 'learnAimRefTitle')
   end
@@ -19,6 +23,10 @@ class CourseDetails
 
   def attendance_pattern
     body['attendancePattern']
+  end
+
+  def delivery_mode
+    body['deliveryMode']
   end
 
   def cost

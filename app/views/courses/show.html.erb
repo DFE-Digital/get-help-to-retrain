@@ -14,58 +14,58 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl"><%= @opportunity.course.name %></h1>
+    <h1 class="govuk-heading-xl"><%= @decorated_course_details.name %></h1>
     <h2 class="govuk-heading-m">Course details</h2>
     <table class="govuk-table">
       <tbody class="govuk-table__body">
-        <% if @opportunity.course.qualification_name.present? %>
+        <% if @decorated_course_details.qualification_name.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header govuk-!-width-one-half">Qualification name</th>
-            <td class="govuk-table__cell"><%= @opportunity.course.qualification_name %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.qualification_name %></td>
           </tr>
         <% end %>
-        <% if @opportunity.course.qualification_level.present? %>
+        <% if @decorated_course_details.qualification_level.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Qualification level</th>
-            <td class="govuk-table__cell"><%= @opportunity.course.qualification_level %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.qualification_level %></td>
           </tr>
         <% end %>
-        <% if @opportunity.study_modes.present? %>
+        <% if @decorated_course_details.study_mode.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course hours</th>
-            <td class="govuk-table__cell"><%= @opportunity.study_modes %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.study_mode %></td>
           </tr>
         <% end %>
-        <% if @opportunity.attendance_modes.present? %>
+        <% if @decorated_course_details.delivery_mode.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course type</th>
-            <td class="govuk-table__cell"><%= @opportunity.attendance_modes %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.delivery_mode %></td>
           </tr>
         <% end %>
-        <% if @opportunity.attendance_pattern.present? %>
+        <% if @decorated_course_details.attendance_pattern.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Attendance pattern</th>
-            <td class="govuk-table__cell"><%= @opportunity.attendance_pattern %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.attendance_pattern %></td>
           </tr>
         <% end %>
-        <% if @opportunity.course_start_date.present? %>
+        <% if @decorated_course_details.start_date.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course start date</th>
-            <td class="govuk-table__cell"><%= @opportunity.course_start_date %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.start_date %></td>
           </tr>
         <% end %>
-        <% if @opportunity.course_price.present? %>
+        <% if @decorated_course_details.price.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Price</th>
-            <td class="govuk-table__cell"><%= @opportunity.course_price %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.price %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-    <% if @opportunity.course_description.present? %>
+    <% if @decorated_course_details.description.present? %>
       <h2 class="govuk-heading-m">Course description</h2>
       <p class="govuk-body">
-        <%= @opportunity.course_description %>
+        <%= @decorated_course_details.description %>
       </p>
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <% end %>
@@ -74,29 +74,29 @@
       <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
           <th scope="row" class="govuk-table__header">Name</th>
-          <td class="govuk-table__cell"><%= @opportunity.provider.name %></td>
+          <td class="govuk-table__cell"><%= @decorated_course_details.provider_name %></td>
         </tr>
         <tr class="govuk-table__row">
           <th scope="row" class="govuk-table__header">Address</th>
-          <td class="govuk-table__cell"><%= @opportunity.provider_full_address %></td>
+          <td class="govuk-table__cell"><%= @decorated_course_details.provider_full_address %></td>
         </tr>
-        <% if @opportunity.provider.phone.present? %>
+        <% if @decorated_course_details.provider_phone.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Phone</th>
-            <td class="govuk-table__cell"><%= link_to(@opportunity.provider.phone, "tel:#{@opportunity.provider.phone}", class: 'govuk-link') %></td>
+            <td class="govuk-table__cell"><%= link_to(@decorated_course_details.provider_phone, "tel:#{@decorated_course_details.provider_phone}", class: 'govuk-link') %></td>
           </tr>
         <% end %>
-         <% if @opportunity.provider.email.present? %>
+         <% if @decorated_course_details.provider_email.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Email</th>
-            <td class="govuk-table__cell"><%= mail_to(@opportunity.provider.email, @opportunity.provider.email, class: 'govuk-link') %></td>
+            <td class="govuk-table__cell"><%= mail_to(@decorated_course_details.provider_email, @decorated_course_details.provider_email, class: 'govuk-link') %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
-    <% if @opportunity.course_url.present? %>
+    <% if @decorated_course_details.course_url.present? %>
       <p class="govuk-body">If you are interested in this course, visit the course providers website to find out how to apply.</p>
-      <%= link_to('Visit website', @opportunity.course_url, class: 'govuk-button govuk-!-margin-top-1', role: 'button', data: { cy: 'course-website-btn', module: 'govuk-button' }) %>
+      <%= link_to('Visit website', @decorated_course_details.course_url, class: 'govuk-button govuk-!-margin-top-1', role: 'button', data: { cy: 'course-website-btn', module: 'govuk-button' }) %>
     <% end %>
   </div>
   <div class="govuk-grid-column-one-third">

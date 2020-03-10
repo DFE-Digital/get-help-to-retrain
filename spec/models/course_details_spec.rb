@@ -525,6 +525,50 @@ RSpec.describe CourseDetails do
     end
   end
 
+  describe '#name' do
+    context 'when the courseName key exists in the body' do
+      it 'returns the correct course name value' do
+        expect(
+          course_details.name
+        ).to eq 'GCE ADV Further Maths'
+      end
+    end
+
+    context 'when the courseName key is missing' do
+      let(:find_a_course_search_response) {
+        {}
+      }
+
+      it 'returns nil' do
+        expect(
+          course_details.name
+        ).to be nil
+      end
+    end
+  end
+
+  describe '#delivery_mode' do
+    context 'when the deliveryMode key exists in the body' do
+      it 'returns the correct delivery mode value' do
+        expect(
+          course_details.delivery_mode
+        ).to eq 'ClassroomBased'
+      end
+    end
+
+    context 'when the deliveryMode key is missing' do
+      let(:find_a_course_search_response) {
+        {}
+      }
+
+      it 'returns nil' do
+        expect(
+          course_details.delivery_mode
+        ).to be nil
+      end
+    end
+  end
+
   describe '#venue_website' do
     context 'when both keys exist in the body' do
       it 'returns the correct venue website' do
