@@ -43,7 +43,17 @@
       </div>
     <% end %>
   </div>
+  <p class="govuk-body govuk-!-margin-top-3">You can find other types of training by searching on Find a course, run by the National Careers Service. This button will take you to another government service.</p>
+  <div class="govuk-grid-row govuk-!-margin-bottom-0">
+    <div class="govuk-grid-column-one-half">
+      <h3 class="govuk-heading-s">Search for other courses</h3>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <%= link_to 'Find other courses', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-button govuk-button--secondary action-plan-action govuk-!-margin-bottom-2', data: { module: 'govuk-button' } %>
+    </div>
+  </div>
+  <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-3">Remember, you may be able to get funding to support your training, including help with things such as travel and childcare expenses.</p>
 <% else %>
-  <p class="govuk-body">Improve your chances of getting a job by completing training that employers value. You did not choose to get help with your maths or English. If you change your mind, you can edit your training choices.</p>
+  <p class="govuk-body">You chose not to get help with your maths, English, or computer skills. If you change your mind, you can edit your training choices. Remember, these courses are usually free and you may be able to get help with training costs such as travel and childcare expenses.</p>
+  <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-3">You can search for courses on <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %>, run by the National Careers Service.</p>
 <% end %>
-<p class="govuk-body govuk-!-margin-bottom-0 govuk-!-margin-top-3">You can find other types of training by searching on <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %>, run by the National Careers Service.</p>

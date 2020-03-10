@@ -1,7 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe SpellCheckService do
-  subject(:service) { described_class.new(api_key: 'test') }
+  subject(:service) {
+    described_class.new(
+      api_key: 'test',
+      api_endpoint: api_endpoint
+    )
+  }
+
+  let(:api_endpoint) {
+    'https://s111-bingspellcheck.cognitiveservices.azure.com/bing/v7.0/spellcheck'
+  }
 
   let(:request_headers) {
     {
@@ -22,7 +31,7 @@ RSpec.describe SpellCheckService do
 
   describe '.call' do
     before do
-      stub_request(:get, SpellCheckService::API_ENDPOINT)
+      stub_request(:get, api_endpoint)
         .with(headers: request_headers,
               query: URI.encode_www_form(mkt: 'en-gb', mode: 'spell', text: search_term))
         .to_return(body: response_body, status: status)
@@ -306,7 +315,15 @@ RSpec.describe SpellCheckService do
   end
 
   context 'when the API key is missing' do
-    subject(:service) { described_class.new(api_key: nil) }
+    subject(:service) { described_class.new(api_key: nil, api_endpoint: 'http://validpoint.com') }
+
+    it 'returns nil' do
+      expect(service.scan(search_term: search_term)).to be nil
+    end
+  end
+
+  context 'when the API endpoint is missing' do
+    subject(:service) { described_class.new(api_key: 'test', api_endpoint: nil) }
 
     it 'returns nil' do
       expect(service.scan(search_term: search_term)).to be nil

@@ -11,18 +11,31 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds" >
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-8"><%= t(:title, scope: 'job_profiles.index') %></h1>
     <%= error_summary(@job_profile_search) %>
-    <% if @job_profiles.blank? %>
-      <%= render 'no_results', scope: 'job_profiles.index' %>
-    <% else %>
-      <%= render "search_form" %>
-      <ul class="govuk-list">
-        <%= render @job_profiles %>
+    <div class="govuk-tabs" data-module="govuk-tabs">
+      <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item">
+          <%= link_to('Your matches', params[:search].present? ? skills_matcher_index_path(search: params[:search]) : skills_matcher_index_path, class: 'govuk-link') %>
+        </li>
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <%= link_to('Search by job title', '#job-profiles-search', class: 'govuk-tabs__tab govuk-tabs__tab-mobile') %>
+        </li>
       </ul>
-      <div class="govuk-grid-column-full govuk-!-padding-top-6 govuk-!-margin-bottom-4 govuk-!-margin-top-6 pagination__section">
-        <%= paginate @results %>
-      </div>
-    <% end %>
+      <section class="govuk-tabs__panel" id="job-profiles-search">
+        <% if @job_profiles.blank? %>
+          <%= render 'no_results', scope: 'job_profiles.index' %>
+        <% else %>
+          <%= render "search_form" %>
+          <ul class="govuk-list">
+            <%= render @job_profiles %>
+          </ul>
+          <div class="<%= @results.size  > 1 ? 'govuk-!-padding-top-6 govuk-!-margin-top-6 pagination__section govuk-!-margin-bottom-4' : '' %>">
+            <%= paginate @results %>
+          </div>
+        <% end %>
+      </section>
+    </div>
   </div>
   <div class="govuk-grid-column-one-third">
     <%= render "shared/contact_us" %>

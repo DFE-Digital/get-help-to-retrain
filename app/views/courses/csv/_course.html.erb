@@ -1,9 +1,9 @@
 <li>
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-heading-l"><%= link_to(course_lookup.opportunity.course.name,  course_lookup.opportunity.course.id.to_s, class: 'govuk-link') %></h2>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-heading-l"><%= link_to(course_lookup.opportunity.course.name, course_details_path(topic_id: params[:topic_id], opportunity_id: course_lookup.opportunity.id), class: 'govuk-link') %></h2>
   <h3 class="govuk-heading-s govuk-!-margin-bottom-0"><span class="govuk-visually-hidden">Provider:</span><%= course_lookup.opportunity.course.provider.name %></h3>
-  <p class="govuk-body govuk-!-margin-bottom-0">Distance: <b><%= course_lookup.distance.round(1) %> miles</b></p>
-  <p class="govuk-body govuk-!-margin-bottom-0">Course type: <b><%= course_lookup.delivery_type  %></b></p>
-  <p class="govuk-body govuk-!-margin-bottom-0">Course hours: <b><%= course_lookup.hours %></b></p>
+  <p class="govuk-body govuk-!-margin-bottom-0">Distance: <strong><%= course_lookup.distance.round(1) %> miles</strong></p>
+  <p class="govuk-body govuk-!-margin-bottom-0">Course type: <strong><%= course_lookup.delivery_type  %></strong></p>
+  <p class="govuk-body govuk-!-margin-bottom-0">Course hours: <strong><%= course_lookup.hours %></strong></p>
   <p class="govuk-body-s govuk-!-margin-top-2"><%= course_lookup.full_address %></p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
 </li>

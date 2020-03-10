@@ -13,6 +13,7 @@ RUN apk add --update $BUILD_PACKAGES && \
 WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN bundle config force_ruby_platform true
+RUN bundle config build.sassc --disable-march-tune-native
 RUN bundle install --clean --force --without "development test" \
      && rm -rf /usr/local/bundle/cache/*.gem \
      && find /usr/local/bundle/gems/ -name "*.c" -delete \

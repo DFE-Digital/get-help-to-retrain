@@ -46,6 +46,7 @@ module GetHelpToRetrain
     config.environment_name = ENV['ENVIRONMENT_NAME'] || 'development'
     config.host_name = Socket.gethostname
     config.bing_spell_check_api_key = ENV['BING_SPELL_CHECK_API_KEY']
+    config.bing_spell_check_api_endpoint = ENV['BING_SPELL_CHECK_API_ENDPOINT']
     config.azure_client_id = ENV['AZURE_CLIENT_ID']
     config.azure_client_secret = ENV['AZURE_CLIENT_SECRET']
     config.azure_scopes = ENV['AZURE_SCOPES']
@@ -53,5 +54,7 @@ module GetHelpToRetrain
     config.azure_management_role_id = ENV['AZURE_MANAGEMENT_ROLE_ID']
     config.azure_readwrite_role_id = ENV['AZURE_READWRITE_ROLE_ID']
     config.azure_read_role_id = ENV['AZURE_READ_ROLE_ID']
+    config.find_a_course_api_key = ENV['FIND_A_COURSE_API_KEY']
+    config.find_a_course_api_base_url = ENV['FIND_A_COURSE_API_BASE_URL']
   end
 end

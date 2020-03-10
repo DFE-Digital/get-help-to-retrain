@@ -9,6 +9,8 @@ RSpec.feature 'Check your skills', type: :feature do
         create(:skill, name: 'Patience and the ability to remain calm in stressful situations')
       ]
     )
+
+    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return('https://s111-bingspellcheck.cognitiveservices.azure.com/bing/v7.0/spellcheck')
   end
 
   def fake_bing_api_call_with(response_body, text)
@@ -17,7 +19,7 @@ RSpec.feature 'Check your skills', type: :feature do
       'Ocp-Apim-Subscription-Key' => 'test'
     }
 
-    stub_request(:get, SpellCheckService::API_ENDPOINT)
+    stub_request(:get, Rails.configuration.bing_spell_check_api_endpoint)
       .with(headers: request_headers,
             query: URI.encode_www_form(mkt: 'en-gb', mode: 'spell', text: text))
       .to_return(body: response_body, status: 200)
@@ -89,6 +91,15 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User enters an incorrect word but no api key is available' do
+    visit(check_your_skills_path)
+    fill_in('search', with: 'Gatas')
+    find('.search-button').click
+
+    expect(page).not_to have_text('Did you mean')
+  end
+
+  scenario 'User enters an incorrect word but no api endpoint is available' do
+    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return(nil)
     visit(check_your_skills_path)
     fill_in('search', with: 'Gatas')
     find('.search-button').click

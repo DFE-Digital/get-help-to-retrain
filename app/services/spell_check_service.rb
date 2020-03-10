@@ -1,16 +1,18 @@
 class SpellCheckService
   SpellCheckServiceError = Class.new(StandardError)
 
-  API_ENDPOINT = 'https://api.cognitive.microsoft.com/bing/v7.0/spellcheck'.freeze
+  attr_reader :response, :api_key, :api_endpoint
 
-  attr_reader :response, :api_key
-
-  def initialize(api_key: Rails.configuration.bing_spell_check_api_key)
+  def initialize(
+    api_key: Rails.configuration.bing_spell_check_api_key,
+    api_endpoint: Rails.configuration.bing_spell_check_api_endpoint
+  )
     @api_key = api_key
+    @api_endpoint = api_endpoint
   end
 
   def scan(search_term: nil)
-    return unless api_key.present? && search_term
+    return unless api_key.present? && api_endpoint.present? && search_term
 
     bing_spell_check(search_term: search_term)
   rescue StandardError => e
@@ -51,7 +53,7 @@ class SpellCheckService
   end
 
   def uri
-    @uri ||= URI.parse(API_ENDPOINT)
+    @uri ||= URI.parse(api_endpoint)
   end
 
   def request
