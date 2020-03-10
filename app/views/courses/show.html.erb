@@ -95,7 +95,7 @@
       </tbody>
     </table>
     <% if @decorated_course_details.course_url.present? %>
-      <p class="govuk-body">If you are interested in this course, visit the course providers website to find out how to apply.</p>
+      <p class="govuk-body">If you are interested in this course, visit the website.</p>
       <%= link_to('Visit website', @decorated_course_details.course_url, class: 'govuk-button govuk-!-margin-top-1', role: 'button', data: { cy: 'course-website-btn', module: 'govuk-button' }) %>
     <% end %>
   </div>
