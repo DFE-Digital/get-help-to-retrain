@@ -31,7 +31,6 @@ jobs:
   #     failOnStderr: true
   - task: PublishPipelineArtifact@1
     displayName: Publish JMeter Report
-    dependsOn: container
     inputs:
       targetPath: azure/jmeter/report
       artifact: jmeter
