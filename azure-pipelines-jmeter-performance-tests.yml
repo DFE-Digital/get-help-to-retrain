@@ -1,34 +1,17 @@
-resources:
-  containers:
-  - container: jmeter_test  # identifier (A-Z, a-z, 0-9, and underscore)
-    image: justb4/jmeter:latest  # container image name
-    options: "-Dlog_level.jmeter=DEBUG -Jhost=dev1.nrs-ghtr.org.uk -n -t /test/jmeter-performance-tests.jmx -l ./test-plan.jtl -j ./jmeter.log -e -o ./report"  # arguments to pass to container at startup
-    # endpoint: string  # reference to a service connection for the private registry
-    # env: { string: string }  # list of environment variables to add
-    # ports: [ string ] # ports to expose on the container
-    volumes: # volumes to mount on the container
-      - azure/jmeter:/test
-    # mapDockerSocket: bool # whether to map in the Docker daemon socket; defaults to true
-
-
 jobs:
-- job: container
-  container: jmeter_test
 - job: jmeter
   pool:
     vmImage: ubuntu-latest
   displayName: Run JMeter tests
-
-    
   steps:
-  # - task: Bash@3
-  #   displayName: Execute JMeter tests
-  #   inputs:
-  #     targetType: filePath
-  #     filePath: 'azure/jmeter/run.sh'
-  #     arguments: '$PWD test/jmeter-performance-tests.jmx $(host)'
-  #     workingDirectory: azure/jmeter
-  #     failOnStderr: true
+  - task: Bash@3
+    displayName: Execute JMeter tests
+    inputs:
+      targetType: filePath
+      filePath: 'azure/jmeter/run.sh'
+      arguments: '$PWD test/jmeter-performance-tests.jmx $(host)'
+      workingDirectory: azure/jmeter
+      failOnStderr: true
   - task: PublishPipelineArtifact@1
     displayName: Publish JMeter Report
     inputs:
