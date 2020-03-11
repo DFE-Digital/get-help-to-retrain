@@ -28,7 +28,7 @@ RSpec.describe 'routes for Courses', type: :routing do
       enable_feature!(:csv_courses)
     end
 
-   xit 'does not route to courses#show' do
+    xit 'does not route to courses#show' do
       course_lookup = create(:course_lookup, subject: 'english')
 
       expect(
