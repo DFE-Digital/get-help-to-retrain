@@ -6,7 +6,8 @@ resources:
     # endpoint: string  # reference to a service connection for the private registry
     # env: { string: string }  # list of environment variables to add
     # ports: [ string ] # ports to expose on the container
-    volumes: [ azure/jmeter:test ] # volumes to mount on the container
+    volumes: # volumes to mount on the container
+      - azure/jmeter:/test
     # mapDockerSocket: bool # whether to map in the Docker daemon socket; defaults to true
 
 
