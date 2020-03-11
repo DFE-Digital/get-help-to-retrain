@@ -11,7 +11,7 @@ jobs:
       filePath: 'azure/jmeter/run.sh'
       arguments: '$PWD test/jmeter-performance-tests.jmx $(host)'
       workingDirectory: azure/jmeter
-      failOnStderr: true
+      failOnStderr: false
   - task: PublishPipelineArtifact@1
     displayName: Publish JMeter Report
     inputs:
