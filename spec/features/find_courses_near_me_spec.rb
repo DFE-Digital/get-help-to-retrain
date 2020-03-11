@@ -12,14 +12,6 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'User cannot see a list of all training courses for a topic without postcode' do
-    find_a_course_service = instance_double(
-      FindACourseService,
-      search: {
-        'total' => 1,
-        'results' => [{}]
-      }
-    )
-    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_text('0 courses found')

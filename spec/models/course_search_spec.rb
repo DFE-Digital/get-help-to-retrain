@@ -88,7 +88,7 @@ RSpec.describe CourseSearch do
       )
     end
 
-    it 'defaults to qaulification, distance, and no hours and delivery values if no options entered' do
+    it 'defaults to qualification, distance, and no hours and delivery values if no options entered' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
       )
@@ -164,8 +164,8 @@ RSpec.describe CourseSearch do
         postcode: 'NW6 8ET',
         topic: 'english',
         options: {
-          hours: '0',
-          delivery_type: '0'
+          hours: 'All',
+          delivery_type: 'All'
         }
       )
 

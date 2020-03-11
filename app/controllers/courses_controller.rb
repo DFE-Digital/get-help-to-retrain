@@ -1,23 +1,23 @@
 class CoursesController < ApplicationController
   DISTANCE = [
-    ['Up to 10 miles', 10],
-    ['Up to 20 miles', 20],
-    ['Up to 30 miles', 30],
-    ['Up to 40 miles', 40]
+    ['Up to 10 miles', '10'],
+    ['Up to 20 miles', '20'],
+    ['Up to 30 miles', '30'],
+    ['Up to 40 miles', '40']
   ].freeze
 
   DELIVERY_TYPES = [
-    ['All', 0],
-    ['Classroom based', 1],
-    ['Online', 2],
-    ['Work based', 3]
+    %w[All All],
+    ['Classroom based', '1'],
+    %w[Online 2],
+    ['Work based', '3']
   ].freeze
 
   HOURS = [
-    ['All', 0],
-    ['Full time', 1],
-    ['Part time', 2],
-    ['Flexible', 3]
+    %w[All All],
+    ['Full time', '1'],
+    ['Part time', '2'],
+    %w[Flexible 3]
   ].freeze
 
   def index
@@ -47,7 +47,7 @@ class CoursesController < ApplicationController
 
   def find_csv_courses
     track_event(:courses_index_search, postcode) if postcode.present?
-    search_courses
+    search
     filter_options
 
     user_session.postcode = postcode if postcode && @search.valid?
@@ -75,8 +75,8 @@ class CoursesController < ApplicationController
     @search.search.map { |c| SearchCourseDecorator.new(c) }
   end
 
-  def search_courses
-    @search = CourseSearch.new(
+  def search
+    @search ||= CourseSearch.new(
       postcode: postcode,
       topic: courses_params[:topic_id],
       options: {
@@ -89,9 +89,9 @@ class CoursesController < ApplicationController
   end
 
   def filter_options
-    @distance_options = helpers.options_for_select(DISTANCE, courses_params[:distance] || 20)
-    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 0)
-    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 0)
+    @distance_options = helpers.options_for_select(DISTANCE, courses_params[:distance] || '20')
+    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'All')
+    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'All')
   end
 
   def course_details_api_response
