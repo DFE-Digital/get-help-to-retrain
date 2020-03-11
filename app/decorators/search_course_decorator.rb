@@ -1,4 +1,4 @@
-class CourseSearchLookupDecorator < SimpleDelegator
+class SearchCourseDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
 
   def full_address

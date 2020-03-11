@@ -72,7 +72,7 @@ class CoursesController < ApplicationController
   end
 
   def csv_course_search
-    @search.search.map { |c| CourseSearchLookupDecorator.new(c) }
+    @search.search.map { |c| SearchCourseDecorator.new(c) }
   end
 
   def search_courses

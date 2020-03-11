@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CourseSearchLookupDecorator do
+RSpec.describe SearchCourseDecorator do
   describe '#full_address' do
     it 'returns address if no commas included' do
       search_course = SearchCourse.new(
