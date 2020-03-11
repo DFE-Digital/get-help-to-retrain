@@ -1,5 +1,5 @@
 <li>
-  <h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-heading-l"><%= link_to(course.name, '#', class: 'govuk-link') %></h2>
+  <h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-heading-l"><%= link_to(course.name, course_details_path(topic_id: params[:topic_id], course_id: course.course_id, course_run_id: course.course_run_id), class: 'govuk-link') %></h2>
   <h3 class="govuk-heading-s govuk-!-margin-bottom-0"><span class="govuk-visually-hidden">Provider:</span><%= course.provider_name %></h3>
   <% if course.distance %>
     <p class="govuk-body govuk-!-margin-bottom-0">Distance: <strong><%= course.distance.round(1) %> miles</strong></p>

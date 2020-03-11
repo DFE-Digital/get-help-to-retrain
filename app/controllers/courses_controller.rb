@@ -7,14 +7,14 @@ class CoursesController < ApplicationController
   ].freeze
 
   DELIVERY_TYPES = [
-    %w[All All],
+    %w[All all],
     ['Classroom based', '1'],
     %w[Online 2],
     ['Work based', '3']
   ].freeze
 
   HOURS = [
-    %w[All All],
+    %w[All all],
     ['Full time', '1'],
     ['Part time', '2'],
     %w[Flexible 3]
@@ -90,8 +90,8 @@ class CoursesController < ApplicationController
 
   def filter_options
     @distance_options = helpers.options_for_select(DISTANCE, courses_params[:distance] || '20')
-    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'All')
-    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'All')
+    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'all')
+    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'all')
   end
 
   def course_details_api_response

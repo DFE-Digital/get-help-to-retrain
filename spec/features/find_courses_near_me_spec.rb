@@ -59,20 +59,29 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Creative Maths/)
   end
 
-  xscenario 'Users can see the course details of a course' do
+  scenario 'Users can see the course details of a course' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
 
-    course_lookup = create(:course_lookup, latitude: 0.1, longitude: 1.001, subject: 'maths')
+    find_a_course_service = instance_double(
+      FindACourseService,
+      search: {
+        'total' => 1,
+        'results' => [{ 'courseName' => 'My Course', 'courseId' => '123', 'courseRunId' => '456' }]
+      },
+      details: {
+        'courseName' => 'My Course', 'provider' => { 'postcode' => 'NW11 8QE' }
+      }
+    )
+    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
 
+    capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
-    fill_in('postcode', with: 'NW6 8ET')
-    click_on('Apply filters')
 
-    first('ul.govuk-list li').click
+    click_on('My Course')
 
-    expect(page).to have_content(course_lookup.course.name)
+    expect(page).to have_content('My Course')
   end
 
   scenario 'Users can update their session postcode if there was none there' do
@@ -180,7 +189,7 @@ RSpec.feature 'Find training courses', type: :feature do
       search: {
         'total' => 3,
         'results' => (1..3).map {
-          { 'courseName' => 'Course', 'courseId' => '123', 'CourseRunId' => '456' }
+          { 'courseName' => 'Course', 'courseId' => '123', 'courseRunId' => '456' }
         }
       }
     )
@@ -203,7 +212,7 @@ RSpec.feature 'Find training courses', type: :feature do
       search: {
         'total' => 52,
         'results' => (1..52).map {
-          { 'courseName' => 'Course', 'courseId' => '123', 'CourseRunId' => '456' }
+          { 'courseName' => 'Course', 'courseId' => '123', 'courseRunId' => '456' }
         }
       }
     )
@@ -228,7 +237,7 @@ RSpec.feature 'Find training courses', type: :feature do
       search: {
         'total' => 1,
         'results' => [
-          { 'courseName' => 'Course', 'courseId' => '123', 'CourseRunId' => '456' }
+          { 'courseName' => 'Course', 'courseId' => '123', 'courseRunId' => '456' }
         ]
       }
     )

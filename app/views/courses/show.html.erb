@@ -76,10 +76,12 @@
           <th scope="row" class="govuk-table__header">Name</th>
           <td class="govuk-table__cell"><%= @decorated_course_details.provider_name %></td>
         </tr>
-        <tr class="govuk-table__row">
-          <th scope="row" class="govuk-table__header">Address</th>
-          <td class="govuk-table__cell"><%= @decorated_course_details.provider_full_address %></td>
-        </tr>
+        <% if @decorated_course_details.provider_full_address.present? %>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Address</th>
+            <td class="govuk-table__cell"><%= @decorated_course_details.provider_full_address %></td>
+          </tr>
+        <% end %>
         <% if @decorated_course_details.provider_phone.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Phone</th>

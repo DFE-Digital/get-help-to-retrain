@@ -12,8 +12,8 @@ class CourseSearch
     @topic = topic
     @page = (options[:page] || '1').to_i
     @distance = options[:distance] || '20'
-    @hours = options[:hours] || 'All'
-    @delivery_type = options[:delivery_type] || 'All'
+    @hours = options[:hours] || 'all'
+    @delivery_type = options[:delivery_type] || 'all'
   end
 
   def search
@@ -43,7 +43,7 @@ class CourseSearch
       sort_by: 4,
       limit: 10,
       start: start_index
-    }.reject { |_, value| value == ['All'] }
+    }.reject { |_, value| value == ['all'] }
   end
 
   def start_index

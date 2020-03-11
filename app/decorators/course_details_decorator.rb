@@ -6,7 +6,7 @@ class CourseDetailsDecorator < SimpleDelegator
       full_street_address,
       full_region,
       provider_postcode
-    ].reject(&:empty?)
+    ].reject(&:blank?)
       .join('<br>')
       .html_safe
   end

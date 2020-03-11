@@ -164,8 +164,8 @@ RSpec.describe CourseSearch do
         postcode: 'NW6 8ET',
         topic: 'english',
         options: {
-          hours: 'All',
-          delivery_type: 'All'
+          hours: 'all',
+          delivery_type: 'all'
         }
       )
 
