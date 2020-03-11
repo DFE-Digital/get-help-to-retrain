@@ -2,19 +2,18 @@ class CourseSearch
   include ActiveModel::Validations
   GeocoderAPIError = Class.new(StandardError)
 
-  attr_reader :postcode, :topic, :distance, :page, :hours, :delivery_type, :find_a_course
+  attr_reader :postcode, :topic, :distance, :page, :hours, :delivery_type
   validates :postcode, presence: { message: I18n.t('courses.no_postcode_error') }
   validate :postcode_in_uk, :postcode_exists
   validates_presence_of :topic
 
-  def initialize(postcode:, topic:, find_a_course: FindACourseService.new, options: {})
+  def initialize(postcode:, topic:, options: {})
     @postcode = postcode
     @topic = topic
-    @page = options[:page] || '1'
+    @page = (options[:page] || '1').to_i
     @distance = options[:distance] || '20'
     @hours = options[:hours] || '0'
     @delivery_type = options[:delivery_type] || '0'
-    @find_a_course = find_a_course
   end
 
   def search
@@ -48,9 +47,9 @@ class CourseSearch
   end
 
   def start_index
-    return 0 if page.to_i == 1
+    return 0 if page == 1
 
-    10 * (page.to_i - 1)
+    10 * (page - 1)
   end
 
   def postcode_in_uk
@@ -83,7 +82,7 @@ class CourseSearch
   end
 
   def find_a_course_response
-    @find_a_course_response ||= find_a_course.search(
+    @find_a_course_response ||= FindACourseService.new.search(
       options: selected_options
     )
   end
