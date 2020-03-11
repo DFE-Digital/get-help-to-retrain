@@ -14,7 +14,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @opportunity = Csv::OpportunityDecorator.new(course_opportunity)
+    @decorated_course_details = CourseDetailsDecorator.new(course_details)
   end
 
   private
@@ -79,7 +79,14 @@ class CoursesController < ApplicationController
     @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'All')
   end
 
-  def course_opportunity
-    Csv::Opportunity.find(params[:opportunity_id])
+  def course_details_api_response
+    FindACourseService.new.details(
+      course_id: params[:course_id],
+      course_run_id: params[:course_run_id]
+    )
+  end
+
+  def course_details
+    CourseDetails.new(course_details_api_response)
   end
 end

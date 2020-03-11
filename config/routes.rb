@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
     constraints(CsvCoursesConstraint.new) do
       match(
-        'courses/:topic_id/:opportunity_id',
+        'courses/:topic_id/:course_id/:course_run_id',
         to: 'courses#show', as: :course_details, via: :get, constraints: { topic_id: /maths|english/ }
       )
     end

@@ -14,3 +14,9 @@
     margin-top: govuk-spacing(2);
   }
 }
+
+.govuk-width-one-half-mobile {
+  @include govuk-media-query($until: tablet) {
+    width: 0 !important;
+  }
+}
