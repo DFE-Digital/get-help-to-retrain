@@ -12,6 +12,7 @@ resources:
 
 jobs:
 - job: jmeter_test
+  container: jmeter_test
 - job: jmeter
   pool:
     vmImage: ubuntu-latest
