@@ -19,7 +19,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(find_field('postcode').value).to eq 'NW6 1JF'
   end
 
-  scenario 'Users can find training courses near them' do
+  xscenario 'Users can find training courses near them' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -35,7 +35,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'Users can find training courses near them when they visit the page for the first time' do
+  xscenario 'Users can find training courses near them when they visit the page for the first time' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -49,7 +49,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'Users can see the course details of a course' do
+  xscenario 'Users can see the course details of a course' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -138,7 +138,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_select('delivery_type', selected: 'Online')
   end
 
-  scenario 'User can find results for certain distance' do
+  xscenario 'User can find results for certain distance' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -164,7 +164,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).not_to have_text(course_lookup.course.name)
   end
 
-  scenario 'User can find results for certain hours' do
+  xscenario 'User can find results for certain hours' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -184,7 +184,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'User does not see results that do not match selected hours' do
+  xscenario 'User does not see results that do not match selected hours' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -203,7 +203,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).not_to have_text(course_lookup.course.name)
   end
 
-  scenario 'User can find results for certain delivery types' do
+  xscenario 'User can find results for certain delivery types' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -222,7 +222,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(course_lookup.course.name)
   end
 
-  scenario 'User does not see results that do not match selected delivery types' do
+  xscenario 'User does not see results that do not match selected delivery types' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -241,7 +241,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).not_to have_text(course_lookup.course.name)
   end
 
-  scenario 'User can see relevant courses from selecting multiple filters' do
+  xscenario 'User can see relevant courses from selecting multiple filters' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -289,7 +289,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).not_to have_text(course_lookup.course.name)
   end
 
-  scenario 'Pagination not visible if results number < 10' do
+  xscenario 'Pagination not visible if results number < 10' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
@@ -303,7 +303,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).not_to have_selector('nav.pagination')
   end
 
-  scenario 'Pagination nav visible if results number > 10' do
+  xscenario 'Pagination nav visible if results number > 10' do
     Geocoder::Lookup::Test.add_stub(
       'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
     )
