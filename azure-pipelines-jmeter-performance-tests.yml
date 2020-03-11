@@ -14,6 +14,7 @@ jobs:
 - job: jmeter_test
   container: jmeter_test
 - job: jmeter
+  dependsOn: jmeter_test
   pool:
     vmImage: ubuntu-latest
   displayName: Run JMeter tests
