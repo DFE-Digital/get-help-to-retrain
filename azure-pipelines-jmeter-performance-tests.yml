@@ -1,27 +1,32 @@
+variables:
+  TEST_FILE: jmeter-performance-tests.jmx
+  HOST: dev1.nrs-ghtr.org.uk
+
+resources:
+  containers:
+  - container: 'jmetertest'
+    image: 'justb4/jmeter:latest'
+
 jobs:
 - job: jmeter
   pool:
     vmImage: ubuntu-latest
-  displayName: Run JMeter tests
+  # services:
+  #   jmeter: jmetertest
+  # displayName: Run JMeter Tests
+
   steps:
-  - task: CmdLine@2
-    continueOnError: false
+  - task: Docker@1
     displayName: Execute JMeter Tests
     inputs:
-      script: 'docker run --rm --name jmeter_test -i -v $PWD:/test -w /test justb4/jmeter:latest \
-      -- -Dlog_level.jmeter=DEBUG \
-      -Jhost=dev1.nrs-ghtr.org.uk \
-      -n -t /test/jmeter-performance-tests.jmx \
-      -l ./test-plan.jtl -j ./jmeter.log -e -o ./report'
-      workingDirectory: azure/jmeter
-  # - task: Bash@3
-  #   displayName: Execute JMeter Tests
-  #   inputs:
-  #     targetType: filePath
-  #     filePath: 'azure/jmeter/run.sh'
-  #     arguments: '$PWD test/jmeter-performance-tests.jmx $(host)'
-  #     workingDirectory: azure/jmeter
-  #     failOnStderr: false
+      command: run
+      containerName: jmetertest
+      imageName: justb4/jmeter:latest
+      containerCommand: -D log_level.jmeter=DEBUG -J host=$(HOST) -n -t /test/$(TEST_FILE) -l ./test-plan.jtl -j ./jmeter.log -e -o ./report
+      runInBackground: false
+      workingDirectory: /test
+      arguments: -i -v $(Build.SourcesDirectory)/azure/jmeter:/test
+
   - task: PublishPipelineArtifact@1
     displayName: Publish JMeter Report
     inputs:
