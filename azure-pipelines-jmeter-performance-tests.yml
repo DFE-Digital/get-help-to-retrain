@@ -1,6 +1,6 @@
 variables:
   TEST_FILE: jmeter-performance-tests.jmx
-  HOST: dev1.nrs-ghtr.org.uk
+  HOST: $(host)
 
 stages:
 - stage: Run_JMeter_Test
@@ -41,7 +41,7 @@ stages:
         artifactName: jmeter
         targetPath: azure/jmeter/report
 
-    - task: AzureFileCopy@4
+    - task: AzureFileCopy@3
       displayName: 'Upload JMeter Reports'
       inputs:
         SourcePath: 'azure/jmeter/report'
