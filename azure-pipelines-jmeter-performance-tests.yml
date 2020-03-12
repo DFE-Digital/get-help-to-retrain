@@ -1,7 +1,7 @@
 resources:
   containers:
   - container: jmeter_test  # identifier (A-Z, a-z, 0-9, and underscore)
-    image: ubuntu:16.04 #justb4/jmeter:latest  # container image name
+    image: alpine:latest #justb4/jmeter:latest  # container image name
     # options: 
     # endpoint: string  # reference to a service connection for the private registry
     # env: { string: string }  # list of environment variables to add
