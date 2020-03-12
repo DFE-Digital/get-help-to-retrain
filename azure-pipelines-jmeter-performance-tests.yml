@@ -1,6 +1,5 @@
 variables:
   TEST_FILE: jmeter-performance-tests.jmx
-  HOST: $(host)
 
 stages:
 - stage: Run_JMeter_Test
@@ -16,7 +15,7 @@ stages:
         command: run
         containerName: jmetertest
         imageName: justb4/jmeter:latest
-        containerCommand: -D log_level.jmeter=DEBUG -J host=$(HOST) -n -t /test/$(TEST_FILE) -l ./test-plan.jtl -j ./jmeter.log -e -o ./report
+        containerCommand: -D log_level.jmeter=DEBUG -J host=$(host) -n -t /test/$(TEST_FILE) -l ./test-plan.jtl -j ./jmeter.log -e -o ./report
         runInBackground: false
         workingDirectory: /test
         arguments: -i -v $(Build.SourcesDirectory)/azure/jmeter:/test
