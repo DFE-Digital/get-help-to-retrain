@@ -25,9 +25,12 @@ jobs:
       targetPath: azure/jmeter/report
       artifact: jmeter
 
-    pool:
-      vmImage: windows-2019
+- job: Upload_JMeter_Test
+  dependsOn: JMeter_Test
+  pool:
+    vmImage: windows-2019
 
+steps:
   - task: DownloadPipelineArtifact@2
     displayName: 'Download Pipeline Artifact'
     inputs:
