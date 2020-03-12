@@ -41,7 +41,7 @@ stages:
         artifactName: jmeter
         targetPath: azure/jmeter/report
 
-    - task: AzureFileCopy@3
+    - task: AzureFileCopy@4
       displayName: 'Upload JMeter Reports'
       inputs:
         SourcePath: 'azure/jmeter/report'
