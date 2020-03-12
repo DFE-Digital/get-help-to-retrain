@@ -2,8 +2,8 @@ variables:
   TEST_FILE: jmeter-performance-tests.jmx
   HOST: dev1.nrs-ghtr.org.uk
 
-  stages:
-  - stage: Run_JMeter_Test
+stages:
+- stage: Run_JMeter_Test
   jobs:
   - job: JMeter_Test
     pool:
@@ -27,7 +27,8 @@ variables:
         targetPath: azure/jmeter/report
         artifact: jmeter
 
-  - stage: Upload_JMeter_Report
+- stage: Upload_JMeter_Report
+  jobs:
   - job: JMeter_Report
     dependsOn: JMeter_Test
     pool:
