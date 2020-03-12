@@ -8,7 +8,7 @@ variables:
 #     image: 'justb4/jmeter:latest'
 
 jobs:
-- job: JMeter Tests
+- job: jmeter_test
   pool:
     vmImage: ubuntu-latest
   # services:
