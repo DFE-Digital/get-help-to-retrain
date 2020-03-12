@@ -2,13 +2,13 @@ variables:
   TEST_FILE: jmeter-performance-tests.jmx
   HOST: dev1.nrs-ghtr.org.uk
 
-resources:
-  containers:
-  - container: 'jmetertest'
-    image: 'justb4/jmeter:latest'
+# resources:
+#   containers:
+#   - container: 'jmetertest'
+#     image: 'justb4/jmeter:latest'
 
 jobs:
-- job: jmeter
+- job: JMeter Tests
   pool:
     vmImage: ubuntu-latest
   # services:
