@@ -2,53 +2,56 @@ variables:
   TEST_FILE: jmeter-performance-tests.jmx
   HOST: dev1.nrs-ghtr.org.uk
 
-jobs:
-- job: JMeter_Test
-  pool:
-    vmImage: ubuntu-latest
+  stages:
+  - stage: Run_JMeter_Test
+  jobs:
+  - job: JMeter_Test
+    pool:
+      vmImage: ubuntu-latest
 
-  steps:
-  - task: Docker@1
-    displayName: Execute JMeter Tests
-    inputs:
-      command: run
-      containerName: jmetertest
-      imageName: justb4/jmeter:latest
-      containerCommand: -D log_level.jmeter=DEBUG -J host=$(HOST) -n -t /test/$(TEST_FILE) -l ./test-plan.jtl -j ./jmeter.log -e -o ./report
-      runInBackground: false
-      workingDirectory: /test
-      arguments: -i -v $(Build.SourcesDirectory)/azure/jmeter:/test
+    steps:
+    - task: Docker@1
+      displayName: Execute JMeter Tests
+      inputs:
+        command: run
+        containerName: jmetertest
+        imageName: justb4/jmeter:latest
+        containerCommand: -D log_level.jmeter=DEBUG -J host=$(HOST) -n -t /test/$(TEST_FILE) -l ./test-plan.jtl -j ./jmeter.log -e -o ./report
+        runInBackground: false
+        workingDirectory: /test
+        arguments: -i -v $(Build.SourcesDirectory)/azure/jmeter:/test
 
-  - task: PublishPipelineArtifact@1
-    displayName: Publish JMeter Report
-    inputs:
-      targetPath: azure/jmeter/report
-      artifact: jmeter
+    - task: PublishPipelineArtifact@1
+      displayName: Publish JMeter Report
+      inputs:
+        targetPath: azure/jmeter/report
+        artifact: jmeter
 
-- job: Upload_JMeter_Test
-  dependsOn: JMeter_Test
-  pool:
-    vmImage: windows-2019
+  - stage: Upload_JMeter_Report
+  - job: JMeter_Report
+    dependsOn: JMeter_Test
+    pool:
+      vmImage: windows-2019
 
-  steps:
-  - task: DownloadPipelineArtifact@2
-    displayName: 'Download Pipeline Artifact'
-    inputs:
-      artifactName: jmeter
-      targetPath: azure/jmeter/report
+    steps:
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download JMeter Reports'
+      inputs:
+        artifactName: jmeter
+        targetPath: azure/jmeter/report
 
-  - task: AzureFileCopy@3
-    displayName: 'AzureBlob File Copy'
-    inputs:
-      SourcePath: 'azure/jmeter/report'
-      azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
-      Destination: AzureBlob
-      storage: s108d01devstr
-      ContainerName: '$web'
-      BlobPrefix: '$(Build.BuildNumber)'
-      outputStorageUri: 'jmeter_reports_url'
+    - task: AzureFileCopy@3
+      displayName: 'Upload JMeter Reports'
+      inputs:
+        SourcePath: 'azure/jmeter/report'
+        azureSubscription: 'azdo.pipelines.cip.S108D.arm10a1d6de-2cee-4f62-b5fa-2cf08d05a1dc'
+        Destination: AzureBlob
+        storage: s108d01devstr
+        ContainerName: '$web'
+        BlobPrefix: '$(Build.BuildNumber)'
+        outputStorageUri: 'jmeter_reports_url'
 
-  - script: |
-     echo *** JMeter Report URL ***
-     echo $(jmeter_reports_url)$(Build.BuildNumber)/index.html
-    displayName: 'JMeter Report URL:'
+    - script: |
+      echo *** JMeter Report URL ***
+      echo $(jmeter_reports_url)$(Build.BuildNumber)/index.html
+      displayName: 'JMeter Report URL:'
