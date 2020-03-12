@@ -53,6 +53,6 @@ stages:
         outputStorageUri: 'jmeter_reports_url'
 
     - script: |
-      echo *** JMeter Report URL ***
-      echo $(jmeter_reports_url)$(Build.BuildNumber)/index.html
-      displayName: 'JMeter Report URL:'
+        echo *** JMeter Report URL ***
+        echo $(jmeter_reports_url)$(Build.BuildNumber)/index.html
+        displayName: 'JMeter Report URL:'
