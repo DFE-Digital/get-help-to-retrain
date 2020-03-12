@@ -28,9 +28,9 @@ stages:
         artifact: jmeter
 
 - stage: Upload_JMeter_Report
+  dependsOn: Run_JMeter_Test
   jobs:
   - job: JMeter_Report
-    dependsOn: JMeter_Test
     pool:
       vmImage: windows-2019
 
