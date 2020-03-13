@@ -53,6 +53,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#distance' do
+    it 'returns distance value if set' do
+      user_session.distance = '20'
+
+      expect(user_session.distance).to eq('20')
+    end
+
+    it 'returns nil if no distance set' do
+      expect(user_session.distance).to be_nil
+    end
+  end
+
   describe '#skills_matcher_sort' do
     it 'returns order if set' do
       user_session.skills_matcher_sort = 'growth'
