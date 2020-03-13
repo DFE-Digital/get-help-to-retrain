@@ -42,7 +42,8 @@ class CoursesController < ApplicationController
     redirect_to course_postcode_search_error_path
   end
 
-  def find_csv_courses
+  # TODO: Move FindACourseService::APIError rescue to index when we decomission the the CSV Courses feature
+  def find_csv_courses # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     track_event(:courses_index_search, postcode) if postcode.present?
     search
     filter_options
@@ -54,6 +55,8 @@ class CoursesController < ApplicationController
       .page(courses_params[:page])
   rescue CourseSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
+  rescue FindACourseService::APIError
+    redirect_to courses_near_me_error_path
   end
 
   def postcode

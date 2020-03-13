@@ -368,6 +368,17 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_css('nav.govuk-breadcrumbs', text: 'Action plan')
   end
 
+  scenario 'User gets relevant messaging if there is an API error' do
+    find_a_course_service = instance_double(FindACourseService)
+    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+    allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::APIError)
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_text(/Sorry, there is a problem with this service/)
+  end
+
   private
 
   def capture_user_location(postcode)
