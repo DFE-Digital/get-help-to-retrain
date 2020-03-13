@@ -23,6 +23,8 @@ class CoursesController < ApplicationController
 
   def show
     @decorated_course_details = CourseDetailsDecorator.new(course_details)
+  rescue FindACourseService::APIError
+    redirect_to courses_near_me_error_path
   end
 
   private

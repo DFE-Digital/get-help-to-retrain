@@ -379,6 +379,17 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
+  scenario 'User deep linking to a course details page gets relevant messaging if there is an API error' do
+    find_a_course_service = instance_double(FindACourseService)
+    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+    allow(find_a_course_service).to receive(:details).and_raise(FindACourseService::APIError)
+
+    capture_user_location('NW6 8ET')
+    visit(course_details_path(topic_id: 'maths', course_id: '111-11', course_run_id: '222-2'))
+
+    expect(page).to have_text(/Sorry, there is a problem with this service/)
+  end
+
   private
 
   def capture_user_location(postcode)
