@@ -27,6 +27,7 @@ RSpec.feature 'Your information' do
 
   background do
     visit(your_information_path)
+    disable_feature!(:csv_courses)
   end
 
   scenario 'When user fills the form correctly one gets taken to tasks-list page' do
@@ -268,6 +269,42 @@ RSpec.feature 'Your information' do
     visit(your_information_path)
 
     expect(page).to have_current_path(task_list_path)
+  end
+
+  context 'when viewing API courses' do
+    background do
+      enable_feature!(:csv_courses)
+    end
+
+    scenario 'User can proceed to task list path from your information' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 1JJ', [{ 'coordinates' => [0.1, 1] }]
+      )
+
+      fill_in_user_information_form
+      click_on('Continue')
+
+      expect(page).to have_current_path(task_list_path)
+    end
+
+    scenario 'Postcode entered by user is tracked' do
+      tracking_service = instance_spy(TrackingService)
+      allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+      fill_in_user_information_form
+      click_on('Continue')
+
+      expect(tracking_service).to have_received(:track_events).with(
+        props:
+        [
+          {
+            key: :pages_location_eligibility_search,
+            label: 'Your location - Postcode search',
+            value: 'NW6 1JJ'
+          }
+        ]
+      )
+    end
   end
 
   def fill_in_user_information_form
