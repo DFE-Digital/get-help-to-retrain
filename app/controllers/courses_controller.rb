@@ -1,10 +1,6 @@
-# TODO: Remove rubocop suppression when we decomission the CSV Courses implementation
-class CoursesController < ApplicationController # rubocop:disable Metrics/ClassLength
+class CoursesController < ApplicationController
   DISTANCE = [
-    ['Up to 10 miles', '10'],
-    ['Up to 20 miles', '20'],
-    ['Up to 30 miles', '30'],
-    ['Up to 40 miles', '40']
+    ['Up to 10 miles', '10'], ['Up to 20 miles', '20'], ['Up to 30 miles', '30'], ['Up to 40 miles', '40']
   ].freeze
 
   DELIVERY_TYPES = [
@@ -109,7 +105,7 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def course_details_api_response
-    find_a_course_service.details(
+    FindACourseService.new.details(
       course_id: courses_params[:course_id],
       course_run_id: courses_params[:course_run_id]
     )
@@ -117,10 +113,6 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
 
   def course_details
     CourseDetails.new(course_details_api_response)
-  end
-
-  def find_a_course_service
-    @find_a_course_service ||= FindACourseService.new
   end
 
   def persist_valid_filters_on_session
