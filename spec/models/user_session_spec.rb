@@ -9,6 +9,7 @@ RSpec.describe UserSession do
     it 'merges old data into new session for selected keys' do
       old_session = {
         'postcode' => 'NW118QE',
+        'distance' => '30',
         'target_job_id' => 100,
         'session_id' => 2,
         'training' => ['english_skills'],
@@ -20,6 +21,7 @@ RSpec.describe UserSession do
 
       expect(new_session).to eq(
         'postcode' => 'NW118QE',
+        'distance' => '30',
         'target_job_id' => 100,
         'session_id' => 1,
         'training' => ['english_skills'],

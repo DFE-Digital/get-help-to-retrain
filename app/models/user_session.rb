@@ -5,6 +5,7 @@ class UserSession # rubocop:disable Metrics/ClassLength
     job_profile_skills
     job_profile_ids
     postcode
+    distance
     target_job_id
     training
     job_hunting
