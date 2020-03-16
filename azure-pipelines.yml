@@ -103,9 +103,7 @@ stages:
 
       # TODO: To remove mkdir and chmod when we find a stable solution. This is a temporary fix to unblock the pipeline. Need to investigate why Azure complains about permissions all of a sudden.
       - script: |
-          sudo mkdir /build
-          sudo chmod 644 /build
-          bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
+          bundle exec rspec --format RspecJunitFormatter --out $(Build.SourcesDirectory)/build/TEST-rspec.xml
         displayName: 'Run Rspec tests'
         env:
           DATABASE_URL: $(postgresUrl)
@@ -115,7 +113,7 @@ stages:
         condition: succeededOrFailed()
         inputs:
           testRunner: JUnit
-          searchFolder: /build/
+          searchFolder: $(Build.SourcesDirectory)/build/
           testResultsFiles: '*.xml'
           failedTaskOnFailedTest: true
 
