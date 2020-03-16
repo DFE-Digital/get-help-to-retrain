@@ -101,7 +101,6 @@ stages:
           RAILS_ENV: test
           DATABASE_URL: $(postgresUrl)
 
-      # TODO: To remove mkdir and chmod when we find a stable solution. This is a temporary fix to unblock the pipeline. Need to investigate why Azure complains about permissions all of a sudden.
       - script: |
           bundle exec rspec --format RspecJunitFormatter --out $(Build.SourcesDirectory)/build/TEST-rspec.xml
         displayName: 'Run Rspec tests'
