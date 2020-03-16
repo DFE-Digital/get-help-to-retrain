@@ -4,17 +4,11 @@ class CoursesController < ApplicationController
   ].freeze
 
   DELIVERY_TYPES = [
-    %w[All all],
-    ['Classroom based', '1'],
-    %w[Online 2],
-    ['Work based', '3']
+    %w[All all], ['Classroom based', '1'], %w[Online 2], ['Work based', '3']
   ].freeze
 
   HOURS = [
-    %w[All all],
-    ['Full time', '1'],
-    ['Part time', '2'],
-    %w[Flexible 3]
+    %w[All all], ['Full time', '1'], ['Part time', '2'], %w[Flexible 3]
   ].freeze
 
   def index
@@ -44,17 +38,14 @@ class CoursesController < ApplicationController
     redirect_to course_postcode_search_error_path
   end
 
-  # TODO: Move FindACourseService::APIError rescue to index when we decomission the the CSV Courses feature
-  def find_csv_courses # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  def find_csv_courses
     track_event(:courses_index_search, postcode) if postcode.present?
     search
     filter_options
     persist_valid_filters_on_session
 
-    @courses =
-      Kaminari
-      .paginate_array(csv_course_search, total_count: @search.count)
-      .page(courses_params[:page])
+    @courses = Kaminari .paginate_array(csv_course_search, total_count: @search.count)
+                        .page(courses_params[:page])
   rescue CourseSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
   rescue FindACourseService::APIError
