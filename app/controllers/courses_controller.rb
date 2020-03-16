@@ -4,17 +4,11 @@ class CoursesController < ApplicationController
   ].freeze
 
   DELIVERY_TYPES = [
-    %w[All all],
-    ['Classroom based', '1'],
-    %w[Online 2],
-    ['Work based', '3']
+    %w[All all], ['Classroom based', '1'], %w[Online 2], ['Work based', '3']
   ].freeze
 
   HOURS = [
-    %w[All all],
-    ['Full time', '1'],
-    ['Part time', '2'],
-    %w[Flexible 3]
+    %w[All all], ['Full time', '1'], ['Part time', '2'], %w[Flexible 3]
   ].freeze
 
   def index
@@ -23,6 +17,8 @@ class CoursesController < ApplicationController
 
   def show
     @decorated_course_details = CourseDetailsDecorator.new(course_details)
+  rescue FindACourseService::APIError
+    redirect_to courses_near_me_error_path
   end
 
   private
@@ -48,12 +44,12 @@ class CoursesController < ApplicationController
     filter_options
     persist_valid_filters_on_session
 
-    @courses =
-      Kaminari
-      .paginate_array(csv_course_search, total_count: @search.count)
-      .page(courses_params[:page])
+    @courses = Kaminari .paginate_array(csv_course_search, total_count: @search.count)
+                        .page(courses_params[:page])
   rescue CourseSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
+  rescue FindACourseService::APIError
+    redirect_to courses_near_me_error_path
   end
 
   def postcode
