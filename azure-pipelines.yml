@@ -102,8 +102,8 @@ stages:
           DATABASE_URL: $(postgresUrl)
 
       - script: |
-          mkdir /build
-          chmod 777 /build
+          sudo mkdir /build
+          sudo chmod 777 /build
           bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
         displayName: 'Run Rspec tests'
         env:
