@@ -102,7 +102,7 @@ stages:
           DATABASE_URL: $(postgresUrl)
 
       - script: |
-          bundle exec rspec --format RspecJunitFormatter --out /build/TEST-rspec.xml
+          bundle exec rspec --format RspecJunitFormatter --out $(Build.SourcesDirectory)/build/TEST-rspec.xml
         displayName: 'Run Rspec tests'
         env:
           DATABASE_URL: $(postgresUrl)
@@ -112,7 +112,7 @@ stages:
         condition: succeededOrFailed()
         inputs:
           testRunner: JUnit
-          searchFolder: /build/
+          searchFolder: $(Build.SourcesDirectory)/build/
           testResultsFiles: '*.xml'
           failedTaskOnFailedTest: true
 
