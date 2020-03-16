@@ -139,6 +139,30 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_select('distance', selected: 'Up to 40 miles')
   end
 
+  scenario 'Selected distance gets gets remembered on user return' do
+    find_a_course_service = instance_double(
+      FindACourseService,
+      search: {
+        'total' => 1,
+        'results' => [{ 'courseName' => 'My Course', 'courseId' => '123', 'courseRunId' => '456' }]
+      },
+      details: {
+        'courseName' => 'My Course', 'provider' => { 'postcode' => 'NW11 8QE' }
+      }
+    )
+
+    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+    select('Up to 40 miles', from: 'distance')
+    click_on('Apply filters')
+    click_on('My Course')
+    click_on('Training courses near you')
+
+    expect(page).to have_select('distance', selected: 'Up to 40 miles')
+  end
+
   scenario 'Users see selected course hour filter when returning results' do
     capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))

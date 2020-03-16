@@ -1,10 +1,11 @@
-class UserSession
+class UserSession # rubocop:disable Metrics/ClassLength
   attr_reader :session
 
   KEYS_TO_RESTORE = %w[
     job_profile_skills
     job_profile_ids
     postcode
+    distance
     target_job_id
     training
     job_hunting
@@ -29,6 +30,14 @@ class UserSession
 
   def postcode=(value)
     session[:postcode] = value
+  end
+
+  def distance
+    session[:distance]
+  end
+
+  def distance=(value)
+    session[:distance] = value
   end
 
   def skills_matcher_sort
