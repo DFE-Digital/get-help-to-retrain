@@ -35,10 +35,10 @@
       "required": true
     },
     "FIND_A_COURSE_API_KEY": {
-      "required": false
+      "required": true
     },
     "FIND_A_COURSE_API_BASE_URL": {
-      "required": false
+      "required": true
     },
     "BING_SPELL_CHECK_API_KEY": {
       "required": false
