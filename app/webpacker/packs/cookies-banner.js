@@ -1,12 +1,10 @@
 function CookiesBanner () {
   this.start = function () {
-    var cookiesModal = document.querySelector('#cookies-banner');
+    var cookiesModal = document.querySelector('.js-enabledd');
 
     if (typeof(cookiesModal) !== 'undefined' && cookiesModal != null) {
-      if (getCookie('seen_cookie_message') !== 'true') {
         displayCookiesModal(cookiesModal);
         trapFocus(cookiesModal);
-      }
     }
   }
 
@@ -24,43 +22,22 @@ function CookiesBanner () {
   }
 
   function displayCookiesModal(modalElement) {
-    modalElement.insertBefore(document.querySelector('#govuk-header'), document.querySelector('#cookies-modal'));
-    document.querySelector('.govuk-header__container').classList.add('govuk-!-padding-bottom-2');
-
     modalElement.style.display = 'block';
-
-    var cookiesAccept = document.querySelector('#accept-cookies');
-
-    if (typeof(cookiesAccept) !== 'undefined' && cookiesAccept != null) {
-      handleAcceptCookies(modalElement, cookiesAccept);
-    }
-  }
-
-  function handleAcceptCookies(modalElement, acceptElement) {
-    acceptElement.onclick = function(e) {
-      e.preventDefault();
-
-      document.querySelector('#govuk-header-container').appendChild(
-        document.querySelector('#govuk-header')
-      );
-      document.querySelector('.govuk-header__container').classList.remove('govuk-!-padding-bottom-2');
-
-      modalElement.style.display = 'none';
-      setCookie('seen_cookie_message', 'true', 30);
-    }
+    var cookiesModalDisabled = document.querySelector('.js-disabled');
+    cookiesModalDisabled.style.display = 'none';
   }
 
   function trapFocus(element) {
     var focusableElements = element.querySelectorAll('a[href]:not([disabled])');
-    var firstElement = focusableElements[0];  
+    var firstElement = focusableElements[0];
     var lastElement = focusableElements[focusableElements.length - 1];
     var KEYCODE_TAB = 9;
 
     element.addEventListener('keydown', function(e) {
       var isTabPressed = (e.keyCode === KEYCODE_TAB);
 
-      if (!isTabPressed) { 
-        return; 
+      if (!isTabPressed) {
+        return;
       }
 
       if ( e.shiftKey ) /* shift + tab */ {

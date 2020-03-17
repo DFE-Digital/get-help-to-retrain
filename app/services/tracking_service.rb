@@ -21,6 +21,7 @@ class TrackingService
   end
 
   def track_events(props:)
+    return unless client_tracking_data[:ga_cookie].present?
     raise MissingAttributesError, 'Event props must be present' unless props.present?
 
     return unless ga_tracking_id

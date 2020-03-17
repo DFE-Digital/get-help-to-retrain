@@ -84,6 +84,8 @@ Rails.application.routes.draw do
     get 'your-information', to: 'user_personal_data#index'
     post 'your-information', to: 'user_personal_data#create'
 
+    post 'set-cookies', to: 'cookies#create'
+
     resources :user_personal_data, only: %i[index create]
 
     resources :feedback_surveys, only: %i[create]

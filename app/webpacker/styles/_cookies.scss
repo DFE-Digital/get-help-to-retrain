@@ -1,5 +1,4 @@
 .cookies-modal {
-  display: none;
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -16,4 +15,8 @@
 
 .cookies-modal-content {
   background-color: govuk-colour("white");
+}
+
+.js-enabledd {
+  display: none;
 }
