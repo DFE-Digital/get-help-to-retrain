@@ -369,6 +369,9 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'User gets relevant messaging if there is an API error' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
     find_a_course_service = instance_double(FindACourseService)
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
     allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::APIError)
