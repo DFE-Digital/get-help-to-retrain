@@ -105,7 +105,7 @@ RSpec.describe CourseSearch do
       course_search.search
       expect(find_a_course_service).to have_received(:search).with(
         options: {
-          keyword: 'maths',
+          keyword: 'math',
           distance: '20',
           qualification_levels: %w[1 2 X E],
           postcode: 'NW6 8ET',
@@ -278,6 +278,62 @@ RSpec.describe CourseSearch do
       search = described_class.new(postcode: 'NW6 8ET', topic: 'maths')
 
       expect(search.count).to be_zero
+    end
+
+    it 'searches by topic as keyword for all topics other than maths' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+      find_a_course_service = instance_spy(
+        FindACourseService, search: {}
+      )
+      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+
+      course_search = described_class.new(
+        postcode: 'NW6 8ET',
+        topic: 'physics'
+      )
+
+      course_search.search
+      expect(find_a_course_service).to have_received(:search).with(
+        options: {
+          keyword: 'physics',
+          distance: '20',
+          qualification_levels: %w[1 2 X E],
+          postcode: 'NW6 8ET',
+          sort_by: 4,
+          start: 0,
+          limit: 10
+        }
+      )
+    end
+
+    it 'searches by math as keyword for maths topic' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+      find_a_course_service = instance_spy(
+        FindACourseService, search: {}
+      )
+      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+
+      course_search = described_class.new(
+        postcode: 'NW6 8ET',
+        topic: 'maths'
+      )
+
+      course_search.search
+      expect(find_a_course_service).to have_received(:search).with(
+        options: {
+          keyword: 'math',
+          distance: '20',
+          qualification_levels: %w[1 2 X E],
+          postcode: 'NW6 8ET',
+          sort_by: 4,
+          start: 0,
+          limit: 10
+        }
+      )
     end
   end
 

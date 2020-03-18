@@ -9,7 +9,7 @@ class CourseSearch
 
   def initialize(postcode:, topic:, options: {})
     @postcode = postcode
-    @topic = topic
+    @topic = topic == 'maths' ? 'math' : topic
     @page = (options[:page] || '1').to_i
     @distance = options[:distance] || '20'
     @hours = options[:hours] || 'all'
