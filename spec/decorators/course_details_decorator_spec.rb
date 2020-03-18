@@ -251,6 +251,22 @@ RSpec.describe CourseDetailsDecorator do
         ).to eq('Very short description')
       end
     end
+
+    context 'when description is nil' do
+      let(:course_description) { nil }
+
+      let(:find_a_course_search_response) do
+        {
+          'course' => {
+            'courseDescription' => course_description
+          }
+        }
+      end
+
+      it 'returns nil' do
+        expect(decorated_course_details.course_description).to be nil
+      end
+    end
   end
 
   describe '#formatted_start_date' do
