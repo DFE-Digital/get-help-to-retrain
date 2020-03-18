@@ -327,6 +327,7 @@ RSpec.describe JobProfileDecorator do
             <ul class="list-reqs">
               <li><a href="google.com">4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels</a></li>
             </ul>
+            <p class=\"govuk-body-m\">You can find out more about careers in management consultancy from the <a href=\"https://www.mca.org.uk/career-development/careers-advice/\">Management Consultancies\nAssociation</a> and the <a href=\"http://www.managers.org.uk\">Chartered Management\nInstitute</a>.</p>
           </div>
         </section>'
       end
