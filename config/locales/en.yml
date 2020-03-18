@@ -96,6 +96,10 @@ en-GB:
       progress: Returned to progress button
     return_to_saved_link:
       progress: Returned to progress link
+    course_type_filter:
+      filter_courses: Course type
+    course_hours_filter:
+      filter_courses: Course hours
 
   contact_us:
     title: Free local advice

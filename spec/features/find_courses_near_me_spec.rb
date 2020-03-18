@@ -350,6 +350,88 @@ RSpec.feature 'Find training courses', type: :feature do
     )
   end
 
+  scenario 'tracks course hours filter' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    select('Flexible', from: 'hours')
+    click_on('Apply filters')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :filter_courses,
+          label: 'Course hours',
+          value: 'Flexible'
+        }
+      ]
+    )
+  end
+
+  scenario 'does not track course hours filter when all selected' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Apply filters')
+
+    expect(tracking_service).not_to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :filter_courses,
+          label: 'Course hours',
+          value: 'All'
+        }
+      ]
+    )
+  end
+
+  scenario 'tracks course type filter' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    select('Classroom based', from: 'delivery_type')
+    click_on('Apply filters')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :filter_courses,
+          label: 'Course type',
+          value: 'Classroom based'
+        }
+      ]
+    )
+  end
+
+  scenario 'does not track course type filter when all selected' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Apply filters')
+
+    expect(tracking_service).not_to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :filter_courses,
+          label: 'Course type',
+          value: 'All'
+        }
+      ]
+    )
+  end
+
   scenario 'when TrackingService errors, user journey is not affected' do
     tracking_service = instance_double(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)

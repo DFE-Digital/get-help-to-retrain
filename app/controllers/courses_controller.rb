@@ -1,4 +1,4 @@
-class CoursesController < ApplicationController
+class CoursesController < ApplicationController # rubocop:disable Metrics/ClassLength
   DISTANCE = [
     ['Up to 10 miles', '10'], ['Up to 20 miles', '20'], ['Up to 30 miles', '30'], ['Up to 40 miles', '40']
   ].freeze
@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
   end
 
   def find_csv_courses
-    track_event(:courses_index_search, postcode) if postcode.present?
+    track_course_filter
     search
     filter_options
     persist_valid_filters_on_session
@@ -116,5 +116,31 @@ class CoursesController < ApplicationController
 
     user_session.postcode = postcode if postcode
     user_session.distance = distance if distance
+  end
+
+  def track_course_filter
+    track_event(:courses_index_search, postcode) if postcode.present?
+    track_course_type
+    track_course_hours
+  end
+
+  def track_course_type
+    return unless courses_params[:delivery_type].present? && courses_params[:delivery_type] != 'all'
+
+    track_event(
+      :filter_courses,
+      DELIVERY_TYPES.to_h.invert[courses_params[:delivery_type]],
+      'events.course_type_filter'
+    )
+  end
+
+  def track_course_hours
+    return unless courses_params[:hours].present? && courses_params[:hours] != 'all'
+
+    track_event(
+      :filter_courses,
+      HOURS.to_h.invert[courses_params[:hours]],
+      'events.course_hours_filter'
+    )
   end
 end
