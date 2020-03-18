@@ -36,8 +36,7 @@ class CourseDetailsDecorator < SimpleDelegator
   end
 
   def course_description
-    return unless description.present?
-    return if description.size <= 15
+    return if description.nil? || description.size <= 15
 
     description
   end
