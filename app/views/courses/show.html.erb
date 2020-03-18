@@ -62,10 +62,10 @@
         <% end %>
       </tbody>
     </table>
-    <% if @decorated_course_details.description.present? %>
+    <% if @decorated_course_details.course_description.present? %>
       <h2 class="govuk-heading-m">Course description</h2>
       <p class="govuk-body">
-        <%= @decorated_course_details.description %>
+        <%= @decorated_course_details.course_description %>
       </p>
       <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
     <% end %>

@@ -139,7 +139,7 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_select('distance', selected: 'Up to 40 miles')
   end
 
-  scenario 'Selected distance gets gets remembered on user return' do
+  scenario 'Selected distance gets remembered on user return' do
     find_a_course_service = instance_double(
       FindACourseService,
       search: {
