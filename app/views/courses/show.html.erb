@@ -30,7 +30,7 @@
             <td class="govuk-table__cell"><%= @decorated_course_details.course_qualification_level %></td>
           </tr>
         <% end %>
-        <% if @decorated_course_details.study_mode.present? %>
+        <% if @decorated_course_details.course_study_mode.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course hours</th>
             <td class="govuk-table__cell"><%= @decorated_course_details.course_study_mode %></td>

@@ -54,6 +54,8 @@ class CourseDetailsDecorator < SimpleDelegator
   end
 
   def course_study_mode
+    return if study_mode.nil? || study_mode.downcase == 'undefined'
+
     study_mode.underscore.tr('_', '-').humanize
   end
 

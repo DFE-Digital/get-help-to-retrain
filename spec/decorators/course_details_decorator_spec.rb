@@ -431,5 +431,33 @@ RSpec.describe CourseDetailsDecorator do
         ).to eq 'Flexible'
       end
     end
+
+    context 'when studyMode comes in as Undefined' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'Undefined'
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to be nil
+      end
+    end
+
+    context 'when studyMode comes in as nil' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => nil
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to be nil
+      end
+    end
   end
 end
