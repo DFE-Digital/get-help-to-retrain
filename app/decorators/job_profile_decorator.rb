@@ -4,6 +4,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::NumberHelper
   include ActionView::Context
+  include ActionView::Helpers
 
   # rubocop:disable Metrics/LineLength
   HOW_TO_BECOME_XPATH = "//h2[contains(@class, 'job-profile-heading')]".freeze
@@ -77,7 +78,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     mutate_apprenticeship_content if key == :apprenticeship
     mutate_html_body
 
-    html_body_with_no_links = @doc.to_html.gsub(%r{<a.*?>(.+?)</a>}, '\1').html_safe
+    html_body_with_no_links = strip_links(@doc.to_html).html_safe
 
     return html_body_with_no_links if key == :apprenticeship
 
