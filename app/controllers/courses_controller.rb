@@ -1,4 +1,4 @@
-class CoursesController < ApplicationController
+class CoursesController < ApplicationController # rubocop:disable Metrics/ClassLength
   DISTANCE = [
     ['Up to 10 miles', '10'], ['Up to 20 miles', '20'], ['Up to 30 miles', '30'], ['Up to 40 miles', '40']
   ].freeze
@@ -39,12 +39,10 @@ class CoursesController < ApplicationController
   end
 
   def find_csv_courses
-    track_event(:courses_index_search, postcode) if postcode.present?
-    search
-    filter_options
+    track_course_filters
     persist_valid_filters_on_session
 
-    @courses = Kaminari .paginate_array(csv_course_search, total_count: @search.count)
+    @courses = Kaminari .paginate_array(csv_course_search, total_count: search.count)
                         .page(courses_params[:page])
   rescue CourseSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
@@ -78,7 +76,7 @@ class CoursesController < ApplicationController
   end
 
   def csv_course_search
-    @search.search.map { |c| SearchCourseDecorator.new(c) }
+    search.search.map { |c| SearchCourseDecorator.new(c) }
   end
 
   def search
@@ -94,12 +92,6 @@ class CoursesController < ApplicationController
     )
   end
 
-  def filter_options
-    @distance_options = helpers.options_for_select(DISTANCE, distance || '20')
-    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'all')
-    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'all')
-  end
-
   def course_details_api_response
     FindACourseService.new.details(
       course_id: courses_params[:course_id],
@@ -112,9 +104,23 @@ class CoursesController < ApplicationController
   end
 
   def persist_valid_filters_on_session
-    return unless @search.valid?
+    return unless search.valid?
 
     user_session.postcode = postcode if postcode
     user_session.distance = distance if distance
+  end
+
+  def track_course_filters # rubocop:disable Metrics/MethodLength
+    track_event(:courses_index_search, postcode) if postcode.present?
+    track_course_filter_for(
+      parameter: courses_params[:delivery_type],
+      value_mapping: DELIVERY_TYPES,
+      label: 'events.course_type_filter'
+    )
+    track_course_filter_for(
+      parameter: courses_params[:hours],
+      value_mapping: HOURS,
+      label: 'events.course_hours_filter'
+    )
   end
 end

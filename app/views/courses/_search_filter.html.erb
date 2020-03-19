@@ -18,18 +18,18 @@
             <% end %>
             <div class="govuk-form-group">
               <%= label_tag :delivery_type, 'Course type', for: 'delivery_type', class: 'govuk-label' %>
-              <%= select_tag :delivery_type, @delivery_type_options, class: 'govuk-select govuk-!-width-full', id: 'delivery_type' %>
+              <%= select_tag :delivery_type, options_for_select(CoursesController::DELIVERY_TYPES, params[:delivery_type] || 'all'), class: 'govuk-select govuk-!-width-full', id: 'delivery_type' %>
             </div>
           </div>
           <div class="govuk-grid-column-one-half">
             <div class="govuk-form-group govuk-!-margin-bottom-3">
               <%= errors_tag_minimal @search, :postcode %>
               <%= label_tag :distance, 'Distance', for: 'distance', class: 'govuk-label' %>
-              <%= select_tag :distance, @distance_options, class: 'govuk-select govuk-!-width-full', id: 'distance' %>
+              <%= select_tag :distance, options_for_select(CoursesController::DISTANCE, @distance || '20'), class: 'govuk-select govuk-!-width-full', id: 'distance' %>
             </div>
             <div class="govuk-form-group">
               <%= label_tag :hours, 'Course hours', for: 'hours', class: 'govuk-label' %>
-              <%= select_tag :hours, @hours_options, class: 'govuk-select govuk-!-width-full', id: 'hours' %>
+              <%= select_tag :hours, options_for_select(CoursesController::HOURS, params[:hours] || 'all'), class: 'govuk-select govuk-!-width-full', id: 'hours' %>
             </div>
           </div>
         </div>
