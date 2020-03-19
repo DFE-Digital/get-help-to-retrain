@@ -19,6 +19,16 @@ module GaTrackingHelper
     }
   end
 
+  def track_course_filter_for(parameter:, value_mapping:, label:)
+    return unless parameter.present? && parameter != 'all'
+
+    track_event(
+      :filter_courses,
+      value_mapping.to_h.invert[parameter],
+      label
+    )
+  end
+
   private
 
   def build_event_props(key:, label:, values:)

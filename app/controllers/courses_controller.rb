@@ -39,9 +39,8 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def find_csv_courses
-    track_course_filter
     search
-    filter_options
+    track_course_filters
     persist_valid_filters_on_session
 
     @courses = Kaminari .paginate_array(csv_course_search, total_count: @search.count)
@@ -94,12 +93,6 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
     )
   end
 
-  def filter_options
-    @distance_options = helpers.options_for_select(DISTANCE, distance || '20')
-    @delivery_type_options = helpers.options_for_select(DELIVERY_TYPES, courses_params[:delivery_type] || 'all')
-    @hours_options = helpers.options_for_select(HOURS, courses_params[:hours] || 'all')
-  end
-
   def course_details_api_response
     FindACourseService.new.details(
       course_id: courses_params[:course_id],
@@ -118,29 +111,17 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
     user_session.distance = distance if distance
   end
 
-  def track_course_filter
+  def track_course_filters # rubocop:disable Metrics/MethodLength
     track_event(:courses_index_search, postcode) if postcode.present?
-    track_course_type
-    track_course_hours
-  end
-
-  def track_course_type
-    return unless courses_params[:delivery_type].present? && courses_params[:delivery_type] != 'all'
-
-    track_event(
-      :filter_courses,
-      DELIVERY_TYPES.to_h.invert[courses_params[:delivery_type]],
-      'events.course_type_filter'
+    track_course_filter_for(
+      parameter: courses_params[:delivery_type],
+      value_mapping: DELIVERY_TYPES,
+      label: 'events.course_type_filter'
     )
-  end
-
-  def track_course_hours
-    return unless courses_params[:hours].present? && courses_params[:hours] != 'all'
-
-    track_event(
-      :filter_courses,
-      HOURS.to_h.invert[courses_params[:hours]],
-      'events.course_hours_filter'
+    track_course_filter_for(
+      parameter: courses_params[:hours],
+      value_mapping: HOURS,
+      label: 'events.course_hours_filter'
     )
   end
 end
