@@ -322,4 +322,54 @@ RSpec.describe CourseDetailsDecorator do
       end
     end
   end
+
+  describe '#course_qualification_level' do
+    context 'when qualification_level is returned X from the NCS API' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => 'X'
+          }
+        }
+      end
+
+      it 'returns Unknown' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq 'Unknown'
+      end
+    end
+
+    context 'when qualification_level is returned E from the NCS API' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => 'E'
+          }
+        }
+      end
+
+      it 'returns Entry Level' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq 'Entry Level'
+      end
+    end
+
+    context 'when qualification_level is returned as a number from the NCS API' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => '7'
+          }
+        }
+      end
+
+      it 'returns Level followed by the qualification level number' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq 'Level 7'
+      end
+    end
+  end
 end

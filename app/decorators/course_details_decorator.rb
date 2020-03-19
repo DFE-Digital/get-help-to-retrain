@@ -42,6 +42,13 @@ class CourseDetailsDecorator < SimpleDelegator
     description
   end
 
+  def course_qualification_level
+    return 'Unknown' if qualification_level == 'X'
+    return 'Entry Level' if qualification_level == 'E'
+
+    "Level #{qualification_level}"
+  end
+
   private
 
   def full_street_address
