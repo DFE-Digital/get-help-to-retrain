@@ -49,6 +49,10 @@ class CourseDetailsDecorator < SimpleDelegator
     "Level #{qualification_level}"
   end
 
+  def course_delivery_mode
+    delivery_mode.underscore.tr('_', ' ').humanize
+  end
+
   private
 
   def full_street_address
