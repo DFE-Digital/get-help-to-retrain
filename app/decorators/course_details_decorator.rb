@@ -53,6 +53,10 @@ class CourseDetailsDecorator < SimpleDelegator
     delivery_mode.underscore.tr('_', ' ').humanize
   end
 
+  def course_study_mode
+    study_mode.underscore.tr('_', '-').humanize
+  end
+
   private
 
   def full_street_address

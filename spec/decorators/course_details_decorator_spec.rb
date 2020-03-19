@@ -386,4 +386,34 @@ RSpec.describe CourseDetailsDecorator do
       ).to eq 'Classroom based'
     end
   end
+
+  describe '#course_study_mode' do
+    context 'when studyMode comes in as camelized' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'PartTime'
+        }
+      end
+
+      it 'returns a transformed study_mode value' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to eq 'Part-time'
+      end
+    end
+
+    context 'when studyMode comes in not camelized' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'Flexible'
+        }
+      end
+
+      it 'returns the same value' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to eq 'Flexible'
+      end
+    end
+  end
 end

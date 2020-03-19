@@ -33,7 +33,7 @@
         <% if @decorated_course_details.study_mode.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course hours</th>
-            <td class="govuk-table__cell"><%= @decorated_course_details.study_mode %></td>
+            <td class="govuk-table__cell"><%= @decorated_course_details.course_study_mode %></td>
           </tr>
         <% end %>
         <% if @decorated_course_details.delivery_mode.present? %>
