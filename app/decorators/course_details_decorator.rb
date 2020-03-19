@@ -43,20 +43,33 @@ class CourseDetailsDecorator < SimpleDelegator
   end
 
   def course_qualification_level
-    return 'Unknown' if qualification_level == 'X'
-    return 'Entry Level' if qualification_level == 'E'
+    return unless qualification_level.present?
 
-    "Level #{qualification_level}"
+    case qualification_level.downcase
+    when 'x' then 'Unknown'
+    when 'e' then 'Entry Level'
+    when ('1'..'8') then "Level #{qualification_level}"
+    end
   end
 
   def course_delivery_mode
-    delivery_mode.underscore.tr('_', ' ').humanize
+    return unless delivery_mode.present?
+
+    case delivery_mode.downcase
+    when 'classroombased' then 'Classroom based'
+    when 'workbased' then 'Work based'
+    when 'online' then 'Online'
+    end
   end
 
   def course_study_mode
-    return if study_mode.nil? || study_mode.downcase == 'undefined'
+    return unless study_mode.present?
 
-    study_mode.underscore.tr('_', '-').humanize
+    case study_mode.downcase
+    when 'parttime' then 'Part-time'
+    when 'fulltime' then 'Full-time'
+    when 'flexible' then 'Flexible'
+    end
   end
 
   private

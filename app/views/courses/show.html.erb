@@ -24,7 +24,7 @@
             <td class="govuk-table__cell"><%= @decorated_course_details.qualification_name %></td>
           </tr>
         <% end %>
-        <% if @decorated_course_details.qualification_level.present? %>
+        <% if @decorated_course_details.course_qualification_level.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Qualification level</th>
             <td class="govuk-table__cell"><%= @decorated_course_details.course_qualification_level %></td>
@@ -36,7 +36,7 @@
             <td class="govuk-table__cell"><%= @decorated_course_details.course_study_mode %></td>
           </tr>
         <% end %>
-        <% if @decorated_course_details.delivery_mode.present? %>
+        <% if @decorated_course_details.course_delivery_mode.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course type</th>
             <td class="govuk-table__cell"><%= @decorated_course_details.course_delivery_mode %></td>
