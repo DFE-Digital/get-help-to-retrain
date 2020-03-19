@@ -39,11 +39,10 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def find_csv_courses
-    search
     track_course_filters
     persist_valid_filters_on_session
 
-    @courses = Kaminari .paginate_array(csv_course_search, total_count: @search.count)
+    @courses = Kaminari .paginate_array(csv_course_search, total_count: search.count)
                         .page(courses_params[:page])
   rescue CourseSearch::GeocoderAPIError
     redirect_to course_postcode_search_error_path
@@ -77,7 +76,7 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def csv_course_search
-    @search.search.map { |c| SearchCourseDecorator.new(c) }
+    search.search.map { |c| SearchCourseDecorator.new(c) }
   end
 
   def search
@@ -105,7 +104,7 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
   end
 
   def persist_valid_filters_on_session
-    return unless @search.valid?
+    return unless search.valid?
 
     user_session.postcode = postcode if postcode
     user_session.distance = distance if distance
