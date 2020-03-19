@@ -140,4 +140,40 @@ RSpec.describe SearchCourse do
       expect(described_class.new(body).course_run_id).to be_nil
     end
   end
+
+  describe '#start_date' do
+    it 'returns the start date from a parsed body' do
+      body = { 'startDate' => '2019-05-02T00:00:00Z' }
+      expect(described_class.new(body).start_date)
+        .to eq('2019-05-02T00:00:00Z')
+    end
+
+    it 'returns nil if the start date is empty' do
+      body = { 'startDate' => '' }
+      expect(described_class.new(body).start_date).to be_nil
+    end
+
+    it 'returns nil if start date is missing' do
+      body = {}
+      expect(described_class.new(body).start_date).to be_nil
+    end
+  end
+
+  describe '#flexible_start_date' do
+    it 'returns the flexible start date from a parsed body' do
+      body = { 'flexibleStartDate' => true }
+      expect(described_class.new(body).flexible_start_date)
+        .to eq(true)
+    end
+
+    it 'returns nil if the flexible start date is empty' do
+      body = { 'flexibleStartDate' => nil }
+      expect(described_class.new(body).flexible_start_date).to be_nil
+    end
+
+    it 'returns nil if flexible start date is missing' do
+      body = {}
+      expect(described_class.new(body).flexible_start_date).to be_nil
+    end
+  end
 end

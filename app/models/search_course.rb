@@ -36,4 +36,12 @@ class SearchCourse
   def course_run_id
     body['courseRunId'].presence
   end
+
+  def start_date
+    body['startDate'].presence
+  end
+
+  def flexible_start_date
+    body['flexibleStartDate'].presence
+  end
 end
