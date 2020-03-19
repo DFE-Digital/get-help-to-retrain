@@ -131,8 +131,8 @@ RSpec.describe CourseDetailsDecorator do
         }
       end
 
-      it 'returns the price with the currency symbol attached' do
-        expect(decorated_course_details.price).to eq '£210.0'
+      it 'returns the price with 2 decimal places and the currency symbol attached' do
+        expect(decorated_course_details.price).to eq '£210.00'
       end
     end
   end

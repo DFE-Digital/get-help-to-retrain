@@ -1,5 +1,6 @@
 class CourseDetailsDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::NumberHelper
 
   def provider_full_address
     [
@@ -24,7 +25,7 @@ class CourseDetailsDecorator < SimpleDelegator
     return unless cost.present?
     return 'Free' if cost.zero?
 
-    "£#{cost}"
+    "£#{number_with_precision(cost, precision: 2)}"
   end
 
   def course_url
