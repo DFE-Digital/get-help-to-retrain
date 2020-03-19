@@ -374,16 +374,32 @@ RSpec.describe CourseDetailsDecorator do
   end
 
   describe '#course_delivery_mode' do
-    let(:find_a_course_search_response) do
-      {
-        'deliveryMode' => 'ClassroomBased'
-      }
+    context 'when deliveryMode comes in as camelized' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => 'ClassroomBased'
+        }
+      end
+
+      it 'returns a transformed delivery_mode value' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to eq 'Classroom based'
+      end
     end
 
-    it 'returns a transformed delivery_mode value' do
-      expect(
-        decorated_course_details.course_delivery_mode
-      ).to eq 'Classroom based'
+    context 'when deliveryMode in not camelized' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => 'Online'
+        }
+      end
+
+      it 'returns the same value' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to eq 'Online'
+      end
     end
   end
 
