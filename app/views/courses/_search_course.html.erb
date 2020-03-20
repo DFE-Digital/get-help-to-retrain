@@ -11,6 +11,8 @@
   <% if course.start_date || course.flexible_start_date %>
     <p class="govuk-body govuk-!-margin-bottom-0">Course start date: <strong><%= format_date(course.start_date, course.flexible_start_date) %></strong></p>
   <% end %>
-  <p class="govuk-body-s govuk-!-margin-top-2"><%= course.full_address %></p>
-  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
+  <% if course.full_address %>
+    <p class="govuk-body govuk-!-margin-bottom-0">Location: <span class='govuk-body-s'><%= course.full_address %></span></p>
+  <% end %>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
 </li>

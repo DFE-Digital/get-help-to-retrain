@@ -5,8 +5,6 @@ class SearchCourseDecorator < SimpleDelegator
     return unless address
 
     address
-      .gsub(/(,)(?!.*\1)/, '<br/>')
-      .gsub(/(,)(?!.*\1)/, '<br/>')
-      .html_safe
+      .gsub(%r{n/a(, )?}i, '')
   end
 end
