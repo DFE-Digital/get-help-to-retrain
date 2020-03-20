@@ -384,7 +384,7 @@ RSpec.describe CourseDetailsDecorator do
       it 'returns nil' do
         expect(
           decorated_course_details.course_qualification_level
-        ).to be nil
+        ).to eq '99'
       end
     end
 
@@ -397,10 +397,10 @@ RSpec.describe CourseDetailsDecorator do
         }
       end
 
-      it 'returns nil' do
+      it 'returns the actual value' do
         expect(
           decorated_course_details.course_qualification_level
-        ).to be nil
+        ).to eq '99XY'
       end
     end
 
@@ -472,7 +472,7 @@ RSpec.describe CourseDetailsDecorator do
       it 'returns nil' do
         expect(
           decorated_course_details.course_delivery_mode
-        ).to be nil
+        ).to eq 'Something not documented'
       end
     end
 
@@ -544,7 +544,7 @@ RSpec.describe CourseDetailsDecorator do
       it 'returns nil' do
         expect(
           decorated_course_details.course_study_mode
-        ).to be nil
+        ).to eq 'Some weird value'
       end
     end
 

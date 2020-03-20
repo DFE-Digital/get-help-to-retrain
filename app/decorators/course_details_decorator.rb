@@ -49,6 +49,7 @@ class CourseDetailsDecorator < SimpleDelegator
     when 'x' then 'Unknown'
     when 'e' then 'Entry Level'
     when ('1'..'8') then "Level #{qualification_level}"
+    else qualification_level
     end
   end
 
@@ -59,6 +60,7 @@ class CourseDetailsDecorator < SimpleDelegator
     when 'classroombased' then 'Classroom based'
     when 'workbased' then 'Work based'
     when 'online' then 'Online'
+    else delivery_mode
     end
   end
 
@@ -69,6 +71,8 @@ class CourseDetailsDecorator < SimpleDelegator
     when 'parttime' then 'Part-time'
     when 'fulltime' then 'Full-time'
     when 'flexible' then 'Flexible'
+    when 'undefined' then nil
+    else study_mode
     end
   end
 
