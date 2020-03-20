@@ -48,7 +48,7 @@
             <td class="govuk-table__cell"><%= @decorated_course_details.attendance_pattern %></td>
           </tr>
         <% end %>
-        <% if @decorated_course_details.start_date.present? %>
+        <% if @decorated_course_details.start_date.present? || @decorated_course_details.flexible_start_date.present? %>
           <tr class="govuk-table__row">
             <th scope="row" class="govuk-table__header">Course start date</th>
             <td class="govuk-table__cell"><%= format_date(@decorated_course_details.start_date, @decorated_course_details.flexible_start_date) %></td>

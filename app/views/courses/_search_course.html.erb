@@ -6,6 +6,9 @@
   <% end %>
   <p class="govuk-body govuk-!-margin-bottom-0">Course type: <strong><%= course.course_type  %></strong></p>
   <p class="govuk-body govuk-!-margin-bottom-0">Course hours: <strong><%= course.course_hours %></strong></p>
+  <% if course.start_date || course.flexible_start_date %>
+    <p class="govuk-body govuk-!-margin-bottom-0">Course start date: <strong><%= format_date(course.start_date, course.flexible_start_date) %></strong></p>
+  <% end %>
   <p class="govuk-body-s govuk-!-margin-top-2"><%= course.full_address %></p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
 </li>
