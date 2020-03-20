@@ -34,4 +34,38 @@ RSpec.describe SearchCourseDecorator do
       expect(described_class.new(search_course).full_address).to be_nil
     end
   end
+
+  describe '#hours' do
+    it 'returns course hours' do
+      search_course = SearchCourse.new(
+        'venueStudyModeDescription' => 'Part-time'
+      )
+
+      expect(described_class.new(search_course).hours).to eq('Part-time')
+    end
+
+    it 'returns nothing if course hours undefined' do
+      search_course = SearchCourse.new(
+        'venueStudyModeDescription' => 'Undefined'
+      )
+
+      expect(described_class.new(search_course).hours).to be_nil
+    end
+
+    it 'returns nothing if course hours undefined with different casing' do
+      search_course = SearchCourse.new(
+        'venueStudyModeDescription' => 'undefined'
+      )
+
+      expect(described_class.new(search_course).hours).to be_nil
+    end
+
+    it 'returns nothing if course hours is empty' do
+      search_course = SearchCourse.new(
+        'venueStudyModeDescription' => ''
+      )
+
+      expect(described_class.new(search_course).hours).to be_nil
+    end
+  end
 end

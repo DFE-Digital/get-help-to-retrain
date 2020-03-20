@@ -5,8 +5,8 @@
     <p class="govuk-body govuk-!-margin-bottom-0">Distance: <strong><%= course.distance.round(1) %> miles</strong></p>
   <% end %>
   <p class="govuk-body govuk-!-margin-bottom-0">Course type: <strong><%= course.course_type  %></strong></p>
-  <% if course.course_hours.downcase != 'undefined' %>
-    <p class="govuk-body govuk-!-margin-bottom-0">Course hours: <strong><%= course.course_hours %></strong></p>
+  <% if course.hours.present? %>
+    <p class="govuk-body govuk-!-margin-bottom-0">Course hours: <strong><%= course.hours %></strong></p>
   <% end %>
   <% if course.start_date || course.flexible_start_date %>
     <p class="govuk-body govuk-!-margin-bottom-0">Course start date: <strong><%= format_date(course.start_date, course.flexible_start_date) %></strong></p>

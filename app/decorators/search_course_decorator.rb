@@ -7,4 +7,8 @@ class SearchCourseDecorator < SimpleDelegator
     address
       .gsub(%r{n/a(, )?}i, '')
   end
+
+  def hours
+    course_hours unless course_hours&.downcase == 'undefined'
+  end
 end
