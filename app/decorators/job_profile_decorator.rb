@@ -78,11 +78,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     mutate_apprenticeship_content if key == :apprenticeship
     mutate_html_body
 
-    html_body_with_no_links = strip_links(@doc.to_html).html_safe
-
-    return html_body_with_no_links if key == :apprenticeship
-
-    separator_line.concat(html_body_with_no_links)
+    strip_links(@doc.to_html).html_safe
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -144,17 +140,15 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def mutate_html_body
-    mutate_h2_tags
     mutate_h3_tags
     mutate_h4_tags
+    remove_h2_tags
     mutate_p_tags
     mutate_ul_tags
   end
 
-  def mutate_h2_tags
-    @doc.xpath('h2').each do |h2|
-      h2['class'] = 'govuk-heading-m'
-    end
+  def remove_h2_tags
+    @doc.xpath('h2').map(&:remove)
   end
 
   def mutate_h3_tags

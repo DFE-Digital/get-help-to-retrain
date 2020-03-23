@@ -334,7 +334,6 @@ RSpec.describe JobProfileDecorator do
 
       let(:mutated_tags) do
         [
-          '<h2 class="govuk-heading-m">Some things you might need</h2>',
           '<ul class="govuk-list govuk-list--bullet">',
           '<li>4 or 5 GCSEs at grades 9 to 4 (A* to C) and college qualifications like A levels</li>'
         ]
@@ -355,6 +354,12 @@ RSpec.describe JobProfileDecorator do
       mutated_tags.each do |tag|
         expect(mutated_html_body).to include(tag)
       end
+    end
+
+    it 'removes any h2 tag from the mutated html body' do
+      expect(
+        Nokogiri::HTML(mutated_html_body).xpath('//h2')
+      ).to be_empty
     end
 
     it 'removes unwanted copy' do
