@@ -1,5 +1,6 @@
 class CourseDetailsDecorator < SimpleDelegator
   include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::NumberHelper
 
   def provider_full_address
     [
@@ -24,7 +25,7 @@ class CourseDetailsDecorator < SimpleDelegator
     return unless cost.present?
     return 'Free' if cost.zero?
 
-    "£#{cost}"
+    "£#{number_with_precision(cost, precision: 2)}"
   end
 
   def course_url
@@ -39,6 +40,40 @@ class CourseDetailsDecorator < SimpleDelegator
     return if description.nil? || description.size <= 15
 
     description
+  end
+
+  def course_qualification_level
+    return unless qualification_level.present?
+
+    case qualification_level.downcase
+    when 'x' then 'Unknown'
+    when 'e' then 'Entry Level'
+    when ('1'..'8') then "Level #{qualification_level}"
+    else qualification_level
+    end
+  end
+
+  def course_delivery_mode
+    return unless delivery_mode.present?
+
+    case delivery_mode.downcase
+    when 'classroombased' then 'Classroom based'
+    when 'workbased' then 'Work based'
+    when 'online' then 'Online'
+    else delivery_mode
+    end
+  end
+
+  def course_study_mode
+    return unless study_mode.present?
+
+    case study_mode.downcase
+    when 'parttime' then 'Part-time'
+    when 'fulltime' then 'Full-time'
+    when 'flexible' then 'Flexible'
+    when 'undefined' then nil
+    else study_mode
+    end
   end
 
   private

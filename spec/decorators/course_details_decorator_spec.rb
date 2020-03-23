@@ -131,8 +131,8 @@ RSpec.describe CourseDetailsDecorator do
         }
       end
 
-      it 'returns the price with the currency symbol attached' do
-        expect(decorated_course_details.price).to eq '£210.0'
+      it 'returns the price with 2 decimal places and the currency symbol attached' do
+        expect(decorated_course_details.price).to eq '£210.00'
       end
     end
   end
@@ -318,6 +318,260 @@ RSpec.describe CourseDetailsDecorator do
       it 'returns nil' do
         expect(
           decorated_course_details.formatted_start_date
+        ).to be nil
+      end
+    end
+  end
+
+  describe '#course_qualification_level' do
+    context 'when qualification_level is returned X from the NCS API' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => 'X'
+          }
+        }
+      end
+
+      it 'returns Unknown' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq 'Unknown'
+      end
+    end
+
+    context 'when qualification_level is returned E from the NCS API' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => 'E'
+          }
+        }
+      end
+
+      it 'returns Entry Level' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq 'Entry Level'
+      end
+    end
+
+    context 'when qualification_level is returned as a number from the NCS API' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => '7'
+          }
+        }
+      end
+
+      it 'returns Level followed by the qualification level number' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq 'Level 7'
+      end
+    end
+
+    context 'when qualification_level is outside the 1..8 range' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => '99'
+          }
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq '99'
+      end
+    end
+
+    context 'when qualification_level is not a documented value' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => {
+            'qualificationLevel' => '99XY'
+          }
+        }
+      end
+
+      it 'returns the actual value' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to eq '99XY'
+      end
+    end
+
+    context 'when qualification_level is nil' do
+      let(:find_a_course_search_response) do
+        {
+          'qualification' => nil
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_qualification_level
+        ).to be nil
+      end
+    end
+  end
+
+  describe '#course_delivery_mode' do
+    context 'when deliveryMode is ClassroomBased' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => 'ClassroomBased'
+        }
+      end
+
+      it 'returns Classroom based' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to eq 'Classroom based'
+      end
+    end
+
+    context 'when deliveryMode is WorkBased' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => 'WorkBased'
+        }
+      end
+
+      it 'returns Work based' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to eq 'Work based'
+      end
+    end
+
+    context 'when deliveryMode is Online' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => 'Online'
+        }
+      end
+
+      it 'returns the same value' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to eq 'Online'
+      end
+    end
+
+    context 'when deliveryMode is an undocumented value' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => 'Something not documented'
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to eq 'Something not documented'
+      end
+    end
+
+    context 'when deliveryMode is nil' do
+      let(:find_a_course_search_response) do
+        {
+          'deliveryMode' => nil
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_delivery_mode
+        ).to be nil
+      end
+    end
+  end
+
+  describe '#course_study_mode' do
+    context 'when studyMode is PartTime' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'PartTime'
+        }
+      end
+
+      it 'returns Part-time' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to eq 'Part-time'
+      end
+    end
+
+    context 'when studyMode is FullTime' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'FullTime'
+        }
+      end
+
+      it 'returns Full-time' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to eq 'Full-time'
+      end
+    end
+
+    context 'when studyMode is Flexible' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'Flexible'
+        }
+      end
+
+      it 'returns Flexible' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to eq 'Flexible'
+      end
+    end
+
+    context 'when studyMode is an undocumented value' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'Some weird value'
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to eq 'Some weird value'
+      end
+    end
+
+    context 'when studyMode comes in as Undefined' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => 'Undefined'
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_study_mode
+        ).to be nil
+      end
+    end
+
+    context 'when studyMode comes in as nil' do
+      let(:find_a_course_search_response) do
+        {
+          'studyMode' => nil
+        }
+      end
+
+      it 'returns nil' do
+        expect(
+          decorated_course_details.course_study_mode
         ).to be nil
       end
     end
