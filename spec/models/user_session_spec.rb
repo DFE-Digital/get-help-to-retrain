@@ -14,7 +14,8 @@ RSpec.describe UserSession do
         'session_id' => 2,
         'training' => ['english_skills'],
         'job_hunting' => ['cv'],
-        'skills_matcher_sort' => 'growth'
+        'skills_matcher_sort' => 'growth',
+        'cookies' => false
       }
       new_session = { 'session_id' => 1 }
       described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
@@ -26,7 +27,8 @@ RSpec.describe UserSession do
         'session_id' => 1,
         'training' => ['english_skills'],
         'job_hunting' => ['cv'],
-        'skills_matcher_sort' => 'growth'
+        'skills_matcher_sort' => 'growth',
+        'cookies' => false
       )
     end
 
@@ -124,6 +126,18 @@ RSpec.describe UserSession do
 
     it 'returns an empty array if no job_hunting set' do
       expect(user_session.job_hunting).to be_nil
+    end
+  end
+
+  describe '#cookies' do
+    it 'returns cookies if set' do
+      user_session.cookies = true
+
+      expect(user_session.cookies).to eq(true)
+    end
+
+    it 'returns nil if no cookies set' do
+      expect(user_session.cookies).to be_nil
     end
   end
 

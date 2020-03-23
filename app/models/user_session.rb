@@ -11,6 +11,7 @@ class UserSession # rubocop:disable Metrics/ClassLength
     job_hunting
     it_training
     skills_matcher_sort
+    cookies
   ].freeze
 
   def self.merge_sessions(new_session:, previous_session_data:)
@@ -78,6 +79,14 @@ class UserSession # rubocop:disable Metrics/ClassLength
 
   def job_hunting=(value)
     session[:job_hunting] = value
+  end
+
+  def cookies
+    session[:cookies]
+  end
+
+  def cookies=(value)
+    session[:cookies] = value
   end
 
   def target_job?
