@@ -268,6 +268,7 @@ RSpec.describe CourseDetailsDecorator do
       end
     end
   end
+
   describe '#course_qualification_level' do
     context 'when qualification_level is returned X from the NCS API' do
       let(:find_a_course_search_response) do
