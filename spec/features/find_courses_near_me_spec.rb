@@ -275,6 +275,25 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).not_to have_text('Distance:')
   end
 
+  scenario 'User does not see course hours if marked as undefined on course' do
+    find_a_course_service = instance_double(
+      FindACourseService,
+      search: {
+        'total' => 1,
+        'results' => [
+          { 'courseName' => 'My Course', 'courseId' => '123', 'courseRunId' => '456', 'venueStudyModeDescription' => 'Undefined' }
+        ]
+      }
+    )
+
+    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+
+    capture_user_location('NW6 1JF')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).not_to have_text('Course hours:')
+  end
+
   scenario 'User gets relevant messaging if their address is not valid' do
     visit(courses_path(topic_id: 'maths'))
     fill_in('postcode', with: 'NW6 8E')

@@ -5,8 +5,10 @@ class SearchCourseDecorator < SimpleDelegator
     return unless address
 
     address
-      .gsub(/(,)(?!.*\1)/, '<br/>')
-      .gsub(/(,)(?!.*\1)/, '<br/>')
-      .html_safe
+      .gsub(%r{n/a(, )?}i, '')
+  end
+
+  def hours
+    course_hours unless course_hours&.downcase == 'undefined'
   end
 end

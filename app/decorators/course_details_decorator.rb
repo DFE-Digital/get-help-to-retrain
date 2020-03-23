@@ -12,15 +12,6 @@ class CourseDetailsDecorator < SimpleDelegator
       .html_safe
   end
 
-  def formatted_start_date
-    return DateTime.parse(start_date).strftime('%d %b %Y') if start_date
-
-    flexible_start_date ? 'Flexible start date' : 'Contact provider'
-  rescue StandardError => e
-    Rails.logger.error("Course details - start date error: #{e.inspect}")
-    nil
-  end
-
   def price
     return unless cost.present?
     return 'Free' if cost.zero?
