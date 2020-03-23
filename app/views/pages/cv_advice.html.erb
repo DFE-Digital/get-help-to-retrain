@@ -14,63 +14,125 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+              Your personal details
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+          <p class="govuk-body">Include your name, address and contact details. You don't need to include your age, marital status or nationality. Recruiters can make a decision about your skills and abilities without this information.</p>
+          <p class="govuk-body">Make sure your email address sounds professional. You could also add a link to a professional social media site like LinkedIn. Make sure your profile shows you in a positive light and doesn't contain anything you wouldn't want an employer to see.</p>
+        </div>
+      </div>
 
-    <h2 class="govuk-heading-l">Your personal details</h2>
-    <p class="govuk-body">Include your name, address and contact details. You don't need to include your age, marital status or nationality. Recruiters can make a decision about your skills and abilities without this information.</p>
-    <p class="govuk-body">Make sure your email address sounds professional. You could also add a link to a professional social media site like LinkedIn. Make sure your profile shows you in a positive light and doesn't contain anything you wouldn't want an employer to see.</p>
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
+              Your personal profile
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-2">
+          <p class="govuk-body">This is a mini-advert for you and should summarise your:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>skills and qualities</li>
+            <li>work background and achievements</li>
+            <li>career aims</li>
+          </ul>
+          <p class="govuk-body">It should only be a few lines and needs to grab the reader's attention. Try not to use terms like: 'reliable', 'hard working', 'team player' or 'good communicator'. These are viewed a lot by employers, and they don't help to build up an individual picture of you.</p>
+          <p class="govuk-body">If the job involves working with people, try to show your people skills by uses phrases like: 'negotiating', 'effectively dealing with demanding customers', 'handling conflict' or 'showing empathy'. These help the reader build up a picture of your skills, knowledge and experience. Keep it short - you can go into more detail later.</p>
+          <p class="govuk-body">When describing your career aims, think about the employer you're sending the CV to. Make your careers aims sound just like the kind of opportunities they currently have.</p>
+        </div>
+      </div>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
+              Employment history and work experience
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-3" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-3">
+          <p class="govuk-body">You'll usually put your employment history first if you've been working for a few years. If you don't have much work experience, focus on your your education and training.</p>
+          <p class="govuk-body">Start with the job you're doing now, or the last job you had, and work backwards. You need to include your employer's name, the dates you worked for them, your job title and your main tasks. On the jobs that are relevant to the role you're applying for, give examples of the skills you used and what you achieved.</p>
+          <p class="govuk-body">Use bullet pointed lists and positive language. Use 'action' words to describe what you did in your job like: 'achieved', 'designed', 'established', 'supervised', 'co-ordinated', 'created' or 'transformed'.</p>
+          <p class="govuk-body">Relate your skills and experience to the job description, person specification or what you think the employer is looking for. Also include any relevant temporary work and volunteering experience.</p>
+          <p class="govuk-body">Try not to have any gaps in your work history. If you had time out travelling, job seeking, volunteering or caring for a relative, include them with details of what you learned and the skills you gained.</p>
+        </div>
+      </div>
 
-    <h2 class="govuk-heading-l">Your personal profile</h2>
-    <p class="govuk-body">This is a mini-advert for you and should summarise your:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>skills and qualities</li>
-      <li>work background and achievements</li>
-      <li>career aims</li>
-    </ul>
-    <p class="govuk-body">It should only be a few lines and needs to grab the reader's attention. Try not to use terms like: 'reliable', 'hard working', 'team player' or 'good communicator'. These are viewed a lot by employers, and they don't help to build up an individual picture of you.</p>
-    <p class="govuk-body">If the job involves working with people, try to show your people skills by uses phrases like: 'negotiating', 'effectively dealing with demanding customers', 'handling conflict' or 'showing empathy'. These help the reader build up a picture of your skills, knowledge and experience. Keep it short - you can go into more detail later.</p>
-    <p class="govuk-body">When describing your career aims, think about the employer you're sending the CV to. Make your careers aims sound just like the kind of opportunities they currently have.</p>
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
+              Education and training
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-4" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-4">
+          <p class="govuk-body">Start with your most recent qualifications and work back to the ones you got at school. Use bullet points or a table and include:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>the university, college or school you went to</li>
+            <li>the dates the qualifications were awarded and any grades</li>
+            <li>any work-related courses, if they're relevant</li>
+          </ul>
+        </div>
+      </div>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-5">
+              Interests and achievements
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-5" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-5">
+          <p class="govuk-body">Include hobbies, interests and achievements that are relevant to the job. If you're involved in any clubs or societies, this can show that you enjoy meeting new people. Interests like sports and physical recreation activities can also show employers that you are fit and healthy.</p>
+          <p class="govuk-body">Don't just put activities that you would do alone like reading, bird-watching or playing video games, unless they relate directly to the job that you are applying for. They may leave employers wondering how sociable you are. Make your activities specific and varied.</p>
+        </div>
+      </div>
 
-    <h2 class="govuk-heading-l">Employment history and work experience</h2>
-    <p class="govuk-body">You'll usually put your employment history first if you've been working for a few years. If you don't have much work experience, focus on your your education and training.</p>
-    <p class="govuk-body">Start with the job you're doing now, or the last job you had, and work backwards. You need to include your employer's name, the dates you worked for them, your job title and your main tasks. On the jobs that are relevant to the role you're applying for, give examples of the skills you used and what you achieved.</p>
-    <p class="govuk-body">Use bullet pointed lists and positive language. Use 'action' words to describe what you did in your job like: 'achieved', 'designed', 'established', 'supervised', 'co-ordinated', 'created' or 'transformed'.</p>
-    <p class="govuk-body">Relate your skills and experience to the job description, person specification or what you think the employer is looking for. Also include any relevant temporary work and volunteering experience.</p>
-    <p class="govuk-body">Try not to have any gaps in your work history. If you had time out travelling, job seeking, volunteering or caring for a relative, include them with details of what you learned and the skills you gained.</p>
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-6">
+              Additional information
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-6" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-6">
+          <p class="govuk-body">You can include this section if you need to add anything else that's relevant.</p>
+          <p class="govuk-body">You may need to explain a gap in your employment history, like travelling or family reasons. You could also include other relevant skills here, such as if you have a driving licence or can speak any foreign languages.</p>
+        </div>
+      </div>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
+      <div class="govuk-accordion__section">
+        <div class="govuk-accordion__section-header">
+          <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-default-heading-6">
+              References
+            </span>
+          </h2>
+        </div>
+        <div id="accordion-default-content-6" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-6">
+          <p class="govuk-body">At least one referee should be work-related. Or, if you haven't worked for a while, you could use another responsible person who has known you for some time.</p>
+          <p class="govuk-body">You can list your referees on your CV or just put 'references available on request'. If you decide to include their details you should explain the relationship of each referee to you - for example 'Claire Turner, line manager'.</p>
+        </div>
+      </div>
 
-    <h2 class="govuk-heading-l">Education and training</h2>
-    <p class="govuk-body">Start with your most recent qualifications and work back to the ones you got at school. Use bullet points or a table and include:</p>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>the university, college or school you went to</li>
-      <li>the dates the qualifications were awarded and any grades</li>
-      <li>any work-related courses, if they're relevant</li>
-    </ul>
+      <%= render partial: 'advice_on_finding_work', locals: { item_order: 7 } %>
+    </div>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
-
-    <h2 class="govuk-heading-l">Interests and achievements</h2>
-    <p class="govuk-body">Include hobbies, interests and achievements that are relevant to the job. If you're involved in any clubs or societies, this can show that you enjoy meeting new people. Interests like sports and physical recreation activities can also show employers that you are fit and healthy.</p>
-    <p class="govuk-body">Don't just put activities that you would do alone like reading, bird-watching or playing video games, unless they relate directly to the job that you are applying for. They may leave employers wondering how sociable you are. Make your activities specific and varied.</p>
-
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
-
-    <h2 class="govuk-heading-l">Additional information</h2>
-    <p class="govuk-body">You can include this section if you need to add anything else that's relevant.</p>
-    <p class="govuk-body">You may need to explain a gap in your employment history, like travelling or family reasons. You could also include other relevant skills here, such as if you have a driving licence or can speak any foreign languages.</p>
-
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible"/>
-
-    <h2 class="govuk-heading-l">References</h2>
-    <p class="govuk-body">At least one referee should be work-related. Or, if you haven't worked for a while, you could use another responsible person who has known you for some time.</p>
-    <p class="govuk-body">You can list your referees on your CV or just put 'references available on request'. If you decide to include their details you should explain the relationship of each referee to you - for example 'Claire Turner, line manager'.</p>
-
-    <%= render 'advice_on_finding_work' %>
+    <div class="govuk-!-margin-bottom-2">
+      <%= link_to 'Back to action plan', action_plan_path, class: 'govuk-link govuk-body' %>
+    </div>
   </div>
 
   <div class="govuk-grid-column-one-third">
