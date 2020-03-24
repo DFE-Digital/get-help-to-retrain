@@ -74,6 +74,33 @@ RSpec.describe TrackingService do
       end
     end
 
+    context 'without a ga_cookie' do
+      subject(:service) {
+        described_class.new(
+          client_tracking_data: {},
+          ga_tracking_id: ga_tracking_id
+        )
+      }
+
+      before do
+        fake_batch_request_with(URI.encode_www_form(event_payload))
+      end
+
+      it 'does not make a call to GA' do
+        service.track_events(
+          props: [
+            {
+              key: :event_category,
+              label: 'Event Label',
+              value: 'Event action'
+            }
+          ]
+        )
+
+        expect(a_request(:post, /google/)).not_to have_been_made
+      end
+    end
+
     context 'with a valid ga_tracking ID' do
       before do
         fake_batch_request_with(URI.encode_www_form(event_payload))
