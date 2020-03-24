@@ -71,14 +71,16 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   def section(key)
     return unless (xpath = SECTIONS_XPATH[key])
 
-    @doc = html_body.xpath(xpath)
+    doc = html_body.xpath(xpath)
 
-    return '' unless @doc.any?
+    return '' unless doc.any?
+
+    @fragment_section = Nokogiri::HTML(doc.to_html)
 
     mutate_apprenticeship_content if key == :apprenticeship
     mutate_html_body
 
-    strip_links(@doc.to_html).html_safe
+    strip_links(@fragment_section.to_html).html_safe
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -134,7 +136,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def mutate_apprenticeship_content
-    entry_requirements = @doc.xpath("h4[.='Entry requirements']")
+    entry_requirements = @fragment_section.xpath("//h4[.='Entry requirements']")
     entry_requirements.xpath('following-sibling::*').remove
     entry_requirements.remove
   end
@@ -148,18 +150,20 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def remove_h2_tags
-    @doc.xpath('h2').map(&:remove)
+    h2_instances = @fragment_section.xpath('//h2')
+
+    h2_instances.first.remove if h2_instances.present?
   end
 
   def mutate_h3_tags
-    @doc.xpath('h3').each do |h3|
+    @fragment_section.xpath('//h3').each do |h3|
       h3.name = 'h2'
       h3['class'] = 'govuk-heading-m'
     end
   end
 
   def mutate_h4_tags
-    @doc.xpath('h4').each do |h4|
+    @fragment_section.xpath('//h4').each do |h4|
       if h4.content == 'More information'
         h4.remove
       else
@@ -170,23 +174,19 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
   end
 
   def mutate_p_tags
-    @doc.xpath('.//p').each do |p|
+    @fragment_section.xpath('.//p').each do |p|
       p['class'] = 'govuk-body-m'
     end
   end
 
   def mutate_ul_tags
-    @doc.xpath("//div[@class='job-profile-subsection-content']/ul").each do |ul|
+    @fragment_section.xpath("//div[@class='job-profile-subsection-content']/ul").each do |ul|
       if ul['class'] == 'list-link'
         ul.remove
       else
         ul['class'] = 'govuk-list govuk-list--bullet'
       end
     end
-  end
-
-  def separator_line
-    content_tag :hr, nil, class: 'govuk-section-break govuk-section-break--m govuk-section-break--visible'
   end
 
   def column_data(content:, content_classes: nil)

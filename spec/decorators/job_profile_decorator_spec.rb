@@ -279,6 +279,8 @@ RSpec.describe JobProfileDecorator do
       '<section class="job-profile-subsection" id="Apprenticeship">
         <h3>Apprenticeship</h3>
         <div class="job-profile-subsection-content">
+          <h3>Some subsection 1</h3>
+          <h3>Some subsection 2</h3>
           <p>You could take a software developer higher apprenticeship</p>
           <p>You could also do a digital and technology solutions degree apprenticeship.</p>
           <h4>Entry requirements</h4>
@@ -356,10 +358,10 @@ RSpec.describe JobProfileDecorator do
       end
     end
 
-    it 'removes any h2 tag from the mutated html body' do
+    it 'removes only the first h2 tag from the mutated html body' do
       expect(
-        Nokogiri::HTML(mutated_html_body).xpath('//h2')
-      ).to be_empty
+        Nokogiri::HTML(mutated_html_body).xpath('//h2').map(&:content)
+      ).to match_array(['Some subsection 2'])
     end
 
     it 'removes unwanted copy' do
