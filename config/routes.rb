@@ -99,6 +99,8 @@ Rails.application.routes.draw do
     get 'link-expired', to: 'users#link_expired'
     get '/sign-in/:token', to: 'passwordless/sessions#show', authenticatable: 'user', as: :token_sign_in
 
+    post 'update-cookie-preferences', to: 'cookies#update'
+
     root to: 'home#index'
   end
 end

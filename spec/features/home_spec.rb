@@ -38,7 +38,7 @@ RSpec.feature 'Navigation from home page' do
   scenario 'User can access the cookies policy page from the cookies modal', :js do
     visit(root_path)
 
-    click_on('Cookie settings')
+    click_on('cookies policy')
 
     expect(page).to have_text('Cookies are used')
   end

@@ -1,5 +1,19 @@
-.cookies-modal {
+.js-enabled {
+  .cookies-modal-details {
+    display: inline-block;
+  }
+
+  .cookies-modal-summary {
+    display: none;
+  }
+}
+
+.cookies-modal-details {
   display: none;
+}
+
+
+.cookies-modal {
   position: fixed;
   z-index: 1000;
   left: 0;

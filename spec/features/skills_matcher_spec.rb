@@ -20,7 +20,7 @@ RSpec.feature 'Skills matcher', type: :feature do
 
   def visit_skills_for_current_job_profile(js_enabled = false)
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
-    click_on('Accept cookies') if js_enabled
+    click_on('Accept all cookies') if js_enabled
     click_on('Select these skills')
     click_on('Find out what you can do with these skills')
   end
