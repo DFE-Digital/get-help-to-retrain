@@ -130,4 +130,43 @@ RSpec.describe ApplicationHelper do
       expect(helper.back_link).to eq('<a class="govuk-back-link" href="/">Back</a>')
     end
   end
+
+  describe '.show_cookie_banner?' do
+    let(:user_session) { UserSession.new(session) }
+
+    before do
+      helper.singleton_class.class_eval do
+        def user_session
+          UserSession.new(session)
+        end
+      end
+    end
+
+    it 'returns false if current page is the cookie policy' do
+      allow(helper).to receive(:current_page?).and_return true
+
+      expect(helper).not_to be_show_cookie_banner
+    end
+
+    it 'returns true if current page is not the cookie policy, and cookie is empty' do
+      allow(helper).to receive(:current_page?).and_return false
+
+      expect(helper).to be_show_cookie_banner
+    end
+
+    it 'returns true if current page is not cookie policy, ghtr cookie is present and no user session cookie present' do
+      allow(helper).to receive(:current_page?).and_return false
+      allow(helper).to receive(:cookies).and_return('_get_help_to_retrain_session' => true)
+
+      expect(helper).to be_show_cookie_banner
+    end
+
+    it 'returns false if current page is not cookie policy, and both cookie and session are present' do
+      allow(helper).to receive(:current_page?).and_return false
+      allow(helper).to receive(:cookies).and_return('_get_help_to_retrain_session' => true)
+      user_session.cookies = true
+
+      expect(helper).not_to be_show_cookie_banner
+    end
+  end
 end

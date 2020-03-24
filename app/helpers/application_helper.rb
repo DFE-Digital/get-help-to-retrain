@@ -33,4 +33,10 @@ module ApplicationHelper
 
     link_to('Back', back_url, class: 'govuk-back-link')
   end
+
+  def show_cookie_banner?
+    return if current_page?(cookies_policy_path)
+
+    cookies['_get_help_to_retrain_session'].blank? || user_session.cookies.nil?
+  end
 end
