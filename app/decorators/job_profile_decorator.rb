@@ -20,7 +20,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     working_environment: "//section[@id='WhatYouWillDo']//section[contains(@class, 'job-profile-subsection') and contains(@id, 'workingenvironment')]",
     career_path: "//section[@id='CareerPathAndProgression']",
     restrictions_and_requirements: "//section[@id='Skills']//section[contains(@class, 'job-profile-subsection') and (contains(@id, 'restrictions'))]",
-    career_tips: "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']",
+    more_information: "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'moreinfo')]//div[@class='job-profile-subsection-content']",
     other_routes: "//section[contains(@class, 'job-profile-subsection') and contains (@id, 'otherroutes')]"
   }.freeze
   # rubocop:enable Metrics/LineLength
@@ -78,7 +78,7 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     @fragment_section = Nokogiri::HTML(doc.to_html)
 
     mutate_apprenticeship_content if key == :apprenticeship
-    mutate_html_body
+    mutate_html_body_for(key)
 
     strip_links(@fragment_section.to_html).html_safe
   end
@@ -141,18 +141,22 @@ class JobProfileDecorator < SimpleDelegator # rubocop:disable Metrics/ClassLengt
     entry_requirements.remove
   end
 
-  def mutate_html_body
+  def mutate_html_body_for(key)
     mutate_h3_tags
     mutate_h4_tags
-    remove_h2_tags
+    mutate_h2_tags(key)
     mutate_p_tags
     mutate_ul_tags
   end
 
-  def remove_h2_tags
+  def mutate_h2_tags(key)
     h2_instances = @fragment_section.xpath('//h2')
 
-    h2_instances.first.remove if h2_instances.present?
+    return unless h2_instances.present?
+
+    h2_instances.first.remove unless key == :more_information && h2_instances.count > 1
+
+    h2_instances.each { |h2_tag| h2_tag['class'] = 'govuk-heading-s' }
   end
 
   def mutate_h3_tags

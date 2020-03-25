@@ -352,6 +352,45 @@ RSpec.describe JobProfileDecorator do
       end
     end
 
+    context 'when rendering the More information that has more than one headers' do
+      let(:html_body) do
+        '<section class="job-profile-subsection" id="moreinfo">
+          <div class="job-profile-subsection-content">
+            <h3>Career Tips</h3>
+            <h3>Further Information</h3>
+            <p class=\"govuk-body-m\">You can find out more about careers in management consultancy from the <a href=\"https://www.mca.org.uk/career-development/careers-advice/\">Management Consultancies\nAssociation</a> and the <a href=\"http://www.managers.org.uk\">Chartered Management\nInstitute</a>.</p>
+          </div>
+        </section>'
+      end
+
+      let(:section_key) { :more_information }
+
+      it 'does not remove any of the h2 tags' do
+        expect(
+          Nokogiri::HTML(mutated_html_body).xpath('//h2').map(&:content)
+        ).to match_array(['Career Tips', 'Further Information'])
+      end
+    end
+
+    context 'when rendering the More information that has exactly one headers' do
+      let(:html_body) do
+        '<section class="job-profile-subsection" id="moreinfo">
+          <div class="job-profile-subsection-content">
+            <h3>Career Tips</h3>
+            <p class=\"govuk-body-m\">You can find out more about careers in management consultancy from the <a href=\"https://www.mca.org.uk/career-development/careers-advice/\">Management Consultancies\nAssociation</a> and the <a href=\"http://www.managers.org.uk\">Chartered Management\nInstitute</a>.</p>
+          </div>
+        </section>'
+      end
+
+      let(:section_key) { :more_information }
+
+      it 'does remove the only h2 tag' do
+        expect(
+          Nokogiri::HTML(mutated_html_body).xpath('//h2').map(&:content)
+        ).to be_empty
+      end
+    end
+
     it 'mutates the html snippet to use our styles' do
       mutated_tags.each do |tag|
         expect(mutated_html_body).to include(tag)
