@@ -6,53 +6,124 @@ namespace :data_import do
     print 'Updating recommended flag for all job profiles'
     if JobProfile.any?
       non_recommended_jobs = JobProfile.where(slug: %w[
+                                                acoustics-consultant
+                                                actor
                                                 advertising-art-director
                                                 advertising-media-buyer
+                                                aerospace-engineer
+                                                airline-pilot
                                                 anaesthetist
+                                                analytical-textile-technologist
                                                 archaeologist
+                                                architect
+                                                architectural-technologist
                                                 archivist
                                                 art-therapist
+                                                art-valuer
                                                 astronaut
                                                 astronomer
+                                                athlete
                                                 audiologist
+                                                auditor
                                                 barrister
+                                                bilingual-secretary
                                                 biochemist
+                                                biologist
+                                                biomedical-scientist
+                                                biotechnologist
                                                 botanist
+                                                british-sign-language-interpreter
+                                                british-sign-language-teacher
+                                                chemical-engineer
+                                                chemist
+                                                chief-executive
+                                                chief-inspector
+                                                children's-nurse
+                                                chimney-sweep
                                                 chiropractor
+                                                choreographer
+                                                circus-performer
+                                                classical-musician
                                                 climate-scientist
+                                                clinical-engineer
                                                 clinical-psychologist
+                                                clinical-scientist
                                                 cognitive-behavioural-therapist
+                                                community-matron
+                                                company-secretary
                                                 consumer-scientist
+                                                coroner
                                                 court-legal-adviser
+                                                cricketer
                                                 criminologist
                                                 critical-care-technologist
                                                 crown-prosecutor
+                                                cycling-coach
                                                 dance-movement-psychotherapist
+                                                dance-teacher
+                                                dancer
                                                 data-analyst-statistician
                                                 dental-hygienist
                                                 dentist
+                                                dietitian
                                                 dispensing-optician
+                                                district-nurse
                                                 dramatherapist
+                                                early-years-teacher
                                                 ecologist
+                                                economist
                                                 environmental-consultant
                                                 ergonomist
+                                                european-union-official
+                                                fashion-model
+                                                fine-artist
+                                                football-coach
+                                                football-referee
+                                                footballer
                                                 forensic-psychologist
+                                                forensic-scientist
                                                 geneticist
                                                 geoscientist
                                                 gp
+                                                head-of-it-(it-director)
                                                 headteacher
                                                 health-play-specialist
                                                 health-visitor
+                                                helicopter-pilot
+                                                higher-education-lecturer
+                                                horse-riding-instructor
                                                 hospital-doctor
+                                                interpreter
+                                                investment-analyst
+                                                jockey
+                                                land-and-property-valuer-and-auctioneer
+                                                land-surveyor
+                                                landscape-architect
+                                                learning-disability-nurse
+                                                librarian
+                                                management-accountant
+                                                marketing-director
+                                                martial-arts-instructor
                                                 materials-engineer
                                                 medical-herbalist
                                                 medical-illustrator
+                                                medical-physicist
+                                                mental-health-nurse
+                                                merchant-navy-deck-officer
+                                                meteorologist
+                                                microbiologist
+                                                mp
+                                                museum-curator
+                                                music-teacher
                                                 music-therapist
                                                 nanotechnologist
                                                 naturopath
                                                 naval-architect
+                                                nuclear-engineer
                                                 nutritional-therapist
                                                 nutritionist
+                                                occupational-health-nurse
+                                                occupational-therapist
                                                 oceanographer
                                                 oil-and-gas-operations-manager
                                                 operational-researcher
@@ -64,26 +135,62 @@ namespace :data_import do
                                                 palaeontologist
                                                 patent-attorney
                                                 pathologist
+                                                pe-teacher
                                                 pharmacist
                                                 pharmacologist
                                                 physicist
+                                                physiotherapist
+                                                planning-and-development-surveyor
                                                 play-therapist
+                                                podiatrist
+                                                pop-musician
+                                                practice-nurse
+                                                primary-care-graduate-mental-health-worker
+                                                primary-school-teacher
+                                                private-practice-accountant
+                                                prosthetist-orthotist
                                                 psychiatrist
                                                 psychologist
+                                                psychotherapist
+                                                public-finance-accountant
+                                                public-relations-director
+                                                quantity-surveyor
+                                                racehorse-trainer
+                                                radiographer
+                                                raf-officer
+                                                religious-leader
                                                 research-and-development-manager
                                                 research-scientist
+                                                riding-holiday-leader
+                                                royal-marines-officer
                                                 royal-navy-officer
+                                                rural-surveyor
+                                                sailing-instructor
                                                 school-nurse
+                                                secondary-school-teacher
                                                 seismologist
+                                                singing-teacher
+                                                social-worker
+                                                solicitor
+                                                solutions-architect
+                                                special-educational-needs-(sen)-teacher
                                                 speech-and-language-therapist
                                                 sport-and-exercise-psychologist
+                                                sports-commentator
+                                                sports-physiotherapist
+                                                sports-professional
                                                 sports-scientist
+                                                stockbroker
+                                                stunt-performer
                                                 surgeon
+                                                technical-architect
                                                 technical-textiles-designer
+                                                town-planner
+                                                trade-mark-attorney
                                                 translator
                                                 vet
+                                                veterinary-physiotherapist
                                                 zoologist
-                                                european-union-official
                                               ])
 
       JobProfile.update_all(recommended: true)
