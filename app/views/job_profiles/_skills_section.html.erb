@@ -1,17 +1,27 @@
-<h2 class="govuk-heading-m">Skills and knowledge</h2>
-<p class="govuk-body-m">Employers may ask for these skills for this type of work.</p>
-<% if @existing_skills.any? %>
-  <h3 class="govuk-heading-s">Skills you have</h3>
-  <ul class="govuk-list govuk-list--bullet">
-    <%= render partial: "skills/skill", collection: @existing_skills, as: :name %>
-  </ul>
-<% end %>
-<% if @skills_to_develop.any? %>
-  <h3 class="govuk-heading-s">Skills you may need to develop</h3>
-  <ul class="govuk-list govuk-list--bullet">
-    <%= render partial: "skills/skill", collection: @skills_to_develop, as: :name %>
-  </ul>
-<% end %>
-<p class="govuk-body-m">
-  You may not need all of these skills to apply for this type of work. Select this type of work and we’ll help you create an action plan to fill any skills gaps and change jobs. Many people can train for free and you maybe able to get help with training costs such as travel and childcare expenses.
-</p>
+<div class="govuk-accordion__section ">
+  <div class="govuk-accordion__section-header">
+    <h2 class="govuk-accordion__section-heading">
+      <span class="govuk-accordion__section-button" id="accordion-<%= @job_profile.slug %>-heading-<%= item_order %>">
+        Skills and knowledge
+      </span>
+    </h2>
+  </div>
+  <div id="accordion-<%= @job_profile.slug %>-content-<%= item_order %>" class="govuk-accordion__section-content" aria-labelledby="accordion-<%= @job_profile.slug %>-heading-<%= item_order %>">
+    <p class="govuk-body-m">Employers may ask for these skills for this type of work.</p>
+    <% if @existing_skills.any? %>
+      <h3 class="govuk-heading-s">Skills you have</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <%= render partial: "skills/skill", collection: @existing_skills, as: :name %>
+      </ul>
+    <% end %>
+    <% if @skills_to_develop.any? %>
+      <h3 class="govuk-heading-s">Skills you may need to develop</h3>
+      <ul class="govuk-list govuk-list--bullet">
+        <%= render partial: "skills/skill", collection: @skills_to_develop, as: :name %>
+      </ul>
+    <% end %>
+    <p class="govuk-body-m">
+      You may not need all of these skills to apply for this type of work. Select this type of work and we’ll help you create an action plan to fill any skills gaps and change jobs. Many people can train for free and you maybe able to get help with training costs such as travel and childcare expenses.
+    </p>
+  </div>
+</div>

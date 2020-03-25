@@ -209,3 +209,7 @@
     flex-basis: 10%;
   }
 }
+
+.govuk-accordion__section-custom:last-child {
+  border-bottom: 7px solid govuk-colour("blue");
+}
