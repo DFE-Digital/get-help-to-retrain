@@ -14,8 +14,7 @@ RSpec.describe UserSession do
         'session_id' => 2,
         'training' => ['english_skills'],
         'job_hunting' => ['cv'],
-        'skills_matcher_sort' => 'growth',
-        'cookies' => false
+        'skills_matcher_sort' => 'growth'
       }
       new_session = { 'session_id' => 1 }
       described_class.merge_sessions(new_session: new_session, previous_session_data: old_session)
@@ -27,8 +26,7 @@ RSpec.describe UserSession do
         'session_id' => 1,
         'training' => ['english_skills'],
         'job_hunting' => ['cv'],
-        'skills_matcher_sort' => 'growth',
-        'cookies' => false
+        'skills_matcher_sort' => 'growth'
       )
     end
 
