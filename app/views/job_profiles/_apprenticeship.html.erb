@@ -4,12 +4,12 @@
   <div class="govuk-accordion__section ">
     <div class="govuk-accordion__section-header">
       <h2 class="govuk-accordion__section-heading">
-        <span class="govuk-accordion__section-button" id="accordion-default-heading-<%= item_order %>">
+        <span class="govuk-accordion__section-button" id="accordion-<%= @job_profile.slug %>-heading-<%= item_order %>">
           Apprenticeship
         </span>
       </h2>
     </div>
-    <div id="accordion-default-content-<%= item_order %>" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-<%= item_order %>">
+    <div id="accordion-<%= @job_profile.slug %>-content-<%= item_order %>" class="govuk-accordion__section-content" aria-labelledby="accordion-<%= @job_profile.slug %>-heading-<%= item_order %>">
       <p class="govuk-body-m">You can do an apprenticeship at any age. You may be able to earn the same money and work at the same level as you do now.</p>
       <%= apprenticeship_section.html_safe %>
     </div>

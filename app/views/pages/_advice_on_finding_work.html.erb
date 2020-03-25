@@ -1,12 +1,12 @@
 <div class="govuk-accordion__section">
   <div class="govuk-accordion__section-header">
     <h2 class="govuk-accordion__section-heading">
-      <span class="govuk-accordion__section-button" id="accordion-default-heading-<%= item_order %>">
+      <span class="govuk-accordion__section-button" id="accordion-<%= key %>-heading-<%= item_order %>">
         Get more advice on finding work
       </span>
     </h2>
   </div>
-  <div id="accordion-default-content-<%= item_order %>" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-<%= item_order %>">
+  <div id="accordion-<%= key %>-content-<%= item_order %>" class="govuk-accordion__section-content" aria-labelledby="accordion-<%= key %>-heading-<%= item_order %>">
     <p class="govuk-body">For more advice on how to look for and apply for jobs, visit the National Careers Service. Selecting this option will take you to another government service.</p>
     <%= link_to 'Go to National Careers Service', 'https://nationalcareers.service.gov.uk/get-a-job', class: 'govuk-link' %>
   </div>
