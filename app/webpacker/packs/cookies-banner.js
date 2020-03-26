@@ -9,7 +9,7 @@ function CookiesBanner () {
   }
 
   function displayCookiesModalButton(modalElement) {
-    document.querySelector('#cookies-partial-button').className = 'govuk-button govuk-button--secondary';
+    document.querySelector('#cookies-necessary-button').className = 'govuk-button govuk-button--secondary';
   }
 
   function trapFocus(element) {

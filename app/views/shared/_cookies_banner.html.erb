@@ -1,22 +1,17 @@
 <div id="cookies-banner" class="cookies-modal">
-  <header class="govuk-header" role="banner" data-module="govuk-header" id="govuk-header">
-    <div class="govuk-header__container govuk-width-container govuk-!-padding-bottom-2">
-      <%= render 'shared/navigation/header_logo' %>
-      <%= render 'shared/navigation/main_header' %>
-    </div>
-  </header>
+  <%= render partial: 'shared/header', locals: { container_class: ' govuk-!-padding-bottom-2' } %>
   <div class="cookies-modal-content govuk-clearfix" id="cookies-modal">
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class=" govuk-grid-column-full">
           <div class="govuk-main-wrapper govuk-!-padding-top-1 govuk-!-padding-bottom-1" role="region" aria-label="cookie banner">
-        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">This service uses cookie</p>
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">This service uses cookies</p>
         <p class="govuk-body cookies-modal-summary">This service uses necessary cookies to make our service work.</p>
         <p class="govuk-body cookies-modal-details">This service uses necessary cookies to make our service work. We would also like to set optional cookies to help us improve it. We won’t set optional cookies unless you agree that we can enable them.</p>
 
         <%= form_with local: true, url: update_cookie_preferences_path do %>
           <%= submit_tag('Accept all cookies', name: 'cookies[all]', role: 'button', class: 'govuk-button govuk-button--primary govuk-!-margin-right-5 cookies-modal-details', data: { module: 'govuk-button' }) %>
-          <%= submit_tag('Accept necessary cookies only', name: 'cookies[partial]', role: 'button', class: 'govuk-button govuk-button--primary', id: 'cookies-partial-button', data: { module: 'govuk-button' }) %>
+          <%= submit_tag('Accept necessary cookies only', name: 'cookies[necessary]', role: 'button', class: 'govuk-button govuk-button--primary', id: 'cookies-necessary-button', data: { module: 'govuk-button' }) %>
         <% end %>
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">Necessary cookies</p>
         <p class="govuk-body">Necessary cookies do things such as remember your postcode so the service can recommend local courses and jobs. You can disable necessary cookies by changing your browser settings but this will mean the service can’t offer you as many features.</p>

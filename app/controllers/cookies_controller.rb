@@ -2,7 +2,7 @@ class CookiesController < ApplicationController
   def update
     if cookies_params[:cookies][:all]
       user_session.cookies = true
-    elsif cookies_params[:cookies][:partial]
+    elsif cookies_params[:cookies][:necessary]
       user_session.cookies = false
     end
 
@@ -12,6 +12,6 @@ class CookiesController < ApplicationController
   private
 
   def cookies_params
-    params.permit(:authenticity_token, cookies: %i[all partial])
+    params.permit(:authenticity_token, cookies: %i[all necessary])
   end
 end
