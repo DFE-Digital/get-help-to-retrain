@@ -80,6 +80,14 @@ class UserSession # rubocop:disable Metrics/ClassLength
     session[:job_hunting] = value
   end
 
+  def cookies
+    session[:cookies]
+  end
+
+  def cookies=(value)
+    session[:cookies] = value
+  end
+
   def target_job?
     session[:target_job_id].present?
   end

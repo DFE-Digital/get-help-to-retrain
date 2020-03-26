@@ -52,13 +52,13 @@ RSpec.feature 'User Feedback In Page Survey' do
 
   def answer_yes
     visit(task_list_path)
-    click_on('Accept cookies')
+    click_on('Accept all cookies')
     click_on('Yes')
   end
 
   def answer_no
     visit(task_list_path)
-    click_on('Accept cookies')
+    click_on('Accept all cookies')
     click_on('No')
   end
 end

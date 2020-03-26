@@ -127,6 +127,18 @@ RSpec.describe UserSession do
     end
   end
 
+  describe '#cookies' do
+    it 'returns cookies if set' do
+      user_session.cookies = true
+
+      expect(user_session.cookies).to eq(true)
+    end
+
+    it 'returns nil if no cookies set' do
+      expect(user_session.cookies).to be_nil
+    end
+  end
+
   describe '#registered' do
     it 'returns registered value if set' do
       user_session.registered = true

@@ -23,7 +23,7 @@ class TrackingService
   def track_events(props:)
     raise MissingAttributesError, 'Event props must be present' unless props.present?
 
-    return unless ga_tracking_id
+    return unless ga_tracking_id && client_tracking_data[:ga_cookie].present?
 
     send_events(props)
   rescue StandardError => e
