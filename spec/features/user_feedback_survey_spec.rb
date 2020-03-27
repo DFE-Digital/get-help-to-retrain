@@ -13,7 +13,7 @@ RSpec.feature 'User Feedback In Page Survey' do
 
     expect(FeedbackSurvey.first.attributes).to include(
       'page_useful' => 'yes',
-      'url' => /task-list/
+      'url' => /steps/
     )
   end
 
@@ -46,7 +46,7 @@ RSpec.feature 'User Feedback In Page Survey' do
     expect(FeedbackSurvey.first.attributes).to include(
       'message' => 'Page was not useful',
       'page_useful' => 'no',
-      'url' => /task-list/
+      'url' => /steps/
     )
   end
 

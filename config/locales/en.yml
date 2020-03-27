@@ -36,49 +36,50 @@ en-GB:
 
   page_titles:
     default: Get help to retrain
-    home_index: Get help to retrain - Home
-    check_your_skills_index: Get help to retrain - Check your skills
-    check_your_skills_results: Get help to retrain - Check your skills results
-    skills_index: Get help to retrain - Your skills
-    skills_current_job_skills: Get help to retrain - Current job skills
-    skills_matcher_index: Get help to retrain - Your job matches
-    job_profiles_index: Get help to retrain - Search for a type of work
-    job_profiles_results: Get help to retrain - Search for a type of work results
-    job_profiles_show: Get help to retrain - Job profile
-    courses_index: Get help to retrain - Courses near me
-    courses_show: Get help to retrain - Courses details
-    pages_task_list: Get help to retrain - Tasks
-    pages_cookies_policy: Get help to retrain - Cookies policy
-    pages_privacy_policy: Get help to retrain - Privacy policy
-    pages_location_ineligible: Get help to retrain - No courses in your area
-    pages_action_plan: Get help to retrain - Action plan
-    pages_offers_near_me: Get help to retrain - Offers near me
-    pages_cv_advice: Get help to retrain - CV advice
-    pages_cover_letter_advice: Get help to retrain - Cover letter advice
-    pages_interview_advice: Get help to retrain - Interview advice
-    pages_information_sources: Get help to retrain - Information sources
-    pages_accessibility_statement: Get help to retrain - Accessibility
-    pages_terms_and_conditions: Get help to retrain - Terms and Conditions
-    training_questions: Get help to retrain - Training options
-    edit_training_questions: Get help to retrain - Edit your training choices
-    job_hunting_questions: Get help to retrain - Job hunting advice
-    user_personal_data: Get help to retrain - Your information
-    jobs_near_me: Get help to retrain - Jobs near me
-    errors_not_found: Get help to retrain - Not found
-    errors_unprocessable_entity: Get help to retrain - Unprocessable entity
-    errors_internal_server_error: Get help to retrain - Internal server error
-    errors_postcode_search_error: Get help to retrain - Postcode search error
-    errors_jobs_near_me_error: Get help to retrain - Jobs near me error
-    errors_courses_near_me_error: Get help to retrain - Courses near me error
-    errors_return_to_saved_results_error: Get help to retrain - Return to saved results error
-    errors_save_results_error: Get help to retrain - Save your results error
-    save_your_results: Get help to retrain - Save your results
-    return_to_saved_results: Get help to retrain - Return to saved results
-    link_sent: Get help to retrain - Link sent
-    results_saved: Get help to retrain - Results saved
-    email_sent_again: Get help to retrain - Email sent again
-    link_sent_again: Get help to retrain - Link sent again
-    link_expired: Get help to retrain - Link expired
+    home_index: Home - Get help to retrain
+    check_your_skills_index: Check your skills - Get help to retrain
+    check_your_skills_results: Check your skills results - Get help to retrain
+    skills_index: Your skills - Get help to retrain
+    skills_current_job_skills: Current job skills - Get help to retrain
+    skills_matcher_index: Your job matches - Get help to retrain
+    job_profiles_index: Search for a type of work - Get help to retrain
+    job_profiles_results: Search for a type of work results - Get help to retrain
+    job_profiles_show: Job profile details - Get help to retrain
+    courses_index: Courses near you - Get help to retrain
+    courses_show: Course details - Get help to retrain
+    pages_task_list: Steps - Get help to retrain
+    pages_cookies_policy: Cookies policy - Get help to retrain
+    pages_privacy_policy: Privacy policy - Get help to retrain
+    pages_location_ineligible: No courses in your area - Get help to retrain
+    pages_action_plan: Action plan - Get help to retrain
+    pages_offers_near_me: Offers near you - Get help to retrain
+    pages_cv_advice: CV advice - Get help to retrain
+    pages_cover_letter_advice: Cover letter advice - Get help to retrain
+    pages_interview_advice: Interview advice - Get help to retrain
+    pages_information_sources: Information sources - Get help to retrain
+    pages_accessibility_statement: Accessibility - Get help to retrain
+    pages_terms_and_conditions: Terms and Conditions - Get help to retrain
+    training_questions: Maths and English training - Get help to retrain
+    it_training_questions: Computer skills training - Get help to retrain
+    edit_training_questions: Edit your training choices - Get help to retrain
+    job_hunting_questions: Job hunting advice - Get help to retrain
+    user_personal_data: Your information - Get help to retrain
+    jobs_near_me: Jobs near you - Get help to retrain
+    errors_not_found: Not found - Get help to retrain
+    errors_unprocessable_entity: Unprocessable entity - Get help to retrain
+    errors_internal_server_error: Internal server error - Get help to retrain
+    errors_postcode_search_error: Postcode search error - Get help to retrain
+    errors_jobs_near_me_error: Jobs near you error - Get help to retrain
+    errors_courses_near_me_error: Courses near you error - Get help to retrain
+    errors_return_to_saved_results_error: Return to saved progress error - Get help to retrain
+    errors_save_results_error: Save your progress error - Get help to retrain
+    save_your_results: Save your progress - Get help to retrain
+    return_to_saved_results: Return to saved progress - Get help to retrain
+    link_sent: Link sent - Get help to retrain
+    results_saved: Progress saved - Get help to retrain
+    email_sent_again: Email sent again - Get help to retrain
+    link_sent_again: Link sent again - Get help to retrain
+    link_expired: Link expired - Get help to retrain
 
   events:
     pages_location_eligibility_search: Your location - Postcode search

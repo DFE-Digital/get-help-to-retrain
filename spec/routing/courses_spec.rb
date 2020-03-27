@@ -27,7 +27,7 @@ RSpec.describe 'routes for Courses', type: :routing do
     end
 
     it 'does not route to errors#courses_near_me_error' do
-      expect(get('/courses-near-me-error')).not_to be_routable
+      expect(get('/courses-near-you-error')).not_to be_routable
     end
   end
 
@@ -52,7 +52,7 @@ RSpec.describe 'routes for Courses', type: :routing do
 
     it 'does route to errors#courses_near_me_error' do
       expect(
-        get('/courses-near-me-error')
+        get('/courses-near-you-error')
       ).to route_to(controller: 'errors', action: 'courses_near_me_error')
     end
   end

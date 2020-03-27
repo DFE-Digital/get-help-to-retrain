@@ -4,7 +4,7 @@ RSpec.describe ApplicationHelper do
   describe '.page_title' do
     it 'returns correct translated page title' do
       helper.page_title(:home_index)
-      expect(helper.content_for(:page_title)).to eq 'Get help to retrain - Home'
+      expect(helper.content_for(:page_title)).to eq 'Home - Get help to retrain'
     end
 
     it 'warns of missing translations' do

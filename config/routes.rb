@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get '/422', to: 'errors#unprocessable_entity', via: :all
     get '/500', to: 'errors#internal_server_error', via: :all
 
-    get 'task-list', to: 'pages#task_list'
+    get 'steps', as: :task_list, to: 'pages#task_list'
     get 'cookies-policy', to: 'pages#cookies_policy'
     get 'privacy-policy', to: 'pages#privacy_policy'
     get 'information-sources', to: 'pages#information_sources'
@@ -29,10 +29,10 @@ Rails.application.routes.draw do
 
     get 'action-plan', to: 'pages#action_plan'
     match(
-      'jobs-near-me',
+      'jobs-near-you',
       to: 'job_vacancies#index', as: :jobs_near_me, via: %i[get post]
     )
-    get 'offers-near-me', to: 'pages#offers_near_me'
+    get 'offers-near-you', as: 'offers-near-me', to: 'pages#offers_near_me'
     get 'cv-advice', to: 'pages#cv_advice'
     get 'cover-letter-advice', to: 'pages#cover_letter_advice'
     get 'interview-advice', to: 'pages#interview_advice'
@@ -45,12 +45,12 @@ Rails.application.routes.draw do
     get 'job-hunting-questions', to: 'questions#job_hunting'
     post 'job-hunting-questions', to: 'questions#job_hunting_answers'
     get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
-    get 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
-    get 'save-results-error', to: 'errors#save_results_error'
-
+    get 'return-to-saved-progress-error',
+        as: 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
+    get 'save-your-progress-error', as: 'save-results-error', to: 'errors#save_results_error'
     get 'location-ineligible', to: 'pages#location_ineligible'
     get 'postcode-search-error', to: 'errors#postcode_search_error'
-    get 'jobs-near-me-error', to: 'errors#jobs_near_me_error'
+    get 'jobs-near-you-error', as: 'jobs-near-me-error', to: 'errors#jobs_near_me_error'
 
     match(
       'courses/:topic_id',
@@ -63,7 +63,7 @@ Rails.application.routes.draw do
         to: 'courses#show', as: :course_details, via: :get, constraints: { topic_id: /maths|english/ }
       )
 
-      get 'courses-near-me-error', to: 'errors#courses_near_me_error'
+      get 'courses-near-you-error', as: 'courses-near-me-error', to: 'errors#courses_near_me_error'
     end
 
     resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
@@ -79,7 +79,8 @@ Rails.application.routes.draw do
     end
 
     resources :skills_matcher, path: 'job-matches', only: %i[index]
-    resources :skills, only: %i[index]
+
+    get 'your-skills', as: :skills, to: 'skills#index'
 
     get 'your-information', to: 'user_personal_data#index'
     post 'your-information', to: 'user_personal_data#create'
@@ -88,12 +89,12 @@ Rails.application.routes.draw do
 
     resources :feedback_surveys, only: %i[create]
 
-    get 'save-your-results', to: 'users#new'
-    post 'save-your-results', to: 'users#create'
+    get 'save-your-progress', as: 'save-your-results', to: 'users#new'
+    post 'save-your-progress', to: 'users#create'
     post 'email-sent-again', to: 'users#registration_send_email_again'
 
-    get 'return-to-saved-results', to: 'users#return_to_saved_results'
-    post 'return-to-saved-results', to: 'users#sign_in'
+    get 'return-to-saved-progress', as: 'return-to-saved-results', to: 'users#return_to_saved_results'
+    post 'return-to-saved-progress', to: 'users#sign_in'
     post 'link-sent-again', to: 'users#sign_in_send_email_again'
 
     get 'link-expired', to: 'users#link_expired'
