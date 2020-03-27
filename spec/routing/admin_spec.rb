@@ -46,7 +46,7 @@ RSpec.describe 'routes for admin pages', type: :routing do
     end
 
     it 'does not route requests to main application' do
-      expect(get('/task-list')).not_to be_routable
+      expect(get('/steps')).not_to be_routable
     end
   end
 
@@ -88,7 +88,7 @@ RSpec.describe 'routes for admin pages', type: :routing do
     end
 
     it 'routes requests to main application' do
-      expect(get('/task-list')).to route_to(controller: 'pages', action: 'task_list')
+      expect(get('/steps')).to route_to(controller: 'pages', action: 'task_list')
     end
   end
 end
