@@ -45,7 +45,8 @@ Rails.application.routes.draw do
     get 'job-hunting-questions', to: 'questions#job_hunting'
     post 'job-hunting-questions', to: 'questions#job_hunting_answers'
     get 'course-postcode-search-error', to: 'errors#course_postcode_search_error'
-    get 'return-to-saved-progress-error', as: 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
+    get 'return-to-saved-progress-error',
+        as: 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
     get 'save-your-progress-error', as: 'save-results-error', to: 'errors#save_results_error'
     get 'location-ineligible', to: 'pages#location_ineligible'
     get 'postcode-search-error', to: 'errors#postcode_search_error'
