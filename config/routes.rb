@@ -63,7 +63,7 @@ Rails.application.routes.draw do
         to: 'courses#show', as: :course_details, via: :get, constraints: { topic_id: /maths|english/ }
       )
 
-      get 'courses-near-me-error', to: 'errors#courses_near_me_error'
+      get 'courses-near-you-error', as: 'courses-near-me-error', to: 'errors#courses_near_me_error'
     end
 
     resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
