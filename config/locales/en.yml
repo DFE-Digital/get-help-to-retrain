@@ -2,22 +2,23 @@ en-GB:
   breadcrumb:
     home: Home
     action_plan: Action plan
-    offers_near_me: Offers near me
+    offers_near_me: Offers near you
     training_questions: Training options
     edit_training_questions: Edit your training choices
     it_training_questions: Computer skills training
     job_hunting_questions: Job hunting advice
-    jobs_near_me: Jobs near me
-    task_list: Get help to retrain
+    jobs_near_me: Jobs near you
+    task_list: Steps
     task_list_home: 'Home: Get help to retrain'
-    check_your_skills: Check your existing skills
+    check_your_skills: Check your skills
     job_matches: Your job matches
     search_results: Search results
-    job_profiles_search: Your job matches
+    search_your_skills_results: Check your skills results
+    job_profiles_search: Your work matches
     job_profile: Job profile details
     your_skills: Your skills
-    training_courses_near_you: Find and apply to training courses near you
-    csv_courses_training_courses_near_you: Training courses near you
+    training_courses_near_you: Courses near you
+    csv_courses_training_courses_near_you: Courses near you
     course_details: Course details
     location_ineligible: No courses in your area
     current_job_skills: Job skills
@@ -40,7 +41,7 @@ en-GB:
     check_your_skills_index: Check your skills - Get help to retrain
     check_your_skills_results: Check your skills results - Get help to retrain
     skills_index: Your skills - Get help to retrain
-    skills_current_job_skills: Current job skills - Get help to retrain
+    skills_current_job_skills: Job skills - Get help to retrain
     skills_matcher_index: Your job matches - Get help to retrain
     job_profiles_index: Search for a type of work - Get help to retrain
     job_profiles_results: Search for a type of work results - Get help to retrain

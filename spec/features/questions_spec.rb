@@ -9,11 +9,48 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(training_questions_path)
   end
 
+  scenario 'User can go back to previous page from training questions page' do
+    user_targets_job
+
+    click_on('Back')
+
+    expect(page).to have_current_path(job_profile_path(job_profile.slug))
+  end
+
+  scenario 'User defaults to going back to root path when deeplinking to training questions page on a non empty session and then hitting Back' do
+    user_targets_job
+
+    visit(training_questions_path)
+
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
+  end
+
   scenario 'User sees IT training questions when targetting a job' do
     user_targets_job
     click_on('Continue')
 
     expect(page).to have_current_path(it_training_questions_path)
+  end
+
+  scenario 'User can go back to previous page from IT training questions page' do
+    user_targets_job
+    click_on('Continue')
+
+    click_on('Back')
+
+    expect(page).to have_current_path(training_questions_path)
+  end
+
+  scenario 'User defaults to going back to root path when deeplinking to it training questions page on a non empty session and then hitting Back' do
+    user_targets_job
+
+    visit(it_training_questions_path)
+
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
   end
 
   scenario 'User sees job hunting questions when targetting a job' do
@@ -22,6 +59,26 @@ RSpec.feature 'Questions' do
     click_on('Continue')
 
     expect(page).to have_current_path(job_hunting_questions_path)
+  end
+
+  scenario 'User can go back to previous page from job hunting questions page' do
+    user_targets_job
+    click_on('Continue')
+    click_on('Continue')
+
+    click_on('Back')
+
+    expect(page).to have_current_path(it_training_questions_path)
+  end
+
+  scenario 'User defaults to going back to root path when deeplinking to job hunting questions page on a non empty session and then hitting Back' do
+    user_targets_job
+
+    visit(job_hunting_questions_path)
+
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
   end
 
   scenario 'User navigates to action plan after going through questions' do

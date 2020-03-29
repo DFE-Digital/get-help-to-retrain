@@ -1,9 +1,10 @@
 <% page_title :check_your_skills_results %>
 <% content_for :breadcrumb do
     generate_breadcrumbs(
-      t('breadcrumb.search_results'),
+      t('breadcrumb.search_your_skills_results'),
       [
-        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.task_list'), task_list_path],
         [t('breadcrumb.check_your_skills'), check_your_skills_path]
       ]
     )

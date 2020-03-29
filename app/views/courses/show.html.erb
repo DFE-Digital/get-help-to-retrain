@@ -4,7 +4,8 @@
     generate_breadcrumbs(
       t('breadcrumb.course_details'),
       [
-        [t('breadcrumb.task_list_home'), task_list_path],
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.task_list'), task_list_path],
         [t('breadcrumb.action_plan'), action_plan_path],
         [t('breadcrumb.csv_courses_training_courses_near_you'), courses_path(topic_id: params[:topic_id])]
       ]
