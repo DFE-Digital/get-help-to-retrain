@@ -17,7 +17,7 @@ RSpec.feature 'Task list', type: :feature do
     visit(task_list_path)
     click_on('Check your existing skills')
 
-    expect(page).to have_text('Check your existing skills')
+    expect(page).to have_text('Check your skills')
   end
 
   scenario 'User navigates to skills matcher results page' do

@@ -1,13 +1,6 @@
 <% page_title :email_sent_again %>
-<% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.email_sent_again'),
-      [
-        [t('breadcrumb.task_list_home'), task_list_path]
-      ]
-    )
-  end
-%>
+<%= back_link %>
+
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>

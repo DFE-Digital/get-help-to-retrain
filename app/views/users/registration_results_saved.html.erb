@@ -1,13 +1,6 @@
 <% page_title :results_saved %>
-<% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.results_saved'),
-      [
-        [t('breadcrumb.task_list_home'), task_list_path]
-      ]
-    )
-  end
-%>
+<%= back_link(custom_url: save_your_progress_path) %>
+
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>

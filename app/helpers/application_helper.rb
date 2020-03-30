@@ -28,15 +28,24 @@ module ApplicationHelper
     @target_job ||= JobProfile.find_by(id: user_session.target_job_id)
   end
 
-  def back_link
-    back_url = url_parser.get_redirect_path || root_path
-
-    link_to('Back', back_url, class: 'govuk-back-link')
+  def back_link(custom_url: nil, paths_to_ignore: [])
+    link_to('Back', custom_url || back_url(paths_to_ignore), class: 'govuk-back-link')
   end
 
   def show_cookie_banner?
     return if current_page?(cookies_policy_path)
 
     cookies['_get_help_to_retrain_session'].blank? || user_session.cookies.nil?
+  end
+
+  private
+
+  def back_url(paths_to_ignore)
+    url = url_parser.get_redirect_path(paths_to_ignore: paths_to_ignore)
+
+    return root_path unless url.present?
+    return task_list_path if request.original_url.include?(url)
+
+    url
   end
 end
