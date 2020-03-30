@@ -43,8 +43,7 @@ module ApplicationHelper
   def back_url(paths_to_ignore)
     url = url_parser.get_redirect_path(paths_to_ignore: paths_to_ignore)
 
-    return root_path unless url.present?
-    return task_list_path if request.original_url.include?(url)
+    return root_path if url.nil? || request.original_url.include?(url)
 
     url
   end

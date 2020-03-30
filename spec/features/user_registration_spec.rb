@@ -128,12 +128,12 @@ RSpec.feature 'User registration' do
     expect(page).to have_text(/Save your progress/)
   end
 
-  scenario 'User can go back to task list path after trying to send the email again' do
+  scenario 'User can go back to the root path after trying to send the email again' do
     register_user
     click_on('enter your email address again')
     click_on('Back')
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(root_path)
   end
 
   scenario 'User does not get error message if they enter their same email but different case' do
