@@ -1,6 +1,22 @@
 class JobProfileSearch
   include ActiveModel::Validations
 
+  EXACT_MATCH_RANK = {
+    name: { weight: 'A', score: '4|1' },
+    alternative_titles: { weight: 'AB', score: '4|32' },
+    specialism: { weight: 'ABC', score: '4|1|32' },
+    hidden_titles: { weight: 'ABC', score: '4|1|32' },
+    description: { weight: 'ABCD', score: '4|8|32' }
+  }.freeze
+
+  PARTIAL_MATCH_RANK = {
+    name: { weight: 'A', score: '4|2' },
+    alternative_titles: { weight: 'B', score: '8|2' },
+    specialism: { weight: 'C', score: 0 },
+    hidden_titles: { weight: 'C', score: 0 },
+    description: { weight: 'D', score: '4|8' }
+  }.freeze
+
   attr_reader :term, :profile_ids_to_exclude
   validates :term, presence: { message: I18n.t('job_profiles_search.no_term_error') }
 
@@ -12,10 +28,15 @@ class JobProfileSearch
   def search
     return JobProfile.none unless valid?
 
-    JobProfile.select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth)
-              .where(build_text_search_query, query_string: query_string)
-              .where.not(id: profile_ids_to_exclude)
-              .order(Arel.sql(build_rank_query) => :desc, name: :asc)
+    JobProfile
+      .select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth)
+      .where(build_text_search_query, query_string: query_string)
+      .where.not(id: profile_ids_to_exclude)
+      .order(
+        Arel.sql(build_exact_rank_query) => :desc,
+        Arel.sql(build_partial_rank_query) => :desc,
+        name: :asc
+      )
   end
 
   private
@@ -30,48 +51,50 @@ class JobProfileSearch
     SQL
   end
 
-  def build_rank_query
-    (exact_match_ranking + partial_match_ranking)
+  def build_exact_rank_query
+    exact_match_ranking
       .join(" +\n")
   end
 
-  def quoted_query
-    @quoted_query ||= PrimaryActiveRecordBase.connection.quote(query_string)
+  def build_partial_rank_query
+    partial_match_ranking
+      .join(" +\n")
   end
 
   def exact_match_ranking
-    {
-      name: 'A',
-      alternative_titles: 'AB',
-      specialism: 'ABC',
-      hidden_titles: 'ABC',
-      description: 'ABCD'
-    }.map do |column, weight|
-      vector_rank(match: 'simple', column: column, weight: weight)
+    EXACT_MATCH_RANK.map do |column, values|
+      vector_rank(
+        match: 'simple',
+        column: column,
+        options: {
+          weight: values[:weight], score: values[:score], query: quoted_exact_match_query
+        }
+      )
     end
   end
 
   def partial_match_ranking
-    {
-      name: 'A',
-      alternative_titles: 'B',
-      specialism: 'C',
-      hidden_titles: 'C',
-      description: 'D'
-    }.map do |column, weight|
-      vector_rank(match: 'english', column: column, weight: weight)
+    PARTIAL_MATCH_RANK.map do |column, values|
+      vector_rank(
+        match: 'english',
+        column: column,
+        options: {
+          weight: values[:weight], score: values[:score], query: quoted_query
+        }
+      )
     end
   end
 
-  def vector_rank(match:, column:, weight:)
+  def vector_rank(match:, column:, options: {})
     <<-RANK
       COALESCE(
-        ts_rank(
+        ts_rank_cd(
           setweight(
             to_tsvector('#{match}', #{column}),
-            '#{weight}'
+            '#{options[:weight]}'
           ),
-          to_tsquery('#{match}', #{quoted_query})
+          to_tsquery('#{match}', #{options[:query]}),
+          #{options[:score]}
         ),
         0
       )
@@ -80,5 +103,17 @@ class JobProfileSearch
 
   def query_string
     @query_string ||= QueryStringFormatter.format(term)
+  end
+
+  def quoted_query
+    PrimaryActiveRecordBase.connection.quote(query_string)
+  end
+
+  def exact_match_string
+    QueryStringFormatter.format_exact_match(term)
+  end
+
+  def quoted_exact_match_query
+    PrimaryActiveRecordBase.connection.quote(exact_match_string)
   end
 end

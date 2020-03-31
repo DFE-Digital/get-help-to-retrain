@@ -186,6 +186,34 @@ RSpec.describe JobProfileSearch do
       expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
     end
 
+    it 'orders name, alternative title, then description on partial match' do
+      kitchen_assistant = create(
+        :job_profile,
+        name: 'Kitchen assistant',
+        description: 'Kitchen assistants prepare food, make sure chefs have everything they need and keep the kitchen clean.'
+      )
+      chef = create(
+        :job_profile,
+        name: 'chef',
+        alternative_titles: 'Cook',
+        description: 'Chefs prepare, cook and present food in hotels, bars and restaurants'
+      )
+      head_chef = create(
+        :job_profile,
+        name: 'Head chef',
+        alternative_titles: 'Kitchen manager, executive chef, chef de cuisine',
+        description: 'Head chefs oversee restaurants’ staff, food and budgets.'
+      )
+
+      job_profiles_in_order = [
+        chef,
+        head_chef,
+        kitchen_assistant
+      ]
+
+      expect(described_class.new(term: 'chef').search).to eq(job_profiles_in_order)
+    end
+
     it 'orders exact match before partial match' do
       partial_alternative_title = create(:job_profile, alternative_titles: 'development', name: 'name 1', description: nil)
       exact_name = create(:job_profile, name: 'Web Developer', description: nil)
