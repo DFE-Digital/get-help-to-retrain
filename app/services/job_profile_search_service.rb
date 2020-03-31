@@ -13,6 +13,8 @@ class JobProfileSearchService
     file = Roo::Spreadsheet.open(filename)
     sheet = file.sheet('Sheet1')
 
+    JobProfile.update_all(hierarchy: nil, sector: nil)
+
     sheet.each(SEARCH_COLUMN_HEADINGS) do |data|
       next if data == SEARCH_COLUMN_HEADINGS
 
@@ -51,10 +53,13 @@ class JobProfileSearchService
   end
 
   def job_profiles_with(words)
+    query = words.map { |s| "%#{s}%" }
+
     JobProfile
       .where(
-        'name ILIKE ANY (ARRAY[?])',
-        words.map { |s| "%#{s}%" }
+        'name ILIKE ANY (ARRAY[?]) OR alternative_titles ILIKE ANY (ARRAY[?])',
+        query,
+        query
       )
   end
 

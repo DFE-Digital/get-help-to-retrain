@@ -27,15 +27,29 @@ RSpec.describe JobProfileSearchService do
       ).to be_zero
     end
 
-    it 'updates sector words if they match a profile' do
+    it 'updates sector words if they match a profile name' do
       job_profile = create(:job_profile, name: 'Therapist')
       importer.import(search_path)
 
       expect(job_profile.reload).to have_attributes(sector: 'therapist', hierarchy: nil)
     end
 
-    it 'updates hierarchy words if they match a profile' do
+    it 'updates hierarchy words if they match a profile name' do
       job_profile = create(:job_profile, name: 'Technical Officer')
+      importer.import(search_path)
+
+      expect(job_profile.reload).to have_attributes(hierarchy: 'officer', sector: nil)
+    end
+
+    it 'updates sector words if they match a profile alternative title' do
+      job_profile = create(:job_profile, alternative_titles: 'Therapist')
+      importer.import(search_path)
+
+      expect(job_profile.reload).to have_attributes(sector: 'therapist', hierarchy: nil)
+    end
+
+    it 'updates hierarchy words if they match a profile alternative title' do
+      job_profile = create(:job_profile, alternative_titles: 'Technical Officer')
       importer.import(search_path)
 
       expect(job_profile.reload).to have_attributes(hierarchy: 'officer', sector: nil)
@@ -60,6 +74,22 @@ RSpec.describe JobProfileSearchService do
       importer.import(search_path)
 
       expect(job_profile.reload).to have_attributes(hierarchy: 'manager, management, officer')
+    end
+
+    it 'resets hierarchy column on each run' do
+      job_profile = create(:job_profile, name: 'Officer manager')
+      importer.import(search_path)
+      importer.import(search_path)
+
+      expect(job_profile.reload).to have_attributes(hierarchy: 'manager, management, officer')
+    end
+
+    it 'resets sector column on each run' do
+      job_profile = create(:job_profile, name: 'Physics teacher')
+      importer.import(search_path)
+      importer.import(search_path)
+
+      expect(job_profile.reload).to have_attributes(sector: 'teacher, lecturer')
     end
   end
 
