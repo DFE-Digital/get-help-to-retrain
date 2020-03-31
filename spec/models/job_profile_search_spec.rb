@@ -186,6 +186,34 @@ RSpec.describe JobProfileSearch do
       expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
     end
 
+    it 'orders name, alternative title, then description on partial match' do
+      kitchen_assistant = create(
+        :job_profile,
+        name: 'Kitchen assistant',
+        description: 'Kitchen assistants prepare food, make sure chefs have everything they need and keep the kitchen clean.'
+      )
+      chef = create(
+        :job_profile,
+        name: 'chef',
+        alternative_titles: 'Cook',
+        description: 'Chefs prepare, cook and present food in hotels, bars and restaurants'
+      )
+      head_chef = create(
+        :job_profile,
+        name: 'Head chef',
+        alternative_titles: 'Kitchen manager, executive chef, chef de cuisine',
+        description: 'Head chefs oversee restaurants’ staff, food and budgets.'
+      )
+
+      job_profiles_in_order = [
+        chef,
+        head_chef,
+        kitchen_assistant
+      ]
+
+      expect(described_class.new(term: 'chef').search).to eq(job_profiles_in_order)
+    end
+
     it 'orders exact match before partial match' do
       partial_alternative_title = create(:job_profile, alternative_titles: 'development', name: 'name 1', description: nil)
       exact_name = create(:job_profile, name: 'Web Developer', description: nil)
@@ -213,6 +241,55 @@ RSpec.describe JobProfileSearch do
       ]
 
       expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders by pushing up profiles with sector terms' do
+      kitchen_assistant = create(
+        :job_profile,
+        name: 'Kitchen assistant'
+      )
+      business_assistant = create(
+        :job_profile,
+        name: 'Business assistant',
+        sector: 'business'
+      )
+      business_advisor = create(
+        :job_profile,
+        name: 'Office business advisor',
+        sector: 'business'
+      )
+
+      job_profiles_in_order = [
+        business_assistant,
+        business_advisor,
+        kitchen_assistant
+      ]
+
+      expect(described_class.new(term: 'Business assistant').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders by pushing down profiles with hierarchy terms' do
+      business_assistant = create(
+        :job_profile,
+        name: 'Business assistant'
+      )
+      kitchen_assistant = create(
+        :job_profile,
+        name: 'Kitchen assistant',
+        hierarchy: 'assistant'
+      )
+      office_assistant = create(
+        :job_profile,
+        name: 'Office assistant'
+      )
+
+      job_profiles_in_order = [
+        business_assistant,
+        office_assistant,
+        kitchen_assistant
+      ]
+
+      expect(described_class.new(term: 'Business assistant').search).to eq(job_profiles_in_order)
     end
 
     it 'orders alphabetically after matching' do
