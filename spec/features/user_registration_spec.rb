@@ -61,6 +61,20 @@ RSpec.feature 'User registration' do
     expect(page).to have_current_path(save_your_results_path)
   end
 
+  scenario 'user can go back to the task list page' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 1JJ', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
+
+    fill_in_user_personal_information
+    click_on('Save your progress')
+    click_on('Back')
+
+    expect(page).to have_current_path(task_list_path)
+  end
+
   scenario 'User gets relevant messaging if no email is entered' do
     visit(save_your_results_path)
     click_on('Save your progress')
@@ -100,6 +114,13 @@ RSpec.feature 'User registration' do
     expect(page).to have_text(/Your progress has been saved/)
   end
 
+  scenario 'User will be taken to the save your progress path when clicking Back' do
+    register_user
+    click_on('Back')
+
+    expect(page).to have_current_path(save_your_progress_path)
+  end
+
   scenario 'User can see their email on link page' do
     register_user
 
@@ -111,6 +132,14 @@ RSpec.feature 'User registration' do
     click_on('enter your email address again')
 
     expect(page).to have_text(/Save your progress/)
+  end
+
+  scenario 'User can go back to the root path after trying to send the email again' do
+    register_user
+    click_on('enter your email address again')
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
   end
 
   scenario 'User does not get error message if they enter their same email but different case' do
@@ -127,6 +156,23 @@ RSpec.feature 'User registration' do
     click_on('send it again')
 
     expect(page).to have_current_path(email_sent_again_path)
+  end
+
+  scenario 'User can go back to the previous page from link sent page' do
+    register_user
+    click_on('send it again')
+    click_on('Back')
+
+    expect(page).to have_current_path(save_your_progress_path)
+  end
+
+  scenario 'User does not get stuck in a weird state trying to click Back twice starting from link sent page' do
+    register_user
+    click_on('send it again')
+    click_on('Back')
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
   end
 
   scenario 'User resends email and can see their email on email sent again page' do

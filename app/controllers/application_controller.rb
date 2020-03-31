@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def url_parser
-    @url_parser ||= UrlParser.new(request.referer, request.host)
+    @url_parser ||= UrlParser.new(request.referer, request.host, request.original_url)
   end
 
   helper_method :user_session, :current_user, :url_parser

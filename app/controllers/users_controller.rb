@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   end
 
   def set_redirect_path_for_registration
-    redirect_url = url_parser.get_redirect_path(paths_to_ignore: [save_your_results_path])
+    redirect_url = url_parser.get_redirect_path(paths_to_ignore: [save_your_results_path, email_sent_again_path])
     user_session.registration_triggered_path = redirect_url
   end
 

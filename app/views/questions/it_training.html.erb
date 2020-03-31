@@ -1,13 +1,5 @@
 <% page_title :it_training_questions %>
-<% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.it_training_questions'),
-      [
-        [t('breadcrumb.task_list_home'), task_list_path]
-      ]
-    )
-  end
-%>
+<%= back_link(custom_url: training_questions_path) %>
 
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">

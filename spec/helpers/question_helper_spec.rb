@@ -103,4 +103,22 @@ RSpec.describe QuestionHelper do
       expect(helper.progression_indicator(step: 1)).to be_nil
     end
   end
+
+  describe '#job_hunting_question_breadcrumbs' do
+    it 'shows the Back link to IT Training questions page when not all questions have been answered' do
+      user_session.training = ['english_skills']
+
+      expect(helper.job_hunting_question_breadcrumbs).to eq(
+        '<a class="govuk-back-link" href="/it-training-questions">Back</a>'
+      )
+    end
+
+    it 'hides the Back link if all questions have been answered' do
+      user_session.training = ['english_skills']
+      user_session.it_training = ['computer_skills']
+      user_session.job_hunting = ['cv']
+
+      expect(helper.job_hunting_question_breadcrumbs).to be_nil
+    end
+  end
 end

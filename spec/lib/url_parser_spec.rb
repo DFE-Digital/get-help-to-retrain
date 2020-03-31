@@ -35,5 +35,13 @@ RSpec.describe UrlParser do
 
       expect(parser.get_redirect_path(paths_to_ignore: ['/save-my-results'])).to be_nil
     end
+
+    it 'returns nothing if referred from the same page' do
+      referer = 'http://myhost.com/privacy-policy'
+      original = 'http://myhost.com/privacy-policy'
+      parser = described_class.new(referer, 'myhost.com', original)
+
+      expect(parser.get_redirect_path).to be_nil
+    end
   end
 end

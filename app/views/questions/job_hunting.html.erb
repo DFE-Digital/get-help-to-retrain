@@ -1,13 +1,6 @@
 <% page_title :job_hunting_questions %>
-<% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.job_hunting_questions'),
-      [
-        [t('breadcrumb.task_list_home'), task_list_path]
-      ]
-    )
-  end
-%>
+
+<%= job_hunting_question_breadcrumbs %>
 
 <div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
   <div class="govuk-grid-column-two-thirds">

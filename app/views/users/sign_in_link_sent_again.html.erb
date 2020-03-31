@@ -1,13 +1,6 @@
 <% page_title :link_sent_again %>
-<% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.link_sent_again'),
-      [
-        [t('breadcrumb.home'), root_path]
-      ]
-    )
-  end
-%>
+<%= back_link(custom_url: return_to_saved_results_path) %>
+
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>

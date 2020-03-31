@@ -28,8 +28,8 @@ module ApplicationHelper
     @target_job ||= JobProfile.find_by(id: user_session.target_job_id)
   end
 
-  def back_link
-    back_url = url_parser.get_redirect_path || root_path
+  def back_link(custom_url: nil, paths_to_ignore: [])
+    back_url = custom_url || url_parser.get_redirect_path(paths_to_ignore: paths_to_ignore) || root_path
 
     link_to('Back', back_url, class: 'govuk-back-link')
   end

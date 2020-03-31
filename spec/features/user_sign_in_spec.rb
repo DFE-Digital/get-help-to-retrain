@@ -105,6 +105,13 @@ RSpec.feature 'User sign in' do
     expect(page).to have_text(/test@test.test/)
   end
 
+  scenario 'User will be taken to return to saved progress path when clicking Back' do
+    send_sign_in_email
+    click_on('Back')
+
+    expect(page).to have_current_path(return_to_saved_results_path)
+  end
+
   scenario 'User can resend email and is redirected to link sent again page' do
     register_user
     send_sign_in_email
@@ -113,12 +120,39 @@ RSpec.feature 'User sign in' do
     expect(page).to have_current_path(link_sent_again_path)
   end
 
+  scenario 'User can go back to the previous page from link sent again page' do
+    register_user
+    send_sign_in_email
+    click_on('send it again')
+    click_on('Back')
+
+    expect(page).to have_current_path(return_to_saved_results_path)
+  end
+
+  scenario 'User does not get stuck in a weird state when clicking Back twice' do
+    register_user
+    send_sign_in_email
+    click_on('send it again')
+    click_on('Back')
+    click_on('Back')
+
+    expect(page).to have_current_path(root_path)
+  end
+
   scenario 'User resends email and can see their email on email sent again page' do
     register_user
     send_sign_in_email
     click_on('send it again')
 
     expect(page).to have_text(/test@test.test/)
+  end
+
+  scenario 'User can go back to the previous page from return to saved results page' do
+    visit(your_information_path)
+    click_on('Return to saved progress')
+    click_on('Back')
+
+    expect(page).to have_current_path(your_information_path)
   end
 
   scenario 'User receives sign in email if email valid and user exists' do

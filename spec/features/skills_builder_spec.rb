@@ -36,17 +36,17 @@ RSpec.feature 'Build your skills', type: :feature do
     click_on('Select these skills')
   end
 
-  scenario 'Breadcrumbs: user only sees 1 clickable item in the navigation' do
+  scenario 'Breadcrumbs: user only sees 2 clickable items in the navigation' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
 
-    expect(page).to have_css('nav.govuk-breadcrumbs a', count: 1)
+    expect(page).to have_css('nav.govuk-breadcrumbs a', count: 2)
   end
 
-  scenario 'Breadcrumbs - user can click on \'Home: Get help to retrain\' nav item' do
+  scenario 'Breadcrumbs - user can click on \'Steps\' nav item' do
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
-    click_on('Home: Get help to retrain')
+    click_on('Steps')
 
     expect(page).to have_current_path(task_list_path)
   end

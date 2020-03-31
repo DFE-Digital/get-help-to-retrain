@@ -158,7 +158,7 @@ RSpec.feature 'Find training courses', type: :feature do
     select('Up to 40 miles', from: 'distance')
     click_on('Apply filters')
     click_on('My Course')
-    click_on('Training courses near you')
+    click_on('Courses near you')
 
     expect(page).to have_select('distance', selected: 'Up to 40 miles')
   end

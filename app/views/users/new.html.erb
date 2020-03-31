@@ -1,13 +1,6 @@
 <% page_title :save_your_results %>
-<% content_for :breadcrumb do
-    generate_breadcrumbs(
-      t('breadcrumb.save_your_results'),
-      [
-        [t('breadcrumb.task_list_home'), task_list_path]
-      ]
-    )
-  end
-%>
+<%= back_link(paths_to_ignore: [email_sent_again_path]) %>
+
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <%= error_summary(@user) %>
