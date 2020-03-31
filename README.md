@@ -133,6 +133,12 @@ Hidden alternative titles and Job Profile Specialism for job profiles are used t
   bundle exec rails "data_import:import_job_additional_data['JobProfileAdditionalData.xlsx']"
 ```
 
+Hierarchy and Sector keywords for job profiles are used to improve search results and are imported via an Excel spreadsheet. This updates existing job profiles matched by name and alternative title so job profiles must have been previously imported by running the scraping tasks. Copy the relevant spreadsheet locally and then run the rake task:
+
+```bash
+  bundle exec rails "data_import:import_search_job_profiles['job_profile_word_count_with_alternatives_v3.xlsx']"
+```
+
 These tasks will produce console output detailing any job profiles that were not found and stats for job profiles that are missing information. The rake tasks can be run multiple times without issue but will throw an error if used in production mode.
 
 
