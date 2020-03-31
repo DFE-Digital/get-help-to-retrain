@@ -177,6 +177,15 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_link('Edit your advice choices', href: job_hunting_questions_path)
   end
 
+  scenario 'User can navigate back to action plan after trying to edit the advice options' do
+    user_targets_a_job
+
+    click_on('Edit your advice choices')
+    click_on('Action plan')
+
+    expect(page).to have_current_path(action_plan_path)
+  end
+
   scenario 'Page links to cv help if job hunting question answered for cv' do
     user_targets_a_job
     click_on('Edit your advice choices')

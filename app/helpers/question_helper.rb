@@ -26,6 +26,20 @@ module QuestionHelper
     )
   end
 
+  def job_hunting_question_breadcrumbs
+    return back_link(custom_url: it_training_questions_path) if questions_path
+
+    content_for(:breadcrumb) do
+      generate_breadcrumbs(
+        t('breadcrumb.edit_your_advice_choices'), [
+          [t('breadcrumb.home'), root_path],
+          [t('breadcrumb.task_list'), task_list_path],
+          [t('breadcrumb.action_plan'), action_plan_path]
+        ]
+      )
+    end
+  end
+
   def questions_path
     training_questions ||
       it_training_questions ||

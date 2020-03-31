@@ -5,6 +5,7 @@ en-GB:
     offers_near_me: Offers near you
     training_questions: Training options
     edit_training_questions: Edit your training choices
+    edit_your_advice_choices: Edit your advice choices
     it_training_questions: Computer skills training
     job_hunting_questions: Job hunting advice
     jobs_near_me: Jobs near you
@@ -13,7 +14,7 @@ en-GB:
     job_matches: Your job matches
     search_results: Search results
     search_your_skills_results: Check your skills results
-    job_profiles_search: Your work matches
+    job_profiles_search: Your job matches
     job_profile: Job profile details
     your_skills: Your skills
     training_courses_near_you: Courses near you

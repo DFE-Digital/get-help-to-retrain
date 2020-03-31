@@ -31,16 +31,6 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(training_questions_path)
   end
 
-  scenario 'User goes back to training questions path when deeplinking to it training questions page on a non empty session and then hitting Back' do
-    user_targets_job
-
-    visit(it_training_questions_path)
-
-    click_on('Back')
-
-    expect(page).to have_current_path(training_questions_path)
-  end
-
   scenario 'User sees job hunting questions when targetting a job' do
     user_targets_job
     click_on('Continue')
@@ -53,16 +43,6 @@ RSpec.feature 'Questions' do
     user_targets_job
     click_on('Continue')
     click_on('Continue')
-
-    click_on('Back')
-
-    expect(page).to have_current_path(it_training_questions_path)
-  end
-
-  scenario 'User goes back to IT training questions path when deeplinking to job hunting questions page on a non empty session and then hitting Back' do
-    user_targets_job
-
-    visit(job_hunting_questions_path)
 
     click_on('Back')
 
