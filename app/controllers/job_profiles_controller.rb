@@ -29,6 +29,9 @@ class JobProfilesController < ApplicationController
 
   def target
     user_session.target_job_id = resource.id
+
+    track_targetted_job(job_profile_name: resource.name)
+
     redirect_to helpers.action_plan_or_questions_path
   end
 

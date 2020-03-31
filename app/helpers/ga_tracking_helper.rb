@@ -11,6 +11,20 @@ module GaTrackingHelper
     )
   end
 
+  def track_targetted_job(job_profile_name:)
+    return unless job_profile_name.present?
+
+    track_events(
+      [
+        {
+          key: :selected_job,
+          label: job_profile_name,
+          value: 'click'
+        }
+      ]
+    )
+  end
+
   def client_tracking_data
     {
       ga_cookie: cookies['_ga']&.gsub(/^(.*?\..*?\.)/, ''),

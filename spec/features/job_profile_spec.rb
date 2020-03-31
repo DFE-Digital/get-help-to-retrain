@@ -92,6 +92,27 @@ RSpec.feature 'Job profile spec' do
     expect(page).to have_current_path(training_questions_path)
   end
 
+  scenario 'The targetted job profile is tracked in GA' do
+    tracking_service = instance_spy(TrackingService)
+    job_profile = create(:job_profile, :with_html_content)
+
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(job_profile_path(job_profile.slug))
+    click_on('Select this type of work')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :selected_job,
+          label: job_profile.name,
+          value: 'click'
+        }
+      ]
+    )
+  end
+
   scenario 'User can see their skills gap in section skills need to develop' do
     job_profile = create(
       :job_profile,

@@ -123,4 +123,54 @@ RSpec.describe GaTrackingHelper do
       expect(tracking_service).not_to have_received(:track_events)
     end
   end
+
+  describe '#track_targetted_job' do
+    before do
+      helper.singleton_class.class_eval do
+        def track_events(props = [])
+          TrackingService.new.track_events(props: props)
+        end
+      end
+    end
+
+    let(:job_profile) {
+      build_stubbed(:job_profile)
+    }
+
+    it 'sends the correct props to the TrackingService' do
+      tracking_service = instance_spy(TrackingService)
+      allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+      helper.track_targetted_job(job_profile_name: job_profile.name)
+
+      expect(tracking_service).to have_received(:track_events).with(
+        props:
+        [
+          {
+            key: :selected_job,
+            label: job_profile.name,
+            value: 'click'
+          }
+        ]
+      )
+    end
+
+    it 'does not call track_events if the job profile is missings' do
+      tracking_service = instance_spy(TrackingService)
+      allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+      helper.track_targetted_job(job_profile_name: nil)
+
+      expect(tracking_service).not_to have_received(:track_events).with(
+        props:
+        [
+          {
+            key: :selected_job,
+            label: job_profile.name,
+            value: 'click'
+          }
+        ]
+      )
+    end
+  end
 end
