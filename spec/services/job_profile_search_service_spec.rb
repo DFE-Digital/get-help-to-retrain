@@ -42,14 +42,14 @@ RSpec.describe JobProfileSearchService do
     end
 
     it 'updates sector words if they match a profile alternative title' do
-      job_profile = create(:job_profile, alternative_titles: 'Therapist')
+      job_profile = create(:job_profile, name: 'name', alternative_titles: 'Therapist')
       importer.import(search_path)
 
       expect(job_profile.reload).to have_attributes(sector: 'therapist', hierarchy: nil)
     end
 
     it 'updates hierarchy words if they match a profile alternative title' do
-      job_profile = create(:job_profile, alternative_titles: 'Technical Officer')
+      job_profile = create(:job_profile, name: 'name', alternative_titles: 'Technical Officer')
       importer.import(search_path)
 
       expect(job_profile.reload).to have_attributes(hierarchy: 'officer', sector: nil)

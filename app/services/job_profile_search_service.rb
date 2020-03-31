@@ -36,7 +36,7 @@ class JobProfileSearchService
   private
 
   def update_job_profile(data)
-    return if data[:type] == 'doubtful' || data[:type] == 'meaningless'
+    return if %w[doubtful meaningless].include?(data[:type])
 
     words = build_word_array(data)
     job_profiles = job_profiles_with(words)
@@ -45,11 +45,9 @@ class JobProfileSearchService
   end
 
   def build_word_array(data)
-    words = [data[:word]]
     alternatives = data[:alternatives]&.split(', ')
-    words += alternatives if alternatives
 
-    words
+    [data[:word], alternatives].flatten.compact
   end
 
   def job_profiles_with(words)
