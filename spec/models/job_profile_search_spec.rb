@@ -243,6 +243,55 @@ RSpec.describe JobProfileSearch do
       expect(described_class.new(term: 'developer').search).to eq(job_profiles_in_order)
     end
 
+    it 'orders by pushing up profiles with sector terms' do
+      kitchen_assistant = create(
+        :job_profile,
+        name: 'Kitchen assistant'
+      )
+      business_assistant = create(
+        :job_profile,
+        name: 'Business assistant',
+        sector: 'business'
+      )
+      business_advisor = create(
+        :job_profile,
+        name: 'Office business advisor',
+        sector: 'business'
+      )
+
+      job_profiles_in_order = [
+        business_assistant,
+        business_advisor,
+        kitchen_assistant
+      ]
+
+      expect(described_class.new(term: 'Business assistant').search).to eq(job_profiles_in_order)
+    end
+
+    it 'orders by pushing down profiles with hierarchy terms' do
+      business_assistant = create(
+        :job_profile,
+        name: 'Business assistant'
+      )
+      kitchen_assistant = create(
+        :job_profile,
+        name: 'Kitchen assistant',
+        hierarchy: 'assistant'
+      )
+      office_assistant = create(
+        :job_profile,
+        name: 'Office assistant'
+      )
+
+      job_profiles_in_order = [
+        business_assistant,
+        office_assistant,
+        kitchen_assistant
+      ]
+
+      expect(described_class.new(term: 'Business assistant').search).to eq(job_profiles_in_order)
+    end
+
     it 'orders alphabetically after matching' do
       job_profile1 = create(:job_profile, name: 'Web B', description: nil)
       job_profile2 = create(:job_profile, name: 'Web A', description: nil)

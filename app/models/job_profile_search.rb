@@ -1,4 +1,4 @@
-class JobProfileSearch
+class JobProfileSearch # rubocop:disable Metrics/ClassLength
   include ActiveModel::Validations
 
   EXACT_MATCH_RANK = {
@@ -10,11 +10,16 @@ class JobProfileSearch
   }.freeze
 
   PARTIAL_MATCH_RANK = {
-    name: { weight: 'A', score: '4|2' },
+    name: { weight: 'A', score: '0' },
     alternative_titles: { weight: 'B', score: '8|2' },
-    specialism: { weight: 'C', score: 0 },
-    hidden_titles: { weight: 'C', score: 0 },
-    description: { weight: 'D', score: '4|8' }
+    specialism: { weight: 'C', score: '0' },
+    hidden_titles: { weight: 'C', score: '0' },
+    description: { weight: 'D', score: '4|8' },
+    sector: { weight: 'A', score: '0' }
+  }.freeze
+
+  HIERARCHY_MATCH_RANK = {
+    hierarchy: { weight: 'A', score: '0' }
   }.freeze
 
   attr_reader :term, :profile_ids_to_exclude
@@ -32,11 +37,7 @@ class JobProfileSearch
       .select(:id, :name, :description, :alternative_titles, :slug, :salary_min, :salary_max, :growth)
       .where(build_text_search_query, query_string: query_string)
       .where.not(id: profile_ids_to_exclude)
-      .order(
-        Arel.sql(build_exact_rank_query) => :desc,
-        Arel.sql(build_partial_rank_query) => :desc,
-        name: :asc
-      )
+      .order(ranks_query)
   end
 
   private
@@ -51,13 +52,27 @@ class JobProfileSearch
     SQL
   end
 
+  def ranks_query
+    {
+      Arel.sql(build_exact_rank_query) => :desc,
+      Arel.sql(build_partial_rank_query) => :desc,
+      Arel.sql(build_hierarchy_rank_query) => :asc,
+      name: :asc
+    }
+  end
+
   def build_exact_rank_query
     exact_match_ranking
       .join(" +\n")
   end
 
   def build_partial_rank_query
-    partial_match_ranking
+    partial_match_ranking(PARTIAL_MATCH_RANK)
+      .join(" +\n")
+  end
+
+  def build_hierarchy_rank_query
+    partial_match_ranking(HIERARCHY_MATCH_RANK)
       .join(" +\n")
   end
 
@@ -73,8 +88,8 @@ class JobProfileSearch
     end
   end
 
-  def partial_match_ranking
-    PARTIAL_MATCH_RANK.map do |column, values|
+  def partial_match_ranking(ranks)
+    ranks.map do |column, values|
       vector_rank(
         match: 'english',
         column: column,
