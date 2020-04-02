@@ -5,7 +5,7 @@
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
     <p class="govuk-body">We've sent an email to</p>
-    <h3 class="govuk-heading-m"><%= @user.email %></h3>
+    <h2 class="govuk-heading-m"><%= @user.email %></h2>
     <p class="govuk-body">Check your email inbox to make sure you've received the email. You may need to verify your email address by clicking a link in the email.</p>
     <%= form_with local: true, url: email_sent_again_path do |form| %>
       <%= hidden_field_tag('email', @user.email) %>
