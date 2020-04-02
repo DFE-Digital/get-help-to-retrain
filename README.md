@@ -141,23 +141,6 @@ Hierarchy and Sector keywords for job profiles are used to improve search result
 
 These tasks will produce console output detailing any job profiles that were not found and stats for job profiles that are missing information. The rake tasks can be run multiple times without issue but will throw an error if used in production mode.
 
-
-## Courses data
-
-Courses are currently persisted locally within the database. These may be either imported from a courses spreadsheet or setup with sample data (using faker attributes) by running the appropriate task:
-
-```bash
-  bundle exec rails "data_import:import_courses['P2 Training Providers.xlsx']"
-```
-
-or
-
-```bash
-  bundle exec rails data_import:sample_courses
-```
-
-**Note** that these tasks both erase any existing course data first
-
 ## Feedback surveys and user personal data
 
 Test data for both `FeedbackSurvey` and `UserPersonalData` models can be setup by running this rake task:
