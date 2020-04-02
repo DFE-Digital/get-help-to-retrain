@@ -1,4 +1,4 @@
-class CoursesController < ApplicationController # rubocop:disable Metrics/ClassLength
+class CoursesController < ApplicationController
   DISTANCE = [
     ['Up to 10 miles', '10'], ['Up to 20 miles', '20'], ['Up to 30 miles', '30'], ['Up to 40 miles', '40']
   ].freeze
@@ -58,16 +58,10 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
     @distance ||= courses_params[:distance] || user_session.distance
   end
 
-  def courses_params # rubocop:disable Metrics/MethodLength
+  def courses_params
     params.permit(
-      :postcode,
-      :topic_id,
-      :hours,
-      :delivery_type,
-      :distance,
-      :page,
-      :course_id,
-      :course_run_id,
+      :postcode, :topic_id, :hours, :delivery_type,
+      :distance, :page, :course_id, :course_run_id,
       :authenticity_token
     )
   end
