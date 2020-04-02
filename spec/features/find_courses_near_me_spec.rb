@@ -7,10 +7,6 @@ RSpec.feature 'Find training courses', type: :feature do
     )
   end
 
-  before do
-    enable_feature!(:csv_courses)
-  end
-
   scenario 'User cannot see a list of all training courses for a topic without postcode' do
     visit(courses_path(topic_id: 'maths'))
 

@@ -18,50 +18,21 @@
     <h1 class="govuk-heading-xl"><%= params[:topic_id].titleize %> courses near me</h1>
     <p class="govuk-body-l">Apply for a course by calling the course provider or visiting their website.</p>
     <div class="govuk-grid-column-full govuk-!-padding-0">
-      <% if Flipflop.csv_courses? %>
-        <%= render 'search_filter' %>
-      <% else %>
-        <%= form_tag courses_path do %>
-          <%= form_group_tag @search, :postcode do %>
-            <label class="govuk-label" for="postcode">
-              Postcode
-            </label>
-            <%= errors_tag @search, :postcode %>
-            <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@search, :postcode, "course-search-input govuk-input govuk-!-width-one-half"), autocomplete: 'postal-code') %>
-            <%= button_tag('', class: 'search-button-results', name: nil, aria: { label: 'Search button' }, data: { module: 'govuk-button' }) %>
-          <% end %>
-        <% end %>
-      <% end %>
+      <%= render 'search_filter' %>
     </div>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <% if @courses.empty? %>
-        <% if Flipflop.csv_courses? %>
-          <p class="govuk-body-m">0 courses found</p>
-          <p class="govuk-body-m">Get help to retrain isn’t offering courses of this type in your local area yet.</p>
-          <p class="govuk-body">You could try:</p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li>searching for a different type of course using <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %> from the National Careers Service.</li>
-            <li>using the filters to search for different course types or course hours</li>
-            <li>using the filters to search a greater distance</li>
-          </ul>
-        <% else %>
-          <p class="govuk-body-m">0 courses found</p>
-          <p class="govuk-body-m">Get help to retrain isn't offering courses in your local area yet.</p>
-          <p class="govuk-body-m">Find training in your local area using the <%= link_to('Find a course service', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %> from the National Careers Service.</p>
-          <h2 class="govuk-heading-s">Try again using a different postcode.</h2>
-          <p class="govuk-body">You could try:</p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li>double checking your postcode</li>
-            <li>using a different postcode</li>
-          </ul>
-        <% end %>
+        <p class="govuk-body-m">0 courses found</p>
+        <p class="govuk-body-m">Get help to retrain isn’t offering courses of this type in your local area yet.</p>
+        <p class="govuk-body">You could try:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>searching for a different type of course using <%= link_to('Find a course', 'https://nationalcareers.service.gov.uk/find-a-course', class: 'govuk-link') %> from the National Careers Service.</li>
+          <li>using the filters to search for different course types or course hours</li>
+          <li>using the filters to search a greater distance</li>
+        </ul>
       <% else %>
         <ul class="govuk-list">
-          <% if Flipflop.csv_courses? %>
-            <%= render partial: 'search_course', collection: @courses, as: :course %>
-          <% else %>
-            <%= render partial: 'course', collection: @courses %>
-          <% end %>
+          <%= render partial: 'search_course', collection: @courses, as: :course %>
         </ul>
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
           <%= paginate @courses, params: { postcode: nil } %>

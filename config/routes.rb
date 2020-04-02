@@ -48,8 +48,6 @@ Rails.application.routes.draw do
     get 'return-to-saved-progress-error',
         as: 'return-to-saved-results-error', to: 'errors#return_to_saved_results_error'
     get 'save-your-progress-error', as: 'save-results-error', to: 'errors#save_results_error'
-    get 'location-ineligible', to: 'pages#location_ineligible'
-    get 'postcode-search-error', to: 'errors#postcode_search_error'
     get 'jobs-near-you-error', as: 'jobs-near-me-error', to: 'errors#jobs_near_me_error'
 
     match(
@@ -57,14 +55,12 @@ Rails.application.routes.draw do
       to: 'courses#index', as: :courses, via: %i[get post], constraints: { topic_id: /maths|english/ }
     )
 
-    constraints(CsvCoursesConstraint.new) do
-      match(
-        'courses/:topic_id/:course_id/:course_run_id',
-        to: 'courses#show', as: :course_details, via: :get, constraints: { topic_id: /maths|english/ }
-      )
+    match(
+      'courses/:topic_id/:course_id/:course_run_id',
+      to: 'courses#show', as: :course_details, via: :get, constraints: { topic_id: /maths|english/ }
+    )
 
-      get 'courses-near-you-error', as: 'courses-near-me-error', to: 'errors#courses_near_me_error'
-    end
+    get 'courses-near-you-error', as: 'courses-near-me-error', to: 'errors#courses_near_me_error'
 
     resources :check_your_skills, path: 'check-your-skills', only: %i[index] do
       get :results, on: :collection

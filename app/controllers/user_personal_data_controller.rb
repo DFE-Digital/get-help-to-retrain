@@ -34,18 +34,10 @@ class UserPersonalDataController < ApplicationController
 
     user_session.postcode = postcode
 
-    return redirect_to task_list_path if Flipflop.csv_courses? || search.find_courses.any?
-
-    redirect_to(location_ineligible_path)
-  rescue CourseGeospatialSearch::GeocoderAPIError
-    redirect_to postcode_search_error_path
+    redirect_to task_list_path
   end
 
   def postcode
     @postcode ||= @user_personal_data.postcode
-  end
-
-  def search
-    CourseGeospatialSearch.new(postcode: postcode)
   end
 end
