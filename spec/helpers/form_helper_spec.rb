@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe FormHelper do
-  let(:search) { CourseGeospatialSearch.new(postcode: 'NW9 8ET') }
+  let(:search) { CourseSearch.new(postcode: 'NW9 8ET', topic: 'english') }
 
   describe '#error_summary' do
     it 'returns nothing if object supplied has no errors' do
@@ -21,8 +21,8 @@ RSpec.describe FormHelper do
       search.errors.add(:postcode_in_uk, 'Postcode not in uk')
 
       expect(helper.error_summary(search)).to include(
-        '<a href="#course_geospatial_search_postcode-error">Test error</a>',
-        '<a href="#course_geospatial_search_postcode_in_uk-error">Postcode not in uk</a>'
+        '<a href="#course_search_postcode-error">Test error</a>',
+        '<a href="#course_search_postcode_in_uk-error">Postcode not in uk</a>'
       )
     end
   end

@@ -25,10 +25,6 @@ RSpec.describe 'routes for admin pages', type: :routing do
       expect(get('/admin/categories')).to route_to(controller: 'admin/categories', action: 'index')
     end
 
-    it 'successfully routes to admin/courses#index' do
-      expect(get('/admin/courses')).to route_to(controller: 'admin/courses', action: 'index')
-    end
-
     it 'successfully routes to admin/feedback_surveys#index' do
       expect(get('/admin/feedback_surveys')).to route_to(controller: 'admin/feedback_surveys', action: 'index')
     end
@@ -65,10 +61,6 @@ RSpec.describe 'routes for admin pages', type: :routing do
 
     it 'does not route /admin/categories' do
       expect(get('/admin/categories')).not_to be_routable
-    end
-
-    it 'does not route /admin/courses' do
-      expect(get('/admin/courses')).not_to be_routable
     end
 
     it 'does not route /admin/feedback_surveys' do

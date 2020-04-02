@@ -12,7 +12,15 @@ class CoursesController < ApplicationController
   ].freeze
 
   def index
-    Flipflop.csv_courses? ? find_csv_courses : find_courses
+    track_course_filters
+    persist_valid_filters_on_session
+
+    @courses = Kaminari .paginate_array(course_search, total_count: search.count)
+                        .page(courses_params[:page])
+  rescue CourseSearch::GeocoderAPIError
+    redirect_to course_postcode_search_error_path
+  rescue FindACourseService::APIError
+    redirect_to courses_near_me_error_path
   end
 
   def show
@@ -22,33 +30,6 @@ class CoursesController < ApplicationController
   end
 
   private
-
-  def find_courses
-    track_event(:courses_index_search, postcode) if postcode.present?
-
-    @search = CourseGeospatialSearch.new(
-      postcode: postcode,
-      topic: courses_params[:topic_id]
-    )
-
-    user_session.postcode = postcode if postcode && @search.valid?
-
-    @courses = Kaminari.paginate_array(course_search).page(courses_params[:page])
-  rescue CourseGeospatialSearch::GeocoderAPIError
-    redirect_to course_postcode_search_error_path
-  end
-
-  def find_csv_courses
-    track_course_filters
-    persist_valid_filters_on_session
-
-    @courses = Kaminari .paginate_array(csv_course_search, total_count: search.count)
-                        .page(courses_params[:page])
-  rescue CourseSearch::GeocoderAPIError
-    redirect_to course_postcode_search_error_path
-  rescue FindACourseService::APIError
-    redirect_to courses_near_me_error_path
-  end
 
   def postcode
     @postcode ||= courses_params[:postcode] || user_session.postcode
@@ -67,10 +48,6 @@ class CoursesController < ApplicationController
   end
 
   def course_search
-    @search.find_courses.map { |c| CourseDecorator.new(c) }
-  end
-
-  def csv_course_search
     search.search.map { |c| SearchCourseDecorator.new(c) }
   end
 

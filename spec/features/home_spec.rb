@@ -10,12 +10,6 @@ RSpec.feature 'Navigation from home page' do
   end
 
   scenario 'PID - present on the session - user gets redirected to task-list page' do
-    Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-    )
-
-    create(:course, latitude: 0.1, longitude: 1.001, topic: 'maths')
-
     visit(your_information_path)
 
     fill_in('user_personal_data[first_name]', with: 'John')

@@ -18,9 +18,8 @@ en-GB:
     job_profile: Job profile details
     your_skills: Your skills
     training_courses_near_you: Courses near you
-    csv_courses_training_courses_near_you: Courses near you
+    courses_training_courses_near_you: Courses near you
     course_details: Course details
-    location_ineligible: No courses in your area
     current_job_skills: Job skills
     user_personal_data: Your information
     save_your_results: Save your progress
@@ -51,7 +50,6 @@ en-GB:
     pages_task_list: Steps - Get help to retrain
     pages_cookies_policy: Cookies policy - Get help to retrain
     pages_privacy_policy: Privacy policy - Get help to retrain
-    pages_location_ineligible: No courses in your area - Get help to retrain
     pages_action_plan: Action plan - Get help to retrain
     pages_offers_near_me: Offers near you - Get help to retrain
     pages_cv_advice: CV advice - Get help to retrain
@@ -172,8 +170,6 @@ en-GB:
       title: Find local schemes and offers
     task_list:
       title: Step-by-step guide to changing types of work
-    location_ineligible:
-      title: The full Get help to retrain service isn't available in your area yet
     cookies_policy:
       title: Cookies
     privacy_policy:

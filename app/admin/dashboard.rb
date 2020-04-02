@@ -23,9 +23,9 @@ if defined?(ActiveAdmin)
               link_to Skill.count, admin_skills_path
             end
           end
-          panel 'Courses' do
+          panel 'Admin Users' do
             h1 do
-              link_to Course.count, admin_courses_path
+              link_to AdminUser.count, admin_admin_users_path
             end
           end
         end

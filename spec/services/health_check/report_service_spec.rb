@@ -72,7 +72,7 @@ RSpec.describe HealthCheck::ReportService do
     before do
       allow(HealthCheck::CheckBase).to receive(:descendants).and_return(
         [
-          HealthCheck::CoursesCheck
+          HealthCheck::SessionsCheck
         ]
       )
       allow(Time).to receive(:now).and_return(timestamp)
@@ -80,7 +80,7 @@ RSpec.describe HealthCheck::ReportService do
 
     it 'returns details of each service' do
       expect(service.details).to eq(
-        'database:courses' => [
+        'database:sessions' => [
           {
             metricUnit: 'Integer',
             metricValue: 0,

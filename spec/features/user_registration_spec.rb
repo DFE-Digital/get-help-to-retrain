@@ -62,12 +62,6 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'user can go back to the task list page' do
-    Geocoder::Lookup::Test.add_stub(
-      'NW6 1JJ', [{ 'coordinates' => [0.1, 1] }]
-    )
-
-    create(:course, latitude: 0.1, longitude: 1, topic: 'maths')
-
     fill_in_user_personal_information
     click_on('Save your progress')
     click_on('Back')
