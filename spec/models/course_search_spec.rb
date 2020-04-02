@@ -23,6 +23,20 @@ RSpec.describe CourseSearch do
       expect(search.search).to be_empty
     end
 
+    it 'returns nothing if api returns postcode api error' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+
+      find_a_course_service = instance_double(FindACourseService)
+      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+      allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::PostcodeNotFoundError)
+
+      search = described_class.new(postcode: 'NW6 8ET', topic: 'maths')
+
+      expect(search.search).to be_empty
+    end
+
     it 'returns search course instances for find a course api results' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
@@ -88,7 +102,7 @@ RSpec.describe CourseSearch do
       )
     end
 
-    it 'defaults to qualification, distance, and no hours and delivery values if no options entered' do
+    it 'defaults to qualification, distance, math, and no hours and delivery values if no options entered' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
       )
@@ -245,9 +259,66 @@ RSpec.describe CourseSearch do
         }
       )
     end
+
+    it 'searches by topic as keyword for all topics other than maths' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+      find_a_course_service = instance_spy(
+        FindACourseService, search: {}
+      )
+      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+
+      course_search = described_class.new(
+        postcode: 'NW6 8ET',
+        topic: 'physics'
+      )
+
+      course_search.search
+      expect(find_a_course_service).to have_received(:search).with(
+        options: {
+          keyword: 'physics',
+          distance: '20',
+          qualification_levels: %w[1 2 X E],
+          postcode: 'NW6 8ET',
+          sort_by: 4,
+          start: 0,
+          limit: 10
+        }
+      )
+    end
   end
 
   describe '#count' do
+    it 'returns zero if no postcode entered' do
+      search = described_class.new(postcode: nil, topic: 'maths')
+      expect(search.count).to be_zero
+    end
+
+    it 'returns zero if empty postcode entered' do
+      search = described_class.new(postcode: '', topic: 'english')
+      expect(search.count).to be_zero
+    end
+
+    it 'returns zero if no topic entered' do
+      search = described_class.new(postcode: 'NW6 8ET', topic: nil)
+      expect(search.count).to be_zero
+    end
+
+    it 'returns zero if api returns postcode api error' do
+      Geocoder::Lookup::Test.add_stub(
+        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      )
+
+      find_a_course_service = instance_double(FindACourseService)
+      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+      allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::PostcodeNotFoundError)
+
+      search = described_class.new(postcode: 'NW6 8ET', topic: 'maths')
+
+      expect(search.count).to be_zero
+    end
+
     it 'returns the count from the course search result' do
       Geocoder::Lookup::Test.add_stub(
         'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
@@ -278,62 +349,6 @@ RSpec.describe CourseSearch do
       search = described_class.new(postcode: 'NW6 8ET', topic: 'maths')
 
       expect(search.count).to be_zero
-    end
-
-    it 'searches by topic as keyword for all topics other than maths' do
-      Geocoder::Lookup::Test.add_stub(
-        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-      )
-      find_a_course_service = instance_spy(
-        FindACourseService, search: {}
-      )
-      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
-
-      course_search = described_class.new(
-        postcode: 'NW6 8ET',
-        topic: 'physics'
-      )
-
-      course_search.search
-      expect(find_a_course_service).to have_received(:search).with(
-        options: {
-          keyword: 'physics',
-          distance: '20',
-          qualification_levels: %w[1 2 X E],
-          postcode: 'NW6 8ET',
-          sort_by: 4,
-          start: 0,
-          limit: 10
-        }
-      )
-    end
-
-    it 'searches by math as keyword for maths topic' do
-      Geocoder::Lookup::Test.add_stub(
-        'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
-      )
-      find_a_course_service = instance_spy(
-        FindACourseService, search: {}
-      )
-      allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
-
-      course_search = described_class.new(
-        postcode: 'NW6 8ET',
-        topic: 'maths'
-      )
-
-      course_search.search
-      expect(find_a_course_service).to have_received(:search).with(
-        options: {
-          keyword: 'math',
-          distance: '20',
-          qualification_levels: %w[1 2 X E],
-          postcode: 'NW6 8ET',
-          sort_by: 4,
-          start: 0,
-          limit: 10
-        }
-      )
     end
   end
 

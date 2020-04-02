@@ -58,7 +58,7 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
     @distance ||= courses_params[:distance] || user_session.distance
   end
 
-  def courses_params
+  def courses_params # rubocop:disable Metrics/MethodLength
     params.permit(
       :postcode,
       :topic_id,
@@ -67,7 +67,8 @@ class CoursesController < ApplicationController # rubocop:disable Metrics/ClassL
       :distance,
       :page,
       :course_id,
-      :course_run_id
+      :course_run_id,
+      :authenticity_token
     )
   end
 

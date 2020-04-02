@@ -76,6 +76,23 @@ RSpec.describe FindACourseService do
       expect { service.search(options: options) }.to raise_exception(described_class::APIError)
     end
 
+    it 'raises postcode error if postcode not found' do
+      options = { keyword: 'maths' }
+      stub_request(:post, /findacourse/)
+        .to_return(
+          status: 400,
+          body: {
+            'type' => nil,
+            'title' => 'PostcodeNotFound',
+            'status' => 400,
+            'detail' => 'Specified postcode cannot be found.',
+            'instance' => nil
+          }.to_json
+        )
+
+      expect { service.search(options: options) }.to raise_exception(described_class::PostcodeNotFoundError)
+    end
+
     it 'raises error if the query is not authorised' do
       options = { keyword: 'maths' }
       service = described_class.new(
