@@ -9,11 +9,12 @@ class AdminUser < RestrictedActiveRecordBase
 
     admin_user = find_or_initialize_by(
       email: user_info[:email],
-      name: user_info[:name],
       resource_id: auth_hash[:uid]
     )
 
+    admin_user.name = user_info[:name]
     admin_user.roles = roles_from(auth_hash)
+
     admin_user
   end
 

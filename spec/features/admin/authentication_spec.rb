@@ -72,6 +72,18 @@ RSpec.feature 'Admin Users Authentication' do
     end
   end
 
+  scenario 'Authenticates returning user correctly when the name in Active Azure Directory is different from the one persisted in our database' do
+    create(:admin_user, name: 'james.bond', email: 'test@test.com', resource_id: '1111-111-11-1')
+
+    stub_omniauth
+
+    visit(auth_azure_ad_auth_callback_path)
+
+    ['Dashboard', 'some.name', 'Logout'].each do |content|
+      expect(page).to have_content(content)
+    end
+  end
+
   scenario 'Stores the user details on successful authentication' do
     stub_omniauth
 
