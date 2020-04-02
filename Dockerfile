@@ -24,7 +24,7 @@ RUN yarn install
 COPY . ./
 RUN bundle exec rails assets:precompile SECRET_KEY_BASE=stubbed
 
-FROM ruby:2.6-alpine
+FROM ruby:2.6.5-alpine
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
