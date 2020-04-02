@@ -68,12 +68,6 @@ RSpec.describe AdminUser do
       expect(active_admin.valid?).to be true
     end
 
-    it 'correctly presists the identified resource name' do
-      active_admin = described_class.from_omniauth(auth_hash)
-
-      expect(active_admin.name).to eq('some.name')
-    end
-
     it 'updates the identified resource\'s name if changed in Azure Active Directory' do
       create(:admin_user, name: 'james.bond', email: 'test@test.com', resource_id: '1111-111-11-1')
 
