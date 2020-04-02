@@ -17,7 +17,7 @@ class CourseSearch
   end
 
   def search
-    return [] unless valid?
+    return [] if errors.present? || invalid?
 
     find_a_course_response
       .fetch('results', [])
@@ -25,7 +25,7 @@ class CourseSearch
   end
 
   def count
-    return unless valid?
+    return 0 if errors.present? || invalid?
 
     find_a_course_response['total'] || 0
   end
@@ -61,7 +61,7 @@ class CourseSearch
   def postcode_exists
     return unless errors.blank?
 
-    errors.add(:postcode, I18n.t('courses.nonexisting_postcode_error')) unless coordinates.present?
+    add_non_existing_postcode_error unless coordinates.present?
   end
 
   def valid_uk_postcode?
@@ -82,8 +82,19 @@ class CourseSearch
   end
 
   def find_a_course_response
-    @find_a_course_response ||= FindACourseService.new.search(
-      options: selected_options
-    )
+    @find_a_course_response ||=
+      begin
+        FindACourseService.new.search(
+          options: selected_options
+        )
+      rescue FindACourseService::PostcodeNotFoundError
+        add_non_existing_postcode_error
+
+        {}
+      end
+  end
+
+  def add_non_existing_postcode_error
+    errors.add(:postcode, I18n.t('courses.nonexisting_postcode_error'))
   end
 end

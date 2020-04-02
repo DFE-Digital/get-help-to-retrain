@@ -1,6 +1,7 @@
 class FindACourseService
   APIError = Class.new(StandardError)
   ResponseError = Class.new(StandardError)
+  PostcodeNotFoundError = Class.new(StandardError)
 
   attr_reader :api_key, :api_base_url
 
@@ -47,12 +48,15 @@ class FindACourseService
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https', read_timeout: 5) do |http|
       response = http.request(request)
 
-      raise ResponseError, "#{response.code} - #{response.message}" unless response.is_a?(Net::HTTPSuccess)
+      return response.body if response.is_a?(Net::HTTPSuccess)
 
-      response.body
+      raise ResponseError, "#{response.code}: #{response.message} - #{response.body}"
     end
   rescue StandardError => e
     Rails.logger.error("Find a Course Service API error: #{e.inspect}")
+
+    raise PostcodeNotFoundError, e if e.message =~ /PostcodeNotFound/
+
     raise APIError, e
   end
 

@@ -483,6 +483,20 @@ RSpec.feature 'Find training courses', type: :feature do
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
+  scenario 'User gets postcode validation error if there is a PostcodeNotFound Error from the API' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+    find_a_course_service = instance_double(FindACourseService)
+    allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
+    allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::PostcodeNotFoundError)
+
+    capture_user_location('NW6 8ET')
+    visit(courses_path(topic_id: 'maths'))
+
+    expect(page).to have_text(/Enter a real postcode/)
+  end
+
   scenario 'User deep linking to a course details page gets relevant messaging if there is an API error' do
     find_a_course_service = instance_double(FindACourseService)
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
