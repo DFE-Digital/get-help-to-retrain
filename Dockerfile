@@ -2,7 +2,7 @@ FROM ruby:2.6.5-alpine as assets
 
 ENV RAILS_ENV production
 ENV NODE_ENV production
-ENV BUILD_PACKAGES build-base nodejs yarn tzdata postgresql-dev git
+ENV BUILD_PACKAGES build-base nodejs>12.0.0-r1 yarn tzdata postgresql-dev git
 
 # Update and install all of the required packages.
 # At the end, remove the apk cache
@@ -31,7 +31,7 @@ ENV RACK_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 ENV NODE_ENV production
-ENV BUILD_PACKAGES nodejs yarn tzdata libpq
+ENV BUILD_PACKAGES nodejs>12.0.0-r1 yarn tzdata libpq
 
 ARG GIT_SHA="unknown"
 ENV GIT_SHA=${GIT_SHA}
