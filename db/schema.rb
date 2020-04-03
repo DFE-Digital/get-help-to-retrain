@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_092156) do
+ActiveRecord::Schema.define(version: 2020_04_03_100607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,118 +22,6 @@ ActiveRecord::Schema.define(version: 2020_03_27_092156) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["slug"], name: "index_categories_on_slug", unique: true
-  end
-
-  create_table "courses", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "provider", null: false
-    t.string "url", null: false
-    t.string "address_line_1"
-    t.string "address_line_2"
-    t.string "town"
-    t.string "county"
-    t.string "postcode", null: false
-    t.string "email"
-    t.string "topic", null: false
-    t.string "phone_number"
-    t.boolean "active", default: false
-    t.float "latitude", default: 0.0, null: false
-    t.float "longitude", default: 0.0, null: false
-    t.index ["longitude", "latitude"], name: "index_courses_on_longitude_and_latitude"
-    t.index ["postcode"], name: "index_courses_on_postcode"
-    t.index ["topic"], name: "index_courses_on_topic"
-  end
-
-  create_table "csv_course_lookups", force: :cascade do |t|
-    t.string "addressable_type"
-    t.bigint "addressable_id"
-    t.string "subject"
-    t.string "hours"
-    t.string "delivery_type"
-    t.string "postcode"
-    t.float "latitude", default: 0.0, null: false
-    t.float "longitude", default: 0.0, null: false
-    t.bigint "opportunity_id"
-    t.index ["addressable_type", "addressable_id"], name: "index_csv_course_lookups_on_addressable_type_and_addressable_id"
-    t.index ["longitude", "latitude"], name: "index_csv_course_lookups_on_longitude_and_latitude"
-    t.index ["opportunity_id"], name: "index_csv_course_lookups_on_opportunity_id"
-  end
-
-  create_table "csv_courses", force: :cascade do |t|
-    t.bigint "provider_id"
-    t.bigint "external_course_id"
-    t.string "name"
-    t.string "qualification_name"
-    t.string "qualification_type"
-    t.string "qualification_level"
-    t.text "description"
-    t.string "url"
-    t.string "booking_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["provider_id"], name: "index_csv_courses_on_provider_id"
-  end
-
-  create_table "csv_opportunities", force: :cascade do |t|
-    t.bigint "venue_id"
-    t.bigint "external_opportunities_id"
-    t.string "attendance_modes"
-    t.string "attendance_pattern"
-    t.string "study_modes"
-    t.date "end_date"
-    t.integer "duration_value"
-    t.string "duration_type"
-    t.text "duration_description"
-    t.text "start_date_description"
-    t.float "price"
-    t.text "price_description"
-    t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "course_id"
-    t.index ["course_id"], name: "index_csv_opportunities_on_course_id"
-    t.index ["venue_id"], name: "index_csv_opportunities_on_venue_id"
-  end
-
-  create_table "csv_opportunity_start_dates", force: :cascade do |t|
-    t.bigint "opportunity_id"
-    t.date "start_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["opportunity_id"], name: "index_csv_opportunity_start_dates_on_opportunity_id"
-  end
-
-  create_table "csv_providers", force: :cascade do |t|
-    t.bigint "external_provider_id"
-    t.bigint "ukprn"
-    t.string "name"
-    t.string "address_line_1"
-    t.string "address_line_2"
-    t.string "town"
-    t.string "county"
-    t.string "postcode"
-    t.string "phone"
-    t.string "email"
-    t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "csv_venues", force: :cascade do |t|
-    t.bigint "provider_id"
-    t.bigint "external_venue_id"
-    t.string "name"
-    t.string "address_line_1"
-    t.string "address_line_2"
-    t.string "town"
-    t.string "county"
-    t.string "postcode"
-    t.string "phone"
-    t.string "email"
-    t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["provider_id"], name: "index_csv_venues_on_provider_id"
   end
 
   create_table "job_profile_categories", force: :cascade do |t|
