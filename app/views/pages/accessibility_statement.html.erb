@@ -26,7 +26,6 @@
     <p class="govuk-body">You may not be able to find the search function on the page asking for your postcode. This is more likely to be an issue if you’re using colour inversion. If you experience this problem try using the enter key to search once you’ve entered your postcode. We’re working on this issue but we don’t yet know when we will get this fixed by.</p>
     <h2 class="govuk-heading-m">Other issues</h2>
     <ul class="govuk-list govuk-list--bullet">
-      <li>If you commit an error when completing a form field, the service will display an error message. At the moment the word ‘error’ is not used in the error page heading and no summary of the error is given. As a result the error page might appear confusing. We’re working on this issue but we don’t yet know when we will get this fixed by</li>
       <li>You may find some buttons on the page can be moved or dragged even though they should be static. We’re working on this issue but we don’t yet know when we will get this fixed by.</li>
     </ul>
     <h2 class="govuk-heading-m">How we tested this website</h2>
@@ -41,6 +40,19 @@
       <li>problems when using assistive technologies such as screen readers and screen magnifiers</li>
       <li>abbreviations being presented without explanation</li>
     </ul>
+    <h2 class="govuk-heading-m">What to do if you cannot access parts of this website</h2>
+    <p class="govuk-body">You can access Get help to retrain by telephone.</p>
+    <p class="govuk-body govuk-!-margin-bottom-0">Call <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-!-padding-left-1 govuk-link' %>.</p>
+    <p class="govuk-body">Monday to Friday, 9am to 5pm.</p>
+    <h2 class="govuk-heading-m">Further help</h2>
+    <p class="govuk-body"><%= link_to 'AbilityNet', 'https://mcmw.abilitynet.org.uk', class: 'govuk-link' %> provides guidance advice on making your device easier to use if you have a disability.</p>
+    <h2 class="govuk-heading-m">Leave feedback</h2>
+    <p class="govuk-body govuk-!-margin-bottom-0">To report any difficulties you have using Get help to retrain, contact us on <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-link' %>.</p>
+    <p class="govuk-body">Monday to Friday, 9am to 5pm.</p>
+    <p class="govuk-body">To make a complaint about how we manage accessibility in our service you can also contact <%= mail_to('gateway.accessibility@digital.hmrc.gov.uk', 'gateway.accessibility@digital.hmrc.gov.uk', class: 'govuk-link') %>.</p>
+    <h2 class="govuk-heading-m">Enforcement procedure</h2>
+    <p class="govuk-body">The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <%= link_to 'contact the Equality Advisory and Support Service (EASS)', 'https://www.equalityadvisoryservice.com', class: 'govuk-link' %>.</p>
+    <p class="govuk-body">Last updated March 2020.</p>
   </div>
 
   <div class="govuk-grid-column-one-third">
