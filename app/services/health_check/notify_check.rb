@@ -26,7 +26,7 @@ module HealthCheck
 
     def fetch_value
       NotifyService.new.health_check
-    rescue Notifications::Client::RequestError, RuntimeError, ArgumentError => e
+    rescue StandardError => e
       @output = "Notify API error: #{e.message}"
       nil
     end
