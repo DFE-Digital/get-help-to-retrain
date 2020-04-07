@@ -189,7 +189,7 @@ RSpec.feature 'Jobs near me', type: :feature do
       click_on('Continue')
       click_on('Continue')
       click_on('Continue')
-      click_on('Show jobs near me')
+      click_on('Show jobs near you')
     end
   end
 
