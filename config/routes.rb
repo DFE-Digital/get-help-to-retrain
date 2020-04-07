@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     get 'cv-advice', to: 'pages#cv_advice'
     get 'cover-letter-advice', to: 'pages#cover_letter_advice'
     get 'interview-advice', to: 'pages#interview_advice'
-    get 'funding-info', to: 'pages#funding_info'
+    get 'funding-information', to: 'pages#funding_info'
     get 'training-questions', to: 'questions#training'
     post 'training-questions', to: 'questions#training_answers'
     get 'edit-training-questions', to: 'questions#edit_training'

@@ -246,7 +246,7 @@ RSpec.feature 'Action plan spec' do
 
     click_on('Find out about funding')
 
-    expect(page).to have_current_path(funding_info_path)
+    expect(page).to have_current_path(funding_information_path)
   end
 
   private
