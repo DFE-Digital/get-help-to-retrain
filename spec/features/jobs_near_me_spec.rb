@@ -75,7 +75,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     fill_in_postcode
     user_targets_a_job
 
-    expect(page).to have_text('Admin assistant jobs near me')
+    expect(page).to have_text('Admin assistant jobs near you')
   end
 
   scenario 'Users can find jobs near them with postcode' do
