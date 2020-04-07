@@ -1,0 +1,4 @@
+<%= render user_session.training.present? || user_session.it_training.present? ? 'pages/training/with_options' : 'pages/training/without_options'  %>
+
+<p class="govuk-body govuk-!-margin-top-3">Remember, you may be able to get funding to support your training, including help with things such as travel and childcare expenses.</p>
+<%= link_to 'Find out about funding', funding_info_path, class: 'govuk-link' %>
