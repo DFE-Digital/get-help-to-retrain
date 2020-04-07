@@ -62,7 +62,7 @@ RSpec.feature 'Questions' do
     user_targets_job
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
-    check('I need to improve my computer skills', allow_label_click: true)
+    check('Digital and computer skills courses', allow_label_click: true)
     click_on('Continue')
     check('I want advice on creating or updating a CV', allow_label_click: true)
     click_on('Continue')
@@ -97,7 +97,7 @@ RSpec.feature 'Questions' do
     user_targets_job
     check('I need to improve my English skills', allow_label_click: true)
     click_on('Continue')
-    check('I need to improve my computer skills', allow_label_click: true)
+    check('Digital and computer skills courses', allow_label_click: true)
     click_on('Continue')
     visit(job_profile_path(job_profile.slug))
     click_on('Select this type of work')
@@ -174,7 +174,7 @@ RSpec.feature 'Questions' do
 
     user_targets_job
     visit(it_training_questions_path)
-    check('I need to improve my computer skills', allow_label_click: true)
+    check('Digital and computer skills courses', allow_label_click: true)
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(
@@ -222,7 +222,7 @@ RSpec.feature 'Questions' do
 
     user_targets_job
     visit(it_training_questions_path)
-    uncheck('I need to improve my computer skills', allow_label_click: true)
+    uncheck('Digital and computer skills courses', allow_label_click: true)
     click_on('Continue')
 
     expect(tracking_service).to have_received(:track_events).with(

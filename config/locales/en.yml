@@ -59,7 +59,7 @@ en-GB:
     pages_accessibility_statement: Accessibility - Get help to retrain
     pages_terms_and_conditions: Terms and Conditions - Get help to retrain
     training_questions: Maths and English training - Get help to retrain
-    it_training_questions: Computer skills training - Get help to retrain
+    it_training_questions: Digital and computer skills - Get help to retrain
     edit_training_questions: Edit your training choices - Get help to retrain
     job_hunting_questions: Job hunting advice - Get help to retrain
     user_personal_data: Your information - Get help to retrain
@@ -156,7 +156,7 @@ en-GB:
     edit_training:
       title: Edit your training choices
     it_training:
-      title: Computer skills training
+      title: Digital and computer skills
   pages:
     action_plan:
       title: Your personal action plan
