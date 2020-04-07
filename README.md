@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-- Ruby 2.6.5
+- Ruby 2.6.6
 - PostgreSQL
 - NodeJS 12.14.x
 - Yarn 1.16.x

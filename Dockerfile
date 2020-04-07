@@ -1,4 +1,4 @@
-FROM ruby:2.6.5-alpine as assets
+FROM ruby:2.6.6-alpine as assets
 
 ENV RAILS_ENV production
 ENV NODE_ENV production
@@ -24,7 +24,7 @@ RUN yarn install
 COPY . ./
 RUN bundle exec rails assets:precompile SECRET_KEY_BASE=stubbed
 
-FROM ruby:2.6.5-alpine
+FROM ruby:2.6.6-alpine
 
 ENV RAILS_ENV production
 ENV RACK_ENV production
