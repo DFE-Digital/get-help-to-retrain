@@ -1,0 +1,38 @@
+<%= render partial: 'pages/training/edit_training_choices', locals: { heading: 'Your training choices' } %>
+
+<p class="govuk-body">You chose to look for some training. Employers value these skills so this can improve your chances of getting a job.</p>
+<div class="action-plan-list">
+  <% if user_session.training.include?('math_skills') %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h3 class="govuk-heading-s">Maths course</h3>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <%= link_to 'Find a maths course', courses_path(:maths), class: 'govuk-button govuk-button--secondary action-plan-action', data: { module: 'govuk-button' } %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if user_session.training.include?('english_skills') %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h3 class="govuk-heading-s">English course</h3>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <%= link_to 'Find an English course', courses_path(:english), class: 'govuk-button govuk-button--secondary action-plan-action', data: { module: 'govuk-button' } %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if user_session.it_training.include?('computer_skills') %>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h3 class="govuk-heading-s">Computer skills training</h3>
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <%= link_to 'Go to learning provider website', 'https://www.learnmyway.com/subjects', class: 'govuk-button govuk-button--secondary action-plan-action', data: { module: 'govuk-button' } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= render 'pages/training/find_other_courses' %>

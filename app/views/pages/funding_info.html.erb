@@ -1,0 +1,29 @@
+<% page_title :pages_funding_info %>
+<%= back_link %>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl"><%= t('.title') %></h1>
+    <p class="govuk-body">You may be able to do free training or get money to help you train.</p>
+    <div class="govuk-inset-text">
+      There’s lots of different funding support available. It’s usually best to talk to your course provider to find out what support you can get.
+    </div>
+    <h2 class="govuk-heading-m">Free training</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Many people can study maths and English for free.</li>
+      <li>You can study computer skills online for free on the <%= link_to 'Learn my Way', 'https://www.learnmyway.com/subjects', class: 'govuk-link' %> website.</li>
+    </ul>
+    <p class="govuk-body">Other free courses are available. Speak to a local adviser to find out what’s available in your area. Call free on <%= link_to t('contact_us.telephone'), t('contact_us.telephone_link'), class: 'govuk-link' %> Monday to Friday from 9am to 5pm.</p>
+    <h2 class="govuk-heading-m">Help with training costs</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>You may be able to get funding to do courses that you need to pay for. This includes grants and bursaries, which you may not need to pay back.</li>
+      <li>If you’re facing financial hardship you could get extra help, including funding for your travel and accommodation costs, course materials and equipment, and childcare costs.</li>
+    </ul>
+    <p class="govuk-body">To find out more about funding support, find a course that suits your needs and then speak to the training provider to find out what funding you could get.</p>
+  </div>
+
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
+</div>

@@ -241,6 +241,14 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_link('Find an apprenticeship', href: 'https://www.findapprenticeship.service.gov.uk/apprenticeshipsearch?searchMode=Category')
   end
 
+  scenario 'Page links to funding info page' do
+    user_targets_a_job
+
+    click_on('Find out about funding')
+
+    expect(page).to have_current_path(funding_information_path)
+  end
+
   private
 
   def user_targets_a_job

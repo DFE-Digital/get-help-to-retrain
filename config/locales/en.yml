@@ -58,6 +58,7 @@ en-GB:
     pages_information_sources: Information sources - Get help to retrain
     pages_accessibility_statement: Accessibility - Get help to retrain
     pages_terms_and_conditions: Terms and Conditions - Get help to retrain
+    pages_funding_info: Funding Information - Get help to retrain
     training_questions: Maths and English training - Get help to retrain
     it_training_questions: Computer skills training - Get help to retrain
     edit_training_questions: Edit your training choices - Get help to retrain
@@ -180,6 +181,8 @@ en-GB:
       title: Accessibility
     terms_and_conditions:
       title: Terms and Conditions
+    funding_info:
+      title: Free training and help with training costs
   help_improve_this_service:
     title: Help improve this service
     body: Take a quick survey and tell us about your experience
