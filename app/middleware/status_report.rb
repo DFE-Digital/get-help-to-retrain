@@ -1,7 +1,7 @@
 class StatusReport
   STATUS_CODES = {
     pass: 200,
-    warn: 207,
+    warn: 200,
     fail: 503
   }.freeze
 

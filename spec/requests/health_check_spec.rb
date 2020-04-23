@@ -26,9 +26,9 @@ RSpec.describe 'Health check', type: :request do
     context 'when health check has warnings' do
       let(:status) { :warn }
 
-      it 'has 207 response' do
+      it 'has 200 response' do
         get status_path
-        expect(response.status).to eq 207
+        expect(response.status).to eq 200
       end
     end
 
