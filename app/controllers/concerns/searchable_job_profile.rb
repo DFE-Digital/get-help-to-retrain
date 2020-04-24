@@ -22,4 +22,16 @@ module SearchableJobProfile
   def redirect_to_results_if_search_term_provided
     redirect_to(action: :results, search: search) if search && @job_profile_search.valid?
   end
+
+  def spell_check_service
+    @spell_check_service ||= SpellCheckService.new
+  end
+
+  def spell_check_searched_term
+    return unless search.present?
+
+    @spell_checked_search = spell_check_service.scan(search_term: search)
+  rescue SpellCheckService::SpellCheckServiceError
+    @spell_checked_search = nil
+  end
 end

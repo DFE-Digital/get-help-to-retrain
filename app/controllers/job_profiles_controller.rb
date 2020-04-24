@@ -18,6 +18,8 @@ class JobProfilesController < ApplicationController
     @results = job_profile_search_results
     @scores = SkillsMatcher.new(user_session).job_profile_scores
     @job_profiles = JobProfileDecorator.decorate(@results)
+
+    spell_check_searched_term
   end
 
   def show

@@ -25,16 +25,4 @@ class CheckYourSkillsController < ApplicationController
   def job_profile_params
     params.permit(:search)
   end
-
-  def spell_check_service
-    @spell_check_service ||= SpellCheckService.new
-  end
-
-  def spell_check_searched_term
-    return unless search.present?
-
-    @spell_checked_search = spell_check_service.scan(search_term: search)
-  rescue SpellCheckService::SpellCheckServiceError
-    @spell_checked_search = nil
-  end
 end

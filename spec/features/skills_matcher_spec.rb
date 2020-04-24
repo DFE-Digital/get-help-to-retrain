@@ -374,4 +374,117 @@ RSpec.feature 'Skills matcher', type: :feature do
       ]
     )
   end
+
+  scenario 'User enters an incorrect word on job profiles page but no spell check api key is available' do
+    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return('https://s111-bingspellcheck.cognitiveservices.azure.com/bing/v7.0/spellcheck')
+    allow(Rails.configuration).to receive(:bing_spell_check_api_key).and_return(nil)
+
+    visit_skills_for_current_job_profile
+    visit(job_profiles_path)
+
+    fill_in('search', with: 'Gatas')
+    find('.search-button').click
+
+    expect(page).not_to have_text('Did you mean')
+  end
+
+  scenario 'User enters an incorrect word on job profiles page but no spell check api endpoint is available' do
+    allow(Rails.configuration).to receive(:bing_spell_check_api_key).and_return('test')
+    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return(nil)
+
+    visit_skills_for_current_job_profile
+    visit(job_profiles_path)
+
+    fill_in('search', with: 'Gatas')
+    find('.search-button').click
+
+    expect(page).not_to have_text('Did you mean')
+  end
+
+  scenario 'User enters an incorrect word on job profiles page and a correction is returned' do
+    stub_bing_api_keys
+
+    response_body = {
+      '_type': 'SpellCheck',
+      'flaggedTokens': [
+        {
+          'offset': 5,
+          'token': 'Gatas',
+          'type': 'UnknownToken',
+          'suggestions': [
+            {
+              'suggestion': 'Gates',
+              'score': 1
+            }
+          ]
+        }
+      ]
+    }.to_json
+
+    fake_bing_api_call_with(response_body, 'Gatas')
+
+    visit_skills_for_current_job_profile
+    visit(job_profiles_path)
+
+    fill_in('search', with: 'Gatas')
+    find('.search-button').click
+
+    expect(page).to have_text('Did you mean gates')
+  end
+
+  scenario 'User enters an incorrect word on job profiles page and the correction leads to results page' do
+    stub_bing_api_keys
+
+    correction_response_body = {
+      '_type': 'SpellCheck',
+      'flaggedTokens': [
+        {
+          'offset': 5,
+          'token': 'Gatas',
+          'type': 'UnknownToken',
+          'suggestions': [
+            {
+              'suggestion': 'Gates',
+              'score': 1
+            }
+          ]
+        }
+      ]
+    }.to_json
+    no_correction_response_body = {
+      '_type': 'SpellCheck',
+      'flaggedTokens': []
+    }.to_json
+
+    fake_bing_api_call_with(correction_response_body, 'Gatas')
+
+    visit_skills_for_current_job_profile
+    visit(job_profiles_path)
+
+    fill_in('search', with: 'Gatas')
+    find('.search-button').click
+    fake_bing_api_call_with(no_correction_response_body, 'gates')
+    click_on('gates')
+
+    expect(page).to have_current_path(results_job_profiles_path(search: 'gates'))
+  end
+
+  scenario 'User enters an incorrect word on job profiles page but sees no correction' do
+    stub_bing_api_keys
+
+    response_body = {
+      '_type': 'SpellCheck',
+      'flaggedTokens': []
+    }.to_json
+
+    fake_bing_api_call_with(response_body, 'Gatas')
+
+    visit_skills_for_current_job_profile
+    visit(job_profiles_path)
+
+    fill_in('search', with: 'Gatas')
+    find('.search-button').click
+
+    expect(page).not_to have_text('Did you mean gates')
+  end
 end
