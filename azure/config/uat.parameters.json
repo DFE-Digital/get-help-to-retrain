@@ -55,22 +55,6 @@
         }
       ]
     },
-    "adminIpSecurityRestrictions": {
-      "value": [
-        {
-          "ipAddress": "217.38.175.64/28",
-          "name": "Office Range"
-        },
-        {
-          "ipAddress": "185.125.226.42/32",
-          "name": "Toolkit office Range"
-        },
-        {
-          "ipAddress": "0.0.0.0/0",
-          "name": "Allow All"
-        }
-      ]
-    },
     "secretKeyBase": {
       "reference": {
         "keyVault": {
