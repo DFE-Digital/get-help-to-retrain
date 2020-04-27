@@ -9,20 +9,6 @@ RSpec.feature 'Check your skills', type: :feature do
         create(:skill, name: 'Patience and the ability to remain calm in stressful situations')
       ]
     )
-
-    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return('https://s111-bingspellcheck.cognitiveservices.azure.com/bing/v7.0/spellcheck')
-  end
-
-  def fake_bing_api_call_with(response_body, text)
-    request_headers = {
-      'Content-Type' => 'application/x-www-form-urlencoded',
-      'Ocp-Apim-Subscription-Key' => 'test'
-    }
-
-    stub_request(:get, Rails.configuration.bing_spell_check_api_endpoint)
-      .with(headers: request_headers,
-            query: URI.encode_www_form(mkt: 'en-gb', mode: 'spell', text: text))
-      .to_return(body: response_body, status: 200)
   end
 
   scenario 'User checks their current skills' do
@@ -91,6 +77,9 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User enters an incorrect word but no api key is available' do
+    allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return('https://s111-bingspellcheck.cognitiveservices.azure.com/bing/v7.0/spellcheck')
+    allow(Rails.configuration).to receive(:bing_spell_check_api_key).and_return(nil)
+
     visit(check_your_skills_path)
     fill_in('search', with: 'Gatas')
     find('.search-button').click
@@ -99,7 +88,9 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User enters an incorrect word but no api endpoint is available' do
+    allow(Rails.configuration).to receive(:bing_spell_check_api_key).and_return('test')
     allow(Rails.configuration).to receive(:bing_spell_check_api_endpoint).and_return(nil)
+
     visit(check_your_skills_path)
     fill_in('search', with: 'Gatas')
     find('.search-button').click
@@ -108,7 +99,8 @@ RSpec.feature 'Check your skills', type: :feature do
   end
 
   scenario 'User enters an incorrect word and a correction is returned' do
-    Rails.configuration.bing_spell_check_api_key = 'test'
+    stub_bing_api_keys
+
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -133,12 +125,11 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(page).to have_text('Did you mean gates')
-  ensure
-    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User enters an incorrect word and the correction leads to results page' do
-    Rails.configuration.bing_spell_check_api_key = 'test'
+    stub_bing_api_keys
+
     correction_response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': [
@@ -169,12 +160,11 @@ RSpec.feature 'Check your skills', type: :feature do
     click_on('gates')
 
     expect(page).to have_current_path(results_check_your_skills_path(search: 'gates'))
-  ensure
-    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User enters an incorrect word but sees no correction' do
-    Rails.configuration.bing_spell_check_api_key = 'test'
+    stub_bing_api_keys
+
     response_body = {
       '_type': 'SpellCheck',
       'flaggedTokens': []
@@ -187,8 +177,6 @@ RSpec.feature 'Check your skills', type: :feature do
     find('.search-button').click
 
     expect(page).not_to have_text('Did you mean gates')
-  ensure
-    Rails.configuration.bing_spell_check_api_key = nil
   end
 
   scenario 'User cannot find occupation through search' do
