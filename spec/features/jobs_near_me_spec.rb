@@ -39,7 +39,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     user_targets_a_job
     fill_in('postcode', with: 'NW6 1JF')
-    find('.search-button-results').click
+    click_on('Apply filters')
     visit(jobs_near_me_path)
 
     expect(find_field('postcode').value).to eq('NW6 1JF')
@@ -57,10 +57,72 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     user_targets_a_job
     fill_in('postcode', with: 'NW6 1JF')
-    find('.search-button-results').click
+    click_on('Apply filters')
     visit(jobs_near_me_path)
 
     expect(find_field('postcode').value).to eq('NW6 1JF')
+  end
+
+  scenario 'Users will by default see a 20 miles distance on an empty session' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 1 },
+        'jobs' => [{}]
+      }
+    )
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+
+    expect(page).to have_select('distance', selected: 'Up to 20 miles')
+  end
+
+  scenario 'Users can update the distance on the session' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 1 },
+        'jobs' => [{}]
+      }
+    )
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+
+    fill_in('postcode', with: 'NW6 8ET')
+    select('Up to 40 miles', from: 'distance')
+    click_on('Apply filters')
+
+    visit(jobs_near_me_path)
+
+    expect(page).to have_select('distance', selected: 'Up to 40 miles')
+  end
+
+  scenario 'Users will see the same distance that was used on Find a course section if they come from that page' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 1 },
+        'jobs' => [{}]
+      }
+    )
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    select('Up to 10 miles', from: 'distance')
+    click_on('Apply filters')
+
+    user_targets_a_job
+
+    expect(page).to have_select('distance', selected: 'Up to 10 miles')
   end
 
   scenario 'User can see jobs for their targeted job' do
@@ -140,28 +202,39 @@ RSpec.feature 'Jobs near me', type: :feature do
   scenario 'User gets relevant messaging if their postcode is not valid' do
     user_targets_a_job
     fill_in('postcode', with: 'NW6 8E')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Enter a valid postcode/)
   end
 
+  scenario 'The distance is not stored on the session if the user postcode is not valid' do
+    user_targets_a_job
+    fill_in('postcode', with: 'NW6 8E')
+    select('Up to 10 miles', from: 'distance')
+    click_on('Apply filters')
+
+    visit(jobs_near_me_path)
+
+    expect(page).to have_select('distance', selected: 'Up to 20 miles')
+  end
+
   scenario 'User gets relevant messaging if no address is entered' do
     user_targets_a_job
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Enter a postcode/)
   end
 
   scenario 'Error summary message present if no address is entered' do
     user_targets_a_job
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_content('There is a problem')
   end
 
   scenario 'Error summary contains error if no address is entered' do
     user_targets_a_job
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
       [
@@ -177,7 +250,7 @@ RSpec.feature 'Jobs near me', type: :feature do
 
     user_targets_a_job
     fill_in('postcode', with: 'NW6 9ET')
-    find('.search-button-results').click
+    click_on('Apply filters')
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
