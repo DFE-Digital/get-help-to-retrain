@@ -1,0 +1,32 @@
+<div class="govuk-accordion govuk-accordion-jobs-near-me" data-module="govuk-accordion" id="accordion-jobs-near-me">
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-jobs-near-me-heading-1">
+          Filters
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-jobs-near-me-content-1" class="govuk-accordion__section-content govuk-!-padding-top-0" aria-labelledby="accordion-jobs-near-me-heading-1">
+      <%= form_with model: @job_vacancy_search, local: true, url: jobs_near_me_path do |form| %>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+            <%= form_group_tag @job_vacancy_search, :postcode do %>
+              <%= errors_tag @job_vacancy_search, :postcode %>
+              <%= form.label :postcode, class: 'govuk-label', for: 'postcode' %>
+              <%= text_field_tag(:postcode, @postcode, class: css_classes_for_input(@job_vacancy_search, :postcode, "jobs-near-me-search-input govuk-input govuk-input govuk-!-width-full"), autocomplete: 'postal-code') %>
+            <% end %>
+          </div>
+          <div class="govuk-grid-column-one-half">
+            <div class="govuk-form-group">
+              <%= errors_tag_minimal @job_vacancy_search, :postcode %>
+              <%= label_tag :distance, 'Distance', for: 'distance', class: 'govuk-label' %>
+              <%= select_tag :distance, options_for_select(JobVacanciesController::DISTANCE, @distance || '20'), class: 'govuk-select govuk-!-width-full', id: 'distance' %>
+            </div>
+          </div>
+        </div>
+        <%= button_tag('Apply filters', class: 'govuk-button', data: { module: 'govuk-button' }) %>
+      <% end %>
+    </div>
+  </div>
+</div>
