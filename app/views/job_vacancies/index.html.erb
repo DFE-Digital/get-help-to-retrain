@@ -19,9 +19,7 @@
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= render 'search_filter' %>
     </div>
-    <p class="govuk-body">These jobs are currently being advertised in the <%= link_to('Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link') %> service from the Department for Work and Pensions.</p>
-    <p class="govuk-body">Selecting one of these jobs will take you to another government service.</p>
-    <div class="govuk-grid-column-full govuk-!-padding-0 govuk-!-margin-top-3">
+    <div class="govuk-grid-column-full govuk-!-padding-0">
       <% if @job_vacancies.empty? %>
         <p class="govuk-body-m">0 job vacancies found on the Find a job service</p>
         <h2 class="govuk-heading-s">This service only looks for jobs advertised on the Find a job service from the Department for Work and Pensions. To find <%= target_job.name %> jobs you may need to search elsewhere.</h2>
@@ -33,7 +31,9 @@
           <li>entering a different name for this job on the <%= link_to 'Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link' %> service</li>
         </ul>
       <% else %>
-        <ul class="govuk-list">
+        <p class="govuk-body">These jobs are currently being advertised in the <%= link_to('Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link') %> service from the Department for Work and Pensions.</p>
+        <p class="govuk-body">Selecting one of these jobs will take you to another government service.</p>
+        <ul class="govuk-list govuk-!-margin-top-7">
           <%= render partial: 'job_vacancy', collection: @job_vacancies %>
         </ul>
         <div class="govuk-grid-column-full govuk-!-margin-bottom-4">
