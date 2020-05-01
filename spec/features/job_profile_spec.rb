@@ -9,12 +9,12 @@ RSpec.feature 'Job profile spec' do
     expect(page).to have_content('How to become an acrobat')
   end
 
-  scenario 'Alternative titles has the structure Other similar jobs include: xxxxx' do
+  scenario 'Alternative titles has the structure Similar types of work include: xxxxx' do
     job_profile = create(:job_profile, :with_html_content, alternative_titles: 'Therapy master, dog walker, trainer')
 
     visit(job_profile_path(job_profile.slug))
 
-    expect(page).to have_content('Other similar jobs include: therapy master, dog walker, trainer')
+    expect(page).to have_content('Similar types of work include: therapy master, dog walker, trainer')
   end
 
   scenario 'Apprenticeship section is not rendered unless it exists' do
