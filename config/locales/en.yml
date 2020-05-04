@@ -249,7 +249,15 @@ en-GB:
             postcode:
               blank: Enter a postcode
             dob:
-              invalid: Enter a valid date of birth
+              invalid: Enter a real date of birth
+              blank: Enter your date of birth
+              past: Your date of birth must be in the past
+              missing_year: Your date of birth must include a year
+              missing_day: Your date of birth must include a day
+              missing_month: Your date of birth must include a month
+              missing_day_month: Your date of birth must include a day and month
+              missing_day_year: Your date of birth must include a day and year
+              missing_month_year: Your date of birth must include a month and year
 
   active_admin:
     sign_in:

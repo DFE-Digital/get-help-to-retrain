@@ -9,6 +9,38 @@ RSpec.feature 'Your information' do
     I18n.t('dob.invalid', scope: i18n_scope)
   }
 
+  let(:dob_blank_error) {
+    I18n.t('dob.blank', scope: i18n_scope)
+  }
+
+  let(:dob_past_error) {
+    I18n.t('dob.past', scope: i18n_scope)
+  }
+
+  let(:dob_missing_year_error) {
+    I18n.t('dob.missing_year', scope: i18n_scope)
+  }
+
+  let(:dob_missing_day_error) {
+    I18n.t('dob.missing_day', scope: i18n_scope)
+  }
+
+  let(:dob_missing_month_error) {
+    I18n.t('dob.missing_month', scope: i18n_scope)
+  }
+
+  let(:dob_missing_month_year_error) {
+    I18n.t('dob.missing_month_year', scope: i18n_scope)
+  }
+
+  let(:dob_missing_day_month_error) {
+    I18n.t('dob.missing_day_month', scope: i18n_scope)
+  }
+
+  let(:dob_missing_day_year_error) {
+    I18n.t('dob.missing_day_year', scope: i18n_scope)
+  }
+
   let(:first_name_blank_error) {
     I18n.t('first_name.blank', scope: i18n_scope)
   }
@@ -86,7 +118,7 @@ RSpec.feature 'Your information' do
       [
         first_name_blank_error,
         last_name_blank_error,
-        dob_invalid_error,
+        dob_blank_error,
         gender_blank_error
       ]
     )
@@ -135,20 +167,71 @@ RSpec.feature 'Your information' do
     expect(page).to have_css('input#user_personal_data_postcode', class: 'govuk-input--error')
   end
 
-  scenario 'When the date of birth is empty user gets: Enter a valid date of birth' do
+  scenario 'When the date of birth is empty user gets: Enter your date of birth' do
     click_on('Continue')
 
-    expect(page).to have_content(dob_invalid_error)
+    expect(page).to have_content(dob_blank_error)
   end
 
-  scenario 'When the date is valid but in future user gets: Enter a valid date of birth' do
+  scenario 'When the day of birth is missing user gets: Enter your date of birth' do
+    fill_in('user_personal_data[birth_month]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 18)
+
+    click_on('Continue')
+
+    expect(page).to have_content(dob_missing_day_error)
+  end
+
+  scenario 'When the month of birth is missing user gets: Your date of birth must include a month' do
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 18)
+
+    click_on('Continue')
+
+    expect(page).to have_content(dob_missing_month_error)
+  end
+
+  scenario 'When the year of birth is missing user gets: Your date of birth must include a year' do
+    fill_in('user_personal_data[birth_day]', with: '1')
+    fill_in('user_personal_data[birth_month]', with: '1')
+
+    click_on('Continue')
+
+    expect(page).to have_content(dob_missing_year_error)
+  end
+
+  scenario 'When the day and month of birth are missing user gets: Your date of birth must include a day and month' do
+    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 18)
+
+    click_on('Continue')
+
+    expect(page).to have_content(dob_missing_day_month_error)
+  end
+
+  scenario 'When the month and year of birth are missing user gets: Your date of birth must include a month and year' do
+    fill_in('user_personal_data[birth_day]', with: '1')
+
+    click_on('Continue')
+
+    expect(page).to have_content(dob_missing_month_year_error)
+  end
+
+  scenario 'When the day and year of birth are missing user gets: Your date of birth must include a day and year' do
+    fill_in('user_personal_data[birth_month]', with: '1')
+
+    click_on('Continue')
+
+    expect(page).to have_content(dob_missing_day_year_error)
+  end
+
+  scenario 'When the date is valid but in future user gets: Your date of birth must be in the past' do
     fill_in('user_personal_data[birth_day]', with: '1')
     fill_in('user_personal_data[birth_month]', with: '1')
     fill_in('user_personal_data[birth_year]', with: DateTime.now.year + 3)
 
     click_on('Continue')
 
-    expect(page).to have_content(dob_invalid_error)
+    expect(page).to have_content(dob_past_error)
   end
 
   scenario 'When the date is present but has invalid day, user gets: Enter a valid date of birth' do
@@ -171,14 +254,14 @@ RSpec.feature 'Your information' do
     expect(page).to have_content(dob_invalid_error)
   end
 
-  scenario 'When the date is present but has invalid year, user gets: Enter a valid date of birth' do
+  scenario 'When the date is present but has invalid year, user gets: Your date of birth must include a year' do
     fill_in('user_personal_data[birth_day]', with: '1')
     fill_in('user_personal_data[birth_month]', with: '1')
-    fill_in('user_personal_data[birth_year]', with: '99999')
+    fill_in('user_personal_data[birth_year]', with: '-34')
 
     click_on('Continue')
 
-    expect(page).to have_content(dob_invalid_error)
+    expect(page).to have_content(dob_missing_year_error)
   end
 
   scenario 'Birth day field is highlighted when there is a validation error' do
