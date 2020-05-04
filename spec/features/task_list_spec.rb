@@ -31,7 +31,7 @@ RSpec.feature 'Task list', type: :feature do
 
     visit(task_list_path)
 
-    click_on('See types of jobs that match your skills')
+    click_on('See types of work that match your skills')
 
     expect(page).to have_text('Types of work that match your skills')
   end
@@ -107,7 +107,7 @@ RSpec.feature 'Task list', type: :feature do
 
     visit(task_list_path)
 
-    click_on('See types of jobs that match your skills')
+    click_on('See types of work that match your skills')
 
     expect(page).to have_text('Types of work that match your skills')
   end
