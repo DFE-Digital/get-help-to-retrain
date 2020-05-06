@@ -35,6 +35,10 @@ class CoursesController < ApplicationController
     @postcode ||= courses_params[:postcode] || user_session.postcode
   end
 
+  def outcode
+    UKPostcode.parse(postcode).outcode
+  end
+
   def distance
     @distance ||= courses_params[:distance] || user_session.distance
   end
@@ -83,7 +87,7 @@ class CoursesController < ApplicationController
   end
 
   def track_course_filters # rubocop:disable Metrics/MethodLength
-    track_event(:courses_index_search, postcode) if postcode.present?
+    track_event(:courses_index_search, outcode) if postcode.present?
     track_course_filter_for(
       parameter: courses_params[:delivery_type],
       value_mapping: DELIVERY_TYPES,

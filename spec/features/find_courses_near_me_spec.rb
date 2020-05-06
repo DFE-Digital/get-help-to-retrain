@@ -345,7 +345,7 @@ RSpec.feature 'Find training courses', type: :feature do
     )
   end
 
-  scenario 'tracks search postcode' do
+  scenario 'tracks the outcode of the searched postcode' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
 
@@ -359,7 +359,7 @@ RSpec.feature 'Find training courses', type: :feature do
         {
           key: :courses_index_search,
           label: 'Courses near me - Postcode search',
-          value: 'NW6 8ET'
+          value: 'NW6'
         }
       ]
     )
