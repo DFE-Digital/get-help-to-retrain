@@ -18,7 +18,7 @@
             <% end %>
             <div class="govuk-form-group">
               <%= label_tag :delivery_type, 'Course type', for: 'delivery_type', class: 'govuk-label' %>
-              <%= select_tag :delivery_type, options_for_select(CoursesController::DELIVERY_TYPES, params[:delivery_type] || 'all'), class: 'govuk-select govuk-!-width-full', id: 'delivery_type' %>
+              <%= select_tag :delivery_type, options_for_select(CoursesController::DELIVERY_TYPE, params[:delivery_type] || 'all'), class: 'govuk-select govuk-!-width-full', id: 'delivery_type' %>
             </div>
           </div>
           <div class="govuk-grid-column-one-half">

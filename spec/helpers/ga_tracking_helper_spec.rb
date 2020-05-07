@@ -79,10 +79,11 @@ RSpec.describe GaTrackingHelper do
       tracking_service = instance_spy(TrackingService)
       allow(TrackingService).to receive(:new).and_return(tracking_service)
 
-      helper.track_course_filter_for(
+      helper.track_filter_for(
+        key: :filter_courses,
         parameter: '1',
         value_mapping: [['Classroom based', '1']],
-        label: 'events.course_type_filter'
+        label: 'events.course_delivery_type_filter'
       )
 
       expect(tracking_service).to have_received(:track_events).with(
@@ -101,7 +102,8 @@ RSpec.describe GaTrackingHelper do
       tracking_service = instance_spy(TrackingService)
       allow(TrackingService).to receive(:new).and_return(tracking_service)
 
-      helper.track_course_filter_for(
+      helper.track_filter_for(
+        key: :filter_courses,
         parameter: nil,
         value_mapping: [['Classroom based', '1']],
         label: 'events.course_type_filter'
@@ -114,7 +116,8 @@ RSpec.describe GaTrackingHelper do
       tracking_service = instance_spy(TrackingService)
       allow(TrackingService).to receive(:new).and_return(tracking_service)
 
-      helper.track_course_filter_for(
+      helper.track_filter_for(
+        key: :filter_courses,
         parameter: 'all',
         value_mapping: [%w[All all]],
         label: 'events.course_type_filter'

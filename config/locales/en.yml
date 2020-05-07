@@ -86,6 +86,7 @@ en-GB:
     check_your_skills_index_search: Check your skills - Job search
     job_profiles_index_search: Job profiles - Job search
     courses_index_search: Courses near me - Postcode search
+    jobs_near_me_index_search: Jobs near me - Postcode search
     skills_index_selected: Current job skills - Skills selected
     user_personal_information_skipped: User personal information - Skip this step link clicked
     job_hunting: Get help with your job hunting skills
@@ -97,10 +98,14 @@ en-GB:
       progress: Returned to progress button
     return_to_saved_link:
       progress: Returned to progress link
-    course_type_filter:
+    course_delivery_type_filter:
       filter_courses: Course type
     course_hours_filter:
       filter_courses: Course hours
+    course_distance_filter:
+      filter_courses: Course distance
+    job_distance_filter:
+      filter_job_vacancies: Job distance
 
   contact_us:
     title: Free local advice

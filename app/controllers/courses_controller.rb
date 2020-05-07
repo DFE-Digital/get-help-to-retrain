@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
     ['Up to 10 miles', '10'], ['Up to 20 miles', '20'], ['Up to 30 miles', '30'], ['Up to 40 miles', '40']
   ].freeze
 
-  DELIVERY_TYPES = [
+  DELIVERY_TYPE = [
     %w[All all], ['Classroom based', '1'], %w[Online 2], ['Work based', '3']
   ].freeze
 
@@ -12,7 +12,7 @@ class CoursesController < ApplicationController
   ].freeze
 
   def index
-    track_course_filters
+    track_search_filters
     persist_valid_filters_on_session
 
     @courses = Kaminari .paginate_array(course_search, total_count: search.count)
@@ -86,17 +86,16 @@ class CoursesController < ApplicationController
     user_session.distance = distance if distance
   end
 
-  def track_course_filters # rubocop:disable Metrics/MethodLength
+  def track_search_filters
     track_event(:courses_index_search, outcode) if postcode.present?
-    track_course_filter_for(
-      parameter: courses_params[:delivery_type],
-      value_mapping: DELIVERY_TYPES,
-      label: 'events.course_type_filter'
-    )
-    track_course_filter_for(
-      parameter: courses_params[:hours],
-      value_mapping: HOURS,
-      label: 'events.course_hours_filter'
-    )
+
+    %w[delivery_type hours distance].each do |filter_name|
+      track_filter_for(
+        key: :filter_courses,
+        parameter: courses_params[filter_name],
+        value_mapping: "CoursesController::#{filter_name.upcase}".constantize,
+        label: "events.course_#{filter_name}_filter"
+      )
+    end
   end
 end
