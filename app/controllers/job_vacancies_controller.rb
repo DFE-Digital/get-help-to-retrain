@@ -6,6 +6,7 @@ class JobVacanciesController < ApplicationController
   def index
     return redirect_to task_list_path unless target_job.present?
 
+    track_search_filters
     persist_valid_filters_on_session
 
     @job_vacancies = job_vacancies
@@ -21,6 +22,10 @@ class JobVacanciesController < ApplicationController
 
   def distance
     @distance ||= job_vacancies_params[:distance] || user_session.distance
+  end
+
+  def outcode
+    UKPostcode.parse(postcode).outcode
   end
 
   def persist_valid_filters_on_session
@@ -51,6 +56,17 @@ class JobVacanciesController < ApplicationController
       name: target_job.name,
       page: job_vacancies_params[:page],
       distance: job_vacancies_params[:distance]
+    )
+  end
+
+  def track_search_filters
+    track_event(:jobs_near_me_index_search, outcode) if postcode.present?
+
+    track_filter_for(
+      key: :filter_job_vacancies,
+      parameter: job_vacancies_params[:distance],
+      value_mapping: DISTANCE,
+      label: 'events.job_distance_filter'
     )
   end
 end

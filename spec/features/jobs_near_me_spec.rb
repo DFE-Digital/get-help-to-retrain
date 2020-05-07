@@ -255,6 +255,47 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
+  scenario 'tracks the outcode of the searched postcode' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    fill_in('postcode', with: 'NW6 8ET')
+    click_on('Apply filters')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :jobs_near_me_index_search,
+          label: 'Jobs near me - Postcode search',
+          value: 'NW6'
+        }
+      ]
+    )
+  end
+
+  scenario 'tracks the distance filter' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    fill_in('postcode', with: 'NW6 8ET')
+    select('Up to 10 miles', from: 'distance')
+    click_on('Apply filters')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :filter_job_vacancies,
+          label: 'Job distance',
+          value: 'Up to 10 miles'
+        }
+      ]
+    )
+  end
+
   def user_targets_a_job
     create(:job_profile, :with_html_content, name: 'Admin assistant').tap do |job_profile|
       visit(job_profile_path(job_profile.slug))

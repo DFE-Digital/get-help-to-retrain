@@ -386,6 +386,27 @@ RSpec.feature 'Find training courses', type: :feature do
     )
   end
 
+  scenario 'tracks the distance filter' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: 'NW6 8ET')
+    select('Up to 10 miles', from: 'distance')
+    click_on('Apply filters')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :filter_courses,
+          label: 'Course distance',
+          value: 'Up to 10 miles'
+        }
+      ]
+    )
+  end
+
   scenario 'does not track course hours filter when all selected' do
     tracking_service = instance_spy(TrackingService)
     allow(TrackingService).to receive(:new).and_return(tracking_service)
