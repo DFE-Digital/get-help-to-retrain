@@ -1,0 +1,51 @@
+<% page_title :edit_job_hunting_questions %>
+<% content_for :breadcrumb do
+    generate_breadcrumbs(
+      t('breadcrumb.edit_your_advice_choices'),
+      [
+        [t('breadcrumb.home'), root_path],
+        [t('breadcrumb.task_list'), task_list_path],
+        [t('breadcrumb.action_plan'), action_plan_path]
+      ]
+    )
+  end
+%>
+
+<div class="govuk-grid-row govuk-!-margin-top-7 govuk-body">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with url: edit_job_hunting_questions_path, local: true do |f| %>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="job-hunting-options-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+            <h1 class="govuk-fieldset__heading govuk-!-margin-bottom-3">
+              <%= t('.title') %>
+            </h1>
+            <p class="govuk-body-l">Add or remove the advice you want to get.</p>
+          </legend>
+          <span id="job-hunting-options-hint" class="govuk-hint">
+            Tick or untick the boxes to add or remove these from your action plan.
+          </span>
+          <div class="govuk-checkboxes govuk-!-margin-top-6">
+            <div class="govuk-checkboxes__item govuk-!-margin-top-6">
+              <%= check_box_tag 'job_hunting[]', :cv, user_session.job_hunting&.include?('cv'), id: :job_hunting_cv, class: 'govuk-checkboxes__input' %>
+              <%= label_tag :job_hunting_cv, 'I want advice on creating or updating a CV', class: 'govuk-label govuk-checkboxes__label' %>
+            </div>
+            <div class="govuk-checkboxes__item govuk-!-margin-top-6 govuk-!-margin-bottom-2">
+              <%= check_box_tag 'job_hunting[]', :cover_letter, user_session.job_hunting&.include?('cover_letter'), id: :job_hunting_cover_letter, class: 'govuk-checkboxes__input' %>
+              <%= label_tag :job_hunting_cover_letter, 'I want advice on writing a cover letter', class: 'govuk-label govuk-checkboxes__label' %>
+            </div>
+            <div class="govuk-checkboxes__item govuk-!-margin-top-6 govuk-!-margin-bottom-2">
+              <%= check_box_tag 'job_hunting[]', :interviews, user_session.job_hunting&.include?('interviews'), id: :job_hunting_interviews, class: 'govuk-checkboxes__input' %>
+            <%= label_tag :job_hunting_interviews, 'I want advice on preparing for interviews', class: 'govuk-label govuk-checkboxes__label' %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <%= f.button('Continue', class: 'govuk-button govuk-!-margin-top-0 govuk-button govuk-!-margin-bottom-2', data: { module: 'govuk-button' }) %>
+    <% end %>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <%= render "shared/contact_us" %>
+    <%= render 'shared/save_or_return_to_your_results' %>
+  </div>
+</div>

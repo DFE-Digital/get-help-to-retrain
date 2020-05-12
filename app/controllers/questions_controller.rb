@@ -49,6 +49,17 @@ class QuestionsController < ApplicationController
     redirect_to action_plan_path
   end
 
+  def edit_job_hunting_answers
+    user_session.job_hunting = questions_params[:job_hunting] || []
+
+    track_selections(
+      selected: selected_options_for('job_hunting'),
+      unselected: unselected_options_for('job_hunting')
+    )
+
+    redirect_to action_plan_path
+  end
+
   private
 
   def track_training_options

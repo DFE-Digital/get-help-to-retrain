@@ -171,10 +171,10 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_text('You chose not to get help')
   end
 
-  scenario 'Page links to job hunting questions' do
+  scenario 'Page links to edit job hunting questions page' do
     user_targets_a_job
 
-    expect(page).to have_link('Edit your advice choices', href: job_hunting_questions_path)
+    expect(page).to have_link('Edit your advice choices', href: edit_job_hunting_questions_path)
   end
 
   scenario 'User can navigate back to action plan after trying to edit the advice options' do
@@ -184,6 +184,17 @@ RSpec.feature 'Action plan spec' do
     click_on('Action plan')
 
     expect(page).to have_current_path(action_plan_path)
+  end
+
+  scenario 'If user edits job hunting options, options are persisted if user revisits edit page' do
+    user_targets_a_job
+    click_on('Edit your advice choices')
+    check('I want advice on creating or updating a CV', allow_label_click: true)
+    check('I want advice on writing a cover letter', allow_label_click: true)
+    click_on('Continue')
+    click_on('Edit your advice choices')
+
+    expect(page).to have_selector('input[checked="checked"]', count: 2)
   end
 
   scenario 'Page links to cv help if job hunting question answered for cv' do
@@ -220,6 +231,37 @@ RSpec.feature 'Action plan spec' do
     user_targets_a_job
 
     expect(page).to have_text('You did not choose to get advice')
+  end
+
+  scenario 'If user edits job hunting options, they get tracked in GA' do
+    tracking_service = instance_spy(TrackingService)
+    allow(TrackingService).to receive(:new).and_return(tracking_service)
+
+    user_targets_a_job
+    click_on('Edit your advice choices')
+    check('I want advice on preparing for interviews', allow_label_click: true)
+    click_on('Continue')
+
+    expect(tracking_service).to have_received(:track_events).with(
+      props:
+      [
+        {
+          key: :job_hunting_ticked,
+          label: 'Get help with your job hunting skills',
+          value: 'interviews'
+        },
+        {
+          key: :job_hunting_unticked,
+          label: 'Get help with your job hunting skills',
+          value: 'cv'
+        },
+        {
+          key: :job_hunting_unticked,
+          label: 'Get help with your job hunting skills',
+          value: 'cover_letter'
+        }
+      ]
+    )
   end
 
   scenario 'Page links to nearby jobs' do

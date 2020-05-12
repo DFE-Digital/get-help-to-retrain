@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     post 'training-questions', to: 'questions#training_answers'
     get 'edit-training-questions', to: 'questions#edit_training'
     post 'edit-training-questions', to: 'questions#edit_training_answers'
+    get 'edit-job-hunting-questions', to: 'questions#edit_job_hunting'
+    post 'edit-job-hunting-questions', to: 'questions#edit_job_hunting_answers'
     get 'it-training-questions', to: 'questions#it_training'
     post 'it-training-questions', to: 'questions#it_training_answers'
     get 'job-hunting-questions', to: 'questions#job_hunting'
