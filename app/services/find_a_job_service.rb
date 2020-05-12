@@ -51,11 +51,17 @@ class FindAJobService
     {
       api_id: api_id,
       api_key: api_key,
-      q: options[:name],
       w: outcode(options[:postcode]),
       d: options[:distance],
       p: options[:page]
-    }.reject { |_k, v| v.blank? }
+    }.tap { |hash| hash[query_key_for(options[:name])] = options[:name] }
+      .reject { |_k, v| v.blank? }
+  end
+
+  def query_key_for(search_string)
+    return :qph if search_string.present? && search_string.split(/\s/).count > 1
+
+    :qtl
   end
 
   def outcode(postcode)

@@ -44,7 +44,7 @@ RSpec.describe FindAJobService do
       options = { name: 'developer', distance: 20, postcode: 'NW11' }
       stub_request(:get, /findajob/)
         .with(
-          query: { 'api_id' => 'test', 'api_key' => 'test', 'q' => 'developer', 'd' => '20', 'w' => 'NW11' }
+          query: { 'api_id' => 'test', 'api_key' => 'test', 'qtl' => 'developer', 'd' => '20', 'w' => 'NW11' }
         )
         .to_return(body: find_a_job_developer_response.to_json)
 
@@ -55,7 +55,7 @@ RSpec.describe FindAJobService do
       options = { name: 'developer', distance: 20, postcode: 'NW11' }
       stub_request(:get, /findajob/)
         .with(
-          query: { 'api_id' => 'test', 'api_key' => 'test', 'q' => 'developer', 'd' => '20', 'w' => 'NW11' }
+          query: { 'api_id' => 'test', 'api_key' => 'test', 'qtl' => 'developer', 'd' => '20', 'w' => 'NW11' }
         )
         .to_return(body: find_a_job_zero_results_response.to_json)
 
@@ -78,7 +78,19 @@ RSpec.describe FindAJobService do
       options = { name: 'developer', distance: 20 }
       stub_request(:get, /findajob/)
         .with(
-          query: { 'api_id' => 'test', 'api_key' => 'test', 'q' => 'developer', 'd' => '20' }
+          query: { 'api_id' => 'test', 'api_key' => 'test', 'qtl' => 'developer', 'd' => '20' }
+        )
+        .to_return(body: find_a_job_developer_response.to_json)
+
+      expect(service.job_vacancies(options)).to eq(find_a_job_developer_response)
+    end
+
+    it 'uses qph as query string param when the job title contains multiple words' do
+      options = { name: 'software developer', distance: 20 }
+
+      stub_request(:get, /findajob/)
+        .with(
+          query: { 'api_id' => 'test', 'api_key' => 'test', 'qph' => 'software developer', 'd' => '20' }
         )
         .to_return(body: find_a_job_developer_response.to_json)
 
