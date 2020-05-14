@@ -41,7 +41,7 @@ class JobProfilesController < ApplicationController
     user_session.remove_job_profile(resource.id)
 
     redirect_to(
-      skills_path, notice: t('.notice', name: resource.name.downcase)
+      skills_path, notice: t('.notice', name: resource.name)
     )
   end
 
