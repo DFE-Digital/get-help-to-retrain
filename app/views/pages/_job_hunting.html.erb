@@ -3,7 +3,7 @@
     <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Get job hunting advice</h3>
   </div>
   <div class="govuk-grid-column-one-half govuk-!-margin-bottom-1">
-    <%= link_to 'Edit your advice choices', job_hunting_questions_path, class: 'govuk-link action-plan-action' %>
+    <%= link_to 'Edit your advice choices', edit_job_hunting_questions_path, class: 'govuk-link action-plan-action' %>
   </div>
 </div>
 <% if user_session.job_hunting.present? %>

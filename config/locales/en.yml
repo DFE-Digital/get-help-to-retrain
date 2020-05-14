@@ -63,6 +63,7 @@ en-GB:
     it_training_questions: Digital and computer skills - Get help to retrain
     edit_training_questions: Edit your training choices - Get help to retrain
     job_hunting_questions: Job hunting advice - Get help to retrain
+    edit_job_hunting_questions: Edit your job hunting advice - Get help to retrain
     user_personal_data: Your information - Get help to retrain
     jobs_near_me: Jobs near you - Get help to retrain
     errors_not_found: Not found - Get help to retrain
@@ -161,6 +162,8 @@ en-GB:
       title: Maths and English skills
     edit_training:
       title: Edit your training choices
+    edit_job_hunting:
+      title: Edit your job hunting choices
     it_training:
       title: Digital and computer skills
   pages:
