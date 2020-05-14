@@ -428,7 +428,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
     all('a', text: 'remove this role')[0].click
 
-    expect(page).not_to have_text(job_profile.name)
+    expect(page).not_to have_selector 'h2', text: job_profile.name
   end
 
   scenario 'user gets a flash alert with information about the removed role' do
@@ -447,7 +447,7 @@ RSpec.feature 'Build your skills', type: :feature do
 
     all('a', text: 'remove this role')[0].click
 
-    expect(page).to have_text('The hitman role has been removed.')
+    expect(page).to have_text('The Hitman role has been removed.')
   end
 
   scenario 'user sees an error page if they remove their only job selected' do
