@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Action plan spec' do
+  let(:skill1) { create(:skill, name: 'Good communication') }
+  let(:skill2) { create(:skill, name: 'Charisma') }
+  let(:skill3) { create(:skill, name: 'Good persuasion') }
+
   scenario 'Redirects back to task list page without a targetted job profile' do
     visit(action_plan_path)
 
@@ -291,6 +295,40 @@ RSpec.feature 'Action plan spec' do
     expect(page).to have_current_path(funding_information_path)
   end
 
+  scenario 'Users do not see their selected skills if they have none on the session' do
+    user_targets_a_job
+
+    expect(page).not_to have_text('View your selected skills')
+  end
+
+  scenario 'Users see their selected deduped skills if they are present on the session' do
+    current_job_profile = build_custom_job_profile(
+      title: 'Head of sales',
+      skills: [skill1, skill2, skill3]
+    )
+
+    previous_job_profile = build_custom_job_profile(
+      title: 'Salesman',
+      skills: [skill1, skill2]
+    )
+
+    build_custom_job_profile(
+      title: 'Dream job',
+      skills: [skill1, skill2, skill3]
+    )
+
+    select_skills_for(job_profile: current_job_profile)
+    select_skills_for(job_profile: previous_job_profile)
+    click_on('Find out what you can do with these skills')
+    click_on('Dream job')
+    click_on('Select this type of work')
+    skip_training_questions
+
+    ['View your selected skills', 'Good communication', 'Charisma', 'Good persuasion'].each do |skill|
+      expect(page).to have_text(skill).once
+    end
+  end
+
   private
 
   def user_targets_a_job
@@ -314,5 +352,23 @@ RSpec.feature 'Action plan spec' do
     choose('user_personal_data[gender]', option: 'male')
 
     click_on('Continue')
+  end
+
+  def build_custom_job_profile(title:, skills: [])
+    create(
+      :job_profile,
+      :with_html_content,
+      name: title,
+      skills: skills
+    )
+  end
+
+  def select_skills_for(job_profile:)
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+  end
+
+  def skip_training_questions
+    3.times { click_on('Continue') }
   end
 end
