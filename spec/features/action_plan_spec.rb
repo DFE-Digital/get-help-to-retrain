@@ -26,7 +26,7 @@ RSpec.feature 'Action plan spec' do
   scenario 'Page links back to skills summary' do
     user_targets_a_job
 
-    expect(page).to have_link('View / edit your skills', href: skills_path)
+    expect(page).to have_link('Edit your skills', href: skills_path)
   end
 
   scenario 'Page links to training questions' do
