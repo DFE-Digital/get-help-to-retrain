@@ -22,3 +22,11 @@
 .action-plan-list .govuk-grid-row:last-child a {
   margin-bottom: govuk-spacing(2);
 }
+
+.govuk-accordion-action-plan > .govuk-accordion__controls {
+  display: none;
+}
+
+.govuk-accordion-action-plan__section-header {
+  padding-top: 10px;
+}

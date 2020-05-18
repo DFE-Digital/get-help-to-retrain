@@ -1,0 +1,18 @@
+<div class="govuk-accordion-action-plan" data-module="govuk-accordion" id="accordion-skills-for-<%= target_job.slug %>">
+  <div class="govuk-accordion__section ">
+    <div class="govuk-accordion__section-header govuk-accordion-action-plan__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button govuk-!-font-size-19" id="accordion-skills-for-<%= target_job.slug %>-heading">
+          View your selected skills
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-skills-for-<%= target_job.slug %>-content" class="govuk-accordion__section-content" aria-labelledby="accordion-skills-for-<%= target_job.slug %>-heading">
+      <p class="govuk-body">These are the skills you selected. You may find it useful to include these skills in your CV and job applications.</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <%= render partial: 'pages/action_plan/selected_skill', collection: @skills, as: :skill%>
+      </ul>
+    </div>
+  </div>
+</div>
+<hr class="govuk-section-break-s govuk-section-break govuk-section-break--visible"/>

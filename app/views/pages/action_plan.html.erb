@@ -38,12 +38,13 @@
           <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Your skills</h3>
         </div>
         <div class="govuk-grid-column-one-third govuk-!-margin-bottom-1">
-          <%= link_to 'View / edit your skills', skills_path, class: 'govuk-link action-plan-action' %>
+          <%= link_to 'Edit your skills', skills_path, class: 'govuk-link action-plan-action' %>
         </div>
       </div>
 
       <p class="govuk-body">You added skills based on jobs you've already done.</p>
-      <p class="govuk-body">You can see different types of work ideas if you edit your skills.</p>
+      <p class="govuk-body govuk-!-margin-bottom-6">Edit your skills to see different ideas for types of work you can do.</p>
+      <%= render 'pages/action_plan/selected_skills_list' if @skills.present? %>
     </div>
 
     <div class="govuk-related-items action-plan-section govuk-!-margin-bottom-6">
