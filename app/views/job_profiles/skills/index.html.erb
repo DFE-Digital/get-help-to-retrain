@@ -36,7 +36,7 @@
               <% @skills_builder.job_profile.skills.each do |skill| %>
                 <div class="govuk-checkboxes__item">
                   <%= check_box_tag('skill_ids[]', skill.id, @skills_builder.skill_ids.include?(skill.id), id: dom_id(skill), class: 'govuk-checkboxes__input') %>
-                  <%= label_tag(dom_id(skill), skill.name, class: 'govuk-label govuk-checkboxes__label') %>
+                  <%= label_tag(dom_id(skill), skill.name.capitalize, class: 'govuk-label govuk-checkboxes__label') %>
                 </div>
               <% end %>
             </div>
