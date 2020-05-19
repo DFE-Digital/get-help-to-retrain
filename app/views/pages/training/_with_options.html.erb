@@ -24,7 +24,7 @@
     </div>
   <% end %>
 
-  <% if user_session.it_training.include?('computer_skills') %>
+  <% if user_session.it_training&.include?('computer_skills') %>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
         <h3 class="govuk-heading-s">Computer skills training</h3>

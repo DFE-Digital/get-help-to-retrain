@@ -22,6 +22,15 @@ RSpec.feature 'Questions' do
     expect(page).to have_current_path(it_training_questions_path)
   end
 
+  scenario 'User can deeplink to action plan after answering just the training question' do
+    user_targets_job
+    check('I need to improve my English skills', allow_label_click: true)
+    click_on('Continue')
+    visit(action_plan_path)
+
+    expect(page).to have_text('Your personal action plan')
+  end
+
   scenario 'User can go back to previous page from IT training questions page' do
     user_targets_job
     click_on('Continue')
