@@ -1,0 +1,5 @@
+.govuk-link:focus {
+  @include govuk-focused-text;
+
+  width: fit-content;
+}
