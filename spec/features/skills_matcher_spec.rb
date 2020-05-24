@@ -18,14 +18,15 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
-  def visit_skills_for_current_job_profile(js_enabled = false)
+  def visit_skills_for_current_job_profile
     visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
-    click_on('Accept all cookies') if js_enabled
     click_on('Select these skills')
     click_on('Find out what you can do with these skills')
   end
 
   background do
+    fill_pid_form
+
     create(:job_profile, :with_html_content, name: 'Assasin', skills: [skill1, skill2])
   end
 
@@ -53,7 +54,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'When clicking on What does this mean? link user gets the explanation for that score', :js do
-    visit_skills_for_current_job_profile(true)
+    visit_skills_for_current_job_profile
 
     create(:job_profile, :with_html_content, :growing, name: 'Cabin Crew', skills: [skill1, skill2])
 
@@ -133,7 +134,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'automatically reloads results when sort order changed', :js do
-    visit_skills_for_current_job_profile(true)
+    visit_skills_for_current_job_profile
 
     find("option[value='growth']").click
 
@@ -141,13 +142,13 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'defaults sort order to skills match if not specified', :js do
-    visit_skills_for_current_job_profile(true)
+    visit_skills_for_current_job_profile
 
     expect(page).to have_select('sort-select', selected: 'Skills match')
   end
 
   scenario 'preserves selected sort order when returning to page', :js do
-    visit_skills_for_current_job_profile(true)
+    visit_skills_for_current_job_profile
 
     find("option[value='growth']").click
 
@@ -158,7 +159,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'passes along the search query string when sorting if present', :js do
-    visit_skills_for_current_job_profile(true)
+    visit_skills_for_current_job_profile
 
     visit skills_matcher_index_path(search: 'therapy')
 
@@ -168,7 +169,7 @@ RSpec.feature 'Skills matcher', type: :feature do
   end
 
   scenario 'does not pass along the search query string when sorting if absent', :js do
-    visit_skills_for_current_job_profile(true)
+    visit_skills_for_current_job_profile
 
     visit skills_matcher_index_path
 

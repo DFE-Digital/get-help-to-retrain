@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Check your skills', type: :feature do
   background do
+    fill_pid_form
+
     create(
       :job_profile,
       name: 'Bodyguard',
@@ -286,5 +288,13 @@ RSpec.feature 'Check your skills', type: :feature do
         'Enter a job title'
       ]
     )
+  end
+
+  scenario 'Users without PID submitted get redirected to the landing page' do
+    Capybara.reset_session!
+
+    visit(check_your_skills_path)
+
+    expect(page).to have_current_path(root_path)
   end
 end

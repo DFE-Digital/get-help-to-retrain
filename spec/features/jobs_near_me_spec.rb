@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Jobs near me', type: :feature do
+  background do
+    fill_pid_form
+  end
+
   scenario 'User can navigate to jobs near me page from action plan' do
     user_targets_a_job
 
@@ -22,31 +26,12 @@ RSpec.feature 'Jobs near me', type: :feature do
       }
     )
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    fill_in_postcode
     user_targets_a_job
 
     expect(find_field('postcode').value).to eq 'NW6 8ET'
   end
 
-  scenario 'Users can update their session postcode if there was none there' do
-    find_a_job_service = instance_double(
-      FindAJobService,
-      job_vacancies: {
-        'pager' => { 'total_entries' => 1 },
-        'jobs' => [{}]
-      }
-    )
-    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    user_targets_a_job
-    fill_in('postcode', with: 'NW6 1JF')
-    click_on('Apply filters')
-    visit(jobs_near_me_path)
-
-    expect(find_field('postcode').value).to eq('NW6 1JF')
-  end
-
   scenario 'Users can update their session postcode if it already existed' do
-    fill_in_postcode
     find_a_job_service = instance_double(
       FindAJobService,
       job_vacancies: {
@@ -134,7 +119,6 @@ RSpec.feature 'Jobs near me', type: :feature do
       }
     )
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    fill_in_postcode
     user_targets_a_job
 
     expect(page).to have_text('Admin assistant jobs near you')
@@ -149,7 +133,6 @@ RSpec.feature 'Jobs near me', type: :feature do
       }
     )
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    fill_in_postcode
     user_targets_a_job
 
     expect(page).to have_selector('ul.govuk-list li', count: 1)
@@ -164,7 +147,6 @@ RSpec.feature 'Jobs near me', type: :feature do
       }
     )
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    fill_in_postcode
     user_targets_a_job
 
     expect(page).to have_selector('ul.govuk-list li', count: 50)
@@ -179,7 +161,6 @@ RSpec.feature 'Jobs near me', type: :feature do
       }
     )
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
-    fill_in_postcode
     user_targets_a_job
     click_on('Next')
 
@@ -195,6 +176,8 @@ RSpec.feature 'Jobs near me', type: :feature do
 
   scenario 'User gets relevant messaging on jobs near them without postcode' do
     user_targets_a_job
+    fill_in('postcode', with: '')
+    click_on('Apply filters')
 
     expect(page).to have_text(/Enter a postcode/)
   end
@@ -218,15 +201,9 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(page).to have_select('distance', selected: 'Up to 20 miles')
   end
 
-  scenario 'User gets relevant messaging if no address is entered' do
-    user_targets_a_job
-    click_on('Apply filters')
-
-    expect(page).to have_text(/Enter a postcode/)
-  end
-
   scenario 'Error summary message present if no address is entered' do
     user_targets_a_job
+    fill_in('postcode', with: '')
     click_on('Apply filters')
 
     expect(page).to have_content('There is a problem')
@@ -234,6 +211,7 @@ RSpec.feature 'Jobs near me', type: :feature do
 
   scenario 'Error summary contains error if no address is entered' do
     user_targets_a_job
+    fill_in('postcode', with: '')
     click_on('Apply filters')
 
     expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
@@ -249,8 +227,6 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(find_a_job_service).to receive(:job_vacancies).and_raise(FindAJobService::APIError)
 
     user_targets_a_job
-    fill_in('postcode', with: 'NW6 9ET')
-    click_on('Apply filters')
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
@@ -260,7 +236,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(TrackingService).to receive(:new).and_return(tracking_service)
 
     user_targets_a_job
-    fill_in('postcode', with: 'NW6 8ET')
+    fill_in('postcode', with: 'NW1 8ET')
     click_on('Apply filters')
 
     expect(tracking_service).to have_received(:track_events).with(
@@ -269,7 +245,7 @@ RSpec.feature 'Jobs near me', type: :feature do
         {
           key: :jobs_near_me_index_search,
           label: 'Jobs near me - Postcode search',
-          value: 'NW6'
+          value: 'NW1'
         }
       ]
     )
@@ -296,6 +272,16 @@ RSpec.feature 'Jobs near me', type: :feature do
     )
   end
 
+  scenario 'Users without PID submitted get redirected to the landing page' do
+    user_targets_a_job
+
+    Capybara.reset_session!
+
+    visit(jobs_near_me_path)
+
+    expect(page).to have_current_path(root_path)
+  end
+
   def user_targets_a_job
     create(:job_profile, :with_html_content, name: 'Admin assistant').tap do |job_profile|
       visit(job_profile_path(job_profile.slug))
@@ -305,17 +291,5 @@ RSpec.feature 'Jobs near me', type: :feature do
       click_on('Continue')
       click_on('Show jobs near you')
     end
-  end
-
-  def fill_in_postcode
-    visit(your_information_path)
-    fill_in('user_personal_data[first_name]', with: 'John')
-    fill_in('user_personal_data[last_name]', with: 'Mayer')
-    fill_in('user_personal_data[postcode]', with: 'NW6 8ET')
-    fill_in('user_personal_data[birth_day]', with: '1')
-    fill_in('user_personal_data[birth_month]', with: '1')
-    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
-    choose('user_personal_data[gender]', option: 'male')
-    click_on('Continue')
   end
 end

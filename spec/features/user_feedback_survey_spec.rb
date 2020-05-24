@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'User Feedback In Page Survey' do
+  background do
+    fill_pid_form
+  end
+
   scenario 'User gets a thank you message when clicking yes', :js do
     answer_yes
 
@@ -9,6 +13,7 @@ RSpec.feature 'User Feedback In Page Survey' do
 
   scenario 'Page helpful survey is persisted when answering yes', :js do
     answer_yes
+
     click_on('Check your existing skills')
 
     expect(FeedbackSurvey.first.attributes).to include(
@@ -52,13 +57,11 @@ RSpec.feature 'User Feedback In Page Survey' do
 
   def answer_yes
     visit(task_list_path)
-    click_on('Accept all cookies')
     click_on('Yes')
   end
 
   def answer_no
     visit(task_list_path)
-    click_on('Accept all cookies')
     click_on('No')
   end
 end

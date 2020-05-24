@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
   before_action :set_raven_context
   before_action :set_paper_trail_whodunnit, if: proc { Rails.configuration.admin_mode }
 
+  before_action :redirect_unless_postcode, unless: proc {
+    Rails.configuration.admin_mode ||
+      %w[check_your_skills courses job_profiles_skills skills].exclude?(controller_name)
+  }
+
   def user_session
     @user_session ||= UserSession.new(session)
   end
@@ -21,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def redirect_unless_target_job
     redirect_to task_list_path unless target_job.present?
+  end
+
+  def redirect_unless_postcode
+    return redirect_to root_path unless user_session.postcode.present?
   end
 
   def url_parser

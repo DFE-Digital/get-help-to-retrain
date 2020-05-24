@@ -5,6 +5,10 @@ RSpec.feature 'Action plan spec' do
   let(:skill2) { create(:skill, name: 'Charisma') }
   let(:skill3) { create(:skill, name: 'Good persuasion') }
 
+  background do
+    fill_pid_form
+  end
+
   scenario 'Redirects back to task list page without a targetted job profile' do
     visit(action_plan_path)
 
@@ -329,6 +333,14 @@ RSpec.feature 'Action plan spec' do
     end
   end
 
+  scenario 'Users without PID submitted get redirected to landing page' do
+    Capybara.reset_session!
+
+    visit(action_plan_path)
+
+    expect(page).to have_current_path(root_path)
+  end
+
   private
 
   def user_targets_a_job
@@ -339,19 +351,6 @@ RSpec.feature 'Action plan spec' do
       click_on('Continue')
       click_on('Continue')
     end
-  end
-
-  def capture_user_location
-    visit(your_information_path)
-    fill_in('user_personal_data[first_name]', with: 'John')
-    fill_in('user_personal_data[last_name]', with: 'Mayer')
-    fill_in('user_personal_data[postcode]', with: 'NW11 8QE')
-    fill_in('user_personal_data[birth_day]', with: '1')
-    fill_in('user_personal_data[birth_month]', with: '1')
-    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
-    choose('user_personal_data[gender]', option: 'male')
-
-    click_on('Continue')
   end
 
   def build_custom_job_profile(title:, skills: [])

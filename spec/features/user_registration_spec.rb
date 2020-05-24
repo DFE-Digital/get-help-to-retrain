@@ -233,6 +233,8 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User redirected to task list page if they directly linked to email sent page' do
+    fill_pid_form
+
     register_user
     click_on('send it again')
     click_on('Continue')
@@ -241,6 +243,8 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User redirected to task list page if they directly linked to save results page' do
+    fill_pid_form
+
     register_user
     click_on('Continue')
 
@@ -248,6 +252,8 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User redirected to task list page if they went back from save your results page' do
+    fill_pid_form
+
     register_user
     click_on('enter your email address again')
     fill_in('email', with: 'test@test.test')
@@ -258,6 +264,8 @@ RSpec.feature 'User registration' do
   end
 
   scenario 'User redirected to task list page if they went back from save your results page on resend' do
+    fill_pid_form
+
     register_user
     click_on('enter your email address again')
     fill_in('email', with: 'test@test.test')

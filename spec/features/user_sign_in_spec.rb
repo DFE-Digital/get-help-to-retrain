@@ -38,6 +38,10 @@ RSpec.feature 'User sign in' do
     )
   end
 
+  background do
+    fill_pid_form
+  end
+
   def register_user
     visit(save_your_results_path)
     fill_in('email', with: 'test@test.test')
@@ -148,6 +152,8 @@ RSpec.feature 'User sign in' do
   end
 
   scenario 'User can go back to the previous page from return to saved results page' do
+    Capybara.reset_session!
+
     visit(your_information_path)
     click_on('Return to saved progress')
     click_on('Back')
@@ -368,6 +374,8 @@ RSpec.feature 'User sign in' do
   end
 
   scenario 'user gets to Return to saved progress page when clicking Return to saved progress button' do
+    Capybara.reset_session!
+
     visit(root_path)
 
     click_on('Return to saved progress')

@@ -7,17 +7,14 @@ RSpec.feature 'Find training courses', type: :feature do
     )
   end
 
-  scenario 'User cannot see a list of all training courses for a topic without postcode' do
-    visit(courses_path(topic_id: 'maths'))
-
-    expect(page).to have_text('0 courses found')
+  background do
+    fill_pid_form
   end
 
   scenario 'The postcode is persisted on courses search page when user fills in their PID' do
-    capture_user_location('NW6 1JF')
     visit(courses_path('maths'))
 
-    expect(find_field('postcode').value).to eq 'NW6 1JF'
+    expect(find_field('postcode').value).to eq 'NW6 8ET'
   end
 
   scenario 'Users can find training courses near them' do
@@ -49,7 +46,6 @@ RSpec.feature 'Find training courses', type: :feature do
     )
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
 
-    capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_text(/Creative Maths/)
@@ -72,7 +68,6 @@ RSpec.feature 'Find training courses', type: :feature do
     )
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
 
-    capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
 
     click_on('My Course')
@@ -94,40 +89,36 @@ RSpec.feature 'Find training courses', type: :feature do
 
   scenario 'Users can update their session postcode if it already existed' do
     Geocoder::Lookup::Test.add_stub(
-      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+      'NW6 1JF', [{ 'coordinates' => [0.1, 1] }]
     )
-    capture_user_location('NW6 1JF')
+
     visit(courses_path(topic_id: 'maths'))
-    fill_in('postcode', with: 'NW6 8ET')
+    fill_in('postcode', with: 'NW6 1JF')
     click_on('Apply filters')
     visit(courses_path(topic_id: 'maths'))
 
-    expect(find_field('postcode').value).to eq 'NW6 8ET'
+    expect(find_field('postcode').value).to eq 'NW6 1JF'
   end
 
   scenario 'Users see distance 20 miles selected by default' do
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_select('distance', selected: 'Up to 20 miles')
   end
 
   scenario 'Users see course hours all selected by default' do
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_select('hours', selected: 'All')
   end
 
   scenario 'Users see course type all selected by default' do
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_select('delivery_type', selected: 'All')
   end
 
   scenario 'Users see selected distance filter when returning results' do
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
     select('Up to 40 miles', from: 'distance')
     click_on('Apply filters')
@@ -136,6 +127,10 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Selected distance gets remembered on user return' do
+    Geocoder::Lookup::Test.add_stub(
+      'NW6 8ET', [{ 'coordinates' => [0.1, 1] }]
+    )
+
     find_a_course_service = instance_double(
       FindACourseService,
       search: {
@@ -143,13 +138,12 @@ RSpec.feature 'Find training courses', type: :feature do
         'results' => [{ 'courseName' => 'My Course', 'courseId' => '123', 'courseRunId' => '456' }]
       },
       details: {
-        'courseName' => 'My Course', 'provider' => { 'postcode' => 'NW11 8QE' }
+        'courseName' => 'My Course', 'provider' => { 'postcode' => 'NW6 9TE' }
       }
     )
 
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
 
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
     select('Up to 40 miles', from: 'distance')
     click_on('Apply filters')
@@ -160,7 +154,6 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Users see selected course hour filter when returning results' do
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
     select('Flexible', from: 'hours')
     click_on('Apply filters')
@@ -169,7 +162,6 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'Users see selected course type filter when returning results' do
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
     select('Online', from: 'delivery_type')
     click_on('Apply filters')
@@ -188,7 +180,6 @@ RSpec.feature 'Find training courses', type: :feature do
     )
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
 
-    capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
     select('Up to 40 miles', from: 'distance')
     select('Online', from: 'delivery_type')
@@ -284,7 +275,6 @@ RSpec.feature 'Find training courses', type: :feature do
 
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
 
-    capture_user_location('NW6 1JF')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).not_to have_text('Course hours:')
@@ -311,10 +301,11 @@ RSpec.feature 'Find training courses', type: :feature do
   end
 
   scenario 'User gets relevant messaging if their address coordinates could not be retrieved' do
+    visit(courses_path(topic_id: 'maths'))
+
     allow(Geocoder).to receive(:coordinates).and_raise(Geocoder::ServiceUnavailable)
 
-    visit(courses_path(topic_id: 'maths'))
-    fill_in('postcode', with: 'NW6 8ET')
+    fill_in('postcode', with: 'NW6 1JF')
     click_on('Apply filters')
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
@@ -322,6 +313,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
   scenario 'User gets relevant messaging if no address is entered' do
     visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: '')
     click_on('Apply filters')
 
     expect(page).to have_text(/Enter a postcode/)
@@ -329,6 +321,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
   scenario 'Error summary message present if no address is entered' do
     visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: '')
     click_on('Apply filters')
 
     expect(page).to have_content('There is a problem')
@@ -336,6 +329,7 @@ RSpec.feature 'Find training courses', type: :feature do
 
   scenario 'Error summary contains error if no address is entered' do
     visit(courses_path(topic_id: 'maths'))
+    fill_in('postcode', with: '')
     click_on('Apply filters')
 
     expect(page.all('ul.govuk-error-summary__list li a').collect(&:text)).to eq(
@@ -350,7 +344,7 @@ RSpec.feature 'Find training courses', type: :feature do
     allow(TrackingService).to receive(:new).and_return(tracking_service)
 
     visit(courses_path(topic_id: 'maths'))
-    fill_in('postcode', with: 'NW6 8ET')
+    fill_in('postcode', with: 'NW1 8ET')
     click_on('Apply filters')
 
     expect(tracking_service).to have_received(:track_events).with(
@@ -359,7 +353,7 @@ RSpec.feature 'Find training courses', type: :feature do
         {
           key: :courses_index_search,
           label: 'Courses near me - Postcode search',
-          value: 'NW6'
+          value: 'NW1'
         }
       ]
     )
@@ -494,7 +488,6 @@ RSpec.feature 'Find training courses', type: :feature do
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
     allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::APIError)
 
-    capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
@@ -508,7 +501,6 @@ RSpec.feature 'Find training courses', type: :feature do
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
     allow(find_a_course_service).to receive(:search).and_raise(FindACourseService::PostcodeNotFoundError)
 
-    capture_user_location('NW6 8ET')
     visit(courses_path(topic_id: 'maths'))
 
     expect(page).to have_text(/Enter a real postcode/)
@@ -519,24 +511,16 @@ RSpec.feature 'Find training courses', type: :feature do
     allow(FindACourseService).to receive(:new).and_return(find_a_course_service)
     allow(find_a_course_service).to receive(:details).and_raise(FindACourseService::APIError)
 
-    capture_user_location('NW6 8ET')
     visit(course_details_path(topic_id: 'maths', course_id: '111-11', course_run_id: '222-2'))
 
     expect(page).to have_text(/Sorry, there is a problem with this service/)
   end
 
-  private
+  scenario 'Users without PID submitted get redirected to the landing page' do
+    Capybara.reset_session!
 
-  def capture_user_location(postcode)
-    visit(your_information_path)
-    fill_in('user_personal_data[first_name]', with: 'John')
-    fill_in('user_personal_data[last_name]', with: 'Mayer')
-    fill_in('user_personal_data[postcode]', with: postcode)
-    fill_in('user_personal_data[birth_day]', with: '1')
-    fill_in('user_personal_data[birth_month]', with: '1')
-    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
-    choose('user_personal_data[gender]', option: 'male')
+    visit(courses_path('maths'))
 
-    click_on('Continue')
+    expect(page).to have_current_path(root_path)
   end
 end
