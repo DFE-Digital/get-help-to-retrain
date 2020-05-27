@@ -330,7 +330,7 @@ RSpec.feature 'Skills matcher', type: :feature do
     find('.search-button').click
     click_on('Fluffer')
 
-    expect(page).to have_current_path(job_profile_path('fluffer'))
+    expect(page).to have_current_path(job_profile_path('fluffer', search: 'fluffer'))
   end
 
   scenario 'search query string param is passed to job profiles search page if present' do
