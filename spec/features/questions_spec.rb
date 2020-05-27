@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.feature 'Questions' do
   let(:job_profile) { create(:job_profile, :with_html_content) }
 
+  background do
+    fill_pid_form
+  end
+
   scenario 'User sees training questions when targetting a job' do
     user_targets_job
 
@@ -377,6 +381,30 @@ RSpec.feature 'Questions' do
         }
       ]
     )
+  end
+
+  scenario 'Users without PID submitted trying to access training questions get redirected to the landing page' do
+    Capybara.reset_session!
+
+    visit(training_questions_path)
+
+    expect(page).to have_current_path(root_path)
+  end
+
+  scenario 'Users without PID submitted trying to access IT training questions get redirected to the landing page' do
+    Capybara.reset_session!
+
+    visit(it_training_questions_path)
+
+    expect(page).to have_current_path(root_path)
+  end
+
+  scenario 'Users without PID submitted trying to access job hunting questions get redirected to the landing page' do
+    Capybara.reset_session!
+
+    visit(job_hunting_questions_path)
+
+    expect(page).to have_current_path(root_path)
   end
 
   def user_targets_job

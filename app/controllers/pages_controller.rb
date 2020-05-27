@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_action :redirect_unless_postcode, only: %i[action_plan task_list]
+
   def action_plan
     @skills = user_skill_ids.present? ? Skill.find(user_skill_ids).pluck(:name) : []
 

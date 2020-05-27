@@ -10,17 +10,7 @@ RSpec.feature 'Navigation from home page' do
   end
 
   scenario 'PID - present on the session - user gets redirected to task-list page' do
-    visit(your_information_path)
-
-    fill_in('user_personal_data[first_name]', with: 'John')
-    fill_in('user_personal_data[last_name]', with: 'Mayer')
-    fill_in('user_personal_data[postcode]', with: 'NW6 1JJ')
-    fill_in('user_personal_data[birth_day]', with: '1')
-    fill_in('user_personal_data[birth_month]', with: '1')
-    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
-    choose('user_personal_data[gender]', option: 'male')
-
-    click_on('Continue')
+    fill_pid_form
 
     visit(root_path)
 
@@ -68,12 +58,12 @@ RSpec.feature 'Navigation from home page' do
   end
 
   scenario 'User can go back to previous page from information sources page' do
-    visit(task_list_path)
+    visit(cookies_policy_path)
 
     click_on('Information sources')
     click_on('Back')
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(cookies_policy_path)
   end
 
   scenario 'User can access the accessibility statement page from the footer' do
@@ -91,12 +81,12 @@ RSpec.feature 'Navigation from home page' do
   end
 
   scenario 'User can go back to previous page from accessibility statement page' do
-    visit(task_list_path)
+    visit(cookies_policy_path)
 
     click_on('Accessibility statement')
     click_on('Back')
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(cookies_policy_path)
   end
 
   scenario 'User can access the terms and conditions page from the footer' do
@@ -114,12 +104,12 @@ RSpec.feature 'Navigation from home page' do
   end
 
   scenario 'User can go back to previous page from terms and conditions page' do
-    visit(task_list_path)
+    visit(cookies_policy_path)
 
     click_on('Terms and conditions')
     click_on('Back')
 
-    expect(page).to have_current_path(task_list_path)
+    expect(page).to have_current_path(cookies_policy_path)
   end
 
   scenario 'Sessions not created when user has no previous session' do

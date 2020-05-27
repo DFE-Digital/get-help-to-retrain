@@ -28,6 +28,10 @@ RSpec.feature 'Build your skills', type: :feature do
     end
   end
 
+  background do
+    fill_pid_form
+  end
+
   def unselect_all_skills_for(job_profile)
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Chameleon-like blend in tactics', allow_label_click: true)
@@ -469,5 +473,13 @@ RSpec.feature 'Build your skills', type: :feature do
     find('.search-button').click
 
     expect(page).to have_text(job_profile.name)
+  end
+
+  scenario 'Users without PID submitted get redirected to the landing page' do
+    Capybara.reset_session!
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_current_path(root_path)
   end
 end

@@ -13,6 +13,10 @@ RSpec.feature 'Task list', type: :feature do
     click_on('Select this type of work')
   end
 
+  background do
+    fill_pid_form
+  end
+
   scenario 'User checks their existing skills' do
     visit(task_list_path)
     click_on('Check your existing skills')
@@ -145,5 +149,13 @@ RSpec.feature 'Task list', type: :feature do
     (2..3).each do |section_no|
       expect(page).to have_css("span#section-#{section_no}-blocked")
     end
+  end
+
+  scenario 'Users without PID submitted get redirected to the landing page' do
+    Capybara.reset_session!
+
+    visit(task_list_path)
+
+    expect(page).to have_current_path(root_path)
   end
 end

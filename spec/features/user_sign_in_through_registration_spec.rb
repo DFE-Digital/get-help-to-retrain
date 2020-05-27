@@ -39,6 +39,8 @@ RSpec.feature 'User sign in through registration' do
   end
 
   scenario 'user restores their session after signing in' do
+    fill_pid_form
+
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
     click_on('Select these skills')
@@ -49,6 +51,8 @@ RSpec.feature 'User sign in through registration' do
   end
 
   scenario 'if user registers, continues journey then signs in, their session is restored' do
+    fill_pid_form
+
     register_user
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)
@@ -60,6 +64,8 @@ RSpec.feature 'User sign in through registration' do
   end
 
   scenario 'if user signs in, continues journey then signs in again, their session is restored' do
+    fill_pid_form
+
     sign_in_user
     visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     uncheck('Baldness', allow_label_click: true)

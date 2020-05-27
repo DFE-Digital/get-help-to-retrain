@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Job profile spec' do
+  background do
+    fill_pid_form
+  end
+
   scenario 'Page has correct title including job profile name' do
     create(:job_profile, :with_html_content, name: 'Acrobat', slug: 'acrobat')
 
@@ -30,7 +34,6 @@ RSpec.feature 'Job profile spec' do
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
-    user_enters_location
     visit(job_profile_path(job_profile.slug))
 
     expect(page).to have_content('At least 3 vacancies')
@@ -41,7 +44,6 @@ RSpec.feature 'Job profile spec' do
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
-    user_enters_location
     visit(job_profile_path(job_profile.slug))
 
     expect(page).to have_content('At least 1 vacancy')
@@ -52,26 +54,12 @@ RSpec.feature 'Job profile spec' do
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     job_profile = create(:job_profile, :with_html_content)
 
-    user_enters_location
     visit(job_profile_path(job_profile.slug))
 
     expect(page).to have_content('At the moment the Find a job service is advertising no vacancies')
   end
 
   scenario 'User does not see job vacancies if API is down' do
-    job_vacancy_search = instance_double(JobVacancySearch)
-    allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
-    allow(job_vacancy_search).to receive(:count).and_raise(FindAJobService::APIError)
-
-    job_profile = create(:job_profile, :with_html_content)
-
-    user_enters_location
-    visit(job_profile_path(job_profile.slug))
-
-    expect(page).not_to have_content('Jobs in your area')
-  end
-
-  scenario 'User does not see job vacancies if no postcode supplied' do
     job_vacancy_search = instance_double(JobVacancySearch)
     allow(JobVacancySearch).to receive(:new).and_return(job_vacancy_search)
     allow(job_vacancy_search).to receive(:count).and_raise(FindAJobService::APIError)
@@ -222,16 +210,19 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Skills you may need to develop')
   end
 
-  def user_enters_location
-    visit(your_information_path)
-    fill_in('user_personal_data[first_name]', with: 'John')
-    fill_in('user_personal_data[last_name]', with: 'Mayer')
-    fill_in('user_personal_data[postcode]', with: 'NW118QE')
-    fill_in('user_personal_data[birth_day]', with: '1')
-    fill_in('user_personal_data[birth_month]', with: '1')
-    fill_in('user_personal_data[birth_year]', with: DateTime.now.year - 20)
-    choose('user_personal_data[gender]', option: 'male')
+  scenario 'Users without PID submitted get redirected to the landing page' do
+    Capybara.reset_session!
 
-    click_on('Continue')
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics')
+      ]
+    )
+
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+
+    expect(page).to have_current_path(root_path)
   end
 end
