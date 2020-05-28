@@ -32,6 +32,7 @@ namespace :data_import do
                                                 biomedical-scientist
                                                 biotechnologist
                                                 botanist
+                                                boxer
                                                 british-sign-language-interpreter
                                                 british-sign-language-teacher
                                                 chemical-engineer
@@ -53,6 +54,7 @@ namespace :data_import do
                                                 company-secretary
                                                 consumer-scientist
                                                 coroner
+                                                cosmetic-surgeon
                                                 court-legal-adviser
                                                 cricketer
                                                 criminologist
@@ -96,11 +98,13 @@ namespace :data_import do
                                                 interpreter
                                                 investment-analyst
                                                 jockey
+                                                judge
                                                 land-and-property-valuer-and-auctioneer
                                                 land-surveyor
                                                 landscape-architect
                                                 learning-disability-nurse
                                                 librarian
+                                                magistrate
                                                 management-accountant
                                                 marketing-director
                                                 martial-arts-instructor
@@ -173,6 +177,7 @@ namespace :data_import do
                                                 social-worker
                                                 solicitor
                                                 solutions-architect
+                                                sonographer
                                                 special-educational-needs-(sen)-teacher
                                                 speech-and-language-therapist
                                                 sport-and-exercise-psychologist
