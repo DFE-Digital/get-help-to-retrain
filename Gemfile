@@ -41,7 +41,7 @@ gem 'canonical-rails'
 gem 'sentry-raven', '~> 2.11'
 
 # Pagination
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 
 # Postcode geocoding and geospatial queries
 gem 'geocoder', '~> 1.5', '>= 1.5.1'
