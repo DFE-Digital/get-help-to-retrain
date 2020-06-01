@@ -482,4 +482,10 @@ RSpec.feature 'Build your skills', type: :feature do
 
     expect(page).to have_current_path(root_path)
   end
+
+  scenario 'Users see a 404 page if trying to access a profile that does not exist' do
+    expect {
+      visit(job_profile_skills_path(job_profile_id: 'not-existing-profile'))
+    }.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
