@@ -9,8 +9,10 @@ class StatusReport
     @app = app
   end
 
-  def call(env)
-    if env['PATH_INFO'] == '/status'
+  def call(env) # rubocop:disable Metrics/MethodLength
+    if ActionDispatch::Request::HTTP_METHODS.exclude?(env['REQUEST_METHOD'].upcase)
+      [405, { 'Content-Type' => 'text/plain' }, ['Method Not Allowed']]
+    elsif env['PATH_INFO'] == '/status'
       health = HealthCheck::ReportService.new
       [
         STATUS_CODES[health.status],
