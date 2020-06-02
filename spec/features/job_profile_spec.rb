@@ -210,6 +210,23 @@ RSpec.feature 'Job profile spec' do
     expect(page).not_to have_content('Skills you may need to develop')
   end
 
+  scenario 'User can go back to job matches from the breadcrumbs with the search term persisted on the url' do
+    job_profile = create(
+      :job_profile,
+      :with_html_content,
+      skills: [
+        create(:skill, name: 'Chameleon-like blend in tactics')
+      ]
+    )
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
+    click_on('Select these skills')
+    visit(job_profile_path(job_profile.slug, search: 'therapy'))
+
+    click_on('Your job matches')
+
+    expect(page).to have_current_path(skills_matcher_index_path(search: 'therapy'))
+  end
+
   scenario 'Users without PID submitted get redirected to the landing page' do
     Capybara.reset_session!
 
