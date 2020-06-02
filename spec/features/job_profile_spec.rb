@@ -242,4 +242,10 @@ RSpec.feature 'Job profile spec' do
 
     expect(page).to have_current_path(root_path)
   end
+
+  scenario 'Users see a 404 page if trying to access a profile that does not exist' do
+    expect {
+      visit(job_profile_path('non-existing-id'))
+    }.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end

@@ -48,7 +48,7 @@ class JobProfilesController < ApplicationController
   private
 
   def resource
-    @resource ||= JobProfile.find_by(slug: job_profile_params[:id])
+    @resource ||= JobProfile.find_by!(slug: job_profile_params[:id])
   end
 
   def job_profile_params
