@@ -1,13 +1,13 @@
 <li>
   <h2 class="govuk-heading-m govuk-!-margin-bottom-2"><%= link_to job_vacancy.title, job_vacancy.url, class: 'govuk-link' %></h2>
   <% if job_vacancy.date_posted.present? %>
-    <p class="govuk-body govuk-!-margin-bottom-0">Date posted: <b><%= job_vacancy.formatted_date_posted %></b></p>
+    <p class="govuk-body govuk-!-margin-bottom-0">Date posted: <strong><%= job_vacancy.formatted_date_posted %></strong></p>
   <% end %>
   <% if job_vacancy.closing_date.present? %>
-    <p class="govuk-body govuk-!-margin-bottom-0">Closing date: <b><%= job_vacancy.formatted_closing_date %></b></p>
+    <p class="govuk-body govuk-!-margin-bottom-0">Closing date: <strong><%= job_vacancy.formatted_closing_date %></strong></p>
   <% end %>
   <p class="govuk-body govuk-!-margin-bottom-0"><span class="govuk-visually-hidden">Company and location:</span><%= job_vacancy.company_and_location %></p>
-  <p class="govuk-body govuk-!-margin-bottom-1"><span class="govuk-visually-hidden">Salary:</span><b><%= job_vacancy.salary %></b></p>
+  <p class="govuk-body govuk-!-margin-bottom-1"><span class="govuk-visually-hidden">Salary:</span><strong><%= job_vacancy.salary %></strong></p>
   <p class="govuk-body"><%= job_vacancy.description %></p>
   <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-margin-top-0">
 </li>
