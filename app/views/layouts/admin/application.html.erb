@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template ">
   <head>
-    <title>GHTR Admin Dashboard</title>
+    <title>Administrator Login Area</title>
     <%= csrf_meta_tags unless current_page?(admin_sign_in_path) %>
     <%= csp_meta_tag %>
     <%= canonical_tag %>
@@ -23,7 +23,7 @@
       <div class="govuk-header__container govuk-width-container">
         <%= render 'shared/navigation/header_logo' %>
         <div class="govuk-header__content">
-          <%= link_to t('active_admin.sign_in.title'), "/", class: "govuk-header__link govuk-header__link--service-name" %>
+          <%= link_to 'Administrator Login Area', "/", class: "govuk-header__link govuk-header__link--service-name" %>
         </div>
       </div>
     </header>
