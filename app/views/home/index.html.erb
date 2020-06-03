@@ -12,7 +12,7 @@
       <li>you're earning below £35,000 a year</li>
     </ul>
     <p class="govuk-body">If these don’t all apply to you, try visiting the <%= link_to('National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link') %> or your local <%= link_to('Jobcentre Plus', 'https://find-your-nearest-jobcentre.dwp.gov.uk/', class: 'govuk-link') %> instead.</p>
-    <%= link_to @pid_or_task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button', data: { cy: 'start-now-btn', module: 'govuk-button' } do %>
+    <%= link_to @pid_or_task_list_path, class: 'govuk-button govuk-button--start govuk-!-margin-top-2 govuk-!-margin-bottom-8', role: 'button', draggable: false, data: { cy: 'start-now-btn', module: 'govuk-button' } do %>
       Start now
       <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
         <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />

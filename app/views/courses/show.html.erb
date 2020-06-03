@@ -99,7 +99,7 @@
     </table>
     <% if @decorated_course_details.course_url.present? %>
       <p class="govuk-body">If you are interested in this course, visit the website.</p>
-      <%= link_to('Visit website', @decorated_course_details.course_url, class: 'govuk-button govuk-!-margin-top-1', role: 'button', data: { cy: 'course-website-btn', module: 'govuk-button', ga_event_category: "#{params[:topic_id]}_courses" }, aria: { label: "Visit website of #{@decorated_course_details.name}" }) %>
+      <%= link_to('Visit website', @decorated_course_details.course_url, class: 'govuk-button govuk-!-margin-top-1', role: 'button', draggable: false, data: { cy: 'course-website-btn', module: 'govuk-button', ga_event_category: "#{params[:topic_id]}_courses" }, aria: { label: "Visit website of #{@decorated_course_details.name}" }) %>
     <% end %>
   </div>
   <div class="govuk-grid-column-one-third">

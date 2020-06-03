@@ -10,8 +10,8 @@
         <p class="govuk-body cookies-modal-details">This service uses necessary cookies to make our service work. We would also like to set optional cookies to help us improve it. We won’t set optional cookies unless you agree that we can enable them.</p>
 
         <%= form_with local: true, url: update_cookie_preferences_path do %>
-          <%= submit_tag('Accept all cookies', name: 'cookies[all]', role: 'button', class: 'govuk-button govuk-button--primary govuk-!-margin-right-5 cookies-modal-details', data: { module: 'govuk-button' }) %>
-          <%= submit_tag('Accept necessary cookies only', name: 'cookies[necessary]', role: 'button', class: 'govuk-button govuk-button--primary', id: 'cookies-necessary-button', data: { module: 'govuk-button' }) %>
+          <%= submit_tag('Accept all cookies', name: 'cookies[all]', role: 'button', draggable: false, class: 'govuk-button govuk-button--primary govuk-!-margin-right-5 cookies-modal-details', data: { module: 'govuk-button' }) %>
+          <%= submit_tag('Accept necessary cookies only', name: 'cookies[necessary]', role: 'button', draggable: false, class: 'govuk-button govuk-button--primary', id: 'cookies-necessary-button', data: { module: 'govuk-button' }) %>
         <% end %>
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">Necessary cookies</p>
         <p class="govuk-body">Necessary cookies do things such as remember your postcode so the service can recommend local courses and jobs. You can disable necessary cookies by changing your browser settings but this will mean the service can’t offer you as many features.</p>

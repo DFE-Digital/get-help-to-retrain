@@ -6,7 +6,7 @@
       <h1 class="govuk-heading-xl">Sorry, there is a problem with this service</h1>
       <p class="govuk-body">The <%= link_to 'Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link' %> service is not working right now.</p>
       <p class="govuk-body-m">You can continue using this service to check your existing skills and explore the types of jobs you could apply to do.</p>
-      <%= link_to 'Continue', action_plan_path, class: 'govuk-button', role: 'button', data: { module: 'govuk-button' } %>
+      <%= link_to 'Continue', action_plan_path, class: 'govuk-button', role: 'button', draggable: false, data: { module: 'govuk-button' } %>
     </div>
   </div>
 </main>
