@@ -21,7 +21,7 @@ class JobVacancyDecorator < SimpleDelegator
   def formatted_company
     return unless company
 
-    content_tag(:b, company)
+    content_tag(:strong, company)
   end
 
   def formatted_date(date_value)

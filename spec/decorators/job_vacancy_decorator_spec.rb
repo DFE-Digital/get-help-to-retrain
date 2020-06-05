@@ -9,14 +9,14 @@ RSpec.describe JobVacancyDecorator do
       )
       decorated_vacancy = described_class.new(job_vacancy)
 
-      expect(decorated_vacancy.company_and_location).to eq('<b>Amazon</b> - London, UK')
+      expect(decorated_vacancy.company_and_location).to eq('<strong>Amazon</strong> - London, UK')
     end
 
     it 'returns the formatted company if there is no location' do
       job_vacancy = JobVacancy.new('company' => 'Amazon')
       decorated_vacancy = described_class.new(job_vacancy)
 
-      expect(decorated_vacancy.company_and_location).to eq('<b>Amazon</b>')
+      expect(decorated_vacancy.company_and_location).to eq('<strong>Amazon</strong>')
     end
 
     it 'returns the location if there is no company' do
