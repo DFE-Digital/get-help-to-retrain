@@ -167,6 +167,21 @@ RSpec.feature 'Jobs near me', type: :feature do
     expect(page).to have_selector('ul.govuk-list li', count: 2)
   end
 
+  scenario 'altering the page number does not throw an error' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 52 },
+        'jobs' => (1..52).map { { 'title' => 'Assistant' } }
+      }
+    )
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+    visit(jobs_near_me_path(page: '2asd'))
+
+    expect(page).to have_selector('ul.govuk-list li', count: 2)
+  end
+
   scenario 'User cannot see a list of jobs near them without postcode' do
     user_targets_a_job
 

@@ -9,7 +9,7 @@ class JobVacancySearch
   def initialize(postcode:, name:, page: 1, distance: 20)
     @postcode = postcode
     @name = name
-    @page = page
+    @page = page.to_i
     @distance = distance
   end
 
