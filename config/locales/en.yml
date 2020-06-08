@@ -269,7 +269,7 @@ en-GB:
 
   active_admin:
     sign_in:
-      title: GHTR Admin
+      title: Administrator login for Get help to retrain
     errors:
       authentication: We could not authenticate you.
     filters:
