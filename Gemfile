@@ -44,7 +44,7 @@ gem 'sentry-raven', '~> 2.11'
 gem 'kaminari', '~> 1.2'
 
 # Postcode geocoding and geospatial queries
-gem 'geocoder', '~> 1.5', '>= 1.5.1'
+gem 'geocoder', '~> 1.6'
 
 # Postcode validation
 gem 'uk_postcode', '~> 2.1', '>= 2.1.4'
