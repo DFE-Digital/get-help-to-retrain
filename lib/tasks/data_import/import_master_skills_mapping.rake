@@ -12,7 +12,7 @@ namespace :data_import do
     file = Roo::Spreadsheet.open(filename)
 
     skills = Skill.all
-    
+
     mapping = file.each_with_object({}) do |row, hash|
       next if row == ['Skill Name', 'Onet Element Id', 'Master Skill']
 
