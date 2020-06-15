@@ -25,7 +25,8 @@ class SkillsMatcher
     JobProfileSkill
       .select(:job_profile_id, 'MIN(rarity) as skills_rarity', 'COUNT(job_profile_id) AS skills_matched')
       .joins('LEFT JOIN skills ON skills.id = job_profile_skills.skill_id')
-      .where(skill_id: user_session.skill_ids)
+      .joins('LEFT JOIN skill_criss_crosses ON job_profile_skills.skill_id = skill_criss_crosses.skill_a_id')
+      .where('skill_criss_crosses.skill_b_id in (?)', user_session.skill_ids)
       .group(:job_profile_id)
       .to_sql
   end

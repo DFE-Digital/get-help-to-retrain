@@ -20,8 +20,17 @@ namespace :data_import do
     end
 
     skills.each do |skill|
-      skill.master_name = mapping[skill.name] if mapping[skill.name].present?
+      skill.master_name = mapping[skill.name].present? ? mapping[skill.name] : skill.name
       skill.save
+    end
+
+    ### Populating jamie's tables to implement his solution as well with the extra tables
+    SkillVariant.delete_all
+    mapping.keys.each do |key|
+      SkillVariant.create(
+        variant_name: key,
+        master_name: mapping[key]
+      )
     end
   end
 end

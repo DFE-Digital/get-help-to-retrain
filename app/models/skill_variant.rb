@@ -1,0 +1,3 @@
+class SkillVariant < PrimaryActiveRecordBase
+  
+end
