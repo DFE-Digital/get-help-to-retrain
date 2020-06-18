@@ -132,10 +132,37 @@ RSpec.feature 'Jobs near me', type: :feature do
         'jobs' => [{}]
       }
     )
+
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     user_targets_a_job
 
     expect(page).to have_selector('ul.govuk-list li', count: 1)
+  end
+
+  scenario 'Passing an alternative_title as query string param overrides the target_job' do
+    find_a_job_service = instance_double(FindAJobService)
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    allow(find_a_job_service).to receive(:job_vacancies).with(
+      postcode: 'NW6 8ET',
+      name: 'developer',
+      page: 1,
+      distance: 20
+    ).and_return(
+      'pager' => { 'total_entries' => 1 },
+      'jobs' => [{}]
+    )
+
+    create(:job_profile, :with_html_content, name: 'Admin assistant').tap do |job_profile|
+      visit(job_profile_path(job_profile.slug))
+      click_on('Select this type of work')
+      click_on('Continue')
+      click_on('Continue')
+      click_on('Continue')
+    end
+
+    visit(jobs_near_me_path(job_alternative_title: 'developer'))
+
+    expect(page).to have_text('Developer jobs near you')
   end
 
   scenario 'paginates results of search' do

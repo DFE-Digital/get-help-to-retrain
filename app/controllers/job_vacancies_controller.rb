@@ -28,6 +28,10 @@ class JobVacanciesController < ApplicationController
     UKPostcode.parse(postcode).outcode
   end
 
+  def job_alternative_title
+    @job_alternative_title ||= job_vacancies_params[:job_alternative_title]
+  end
+
   def persist_valid_filters_on_session
     return unless job_vacancy_search.valid?
 
@@ -43,7 +47,7 @@ class JobVacanciesController < ApplicationController
   end
 
   def job_vacancies_params
-    params.permit(:postcode, :page, :distance)
+    params.permit(:postcode, :page, :distance, :job_alternative_title)
   end
 
   def jobs
@@ -51,12 +55,14 @@ class JobVacanciesController < ApplicationController
   end
 
   def job_vacancy_search
-    @job_vacancy_search ||= JobVacancySearch.new(
+    options = {
       postcode: postcode,
-      name: target_job.name,
+      name: job_alternative_title.present? ? job_alternative_title : target_job.name,
       page: job_vacancies_params[:page],
       distance: job_vacancies_params[:distance]
-    )
+    }.compact
+
+    @job_vacancy_search ||= JobVacancySearch.new(options)
   end
 
   def track_search_filters
