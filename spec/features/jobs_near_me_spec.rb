@@ -144,7 +144,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     allow(find_a_job_service).to receive(:job_vacancies).with(
       postcode: 'NW6 8ET',
-      name: 'Developer',
+      name: 'developer',
       page: 1,
       distance: 20
     ).and_return(
@@ -160,7 +160,7 @@ RSpec.feature 'Jobs near me', type: :feature do
       click_on('Continue')
     end
 
-    visit(jobs_near_me_path(alternative_job_title: 'Developer'))
+    visit(jobs_near_me_path(alternative_job_title: 'developer'))
 
     expect(page).to have_text('Developer jobs near you')
   end
@@ -177,7 +177,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     user_targets_a_job
 
-    ['checking the following options:', 'Super admin', 'IT Admin'].each do |copy|
+    ['checking the following alterantive job positions:', 'Super admin', 'IT Admin'].each do |copy|
       expect(page).to have_text(copy)
     end
   end

@@ -1,4 +1,6 @@
 class JobVacanciesController < ApplicationController
+  include JobVacanciesHelper
+
   DISTANCE = [
     ['Up to 10 miles', '10'], ['Up to 20 miles', '20'], ['Up to 30 miles', '30'], ['Up to 40 miles', '40']
   ].freeze

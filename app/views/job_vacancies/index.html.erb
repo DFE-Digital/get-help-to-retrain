@@ -15,7 +15,7 @@
 <div class="govuk-grid-row govuk-!-margin-top-7">
   <div class="govuk-grid-column-two-thirds">
     <%= error_summary(@job_vacancy_search) %>
-    <h1 class="govuk-heading-xl"><%= @alternative_job_title.present? ? @alternative_job_title : target_job.name %> jobs near you</h1>
+    <h1 class="govuk-heading-xl"><%= @alternative_job_title.present? ? titleize_without_downcasing(@alternative_job_title) : target_job.name %> jobs near you</h1>
     <div class="govuk-grid-column-full govuk-!-padding-0">
       <%= render 'search_filter' %>
     </div>
@@ -28,7 +28,7 @@
           <li>using a different postcode</li>
           <li>using the filters to search a wider local area</li>
           <% if @alternative_job_titles.present? %>
-            <li>checking the following options: <%= render partial: 'alternative_job_titles', collection: @alternative_job_titles, as: :alterantive_job_title %></li>
+            <li>checking the following alterantive job positions: <%= render partial: 'alternative_job_titles', collection: @alternative_job_titles, as: :alterantive_job_title %></li>
           <% end %>
           <li>entering a different name for this job on the <%= link_to 'Find a job', 'https://findajob.dwp.gov.uk/', class: 'govuk-link' %> service</li>
         </ul>

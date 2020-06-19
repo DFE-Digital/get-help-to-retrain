@@ -1,1 +1,1 @@
-<span class="govuk-!-margin-right-2"><%= link_to(alterantive_job_title.strip, jobs_near_me_path(alternative_job_title: alterantive_job_title.strip), class: 'govuk-link govuk-body') %></span>
+<span class="govuk-!-margin-right-1"><%= link_to(titleize_without_downcasing(alterantive_job_title), jobs_near_me_path(alternative_job_title: alterantive_job_title), class: 'govuk-link govuk-body') %></span>
