@@ -6,6 +6,8 @@ class JobVacanciesController < ApplicationController
   def index
     return redirect_to task_list_path unless target_job.present?
 
+    @alternative_job_titles = alternative_job_titles
+
     track_search_filters
     persist_valid_filters_on_session
 
@@ -28,8 +30,14 @@ class JobVacanciesController < ApplicationController
     UKPostcode.parse(postcode).outcode
   end
 
-  def job_alternative_title
-    @job_alternative_title ||= job_vacancies_params[:job_alternative_title]
+  def alternative_job_title
+    @alternative_job_title ||= job_vacancies_params[:alternative_job_title]
+  end
+
+  def alternative_job_titles
+    return unless target_job.alternative_titles.present?
+
+    target_job.alternative_titles.split(',').map(&:strip) - [alternative_job_title]
   end
 
   def persist_valid_filters_on_session
@@ -47,7 +55,7 @@ class JobVacanciesController < ApplicationController
   end
 
   def job_vacancies_params
-    params.permit(:postcode, :page, :distance, :job_alternative_title)
+    params.permit(:postcode, :page, :distance, :alternative_job_title)
   end
 
   def jobs
@@ -57,7 +65,7 @@ class JobVacanciesController < ApplicationController
   def job_vacancy_search
     options = {
       postcode: postcode,
-      name: job_alternative_title.present? ? job_alternative_title : target_job.name,
+      name: alternative_job_title.present? ? alternative_job_title : target_job.name,
       page: job_vacancies_params[:page],
       distance: job_vacancies_params[:distance]
     }.compact

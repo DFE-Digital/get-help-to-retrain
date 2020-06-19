@@ -144,7 +144,7 @@ RSpec.feature 'Jobs near me', type: :feature do
     allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
     allow(find_a_job_service).to receive(:job_vacancies).with(
       postcode: 'NW6 8ET',
-      name: 'developer',
+      name: 'Developer',
       page: 1,
       distance: 20
     ).and_return(
@@ -160,9 +160,83 @@ RSpec.feature 'Jobs near me', type: :feature do
       click_on('Continue')
     end
 
-    visit(jobs_near_me_path(job_alternative_title: 'developer'))
+    visit(jobs_near_me_path(alternative_job_title: 'Developer'))
 
     expect(page).to have_text('Developer jobs near you')
+  end
+
+  scenario 'Users are suggested alternative titles (if they exist) and no initial results are found' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 0 },
+        'jobs' => [{}]
+      }
+    )
+
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+
+    ['checking the following options:', 'Super admin', 'IT Admin'].each do |copy|
+      expect(page).to have_text(copy)
+    end
+  end
+
+  scenario 'Users can click on the suggested alternative job titles and navigate to the results page' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 0 },
+        'jobs' => [{}]
+      }
+    )
+
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+
+    click_on('IT Admin')
+
+    expect(page).to have_current_path(jobs_near_me_path(alternative_job_title: 'IT Admin'))
+  end
+
+  scenario 'Users do not see the original alternative job title they clicked on again when new suggestions are available' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 0 },
+        'jobs' => [{}]
+      }
+    )
+
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+    user_targets_a_job
+
+    click_on('IT Admin')
+
+    expect(page).not_to have_link('IT Admin', href: jobs_near_me_path(alternative_job_title: 'IT Admn'))
+  end
+
+  scenario 'Users do not see any suggested alternative job titles if they don\'t exist and no initial results are found' do
+    find_a_job_service = instance_double(
+      FindAJobService,
+      job_vacancies: {
+        'pager' => { 'total_entries' => 0 },
+        'jobs' => [{}]
+      }
+    )
+
+    allow(FindAJobService).to receive(:new).and_return(find_a_job_service)
+
+    create(:job_profile, :with_html_content, name: 'Admin assistant', alternative_titles: nil).tap do |job_profile|
+      visit(job_profile_path(job_profile.slug))
+      click_on('Select this type of work')
+      click_on('Continue')
+      click_on('Continue')
+      click_on('Continue')
+      click_on('Show jobs near you')
+    end
+
+    expect(page).not_to have_text('checking the following options:')
   end
 
   scenario 'paginates results of search' do
@@ -325,7 +399,7 @@ RSpec.feature 'Jobs near me', type: :feature do
   end
 
   def user_targets_a_job
-    create(:job_profile, :with_html_content, name: 'Admin assistant').tap do |job_profile|
+    create(:job_profile, :with_html_content, name: 'Admin assistant', alternative_titles: 'Super admin, IT Admin').tap do |job_profile|
       visit(job_profile_path(job_profile.slug))
       click_on('Select this type of work')
       click_on('Continue')
