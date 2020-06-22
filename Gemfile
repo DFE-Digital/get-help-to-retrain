@@ -107,6 +107,9 @@ group :development, :test do
 
   # Spreadsheet access
   gem 'roo', '~> 2.8'
+
+  # Create and manage database views
+  gem 'scenic', '~> 1.5'
 end
 
 group :development do
