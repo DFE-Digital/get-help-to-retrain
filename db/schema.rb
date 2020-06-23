@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_112443) do
+ActiveRecord::Schema.define(version: 2020_06_23_135150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,5 +95,14 @@ ActiveRecord::Schema.define(version: 2020_06_23_112443) do
       COALESCE(skv.master_name, skl.name) AS master_skill_name
      FROM (skills skl
        LEFT JOIN skills skv ON (((skl.name)::text = (skv.name)::text)));
+  SQL
+  create_view "skill_criss_crosses", sql_definition: <<-SQL
+      SELECT a.variant_skill_id AS skill_a_id,
+      a.variant_skill_name AS skill_a_name,
+      b.variant_skill_id AS skill_b_id,
+      b.variant_skill_name AS skill_b_name,
+      a.master_skill_name
+     FROM (skills_plus_variants a
+       JOIN skills_plus_variants b ON (((a.master_skill_name)::text = (b.master_skill_name)::text)));
   SQL
 end
