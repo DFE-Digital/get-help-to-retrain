@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_22_142925) do
+ActiveRecord::Schema.define(version: 2020_06_23_112443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,4 +89,11 @@ ActiveRecord::Schema.define(version: 2020_06_22_142925) do
     t.index ["rarity"], name: "index_skills_on_rarity"
   end
 
+  create_view "skills_plus_variants", sql_definition: <<-SQL
+      SELECT skl.id AS variant_skill_id,
+      skl.name AS variant_skill_name,
+      COALESCE(skv.master_name, skl.name) AS master_skill_name
+     FROM (skills skl
+       LEFT JOIN skills skv ON (((skl.name)::text = (skv.name)::text)));
+  SQL
 end
