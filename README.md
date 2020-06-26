@@ -141,6 +141,13 @@ Hierarchy and Sector keywords for job profiles are used to improve search result
 
 These tasks will produce console output detailing any job profiles that were not found and stats for job profiles that are missing information. The rake tasks can be run multiple times without issue but will throw an error if used in production mode.
 
+## Map existing skills to master skills
+The relevance of suggested job profile matches based on user skills input can be improved if the existing skills are mapped to synonym skills. The advantage of this approach is that skills that are worded differently but are actually the same skill can be used to improve the user skill matching score, therefore improving the quality of job profile recommendations. Copy the relevant spreadsheet that contains the mapping locally and then run the rake task:
+
+```bash
+  bundle exec rails "rake data_import:import_master_skills_mapping[master_skills.csv]"
+```
+
 ## Feedback surveys and user personal data
 
 Test data for both `FeedbackSurvey` and `UserPersonalData` models can be setup by running this rake task:
