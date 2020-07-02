@@ -18,8 +18,8 @@ RSpec.feature 'Skills matcher', type: :feature do
     )
   end
 
-  def visit_skills_for_current_job_profile
-    visit(job_profile_skills_path(job_profile_id: current_job_profile.slug))
+  def visit_skills_for_current_job_profile(job_profile: current_job_profile)
+    visit(job_profile_skills_path(job_profile_id: job_profile.slug))
     click_on('Select these skills')
     click_on('Find out what you can do with these skills')
   end
@@ -87,6 +87,33 @@ RSpec.feature 'Skills matcher', type: :feature do
 
     expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
       ['Hacker', 'Skills match: Excellent', 'Assasin', 'Skills match: Good']
+    )
+  end
+
+  scenario 'if there is a skills mapping available that influences the matching score' do
+    skill1 = create(:skill, name: 'Military tactics expertise', master_name: 'Discipline')
+    skill2 = create(:skill, name: 'Work under pressure', master_name: 'Discipline')
+    skill3 = create(:skill, name: 'Powerlifting')
+    skill4 = create(:skill, name: 'Handle pressure easily', master_name: 'Discipline')
+
+    actual_profile = create(
+      :job_profile,
+      :with_html_content,
+      name: 'Ex Army Officer',
+      skills: [
+        skill1,
+        skill3
+      ]
+    )
+
+    create(:job_profile, name: 'Marine', skills: [skill2, skill4])
+    create(:job_profile, name: 'Personal Trainer', skills: [skill3])
+    create(:job_profile, name: 'Firefighter', skills: [skill2, skill3, skill4])
+
+    visit_skills_for_current_job_profile(job_profile: actual_profile)
+
+    expect(page.all('ul.govuk-list li a,p:contains("Skills match")').collect(&:text)).to eq(
+      ['Firefighter', 'Skills match: Excellent', 'Marine', 'Skills match: Excellent', 'Personal Trainer', 'Skills match: Reasonable']
     )
   end
 
