@@ -145,7 +145,7 @@ These tasks will produce console output detailing any job profiles that were not
 The relevance of suggested job profile matches based on user skills input can be improved if the existing skills are mapped to synonym skills. The advantage of this approach is that skills that are worded differently but are actually the same skill can be used to improve the user skill matching score, therefore improving the quality of job profile recommendations. Copy the relevant spreadsheet that contains the mapping locally and then run the rake task:
 
 ```bash
-  bundle exec rails "rake data_import:import_master_skills_mapping[master_skills.csv]"
+  bundle exec rails "rake data_import:import_master_skills_mapping[master_skills.xlsx]"
 ```
 
 ## Feedback surveys and user personal data
