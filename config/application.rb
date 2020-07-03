@@ -56,5 +56,6 @@ module GetHelpToRetrain
     config.azure_read_role_id = ENV['AZURE_READ_ROLE_ID']
     config.find_a_course_api_key = ENV['FIND_A_COURSE_API_KEY']
     config.find_a_course_api_base_url = ENV['FIND_A_COURSE_API_BASE_URL']
+    config.security_header_endpoint = ENV['SECURITY_HEADER_ENDPOINT']
   end
 end

@@ -151,6 +151,13 @@
         "description:": "sentry.io - Data Source Name (DSN) URL"
       }
     },
+    "securityHeaderEndpoint": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description:": "sentry.io - Use them also as security header endpoint for features like CSP and Expect-CT reports."
+      }
+    },
     "notifyApiKey": {
       "type": "string",
       "defaultValue": "",
@@ -677,6 +684,10 @@
                 "value": "[parameters('sentryDsn')]"
               },
               {
+                "name": "SECURITY_HEADER_ENDPOINT",
+                "value": "[parameters('securityHeaderEndpoint')]"
+              },
+              {
                 "name": "NOTIFY_API_KEY",
                 "value": "[parameters('notifyApiKey')]"
               },
@@ -824,6 +835,10 @@
               {
                 "name": "SENTRY_DSN",
                 "value": "[parameters('sentryDsn')]"
+              },
+              {
+                "name": "SECURITY_HEADER_ENDPOINT",
+                "value": "[parameters('securityHeaderEndpoint')]"
               },
               {
                 "name": "AZURE_CLIENT_ID",
