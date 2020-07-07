@@ -11,6 +11,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.script_src  :self,
                      'https://www.google-analytics.com',
                      'https://www.googletagmanager.com',
+                     'https://connect.facebook.net',
                      "'sha256-Dxc0MAwW+c3gw7Gc7P3nkQRqGGCluJ1IWIwINlTBthQ='", # gtag inline JS SHA (DEV, QA)
                      "'sha256-mj+puRQe0IXRcvvMkkPqZb+Vrr49Swt4nVDcYiOc0qA='", # gtag inline JS SHA (UAT)
                      "'sha256-iWZlDtXlrEVKWt8xS+oXaedWXwdpr618P2kN/EXVkfA='", # gtag inline JS SHA (PRD)
