@@ -79,7 +79,7 @@ Job profiles, categories and skills are imported by screen scraping the National
 The rake tasks assume no existing data is present. To clear any existing data (USE WITH CAUTION!) run:
 
 ```bash
-  bundle exec rails db:drop db:create db:schema_load
+  bundle exec rails db:drop db:create db:schema:load
 ```
 
 To import the data into an empty database run:
