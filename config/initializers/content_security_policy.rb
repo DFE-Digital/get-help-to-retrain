@@ -10,6 +10,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.object_src  :none
   policy.script_src  :self,
                      'https://www.google-analytics.com',
+                     'https://www.google-analytics.com/analytics.js',
                      'https://www.googletagmanager.com',
                      'https://connect.facebook.net',
                      "'sha256-Dxc0MAwW+c3gw7Gc7P3nkQRqGGCluJ1IWIwINlTBthQ='", # gtag inline JS SHA (DEV, QA)
