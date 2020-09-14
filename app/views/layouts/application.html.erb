@@ -48,6 +48,13 @@
             <%= content_for :breadcrumb %>
           </ol>
         </nav>
+        <div class="govuk-warning-text govuk-!-padding-top-7 govuk-!-padding-bottom-5">
+          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+          <strong class="govuk-warning-text__text">
+            <span class="govuk-warning-text__assistive">Warning</span>
+            This service will no longer be available from 12.10.2020. To match your skills and search for alternative training and employment, please visit <%= link_to('the National Careers Service', 'https://nationalcareers.service.gov.uk/') %>.
+          </strong>
+        </div>
         <div id="main-content" class="govuk-!-padding-bottom-7">
           <%= yield %>
         </div>
