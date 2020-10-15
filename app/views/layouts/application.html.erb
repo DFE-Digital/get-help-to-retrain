@@ -48,6 +48,9 @@
             <%= content_for :breadcrumb %>
           </ol>
         </nav>
+        <div role="alert" class="banner-info govuk-!-margin-top-5 govuk-!-margin-bottom-7" aria-atomic="true" >
+          <p class="banner-info-message govuk-!-padding-left-3">This service will no longer be available from 11 November 2020. You can continue to access services for support with skills and training through the <%= link_to('National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link') %>.</p>
+        </div>
         <div id="main-content" class="govuk-!-padding-bottom-7">
           <%= yield %>
         </div>
