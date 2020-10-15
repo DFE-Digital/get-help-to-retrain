@@ -48,12 +48,8 @@
             <%= content_for :breadcrumb %>
           </ol>
         </nav>
-        <div class="govuk-warning-text govuk-!-padding-top-7 govuk-!-padding-bottom-5">
-          <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning</span>
-            Service currently under maintenance: We’re making changes to our adult skills provision and we will be providing a further update on this shortly. In the meantime you can continue to access the <%= link_to('following services', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link') %> for support with skills and training.
-          </strong>
+        <div role="alert" class="banner-info govuk-!-margin-top-5 govuk-!-margin-bottom-7" aria-atomic="true" >
+          <p class="banner-info-message govuk-!-padding-left-3">This service will no longer be available from 11 November 2020. You can continue to access services for support with skills and training through the <%= link_to('National Careers Service', 'https://nationalcareers.service.gov.uk/', class: 'govuk-link') %>.</p>
         </div>
         <div id="main-content" class="govuk-!-padding-bottom-7">
           <%= yield %>
